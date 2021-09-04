@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+ 
+<h2>Emojis</h2>
+ 
+<p id="demo"></p>
+<p id="demo2"></p>
+ 
+<script>
+var text = "";
+ 
+var i;
+ 
+emojis =[];
+ 
+for (i = 128512; i < (128512+80); i++) {
+ text += (i)+ ".&#" + i + ";<br>";
+ 
+ emojis.push("&#"+i+";");
+ 
+}
+ 
+document.getElementById("demo").innerHTML = text;
+document.getElementById("demo2").innerHTML = emojis;
+ 
+</script>
+ 
+</body>
+</html>
