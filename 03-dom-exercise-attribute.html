@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+
+    <head>
+        <meta charset="utf-8">
+        
+        <!-- Internal Style Sheet -->
+        <style>
+                table, th, td {
+                  border: thick solid black;
+                }
+        </style>
+        
+        
+        
+    </head>
+
+
+
+<body>
+
+
+<table id="demo">
+</table>
+
+
+<script>
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.onreadystatechange = function() {
+
+    if (this.readyState == 4 && this.status == 200) {
+
+        myFunction(this);
+
+
+        }
+
+    };
+
+xmlhttp.open("GET", "bookstore.xml" , true);
+xmlhttp.send();
+
+function myFunction(xml) {
+
+    var x, i, xmlDoc, table;
+
+    xmlDoc = xml.responseXML;
+
+    table = "<tr><th>Category</th><th>Title</th><th>Language</th></tr>";
+
+    x = xmlDoc.getElementsByTagName("book");
+
+
+    for (i = 0; i < x.length; i++) {
+
+        table += "<tr><td>" +  x[i].getAttribute('category') +
+
+            "</td><td>" +
+
+            x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+
+            "</td><td>" +  x[i].getElementsByTagName("title")[0].getAttribute('lang') +
+
+            "</td><tr>";
+        }
+
+
+    document.getElementById("demo").innerHTML = table;
+    
+    }
+</script>
+</body>
+</html>
