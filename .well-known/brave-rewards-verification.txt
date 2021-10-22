@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: usuari7777.github.io
+Token: 3bb22e0f021f212823f0fcdf6d76be2ea5ba1d2a209d1aeee6e21b90963e94c0
