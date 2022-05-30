@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Operaciones avanzadas con arrays y otras estructuras</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Arrays, estructuras y cadenas de texto
+#### Operaciones avanzadas con arrays y otras estructuras
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays con *foreach*
+
+- Útil cuando queremos recorrer TODAS las posiciones del array SIN modificar ninguna (sólo examinando sus valores)
+- También la podemos aplicar a tablas si no nos interesa saber la posición de los elementos
+
+```csharp
+int[] numeros = new int[10];
+int[,] tabla = new int[4, 10];
+...
+foreach(int numero in numeros)
+    Console.WriteLine(numero);
+
+foreach(int numero in tabla)
+    Console.WriteLine(numero);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04d_01.cs** que le pida al usuario varios números en una línea, separados por espacios, y calcule su suma usando *foreach*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ordenación de arrays
+
+- Existen varias estrategias para ordenar (ascendente o descendentemente) los datos de un array
+- Casi todas se basan en un doble bucle anidado que recorre cada posición y la compara con otras para ver si los datos están desordenados, intercambiándolos en ese caso
+- La complejidad de estas operaciones es cuadrática (n<sup>2</sup>), lo que significa que para ordenar un array de N elementos se hacen en torno a N * N repeticiones en total
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Método de la burbuja
+
+- Compara cada elemento de una posición *i* con la adyacente *i+1*, y los intercambia si están desordenados​
+- Al final de este proceso, tendremos ordenado el último elemento del array​
+- Repetir el proceso deteniéndose cada vez una posición antes​
+- Se le llama "burbuja" porque los números fluyen por el array de forma similar a las burbujas en una botella​
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Método de la burbuja
+
+<div align="center">
+    <img src="../../../img/04_burbuja.png" width="60%">
+</div>
+
+Cada paso se muestra verticalmente
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Método de la burbuja
+
+```csharp
+for (int i = 0; i < numeros.Length; i++)
+{
+    for (int j = 0; j < numeros.Length - i - 1; j++)
+    {
+        if (numeros[j] > numeros[j+1])
+        {
+            int auxiliar = numeros[j];
+            numeros[j] = numeros[j+1];
+            numeros[j+1] = auxiliar;
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Método de intercambio directo
+
+- A veces se le confunde con el algoritmo de burbuja​
+- Para cada posición *i* del array, se recorre el mismo desde esa posición hasta el final buscando el menor elemento, y se inserta en esa posición *i*.​
+   - Buscamos el menor elemento y lo colocamos en 1ª posición​
+   - Buscamos el segundo menor elemento y lo colocamos en 2ª posición​
+   - ...
+- Cada elemento que se encuentre que sea menor que el que actualmente esté en la posición *i*, se intercambia​
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Método de intercambio directo
+
+<div align="center">
+    <img src="../../../img/04_intercambio_directo.png" width="60%">
+</div>
+
+Cada paso se muestra horizontalmente
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Método de intercambio directo
+
+```csharp
+for (int i = 0; i < numeros.Length - 1; i++)
+{
+    for (int j = i+1; j < numeros.Length; j++)
+    {
+        if (numeros[i] > numeros[j])
+        {
+            int auxiliar = numeros[i];
+            numeros[i] = numeros[j];
+            numeros[j] = auxiliar;
+        }
+    }
+}
+```
+
+<section data-markdown>
+<script type="text/template">
+## Otros métodos de ordenación
+
+- **Selección directa**: similar al intercambio directo, pero sólo intercambiamos la posición del elemento *i* con el que realmente sea el menor de los siguientes (no se hacen intercambios intermedios con otros que no sean el menor)
+- **Inserción directa**: va ordenando poco a poco el array desde el principio, y cada nuevo elemento que se incorpora se añade en el lugar que le corresponde con los ya ordenados
+
+</script>
+</section>
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04d_02.cs** que le pida al usuario que rellene un array de 10 *floats* y luego lo muestre ordenado de mayor a menor
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04d_03.cs** que le pida al usuario 10 textos y los muestre ordenados de menor a mayor (alfabéticamente)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ordenación automática
+
+- La instrucción **Array.Sort** ordena automáticamente el array que le indiquemos de menor a mayor
+- Sólo funciona para arrays de tipos simples (enteros, reales, strings...), no para *structs*, por ejemplo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04d_04.cs** que sea una variante del *Ejercicio_04d_03* usando *Array.Sort* para ordenar los textos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Búsqueda binaria
+
+- La búsqueda secuencial tiene una complejidad lineal O(n)
+- Significa que, en el peor de los casos, tendremos que hacer n repeticiones para encontrar el dato (si está al final del array)
+- La búsqueda binaria tiene una complejidad O(log(n)), menor que la lineal
+- Es adecuada si el array está previamente ordenado (ascendente o descendentemente)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Búsqueda binaria
+
+1. Tomamos el elemento del centro del array
+2. Si es el que estamos buscando, hemos terminado
+3. Si es menor, sabemos que tenemos que buscar en la mitad superior del array
+4. Si es mayor, sabemos que tenemos que buscar en la mitad inferior del array
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Búsqueda binaria
+
+<div align="center">
+    <img src="../../../img/04_busq_binaria.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Búsqueda binaria
+
+Suponemos que buscamos el 15 en un array
+
+```csharp
+int[] numeros = new int[50];
+// Suponemos un array ya relleno y ordenado ascendentemente
+int mitad, limiteInferior = 0, limiteSuperior = numeros.Length - 1;
+bool encontrado = false;
+while (!encontrado && limiteInferior <= limiteSuperior)
+{
+    mitad = (limiteInferior + limiteSuperior) / 2;
+    if (numeros[mitad] == 15)
+        encontrado = true;
+    else if (numeros[mitad] < 15)
+    {
+        // Buscamos en mitad superior
+        limiteInferior = mitad + 1;
+    }
+    else
+    {
+        // Buscamos en mitad inferior
+        limiteSuperior = mitad - 1;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Más sobre enumeraciones
+
+- Podemos determinar cuántos elementos hay en una enumeración usando la instrucción **Enum.GetValues**
+- Puede ser útil para determinar el número de elementos, o incluso para recorrerlos con un *foreach*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Más sobre enumeraciones
+
+```csharp
+enum datos { UNO, DOS, TRES }
+
+...
+
+Console.WriteLine("Hay {0} elementos en el enum", 
+    Enum.GetValues(typeof(datos)).Length);
+
+foreach (dato d in Enum.GetValues(typeof(datos)))
+{
+    Console.WriteLine(d);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04d_05.cs** que, usando un *enum*, obtenga todas las posibles combinaciones de dos asignaturas optativas a elegir entre este conjunto: INFORMATICA, FRANCES, ELECTRONICA, PSICOLOGIA e INGLES PRACTICO.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>
