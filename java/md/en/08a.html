@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Date and time | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Date and time" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="08a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/08a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Date and time" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Date and time","url":"http://nachoiborraies.github.io/java/md/en/08a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="date-and-time">Date and time</h1>
+
+<h2 id="traditional-date-management">Traditional date management</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/08a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="08a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>How could we manage a date in a Java program? We could, for instance, store day, month and year as separate integers, or the whole date as a string. However, it would be difficult to validate a date, or to substract dates, for instance. Hopefully, Java provides some classes to deal with dates.</p>
+
+<h3 id="using-date-and-calendar-classes">Using Date and Calendar classes</h3>
+
+<p>From the very first versions of Java language, we have two classes available to manage dates. These classes are <code class="language-plaintext highlighter-rouge">Date</code> and <code class="language-plaintext highlighter-rouge">Calendar</code>.</p>
+
+<p>Regarding <strong>Date</strong> class, it has some methods and constructors to instantiate dates, but most of them are now deprecated. <strong>Calendar</strong> class replaces <em>Date</em> class when creating dates in Java:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Calendar</span> <span class="n">cal</span> <span class="o">=</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">2021</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
+<span class="c1">// Thu Jun 24 20:09:27 CEST 2021</span>
+</code></pre></div></div>
+
+<p>As you can see, <code class="language-plaintext highlighter-rouge">getInstance</code> method from <code class="language-plaintext highlighter-rouge">Calendar</code> class lets us instantiate objects of this class, and <code class="language-plaintext highlighter-rouge">set</code> method lets us specify a concrete year, month (starting from 0) and day.</p>
+
+<p>We can also create a full date including hour, minute and second. We can also use <code class="language-plaintext highlighter-rouge">set</code> method specifying the type of elemento (day, month, hour, minute…) that we are setting:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Calendar</span> <span class="n">cal</span> <span class="o">=</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">YEAR</span><span class="o">,</span> <span class="mi">2021</span><span class="o">);</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">MONTH</span><span class="o">,</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">JUNE</span><span class="o">);</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">DAY_OF_MONTH</span><span class="o">,</span> <span class="mi">24</span><span class="o">);</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">HOUR</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">AM_PM</span><span class="o">,</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">PM</span><span class="o">);</span>
+<span class="c1">// Also: cal.set(Calendar.HOUR_OF_DAY, 22);</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">,</span> <span class="mi">36</span><span class="o">);</span>
+<span class="n">cal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">SECOND</span><span class="o">,</span> <span class="mi">54</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
+<span class="c1">// Thu Jun 24 22:36:54 CEST 2021</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">DAY_OF_MONTH</span><span class="o">)</span> <span class="o">+</span>
+    <span class="s">"/"</span> <span class="o">+</span> <span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">MONTH</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/"</span> <span class="o">+</span>
+    <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">YEAR</span><span class="o">));</span>
+<span class="c1">// 24/6/2021</span>
+</code></pre></div></div>
+
+<p>We can also do some basic operations with <em>Calendar</em> objects:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Calendar</span> <span class="n">date1</span> <span class="o">=</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<span class="n">date1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">DAY_OF_MONTH</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"In 10 days it will be "</span> <span class="o">+</span> 
+    <span class="n">date1</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
+
+<span class="nc">Calendar</span> <span class="n">date2</span> <span class="o">=</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<span class="n">date2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">DAY_OF_MONTH</span><span class="o">,</span> <span class="o">-</span><span class="mi">10</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">date2</span><span class="o">.</span><span class="na">before</span><span class="o">(</span><span class="n">date1</span><span class="o">))</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It's before"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>However, using <em>Calendar</em> class has some drawbacks or restrictions: we can’t easily format a date in an output, or get the difference between two dates, for instance. So we should better use some newer classes, as we will see in next documents.</p>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>UserBirthday</strong> that asks the user to enter his birth date (day, month and year separately), and then tell him if his birthday has already taken place this year or not.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

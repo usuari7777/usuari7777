@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Estructuras o registros</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Arrays, estructuras y cadenas de texto
+#### Estructuras o registros
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Concepto de registro o *struct*
+
+- Agrupación de datos llamados **campos**
+- No tienen por qué ser del mismo tipo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definición de registros o *structs*
+
+- Se definen fuera del Main
+- Ponemos la palabra *struct* seguida del nombre que le queramos dar y, entre llaves, los campos
+   - Indicamos el tipo de dato y el nombre de cada campo
+   - De momento les pondremos el modificador **public** para que sean accesibles desde todo el programa
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: dirección postal
+
+```csharp
+class Ejemplo
+{
+    struct direccionPostal
+    {
+        public string calle;
+        public int numero;
+        public int piso;
+        public char letra;
+        public string localidad;
+        public int codPostal;
+    }
+
+    static void Main() { ... }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de registros o *structs*
+
+- Declaramos una variable del tipo del *struct*
+- Accedemos a sus campos con el operador punto `.`, poniendo después el nombre del campo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de registros o *structs*
+
+```csharp
+direccionPostal miDireccion;
+miDireccion.calle = "Avenida de la Libertad";
+miDireccion.numero = 22;
+miDireccion.piso = 6;
+...
+
+Console.WriteLine(miDireccion.localidad);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04b_01.cs** que defina un *struct* para almacenar los datos de una canción en formato MP3: artista, título, duración en segundos y tamaño del fichero en KB. Pide al usuario que rellene los datos de una canción y muestra la información por pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays de structs
+
+- Podemos combinar el uso de arrays y *structs* para almacenar varios datos de registros en una sola variable
+- Declaramos el array del tipo del *struct* e indicamos qué tamaño tiene
+- Cada casilla del array es un *struct*, y accedemos a sus campos con el punto `.` igualmente
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Arrays de structs
+
+```csharp
+direccionPostal[] direcciones = new direccionPostal[10];
+
+direcciones[0].calle = "Avenida de la Libertad";
+direcciones[0].numero = 22;
+...
+direcciones[1].calle = "Calle Alicante";
+direcciones[1].numero = 33;
+...
+
+Console.WriteLine(direcciones[4].codPostal);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Ampliaremos el ejercicio anterior en otro fichero llamado **Ejercicio_04b_02.cs**. Definiremos un array para almacenar hasta 100 canciones, y mostraremos al usuario un menú con estas opciones:
+
+1. Añadir una canción al final
+2. Mostrar los títulos de todas las canciones
+3. Buscar canciones de un artista determinado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Structs anidados
+
+- Podemos utilizar *structs* como campos de otros *structs*
+- En este caso, definimos un *struct* para cada cosa, y usamos un *struct* como campo dentro de otro
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Structs anidados
+
+```csharp
+class Ejemplo
+{
+    struct direccionPostal
+    {
+        public string calle;
+        public int numero;
+        public int piso;
+        public char letra;
+        public string localidad;
+        public int codPostal;
+    }
+
+    struct alumno
+    {
+        public string nombre;
+        public int nia;
+        public direccionPostal direccion;
+    }
+
+    static void Main() { ... }
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Uso de structs anidados
+
+- Accedemos al campo como un campo normal, pero luego usamos el operador punto `.` para acceder a cada uno de los subcampos
+
+```csharp
+alumno alu;
+alu.nombre = "Juan Pérez";
+alu.nia = 11223344;
+alu.direccion.calle = "Avenida de la Libertad";
+...
+Console.WriteLine(alu.direccion.localidad);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Ampliaremos el ejercicio anterior en otro fichero llamado **Ejercicio_04b_03.cs** para que la duración de las canciones se almacene en otro *struct* indicando los minutos y los segundos por separado
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

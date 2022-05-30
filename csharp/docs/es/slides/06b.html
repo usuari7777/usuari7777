@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Relaciones entre clases</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos
+#### Relaciones entre clases
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Principales relaciones entre clases
+
+- Las clases no están sueltas en una aplicación, necesitan interactuar entre ellas
+- Principales tipos de relaciones:
+   - Asociación
+   - Herencia
+   - Dependencia
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Asociación
+
+- Relación entre dos clases donde una es parte de los elementos de la otra
+- Un objeto o array de objetos de una clase es un atributo de la otra
+- Relación *tiene un*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Asociación
+
+Ejemplo: un libro tiene un autor, un autor puede tener muchos libros
+
+<div align="center">
+    <img src="../../../../java/img/05_book_author_association.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Asociación
+
+```cs
+class Author 
+{
+    private string name;
+    private int yearBirth;
+
+    public Author(string name, int yearBirth) 
+    {
+        this.name = name;
+        this.yearBirth = yearBirth;
+    }
+
+    ... // Getters & setters
+}
+
+class Book 
+{    
+    private string title;
+    private int numPages;
+    private double price;
+    private Author author;
+
+    public Book(string title, int numPages, double price, Author author) 
+    {
+        this.title = title;
+        this.numPages = numPages;
+        this.price = price;
+        this.author = author;
+    }
+
+    ... // Getters & setters
+}
+
+class BookExample 
+{    
+    static void Main()
+    {
+        Author a = new Author("J.R.R. Tolkien", 1892);
+
+        // The lord of the Rings, 850 pages, 13.50 eur, Tolkien
+        Book b = new Book("The lord of the Rings", 850, 13.50, a);
+
+        Console.WriteLine(b.GetTitle());
+        Console.WriteLine(b.GetAuthor().GetName());
+    }
+}
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Asociaciones y referencias
+
+Si queremos asociar el mismo autor a varios libros, debemos usar el mismo objeto
+
+```cs
+Author a1 = new Author("J.R.R. Tolkien", 1892);
+Author a2 = new Author("J.R.R. Tolkien", 1892);  
+// a2 no es el mismo que a1, aunque tengan atributos iguales
+
+Book b1 = new Book("The lord of the Rings", 850, 13.50, a1);
+Book b2 = new Book("The hobbit", 345, 8.76, a2);  // Autor distinto
+Book b3 = new Book("The hobbit", 345, 8.76, a1);  // Mismo autor
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Crea un proyecto llamado **CasasPuertas**. Crea una clase *Puerta* que tenga un ancho y un alto como atributos, y una clase *Casa* que tenga un nombre y 3 puertas. Define el/los constructores que consideres convenientes para asignar a una casa su nombre y sus puertas, y un método *MostrarEstado* que muestre por pantalla el nombre de la casa y los datos de sus puertas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Navegabilidad en asociaciones
+
+- Las asociaciones son (o pueden ser) bidireccionales
+- Un libro tiene un autor, y un autor puede tener muchos libros
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Navegabilidad en asociaciones
+
+- Si queremos que una asociación sea unidireccional, en el diagrama definimos una flecha indicando la dirección de la asociación
+- Ejemplo: podemos saber el autor de un libro, pero no los libros de un autor
+
+<div align="center">
+    <img src="../../../../java/img/05_book_author_association_uni.png" />
+</div>
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de asociación bidireccional
+
+Una casa tiene un salón, y un salón pertenece a una casa
+
+<div align="center">
+    <img src="../../../../java/img/05_one_one_association.png" />
+</div>
+
+</script>
+</section>
+            
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de asociación bidireccional (primer intento)
+
+```cs
+class House
+{
+    private string address;
+    private int rooms;
+    private LivingRoom livingRoom;
+
+    public House(string address, int rooms, LivingRoom livingRoom)
+    {
+        this.address = address;
+        this.rooms = rooms;
+        this.livingRoom = livingRoom;
+    }
+
+    ... // Getters & setters
+}
+
+class LivingRoom
+{
+    private int area;
+    private House house;
+
+    public LivingRoom(int area, House house)
+    {
+        this.area = area;
+        this.house = house;
+    }
+
+    ... // Getters & setters
+}
+
+class Main
+{
+    static void Main()
+    {
+        LivingRoom lr = new LivingRoom(40, ???);     // Dónde está la casa?
+        House h = new House("CSharp Street", 3, lr); // LivingRoom OK
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de asociación bidireccional (segundo intento)
+
+Uno de los constructores no puede referirse a la otra clase, y el otro completa la tarea
+
+```cs
+class LivingRoom
+{
+    private int area;
+    private House house;
+
+    // Creamos el salón sin asignar la casa
+    public LivingRoom(int area)
+    {
+        this.area = area;
+        // La casa no se asigna
+    }
+}
+
+class House
+{
+    private string address;
+    private int rooms;
+    private LivingRoom livingRoom;
+
+    public House(String address, int rooms, LivingRoom livingRoom)
+    {
+        this.address = address;
+        this.rooms = rooms;
+        this.livingRoom = livingRoom;
+        // Asignamos la casa al salón
+        livingRoom.setHouse(this);
+    }
+}
+
+class Main
+{
+    static void Main()
+    {
+        LivingRoom lr = new LivingRoom(40);
+        House h = new House("CSharp Street", 3, lr);
+        // Aquí la asociación ya es bidireccional
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el ejercicio anterior para que también desde una puerta se pueda sacar información de la casa a la que pertenece (el nombre de la casa, por ejemplo)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Agregaciones y composiciones
+
+- Tipos especiales de asociaciones donde una clase supone un TODO, y la otra es una PARTE de ese todo
+- **Composiciones**: la parte no puede existir sin el todo
+   - Ejemplo: una *Habitacion* es parte de una *Casa* (y sólo de esa casa)
+- **Agregaciones**: la parte puede existir sin el todo
+   - Ejemplo: un *Jugador* pertenece a un *Equipo* (pero puede cambiar de equipo)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Implementar una composición
+
+- Tenemos que asegurarnos de que la parte sea un elemento privado del todo, que no puede ser accedido desde fuera
+   - De lo contrario podría asignarse a otra cosa
+- Además, la parte debe ser construida dentro del todo
+   - Si se pasa construida desde fuera, ese mismo objeto puede reutilizarse
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Implementar una composición
+
+```cs
+class Coche 
+{
+    private Motor motor;
+
+    public Coche(ParametrosMotor params) 
+    {
+        motor = new Motor(params);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Implementar una agregación
+
+- Se implementan como asociaciones normales
+- Las composiciones normalmente también se implementan así (por lo que no son composiciones en la práctica)
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Agregaciones y composiciones en diagramas
+
+<div align="center">
+    <img src="../../../../entornos/img/ED_b1_tema04-ejemplo_agregacion_en.png">
+</div>
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Herencia
+
+- Usamos **herencia** cuando queremos crear una clase que tome todos los elementos de otra, incluyendo además sus propios elementos particulares 
+   - Ejemplo: un *Perro* es un tipo de *Animal*
+   - Ejemplo: un *Porton* es un tipo de *Puerta*
+- Relación de tipo *es un*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Herencia en C#
+
+- Definimos primero la clase principal, también llamada *clase padre*, *superclase* o *clase base*
+- Definimos luego la clase secundaria, también llamada *clase hija*, *subclase* o *clase derivada*
+   - Usamos los dos puntos `:` para indicar de qué clase hereda
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Herencia en C#
+
+```cs
+class Puerta
+{
+    private int ancho;
+    private int alto;
+    private string color;
+    private bool abierta;
+
+    public Puerta()
+    {
+        ancho = 0;
+        alto = 0;
+        color = "blanco";
+        abierta = false;
+    }
+
+    public Puerta(int ancho, int alto, string color)
+    {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.color = color;
+    }
+
+    public void Abrir()
+    {
+        abierta = true;
+    }
+
+    public void Cerrar()
+    {
+        abierta = false;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Ancho: {0}", ancho);
+        Console.WriteLine("Alto: {0}", alto);
+        Console.WriteLine("Color: {0}", color);
+        Console.WriteLine("Abierta: {0}", abierta);
+    }
+
+    // Getters & setters
+
+    public void SetAncho(int ancho)
+    {
+        this.ancho = ancho;
+    }
+
+    public int GetAncho()
+    {
+        return ancho;
+    }
+
+    ...
+}
+
+class Porton : Puerta
+{
+    private bool bloqueada;
+
+    public Porton(int ancho, int alto, string color)
+    {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.color = color;
+    }
+
+    public void Bloquear()
+    {
+        bloqueada = true;
+    }
+
+    public void Desbloquear()
+    {
+        bloqueada = false;
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Puerta p = new Puerta(70, 200, "blanco");
+        p.Abrir();
+        p.MostrarInformacion();
+
+        Porton p2 = new Porton(80, 210, "marron");
+        p2.Cerrar();
+        p2.Bloquear();
+        p2.MostrarInformacion();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Herencia y visibilidad
+
+- Una subclase no puede acceder a los elementos privados (*private*) de su clase padre
+- Para evitar eso, podemos hacer que esos elementos sean **protected**
+- La visibilidad protegida (*protected*) permite a las subclases acceder a esa información
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Herencia y visibilidad
+
+```cs
+class Puerta
+{
+    protected int ancho;
+    protected int alto;
+    protected string color;
+    protected bool abierta;
+
+    ... // El resto no cambia
+}
+
+class Porton : Puerta
+{
+    private bool bloqueada;
+
+    public Porton(int ancho, int alto, string color)
+    {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.color = color;
+    }
+
+    public void Bloquear()
+    {
+        bloqueada = true;
+    }
+
+    public void Desbloquear()
+    {
+        bloqueada = false;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Puertas**. Añade dentro las clases *Puerta* y *Porton* del ejemplo anterior, con su código completo, y define en la clase principal (*Program* o como quieras llamarla) una puerta de cada tipo. Define sus parámetros y llama al método *MostrarInformacion* para ver que todo funciona correctamente.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Personas**. Añade una clase *PersonaInglesa* que será un subtipo de *Persona*, con un método llamado *TomarTe*, de tipo *void*, que escribirá por pantalla "Estoy tomando té". En el programa principal, crea una persona de cada tipo (*Persona* y *PersonaInglesa*), dales un nombre y pídeles que saluden. Después, haz que la persona inglesa tome té.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Libros**: 
+
+- Añade una clase *Documento*, de la que *Libro* heredará todos sus atributos y métodos (pasa toda la información de *Libro* a *Documento*)
+- Deja en la clase *Libro* sólo un nuevo atributo, el número de páginas, como atributo (entero) junto con su *getter* y *setter*. 
+- Haz que los atributos de las clases *Documento* y *Libro* ahora sean protegidos, y los métodos públicos
+- Define en el programa principal un objeto de cada tipo (*Documento* y *Libro*) con los datos que quieras, y muestra su información por pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Coches**. Añade una clase *Vehiculo*, de la que heredarán *Coche* y una nueva clase *Moto* que también tendrás que definir. La clase padre *Vehiculo* contendrá todos los atributos que antes estaban en *Coche*, y ahora tanto *Coche* como *Moto* heredarán de ella. En el programa principal crea un objeto de cada tipo y muestra sus datos.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Modificar métodos de la clase padre (I)
+
+- Si un método ya existe en la clase padre, podemos definir un nuevo comportamiento en la clase hija usando el modificador *new* en el método
+- El código del método padre ya no se ejecutará en el hijo, y se reemplazará por el nuevo
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Modificar métodos de la clase padre (I)
+
+```cs
+class Porton : Puerta
+{
+    private bool bloqueada;
+
+    ...
+
+    public new void MostrarInformacion()
+    {
+        Console.WriteLine("Ancho: {0}", ancho);
+        Console.WriteLine("Alto: {0}", alto);
+        Console.WriteLine("Color: {0}", color);
+        Console.WriteLine("Abierta: {0}", abierta);
+        Console.WriteLine("Bloqueada: {0}", bloqueada);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Personas**. En la clase *PersonaInglesa*, el método *Saludar* deberá decir "Hi, I am" seguido del nombre de la persona. Crea también una clase *PersonaItaliana* que heredará de *Persona* y en su método *Saludar* dirá "Ciao". En el programa principal, crea una persona de cada tipo y pide que saluden
+
+</script>
+</section>
+            
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Coches**. Haz que todos los atributos sean protegidos, y todos los métodos públicos. Añade un atributo *cantidadDeRuedas* a la clase *Vehiculo*, junto con sus Get y Set. El constructor de la clase *Coche* le dará el valor 4 y el constructor de la clase Moto le dará el valor 2. 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructores y herencia
+
+- Cuando creamos constructores en una subclase, lo primero que hacen es llamar a un constructor de la clase base
+- Si no indicamos nada, se llama al constructor por defecto
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructores y herencia
+
+Probemos el siguiente ejemplo
+
+```cs
+using System;   
+
+class Principal
+{     
+    static void Main()     
+    {         
+        Animal a1 = new Animal();         
+        Console.WriteLine();                  
+        
+        GatoSiames a2 = new GatoSiames();         
+        Console.WriteLine();                  
+
+        Perro a3 = new Perro();         
+        Console.WriteLine();                  
+        
+        Gato a4 = new Gato();         
+        Console.WriteLine();     }   
+}  
+
+// ------------------   
+class Animal 
+{     
+    public Animal() 
+    {         
+        Console.WriteLine("Ha nacido un animal");     
+    } 
+}  
+
+// ------------------  
+
+class Perro: Animal 
+{     
+    public Perro()      
+    {         
+        Console.WriteLine("Ha nacido un perro");     
+    } 
+}  
+
+// ------------------  
+
+class Gato: Animal 
+{     
+    public Gato()      
+    {         
+        Console.WriteLine("Ha nacido un gato");     
+    } 
+}     
+
+// ------------------  
+
+class GatoSiames: Gato 
+{     
+    public GatoSiames()      
+    {         
+        Console.WriteLine("Ha nacido un gato siamés");     
+    } 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Trabajadores** con las siguientes clases:
+
+- Clase *Trabajador*. Su constructor sacará por pantalla "Soy un trabajador"
+- Clase *Programador*, subtipo de *Trabajador*. Su constructor sacará "Soy un programador"
+- Clase *Analista*, subtipo de *Trabajador*, que sacará "Soy un analista"
+- Clase *Ingeniero*, subtipo de *Trabajador* que sacará "Soy un ingeniero"
+- Clase *IngenieroInformatico*, subtipo de *Ingeniero* que sacará "Soy un ingeniero informático"
+- Clase principal que cree un objeto de cada clase
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Polimorfismo
+
+- Alude a que un elemento pueda adoptar diferentes formas
+- *Polimorfismo de sobrecarga*: una clase puede tener varios métodos con el mismo nombre y distinto número de parámetros o tipos de retorno
+   - Ejemplo: los constructores
+- *Polimorfismo puro*: un objeto se puede comportar como cualquiera de sus subtipos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Polimorfismo puro
+
+- Podemos crear un array de objetos de un tipo base relleno de objetos de cualquier subtipo
+- Si un método espera recibir un objeto de un tipo base como parámetro, podemos pasarle cualquier subtipo
+- Los objetos que utilicen son a todos los efectos objetos del tipo base (sólo pueden usar los métodos del tipo base)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Polimorfismo puro
+
+```cs
+Animal[] misAnimales = new Animal[3];      
+misAnimales[0] = new Perro(); 
+misAnimales[1] = new Gato(); 
+misAnimales[2] = new GatoSiames();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Personas**. Añade un nuevo método *Saludar* en la clase *Persona* que recibirá como parámetro el texto que debe mostrar al saludar. Utiliza este método con algún objeto *Persona* (o cualquier subtipo) desde el programa principal
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Coches**. Define en la clase *Vehiculo* un nuevo atributo llamado *velocidad*, y añade dos métodos *Circular*: uno sin parámetros que fijará la velocidad a 50, y otro con un parámetro que permitirá establecer la velocidad a ese valor.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Trabajadores**. Define un array de trabajadores con trabajadores de distintos tipos en él
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Detectar subtipo en polimorfismo
+
+- Por defecto una variable polimórfica sólo puede utilizar los métodos de la clase padre
+- Podemos detectar de qué subtipo concreto es esa variable para convertirla (temporalmente) a ese subtipo y usar los métodos de la clase hija si es necesario
+   - Usaremos el operador *is*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Detectar subtipo en polimorfismo
+
+```cs
+Animal a = new Perro();
+...
+if (a is Perro)
+{
+    ((Perro)a).MetodoDePerro();
+}
+``` 
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Libros**. Define un array de 5 objetos *Documento* en el programa principal, y pide al usuario que los rellene. Deberá elegir para cada uno si quiere dar de alta un documento o un libro, y rellenar sus datos. Al final, el programa mostrará el listado de títulos completo del array. Para los objetos que sean libros, se mostrarán en color rojo, junto con el número de páginas del libro.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modificar métodos de la clase padre (II)
+
+Probemos este ejemplo
+
+```cs
+using System;  
+
+class Principal
+{     
+    static void Main()     
+    {         
+        // Creamos un animal de cada tipo
+        Perro miPerro = new Perro();         
+        Gato miGato = new Gato();         
+        Animal miAnimal = new Animal();                  
+        
+        miPerro.Hablar();         
+        miGato.Hablar();         
+        miAnimal.Hablar();          
+        Console.WriteLine();                  
+        
+        // Ahora los creamos desde un array         
+        Animal[] misAnimales = new Animal[3];                  
+        misAnimales[0] = new Perro();         
+        misAnimales[1] = new Gato();         
+        misAnimales[2] = new Animal();                  
+        
+        misAnimales[0].Hablar();         
+        misAnimales[1].Hablar();         
+        misAnimales[2].Hablar();     } 
+}  
+
+// ------------------  
+
+class Animal 
+{     
+    public void Hablar()     
+    {         
+        Console.WriteLine("Estoy comunicándome...");     
+    } 
+}
+
+// ------------------  
+
+class Perro: Animal 
+{     
+    public new void Hablar()     
+    {         
+        Console.WriteLine("Guau!");     
+    } 
+}  
+
+// ------------------  
+
+class Gato: Animal 
+{      
+    public new void Hablar()      
+    {         
+        Console.WriteLine("Miauuu");     
+    } 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Modificar métodos de la clase padre (II)
+
+- **Moraleja**: el uso de *new* no sirve cuando definimos variables polimórficas, porque se utiliza el método del padre
+- Es mejor utilizar la palabra *virtual* en el método de la clase padre y *override* en el método redefinido en la hija
+   - *virtual* indica que ese método quizá pueda ser cambiado en las hijas
+   - *override* alude a que ese método existe en la clase padre, y está siendo cambiado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modificar métodos de la clase padre (II)
+
+```cs
+using System;  
+
+class Animal 
+{     
+    public virtual void Hablar()     
+    {         
+        Console.WriteLine("Estoy comunicándome...");     
+    } 
+}
+
+// ------------------  
+
+class Perro: Animal 
+{     
+    public override void Hablar()     
+    {         
+        Console.WriteLine("Guau!");     
+    } 
+}  
+
+// ------------------  
+
+class Gato: Animal 
+{      
+    public override void Hablar()      
+    {         
+        Console.WriteLine("Miauuu");     
+    } 
+}
+
+// La clase Principal no cambia...
+
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Trabajadores**. Haz que el mensaje de saludo que había en el constructor ahora esté en un método *Saludar*, que deberás redefinir en cada clase.
+
+</script>
+</section>
+ 
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Libros**. Crea una clase *Articulo*, que será subtipo de *Documento* y añadirá como atributo propio la *procedencia* del artículo. Redefine un método llamado *ToString*, sin parámetros, que devuelva una cadena de texto con la información de cada tipo de documento, en una línea. 
+
+**NOTA**: el método *ToString* es común a todos los objetos de C# (procede de la clase padre de todas, que es *Object*). Permite imprimir objetos por pantalla con el formato que se quiera
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *base*
+
+- Término para referirnos a elementos de la clase padre
+- Pueden ser atributos, métodos o constructores
+- Permite, entre otras cosas, redefinir código en las clases hija apoyándonos o reutilizando el código de la clase padre
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *base*: constructores
+
+- Si no se usa, SIEMPRE se llama al constructor sin parámetros del padre
+- También se puede usar *this* para llamar a otro constructor de la misma clase
+
+```cs
+class Puerta
+{
+    protected int ancho;
+    protected int alto;
+    protected string color;
+    protected bool abierta;
+
+    public Puerta()
+    {
+        ancho = 0;
+        alto = 0;
+        color = "blanco";
+        abierta = false;
+    }
+
+    public Puerta(int ancho, int alto, string color)
+    {
+        this.ancho = ancho;
+        this.alto = alto;
+        this.color = color;
+    }
+
+    ... // Resto de métodos
+}
+
+class Porton : Puerta
+{
+    private bool bloqueada;
+
+    public Porton(int ancho, int alto, string color)
+    : base(ancho, alto, color)
+    {
+    }
+
+    ... // Resto de métodos
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *base*: métodos
+
+```cs
+class Puerta
+{
+    protected int ancho;
+    protected int alto;
+    protected string color;
+    protected bool abierta;
+
+    ...
+
+    public virtual void MostrarInformacion()
+    {
+        Console.WriteLine("Ancho: {0}", ancho);
+        Console.WriteLine("Alto: {0}", alto);
+        Console.WriteLine("Color: {0}", color);
+        Console.WriteLine("Abierta: {0}", abierta);
+    }
+
+    ... // Resto de métodos
+}
+
+class Porton : Puerta
+{
+    private bool bloqueada;
+
+    ... 
+
+    public override void MostrarInformacion()
+    {
+        base.MostrarInformacion();
+        Console.WriteLine("Bloqueada: {0}", bloqueada);
+    }
+
+    ... // Resto de métodos
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Personas** y haz que el constructor parametrizado de las subclases se apoye en el de la clase base para asignar el nombre a la persona
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto **Libros** y haz que el método *ToString* de los subtipos se apoye en el de la clase base *Documento* para mostrar la información
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Dependencia
+
+- Establece una conexión entre dos clases donde una de ellas utiliza objetos de la otra en algún punto de su código
+
+<div align="center">
+    <img src="../../../../entornos/img/ED_b1_tema04-ejemplo_dependencia_en.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Dependencia
+
+```cs
+class Application
+{
+    ...
+
+    public void AMethod(Window w)
+    {
+        ...
+    }
+
+    public void AnotherMethod()
+    {
+        Window w = new Window(...);
+        ...
+    }
+}
+```
+
+</script>
+</section>
+    
+        
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

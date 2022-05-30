@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Gestión de eventos | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Gestión de eventos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/02b.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Gestión de eventos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Gestión de eventos","url":"http://nachoiborraies.github.io/javascript/md/es/02b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="gestión-de-eventos">Gestión de eventos</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-eventos-y-programación-tradicional">1. Eventos y programación tradicional</h2>
+
+<p>Los programas tradicionales como los que hemos hecho hasta ahora se limitan a ejecutar una secuencia concreta de instrucciones, una tras otra. Pero para ciertos tipos de aplicaciones esto puede no ser suficiente. Por ejemplo, podemos necesitar que nuestra aplicación haga algo cuando pulsamos un botón, o cuando pasamos el ratón por encima de una imagen. Es aquí donde debemos acudir a la programación dirigida por eventos (<em>event driven programming</em>).</p>
+
+<p>Un evento, en general, es algo que sucede y que permite, a raíz de él, desencadenar una serie de acciones. Por ejemplo, cuando pulsamos el botón de cerrar en una ventana del ordenador, se produce un evento que ocasiona el cierre del programa en el que estamos. Cuando elegimos el menú Archivo &gt; Guardar como… de una aplicación, se produce un evento que permite mostrar un cuadro de diálogo para elegir dónde queremos guardar lo que estamos haciendo.</p>
+
+<p>Los eventos de JavaScript están a la espera de que suceda algo en la página web. Por ejemplo, que el usuario haga clic sobre algún elemento, o que pase el ratón por encima de alguna zona, o incluso eventos que no tienen que ver con acciones del usuario, como que el contenido de la página termine de cargarse. Una vez se produce un evento, podemos preparar a nuestro programa o aplicacion web para que responda con una acción determinada. Para ello, JavaScript permite asignar una función a cada uno de los posibles eventos que pueden producirse en una página, sobre cada elemento.</p>
+
+<h2 id="2-principales-tipos-de-eventos">2. Principales tipos de eventos</h2>
+
+<p>Sobre una página web se pueden producir diferentes tipos de eventos. Veremos a continuación algunos de los más importantes, indicando sobre qué elementos se pueden producir.</p>
+
+<h3 id="21-eventos-sobre-el-contenido-de-la-página-body">2.1. Eventos sobre el contenido de la página (<em>body</em>)</h3>
+
+<p>Los siguientes eventos se producen sobre el contenido general de la página:</p>
+
+<ul>
+  <li><strong>load</strong>: se produce cuando la página termina de cargarse. Podemos emplearlo, por ejemplo, para hacer ciertas operaciones sobre el DOM, una vez sabemos que el contenido ya está cargado.</li>
+  <li><strong>unload</strong>: se produce cuando se cierra la página.</li>
+  <li><strong>beforeunload</strong>: se produce antes de cerrar la página. Es típico utilizarlo en páginas donde se pregunta al usuario si está seguro que quiere salir, porque hay cambios que no se hayan guardado.</li>
+  <li><strong>resize</strong>: se produce cuando cambia el tamaño de la ventana donde está el contenido</li>
+</ul>
+
+<h3 id="22-eventos-de-teclado">2.2. Eventos de teclado</h3>
+
+<p>Los siguientes eventos se producen con acciones desde el teclado sobre la página:</p>
+
+<ul>
+  <li><strong>keydown</strong> / <strong>keyup</strong>: se producen cuando se pulsa y suelta una tecla, respectivamente</li>
+  <li><strong>keypress</strong>: se produce cuando se pulsa y levanta una tecla (ambas acciones juntas), aunque está desaconsejado (<em>deprecated</em>) en versiones recientes de JavaScript, y se recomienda usar uno de los dos anteriores.</li>
+</ul>
+
+<h3 id="23-eventos-de-ratón">2.3. Eventos de ratón</h3>
+
+<p>Estos eventos se producen utilizando el ratón sobre la página:</p>
+
+<ul>
+  <li><strong>click</strong> / <strong>dblclick</strong>: cuando hacemos clic o doble clic con cualquier botón del ratón, respectivamente</li>
+  <li><strong>mousedown</strong> / <strong>mouseup</strong>: cuando pulsamos o levantamos un botón del ratón, respectivamente</li>
+  <li><strong>mouseenter</strong>: cuando entramos con el ratón en una zona</li>
+  <li><strong>mouseleave</strong>: cuando salimos con el ratón de una zona</li>
+  <li><strong>mousemove</strong>: cuando movemos el ratón dentro de una zona</li>
+</ul>
+
+<h3 id="24-eventos-de-formulario">2.4. Eventos de formulario</h3>
+
+<p>Estos eventos se aplican sobre elementos de formularios:</p>
+
+<ul>
+  <li><strong>focus</strong>: cuando un elemento del formulario tiene el foco. Por ejemplo, un cuadro de texto en el que acabamos de entrar</li>
+  <li><strong>blur</strong>: cuando un elemento del formulario pierde el foco</li>
+  <li><strong>change</strong>: cuando el contenido del elemento ha cambiado. Por ejemplo, al cambiar el texto de un cuadro de texto, o la opción seleccionada en una lista. En el caso de cuadros de texto también se puede usar el evento <strong>input</strong>.</li>
+  <li><strong>submit</strong>: cuando se envía el formulario</li>
+</ul>
+
+<h3 id="25-otros-eventos">2.5. Otros eventos</h3>
+
+<p>Existen otros muchos eventos a los que podemos responder: abortar la carga de una imagen, eventos sobre pantallas táctiles, etc. Podéis consultar una lista más detallada <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">aquí</a>.</p>
+
+<h2 id="3-uso-básico-de-eventos">3. Uso básico de eventos</h2>
+
+<p>Como hemos visto, cada etiqueta o elemento de la página puede admitir un conjunto determinado de eventos, y responder ante ellos. Los eventos debemos asociarlos a funciones JavaScript para que puedan responder al mismo, y estas funciones se llaman manejadores de eventos (<em>event handlers</em>). Podemos definir estos manejadores de distintas formas.</p>
+
+<h3 id="31-manejadores-de-eventos-mediante-atributos">3.1. Manejadores de eventos mediante atributos</h3>
+
+<p>Una primera forma de definir los manejadores de eventos consiste en utilizar una serie de atributos XHTML asociados a cada evento, y definir dentro el código JavaScript que queramos. Estos atributos tienen el mismo nombre del evento, con el prefijo “on” delante. Por ejemplo, así advertiríamos de que el usuario sale de un formulario:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">onmouseleave=</span><span class="s">"alert('Saliendo del formulario');"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Es una alternativa poco recomendable, porque se mezcla demasiado el código JavaScript y el HTML, y es difícilmente mantenible. Como valor añadido, podemos utilizar el elemento <strong>this</strong> para acceder al elemento que ha provocado el evento. Este código cambia el color de fondo de un <em>div</em> a amarillo cuando entramos en él:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">onmouseenter=</span><span class="s">"this.style.backgroundColor='yellow';"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="32-manejadores-de-eventos-mediante-atributos-y-funciones">3.2. Manejadores de eventos mediante atributos y funciones</h3>
+
+<p>Una segunda forma algo más cómoda con respecto a la anterior consiste en utilizar el atributo XHTML para invocar a una función externa que haga el trabajo. De este modo, si el evento requiere de varios pasos complejos, no tenemos que ponerlos todos dentro del atributo, y el código JavaScript es más manejable. El ejemplo anterior de salida del formulario podríamos definirlo así: por un lado, definiríamos nuestra función JavaScript (en la propia página HTML o en un archivo aparte):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">mensajeSalida</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Saliendo del formulario</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Por otro lado, definiríamos así el atributo con el evento:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">onmouseleave=</span><span class="s">"mensajeSalida()"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>En este caso, desde la función no podemos acceder al elemento <em>this</em> que provocó el evento, tendríamos que enviárselo como parámetro. Por ejemplo, así cambiaríamos el color de fondo de un div al entrar en él, usando funciones:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">cambiarColor</span><span class="p">(</span><span class="nx">elemento</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">elemento</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="o">=</span> <span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">onmouseenter=</span><span class="s">"cambiarColor(this)"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="33-manejadores-de-eventos-usando-el-dom">3.3. Manejadores de eventos usando el DOM</h3>
+
+<p>En lugar de utilizar los atributos XHTML vistos antes, podemos acceder a los diferentes elementos del DOM y definir los eventos sobre ellos. Tiene la ventaja de que el código HTML queda intacto (no tenemos que alterarlo) y además podemos hacer referencia a la variable <em>this</em> para acceder al elemento que provocó el evento. Por ejemplo, de este modo definiríamos el evento de cambio de color sobre el <em>div</em> anterior. En primer lugar, debemos identificar el elemento de algún modo (típicamente con un <em>id</em>):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"div1"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Después, accedemos al elemento desde JavaScript (por ejemplo, con <code class="language-plaintext highlighter-rouge">document.getElementById</code>), y añadimos el evento sobre el propio elemento:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">onmouseenter</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="34-manejadores-de-eventos-con-event-listeners">3.4. Manejadores de eventos con <em>event listeners</em></h3>
+
+<p>Como cuarta y última forma de definir manejadores de eventos (y la más recomendable de todas) podemos definir <em>listeners</em> sobre los elementos de la página. Es algo parecido a la forma anterior usando el DOM, pero con algunas ventajas, como por ejemplo la posibilidad de definir distintos manejadores para un mismo evento.</p>
+
+<p>Para utilizar esta opción, debemos emplear la instrucción <code class="language-plaintext highlighter-rouge">addEventListener</code>, pasándole 2 parámetros entre paréntesis:</p>
+
+<ul>
+  <li>El nombre del evento (sin prefijo “on”)</li>
+  <li>La función que se va a ejecutar</li>
+</ul>
+
+<p>El mismo evento anterior de entrada de ratón sobre el <em>div</em> lo podríamos definir así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Como decíamos, podemos definir varias funciones manejadoras sobre el mismo evento. En este ejemplo cambiamos el color de fondo desde una función, y la anchura desde otra (aunque podríamos hacer las dos cosas desde la misma función también):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span><span class="o">=</span><span class="dl">"</span><span class="s2">50%</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>También podemos definir las funciones aparte y referenciarlas desde <em>addEventListener</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">cambiarColorFondo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">mouseenter</span><span class="dl">'</span><span class="p">,</span> <span class="nx">cambiarColorFondo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Puedes probar <a href="../../resources/ejemplos_eventos.html">aquí</a> un ejemplo de uso de eventos con cada una de las cuatro estrategias comentadas.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una página llamada <strong>eventos_imagenes.html</strong>. Coloca en ella tres imágenes centradas, con un tamaño de 100 x 100 píxeles (mediante CSS). Haz que, al pasar el ratón por encima de cualquiera de ellas, se cambie su tamaño a 200 x 200 y se le ponga un borde rojo de 3 píxeles de grosor. Haz que este efecto desaparezca al salir el ratón de la imagen.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página llamada <strong>evento_form.html</strong> con un formulario como este:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_eventos_formulario.png" width="50%" />
+</div>
+
+<blockquote>
+  <p>Define eventos JavaScript sobre los dos cuadros de texto para que:</p>
+  <ul>
+    <li>Si salimos del cuadro de texto (evento <em>blur</em>) y no tiene valor (propiedad <em>value</em> está vacía), se le ponga el color de fondo rojo al cuadro de texto. Si tiene valor, dejaremos el color de fondo blanco.</li>
+    <li>Cuando entramos al cuadro de texto (evento <em>focus</em>), se le ponga el color de fondo amarillo.</li>
+  </ul>
+</blockquote>
+
+<h2 id="4-uso-avanzado-de-eventos">4. Uso avanzado de eventos</h2>
+
+<h3 id="41-propagación-de-eventos">4.1. Propagación de eventos</h3>
+
+<p>Cuando interactuamos con una página web, se producen una serie de eventos sobre los elementos de dicha página, como hemos podido ver en esta sesión. Cada vez que hacemos clic en un elemento, o escribimos en un control de formulario, o simplemente pasamos el ratón sobre una zona de la página, se desencadena un evento al que podemos responder.</p>
+
+<p>Sin embargo, hemos de tener en cuenta que el contenido de una página está jerarquizado: los elementos que la componen están unos dentro de otros. Por ejemplo, una imagen puede encontrarse dentro de un párrafo, que a su vez se encuentre en un <em>div</em> o contenedor, que a su vez forme parte de una rejilla con otros contenedores. Esta jerarquía permite que varios elementos involucrados puedan responder a un evento; por ejemplo, si tenemos una imagen dentro de un párrafo, y a su vez dentro de un <em>div</em>, podemos hacer que, al pasar el ratón por una imagen, todos ellos (<em>div</em>, párrafo y/o imagen) puedan responder a este evento. Esto se puede afrontar desde dos puntos de vista:</p>
+
+<ul>
+  <li><em>Bubbling</em>: se responde al evento desde el elemento más específico (la imagen, en el ejemplo anterior) al menos específico (el <em>div</em>)</li>
+  <li><em>Capturing</em>: se responde al evento desde el elemento menos específico (el <em>div</em> en el ejemplo anterior) al más específico (la imagen)</li>
+</ul>
+
+<p><strong>Ejemplo de <em>bubbling</em></strong></p>
+
+<p>Veamos el ejemplo anterior más concretamente. Imaginemos la siguiente estructura HTML:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"div1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"p1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"img1"</span> <span class="na">src=</span><span class="s">"foto.png"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Definimos en JavaScript el siguiente gestor de eventos <code class="language-plaintext highlighter-rouge">eventoClic</code>, y lo aplicamos por igual a los tres elementos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">eventoClic</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Has pulsado </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">p1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">img1</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Con esta estructura, ocurre lo siguiente:</p>
+
+<ul>
+  <li>Si hacemos clic en el <em>div</em> (fuera del párrafo y la imagen), saca el mensaje <em>Has pulsado div1</em></li>
+  <li>Si hacemos clic en el párrafo (fuera de la imagen), saca los mensajes <em>Has pulsado p1</em> y <em>Has pulsado div1</em></li>
+  <li>Si hacemos clic en la imagen, saca los tres mensajes: <em>Has pulsado img1</em>, <em>Has pulsado p1</em> y <em>Has pulsado div1</em></li>
+</ul>
+
+<p>Este es el comportamiento por defecto de los eventos, que se corresponde con el <em>bubbling</em>: se propagan desde el más específico donde se ha producido hasta el más general que lo contiene.</p>
+
+<p><strong>Ejemplo de <em>capturing</em></strong></p>
+
+<p>Si queremos ofrecer el comportamiento opuesto, es decir, que los eventos se propaguen desde el más general al más específico, debemos proporcionar un tercer parámetro <em>true</em> al <em>event listener</em>. Nuestro ejemplo anterior quedaría así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ahora, si hacemos clic en la imagen los mensajes se muestran en orden inverso: desde el div hasta la imagen. Lo mismo ocurre si hacemos clic en el párrafo (primero se muestra el mensaje del div y luego el del párrafo).</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3</strong></p>
+
+  <p>Crea una página llamada <strong>bubbling_capturing.html</strong> y prueba el código de los ejemplos anteriores con la imagen que quieras. Define un color de fondo y un <em>padding</em> para el <em>div</em> y para el párrafo, de forma que te ayude a localizarlos mejor en la página y ver donde tienes que hacer clic en cada caso.</p>
+</blockquote>
+
+<h3 id="42-obtener-información-del-evento">4.2. Obtener información del evento</h3>
+
+<p>En algunas ocasiones nos puede ser útil obtener información del evento que se produce. Por ejemplo, las coordenadas donde hemos hecho clic con el ratón, o qué tecla hemos pulsado en un evento de teclado. Para recoger información del evento podemos pasarlo como parámetro a la función manejadora.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">evento</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En la variable donde hemos recogido el evento (<code class="language-plaintext highlighter-rouge">event</code> en el ejemplo anterior) tendremos disponibles una serie de propiedades según el tipo de evento que haya sido. Algunas de las más útiles son:</p>
+
+<ul>
+  <li>Si ha sido un evento de teclado (pulsar una tecla, por ejemplo), en la propiedad <code class="language-plaintext highlighter-rouge">key</code> tendremos el nombre de la tecla pulsada, y en <code class="language-plaintext highlighter-rouge">keyCode</code> tendremos el código interno de la tecla en Unicode, aunque esta última propiedad puede no funcionar adecuadamente en ciertos navegadores con <em>keyup</em> o <em>keydown</em>. También podemos detectar con algunos booleanos especiales como <code class="language-plaintext highlighter-rouge">shiftKey</code>, <code class="language-plaintext highlighter-rouge">ctrlKey</code>, etc, si se ha pulsado alguna tecla especial (como <em>Mayúsculas</em> o <em>Control</em>, por ejemplo):</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">keydown</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evento</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">evento</span><span class="p">.</span><span class="nx">ctrlKey</span> <span class="o">&amp;&amp;</span> <span class="nx">evento</span><span class="p">.</span><span class="nx">key</span> <span class="o">==</span> <span class="dl">'</span><span class="s1">z</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Has pulsado Ctrl + Z</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">evento</span><span class="p">.</span><span class="nx">shiftKey</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Mayúsculas pulsadas</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Si ha sido un evento de ratón, en las propiedades <code class="language-plaintext highlighter-rouge">clientX</code> y <code class="language-plaintext highlighter-rouge">clientY</code> tendremos las coordenadas del ratón con respecto a la ventana del navegador, y en <code class="language-plaintext highlighter-rouge">screenX</code> y <code class="language-plaintext highlighter-rouge">screenY</code> tendremos las coordenadas respecto a la pantalla. El siguiente ejemplo recoge en qué coordenadas se hace clic con el ratón, en un documento.</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">mouseX</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientX</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">mouseY</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">clientY</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">mouseX</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">, </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">mouseY</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Crea una página llamada <strong>info_eventos.html</strong>. Define en ella un div con un borde negro, y que dentro de ese div se informe de las coordenadas actuales del ratón dentro de la ventana. Si pulsamos cualquier tecla, deberemos mostrar un alert con su código.</p>
+</blockquote>
+
+<h4 id="421-otras-propiedades-de-los-eventos">4.2.1. Otras propiedades de los eventos</h4>
+
+<p>Además de las propiedades particulares de cada tipo de evento (coordenadas del ratón, tecla pulsada, etc) existen una serie de propiedades y operaciones generales para cualquier evento. Aquí mostramos algunas de las más importantes:</p>
+
+<ul>
+  <li><strong>target</strong>: hace referencia al elemento HTML sobre el que se ha producido el evento</li>
+  <li><strong>type</strong>: tipo de evento producido. Se tiene el nombre del evento, tal y como los hemos visto hasta ahora: <em>click</em>, <em>mouseenter</em>, etc.</li>
+  <li><strong>preventDefault()</strong>: esta operación es útil para eventos que desencadenan una acción por defecto. Por ejemplo, el evento <em>submit</em> cuando pulsamos el botón de un formulario, o el evento de cargar un enlace al hacer clic sobre él. Al llamar a esta instrucción evitamos que se ejecute esa acción predefinida. Será útil, como veremos más adelante, para prevenir que se envíen formularios incorrectos, entre otras cosas.</li>
+  <li><strong>stopPropagation()</strong>: evita que el evento se siga propagando a niveles superiores o inferiores (según si estamos en modo <em>bubbling</em> o <em>capturing</em>, respectivamente).</li>
+</ul>
+
+<p>El siguiente manejador muestra el contenido HTML del elemento sobre el que se ha producido el evento, y el tipo de evento que se ha producido (<em>click</em> en este caso):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">informacion</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="43-el-evento-de-arrastrar-y-soltar-drag--drop">4.3. El evento de “arrastrar y soltar” (<em>drag &amp; drop</em>)</h3>
+
+<p>El hecho de arrastrar elementos de una página de una zona a otra para ubicarlos en ciertos contenedores es algo habitual. Hasta hace no mucho, esto requería del uso de ciertas librerías externas como <em>jQuery</em> para simplificar la tarea, pero se ha convertido en algo tan habitual que la propia API de JavaScript ha incorporado esta característica al lenguaje, junto con HTML5.</p>
+
+<p>El proceso se basa en tres eventos que debemos gestionar:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dragstart</code>: cuando comenzamos a arrastrar un componente. Típicamente lo vamos a utilizar para guardarnos la referencia del elemento que estamos arrastrando, para recuperarla después al soltar. Esta referencia suele ser el <em>id</em> del elemento.</li>
+  <li><code class="language-plaintext highlighter-rouge">dragover</code>: cuando estamos arrastrando el elemento por encima del componente donde lo podemos soltar. En este caso debemos evitar que se active la acción por defecto, que es rechazar el elemento, usando <code class="language-plaintext highlighter-rouge">evento.preventDefault()</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">drop</code>: cuando finalmente se suelta el elemento. Si lo soltamos sobre un componente que no hemos configurado, el propio componente rechazará al elemento, que volverá a su lugar de origen. Pero si hemos configurado adecuadamente el evento <em>dragover</em> sobre ese elemento, podemos simplemente usar este otro evento para que ese componente “acoja” al elemento que hemos soltado, añadiéndolo como hijo (<em>appendChild</em>).</li>
+  <li>Todo esto va unido a un atributo HTML llamado <code class="language-plaintext highlighter-rouge">draggable</code>, que debemos poner a <em>true</em> en los elementos que queramos poder arrastrar.</li>
+</ul>
+
+<p>Aquí vemos un sencillo ejemplo donde podemos arrastrar el logo de JavaScript a una caja. El HTML puede quedar así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Ejemplo Drag <span class="err">&amp;</span> Drop<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nf">#contenedor</span>
+        <span class="p">{</span>
+            <span class="nl">display</span><span class="p">:</span> <span class="n">grid</span><span class="p">;</span>
+            <span class="py">grid-template-columns</span><span class="p">:</span> <span class="m">1</span><span class="n">fr</span> <span class="m">1</span><span class="n">fr</span><span class="p">;</span>
+            <span class="py">gap</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nf">#receptor</span>
+        <span class="p">{</span>
+            <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+            <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+            <span class="nl">height</span><span class="p">:</span> <span class="m">300px</span><span class="p">;</span>
+            <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+            <span class="nl">vertical-align</span><span class="p">:</span> <span class="nb">middle</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"contenedor"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"logo"</span> <span class="na">draggable=</span><span class="s">"true"</span> 
+                <span class="na">src=</span><span class="s">"javascript_logo.png"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"receptor"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Y el código JavaScript asociado sería este:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">logo</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">contenedor</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">receptor</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">imagen</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">dragstart</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evento</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">evento</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">setData</span><span class="p">(</span><span class="dl">"</span><span class="s2">elemento</span><span class="dl">"</span><span class="p">,</span> <span class="nx">evento</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">contenedor</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">dragover</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evento</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">evento</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="p">});</span>
+<span class="nx">contenedor</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">drop</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evento</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">evento</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="nx">evento</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="dl">"</span><span class="s2">elemento</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">evento</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">datos</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Explicamos el código que hemos definido antes:</p>
+
+<ul>
+  <li>Definimos el atributo <code class="language-plaintext highlighter-rouge">draggable</code> sobre la imagen para poderla arrastrar</li>
+  <li>Definimos el evento <code class="language-plaintext highlighter-rouge">dragstart</code> sobre la imagen, y guardamos en el evento el <em>id</em> de la imagen, en su propiedad <em>dataTransfer</em>, asignándole el nombre <em>elemento</em>, por ejemplo. Dicha propiedad se utiliza para almacenar y recuperar información utilizada durante el proceso de arrastrar y soltar.</li>
+  <li>Definimos el evento <code class="language-plaintext highlighter-rouge">dragover</code> sobre la caja para que, cuando algo esté “sobrevolándola” no lo rechace (<em>preventDefault</em>)</li>
+  <li>Definimos el evento <code class="language-plaintext highlighter-rouge">drop</code> también sobre la caja para anular el evento por defecto (<em>preventDefault</em>), acceder al elemento que hemos estado arrastrando (recuperamos la información del <em>dataTransfer</em>) y añadirlo (<em>appendChild</em>) al contenido de la caja. Puede resultar extraño usar aquí <em>preventDefault</em> también, pero es que en algunos navegadores la acción por defecto cuando se arrastra un componente en alguna parte de la página es mostrar ese componente (en este caso, mostrar la imagen) a pantalla completa.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Ejercicio 5</strong></p>
+
+  <p>Crea una página llamada <strong>drag_drop_js.html</strong> y utiliza <a href="../../resources/plantilla_ejercicio_drag_drop.zip">esta plantilla</a> como base. Se pide que añadas el código JavaScript necesario para poder arrastrar los logos de los navegadores cada uno a su casilla correspondiente. En principio puedes arrastrar cualquier logo a cualquier casilla, pero al pulsar el botón de <em>Comprobar</em> se debe mostrar un alert indicando si has acertado o no.</p>
+</blockquote>
+
+<h3 id="44-encapsulando-el-código-javascript">4.4. Encapsulando el código JavaScript</h3>
+
+<p>El uso de JavaScript en páginas HTML es una herramienta muy potente, que nos permite enriquecer el comportamiento de las páginas añadiendo elementos dinámicamente: modificar contenidos, responder a eventos de usuario, etc. Sin embargo, en ocasiones puede ser conveniente proteger nuestro código JavaScript, de forma que quede aislado. Esto puede resultar particularmente útil cuando accedemos a distintos archivos JavaScript, para así evitar colisiones en nombres de variables o funciones. Para ello, tenemos dos alternativas.</p>
+
+<p><strong>Evento <em>load</em></strong></p>
+
+<p>Como primera alternativa, podemos hacer que nuestro código se cargue dentro del evento <em>load</em> de la página. Esto hará, por un lado, que ciertas instrucciones no se ejecuten hasta que los contenidos estén cargados (útil si queremos acceder a partes del DOM), y por otro lado, que todo el código quede encapsulado en el evento en sí, y no sea accesible desde fuera.</p>
+
+<p>El ejemplo anterior de <em>bubbling</em> y <em>capturing</em> lo podríamos definir así dentro del evento <em>load</em> de la ventana (y por tanto, este código lo podríamos poner tanto en la cabecera como en el cuerpo de la página):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">load</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">eventoClic</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Has pulsado </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">p1</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">img1</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+    <span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><strong>IIFE</strong></p>
+
+<p>Como alternativa a la opción anterior, también podemos emplear una estructura normalmente conocida como <strong>IIFE</strong> (<em>Immediately Invoked Function Expression</em>). Básicamente consiste en encapsular todo nuestro código en una función que se auto-ejecuta. De este modo, el código interno a la función no es visible desde fuera, y evitamos así que colisione con otros fragmentos de código JavaScript que podamos querer incorporar.</p>
+
+<p>Así quedaría el ejemplo anterior de <em>bubbling</em> y <em>capturing</em> encapsulado con IIFE:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="kd">function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">eventoClic</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Has pulsado </span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">p1</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">img</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">img1</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+    <span class="nx">img</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">eventoClic</span><span class="p">);</span>
+<span class="p">})();</span>
+</code></pre></div></div>
+
+<p>Observemos que hemos encapsulado el código en una función que se auto-ejecuta. Esto hace que los elementos que hemos definido (función <em>eventoClic</em>, variables <em>div</em>, <em>p</em>, <em>img</em>…) no puedan ser accesibles desde fuera de este código. Además, este código se ejecuta <em>inmediatamente</em>, con lo que, en este caso, convendría colocarlo después de cargar la página (para poder acceder a los elementos del DOM).</p>
+
+<blockquote>
+  <p><strong>Ejercicio 6</strong></p>
+
+  <p>Crea una versión del ejercicio 4 en otro archivo llamado <strong>info_eventos_iife.html</strong> y encapsula el código JavaScript utilizando IIFE.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Manejo de ficheros</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Manejo de ficheros
+#### Serialización y persistencia
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serialización de objetos
+
+- Consiste en convertir la información del objeto en una secuencia de bytes que se pueda enviar por un canal de comunicación, o almacenar en bloque en un fichero
+- Útil para guardar/leer datos de un objeto o secuencia de objetos desde fichero
+- También para enviar información de objetos en una aplicación en red
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serializar objetos en C# (binario)
+
+- Etiquetamos la clase con `[Serializable]`
+- Es necesario que todos los atributos internos sean simples, o sean también serializables
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serializar objetos en C# (binario)
+
+```cs
+[Serializable]
+class Persona
+{
+    private string nombre;
+    private int edad;
+
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Guardar objetos serializables  (binario)
+
+Usamos **BinaryFormatter** para serializar (hace falta añadir *namespaces* concretos)
+
+```cs
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
+...
+
+Persona objeto = new Persona("Nacho", 43);
+IFormatter formatter = new BinaryFormatter(); 
+FileStream stream = new FileStream(nombreFichero, 
+    FileMode.Create, FileAccess.Write, FileShare.None); 
+formatter.Serialize(stream, objeto); 
+stream.Close(); 
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Leer objetos serializables (binario)
+
+Usamos **BinaryFormatter** para deserializar
+
+```cs
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
+...
+
+IFormatter formatter = new BinaryFormatter(); 
+FileStream stream = new FileStream(nombreFichero, 
+    FileMode.Open, FileAccess.Read, FileShare.Read); 
+Persona objeto = (Persona)formatter.Deserialize(stream); 
+stream.Close(); 
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Precauciones con la serialización
+
+- Si hacemos cambios en la estructura de la clase, puede afectar a la compatibilidad con los datos previos
+- Ejemplo: guardamos un objeto de tipo Persona, pero luego decidimos añadir nuevos atributos a la clase
+   - El objeto que leamos no va a ser compatible con los nuevos datos que no tenía al guardarse
+- Normalmente se rellenarán los atributos nuevos con valores por defecto, siempre que la clase se llame igual y el nombre del fichero fuente también
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serializar colecciones
+
+Podemos serializar de golpe un array o colección de objetos
+
+```cs
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
+...
+
+// --- Escritura ---
+List<Persona> personas = new List<Persona>();
+// Rellenar lista...
+IFormatter formatter = new BinaryFormatter(); 
+FileStream stream = new FileStream(nombreFichero, 
+    FileMode.Create, FileAccess.Write, FileShare.None); 
+formatter.Serialize(stream, personas); 
+stream.Close(); 
+
+// --- Lectura ---
+IFormatter formatter = new BinaryFormatter(); 
+FileStream stream = new FileStream(nombreFichero, 
+    FileMode.Open, FileAccess.Read, FileShare.Read); 
+List<Persona> listado = (List<Persona>)formatter.Deserialize(stream); 
+stream.Close(); 
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un programa llamado **Ejercicio_08d_01** que gestione un catálogo de videojuegos. 
+- De cada videojuego almacenaremos su título, género y precio.
+- Define dos métodos estáticos en la clase *Videojuego* que permitan cargar/guardar un listado de videojuegos genérico
+- En el programa principal, ofrece al usuario un menú para añadir videojuegos al catálogo y mostrarlo
+- El catálogo deberá cargarse en una lista al inicio del programa, y guardarse al salir.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Serializar objetos en C# (JSON)
+
+- La información se almacena en modo texto (formato JSON)
+- Información editable para prevenir cualquier incompatibilidad o cambio
+- Necesitamos incluir el espacio *System.Text.Json*
+- La(s) clase(s) a serializar ya no tiene(n) que tener la etiqueta `[Serializable]`
+- Sí es necesario que la clase tenga get/set públicos para acceder a los atributos a serializar
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: clase a serializar
+
+```cs
+class Persona
+{
+    private string nombre;
+    private int edad;
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Edad
+    {
+        get { return edad; }
+        set { edad = value; }
+    }
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return nombre + ", " + edad + ": " + mascota;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: serializar lista de objetos
+
+```cs
+using System.Text.Json;
+
+class Prueba
+{
+    static void Main()
+    {
+        const string FICHERO = "datos.json";
+
+        List<Persona> personas = new List<Persona>();
+        personas.Add(new Persona("Nacho", 43));
+        personas.Add(new Persona("Mario", 9));
+        personas.Add(new Persona("Ana", 39));
+
+        var opciones = new JsonSerializerOptions { WriteIndented = true };
+        string jsonString = JsonSerializer.Serialize(personas, opciones);
+        File.WriteAllText(FICHERO, jsonString);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: deserializar lista de objetos
+
+```cs
+using System.Text.Json;
+
+class Prueba
+{
+    static void Main()
+    {
+        const string FICHERO = "datos.json";
+
+        string jsonString2 = File.ReadAllText(FICHERO);
+        List<Persona> personas2 = 
+            JsonSerializer.Deserialize<List<Persona>>(jsonString2);
+
+        foreach (Persona p in personas2)
+            Console.WriteLine(p);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08d_02** que sea una nueva versión del anterior, pero serializando la lista de videojuegos a un archivo *videojuegos.json*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Serialización y relaciones
+
+- Si tenemos dos clases asociadas, podemos mantener esa asociación en un archivo serializado 
+   - Ejemplo: un *Videojuego* desarrollado por una *Empresa*
+- Si tenemos clases heredadas, no podemos serializar colecciones polimórficas usando JSON
+   - Sólo se almacenan los datos comunes de la clase padre
+   - Es preferible usar serialización binaria o XML en este caso
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Serialización y relaciones
+
+Ejemplo: Videojuegos y Empresas
+
+```cs
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
+
+// Clase padre Videojuego
+
+[Serializable]
+class Videojuego
+{
+    protected string titulo;
+    protected string categoria;
+    protected Empresa empresa;
+
+    public string Titulo
+    {
+        get { return titulo; }
+        set { titulo = value; }
+    }
+
+    public string Categoria
+    {
+        get { return categoria; }
+        set { categoria = value; }
+    }
+
+    public Empresa Empresa
+    {
+        get { return empresa; }
+        set { empresa = value; }
+    }
+
+    public Videojuego(string titulo, string categoria, Empresa empresa)
+    {
+        this.titulo = titulo;
+        this.categoria = categoria;
+        this.empresa = empresa;
+    }
+
+    public override string ToString()
+    {
+        return titulo + " (" + categoria + ")\n" + empresa;
+    }
+}
+
+// Subtipo de videojuego, para videojuegos de PC
+
+[Serializable]
+class VideojuegoPC : Videojuego
+{
+    private int minHD;
+
+    public int MinHD
+    {
+        get { return minHD; }
+        set { minHD = value; }
+    }
+
+    public VideojuegoPC(string titulo, string categoria, Empresa empresa, int minHD)
+        : base(titulo, categoria, empresa)
+    {
+        this.minHD = minHD;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + "\n" + minHD + "MB";
+    }
+}
+
+// Empresas desarrolladoras
+
+[Serializable]
+class Empresa
+{
+    private string nombre;
+    private int anyo;
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Anyo
+    {
+        get { return anyo; }
+        set { anyo = value; }
+    }
+
+    public Empresa(string nombre, int anyo)
+    {
+        this.nombre = nombre;
+        this.anyo = anyo;
+    }
+
+    public override string ToString()
+    {
+        return nombre + " (" + anyo + ")";
+    }
+}
+
+// Main
+// Creamos una lista de empresas
+// Creamos lista de videojuegos con empresas
+// Serializamos/Deserializamos en formato binario (OK)
+// Serializamos/Deserializamos en formato JSON (No para VideojuegoPC)
+
+class Program
+{
+    static List<Empresa> GenerarEmpresas()
+    {
+        List<Empresa> empresas = new List<Empresa>();
+        empresas.Add(new Empresa("Ubisoft", 2001));
+        empresas.Add(new Empresa("Capcom", 1988));
+        empresas.Add(new Empresa("EA", 1990));
+        return empresas;
+    }
+
+    static List<Videojuego> GenerarJuegos(List<Empresa> empresas)
+    {
+        List<Videojuego> juegos = new List<Videojuego>();
+        juegos.Add(new Videojuego("Assassins Creed", "Aventuras", empresas[0]));
+        juegos.Add(new VideojuegoPC("Fifa 2020", "Deportes", empresas[2], 1200));
+        juegos.Add(new Videojuego("Captain Commando", "Arcade", empresas[1]));
+        return juegos;
+    }
+
+    static void SerializarBinario(List<Videojuego> juegos)
+    {
+        IFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream("videojuegos.dat",
+            FileMode.Create, FileAccess.Write, FileShare.None);
+        formatter.Serialize(stream, juegos);
+        stream.Close();
+    }
+
+    static List<Videojuego> DeserializarBinario()
+    {
+        IFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream("videojuegos.dat",
+            FileMode.Open, FileAccess.Read, FileShare.Read);
+        List<Videojuego> listado = (List<Videojuego>)formatter.Deserialize(stream);
+        stream.Close();
+        return listado;
+    }
+
+    static void SerializarJSON(List<Videojuego> juegos)
+    {
+        var opciones = new JsonSerializerOptions { WriteIndented = true };
+        string jsonString = JsonSerializer.Serialize(juegos, opciones);
+        File.WriteAllText("videojuegos.json", jsonString);
+    }
+
+    static List<Videojuego> DeserializarJSON()
+    {
+        string jsonString2 = File.ReadAllText("videojuegos.json");
+        List<Videojuego> listado =
+            JsonSerializer.Deserialize<List<Videojuego>>(jsonString2);
+        return listado;
+    }
+
+    static void Main()
+    {
+        List<Empresa> empresas = GenerarEmpresas();
+        List<Videojuego> juegos1 = GenerarJuegos(empresas);
+
+        SerializarBinario(juegos1);
+        List<Videojuego> juegos2 = DeserializarBinario();
+        Console.WriteLine("Juegos de videojuegos.dat:");
+        foreach (Videojuego v in juegos2)
+        {
+            Console.WriteLine(v);
+            Console.WriteLine();
+        }
+
+        // Así no se guardan los datos específicos de VideojuegoPC
+        // Todo son Videojuegos
+        SerializarJSON(juegos1);
+        List<Videojuego> juegos3 = DeserializarJSON();
+        Console.WriteLine("Juegos de videojuegos.json:");
+        foreach(Videojuego v in juegos3)
+        {
+            Console.WriteLine(v);
+            Console.WriteLine();
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serialización con XML
+
+- Añadimos el espacio **System.Xml.Serialization**
+- En el caso de que una clase admita subclases, debemos añadir la anotación `[XmlInclude]` en la clase padre para cada subclase, indicando el tipo
+- Será necesario definir constructores sin parámetros en las clases a serializar, ya que el serializador XML los utiliza para crear los objetos, y luego asignarle los valores con los *set*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Serialización con XML
+
+Ejemplo
+
+```cs
+using System.Xml.Serialization;
+
+// Indicamos que esta clase tiene como subtipo VideojuegoPC
+[XmlInclude(typeof(VideojuegoPC))]
+[Serializable]
+public class Videojuego
+{
+    protected string titulo;
+    protected string categoria;
+    protected Empresa empresa;
+
+    public string Titulo
+    {
+        get { return titulo; }
+        set { titulo = value; }
+    }
+
+    public string Categoria
+    {
+        get { return categoria; }
+        set { categoria = value; }
+    }
+
+    public Empresa Empresa
+    {
+        get { return empresa; }
+        set { empresa = value; }
+    }
+
+    // Necesario para serializar en XML
+    public Videojuego() { }
+
+    public Videojuego(string titulo, string categoria, Empresa empresa)
+    {
+        this.titulo = titulo;
+        this.categoria = categoria;
+        this.empresa = empresa;
+    }
+
+    public override string ToString()
+    {
+        return titulo + " (" + categoria + ")\n" + empresa;
+    }
+}
+
+[Serializable]
+public class VideojuegoPC : Videojuego
+{
+    private int minHD;
+
+    public int MinHD
+    {
+        get { return minHD; }
+        set { minHD = value; }
+    }
+
+    // Necesario para serializar en XML
+    public VideojuegoPC() { }
+
+    public VideojuegoPC(string titulo, string categoria, Empresa empresa, int minHD)
+        : base(titulo, categoria, empresa)
+    {
+        this.minHD = minHD;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + "\n" + minHD + "MB";
+    }
+}
+
+[Serializable]
+public class Empresa
+{
+    private string nombre;
+    private int anyo;
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Anyo
+    {
+        get { return anyo; }
+        set { anyo = value; }
+    }
+
+    // Necesario para serializar en XML
+    public Empresa() { }
+
+    public Empresa(string nombre, int anyo)
+    {
+        this.nombre = nombre;
+        this.anyo = anyo;
+    }
+
+    public override string ToString()
+    {
+        return nombre + " (" + anyo + ")";
+    }
+}
+
+class Program
+{
+    static List<Empresa> GenerarEmpresas()
+    {
+        List<Empresa> empresas = new List<Empresa>();
+        empresas.Add(new Empresa("Ubisoft", 2001));
+        empresas.Add(new Empresa("Capcom", 1988));
+        empresas.Add(new Empresa("EA", 1990));
+        return empresas;
+    }
+
+    static List<Videojuego> GenerarJuegos(List<Empresa> empresas)
+    {
+        List<Videojuego> juegos = new List<Videojuego>();
+        juegos.Add(new Videojuego("Assassins Creed", "Aventuras", empresas[0]));
+        juegos.Add(new VideojuegoPC("Fifa 2020", "Deportes", empresas[2], 1200));
+        juegos.Add(new Videojuego("Captain Commando", "Arcade", empresas[1]));
+        return juegos;
+    }
+
+    static void SerializarXML(List<Videojuego> juegos)
+    {
+        XmlSerializer formatter = new XmlSerializer(juegos.GetType());
+        FileStream stream = new FileStream("videojuegos.xml",
+            FileMode.Create, FileAccess.Write, FileShare.None);
+        formatter.Serialize(stream, juegos);
+        stream.Close();
+    }
+
+    static List<Videojuego> DeserializarXML()
+    {
+        List<Videojuego> listado = new List<Videojuego>();
+        XmlSerializer formatter = new XmlSerializer(listado.GetType());
+        FileStream stream = new FileStream("videojuegos.xml",
+            FileMode.Open, FileAccess.Read, FileShare.Read);
+        listado = (List<Videojuego>)formatter.Deserialize(stream);
+        stream.Close();
+        return listado;
+    }
+
+    static void Main()
+    {
+        List<Empresa> empresas = GenerarEmpresas();
+        List<Videojuego> juegos1 = GenerarJuegos(empresas);
+
+        // Serializar/Deserializar en XML
+        SerializarXML(juegos1);
+        List<Videojuego> juegos4 = DeserializarXML();
+        Console.WriteLine("Juegos de videojuegos.xml:");
+        foreach (Videojuego v in juegos4)
+        {
+            Console.WriteLine(v);
+            Console.WriteLine();
+        }
+
+    }
+}
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Gestión de arrays y datos complejos | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Gestión de arrays y datos complejos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/01c.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Gestión de arrays y datos complejos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Gestión de arrays y datos complejos","url":"http://nachoiborraies.github.io/javascript/md/es/01c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="gestión-de-arrays-y-datos-complejos">Gestión de arrays y datos complejos</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Un array, en cualquier lenguaje de programación, es una variable que sirve para almacenar varios datos dentro. En muchos lenguajes estos arrays tienen un tamaño fijo e inamovible durante la ejecución del programa, pero en JavaScript no (de hecho, no son arrays propiamente dichos, sino vectores o listas).</p>
+
+<p>Normalmente los datos que se almacenan en un array son del mismo tipo (por ejemplo, un conjunto de números enteros, o un conjunto de cadenas de texto), aunque en el caso de JavaScript y otros lenguajes (como PHP), cada elemento de la lista o conjunto puede ser de un tipo diferente al resto.</p>
+
+<h2 id="1-manipulación-básica-de-arrays-en-javascript">1. Manipulación básica de arrays en JavaScript</h2>
+
+<p>Para crear arrays en JavaScript, creamos la variable que va a almacenar el conjunto con dos corchetes o bien con <code class="language-plaintext highlighter-rouge">new Array</code>. En este último caso, podemos indicar el tamaño inicial del array también:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">conjunto</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">let</span> <span class="nx">conjunto2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+<span class="kd">let</span> <span class="nx">conjunto3</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>También podemos definir a la vez el array y los elementos iniciales que va a tener en una misma línea (aunque luego podemos añadir más o cambiar los que hay).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">conjunto</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">conjunto2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Después, podemos ir añadiendo elementos a esta colección usando los corchetes y poniendo dentro qué posición ocupa el elemento en la colección, empezando por la posición 0. Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conjunto</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">conjunto</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">conjunto</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">3.5</span><span class="p">;</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">push</code> para añadir elementos al final de los existentes:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conjunto</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+<span class="nx">conjunto</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="dl">"</span><span class="s2">Buenas</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observemos cómo cada posición guarda un dato distinto (un entero, un texto, un número real…). Esto es posible, como decimos, en ciertos lenguajes de programación, especialmente los de tipado dinámico, es decir, aquellos donde no hay que indicar de qué tipo es una variable, sino que toma el tipo del valor que se le asigna. Si volvemos a utilizar una misma posición, borraremos el elemento previo y asignaremos el nuevo, pudiendo también cambiar el tipo de dato de esa posición:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conjunto</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Adiós</span><span class="dl">"</span><span class="p">;</span>  <span class="c1">// Ahora este elemento ya no vale "Hola"</span>
+</code></pre></div></div>
+
+<p>Si utilizamos una posición no correlativa con las anteriores, se añadirá un elemento en esa posición, y quedarán huecos vacíos enmedio, a los que se les asigna el valor <em>undefined</em>.</p>
+
+<h3 id="11-arrays-y-referencias">1.1. Arrays y referencias</h3>
+
+<p>Si asignamos a una variable simple el valor de otra, estamos creando una copia de la variable original, con lo que si modificamos la segunda variable, la primera no ve su valor alterado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
+<span class="nx">b</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>       <span class="c1">// 3</span>
+</code></pre></div></div>
+
+<p>Esto no es así con los arrays, ya que almacenan un conjunto mayor de datos. Cuando asignamos una variable array a otra, estamos asignando una referencia a la posición de memoria del array original, con lo que cualquier cambio en esa segunda variable va a afectar al array original:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">datos2</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">;</span>
+<span class="nx">datos2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">datos</span><span class="p">);</span>         <span class="c1">// [10, 2, 3, 4]</span>
+</code></pre></div></div>
+
+<h2 id="2-recorrido-de-arrays">2. Recorrido de arrays</h2>
+
+<p>En ocasiones es posible que nos toque recorrer una lista o array de elementos de una web, buscando uno en concreto. Para ello, disponemos de las estructuras repetitivas o bucles vistos en documentos anteriores (<em>while</em>, <em>do..while</em> o <em>for</em>). Por ejemplo, supongamos que tenemos una variable <em>lista</em> con un array de elementos (el que sea). Si queremos recorrerlopodemos utilizar una variable que vaya desde el principio del array (posición 0) hasta el final (indicado por la propiedad <code class="language-plaintext highlighter-rouge">length</code> del array):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="nx">lista</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>   <span class="c1">// Muestra el valor de cada elemento</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Otra alternativa es utilizar una variable que sirva de índice en la lista, tomando el valor de cada posición de la misma, y accediendo con dicho valor a la posición concreta del array:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">indice</span> <span class="k">in</span> <span class="nx">lista</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="nx">lista</span><span class="p">[</span><span class="nx">indice</span><span class="p">]);</span>  <span class="c1">// Muestra el valor de cada elemento</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Una tercera alternativa que podemos emplear desde ES2015 es el bucle <em>for..of</em>, que permite iterar por todos los valores del array (y también por todas las letras de un texto):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">valor</span> <span class="k">of</span> <span class="nx">lista</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">valor</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sobre la propiedad <code class="language-plaintext highlighter-rouge">length</code>, se cuentan las posiciones hasta la última ocupada, aunque en medio haya posiciones no definidas (<em>undefined</em>). Por ejemplo, este array tiene tamaño 5:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="nx">a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="3-operaciones-con-arrays">3. Operaciones con arrays</h2>
+
+<p>Pasamos a detallar ahora algunas de las operaciones más útiles que podemos realizar con arrays:</p>
+
+<ul>
+  <li>Ya hemos visto que la instrucción <code class="language-plaintext highlighter-rouge">push</code> nos sirve para añadir elementos al final de los disponibles en un array. Podemos pasarle tantos como queramos, separados por comas. La instrucción <code class="language-plaintext highlighter-rouge">unshift</code> añade elementos al principio del array. También podemos pasarle los que queramos, separados por comas.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">pop</code> devuelve y elimina el último elemento del array. La función <code class="language-plaintext highlighter-rouge">shift</code> devuelve y elimina la primera posición.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">join</code> se aplica sobre un array. Puede recibir como parámetro un delimitador (texto) y obtiene un texto separando todos los elementos del array con el delimitador.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">concat</code> enlaza dos arrays, obteniendo otro con la unión de todos los elementos de ambos</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">slice</code> obtiene un subarray desde una posición inicial (incluida) hasta una final (no incluida)</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">splice</code> quita elementos de un array, indicando desde qué posición eliminar y cuántos elementos quitar desde ahí. Adicionalmente, admite más parámetros, que serían los datos a añadir en la posición donde nos hemos quedado.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">reverse</code> invierte el orden de los elementos de un array</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">indexOf</code> recibe como parámetro un dato, y nos devuelve en qué posición del array se encuentra por primera vez, o -1 si no se encuentra.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">includes</code> recibe como parámetro un dato y devuelve si dicho dato está en el array o no.</li>
+</ul>
+
+<p>Veamos aquí un ejemplo de uso de cada una de estas funciones:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="nx">datos</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>                <span class="c1">// [5, 6, 1, 2, 3, 4]</span>
+<span class="kd">let</span> <span class="nx">variable</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>         <span class="c1">// variable = 4, datos = [5, 6, 1, 2, 3]</span>
+<span class="kd">let</span> <span class="nx">texto</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">"</span><span class="s2">:</span><span class="dl">"</span><span class="p">);</span>        <span class="c1">// "5:6:1:2:3"</span>
+<span class="kd">let</span> <span class="nx">datos2</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">]);</span> <span class="c1">// [5, 6, 1, 2, 3, 10, 9]</span>
+<span class="kd">let</span> <span class="nx">datos3</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>     <span class="c1">// [6, 1]</span>
+<span class="nx">datos2</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>        <span class="c1">// [5, 20, 30, 3, 10, 9]</span>
+<span class="nx">datos2</span><span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>                   <span class="c1">// [9, 10, 3, 30, 20, 5]</span>
+<span class="kd">let</span> <span class="nx">posicion</span> <span class="o">=</span> <span class="nx">datos2</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>   <span class="c1">// 2</span>
+<span class="kd">let</span> <span class="nx">existe</span> <span class="o">=</span> <span class="nx">datos2</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>   <span class="c1">// true</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Realiza los siguientes pasos en un fichero llamado <strong>arrays_js.html</strong>. Muestra por consola el resultado después de aplicar cada uno, pero con los elementos separados por “=&gt;” usando <em>join</em>:</p>
+
+  <ul>
+    <li>Crea un array con 4 elementos numéricos</li>
+    <li>Concatena 2 elementos más al final y 2 al principio (<em>unshift</em> y <em>push</em>)</li>
+    <li>Elimina las posiciones de la 3 a la 5 (incluida) (<em>splice</em>)</li>
+    <li>Inserta 2 elementos más entre el penúltimo y el último (<em>splice</em>)</li>
+    <li>Invierte el array (<em>reverse</em>)</li>
+  </ul>
+</blockquote>
+
+<h3 id="31-ordenación-de-arrays">3.1. Ordenación de arrays</h3>
+
+<p>La función <code class="language-plaintext highlighter-rouge">sort</code> permite ordenar el array sobre el que se aplica. Dicha ordenación suele ser alfabética (por ejemplo, 40 &lt; 5, o “Adiós” &lt; “Hola”).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">nombres</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Juan</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Ana</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Blas</span><span class="dl">"</span><span class="p">];</span>
+<span class="nx">nombres</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>     <span class="c1">// ["Ana", "Blas", "Juan", "Laura"]</span>
+</code></pre></div></div>
+
+<p>Sin embargo, podemos pasar como parámetro a la función sort una función anónima que defina un criterio de comparación alternativo. Dicha función recibe dos parámetros que actúan como dos datos cualesquiera del array, y devuelve un número que será:</p>
+
+<ul>
+  <li>Negativo si el primer parámetro debe ir antes que el segundo</li>
+  <li>Positivo si el primer parámetro debe ir después que el segundo</li>
+  <li>Cero si ambos parámetros son iguales, y deben ir uno junto al otro en la ordenación</li>
+</ul>
+
+<p>El siguiente ejemplo ordena ascendentemente (en orden numérico) un array de enteros:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">];</span>
+<span class="nx">datos</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n1</span><span class="p">,</span> <span class="nx">n2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">n1</span> <span class="o">&lt;</span> <span class="nx">n2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n1</span> <span class="o">&gt;</span> <span class="nx">n2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Alternativamente, podemos expresarla de esta otra forma más resumida, con el mismo resultado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">];</span>
+<span class="nx">datos</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n1</span><span class="p">,</span> <span class="nx">n2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">n1</span> <span class="o">-</span> <span class="nx">n2</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong>:</p>
+
+  <p>Crea un fichero llamado <strong>arrays_ordenacion_js.html</strong>. Crea dentro un array de números y muéstralo ordenado de mayor a menor.</p>
+</blockquote>
+
+<h3 id="32-otras-operaciones-avanzadas-con-arrays">3.2. Otras operaciones avanzadas con arrays</h3>
+
+<p>Existen otras operaciones que podemos aplicar sobre arrays que tienen un uso un poco más avanzado. Muchas de ellas reciben una función como parámetro, que se aplica a cada elemento del array.</p>
+
+<p>La función <code class="language-plaintext highlighter-rouge">every</code> obtiene un booleano indicando si la función que recibe como parámetro es cierta para todos los elementos del array. El siguiente ejemplo comprueba si todos los elementos del array son pares:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>La función <code class="language-plaintext highlighter-rouge">some</code> es similar a la anterior, pero devuelve un booleano indicando si alguno de los elementos del array cumple la función. Este ejemplo comprueba si alguno de los números del array es mayor que 10:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>La función <code class="language-plaintext highlighter-rouge">forEach</code> recorre cada elemento del array, aplicándole la función que recibe como parámetro. Este ejemplo muestra por consola cada elemento del array:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">datos</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>La función <code class="language-plaintext highlighter-rouge">filter</code> obtiene como resultado un array con los elementos que cumplen la condición indicada por la función que se pasa como parámetro. El siguiente ejemplo obtiene un subconjunto del array inicial con los datos que sean mayores que 10:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datosMayores10</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>La función <code class="language-plaintext highlighter-rouge">map</code> permite aplicar una transformación (definida por la función recibida como parámetro) a todos los elementos de un array. El siguiente ejemplo multiplica por 2 cada elemento del array:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">dobles</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">n</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Notar que en todas estas funciones podemos emplear <em>arrow functions</em> o funciones lambda como parámetro:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">n</span> <span class="o">=&gt;</span> <span class="nx">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">datosMayores10</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">n</span> <span class="o">=&gt;</span> <span class="nx">n</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">dobles</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">n</span> <span class="o">=&gt;</span> <span class="nx">n</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3</strong>:</p>
+
+  <p>Crea un fichero llamado <strong>funciones_arrays_js.html</strong>. Define una función que reciba un array y un número como parámetros y devuelva si todos los números del array son múltiplos del número recibido como parámetro. Haz que el número tome por defecto el valor de 2, y prueba la función con distintas llamadas.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 4</strong>:</p>
+
+  <p>Crea un fichero llamado <strong>funciones_arrays2_js.html</strong>. Define un array de datos numéricos, quédate sólo con los números que sean positivos y transforma el array para que almacene los cuadrados de esos números. Usa funciones lambda para resolver este ejercicio.</p>
+</blockquote>
+
+<h2 id="4-objetos-javascript">4. Objetos JavaScript</h2>
+
+<p>Aunque JavaScript no es un lenguaje orientado a objetos propiamente dicho, sí que permite definir clases (veremos algún ejemplo de ello más adelante) y trabajar con objetos que almacenan información heterogénea.</p>
+
+<p>Para definir un objeto JavaScript, encerramos sus datos entre llaves. Cada propiedad que queramos definir llevará un nombre y, después de los dos puntos, le podemos dar un valor inicial. Así podríamos definir los datos de una persona:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">persona</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">611223344</span><span class="dl">"</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">persona</span><span class="p">.</span><span class="nx">nombre</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Como podemos comprobar, una vez hemos definido los datos de la persona u objeto, accedemos a ellos con el operador punto <code class="language-plaintext highlighter-rouge">.</code>, separando el nombre de la variable y el del campo a consultar. También podemos añadir sobre la marcha nuevos campos sobre el objeto ya creado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">persona</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">611223344</span><span class="dl">"</span>
+<span class="p">};</span>
+<span class="nx">persona</span><span class="p">.</span><span class="nx">direccion</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">C/Mayor 13</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 5</strong>:</p>
+
+  <p>Crea una página llamada <strong>objetos_js.html</strong>. Define un array con datos de personas como los del ejemplo anterior. Ordena después el array ascendentemente por el nombre de las personas (alfabético), recórrelo y muéstralo por pantalla. Puede serte de utilidad la función <em>localeCompare</em> que permite comparar alfabéticamente dos textos y obtener un entero indicando cuál es mayor o menor.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

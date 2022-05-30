@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introducción a JavaScript | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Introducción a JavaScript" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/01a.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a JavaScript" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Introducción a JavaScript","url":"http://nachoiborraies.github.io/javascript/md/es/01a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="introducción-a-javascript">Introducción a JavaScript</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>JavaScript es un lenguaje de programación de los denominados “lenguajes cliente”, que se utiliza para dotar a los clientes (navegadores) de funcionalidades adicionales a la hora de manejar aplicaciones web. Algunas de estas funcionalidades permiten añadir contenido dinámicamente en una página (por ejemplo, añadir más apartados en un formulario), o validar los datos de un formulario antes de enviarlo, aunque esto también puede hacerse con HTML5. También, combinado con HTML5, permite hacer muchas cosas en el apartado gráfico. De hecho, se pueden hacer gran variedad de videojuegos simplemente utilizando estos dos lenguajes. Veremos en este tema algunas de las funcionalidades que nos puedan resultar más interesantes a la hora de desarrollar aplicaciones web.</p>
+
+<h2 id="1-historia-y-versiones">1. Historia y versiones</h2>
+
+<p>La necesidad de un lenguaje como JavaScript surgió a principios de los 90, con las primeras páginas web complejas, que ya empezaban a usar formularios. El hecho de tener entonces velocidades de conexión muy lentas (módem) y enviar grandes cantidades de datos al servidor mediante formularios que luego podían ser incorrectos, hizo necesaria la aparición de un lenguaje que trabajara en el cliente, y pudiese dar validez a los datos antes de enviarlos inútilmente.</p>
+
+<p>Sus orígenes parten del navegador Netscape 2.0, y un lenguaje que entonces se llamaba LiveScript. Posteriormente, Netscape se alió con Sun Microsystems y desarrollaron un nuevo lenguaje, ya presente en Netscape 3.0 bajo el nombre de JavaScript, por el auge que tenía en aquella época el lenguaje de programación Java, aunque ambos no tuvieran nada que ver. Por su parte, Microsoft sacó una copia de este lenguaje en su Internet Explorer, llamada JScript, y finalmente Netscape decidió estandarizar la suya (1997) para evitar problemas, a través del estándar ECMAScript.</p>
+
+<p>JavaScript es, por tanto, una implementación de <strong>ECMAScript</strong>, el estándar que define las características de este lenguaje. Este estándar ha ido pasando por una serie de versiones sucesivas, que han ido incorporando nuevas funcionalidades al lenguaje. Podemos consultar <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">en la web oficial</a> la evolución de este estándar, y también conocer algo más sobre las características de cada versión en webs como <a href="https://es.wikipedia.org/wiki/ECMAScript">Wikipedia</a>. Hay que tener también presente que, dado que JavaScript es un lenguaje que se ejecuta en multitud de navegadores (Chrome, Firefox, Opera, Safari, Edge…), es posible que las últimas versiones de ECMAScript aún no sean compatibles con todos ellos, y por tanto, algunas de esas nuevas funcionalidades aún no estén muy extendidas.</p>
+
+<h2 id="2-añadir-javascript-a-las-páginas">2. Añadir JavaScript a las páginas</h2>
+
+<p>Al igual que ocurre con CSS, tenemos varias alternativas para añadir código JavaScript a nuestras páginas web. Lo veremos con un sencillo ejemplo que muestra un cuadro con un saludo en la pantalla.</p>
+
+<h3 id="21-añadir-código-javascript-en-la-propia-página">2.1. Añadir código JavaScript en la propia página</h3>
+
+<p>La primera opción que veremos para añadir el código JavaScript es incluir una etiqueta <code class="language-plaintext highlighter-rouge">script</code> en cualquier parte de la página, y dentro el código JavaScript que queramos escribir. En nuestro caso, para mostrar una ventana con un saludo, usamos la instrucción <code class="language-plaintext highlighter-rouge">alert</code> y entre paréntesis y comillas (dobles o simples), el texto del saludo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    ...
+    <span class="nt">&lt;script&gt;</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hola, buenas</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+    ...
+<span class="nt">&lt;/head&gt;</span>
+...
+</code></pre></div></div>
+
+<h3 id="22-añadir-código-javascript-en-los-elementos-html">2.2. Añadir código JavaScript en los elementos HTML</h3>
+
+<p>Esta opción es menos usual, porque deja todo el código más ilegible, pero en algunos casos (sobre todo con el uso de formularios) es una herramienta útil. Por ejemplo, si queremos que al hacer clic sobre un párrafo se muestre el cartel de saludo anterior, haríamos algo como esto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">onclick=</span><span class="s">"alert('Hola, buenas');"</span><span class="nt">&gt;</span>Bla bla bla bla bla... <span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>En este caso, el texto del <em>alert</em> debe ir entre comillas simples, porque las comillas dobles se usan para el atributo <em>onclick</em>, que volveremos a ver con más detalle más adelante.</p>
+
+<h3 id="23-añadir-código-javascript-desde-un-fichero-externo">2.3. Añadir código JavaScript desde un fichero externo</h3>
+
+<p>Esta opción consiste en sacar el código JavaScript a un fichero de texto externo, como se hace con los estilos CSS también, y guardar este archivo con extensión <em>.js</em>. En este caso, nuestro archivo tendría el siguiente código:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hola, buenas</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Después, en la(s) página(s) web donde queramos añadir este código, incluimos una etiqueta <code class="language-plaintext highlighter-rouge">script</code>, que esta vez enlazará con el archivo JavaScript anteriormente creado (que deberá estar en alguna carpeta o subcarpeta de nuestra web), mediante un atributo <em>src</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    ...
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"fichero.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    ...
+<span class="nt">&lt;/head&gt;</span>
+...
+</code></pre></div></div>
+
+<h3 id="24-ubicación-de-las-etiquetas-script">2.4. Ubicación de las etiquetas <em>script</em></h3>
+
+<p>Si utilizamos una etiqueta <code class="language-plaintext highlighter-rouge">script</code> para incluir el código JavaScript en nuestras páginas (tanto incorporado en la página como desde un fichero externo), conviene tener presente cuál es la mejor ubicación de dicho fichero.</p>
+
+<ul>
+  <li>Si el fichero sólo contiene funciones que se van a activar o lanzar más adelante, a medida que interactuemos con la página, podemos colocar este <em>script</em> en la cabecera (<em>head</em>).</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        ...
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"fichero.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+        ...
+    <span class="nt">&lt;/head&gt;</span>
+...
+</code></pre></div></div>
+
+<ul>
+  <li>Si el fichero contiene instrucciones que necesitan ejecutarse inmediatamente cuando la página se cargue, entonces conviene incorporarlo al final de la página, cuando ya se haya cargado todo el contenido de la misma:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        ...
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        ...
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"fichero.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+...
+</code></pre></div></div>
+
+<h3 id="25-la-etiqueta-noscript">2.5. La etiqueta <em>noscript</em></h3>
+
+<p>JavaScript es una funcionalidad que puede ser deshabilitada intencionadamente en los navegadores, entre otras cosas, para prevenir ataques maliciosos. HTML proporciona la etiqueta <code class="language-plaintext highlighter-rouge">noscript</code> para detectar cuándo está desactivado o no disponible este lenguaje, y así prevenir al usuario de que debe activarlo para ejecutar la página correctamente.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;noscript&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Tienes JavaScript desactivado. Deberás activarlo para poder
+        utilizar la página correctamente.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/noscript&gt;</span>
+</code></pre></div></div>
+
+<p>El contenido de la etiqueta sólo se mostrará si JavaScript está desactivado en el navegador.</p>
+
+<h2 id="3-detectar-errores-en-javascript">3. Detectar errores en JavaScript</h2>
+
+<p>A diferencia de los lenguajes de programación de aplicaciones de escritorio, como Java o C#, en lenguajes de programación web como JavaScript o PHP es más difícil ver dónde está el error cuando una aplicación o página web no hace lo que debe, ya que no existe un terminal o consola accesible donde poder ver lo que el programa está haciendo.</p>
+
+<p>La mayoría de navegadores proporcionan herramientas para poder depurar nuestro código JavaScript, y ver dónde están los errores cuando cargamos las páginas. Además, disponen de herramientas para revisar el código HTML y CSS y corregir posibles errores de diseño o estructura.</p>
+
+<p>En Google Chrome, por ejemplo, con la tecla F12 (o haciendo clic derecho en la página y eligiendo la opción <em>Inspeccionar</em>) mostramos el panel de herramientas para desarrolladores. En él encontraremos varias secciones o pestañas. Una de las más útiles son la <em>Consola</em>, que muestra posibles errores en la ejecución del código JavaScript.</p>
+
+<div align="center">
+    <img src="../../img/01_consola_chrome.png" />
+</div>
+
+<h3 id="31-consola-y-mensajes-de-error">3.1. Consola y mensajes de error</h3>
+
+<p>Además de la instrucción <code class="language-plaintext highlighter-rouge">alert</code>, con la que podemos mostrar al usuario mensajes en la página a modo de <em>popups</em>, también podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">console.log</code> o <code class="language-plaintext highlighter-rouge">console.error</code> para mostrar mensajes directamente en esta consola de depuración. Esto nos puede venir bien para dejar un registro de mensajes durante la ejecució del programa, y también para informar de errores que se puedan producir y que hayamos detectado.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">El email está vacío</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Crea un archivo llamado <strong>saludo_js.html</strong>. Define dentro, embebido, código JavaScript con un mensaje que te salude por tu nombre. Procura cometer algún error de sintaxis (por ejemplo, no cerrar los paréntesis) para ver cómo te informa de ello la consola del navegador.</p>
+</blockquote>
+
+<h2 id="4-nociones-básicas-del-lenguaje">4. Nociones básicas del lenguaje</h2>
+
+<p>Antes de entrar en algunas de las funcionalidades verdaderamente útiles para las aplicaciones web, es necesario conocer algunos de los fundamentos básicos del lenguaje Javascript, como el uso de variables y algunas estructuras de código útiles.</p>
+
+<h3 id="41-tipos-de-datos-básicos">4.1. Tipos de datos básicos</h3>
+
+<p>JavaScript puede manejar 3 tipos básicos de información (además de información más compleja que iremos viendo más adelante).</p>
+
+<ul>
+  <li><strong>Números</strong>: que pueden ser enteros (<em>integer</em>) o reales (<em>float</em>), pero JavaScript no hace una distinción inicial entre ellos. Se consideran tipo <em>Number</em>.</li>
+  <li><strong>Booleanos</strong>: que pueden tomar los valores <em>true</em> o <em>false</em>. Tipo <em>Boolean</em></li>
+  <li><strong>Textos</strong>: que se pueden representar con comillas simples o dobles, y son tipo <em>String</em>. También existen las secuencias de escape habituales en otros lenguajes para representar ciertos símbolos, como el salto de línea <code class="language-plaintext highlighter-rouge">\n</code>, la tabulación <code class="language-plaintext highlighter-rouge">\t</code>, o incluso las propias comillas dobles o simples, <code class="language-plaintext highlighter-rouge">\"</code> y <code class="language-plaintext highlighter-rouge">\'</code>, para representarlas dentro de un texto.</li>
+</ul>
+
+<p>Normalmente utilizaremos variables para almacenar estos datos en un programa. Veremos a continuación cómo declararlas y utilizarlas.</p>
+
+<h3 id="42-definición-y-uso-de-variables">4.2. Definición y uso de variables</h3>
+
+<p>Podemos ver una variable como un recipiente que sirve para almacenar información, de forma que esa información puede variar según el momento. Por ejemplo, podemos almacenar lo que hay guardado en un campo de un formulario, pero si luego el usuario modifica el valor de ese campo, el de la variable también podrá cambiar al nuevo valor.</p>
+
+<p>Las variables en JavaScript se pueden definir con la palabra <code class="language-plaintext highlighter-rouge">var</code> o <code class="language-plaintext highlighter-rouge">let</code> seguida de un nombre de variable. Este nombre sólo puede tener letras, números, el carácter de subrayado (_) y el símbolo del dólar ($), y no puede empezar por número. Así, los siguientes nombres de variables serían válidos, salvo los dos últimos (el penúltimo empieza por número, y el último tiene un símbolo no permitido en el nombre):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">nombreUsuario</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">apellido1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">$precio</span><span class="p">;</span>
+<span class="kd">var</span> <span class="mi">1</span><span class="nx">apellido</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">nombre</span><span class="p">.</span><span class="nx">usuario</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>A las variables les podemos asignar un valor con el operador de asignación <code class="language-plaintext highlighter-rouge">=</code> y el valor que queramos asignarles. También podemos utilizar el mismo nombre de variable más adelante para hacer alguna operación. El siguiente ejemplo almacena un texto en una variable y luego lo muestra con la instrucción alert que hemos visto en ejemplos anteriores:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">texto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola, buenas tardes.</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">texto</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Observa cómo cada instrucción (cada línea) del código Javascript termina en un punto y coma. Esto realmente no es necesario en muchos casos, pero se recomienda utilizarlo para separar cada instrucción de la siguiente.</p>
+
+<p><strong>Constantes</strong></p>
+
+<p>Podemos emplear la palabra <code class="language-plaintext highlighter-rouge">const</code> para declarar constantes, es decir, elementos que van a almacenar un valor que no va a cambiar durante la ejecución de un programa.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">pi</span> <span class="o">=</span> <span class="mf">3.1416</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong><em>undefined</em> y <em>null</em></strong></p>
+
+<p>Cuando declaramos una variable y no le damos valor, automáticamente se le asigna el valor <code class="language-plaintext highlighter-rouge">undefined</code>, que es un tipo de dato especial que se asigna a una variable cuando no tiene valor. No hay que confundirlo con el valor <code class="language-plaintext highlighter-rouge">null</code>, que también existe en JavaScript, y que es el valor por defecto que toman muchas variables en otros lenguajes. Sin embargo, en JavaScript una variable sólo es nula si explícitamente le damos ese valor.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">dato</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dato</span><span class="p">);</span>      <span class="c1">// undefined</span>
+<span class="nx">dato</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dato</span><span class="p">);</span>      <span class="c1">// null</span>
+</code></pre></div></div>
+
+<h3 id="43-comentarios">4.3. Comentarios</h3>
+
+<p>Al igual que ocurre con otros lenguajes, JavaScript permite añadir comentarios entre el código, que fundamentalmente tienen como propósito explicar o introducir el código que va a continuación.</p>
+
+<p>En JavaScript, los comentarios pueden ser de dos formas, similares a otros lenguajes. Si queremos que ocupen más de una línea, los encerraremos entre el símbolo <code class="language-plaintext highlighter-rouge">/*</code> y el símbolo <code class="language-plaintext highlighter-rouge">*/</code>. Si queremos que ocupen una sola línea, también podemos usar este formato, o empezar el comentario con una doble barra <code class="language-plaintext highlighter-rouge">//</code>. Veamos un ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Creamos una variable edad para 
+pedirle al usuario su edad */</span>
+<span class="kd">var</span> <span class="nx">edad</span> <span class="o">=</span> <span class="nx">prompt</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Dime tu edad</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// Pasamos esa edad a número</span>
+<span class="kd">var</span> <span class="nx">edadNumerica</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">edad</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="44-comunicación-con-el-usuario">4.4. Comunicación con el usuario</h3>
+
+<p>Ya hemos visto que con la instrucción <code class="language-plaintext highlighter-rouge">alert</code> podemos sacar mensajes por pantalla en un pequeño cuadro de diálogo, poniendo entre paréntesis el mensaje que queremos mostrar. Con las instrucciones <code class="language-plaintext highlighter-rouge">console.log</code> y <code class="language-plaintext highlighter-rouge">console.error</code> estos mensajes se muestran en la consola del navegador, que no está directamente visible o accesible por los usuarios:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola, buenos días</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">El email está vacío</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">document.write</code>, que muestra la información directamente en la página HTML donde se ejecuta el código JavaScript:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Esto es un texto en el HTML</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Otra instrucción útil para comunicarnos de forma básica con el usuario es <code class="language-plaintext highlighter-rouge">prompt</code>. Al igual que en el caso anterior, entre paréntesis podemos mostrar un mensaje, pero con esta instrucción también podemos permitir que el usuario escriba algo (en un cuadro de texto), recoger lo que ha escrito y guardarlo en una variable, para luego poderlo procesar y utilizar.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">nombre</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dime tu nombre</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Sacaría un cuadro para que el usuario escribiese su nombre, y al pulsar en <em>Aceptar</em> quedaría guardado en la variable nombre. Si finalmente el usuario cancela, la variable queda con un valor nulo (<em>null</em>).</p>
+
+<h3 id="45-operaciones-básicas">4.5. Operaciones básicas</h3>
+
+<p>Podemos hacer varios tipos de operaciones: aritméticas (sumar, restar…), relacionales (comparar un valor con otro) o lógicas (comprobar si se cumplen varias condiciones).</p>
+
+<p><strong>Operaciones aritméticas</strong></p>
+
+<p>En cuanto a las operaciones aritméticas, existen cinco operaciones básicas: <code class="language-plaintext highlighter-rouge">+</code> (suma), <code class="language-plaintext highlighter-rouge">-</code> (resta), <code class="language-plaintext highlighter-rouge">*</code> (multiplicación), <code class="language-plaintext highlighter-rouge">/</code> (división) y <code class="language-plaintext highlighter-rouge">%</code> (resto de división entera). Veamos un ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">num1</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num2</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">suma</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="nx">suma</span><span class="p">);</span>
+<span class="nx">suma</span> <span class="o">=</span> <span class="nx">suma</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">suma</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El código anterior mostraría por pantalla el valor de la variable <em>suma</em>, que en este ejemplo es el resultado de sumar la variable <em>num1</em> (que vale 2) y la variable <em>num2</em> (que vale 3), por lo que mostraría por pantalla 5. Después, la variable suma se multiplica a ella misma por 2 y vuelve a mostrar su valor (con lo que ahora mostraría 10).</p>
+
+<p>El operador <code class="language-plaintext highlighter-rouge">+</code> también se puede utilizar para enlazar textos (concatenar), de forma que podemos enlazar, por ejemplo, textos fijos y variables. Así, el mensaje anterior lo podríamos sacar con algo de texto más la variable suma:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El resultado es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">suma</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>También podemos emplear los operadores de <em>autoincremento</em> y <em>autodecremento</em> para aumentar o disminuir en una unidad el valor de una variable, como ocurre en otros muchos lenguajes.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">numero</span><span class="o">++</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">numero</span><span class="p">);</span>    <span class="c1">// 4</span>
+</code></pre></div></div>
+
+<p><strong>Operaciones relacionales</strong></p>
+
+<p>Estas operaciones sirven para comparar dos valores entre sí, y ver si, por ejemplo, uno es mayor que otro, o ambos son iguales. Los operadores relacionales son <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&gt;=</code> (mayor o igual), <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&lt;=</code> (menor o igual), <code class="language-plaintext highlighter-rouge">==</code> (igual a) y <code class="language-plaintext highlighter-rouge">!=</code> (distinto de). Veamos un ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">num1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="nx">num1</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="nx">num1</span> <span class="o">==</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="nx">num1</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Hemos creado una variable <em>num1</em> con el valor 3. Después, sacamos tres mensajes por pantalla. En el primero, comprobamos si la variable es mayor que dos (es cierto), en el segundo, vemos si la variable es igual a 3 (también nos dirá que es cierto), y en el tercero, comprobamos si la variable es menor o igual que 1 (nos dirá que es falso).</p>
+
+<p>Podemos emplear estos operadores para comparar valores de cualquier tipo simple, incluyendo cadenas de texto, que se comparan alfabéticamente. Esto supone una ventaja importante frente a otros lenguajes como Java o C#, donde la comparación de textos es algo más compleja.</p>
+
+<p>Adicionalmente, existen los operadores de <strong>identidad</strong>, que son <code class="language-plaintext highlighter-rouge">===</code> y <code class="language-plaintext highlighter-rouge">!==</code>. Estos operadores sirven para, además de comprobar si dos datos tienen el mismo valor, ver si son también del mismo tipo. Por ejemplo, los valores “7” y 7 almacenan el mismo valor, pero son de tipos distintos (uno es real y el otro entero).</p>
+
+<p><strong>Operaciones lógicas</strong></p>
+
+<p>Estas operaciones sirven en general para combinar varias comparaciones, aunque también se pueden usar para invertir el valor de una comprobación (si era falsa, pasa a ser cierta, y viceversa). Los operadores relacionales son <code class="language-plaintext highlighter-rouge">!</code> (operador NOT, para negar una condición y cambiar su valor entre verdadero y falso), <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> (operador AND, para unir dos comprobaciones en una que será cierta si ambas lo son) y <code class="language-plaintext highlighter-rouge">||</code> (operador OR, para unir dos comprobaciones en una que será cierta si alguna lo es). Veamos un ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">num1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num2</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">num3</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">num1</span> <span class="o">&lt;</span> <span class="nx">num2</span><span class="p">));</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="nx">num3</span> <span class="o">&gt;</span> <span class="nx">num2</span> <span class="o">&amp;&amp;</span> <span class="nx">num3</span> <span class="o">&gt;</span> <span class="nx">num1</span><span class="p">);</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="nx">num3</span> <span class="o">&gt;</span> <span class="nx">num2</span> <span class="o">||</span> <span class="nx">num3</span> <span class="o">&gt;</span> <span class="nx">num1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Hemos definido 3 variables con valores diferentes. Después, mostramos 3 mensajes:</p>
+
+<ul>
+  <li>En el primer mensaje que mostramos, tenemos una comparación (<code class="language-plaintext highlighter-rouge">num1 &lt; num2</code>). Esta comparación es verdadera (3 &lt; 5), pero como tenemos el operador NOT delante (<code class="language-plaintext highlighter-rouge">!</code>), la hacemos falsa, y el resultado final de la comprobación es FALSO.</li>
+  <li>En el segundo mensaje realizamos dos comparaciones: <code class="language-plaintext highlighter-rouge">num3 &gt; num2</code> (que es falsa, porque 4 &lt; 5), y <code class="language-plaintext highlighter-rouge">num3 &gt; num1</code> (que es verdadera, porque 4 &gt; 3). Tenemos una comparación falsa y una verdadera, unidas por el operador AND (<code class="language-plaintext highlighter-rouge">&amp;&amp;</code>). Este operador sólo da un resultado verdadero cuando las dos comprobaciones que une son verdaderas, luego en este caso dará como resultado FALSO.</li>
+  <li>En el tercer mensaje, realizamos las mismas dos comparaciones que en el caso anterior, pero unidas por el operador OR (<code class="language-plaintext highlighter-rouge">||</code>). Este operador da un resultado verdadero cuando alguna de las comprobaciones que une es verdadera (o las dos). Así que, en este caso, el conjunto es VERDADERO.</li>
+</ul>
+
+<h3 id="46-conversiones-entre-tipos-simples">4.6. Conversiones entre tipos simples</h3>
+
+<p>En ocasiones nos puede interesar convertir un tipo simple en otro. Por ejemplo, convertir un texto a entero, o un número en texto. Para ello JavaScript dispone de distintas instrucciones de conversión.</p>
+
+<p>Por ejemplo, la instrucción <code class="language-plaintext highlighter-rouge">Number</code> permite convertir un valor a algo numérico. Podemos emplearlo para convertir textos a enteros o reales:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">texto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">32</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">texto</span><span class="p">);</span> <span class="c1">// 32</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también disponemos de las instrucciones <code class="language-plaintext highlighter-rouge">parseInt</code> y <code class="language-plaintext highlighter-rouge">parseFloat</code> para convertir a entero o real, respectivamente.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">texto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">32</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">texto</span><span class="p">);</span>   <span class="c1">// 32</span>
+</code></pre></div></div>
+
+<p>Para hacer el paso opuesto (convertir un número, o cualquier otro dato, a texto), podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">String</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">texto</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="nx">numero</span><span class="p">);</span> <span class="c1">// "23"</span>
+</code></pre></div></div>
+
+<p>Del mismo modo, también podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">Boolean</code> para convertir un dato a booleano.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">texto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">true</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nb">Boolean</span><span class="p">(</span><span class="nx">texto</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre></div></div>
+
+<p>Una de las aplicaciones prácticas que tiene esto es poder convertir datos recogidos del usuario a otros tipos. Por ejemplo, ya hemos visto que con la instrucción <code class="language-plaintext highlighter-rouge">prompt</code> podemos pedirle al usuario que introduzca algún dato. Estos datos, JavaScript los interpreta directamente como texto. Así, si el usuario escribe “32”, JavaScript no lo va a interpretar como que ha escrito el número 32, sino como que ha escrito los símbolos 3 y 2, simplemente.</p>
+
+<p>Si queremos tratar lo que ha escrito el usuario como un número, para luego poder hacer operaciones con ese dato (sumarlo, por ejemplo), deberemos convertir el dato a numérico. El siguiente ejemplo calcula el doble del número que indique el usuario, usando <em>parseInt</em>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dime un número</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">doble</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">numero</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El doble es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">doble</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>NaN</strong></p>
+
+<p>En algunas conversiones u operaciones debemos tener especial cuidado con que los datos con que trabajamos sean numéricos, ya que de lo contrario el resultado que se va a producir va a ser <em>NaN</em> (abreviatura de <em>Not a Number</em>). Por ejemplo, si sumamos un entero y un valor <em>undefined</em>, el resultado será <em>NaN</em>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">otroNumero</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">numero</span><span class="p">);</span>
+<span class="c1">// otroNumero es NaN porque numero es *undefined*</span>
+</code></pre></div></div>
+
+<p>Disponemos de la instrucción <code class="language-plaintext highlighter-rouge">isNaN</code> para comprobar si un dato no es numérico (devuelve <em>true</em> cuando no lo es):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">valor</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El valor no es numérico</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong></p>
+
+  <p>Crea un documento llamado <strong>operaciones_js.html</strong> y, con JavaScript, pídele al usuario que introduzca dos números (primero uno y luego otro) y saca cuatro mensajes mostrando su suma, resta, multiplicación y división.</p>
+</blockquote>
+
+<h2 id="5-control-de-flujo">5. Control de flujo</h2>
+
+<p>Pasemos ahora a analizar qué estructuras proporciona JavaScript para poder ejecutar un bloque de instrucciones u otro en función de ciertas condiciones que se cumplen durante la ejecución del programa.</p>
+
+<h3 id="51-estructuras-selectivas">5.1. Estructuras selectivas</h3>
+
+<p>A veces nos interesa realizar una operación si se cumple una determinada condición y no hacerla (o hacer otra distinta) si no se cumple esa condición. Por ejemplo, si el usuario no ha rellenado su e-mail, querremos mostrarle un mensaje indicando que lo rellene, y si lo ha hecho, querremos poder enviar el formulario. Veamos qué estructuras ofrece JavaScript para poder elegir qué bloque de instrucciones ejecutar.</p>
+
+<h4 id="511-estructura-if">5.1.1. Estructura <em>if</em></h4>
+
+<p>Para decidir entre varios caminos a seguir en función de una determinada condición se utiliza la estructura <code class="language-plaintext highlighter-rouge">if</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">condicion</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">instruccion1</span><span class="p">;</span>
+    <span class="nx">instruccion2</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esta estructura lleva entre paréntesis una condición (o una combinación de ellas, utilizando los operadores lógicos <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> y <code class="language-plaintext highlighter-rouge">||</code>). Si esa condición se cumple, se ejecutarán las instrucciones que tenga entre llaves, y si no se cumple, no se ejecutarán. Por ejemplo, si nos guardáramos el e-mail que ha introducido el usuario en una variable email, podríamos comprobar si está vacío, y si es así, mostrar un mensaje de error:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">email</span> <span class="o">==</span> <span class="dl">""</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Debes rellenar el e-mail antes de continuar</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En el caso de que queramos hacer otra cosa cuando no se cumple la condición, tenemos que utilizar la estructura <code class="language-plaintext highlighter-rouge">if..else</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">condicion</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">instruccion1a</span><span class="p">;</span>
+    <span class="nx">instruccion2a</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="nx">instruccion1b</span><span class="p">;</span>
+    <span class="nx">instruccion2b</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este caso, si la condición se cumple, como antes, ejecutaremos las instrucciones que hay entre las llaves del <em>if</em>, y si no se cumple, ejecutaremos las instrucciones que hay entre las llaves del <em>else</em>. En el ejemplo anterior, podríamos mostrar un mensaje de error o uno de OK, dependiendo de si el campo del e-mail está relleno o no:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">email</span> <span class="o">==</span> <span class="dl">""</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Debes rellenar el e-mail antes de continuar</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Todo correcto. Podemos continuar</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si queremos elegir entre más de dos caminos, podemos utilizar la estructura <code class="language-plaintext highlighter-rouge">if..else if.. else if..</code> y poner una condición en cada <em>if</em> para cada camino. Por ejemplo, imaginemos que tenemos una variable edad donde almacenaremos la edad del usuario. Si el usuario no llega a 10 años le diremos que no tiene edad para ver la web. Si no llega a 18 años, le diremos que aún es menor de edad, pero puede ver la web, y si tiene más de 18 años le diremos que está todo correcto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">edad</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dime tu edad</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">edad</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">edad</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">edad</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">No tienes edad para ver esta web</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">edad</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Aún eres menor de edad, pero puedes acceder a esta web</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Todo correcto</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El último <em>else</em> podría ser <code class="language-plaintext highlighter-rouge">else if (edad &gt;= 18)</code>, el efecto sería el mismo en este caso.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3</strong>:</p>
+
+  <p>Crea un documento HTML llamado <strong>notaBasica_js.html</strong>. Utilizando JavaScript, crea una variable nota con una nota de examen que le pedirás al usuario. Después, utilizando <code class="language-plaintext highlighter-rouge">if..else</code>, saca un mensaje por pantalla indicando si el examen está aprobado o no.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 4</strong>:</p>
+
+  <p>Crea un documento llamado <strong>notaNominal_js.html</strong>, similar al anterior. En este caso, en lugar de decir simplemente si el examen está aprobado o no, deberá decir la nota nominal del examen (suspenso, aprobado, bien, notable o sobresaliente).</p>
+</blockquote>
+
+<h4 id="512-estructura-switch">5.1.2. Estructura <em>switch</em></h4>
+
+<p>La estructura <code class="language-plaintext highlighter-rouge">switch</code> permite analizar el valor que toma una expresión o variable de entre un conjunto de valores limitado o finito. Para cada posible valor, podemos elegir qué instrucción (o instrucciones) ejecutar. Para ello, cada posible valor que puede tomar la expresión se asocia a un grupo <code class="language-plaintext highlighter-rouge">case</code>.</p>
+
+<p>El siguiente código muestra al usuario un mensaje u otro en función del valor de la variable <em>opcion</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span><span class="p">(</span><span class="nx">opcion</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Bienvenido</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hasta pronto</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Acceso no permitido</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Opción no reconocida</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La instrucción <code class="language-plaintext highlighter-rouge">break</code> al final de cada <code class="language-plaintext highlighter-rouge">case</code> hace que el programa “salga” del <em>switch</em> en cuanto termina de procesar ese caso. Si no la ponemos, seguirá ejecutando las instrucciones del caso siguiente. El caso <code class="language-plaintext highlighter-rouge">default</code> que se añade al final sirve para recoger cualquier otro posible valor de la expresión que no se haya contemplado en los casos anteriores.</p>
+
+<p>Adicionalmente (y esto no es algo habitual en otros lenguajes) podemos incluir condiciones en los casos (<em>case</em>), haciendo que se comporten como <em>if..else</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">case</span> <span class="nx">opcion</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">La opción es menor que 2</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="nx">opcion</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">La opción es mayor o igual que 2 y menor que 10</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default</span><span class="p">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">La opción es mayor o igual que 10</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="52-estructuras-repetitivas-o-bucles">5.2. Estructuras repetitivas o bucles</h3>
+
+<p>En ocasiones nos puede interesar que una instrucción o conjunto de instrucciones se repita automáticamente un número determinado de veces, o mientras se cumpla una determinada condición. Para ello, JavaScript pone a nuestra disposición distintos tipos de estructuras repetitivas.</p>
+
+<p>La estructura <code class="language-plaintext highlighter-rouge">while</code> permite ejecutar un conjunto de instrucciones mientras se cumpla la condición que tiene entre paréntesis (que puede ser una condición simple o compuesta). Por ejemplo, el siguiente código va sacando mensajes con un número que va del 1 al 5:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">numero</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">numero</span><span class="p">);</span>
+    <span class="nx">numero</span> <span class="o">=</span> <span class="nx">numero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>    <span class="c1">// También podríamos poner numero++</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Alternativamente, la estructura <code class="language-plaintext highlighter-rouge">do..while</code> permite hacer lo mismo, pero evalúa la condición después de haber ejecutado el bloque de instrucciones. El ejemplo anterior quedaría así usando <em>do..while</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">do</span>
+<span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">numero</span><span class="p">);</span>
+    <span class="nx">numero</span> <span class="o">=</span> <span class="nx">numero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>    <span class="c1">// También podríamos poner numero++</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">numero</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Finalmente, podemos hacer uso de la estructura <code class="language-plaintext highlighter-rouge">for</code>. En este caso, se suele emplear una variable que hace de contador, y dentro de la estructura le damos un valor inicial, indicamos la condición que debe cumplirse para seguir repitiendo el bucle, y cómo vamos a incrementar o decrementar el contador en cada repetición. El ejemplo anterior para contar de 1 a 5 se podría expresar así en un <em>for</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">alert</span> <span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 5</strong>:</p>
+
+  <p>Crea un documento llamado <strong>repeticiones_js.html</strong>. En él, pídele al usuario que escriba dos números. Deberá ir contando del primero al segundo (sacando cada número en un alert). Deberás tener en cuenta cuál es el mayor de los dos, para saber si tienes que ir contando hacia arriba o hacia abajo (utiliza para esta comprobación la estructura <em>if</em> que hemos visto anteriormente).</p>
+</blockquote>
+
+<h3 id="53-var-vs-let">5.3. “var” vs “let”</h3>
+
+<p>Comentábamos al principio de este documento que las variables en JavaScript se pueden declarar utilizando las palabras <em>var</em> o <em>let</em>, seguidas del nombre de la variable. Pero, ¿existe alguna diferencia en el uso de ambos términos? La respuesta es que sí.</p>
+
+<p>Cuando declaramos una variable con <code class="language-plaintext highlighter-rouge">var</code>, su ámbito se extiende más allá de donde se ha declarado, un efecto que se conoce como <em>hoisting</em>, y que se debe a que JavaScript mueve las variables declaradas con <em>var</em> al inicio del bloque en que se han declarado. Por ejemplo, en este código declaramos la variable <em>nombre</em> dentro de un <em>if</em>, pero sigue existiendo después de ese <em>if</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">numero</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">nombre</span><span class="p">);</span>  <span class="c1">// undefined</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">numero</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">nombre</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">nombre</span><span class="p">);</span>  <span class="c1">// Nacho</span>
+</code></pre></div></div>
+
+<p>Notar que, si intentamos mostrar el valor de la variable <em>antes</em> de declararla con <em>var</em>, nos va a mostrar el texto <em>undefined</em>. Es decir, la variable existe (porque JavaScript la ha movido al principio), pero aún no le hemos dado valor. El mensaje de <em>alert</em> después del <em>if</em> sí nos mostrará el valor de la variable, aunque la hayamos declarado interna al <em>if</em>.</p>
+
+<p>En cambio, cuando declaramos una variable con <code class="language-plaintext highlighter-rouge">let</code>, su ámbito es local a la zona donde se ha declarado. El mismo ejemplo anterior, utilizando <code class="language-plaintext highlighter-rouge">let</code>, nos dará un error de variable no declarada (en la consola del navegador):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">numero</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">numero</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">nombre</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">nombre</span><span class="p">);</span>  <span class="c1">// Error</span>
+</code></pre></div></div>
+
+<p>Lo recomendable es utilizar siempre variables <em>let</em>, para segurarnos de que su uso no se va a extender (y solapar sin intención) más allá del ámbito donde se han declarado.</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

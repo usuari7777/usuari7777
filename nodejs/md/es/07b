@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Configuración de la autenticación por tokens | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Configuración de la autenticación por tokens" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/07b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Configuración de la autenticación por tokens" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Configuración de la autenticación por tokens","url":"http://nachoiborraies.github.io/nodejs/md/es/07b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="configuración-de-la-autenticación-por-tokens">Configuración de la autenticación por tokens</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/07b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="07b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Para probar cómo funciona la autenticación basada en tokens, vamos a implementar una pequeña API REST de ejemplo, que defina un par de rutas (una pública y otra protegida), que devuelvan cierta información en formato JSON.</p>
+
+<h2 id="1-el-servidor-principal">1. El servidor principal</h2>
+
+<p>En el servidor principal Express definiremos una ruta principal de acceso público, y otra a la URI <code class="language-plaintext highlighter-rouge">/protegido</code> que sólo será accesible por usuarios registrados. Para simplificar la gestión de usuarios, hemos optado por almacenarlos en un vector, simulando que ya los tenemos cargados de la base de datos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">usuarios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">12345</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe111</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bienvenido a la ruta de inicio</span><span class="dl">"</span><span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/protegido</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bienvenido a la zona protegida</span><span class="dl">"</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Para poder generar un token utilizaremos la librería <em>jsonwebtoken</em>, que se basa en el estándar JWT comentado antes. Lo primero que haremos será instalarla en el proyecto que la necesite (además de instalar Express, en este caso):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install jsonwebtoken
+</code></pre></div></div>
+
+<p>Después, la incorporamos a nuestro servidor Express con el resto de módulos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">jsonwebtoken</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<h2 id="2-validando-al-cliente">2. Validando al cliente</h2>
+
+<p>El proceso de validación comprende dos pasos básicos:</p>
+
+<ol>
+  <li>Recoger las credenciales de la petición del cliente y comprobar si son correctas</li>
+  <li>Si lo son, generar un token y enviárselo de vuelta al cliente</li>
+</ol>
+
+<p>Comencemos por el segundo paso: definimos una función que, utilizando la librería <em>jsonwebtoken</em> instalada anteriormente, genere un token firmado, que almacene cierta información que nos pueda ser útil (por ejemplo, el <em>login</em> del usuario validado).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">secreto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">secretoNode</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">let</span> <span class="nx">generarToken</span> <span class="o">=</span> <span class="nx">login</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">sign</span><span class="p">({</span><span class="na">login</span><span class="p">:</span> <span class="nx">login</span><span class="p">},</span> <span class="nx">secreto</span><span class="p">,</span> <span class="p">{</span><span class="na">expiresIn</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2 hours</span><span class="dl">"</span><span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>El método <code class="language-plaintext highlighter-rouge">sign</code> recibe tres parámetros: el objeto JavaScript con los datos que queramos almacenar en el token (en este caso, el login del usuario validado, que recibimos como parámetro del método), una palabra secreta para cifrarlo, y algunos parámetros adicionales, como por ejemplo el tiempo de expiración.</p>
+
+<p>Notar que necesitamos una palabra secreta para cifrar el contenido del token. Esta palabra secreta la hemos definido en una constante en el código, aunque normalmente se recomienda que se ubique en un archivo externo a la aplicación, para evitar que se pueda acceder a ella fácilmente.</p>
+
+<p>Esta función <code class="language-plaintext highlighter-rouge">generarToken</code> la emplearemos en la ruta de <em>login</em>, que recogerá las credenciales del cliente por POST y las cotejará contra alguna base de datos o similar. Si son correctas, llamaremos a la función anterior para que genere el token, y se lo enviaremos al cliente como parte de la respuesta JSON:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">usuario</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">usuario</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">password</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">existeUsuario</span> <span class="o">=</span> <span class="nx">usuarios</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">u</span> <span class="o">=&gt;</span> 
+        <span class="nx">u</span><span class="p">.</span><span class="nx">usuario</span> <span class="o">==</span> <span class="nx">usuario</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">password</span> <span class="o">==</span> <span class="nx">password</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existeUsuario</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">token</span><span class="p">:</span> <span class="nx">generarToken</span><span class="p">(</span><span class="nx">usuario</span><span class="p">)});</span>
+    <span class="k">else</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="3-autenticando-al-cliente-validado">3. Autenticando al cliente validado</h2>
+
+<p>El cliente recibirá el token de acceso la primera vez que se valide correctamente, y dicho token se debe almacenar en algún lugar de la aplicación. Podemos emplear mecanismos como la variable <code class="language-plaintext highlighter-rouge">localStorage</code> para aplicaciones basadas en JavaScript y navegadores, u otros métodos en el caso de trabajar con otras tecnologías y lenguajes.</p>
+
+<p>A partir de este punto, cada vez que queramos solicitar algún recurso protegido del servidor, deberemos adjuntar nuestro token para mostrarle que ya estamos validados. Para ello, el token suele enviarse en la cabecera de petición <em>Authorization</em>. Desde el punto de vista del servidor no tenemos que hacer nada al respecto en este apartado, salvo leer el token de dicha cabecera cuando nos llegue la petición, y validarlo. Por ejemplo, el siguiente <em>middleware</em> obtiene el token de la cabecera, y llama a un método <code class="language-plaintext highlighter-rouge">validarToken</code> que veremos después para su validación:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">protegerRuta</span> <span class="o">=</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">authorization</span><span class="dl">'</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">validarToken</span><span class="p">(</span><span class="nx">token</span><span class="p">))</span>
+        <span class="nx">next</span><span class="p">();</span>
+    <span class="k">else</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Usuario no autorizado</span><span class="dl">"</span><span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>La función <code class="language-plaintext highlighter-rouge">validarToken</code> se encarga de llamar al método <code class="language-plaintext highlighter-rouge">verify</code> de <em>jsonwebtoken</em> para comprobar si el token es correcto, de acuerdo a la palabra secreta de codificación.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">validarToken</span> <span class="o">=</span> <span class="p">(</span><span class="nx">token</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">verify</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">secreto</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">resultado</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>La función obtiene el objeto almacenado en el token (con el login del usuario, en este caso) y devolverá <code class="language-plaintext highlighter-rouge">null</code> si algo falla.</p>
+
+<p>En caso de que algo falle, el propio <em>middleware</em> envía un mensaje de error en este caso. Nos falta aplicar este <em>middleware</em> a las rutas protegidas, y para eso lo añadimos en la cabecera de la propia ruta, como segundo parámetro:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/protegido</span><span class="dl">'</span><span class="p">,</span> <span class="nx">protegerRuta</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Bienvenido a la zona protegida</span><span class="dl">"</span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> según los estándares, se indica que la cabecera “Authorization” que envía el token tenga un prefijo “Bearer “, por lo que el contenido de esa cabecera normalmente será “Bearer …..token…..”, y por tanto para obtener el token habría que procesar el valor de la cabecera y cortar sus primeros caracteres.</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">validarToken</span> <span class="o">=</span> <span class="p">(</span><span class="nx">token</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">verify</span><span class="p">(</span><span class="nx">token</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="nx">secreto</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">resultado</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="4-pruebas-de-autenticación-con-thunderclient">4. Pruebas de autenticación con ThunderClient</h2>
+
+<p>Vamos a probar la aplicación de ejemplo con <em>ThunderClient</em> desde Visual Studio Code, y veremos cómo obtener y enviar el token de acceso desde esta herramienta. Lo primero que deberemos hacer es una petición POST para loguearnos. Recibiremos como respuesta el <em>token</em> que se haya generado:</p>
+
+<div align="center">
+    <img src="../../img/07_peticion_token01.png" width="90%" />
+</div>
+
+<p>Ahora, sólo nos queda adjuntar este token en la cabecera <em>Authorization</em> de las peticiones que lo necesiten. Para ello, vamos a la sección <em>Authorization</em> bajo la URL de la petición, y elegimos que queremos enviar un <em>Bearer token</em>. En el cuadro inferior nos dejará copiar dicho token:</p>
+
+<div align="center">
+    <img src="../../img/07_peticion_token02.png" width="90%" />
+</div>
+
+<h2 id="5-otras-opciones">5. Otras opciones</h2>
+
+<p>Nos quedan en el tintero, como son la opción de “cerrar sesión” y la gestión de roles.</p>
+
+<h3 id="51-cierre-de-sesión-o-logout">5.1. Cierre de sesión o <em>logout</em></h3>
+
+<p>Para hacer <strong>logout</strong>, como el token ya no se almacena en el servidor, basta con eliminarlo del almacenamiento que tengamos en el cliente, por lo que es responsabilidad exclusiva del cliente salir del sistema, a diferencia de la autenticación basada en sesiones, donde era el servidor quien debía destruir la información almacenada.</p>
+
+<h3 id="52-definir-roles-de-acceso">5.2. Definir roles de acceso</h3>
+
+<p>Para definir <strong>roles</strong> de acceso, podemos añadir un campo del rol que tiene cada usuario, y almacenar dicho rol en el token, junto con el login.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">usuarios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">12345</span><span class="dl">'</span><span class="p">,</span> <span class="na">rol</span><span class="p">:</span> <span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe111</span><span class="dl">'</span><span class="p">,</span> <span class="na">rol</span><span class="p">:</span> <span class="dl">'</span><span class="s1">normal</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Después, bastaría con modificar el método de <code class="language-plaintext highlighter-rouge">protegerRuta</code> para que procese lo que devuelve <code class="language-plaintext highlighter-rouge">validarToken</code> (el objeto incrustado en el token) y compruebe si tiene el rol adecuado. También deberíamos modificar el método <code class="language-plaintext highlighter-rouge">generarToken</code> para que reciba como parámetro el login y rol a añadir al token, y la ruta de POST <code class="language-plaintext highlighter-rouge">/login</code> para que le pase estos dos datos al método de <code class="language-plaintext highlighter-rouge">generarToken</code>, cuando el usuario sea correcto.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">generarToken</span> <span class="o">=</span> <span class="p">(</span><span class="nx">login</span><span class="p">,</span> <span class="nx">rol</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">sign</span><span class="p">({</span><span class="na">login</span><span class="p">:</span> <span class="nx">login</span><span class="p">,</span> <span class="na">rol</span><span class="p">:</span> <span class="nx">rol</span><span class="p">},</span> <span class="nx">secreto</span><span class="p">,</span> 
+                    <span class="p">{</span><span class="na">expiresIn</span><span class="p">:</span> <span class="dl">"</span><span class="s2">2 hours</span><span class="dl">"</span><span class="p">});</span>
+<span class="p">};</span>
+
+<span class="p">...</span>
+
+<span class="kd">let</span> <span class="nx">protegerRuta</span> <span class="o">=</span> <span class="nx">rol</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">authorization</span><span class="dl">'</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">token</span> <span class="o">=</span> <span class="nx">token</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">7</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">validarToken</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">rol</span> <span class="o">===</span> <span class="dl">""</span> <span class="o">||</span> <span class="nx">rol</span> <span class="o">===</span> <span class="nx">resultado</span><span class="p">.</span><span class="nx">rol</span><span class="p">))</span>
+            <span class="nx">next</span><span class="p">();</span>
+        <span class="k">else</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Usuario no autorizado</span><span class="dl">"</span><span class="p">});</span>        
+    <span class="p">}</span> <span class="k">else</span> 
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Usuario no autorizado</span><span class="dl">"</span><span class="p">});</span>        
+<span class="p">}};</span>
+
+<span class="p">...</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">usuario</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">usuario</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">password</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">existeUsuario</span> <span class="o">=</span> <span class="nx">usuarios</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">u</span> <span class="o">=&gt;</span> 
+        <span class="nx">u</span><span class="p">.</span><span class="nx">usuario</span> <span class="o">==</span> <span class="nx">usuario</span> <span class="o">&amp;&amp;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">password</span> <span class="o">==</span> <span class="nx">password</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existeUsuario</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> 
+                  <span class="na">token</span><span class="p">:</span> <span class="nx">generarToken</span><span class="p">(</span><span class="nx">existeUsuario</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">usuario</span><span class="p">,</span> 
+                                      <span class="nx">existeUsuario</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">rol</span><span class="p">)});</span>
+    <span class="k">else</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">});</span>
+<span class="p">});</span>
+
+</code></pre></div></div>
+
+<p>Puedes descargar <a href="../../recursos/07/ejemplos_07.zip">aquí</a> el ejemplo completo, incluyendo gestión de roles para acceder a la URI <code class="language-plaintext highlighter-rouge">/protegidoAdmin</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Version control tools</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Version control tools
+### Introduction to VCS
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Version Control Systems (VCS)
+
+- Tools that can register any change in any file or set of files over time
+- They let us:
+   - Recover any older version
+   - Compare files over time
+   - Determine who changed the file
+   - ... 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Local VCS
+
+- Create backup of a project and store changes locally
+- Advantage: simplicity
+- Drawback: manual management (error prone)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Local VCS
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-01-localVSC.png" alt="Local VCS" width="30%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Centralized VCS (CVCS)
+
+- Create backup of a project and store changes in a remote server
+- Many clients can connect to server and share their work
+- Advantage: improves team work
+- Drawback: if server fails, everything is lost
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Centralized VCS (CVCS)
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-02-CentralizedVSC.png" alt="Centralized VCS" width="30%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Distributed VCS (DVCS)
+
+- Create backup of a project and store changes in a remote server
+- Many clients connect to server and download the whole project
+- Advantages: 
+   - Improves team work
+   - If server fails, any client has a copy to restore
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Distributed VCS (DVCS)
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-03-DistributedVSC.png" alt="Distributed VSC" width="30%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git
+
+- DVCS created by Linux team to solve their own version control problems
+- Features:
+   - Speed
+   - Easy design
+   - Allows branches (non-lineal development)
+   - Suitable for big projects
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git data modeling
+
+- Git stores snapshots of the project's filesystem
+- With every change, Git only stores the new files changed, not the whole project
+   - For the rest of files, it just "points" to previous version
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git data modeling
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-04-ModelGit.png" alt="Git data modeling" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Other Git fundamentals
+
+- **Local work**: many tasks are performed locally, which is faster, and lets us work with the project even without Internet connection
+- **Integrity**: Git uses a SHA-1 algorithm to store information (data is always verified)
+- **Information addition**: Git never removes anything, it only adds information. We can undo everything
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git project states
+
+Every file in a project is in one of these three states:
+
+- **Modified**: data has been changed locally, but it has not been committed yet.
+- **Staged**: data has been tagged to be sent in next commit.
+- **Committed**: data is safely stored in a local storage
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git sections
+
+There are 3 sections in Git project:
+
+- **Git directory**: metadata and database of the elements of the project.
+- **Working directory**: files extracted from the Git database, ready to be used.
+- **Staging area**: contains information about the files that will be sent in next commit.
+   - Also called *index*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git sections
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-05-SectionsGit.png" alt="Git project states" width="30%" />
+</div>
+
+</script>
+</section>
+    
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

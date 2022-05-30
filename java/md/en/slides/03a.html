@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Arrays</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Static data types
+### Arrays
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Array
+
+- Set of data of the same type grouped in a single variable
+- We can access each element by its index or position in the array, starting at 0
+- The total number of elements contained in the array must be known before creating the array
+   - Array size is constant, it can't change
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Unidimensional arrays
+
+- Declaration: *data type* + [] + *variable name*
+- Initialization: *new* + *data type* + [*size*]
+
+```java
+int[] numbers = new int[10];        // Array of 10 integers
+
+float[] numbers;
+int n;
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter the array size:");
+n = sc.nextInt();
+numbers = new int[n];               // Array of n floats
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Accessing array elements
+
+- We define the position to be accessed between square brackets []
+
+```java
+numbers[0] = 3;
+numbers[1] = 6;
+...
+
+System.out.println(numbers[1]);
+System.out.println(numbers[2] * numbers[4]);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Explore array contents
+
+- We can use **length** property of the array
+- We can also use another special *for* if we just want to read values (not change them)
+
+```java
+// Option 1: length property
+for (int i = 0; i < numbers.length; i++)
+{
+    System.out.println(numbers[i]);
+}
+
+// Option 2: alternative "for" (readonly purposes)
+for (int n: numbers)
+{
+    System.out.println(n);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Define array values in declaration
+
+- Array values can be defined when we declare the array, between curly braces
+
+```java
+int[] numbers = {1, 2, 3, 4};       // Array of 4 numbers
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Array search
+
+- Determine if a value exists in the array: we better use a `while` with a boolean variable to stop as soon as we find the element
+
+```java
+boolean found = false;
+int i = 0;
+while (!found && i < numbers.length)
+{
+    if (numbers[i] == 15)
+    {
+        found = true;
+    }
+    else
+    {
+        i++;
+    }
+}
+
+if (found)
+{
+    System.out.println("Number found at position " + i);
+}
+else
+{
+    System.out.println("Number not found";
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Array search
+
+- Count occurrences of an element: we use a *for* to explore the whole array, along with a counter
+
+```java
+int counter = 0;
+for (int i = 0; i < numbers.length; i++)
+{
+    if (numbers[i] == 15)
+    {
+        counter++;
+    }
+}
+
+System.out.println("Numbe 15 has been found " + counter + " times");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Array maximum/minimum
+
+- Suppose that the maximum/minimum is the 1st element and check the rest of the array
+
+```java
+int maximum = numbers[0];
+for (int i = 1; i < numbers.length; i++)
+{
+    if (numbers[i] > maximum)
+    {
+        maximum = numbers[i];
+    }
+}
+
+System.out.println("The maximum is " + maximum);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Array sort
+
+- *Bubble algorithm*: explore adjacent positions and exchange them is they are not sorted
+
+```java
+for (int i = 0; i < numbers.length; i++)
+{
+    for (int j = 0; j < numbers.length - i - 1; j++)
+    {
+        if (numbers[j] > numbers[j+1])
+        {
+            int aux = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = aux;
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Array sort
+
+- *Direct exchange*: explore next positions and look for the lowest element to be placed at current position
+
+```java
+for (int i = 0; i < numbers.length - 1; i++)
+{
+    for (int j = i + 1; j < numbers.length; j++)
+    {
+        if (numbers[i] > numbers[j])
+        {
+            int aux = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = aux;
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Array sort
+
+- **Automatic sort**: for simple collections (integers, strings), **Arrays.sort** sorts in ascending order
+
+```java
+import java.util.Arrays;
+...
+int[] numbers = { 4, 6, 2, 8, 3};
+Arrays.sort(numbers);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bidimensional arrays
+
+- They store information in rows and columns, like a table or matrix
+- We need two indexes (in two pairs of square brackets): the first one refers to rows, and the second one to columns
+- We refer to each cell specifying the row and column, in this order
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bidimensional arrays
+
+```java
+int[][] table = new int[3][10];     // 3 rows, 10 columns
+
+table[0][2] = 2;        // 1st row, 3rd column
+table[2][8] = 12;       // 3rd row, 9th column
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exploring bidimensional arrays
+
+- We use **length** property for each dimension with a nested loop
+
+```java
+// Explore rows
+for (int i = 0; i < table.length; i++)
+{
+    // Explore columns for row i
+    for (int j = 0; j < table[i].length; j++)
+    {
+        System.out.print(table[i][j] + " ");
+    }
+    System.out.println();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Array of arrays
+
+- We can leave empty the second dimension when we declare a bidimensional array 
+- This way, each row of the array can have its own number of columns
+
+```java
+int[][] data = new int[3][]; // 3 rows
+data[0] = new int[3];        // 1st row: 3 columns
+data[1] = new int[5];        // 2nd row: 5 columns
+data[2] = new int[8];        // 3rd row: 8 columns
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Default values for bidimensional arrays
+
+- We specify the values of each row between curly braces
+
+```java
+int[][] someMoreData = {
+    {1, 2, 3},
+    {4, 5, 6, 7},
+    {8, 9}
+};
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **MatrixAddition** that asks the user to enter two bidimensional matrices or tables of 3 rows and columns, and then prints the result of adding them. In order to add two matrices, you must do it cell by cell:
+
+```
+result[i][j] = matrixA[i][j] + matrixB[i][j]
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **MarkCount** that asks the user to enter 10 marks (integers between 0 and 10). The program must output how many marks of each type have been typed. For instance, if the user types these marks: 1, 7, 5, 7, 2, 6, 7, 3, 5, 8, then the program must output: 
+
+```
+Marks per category: 
+0: 0 marks
+1: 1 marks
+2: 1 marks
+3: 1 marks
+4: 0 marks
+5: 2 marks
+6: 1 marks
+7: 3 marks
+8: 1 marks
+9: 0 marks
+10: 0 marks
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

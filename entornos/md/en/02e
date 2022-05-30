@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Integrated Development Environments | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Integrated Development Environments" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/02e.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Integrated Development Environments" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Integrated Development Environments","url":"http://nachoiborraies.github.io/entornos/md/en/02e.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="integrated-development-environments">Integrated Development Environments</h1>
+
+<h2 id="using-visual-studio">Using Visual Studio</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p><img src="../../img/ED_b1_tema02-36_VisualStudio.png" alt="Logo VisualStudio" width="10%" style="float:left;margin-right:8px;" /></p>
+
+<p><strong>Visual Studio</strong> was an IDE created in 1997. It was initially created to develop C++ and Visual Basic applications under Windows, but it has evolved and now it includes some other languages, such as C#, ASP.NET… In general, you can develop any kind of application supported by the .NET platform, but there are also some other languages that are also supported, such as Java or Python, among others</p>
+
+<p>There are different distributions for Visual Studio: Community, Professional or Enterprise. The first one is free, and you can download it <a href="https://visualstudio.microsoft.com/es/vs/">here</a>. It is available for Windows and MacOSX systems. Once you run the installer, you need to choose your workload. For instance, if you are planning to develop desktop or console applications with C# and Windows Forms, you can just choose <em>.NET desktop development</em>.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-37_VisualStudio_WorkLoads.png" alt="Visual Studio workloads" width="80%" />
+</div>
+
+<h3 id="1-creating-projects">1. Creating projects</h3>
+
+<p>If we want to create a new project, we go to <em>File &gt; New project</em> menu. Then, we usually choose a C# console application:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-45_VisualStudio_project.png" alt="Visual Studio new project" width="90%" />
+</div>
+
+<p>In the bottom form, we must specify the project name and location (we can just leave the default location). Then, a new project will be shown, with a default, initial source file called <code class="language-plaintext highlighter-rouge">Program.cs</code>, with some default code already written in it:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-45_VisualStudio_project2.png" alt="Visual Studio new project" width="90%" />
+</div>
+
+<p>In order to run the program, we just click on the <em>Start</em> button at the toolbar, or press <code class="language-plaintext highlighter-rouge">F5</code>, or <code class="language-plaintext highlighter-rouge">Ctrl + F5</code> if you want the program to stop after finishing, before closing the terminal.</p>
+
+<h3 id="2-keybindings">2. Keybindings</h3>
+
+<p>In the following tables you can see some of the most common Visual Studio shortcuts or keybindings (under Windows).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>Create a new project.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>Create a new file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">S</code></td>
+      <td>Save current file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">S</code></td>
+      <td>Save every open file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">C</code>/<code class="language-plaintext highlighter-rouge">V</code>/<code class="language-plaintext highlighter-rouge">X</code></td>
+      <td>Copy, paste and cut text.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Z</code></td>
+      <td>Undo last action.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Y</code></td>
+      <td>Redo last undone action.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">F</code></td>
+      <td>Show search dialog.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">H</code></td>
+      <td>Show replace dialog.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">L</code></td>
+      <td>Remove line.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">R</code></td>
+      <td>Rename selected element.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F5</code>/<code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">F5</code></td>
+      <td>Run application with/without debugging.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">B</code></td>
+      <td>Rebuild the project.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F11</code>/<code class="language-plaintext highlighter-rouge">F10</code></td>
+      <td>Step into function / next step (in <em>debug</em> mode).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">F11</code></td>
+      <td>Exit function (in <em>debug</em> mode).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Regarding MacOSX, you must replace <code class="language-plaintext highlighter-rouge">Ctrl</code> key with <code class="language-plaintext highlighter-rouge">Cmd</code> key.</p>
+
+<h3 id="3-other-features">3. Other features</h3>
+
+<p>There are other settings that can be set up from <em>Tools &gt; Options</em> menu. For instance, we can show/hide the line numbers from the <em>Text editor</em> subsection, for each specific language (C#, Basic…), or the indentation vertical lines to easily see the boundaries of an <code class="language-plaintext highlighter-rouge">if</code> or <code class="language-plaintext highlighter-rouge">for</code> statement…</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

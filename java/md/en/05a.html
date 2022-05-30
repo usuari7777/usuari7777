@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object oriented programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Object oriented programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="05a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/05a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object oriented programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Object oriented programming","url":"http://nachoiborraies.github.io/java/md/en/05a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="object-oriented-programming">Object oriented programming</h1>
+
+<h2 id="classes-and-objects-in-java">Classes and objects in Java</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>When we talk about Object Oriented Programming (OOP), we are talking about a new approach to face software projects, in which we don’t focus on what the program must do, but in which elements are part of the system, and how they interact. These elements are categorized in classes, and from each class we create objects in the program. In this document we will explain what a class is, and how to define them in Java to create objects.</p>
+
+<h3 id="1-classes-and-objects">1. Classes and objects</h3>
+
+<p>Let’s suppose that we are going to implement an application for bookshop management. In this library there are many books, and each one has an author, and some basic information about the book (title, number of pages, price…). The library has many registered users or customers that want to buy some books.</p>
+
+<p>If we start thinking how to implement this application with the elements that we have learnt so far, we would define some variables to store the information: maybe a string array to store book titles, another string array to store customer names… and so on. And then, we would define the functions to search for a book in the array, to look for user data to login…</p>
+
+<p>Object oriented programming changes the starting point of view of this project. Instead of thinking about functionality (book search, user login…) we just think about the different elements that will be part of the project. In this case, our application will have books, authors, customers… these elements will be the <strong>classes</strong> of our project. In other words, classes are templates that categorize the different elements of the application.</p>
+
+<p>For each class, we need to store some useful information. For instance, for every book we need to know the title, number of pages and price. This information are the <strong>attributes</strong> of each class. Once we know the attributes of a class, we can create <strong>objects</strong> of this class. An object is a concrete instance or representation of a class. We could create a book with a concrete title (e.g. “Ender’s game”), a concrete number of pages (e.g. 321), and so on. And there can be many objects of a class when our application is running (in our case, we could have many books created in our bookshop). In the same way, we could define the attributes of the rest of classes (customers, authors…) and instantiate objects of each class.</p>
+
+<p>Every object in the application may need to do some operations. For instance, we may need to print the information of a book in the screen, and customers may need to search for books, or buy them. These operations are called <strong>methods</strong> of this class.</p>
+
+<p>So with object oriented programming we need to identify these elements of the application, and define the classes to represent them. Later, we will be able to create or instantiate objects of each class. Let’s see how to do this in Java.</p>
+
+<h3 id="2-defining-classes-in-java">2. Defining classes in Java</h3>
+
+<p>As you have seen before, every piece of code in Java is encapsulated in a class. We define classes in Java through the <code class="language-plaintext highlighter-rouge">class</code> word, asigning each class a name (usually in upper case). We usually place every class in its own source file, and this class must be public.</p>
+
+<p>Inside the class code, we can place the attributes of the class, also called <em>instance variables</em>. These variables are part of the class. For instance, this way we could define a <code class="language-plaintext highlighter-rouge">Book</code> class for our bookshop, with its own attributes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="21-creating-objects">2.1. Creating objects</h4>
+
+<p>Once we have defined our class(es), we can create objects of them. In order to do this, we need to declare a variable of the same type of the class, and use the <code class="language-plaintext highlighter-rouge">new</code> operator to create the object:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>At this point, <code class="language-plaintext highlighter-rouge">myBook</code> becomes an object of class <code class="language-plaintext highlighter-rouge">Book</code>, and it contains every attribute defined in this class. We can access each attribute using the <code class="language-plaintext highlighter-rouge">.</code> operator, and then check or modify its value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+<span class="n">myBook</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="s">"Ender's game"</span><span class="o">;</span>
+<span class="n">myBook</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="mi">321</span><span class="o">;</span>
+<span class="n">myBook</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="mf">11.95</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can place this code in another class and do some more things with this object:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BookExample</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="s">"Ender's game"</span><span class="o">;</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="mi">321</span><span class="o">;</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="mf">11.95</span><span class="o">;</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">myBook</span><span class="o">.</span><span class="na">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">myBook</span><span class="o">.</span><span class="na">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">myBook</span><span class="o">.</span><span class="na">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: <code class="language-plaintext highlighter-rouge">main</code> method is usually defined in another class apart from the elements of the program. It makes sense, since this method does not belong to any of these classes.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTE</strong>: in Java, every source file must have a <em>public</em> class with the same name than the source file. In other words, if we create a source file called <code class="language-plaintext highlighter-rouge">MyClass.java</code>, there must be a public class called <code class="language-plaintext highlighter-rouge">MyClass</code> in this source file. There can be also other (non public) classes there, although this is not usual, unless we just want one source file in our project. In this case, the class with the <em>main</em> function must be the public class in the file.</p>
+</blockquote>
+
+<h3 id="3-defining-more-class-elements">3. Defining more class elements</h3>
+
+<h4 id="31-using-methods">3.1. Using methods</h4>
+
+<p>If we think a little bit about previous example, what if we want to print the information of many books? We could either:</p>
+
+<ul>
+  <li>Repeat the <code class="language-plaintext highlighter-rouge">System.out.println</code> instructions for every book</li>
+  <li>Define a function in <code class="language-plaintext highlighter-rouge">BookExample</code> class to be called whenever we want to print the information of a book. In this case, we should pass the book as a parameter to this function in order to print the information.</li>
+</ul>
+
+<p>But there’s one more option that we have not used by now. What if every book is in charge of printing its own information? This way, we could define a function inside <code class="language-plaintext highlighter-rouge">Book</code> class, and access directly to the information of each book:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, our <em>main</em> class just needs to call this function (which is a <strong>method</strong> of <code class="language-plaintext highlighter-rouge">Book</code> class) to invoke this behavior:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BookExample</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="s">"Ender's game"</span><span class="o">;</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="mi">321</span><span class="o">;</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="mf">11.95</span><span class="o">;</span>
+
+        <span class="n">myBook</span><span class="o">.</span><span class="na">printInformation</span><span class="o">();</span>
+
+        <span class="nc">Book</span> <span class="n">myBook2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+        <span class="n">myBook2</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="s">"The never ending story"</span><span class="o">;</span>
+        <span class="n">myBook2</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="mi">525</span><span class="o">;</span>
+        <span class="n">myBook2</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="mf">14.15</span><span class="o">;</span>
+
+        <span class="n">myBook2</span><span class="o">.</span><span class="na">printInformation</span><span class="o">();</span>        
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that methods are just functions belonging to a class. In this case, we don’t need to use the <code class="language-plaintext highlighter-rouge">static</code> modifier (we will see in later documents what <em>static</em> really means). This is an <em>instance method</em>, this is, every object or instance of the class has its own method and this method access current object’s information.</p>
+
+<h4 id="32-constructors">3.2. Constructors</h4>
+
+<p>Let’s go back to previous example. What if our book had 10 o 20 attributes? Do we have to manually set every attribute every time we instantiate an object? Fortunately, the answer to this question is NO. We can use <strong>constructors</strong> to initialize the objects when we create them. They have the same name than the class to which they belong, and they are defined like a method, but they don’t have any return type.</p>
+
+<p>Inside the code of a constructor, we typically assign initial values to instance variables or attributes, and call any other method that may be useful at the beginning of the object’s lifetime.</p>
+
+<p>Let’s go on with our <code class="language-plaintext highlighter-rouge">Book</code> class. In this case, we are going to add a constructor with no parameters, also known as <strong>default constructor</strong>. We will use it whenever we need to create an object of this class.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="c1">// Default constructor</span>
+    <span class="nc">Book</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">BookExample</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+        <span class="n">myBook</span><span class="o">.</span><span class="na">printInformation</span><span class="o">();</span>
+
+        <span class="nc">Book</span> <span class="n">myBook2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">();</span>
+        <span class="n">myBook2</span><span class="o">.</span><span class="na">printInformation</span><span class="o">();</span>        
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The output that we would get in this case is different, since we have not set the instance variables manually, but through the default constructor, so all of them are empty strings or 0.</p>
+
+<p>In some cases, we may need to assign some non-default values to the instance variables, so we use a constructor with parameters. Typically, each parameter corresponds to an instance variable or attribute.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="c1">// Default constructor</span>
+    <span class="nc">Book</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Parameterized constructor</span>
+    <span class="nc">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">t</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">float</span> <span class="n">p</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Using this constructor, we would create a <code class="language-plaintext highlighter-rouge">Book</code> object as follows:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"Ender's game"</span><span class="o">,</span> <span class="mi">321</span><span class="o">,</span> <span class="mf">11.95</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>We can have as many constructors as we need. All of them will have the same name (the class name), but they will have different parameters.</p>
+
+<h4 id="33-visibility-and-encapsulation">3.3. Visibility and encapsulation</h4>
+
+<p>Visibility is something essential in object oriented programming. It establishes which elements are visible from which other classes of our code. This is managed through <strong>access modifiers</strong>, special words that we can place before any attribute or method of our class (including constructors) to determine their visibility. To begin with, there are two main types of visibility:</p>
+
+<ul>
+  <li><strong>public</strong>: we will be able to access this member directly from any part of the code, including any other class.</li>
+  <li><strong>private</strong> modifier, we would only be able to access this member from other members of the same class. Out of this class, this member is not visible.</li>
+</ul>
+
+<p>Additionally, there are two more modifiers that we can use in Java applications:</p>
+
+<ul>
+  <li><strong>protected</strong>: we will use this modifier later, when we talk about inheritance.</li>
+  <li><em>package</em>: this is the default modifier if we don’t use any. It means that every class from the same package can access this element. If we place many classes in the same source file, they belong to the same package, so we can access any <em>package</em> element of any of these classes.</li>
+</ul>
+
+<p>In general, class attributes should be defined as private, so that they can’t be modified accidentally from other classes. However, class methods are usually public, so they can be called from any other class. Our <code class="language-plaintext highlighter-rouge">Book</code> class should be defined like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="c1">// Default constructor</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Parameterized constructor</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">t</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">float</span> <span class="n">p</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, lets try to modify our <em>main</em> function. If we try to do something like this now, we will get a compilation error:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BookExample</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"Ender's game"</span><span class="o">,</span> <span class="mi">321</span><span class="o">,</span> <span class="mf">11.95</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This book is "</span> <span class="o">+</span> <span class="n">myBook</span><span class="o">.</span><span class="na">title</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The problem is that <code class="language-plaintext highlighter-rouge">title</code> attribute is private, so we can’t access it from <code class="language-plaintext highlighter-rouge">BookExample</code> class. We need a way to access object’s information from outer classes.</p>
+
+<h5 id="331-getters-and-setters">3.3.1. Getters and setters</h5>
+
+<p>There’s a specific set of methods that we can implement to access information. These methods are called <strong>getters and setters</strong> and we can use them to either get or modify each attribute. In general, <em>getters</em> are defined with <em>get</em> prefix followed by the attribute name to which they refer. These would be the <em>getters</em> for our <code class="language-plaintext highlighter-rouge">Book</code> class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="c1">// Default constructor</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Parameterized constructor</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">t</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">float</span> <span class="n">p</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Getters</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTitle</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumPages</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getPrice</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As you can see, each <em>getter</em> method just returns the associated attribute. We can use them in previous example to access book information:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BookExample</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Book</span> <span class="n">myBook</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"Ender's game"</span><span class="o">,</span> <span class="mi">321</span><span class="o">,</span> <span class="mf">11.95</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This book is "</span> <span class="o">+</span> <span class="n">myBook</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the same way, <em>setters</em> let us modify the values of the attributes in a safe way. What if we try to assign a negative number of pages? Setter method can take care of this, and make sure that the value we are assigning is correct:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="c1">// Default constructor</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Parameterized constructor</span>
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">t</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">float</span> <span class="n">p</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+        <span class="n">numPages</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">price</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Getters</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTitle</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNumPages</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getPrice</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Setters</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span><span class="nc">String</span> <span class="n">t</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNumPages</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">numPages</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">double</span> <span class="n">p</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="n">price</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that, for <em>numPages</em> and <em>price</em> attributes, we check if new value to be assigned (which is passed as a parameter to the method) is correct. This way, we protect the attribute from wrong values. This is called <strong>encapsulation</strong> (hide private attribute and only allow the access through getters and setters). We can even use these <em>setters</em> from the constructors, to make sure we also assign correct values there:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">t</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">float</span> <span class="n">p</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">t</span><span class="o">;</span>
+    <span class="n">setNumPages</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+    <span class="n">setPrice</span><span class="o">(</span><span class="n">p</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a source file called <strong>TeamsExample.java</strong>. Define a class called <code class="language-plaintext highlighter-rouge">Team</code> with some specific information about the teams, such as the team name and the foundation year. Add a constructor to this class to specify both attributes, and the corresponding getters and setters. Then, define a main class called <code class="language-plaintext highlighter-rouge">TeamsExample</code> with a main function that creates a <em>Team</em> object with the values of your choice, and prints the information in the screen.</p>
+</blockquote>
+
+<h3 id="4-other-aspects-regarding-classes-and-objects">4. Other aspects regarding classes and objects</h3>
+
+<p>To finish with this introduction to class management in Java, let’s check some additional concepts related with class definition and object instantiation.</p>
+
+<h4 id="41-more-about-constructors-and-attributes">4.1. More about constructors and attributes</h4>
+
+<p>If we don’t define any constructor in our class, Java automatically adds a default constructor (with no code nor parameters), so that we can instantiate objects of our class anyway. For instance, if we have this simple class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> 
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can create a <code class="language-plaintext highlighter-rouge">Person</code> object like this, even if we have not specified such constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>However, if we set any constructor in our class, then this default constructor that has been automatically added is no longer available. In other words, if we add this constructor to previous class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> 
+<span class="o">{</span>
+
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">a</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then we are forced to instantiate objects of our class with this constructor (or any other constructor that we have explicitly declared):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>   <span class="c1">// OK</span>
+<span class="nc">Person</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">();</span>             <span class="c1">// ERROR!</span>
+</code></pre></div></div>
+
+<h5 id="411-default-values-for-attributes">4.1.1. Default values for attributes</h5>
+
+<p>If we don’t assign any value to a class attribute, it gets a default value depending on the data type. For numeric values (integers or real numbers), this value is <code class="language-plaintext highlighter-rouge">0</code>. Regarding characters, this value is the first character code <code class="language-plaintext highlighter-rouge">'\u0000'</code>. Strings get <code class="language-plaintext highlighter-rouge">null</code> as its default value, and boolean variables are <code class="language-plaintext highlighter-rouge">false</code> by default.</p>
+
+<p>However, it is not a good practice to rely on these default values in our programs. It is better to assign an initial value to our variables instead.</p>
+
+<blockquote>
+  <p><strong>NOTE</strong>: these default values are NOT applied to local variables. In other words, if we declare an integer variable inside a function or method, it will not be assigned a default value, and we will get a compilation error if we don’t assign it an appropriate one. But, if we declare an <strong>array</strong> of integer values, they will all be set to 0 initially, even if the array is local to a method.</p>
+</blockquote>
+
+<h4 id="42-using-this">4.2. Using <em>this</em></h4>
+
+<p>In every class that we are implementing, we can use the reserved word <strong>this</strong> to refer to any internal element of the class, either an attribute, a method or a constructor. Its main typical use relies on constructors, to distinguish between the attributes and the constructor parameter(s) when they have the same name:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="n">numPages</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<p>But we can also use <code class="language-plaintext highlighter-rouge">this</code> in any other part of our code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span> 
+<span class="o">{</span>
+
+    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">double</span> <span class="n">price</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">price</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Keep in mind that the usage of this is (usually) optional, but many IDEs generate code templates using this pattern, so you should get used to it.</p>
+
+<h4 id="43-arrays-of-objects">4.3. Arrays of objects</h4>
+
+<p>We can define an array of objects of a class, like we did with primitive data in previous sections. For instance, this is how we would create an array to store up to 10 books:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Book</span><span class="o">[]</span> <span class="n">books</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+</code></pre></div></div>
+
+<p>However, we need to instantiate (create) a new object for every position of the array in order to add it to this position:</p>
+
+<pre><code class="language-Java">books[0] = new Book("Ender's game", 321, 11.95);
+books[1] = new Book("The never ending story", 525, 14.15);
+...
+
+// Or with a loop:
+for (int i = 0; i &lt; books.length; i++)
+{
+    books[i] = new Book(...);
+}
+</code></pre>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program called <strong>VideoGameList.java</strong> to store objects of a class called <code class="language-plaintext highlighter-rouge">VideoGame</code> that you must define. For each videogame, we are going to store its title, genre and price. Add also the corresponding getters, setters and constructor to set these values. Define a main, public class called <code class="language-plaintext highlighter-rouge">VideoGameList</code> in the same source file. Then, in the <em>main</em> method of this class, create an array of 5 video games, ask the user to fill de information of each videogame, and then show the title of the cheapest and the most expensive video game of the array.</p>
+</blockquote>
+
+<h3 id="5-class-diagrams-in-java">5. Class diagrams in Java</h3>
+
+<p>Class diagrams are a powerful tool in software engineering in order to graphically represent the classes of a project and their relationships. You can learn more about class diagrams <a href="https://nachoiborraies.github.io/entornos/md/en/04e">here</a>. As you can see, classes in these diagrams are represented by a box divided in 3 sections: one to specify the class name, another one for the attributes, and the last one for the methods (including constructors):</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema04-EstructuraClaseUML_en.png" />
+</div>
+
+<p>In order to specify each attribute or method, we can set its visibility using the <code class="language-plaintext highlighter-rouge">+</code> and <code class="language-plaintext highlighter-rouge">-</code> symbols (representing <em>public</em> and <em>private</em> visibility, respectively). This is how we could represent a <code class="language-plaintext highlighter-rouge">BankAccount</code> class with basic information and methods:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema04-ejemplo_clase_en.png" />
+</div>
+
+<p>Regarding Java, we also need to specify the data type of each attribute, along with the type of every method (including parameters and return type). This is an example of our <code class="language-plaintext highlighter-rouge">Book</code> class represented in a class diagram:</p>
+
+<div align="center">
+    <img src="../../img/05_book_class.png" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Complete the class diagrams proposed along <a href="https://nachoiborraies.github.io/entornos/md/en/04e">this document</a>, including Java data types for every attribute, constructor or method.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

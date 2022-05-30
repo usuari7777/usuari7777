@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functions and error handling | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Functions and error handling" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/04b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/04b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functions and error handling" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Functions and error handling","url":"http://nachoiborraies.github.io/java/md/en/04b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="functions-and-error-handling">Functions and error handling</h1>
+
+<h2 id="useful-java-functions">Useful Java functions</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/04b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/04b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this document we are going to learn some useful functions provided by Java core, that we can use in our programs.</p>
+
+<h3 id="1-math-functions">1. Math functions</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Math</code> element from Java JDK provides a set of useful functions to do some mathematical operations. Here you can see some of the most useful ones:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Math.sqrt(n)</code> returns the square root of the parameter <em>n</em> provided. It returns a <code class="language-plaintext highlighter-rouge">double</code> value.</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.pow(b, e)</code> returns the value of the first argument <em>b</em> raised to the power of the second argument <em>e</em>. It also returns a <code class="language-plaintext highlighter-rouge">double</code> value.</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.abs(n)</code> returns the absolute value of the number <em>n</em>, in the same data type of <em>n</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.log(n)</code> returns the natural logarithm (base e) of a double value.</li>
+  <li>…</li>
+</ul>
+
+<p>You can check all the functions available in the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html">official documentation</a> of this element.</p>
+
+<blockquote>
+  <p><strong>Exercise 1</strong></p>
+
+  <p>Create a program called <strong>Equation.java</strong> that tries to solve a 2nd degree equation ax^2 + bx + c = 0, given the values of <em>a</em>, <em>b</em> and <em>c</em>. Here you can see the general formula:</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/04_equation.jpg" width="40%" />
+</div>
+
+<h3 id="2-generating-random-numbers">2. Generating random numbers</h3>
+
+<p>Random numbers are really useful in some particular kind of programs, such as some simple games (lottery, bingo, board games…). We can generate them in Java in two different ways.</p>
+
+<h4 id="21-using-mathrandom">2.1. Using Math.random</h4>
+
+<p>We can use <code class="language-plaintext highlighter-rouge">Math.random()</code> function. It returns a random double value between 0 and 1 (1 is not included). So we can use it to just generate a double value in this range:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">randomValue</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>If we want to generate a random number for a wider range, we can just multiply the result by this range, and even typecast the result. This code generates a random integer between 0 and 10 (excluding 10):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">randomValue</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">*</span> <span class="mi">10</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Finally, if we want to move the range to another interval, we just need to sum or substract an initial value. This example generates a number between 20 and 30 (excluding 30):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">randomValue</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">+</span> <span class="o">(</span><span class="kt">int</span><span class="o">)(</span><span class="nc">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span> <span class="o">*</span> <span class="mi">10</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="22-using-random">2.2. Using Random</h4>
+
+<p>Alternatively, we can use <code class="language-plaintext highlighter-rouge">Random</code> data type to generate random values. First of all, we need to import this class (<code class="language-plaintext highlighter-rouge">java.util.Random</code>). Then, we need to initialize a <em>Random</em> variable (this step must be done only ONCE in the program execution), and then we can generate as many random values as we need. To do this, we can use methods such as <code class="language-plaintext highlighter-rouge">nextInt</code> inside the random variable, defining the interval for the number to be generated.</p>
+
+<p>This example generates a random number between 0 and 5 (5 is not included):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">randomValue</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This example generates a random integer between 10 and 20 (20 is not included):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">randomValue</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>You can learn more about <em>Random</em> elementos in the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html">official API</a>.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program called <strong>NumberGuess.java</strong> that generates a random number between 1 and 50 (both included) and give the user 5 attempts to guess the number. After each attempt, the program must inform the user if the secret number is greater or lower than the one specified by the user.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

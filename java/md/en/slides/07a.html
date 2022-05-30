@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>File management</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## File management
+### Accessing text files
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Introduction
+
+- Text files are an easy way to store data in an application
+- Java provides some classes in **java.io** package
+- **Reader** is the abstract, parent class to read from files
+- **Writer** is the abstract, parent class to write into files
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Steps when dealing with text files
+
+- Manage exceptions:
+   - *IOException* 
+   - *FileNotFoundException* (subtype of previous one)
+- Close files when finished (*close()* method)
+   - Essential when we write content into files
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Writing in text files
+
+- We can use **PrintWriter** class (subtype of *Writer*)
+- It has methods such as **print**, **println** or **printf**, similar to the ones that we use in the console
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Writing in text files
+
+Example
+
+```java
+import java.io.*;
+
+public class PrintWriter1 
+{
+    public static void main(String[] args) 
+    {
+        try 
+        {
+            PrintWriter printWriter = new PrintWriter ("example.txt");
+            printWriter.println ("Hello!");
+            printWriter.println ("Goodbye!");
+            printWriter.close ();
+        }
+        catch (IOException e) 
+        {
+            System.err.println("Error writing file: " + e.getMessage());
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using finally
+
+- If an exception is thrown, the *close* operation is not executed
+- We can place everything that we need to be executed in a **finally** clause after the *catch* section
+- This new section will always be executed (whether the code works or fails)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using finally
+
+```java
+PrintWriter printWriter = null;
+try 
+{
+    printWriter = new PrintWriter ("example.txt");
+    printWriter.println ("Hello!");
+    printWriter.println ("Goodbye!");
+}
+catch (IOException e) 
+{
+    System.err.println("Error writing file: " + e.getMessage());
+}
+finally 
+{
+    if (printWriter != null) 
+    {
+        printWriter.close();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Appending text
+
+We use another constructor of *PrintWriter* with a boolean parameter
+
+```java
+PrintWriter printWriter = null;
+try 
+{
+    printWriter = new PrintWriter(new BufferedWriter(
+        new FileWriter("example.txt", true)));
+    printWriter.println ("Hello again!");
+    printWriter.println ("Goodbye!");
+}
+catch (IOException e) 
+{
+    System.err.println("Error writing file: " + e.getMessage());
+}
+finally 
+{
+    if (printWriter != null)  
+    {
+        printWriter.close();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Auto closing files
+
+- There's an interface in Java called *AutoCloseable*
+- Everything that implements this interface can be auto closed
+   - *PrintWriter* implements it
+- We just need to open the resource inside the *try* clause
+   - This is called *try-with-resources*
+- Then we can omit the *close* method and even the *finally* clause
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Auto closing files
+
+```java
+try (PrintWriter printWriter = new PrintWriter ("example.txt"))
+{
+    printWriter.println ("Hello!");
+    printWriter.println ("Goodbye!");
+}
+catch (IOException e) 
+{
+    System.err.println("Error writing file: " + e.getMessage());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do **Exercises 1 to 5** from the document attached to these slides
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reading from text files
+
+- **BufferedReader** is a subtype of *Reader* class that lets us read a text file line by line
+- We use **readLine** method until we get null as response (this is the end of file)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reading from text files
+
+```java
+BufferedReader inputFile = null;
+
+try 
+{
+    inputFile = new BufferedReader(
+            new FileReader(new File("example.txt")));
+
+    String line = inputFile.readLine();
+    while (line != null) 
+    {
+        System.out.println(line);
+        line = inputFile.readLine();
+    }
+}
+catch (IOException fileError) 
+{
+    System.err.println(
+        "Error reading file: " +
+        fileError.getMessage() );
+}
+finally
+{
+    try
+    {
+        inputFile.close();
+    } catch (Exception e) {}
+}
+
+System.out.println("Reading finished.");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reading from text files
+
+A more compact and less error-prone example
+
+```java
+try (BufferedReader inputFile = new BufferedReader(
+    new FileReader(new File("example.txt"))))
+{
+    String line = null;
+    while ((line = inputFile.readLine()) != null) 
+    {
+        System.out.println(line);
+    }
+}
+catch (IOException fileError) 
+{
+    System.err.println("Error reading file: " +
+        fileError.getMessage() );
+}
+
+System.out.println("Reading finished.");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Checking if file exists
+
+- This is a good option when reading files
+- We make sure that file exists before reading it
+- We can catch *FileNotFoundException* anyway and omit this step
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Checking if file exists
+
+```java
+if (! (new File("example.txt")).exists() ) 
+{
+    System.err.println("File example.txt not found");
+}
+else
+{
+    // Read the file normally
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do **Exercises 6 to 10** from the document attached to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Reading char by char
+
+If we don't want to read the file line by line, we can try this:
+
+```java
+int charRead;
+
+try(FileReader reader = new FileReader("example.txt"))
+{
+    do
+    {
+        charRead = reader.read();
+        if (charRead != -1)
+            System.out.println((char)charRead);
+    }
+    while(charRead != -1);
+}
+catch (IOException ex)
+{
+    System.err.println("Error readig file: " + ex.getMessage());
+}
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

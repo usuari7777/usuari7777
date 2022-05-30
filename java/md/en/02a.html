@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Control structures | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Control structures" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="02a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/02a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Control structures" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Control structures","url":"http://nachoiborraies.github.io/java/md/en/02a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="control-structures">Control structures</h1>
+
+<h2 id="boolean-type-and-operators">Boolean type and operators</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this section we are going to talk about the basics of structured programming using logical information. So, we are going to introduce the boolean data types that lets us check some conditions and decide which piece of code we should run next. This way, we can choose among different results depending on a given input condition, or even repeat the execution of a given piece of code many times without having to re-type it again.</p>
+
+<h3 id="1-boolean-data-type">1. Boolean data type</h3>
+
+<p>Boolean data type is another basic data type (just like integers, characters or floating point numbers) that lets us represent two opposite values: <em>true</em> and <em>false</em>. In Java, this data type is represented by the word <code class="language-plaintext highlighter-rouge">boolean</code>. We can declare variables of this type, and also assign an initial value to them (from the range <code class="language-plaintext highlighter-rouge">true</code> and <code class="language-plaintext highlighter-rouge">false</code>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can even read boolean values from user input, using <code class="language-plaintext highlighter-rouge">nextBoolean</code> method from the <em>Scanner</em> variable. In this case, user must type <em>true</em> or <em>false</em> in the keyboard, which is not very intuitive.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextBoolean</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="2-some-additional-operators">2. Some additional operators</h3>
+
+<p>Related with this boolean data type, there are some Java operators that we can use. In this section we are going to talk about relational and logical operators.</p>
+
+<h4 id="21-relational-operators">2.1. Relational operators</h4>
+
+<p>Relational operators let us compare two different values, and check if one of them is greater, or lower, or equal than the other. This is the complete list of relational operators:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td>Greater than</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;=</code></td>
+      <td>Greater or equal than</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>Lower than</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;=</code></td>
+      <td>Lower or equal than</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">==</code></td>
+      <td>Equal to</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!=</code></td>
+      <td>Not equal to</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that, if we want to check if two values are equal, we use <code class="language-plaintext highlighter-rouge">==</code> comparator instead of just <code class="language-plaintext highlighter-rouge">=</code>, which is used for assignment purposes. We can join these operators with boolean values to determine if some comparisons are true or false:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="kt">boolean</span> <span class="n">check1</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">;</span>     <span class="c1">// true</span>
+<span class="kt">boolean</span> <span class="n">check2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">10</span><span class="o">;</span>   <span class="c1">// false</span>
+</code></pre></div></div>
+
+<p>Regarding strings, we can’t use these comparators, because they don’t work as expected (our program compiles, but results may be unpredictable). If we want to check if two strings are the same, we use <code class="language-plaintext highlighter-rouge">equals</code> instruction instead of <code class="language-plaintext highlighter-rouge">==</code> comparator:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">"Hello"</span><span class="o">;</span>
+
+<span class="kt">boolean</span> <span class="n">check1</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">==</span> <span class="s">"Hello"</span><span class="o">;</span>      <span class="c1">// Does not work as expected</span>
+<span class="kt">boolean</span> <span class="n">check2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span> <span class="c1">// OK</span>
+</code></pre></div></div>
+
+<p>We’ll learn more about how to deal with string values in later sections.</p>
+
+<h4 id="22-logical-operators">2.2. Logical operators</h4>
+
+<p>Logical operators join two or more simple comparisons to build a complex one. This way we can check if every comparison in the list is true, or at least one of them. The final result of this complex expression is also a boolean value. This is the list of logical operators:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&amp;&amp;</code></td>
+      <td>AND operator</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">||</code></td>
+      <td>OR operator</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!</code></td>
+      <td>NOT operator</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Regarding <strong>AND operator</strong> <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, it joins two comparisons, so that the final result will be true if both comparisons are true. Otherwise it will be false:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+
+<span class="kt">boolean</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span>   <span class="c1">// true &amp;&amp; true = true</span>
+<span class="kt">boolean</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">;</span>   <span class="c1">// true &amp;&amp; false = false</span>
+</code></pre></div></div>
+
+<p><strong>OR operator</strong> <code class="language-plaintext highlighter-rouge">||</code> also joins two comparisons, but in this case the final result will be true if any of the comparisons joined (or both) are true:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+
+<span class="kt">boolean</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">||</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">;</span>   <span class="c1">// true || false = true</span>
+<span class="kt">boolean</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="o">||</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">;</span>   <span class="c1">// false || false = false</span>
+</code></pre></div></div>
+
+<p>Finally, the <strong>NOT operator</strong> <code class="language-plaintext highlighter-rouge">!</code> is a unary operator, this is, it affects only one expression (not two), and changes the value of this expression (this is, if the expression was true, the final result is false, and vice versa).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+<span class="n">bool</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">;</span>    <span class="c1">// true</span>
+<span class="n">bool</span> <span class="n">c2</span> <span class="o">=</span> <span class="o">!</span><span class="n">c1</span><span class="o">;</span>      <span class="c1">// false</span>
+</code></pre></div></div>
+
+<p>The <strong>precedence</strong> of these operators is important:</p>
+
+<ol>
+  <li>First of all, we evaluate every expression between <strong>parentheses</strong></li>
+  <li>Then, we evaluate <strong>NOT</strong> operators</li>
+  <li>Next, we check <strong>AND</strong> operators</li>
+  <li>Finally, we look for <strong>OR</strong> operators</li>
+</ol>
+
+<p>Also, you must take into account that both AND and OR operators work in <em>short circuit</em> mode. This means that:</p>
+
+<ul>
+  <li>Regarding AND operator, if the first expression is <em>false</em>, second expression is not checked (final result will be <em>false</em> anyway)</li>
+  <li>Regarding OR operator, if the first expression is <em>true</em>, second expression is not checked (final result will be <em>true</em> anyway).</li>
+</ul>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Try to guess the final result of these expressions <code class="language-plaintext highlighter-rouge">e1</code>, <code class="language-plaintext highlighter-rouge">e2</code> and <code class="language-plaintext highlighter-rouge">e3</code>. You can then write a short program to check your answers:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="o">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
+
+<span class="kt">boolean</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">8</span><span class="o">;</span>
+<span class="kt">boolean</span> <span class="n">e2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">8</span><span class="o">);</span>
+<span class="kt">boolean</span> <span class="n">e3</span> <span class="o">=</span> <span class="o">!(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">5</span> <span class="o">||</span> <span class="n">c</span> <span class="o">==</span> <span class="mi">8</span><span class="o">);</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

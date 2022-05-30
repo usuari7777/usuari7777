@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Concurrent programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Concurrent programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/14g.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/14g.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Concurrent programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Concurrent programming","url":"http://nachoiborraies.github.io/java/md/en/14g.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="concurrent-programming">Concurrent programming</h1>
+
+<h2 id="threads-in-javafx-applications">Threads in JavaFX applications</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/14g.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/14g.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>When we develop a graphical application in a given Java library, such as Swing, JavaFX or even an Android application, we have to keep in mind that they all use a <strong>single thread to process all UI events</strong>. This is because the controls or nodes that we put on a scene are not thread-safe, so they are fast (since they do not need any synchronization mechanism), but they need to be accessed from a single thread. In the case of JavaFX, for instance, this thread must be the main JavaFX application thread. As a consequence of this, there should not be any long running task in this main application thread, because the whole application would hang until this task finishes.</p>
+
+<p>This problem does not apply to animations in JavaFX. When we use a transition class, or a <code class="language-plaintext highlighter-rouge">KeyFrame</code> and <code class="language-plaintext highlighter-rouge">Timeline</code> classes to define a transition, they manage their own threads to perform the animation out of the main application thread, and we can interact with the application while the animation runs.</p>
+
+<h3 id="1-introducing-the-problem">1. Introducing the problem</h3>
+
+<p>Let’s see this problem with a JavaFX example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example_JavaFXThreads</span> <span class="kd">extends</span> <span class="nc">Application</span>
+<span class="o">{</span>
+    <span class="c1">// Copy progress</span>
+    <span class="kt">int</span> <span class="n">progress</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">launch</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="nc">Stage</span> <span class="n">primaryStage</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Label</span> <span class="n">lblProgress</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Label</span><span class="o">(</span><span class="s">""</span><span class="o">);</span>
+        <span class="nc">Button</span> <span class="n">btnStart1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Button</span><span class="o">(</span><span class="s">"Start copy (1)"</span><span class="o">);</span>
+
+        <span class="n">btnStart1</span><span class="o">.</span><span class="na">setOnAction</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> 
+        <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">progress</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">progress</span><span class="o">++)</span>
+            <span class="o">{</span>
+                <span class="k">try</span>
+                <span class="o">{</span>
+                    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                    <span class="n">lblProgress</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">progress</span><span class="o">*</span><span class="mi">10</span><span class="o">)</span> 
+                                            <span class="o">+</span> <span class="s">"% completed"</span><span class="o">);</span> 
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+
+        <span class="nc">VBox</span> <span class="n">vb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">VBox</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+        <span class="n">vb</span><span class="o">.</span><span class="na">setAlignment</span><span class="o">(</span><span class="nc">Pos</span><span class="o">.</span><span class="na">CENTER</span><span class="o">);</span>
+        <span class="n">vb</span><span class="o">.</span><span class="na">getChildren</span><span class="o">().</span><span class="na">addAll</span><span class="o">(</span><span class="n">lblProgress</span><span class="o">,</span> <span class="n">btnStart1</span><span class="o">);</span>
+        <span class="nc">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">vb</span><span class="o">,</span> <span class="mi">300</span><span class="o">,</span> <span class="mi">400</span><span class="o">);</span>
+        <span class="n">primaryStage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">scene</span><span class="o">);</span>
+        <span class="n">primaryStage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The application of the example simulates the copy of a large file, and when we press the <em>Start copy (1)</em> button, a message is printed every second showing the percentage of file that has been copied for now. If we try to run the application and we click on the <em>Start copy (1)</em> button, we will find out that:</p>
+
+<ul>
+  <li>The label does not update its percentage, as it should.</li>
+  <li>If we try to close the application while the task is running, it will not close.</li>
+</ul>
+
+<p>Why does this happen? As we have said before, all the event handling of the application runs on the main application thread. So, when it is sleeping and changing the label’s text in the event loop, nothing else is running (the whole application is waiting for this event to finish).</p>
+
+<h4 id="11-trying-to-solve-the-problem-first-attempt">1.1. Trying to solve the problem. First attempt</h4>
+
+<p>We could think that, to solve the problem shown in previous example, we could just call a thread that does the file copy and updates the label progress. Let’s do it. In order to keep the original program in its original version, we are going to add a new button, <em>Start copy (2)</em>, and we are going to create a thread in its <em>ActionEvent</em> to do the same task that we did before in the event handler of the first button.</p>
+
+<p>We would add the button with the event handler:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Button</span> <span class="n">btnStart2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Button</span><span class="o">(</span><span class="s">"Start copy (2)"</span><span class="o">);</span>
+
+<span class="c1">// "Start copy (2)" event: calling a thread to do the task</span>
+<span class="n">btnStart2</span><span class="o">.</span><span class="na">setOnAction</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Start2Thread</span><span class="o">(</span><span class="n">lblProgress</span><span class="o">);</span>
+    <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>And then we would add the thread class. We pass the <em>Label</em> as a parameter to have it accessible. In the <em>run</em> method we copy the same code that we used for the <em>btnStart1</em> event.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Start2Thread</span> <span class="kd">extends</span> <span class="nc">Thread</span>
+<span class="o">{</span>
+    <span class="c1">// Progress label to update its text</span>
+    <span class="nc">Label</span> <span class="n">lblProgress</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Start2Thread</span><span class="o">(</span><span class="nc">Label</span> <span class="n">lblProgress</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lblProgress</span> <span class="o">=</span> <span class="n">lblProgress</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">progress</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">progress</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="k">try</span>
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                <span class="n">lblProgress</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">progress</span><span class="o">*</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="s">"% completed"</span><span class="o">);</span> 
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we click on this second button, an <code class="language-plaintext highlighter-rouge">IllegalStateExcepcion</code> will be thrown. The reason is this line of code inside the <em>run</em> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lblProgress</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">progress</span><span class="o">*</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="s">"% completed"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>As we have said before, no one but the main application thread can access the UI, because its controls are not thread-safe.</p>
+
+<h4 id="12-trying-to-solve-the-problem-second-and-final-attempt">1.2. Trying to solve the problem. Second and final attempt</h4>
+
+<p>The problem when using a secondary thread is that we can’t access the UI elements from it. To avoid this, some libraries and frameworks such as JavaFX or Android provide some ways of passing tasks from those secondary threads to the main application. In our case, we need to pass to the main application the task of updating the <em>lblProgress</em> text. We can replace this line of code in the <em>run</em> method of our thread:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lblProgress</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">progress</span><span class="o">*</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="s">"% completed"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>with this line(s):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Platform</span><span class="o">.</span><span class="na">runLater</span><span class="o">(()</span> <span class="o">-&gt;</span> 
+   <span class="n">lblProgress</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">progress</span><span class="o">*</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="s">"% completed"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>We have introduced a new method: the <code class="language-plaintext highlighter-rouge">Platform.runLater</code> method, whose mission is to schedule the specified task(s) to be run on the main application thread at an unspecified moment in the future (we can’t control when). This way, whenever we are trying to update the status of a control from outside the main application thread, we can call this method to be sure that no exception will be thrown. We can check if we are on the main application thread or not by using the <code class="language-plaintext highlighter-rouge">isFxApplicationThread</code> method.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>My3Counters</strong>. It must have 3 buttons and 3 labels:</p>
+
+  <ul>
+    <li>A button with the text <em>From 1 to 10</em> that will start a thread that counts from 1 to 10, showing the current number in the corresponding label, and sleeping 1 second after showing each number.</li>
+    <li>A button with the text <em>From 1 to 5</em>, with its corresponding label, to count from 1 to 5 (1 number per second as well)</li>
+    <li>A button with the text <em>From 10 to 1</em>, with its corresponding label, to count from 10 to 1 (a number per second too).</li>
+  </ul>
+
+  <p>As soon as we click on a button, its corresponding counting will start, and the button will be disabled (use the setDisable method from the Button object). We may run the three tasks at the same time if we want to. Here you can see a screenshot of the application.</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/14_FX.png" width="25%" />
+</div>
+
+<h3 id="2-the-javafx-concurrency-framework">2. The JavaFX concurrency framework</h3>
+
+<p>The example shown before only uses the basics of a JavaFX application and the basics of thread handling that we have learnt so far, and it combines them to create a multithreaded graphical application. However, this is not the “correct” way of creating such type of applications since, as soon as the application gets more and more complicated, these basic methods that we have explained (such as <code class="language-plaintext highlighter-rouge">Platform.runLater</code>) will not be enough.</p>
+
+<p>In order to use a stronger way of creating multithreaded applications, JavaFX provides a concurrency framework composed of the following elements:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">Worker</code> interface. It represents every task that needs to be performed in one or more additional threads. It has an inner enum called <code class="language-plaintext highlighter-rouge">Worker.State</code>, with all the possible states of the task (READY, RUNNING, CANCELLED…)</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Task</code> abstract class implements the <code class="language-plaintext highlighter-rouge">Worker</code> interface to define tasks that can be run only once (they can’t be reused).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Service</code> abstract class also implements the <code class="language-plaintext highlighter-rouge">Worker</code> interface to define tasks that can be run more than once (they can be reused).</li>
+  <li>The <code class="language-plaintext highlighter-rouge">ScheduledService</code> abstract class is a subtype of <code class="language-plaintext highlighter-rouge">Service</code> class to define tasks that can be scheduled to be run repeatedly after a given time interval.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">WorkerStateEvent</code> is an event that is fired every time the state of a <em>Worker</em> changes, so that we can execute some instructions or methods when this happens.</li>
+</ul>
+
+<h4 id="21-using-service">2.1. Using Service</h4>
+
+<p>We are going to see an example of creating a <code class="language-plaintext highlighter-rouge">Service</code> and running it in background. We are going to solve the same problem shown in previous example (the simulation of a file copy) with a service. In this new example, we are going to add the possibility of cancelling the copy while it is running, an essential ability of <em>Service</em> class.</p>
+
+<p>Our service class would look like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">FileService</span> <span class="kd">extends</span> <span class="nc">Service</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> 
+        <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="nc">String</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> 
+            <span class="o">{</span>
+                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">progress</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">progress</span><span class="o">++)</span> 
+                <span class="o">{</span>
+                    <span class="k">try</span> 
+                    <span class="o">{</span>
+                        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                        <span class="n">updateMessage</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="o">(</span><span class="n">progress</span> <span class="o">*</span> <span class="mi">10</span><span class="o">)</span> 
+                                         <span class="o">+</span> <span class="s">"% completed"</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="s">"Copy completed"</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We just extend <code class="language-plaintext highlighter-rouge">Service</code> class. It can be parameterized to set a return type, and, in our case, we are going to return a <em>String</em> when the service finishes, just to show you how this return value works. We must override <code class="language-plaintext highlighter-rouge">createTask</code> method from <code class="language-plaintext highlighter-rouge">Service</code> abstract class. Inside this method, we create an anonymous class of the task we are going to create (since <code class="language-plaintext highlighter-rouge">Task</code> is an abstract class as well, we need to either create a <code class="language-plaintext highlighter-rouge">Task</code> subclass or return a <code class="language-plaintext highlighter-rouge">Task</code> through an anonymous class). In the <code class="language-plaintext highlighter-rouge">call</code> method of this Task, we do our job (the file copy simulation). Notice that, instead of getting the label and setting its text, we just call the <code class="language-plaintext highlighter-rouge">updateMessage</code> method. In our main application we will bind the label’s text with this message to update the text automatically.</p>
+
+<p>Our main JavaFX controller would be like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FXServiceExampleController</span> <span class="kd">implements</span> <span class="nc">Initializable</span> 
+<span class="o">{</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="nc">Button</span> <span class="n">btnStart</span><span class="o">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="nc">Label</span> <span class="n">lblProgress</span><span class="o">;</span>
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="nc">Button</span> <span class="n">btnCancel</span><span class="o">;</span>
+
+    <span class="nc">FileService</span> <span class="n">service</span><span class="o">;</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">setProperties</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+        <span class="n">service</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+    <span class="o">}</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">setProperties</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="n">service</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="no">URL</span> <span class="n">url</span><span class="o">,</span> <span class="nc">ResourceBundle</span> <span class="n">rb</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileService</span><span class="o">();</span>
+        <span class="c1">// Events to be fired when service finishes/cancels/fails...</span>
+
+        <span class="n">service</span><span class="o">.</span><span class="na">setOnSucceeded</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">setProperties</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+            <span class="n">service</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+        <span class="o">});</span>
+
+        <span class="n">service</span><span class="o">.</span><span class="na">setOnCancelled</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">setProperties</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="n">service</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+        <span class="o">});</span>
+
+        <span class="n">service</span><span class="o">.</span><span class="na">setOnFailed</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">setProperties</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="n">service</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
+        <span class="o">});</span>
+
+        <span class="c1">// Bind label text property to service</span>
+        <span class="n">lblProgress</span><span class="o">.</span><span class="na">textProperty</span><span class="o">().</span><span class="na">bind</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">messageProperty</span><span class="o">());</span>
+        <span class="n">btnCancel</span><span class="o">.</span><span class="na">setDisable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Method to disable/enable buttons and set label's text from events</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setProperties</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">disableStart</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">disableCancel</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">btnStart</span><span class="o">.</span><span class="na">setDisable</span><span class="o">(</span><span class="n">disableStart</span><span class="o">);</span>
+        <span class="n">btnCancel</span><span class="o">.</span><span class="na">setDisable</span><span class="o">(</span><span class="n">disableCancel</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>From the <code class="language-plaintext highlighter-rouge">start</code> method we have introduced some new interesting instructions: the methods from the service to start, cancel or reset it, depending on the event that we are handling. We start the service from the <em>Start</em> button event, we cancel it from the <em>Cancel</em> button event, and we reset it from some <em>WorkerStateEvents</em>, handled by the <code class="language-plaintext highlighter-rouge">setOnSucceeded</code>, <code class="language-plaintext highlighter-rouge">setOnCancelled</code> and <code class="language-plaintext highlighter-rouge">setOnFailed</code> methods. For instance, whenever the service is cancelled, the <code class="language-plaintext highlighter-rouge">setOnCancelled</code> method will be fired, and then we will reset the service. Also, we have added the <strong>binding</strong> from the label text property to the service message property, established in this line:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lblProgress</span><span class="o">.</span><span class="na">textProperty</span><span class="o">().</span><span class="na">bind</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">messageProperty</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>Thanks to this, the service can update the text of the label from its code. If you run the example, notice that, as soon as the service finishes or it is cancelled, the label text gets empty.</p>
+
+<p>The service has also some other properties, such as <code class="language-plaintext highlighter-rouge">titleProperty</code>, <code class="language-plaintext highlighter-rouge">valueProperty</code>… that we can use to bind them to some other controls of our application, if we want to. This is useful when we want to update several controls from the same service.</p>
+
+<p>However, if we bind a control to a property, the control’s value can’t be set outside this property. In other words, if we want to set the label’s text directly (with its <code class="language-plaintext highlighter-rouge">setText</code> method) in the main application, an exception will be thrown. We need to unbind temporarily the control (with the <code class="language-plaintext highlighter-rouge">unbind</code> method), set the value, and bind it again to the property.</p>
+
+<p>The return value of the service is used inside the <code class="language-plaintext highlighter-rouge">setOnSucceeded</code> method. When the service finishes properly, it will return a <em>String</em> with the text “Copy completed”. We can check this in the standard output, thanks to this line of code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">setProperties</code> method is used from some events to update the “disable” state of both buttons (when we <em>Start</em> the copy, we disable the <em>Start</em> button, for instance), and the label text.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>My3CountersService</strong>, that will be a copy of project <em>My3Counters</em> from exercise 1. In this case, you must use a <code class="language-plaintext highlighter-rouge">Service</code> to implement the 3 tasks. As soon as a given count finishes, the corresponding button must turn enabled, and we will be able to start it again.</p>
+
+  <p><em>HELP: You must implement a void Service. As Service is a parameterized class, when you want it to return a void result you must use the <code class="language-plaintext highlighter-rouge">&lt;Void&gt;</code> parameter. In the <code class="language-plaintext highlighter-rouge">call</code> method, it must return a <code class="language-plaintext highlighter-rouge">Void</code> type, and you can do it by using a <code class="language-plaintext highlighter-rouge">return null</code> instruction at the end of the method.</em></p>
+</blockquote>
+
+<h4 id="22-using-scheduledservice">2.2. Using ScheduledService</h4>
+
+<p>If we want to execute a task periodically using a <em>Service</em>, <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/concurrent/ScheduledService.html">ScheduledService</a> is more suited for that job than using a loop with sleeping period inside a Service. This kind of task runner is very similar to what we have just seen before, but it repeats itself automatically after a period of time until we <strong>cancel</strong> it.</p>
+
+<p>We can set a delay before the first run calling <code class="language-plaintext highlighter-rouge">setDelay</code>. The time it will wait before it starts again after it finishes is set with <code class="language-plaintext highlighter-rouge">setPeriod</code>. If all goes well, every time this service finishes its task, it will call the function passed on <code class="language-plaintext highlighter-rouge">setOnSucceeded</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FXServiceExampleController</span> <span class="kd">implements</span> <span class="nc">Initializable</span> 
+<span class="o">{</span> 
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="nc">Button</span> <span class="n">button</span><span class="o">;</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="nc">Label</span> <span class="n">threadsPending</span><span class="o">;</span>
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="nc">Label</span> <span class="n">threadsFinished</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nc">ScheduledService</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="n">schedServ</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="no">URL</span> <span class="n">url</span><span class="o">,</span> <span class="nc">ResourceBundle</span> <span class="n">rb</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">schedServ</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ScheduledService</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;()</span> 
+        <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">protected</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="nf">createTask</span><span class="o">()</span> 
+            <span class="o">{</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nc">Task</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;()</span> 
+                <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">protected</span> <span class="nc">Boolean</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> 
+                    <span class="o">{</span>
+                        <span class="nc">Platform</span><span class="o">.</span><span class="na">runLater</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                            <span class="n">threadsPending</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Pending threads: "</span> <span class="o">+</span> 
+                                <span class="o">(</span><span class="n">executor</span><span class="o">.</span><span class="na">getTaskCount</span><span class="o">()</span> <span class="o">-</span> 
+                                <span class="n">executor</span><span class="o">.</span><span class="na">getCompletedTaskCount</span><span class="o">()));</span>
+
+                            <span class="n">threadsFinished</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Finished threads: "</span> <span class="o">+</span>
+                                <span class="n">executor</span><span class="o">.</span><span class="na">getCompletedTaskCount</span><span class="o">());</span>
+                        <span class="o">});</span>
+                        <span class="k">return</span> <span class="n">executor</span><span class="o">.</span><span class="na">isTerminated</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">};</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+
+        <span class="n">schedServ</span><span class="o">.</span><span class="na">setDelay</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">millis</span><span class="o">(</span><span class="mi">500</span><span class="o">));</span> <span class="c1">// Will start after 0.5s</span>
+        <span class="n">schedServ</span><span class="o">.</span><span class="na">setPeriod</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">seconds</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span> <span class="c1">// Runs every second after</span>
+        <span class="n">schedServ</span><span class="o">.</span><span class="na">setOnSucceeded</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">schedServ</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> 
+            <span class="o">{</span> 
+                <span class="c1">// Executor finished</span>
+                <span class="n">schedServ</span><span class="o">.</span><span class="na">cancel</span><span class="o">();</span> <span class="c1">// Cancel service (stop it).</span>
+                <span class="n">button</span><span class="o">.</span><span class="na">setDisable</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span> 
+
+    <span class="nd">@FXML</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">startThreads</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">button</span><span class="o">.</span><span class="na">setDisable</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ThreadPoolExecutor</span><span class="o">)</span><span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span>
+            <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">());</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+        <span class="o">{</span>
+            <span class="n">executor</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                <span class="nc">Random</span> <span class="n">rnd</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+                <span class="k">try</span> 
+                <span class="o">{</span>
+                    <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span> <span class="o">+</span> <span class="n">rnd</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">5000</span><span class="o">));</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+            <span class="o">});</span>
+        <span class="o">}</span>
+        <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+        <span class="n">schedServ</span><span class="o">.</span><span class="na">restart</span><span class="o">();</span><span class="c1">// Start the scheduled service (or restart it)</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The code above will start an executor with 20 tasks that will take between 0.5s and 5.5s to complete. The ScheduledService will start after 0.5 seconds and run every second, examining the executor (showing how many tasks are pending and how many finished) and returning if the executor has finished executing all its tasks. When the executor finishes the ScheduledService will be cancelled.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/14_FX2.png" width="45%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a project called <strong>ScheduledChronometer</strong>. Create a view with a <em>TextField</em> where you’ll write a number of seconds and a <strong>Start</strong> and <strong>Pause</strong> buttons.</p>
+
+  <p>When you press Start button, launch a <code class="language-plaintext highlighter-rouge">ScheduledService</code> that will launch every second. This service will decrement the number (starting from the value in the TextField) and return it. When it arrives to 0, it will stop (cancel).</p>
+
+  <p>If the service is running and you press Pause, it will stop. If you press start again, it will start from the last value.</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/14_FX3.png" width="45%" />
+</div>
+
+<p>You can download <a href="https://nachoiborraies.github.io/java/resources/en/14g_examples.zip">here</a> the source code of some examples shown in this document.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

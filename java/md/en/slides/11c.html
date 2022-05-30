@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Functional programming</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Functional programming
+### Managing collections with streams
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Streams
+
+- They process large or small amounts of data
+- Usually extracted from collections
+- They provide automated ways of parallelizing work
+   - Collections must be treated manually by the developer
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Getting streams
+
+```java
+List<Person> people = new ArrayList<>(10);
+people.add(new Person(16, "Peter"));
+people.add(new Person(22, "Mary"));
+people.add(new Person(43, "John"));
+people.add(new Person(70, "Amy"));
+Stream<Person> stream = people.stream();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Stream operations
+
+- **Intermediary** or lazy: they produce another stream as a result
+   - Can be chained
+   - Examples: filters, mappings, sortings...
+- **Final**: they close the stream an produce a final result
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Intermediary operations: filter
+
+- Gets a **Predicate** as parameter and filters data in the stream that matches this predicate
+- *Predicate* is a functional interface, can be implemented with lambda expressions
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Intermediary operations: filter
+
+Getting adult people from list
+
+```java
+Stream<Person> stream = people.stream();
+// Intermediary
+Stream<Person> stream2 = stream.filter(p -> p.getAge() >= 18); 
+
+// A shorter way to do exactly the same
+Stream<Person> stream = people.stream().filter(p -> p.getAge() > 18);
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Intermediary operations: map
+
+- Gets a **Function** as parameter and returns a stream
+- *Function* is a functional interface that takes an object of one type and returns an object of another type
+- Useful for:
+   - Getting specific information of an object 
+   - Transforming an object into another
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Intermediary operations: map
+
+Getting ages of adult people (chaining intermediary operations)
+
+```java
+Stream<Integer> ages =
+people.stream()
+      .filter(p -> p.getAge() >= 18)
+      .map(p -> p.getAge());
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Intermediary operations: sorted
+
+Gets a **Comparator** as parameter and returns a stream sorted by this comparator
+
+```java
+Stream<Person> stream = 
+people.stream()
+      .sorted((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Intermediary operations: limit
+
+Gets the first N elements of the stream. For instance, 3 youngest people
+
+```java
+Stream<Person> stream = 
+people.stream()
+      .sorted((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+      .limit(3);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Final operations: reductions
+
+- Return one element as final result of processing a stream or stream sequence
+- Reduction types:
+   - return *Optional* values: **min**, **max**, **findAny**...
+   - return *long*: **count**
+   - return *boolean*: **allMatch**, **anyMath**, **noneMatch**
+   - other: **reduce**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: reduce
+
+Gets the sum of ages for adult people
+
+```java
+int sumAges = people.stream()
+    .filter(p -> p.getAge() > 18)
+    .map(p -> p.getAge())
+    .reduce(0, (a,b) -> a + b);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: max
+
+Gets the maximum age in the collection
+
+```java
+Optional<Integer> maxAge = people.stream()
+    .map(p -> p.getAge())
+    .reduce(Integer::max);
+
+// Will print Optional[70]
+System.out.println(maxAge); 
+// Better
+System.out.println(maxAge.isPresent()?maxAge.get():"No max age");
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: anyMatch
+
+Checks if there are any children in the group
+
+```java
+if(people.stream().anyMatch(p -> p.getAge() < 18)) 
+{
+    System.out.println("There are children in the collection!");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Final operations: collecting
+
+- Return a collection of elements from the stream
+- Usual collecting types:
+    - Lists
+    - Strings (separated by a delimiter)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: String join
+
+Adult names separated by commas
+
+```java
+String names = people.stream()
+    .filter(p -> p.getAge() >= 18)
+    .map(p -> p.getName())
+    .collect(Collectors.joining(",", "Adults: ", ""));
+        
+System.out.println(names); // Adults: Mary,John,Amy
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: List
+
+List of adult people
+
+```java
+List<Person> older = people.stream()
+    .filter(p -> p.getAge() >= 18)
+    .collect(Collectors.toList());
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: Map
+
+Map of ages with the amount of people of each age
+
+```java
+Map<Integer, Long> ages = persons.stream()
+    .collect(Collectors.groupingBy(
+            p -> p.getAge(),
+            Collectors.counting()));
+        
+System.out.println(ages.toString()); // {70=1, 22=1, 43=1}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Final operations: consuming
+
+- They just process final stream with no result
+- We usually print it in the screen or file
+
+```java
+people.stream().filter(p -> p.getAge() > 18).forEach(System.out::println);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 1** of the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 2** of the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Some advanced concepts
+
+You can have a look at section 4 of the document associated with these slides, and learn more about:
+
+- Chaining functional interfaces
+- New methods for I/O or file management
+- New methods to deal with collections
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

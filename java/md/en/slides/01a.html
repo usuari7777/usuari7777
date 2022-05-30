@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Structure of a Java program</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Basic elements of a Java program
+### Structure of a Java program
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Our first "Hello" program
+
+```csharp
+public class MyClass
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Hello");
+    }
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Things to take into account
+
+- Every public class must have the same name as the source file that contains it
+   - *MyClass.java* for previous example
+- There should always be (at least) one public class in every Java source file
+- *main* in Java starts with lower case
+- *String* in Java starts with upper case
+- *main* method always has a *String[] args* element between parentheses
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Compiling and running
+
+Use **javac** to compile and **java** to run compiled file
+
+```
+javac MyClass.java
+java MyClass
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>El modelo de datos | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="El modelo de datos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04c.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="El modelo de datos" />
+<script type="application/ld+json">
+{"headline":"El modelo de datos","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04c.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="el-modelo-de-datos">El modelo de datos</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/04c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="04c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Ahora que ya tenemos la estructura de tablas creada en la base de datos, vamos a ver qué mecanismos ofrece Laravel para acceder a estos datos de forma sencilla desde la aplicación. Veremos cómo definir el modelo de datos asociado a cada tabla, y cómo manipular estos datos empleando el ORM Eloquent, incorporado con Laravel.</p>
+
+<h2 id="1-crear-el-modelo">1. Crear el modelo</h2>
+
+<p>La idea es crear una clase por cada tabla que tengamos en nuestra base de datos, para así interactuar con la tabla a través de dicha clase asociada. Para crear esta clase modelo, utilizamos la opción <code class="language-plaintext highlighter-rouge">make:model</code> del comando <code class="language-plaintext highlighter-rouge">php artisan</code>. Le pasaremos como parámetro adicional el nombre de la clase a crear. Por ejemplo, para el caso de nuestra biblioteca, podemos crear así el modelo <code class="language-plaintext highlighter-rouge">Libro</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Libro
+</code></pre></div></div>
+
+<p>Por convención, los modelos se crean con un nombre en singular, empezando por mayúscula, y se ubican en la carpeta <code class="language-plaintext highlighter-rouge">app\Models</code>. La estructura básica del modelo es algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Libro</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>En nuestro caso, vamos también a utilizar el modelo de usuario que ya existe en la carpeta <code class="language-plaintext highlighter-rouge">app\Models</code>, aunque lo renombraremos de <code class="language-plaintext highlighter-rouge">User</code> a <code class="language-plaintext highlighter-rouge">Usuario</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">namespace</span> <span class="nn">App\Models</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Usuario</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: hasta Laravel 7, los modelos se generaban automáticamente en la carpeta <code class="language-plaintext highlighter-rouge">app</code>, y era necesario moverlos manualmente a una subcarpeta si queríamos estructurar mejor nuestro código, actualizando también el <code class="language-plaintext highlighter-rouge">namespace</code> correspondiente. Desde Laravel 8 la ubicación en la carpeta <code class="language-plaintext highlighter-rouge">app\Models</code> se realiza por defecto.</p>
+</blockquote>
+
+<p>Automáticamente, se asocia este modelo a una tabla con el mismo nombre, pero en plural y en minúscula, por lo que los modelos anteriores estarían asociados a unas tablas <em>libros</em> y <em>usuarios</em> en la base de datos, respectivamente. En caso de que no queramos que sea así, definimos una propiedad <code class="language-plaintext highlighter-rouge">$table</code> en la clase con el nombre que queramos que tenga la tabla asociada. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Libro</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'mislibros'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="11-otras-opciones-de-crear-modelos">1.1. Otras opciones de crear modelos</h3>
+
+<p>El comando anterior <code class="language-plaintext highlighter-rouge">make:model</code> admite unos parámetros adicionales, de forma que se puede crear a la vez el modelo y la migración, y más aún, el modelo, la migración y el controlador asociado. Veamos algunos ejemplos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Pelicula -m
+</code></pre></div></div>
+
+<p>El comando anterior crea un modelo <code class="language-plaintext highlighter-rouge">Pelicula</code> en la carpeta <code class="language-plaintext highlighter-rouge">app\Models</code> y, además, crea una migración llamada <code class="language-plaintext highlighter-rouge">create_peliculas_table</code> en la carpeta <code class="language-plaintext highlighter-rouge">database/migrations</code>, lista para que editemos el método <code class="language-plaintext highlighter-rouge">up</code> y especifiquemos los campos necesarios.</p>
+
+<p><strong>Notar</strong> que el nombre de la migración añade una “s” al nombre de la tabla automáticamente, a partir del modelo en singular.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Pelicula -mc
+</code></pre></div></div>
+
+<p>Este otro comando crea lo mismo que el anterior, y además, un controlador llamado <code class="language-plaintext highlighter-rouge">PeliculaController</code> en la carpeta <code class="language-plaintext highlighter-rouge">app\Http\Controllers</code>. Dicho controlador está vacío, para que añadamos los métodos que consideremos.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Pelicula -mcr
+</code></pre></div></div>
+
+<p>Esta otra opción crea lo mismo que la anterior, pero el controlador <code class="language-plaintext highlighter-rouge">PeliculaController</code> es en este caso un controlador de recursos, por lo que tiene ya incorporados el conjunto de métodos propios de este tipo de controladores: <code class="language-plaintext highlighter-rouge">index</code>, <code class="language-plaintext highlighter-rouge">show</code>, etc.</p>
+
+<p>Podemos también usar la versión extendida de estos parámetros. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Pelicula --migration --controller --resource
+</code></pre></div></div>
+
+<p>En nuestro caso, como hemos ido creando los controladores y migraciones antes que los modelos, no sería  necesario dar este paso, pero ahora que ya empezamos a ver cómo funciona y se interrelaciona todo, puede resultar útil emplear este comando para crear de golpe todas las partes implicadas (modelo, migración y controlador)</p>
+
+<h3 id="12-seguir-una-nomenclatura-uniforme">1.2. Seguir una nomenclatura uniforme</h3>
+
+<p>Recuerda que, de sesiones anteriores, hemos comentado la recomendación/necesidad de seguir una nomenclatura uniforme en los modelos, controladores y vistas. Así, para el modelo <code class="language-plaintext highlighter-rouge">Libro</code> ya tendríamos su controlador asociado <code class="language-plaintext highlighter-rouge">LibroController</code>, y las vistas se definirían en la subcarpeta <code class="language-plaintext highlighter-rouge">resources/views/libros</code>, con los nombres correspondientes a cada método del controlador (por ejemplo, <code class="language-plaintext highlighter-rouge">index.blade.php</code>, o <code class="language-plaintext highlighter-rouge">show.blade.php</code>).</p>
+
+<h2 id="2-operaciones-sobre-el-modelo-primeros-pasos-con-eloquent">2. Operaciones sobre el modelo. Primeros pasos con Eloquent</h2>
+
+<p>Eloquent es el ORM incorporado por defecto en Laravel. Un ORM (<em>Object Relational Mapping</em>) es una herramienta que permite establecer una relación entre los registros de una tabla de la base de datos y los objetos de una clase (de PHP en nuestro caso), de forma que los datos de la base de datos se convierten a objetos PHP y viceversa. Además, Eloquent implementa el patrón <em>Active Record</em>, que añade a las clases métodos como <code class="language-plaintext highlighter-rouge">save</code>, <code class="language-plaintext highlighter-rouge">update</code>, <code class="language-plaintext highlighter-rouge">delete</code>… que permiten interactuar con la base de datos para insertar, modificar o borrar registros asociados a objetos, respectivamente.</p>
+
+<h3 id="21-realizar-búsquedas">2.1. Realizar búsquedas</h3>
+
+<p>Una vez creado el modelo, y aunque esté vacío, ya podemos utilizarlo en los controladores para acceder a los datos. Basta con importar la clase correspondiente (con <code class="language-plaintext highlighter-rouge">use</code>), y utilizar los métodos que se heredan de <code class="language-plaintext highlighter-rouge">Model</code>. Por ejemplo, el método <code class="language-plaintext highlighter-rouge">get</code> permite obtener los registros de la tabla, convertidos a objetos. Así es como obtendríamos todos los libros de la tabla desde un controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">...</span>
+<span class="kn">use</span> <span class="nc">App\Models\Libro</span><span class="p">;</span>
+<span class="mf">...</span>
+
+<span class="kd">class</span> <span class="nc">LibroController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">get</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Lo que obtenemos es un array de objetos, por lo que deberemos acceder a sus propiedades como tales. Por ejemplo, si queremos mostrar los títulos de los libros en una vista Blade, haríamos algo como esto:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nf">forelse</span><span class="p">(</span><span class="nv">$libros</span> <span class="k">as</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="p">{{</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="p">}}</span>
+<span class="o">@</span><span class="n">endforelse</span>
+</code></pre></div></div>
+<!---->
+
+<p>Alternativamente, también podemos obtener una <strong>consulta filtrada</strong>, especificando con el método <code class="language-plaintext highlighter-rouge">where</code> la condición que deben cumplir los registros a obtener. Por ejemplo, así obtendríamos los libros cuyo precio sea inferior a 10 euros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'precio'</span><span class="p">,</span> <span class="s1">'&lt;'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>De este otro modo obtendríamos libros con precio inferior a 10 euros y superior a 5 euros, de modo que podemos combinar condiciones:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'precio'</span><span class="p">,</span> <span class="s1">'&lt;'</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'precio'</span><span class="p">,</span> <span class="s1">'&gt;'</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Sobre estas consultas base podemos aplicar una serie de añadidos. Por ejemplo, podemos querer ordenar los libros por título, para lo que haríamos esto en el controlador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">orderBy</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>El método <code class="language-plaintext highlighter-rouge">orderBy</code> admite un segundo parámetro que indica el sentido de la ordenación. Por defecto es <code class="language-plaintext highlighter-rouge">ASC</code> (ascendente), pero también puede ser <code class="language-plaintext highlighter-rouge">DESC</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">orderBy</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'DESC'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><strong>Paginaciones de resultados</strong></p>
+
+<p>Si queremos paginar los resultados obtenidos debemos, por un lado, cuando obtengamos el listado desde el controlador, indicar con <code class="language-plaintext highlighter-rouge">paginate</code> cuántos registros queremos por página:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">paginate</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Después, en la vista asociada (<code class="language-plaintext highlighter-rouge">libros.index</code> en el ejemplo anterior), podemos emplear el método <code class="language-plaintext highlighter-rouge">links</code> para que muestre los botones de paginación en el lugar deseado:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nf">forelse</span><span class="p">(</span><span class="nv">$libros</span> <span class="k">as</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="p">{{</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="p">}}</span>
+<span class="o">@</span><span class="n">endforelse</span>
+
+<span class="p">{{</span> <span class="nv">$libros</span><span class="o">-&gt;</span><span class="nf">links</span><span class="p">()</span> <span class="p">}}</span>
+</code></pre></div></div>
+<!---->
+
+<p>Si queremos ordenar el listado, podemos emplear <code class="language-plaintext highlighter-rouge">orderBy</code> u <code class="language-plaintext highlighter-rouge">orderByDesc</code>, pasándole como parámetro el nombre del campo por el que ordenar, antes de la paginación. Podemos, incluso, ordenar por múltiples criterios concatenados:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">orderByAsc</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="nf">orderByAsc</span><span class="p">(</span><span class="s1">'editorial'</span><span class="p">)</span>
+        <span class="o">-&gt;</span><span class="nf">paginate</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Paginaciones desde Laravel 8</strong></p>
+
+<p>En la versión 8 de Laravel se ha cambiado el estilo de los botones de paginación, empleando el del framework Tailwind CSS. Si queremos seguir utilizando los de Bootstrap, debemos añadir esta línea en el método <code class="language-plaintext highlighter-rouge">boot</code> del <em>provider</em> <code class="language-plaintext highlighter-rouge">App\Providers\AppServiceProvider</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Paginator</span><span class="o">::</span><span class="nf">useBootstrap</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Además, debemos incorporar la cláusula <code class="language-plaintext highlighter-rouge">use</code> para localizar el elemento <code class="language-plaintext highlighter-rouge">Paginator</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">Illuminate\Pagination\Paginator</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="22-fichas-de-objetos-individuales">2.2. Fichas de objetos individuales</h3>
+
+<p>Una operación bastante habitual es mostrar una ficha de un objeto a partir de un listado, haciendo clic en el título o alguna parte visible de ese objeto. Por ejemplo, si queremos ver los datos de un libro a partir de un listado con sus títulos, podemos hacer algo como esto en la plantilla Blade:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nf">forelse</span><span class="p">(</span><span class="nv">$libros</span> <span class="k">as</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">"{{ route('libros.show', </span><span class="nv">$libro</span><span class="s2">) }}"</span><span class="o">&gt;</span>
+            <span class="p">{{</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="p">}}</span>
+    <span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="n">endforelse</span>
+</code></pre></div></div>
+<!---->
+
+<p>Vemos que hemos utilizado el método <code class="language-plaintext highlighter-rouge">route</code> para indicar la ruta a seguir, con un segundo parámetro, que en este caso es el objeto concreto de esa fila. Laravel automáticamente lo reemplazará en el enlace por el identificador de dicho objeto.</p>
+
+<p>Por su parte, la ruta asociada a este enlace podría ser algo así (en el archivo de rutas):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/libros/{id}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">])</span>
+<span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'libros.show'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Aunque también podemos haber definido las rutas como un paquete de recursos, y cada una tendrá su método asociado:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Finalmente, el método <code class="language-plaintext highlighter-rouge">show</code> del controlador asociado se encargará de obtener los datos del libro a partir de su <em>id</em>, y generar la vista correspondiente. Para obtener los datos de un objeto a partir de su identificador, podemos emplear el método <code class="language-plaintext highlighter-rouge">find</code> del modelo, pasándole como parámetro el identificador. Así, podríamos generar una vista con los datos como ésta:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">...</span>
+<span class="kd">class</span> <span class="nc">LibroController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$libro</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">find</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.show'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libro'</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: si devolvemos (<code class="language-plaintext highlighter-rouge">return</code>) directamente lo que obtiene el método <code class="language-plaintext highlighter-rouge">find</code>, nos llegará al navegador en formato JSON. De hecho, si devolvemos un array, Laravel lo envía directamente en formato JSON. Esta característica la utilizaremos más adelante para definir servicios REST.</p>
+</blockquote>
+
+<p>En el caso de que el objeto no se encuentre (porque, por ejemplo, utilicemos un <em>id</em> equivocado), la vista generada fallará. Para evitarlo, en lugar del método <code class="language-plaintext highlighter-rouge">find</code> podemos emplear <code class="language-plaintext highlighter-rouge">findOrFail</code>, que, en caso de que no se encuentre el objeto, generará una vista con un error 404, más apropiada. Además, recuerda que puedes personalizar estas páginas de error definiendo las vistas correspondientes.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libro</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En este punto, y a falta de que podamos hacer inserciones más adelante, puedes probar a insertar unos pocos libros de prueba en la base de datos <em>biblioteca</em> desde phpMyAdmin, y probar estas dos rutas que hemos hecho (listado y ficha de libro).</p>
+
+<h3 id="23-inserciones">2.3. Inserciones</h3>
+
+<p>Las inserciones a través de Eloquent se pueden realizar creando una instancia del objeto, rellenando sus atributos y llamando al método <code class="language-plaintext highlighter-rouge">save</code>, heredado de la superclase <code class="language-plaintext highlighter-rouge">Model</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libro</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Libro</span><span class="p">();</span>
+<span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="s2">"El juego de Ender"</span><span class="p">;</span>
+<span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">editorial</span> <span class="o">=</span> <span class="s2">"Ediciones B"</span><span class="p">;</span>
+<span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">precio</span> <span class="o">=</span> <span class="mf">8.95</span><span class="p">;</span>
+<span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Como alternativa, también se puede utilizar el método <code class="language-plaintext highlighter-rouge">create</code> del modelo, y pasarle todos los datos de la petición, que llegarían desde un formulario, como veremos más adelante:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Libro</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>Para que esto último funcione, deben cumplirse dos premisas:</p>
+
+<ul>
+  <li>Cada campo de la petición debe tener asociado un campo del mismo nombre en el modelo.</li>
+  <li>Debemos definir en el modelo una propiedad llamada <code class="language-plaintext highlighter-rouge">$fillable</code> con los nombres de los campos de la petición que nos interesa procesar (el resto se descartan). Esto es obligatorio especificarlo, aunque nos interesen todos los campos, para evitar inserciones masivas malintencionadas (por ejemplo, editando el código fuente para añadir otros campos y modificar datos inesperados).</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Libro</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'editorial'</span><span class="p">,</span> <span class="s1">'precio'</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Este código de inserción (o bien campo a campo, o usando el método <code class="language-plaintext highlighter-rouge">all</code>) se suele poner en el método <code class="language-plaintext highlighter-rouge">store</code> del controlador, para que reciba los datos del formulario de inserción y la haga en la base de datos. Lo terminaremos de ver cuando abordemos el tema de los formularios en Laravel.</p>
+
+<h3 id="24-modificaciones">2.4. Modificaciones</h3>
+
+<p>La modificación consiste en dos pasos:</p>
+
+<ul>
+  <li>Encontrar el objeto a modificar (buscándolo por el <em>id</em> con <code class="language-plaintext highlighter-rouge">findOrFail</code>, por ejemplo, como se ha explicado antes)</li>
+  <li>Modificar las propiedades que se necesiten, y llamar al método <code class="language-plaintext highlighter-rouge">save</code> del objeto para guardar los cambios.</li>
+</ul>
+
+<p>Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libroAModificar</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+<span class="nv">$libroAModificar</span><span class="o">-&gt;</span><span class="n">titulo</span><span class="o">=</span><span class="s2">"Otro título"</span><span class="p">;</span>
+<span class="nv">$libroAModificar</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>También podemos utilizar el método <code class="language-plaintext highlighter-rouge">update</code> enlazado con <code class="language-plaintext highlighter-rouge">findOrFail</code>, y pasarle como parámetro todos los datos de la petición, igual que se ha explicado para la inserción, y siempre y cuando hayamos declarado el atributo <code class="language-plaintext highlighter-rouge">$fillable</code> en el modelo para indicar qué campos se aceptan:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Libro</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>Este código de modificación se suele poner en el método <code class="language-plaintext highlighter-rouge">update</code> del controlador, para que reciba los datos del formulario de edición y haga la modificación correspondiente. Lo terminaremos de ver cuando abordemos el tema de los formularios en Laravel.</p>
+
+<h3 id="25-borrados">2.5. Borrados</h3>
+
+<p>Para hacer el borrado, también buscamos el objeto a borrar con <code class="language-plaintext highlighter-rouge">findOrFail</code>, y luego llamamos a su método <code class="language-plaintext highlighter-rouge">delete</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Libro</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Esto lo haremos normalmente en el método <code class="language-plaintext highlighter-rouge">destroy</code> del controlador en cuestión. Después, podemos redirigir o renderizar alguna vista resultado, como el listado de libros general para comprobar que se ha borrado.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nc">Libro</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">get</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Sobre el borrado desde las vistas</strong></p>
+
+<p>Lo normal es que el borrado se active haciendo clic en algún elemento de una vista. Por ejemplo, haciendo clic en un botón o enlace que ponga “Borrar”. Sin embargo, si implementamos esto así:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('libros.destroy', $libro }}"</span><span class="nt">&gt;</span>
+Borrar
+<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Si queremos borrar el libro con <em>id</em> 3, se generará una ruta <em>http://biblioteca/libros/3</em>. Lo podemos comprobar pasando el ratón por el enlace y viendo la barra inferior de estado del navegador. Esta ruta, sin embargo, nos va a enviar a la ficha del libro 3, no al borrado, ya que estamos enviando una petición GET, y no una de borrado (DELETE). Para evitar esto, la opción de borrado debe hacerse siempre desde un formulario, donde a través del helper <code class="language-plaintext highlighter-rouge">@method</code> indicamos que es una petición de borrado (DELETE). Con lo que el “enlace” para borrar un libro quedaría así:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"{{ route('libros.destroy', $libro) }}"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+    @method('DELETE')
+    @csrf
+    <span class="nt">&lt;button&gt;</span>Borrar<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<blockquote>
+  <p><strong>NOTA</strong> el helper <code class="language-plaintext highlighter-rouge">@csrf</code> lo veremos con más detalle al hablar de formularios, pero se añade a los formularios Laravel para evitar ataques de tipo <em>cross-site</em>, es decir, accesos a una URL de nuestra web desde otras webs.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

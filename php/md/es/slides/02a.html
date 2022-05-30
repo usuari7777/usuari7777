@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Recogida de datos del formulario</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Recogida de datos del formulario
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Envío de datos desde el cliente
+
+- Fundamentalmente a través de formularios
+- También a través de enlaces
+- Los datos enviados se llaman **datos de formulario**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recogida de los datos
+
+Disponemos de arrays asociativos globales 
+
+- **$_GET** para recoger datos enviados por GET (enlaces o formularios tipo *GET*)
+- **$_POST** para recoger datos enviados por POST (formularios tipo *POST*)
+- **$_REQUEST** para recoger independientemente del tipo
+- Todos necesitan saber el nombre (*name*) del campo de formulario a obtener
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recogida de los datos
+
+Ejemplo de formulario
+
+```html
+<form action="http://nachoiborraies.github.io/php/md/es/slides/mipagina.php" method="post">
+    <label for="login">Login:</label>
+    <input type="text" name="login" id="login" size="20"><br>
+    <label for="email">E-mail:</label>
+    <input type="text" name="email" id="email" size="50"><br>
+    <input type="submit" value="Enviar" />
+</form>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recogida de los datos
+
+Ejemplo de recogida del campo *login*
+
+```php
+// Comprobación de si existe el campo
+if (isset($_REQUEST['login']))
+{
+    // Opción 1
+    $loginUsuario = $_REQUEST["login"];
+
+    // Opción 2
+    $loginUsuario = $_POST["login"];
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (1/2)
+
+Crea una carpeta llamada **ejercicios4** donde colocar los ejercicios de esta sesión. Dentro, crea una subcarpeta llamada **libros** con dos páginas PHP:
+ 
+* **form_libros.php** con un formulario como el que se muestra a continuación. En la lista desplegable deben aparecer los géneros *Narrativa*, *Libros de texto* y *Guías y mapas*.
+* El formulario debe enviarse a una página llamada **result_libros.php** que muestre un resumen de lo que se ha enviado por el formulario, y tenga un enlace para volver al formulario anterior
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (2/2)
+
+<div align="center">
+    <img src="../../../img/02_formulario_libros.png" width="70%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una subcarpeta llamada **departamentos** en tu carpeta de ejercicios. Dentro, crea estas dos páginas PHP:
+ 
+* **form_dep.php** con un formulario que mostrará una lista desplegable con 4 nombres de departamento: INFORMÁTICA, LENGUA, MATEMÁTICAS e INGLÉS.
+* El formulario se enviará a la página **presupuesto.php** que deberá recoger el departamento indicado por el usuario y le indicará el presupuesto asignado: INFORMÁTICA = 500 euros, LENGUA = 300 euros, MATEMÁTICAS = 300 euros,  INGLÉS: 400 euros
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recogida de campos múltiples
+
+Ejemplo: formulario con lista de selección múltiple
+
+```html
+<form...>
+    ...
+    <select multiple name="personas[]" size="5">
+        <option value="Juan Rodríguez">Juan Rodríguez</option>
+        ...
+    </select>
+...	
+```
+
+</script>
+</section>
+   
+<section data-markdown>
+<script type="text/template">
+## Recogida de campos múltiples
+
+Ejemplo de recogida y recorrido con bucle
+
+```php
+$personas = $_REQUEST['personas'];
+foreach ($personas as $persona)
+{
+    ...
+}
+...
+```
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Envío de datos mediante enlaces
+
+Podemos "simular" el envío de datos de un formulario poniendo los campos separados por `&`, indicando su nombre y valor en cada caso
+
+```html
+<a href="http://nachoiborraies.github.io/php/md/es/slides/mipagina.php?login=usu1&amp;email=usu1@gmail.com">
+    Enviar datos
+</a>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Envío de datos mediante enlaces
+
+La recogida de estos datos se debe hacer por `$_GET` o `$_REQUEST` (no hay *POST* en enlaces)
+
+```php
+$mailUsuario = $_GET["email"];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Modifica el ejercicio anterior, creando una página más llamada **form_dep2.php** que, en lugar de un formulario con la lista desplegable, muestre al usuario 4 enlaces con los 4 nombres de departamento. Los enlaces deben enviar (todos) a la página presupuesto.php, indicando cuál es el departamento seleccionado, para que obtengamos el mismo resultado que con el formulario anterior.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Envíos a la misma página
+
+- En ocasiones nos puede interesar que un formulario se envíe a la misma página, para aunar en un solo archivo el formulario y el procesamiento de sus datos
+- Podemos poner en el *action* del formulario el mismo nombre de página, PERO si luego cambiamos el nombre podemos olvidar cambiarlo en el *action*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Envíos a la misma página
+
+Alternativa: usar `$_SERVER['PHP_SELF']`
+
+```php
+<form action="http://nachoiborraies.github.io/php/md/es/slides/&lt;?php&#32;echo&#32;$_SERVER['PHP_SELF'];&#32;?&gt;" method="post">
+...
+</form>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+En el ejercicio anterior, crea una página llamada **presupuesto2.php** que tenga el formulario con la lista desplegable de departamentos, y se llame a sí misma para calcular el presupuesto según lo que se envíe por su propio formulario.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Subida de archivos
+
+- Usamos campos *input* de tipo **file**
+- El formulario debe tener un atributo **enctype** con el valor **multipart/form-data** para permitir enviar los bytes del archivo
+- Usamos el array asociativo **$_FILES** para explorar los archivos subidos
+   - Por defecto se suben a una carpeta temporal, de donde luego deben moverse a su ubicación real
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Subida de archivos
+
+Ejemplo de formulario
+
+```html
+<form action="http://nachoiborraies.github.io/php/md/es/slides/pagina.php" method="post" enctype="multipart/form-data">
+    ...
+    <input type="file" name="fichero" />
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Subida de archivos
+
+Ejemplo de recogida (el *idUnico* lo usaremos si queremos evitar sobreescrituras)
+
+```php
+if (is_uploaded_file ($_FILES['fichero']['tmp_name'])) 
+{
+   $nombreDirectorio = "ficheros/";
+   $idUnico = time();   
+   $nombreFichero = $idUnico . "-" . $_FILES['fichero']['name']; 
+   move_uploaded_file ($_FILES['fichero']['tmp_name'], $nombreDirectorio . 
+                       $nombreFichero); 
+} else
+   print ("No se ha podido subir el fichero\n");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tamaño máximo de subida
+
+- Modificar propiedad *upload_max_filesize* en archivo de configuración *php.ini* (y reiniciar el servidor)
+- Añadir un campo oculto (tipo *hidden*) al formulario con nombre *MAX_FILE_SIZE* y el valor que queramos en bytes
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tamaño máximo de subida
+
+```html
+<form action="http://nachoiborraies.github.io/php/md/es/slides/pagina.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="MAX_FILE_SIZE" value="20000" />
+    <input type="file" name="fichero" />
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+- Crea una subcarpeta llamada **ficheros**. 
+- Dentro, crea un formulario llamado **form_imagen.php** que permita seleccionar un archivo y subirlo a una página llamada **subir_imagen.php**. 
+- Además del campo para la imagen, añadiremos un campo de texto para indicar el título de la imagen. 
+- En la página *subir_imagen.php* comprobaremos que el fichero subido es una imagen, y si lo es, lo copiaremos a una subcarpeta *imgs* y mostraremos la imagen subida en la misma página *subir_imagen.php*, junto con su título.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

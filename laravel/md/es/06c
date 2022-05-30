@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Prueba de servicios REST | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Prueba de servicios REST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/06c.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Prueba de servicios REST" />
+<script type="application/ld+json">
+{"headline":"Prueba de servicios REST","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/06c.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="prueba-de-servicios-rest">Prueba de servicios REST</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/06c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="06c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Ya hemos visto que probar unos servicios de listado (GET) es sencillo a través de un navegador. Pero los servicios de inserción (POST), modificación (PUT) o borrado (DELETE) exigen de otras herramientas para poder ser probados. Podríamos definir formularios con estos métodos encapsulados, pero el esfuerzo de definir esos formularios para luego no utilizarlos más no merece mucho la pena. Veremos a continuación una herramienta muy útil para probar todo tipo de servicios sin necesidad de implementar nada adicional.</p>
+
+<h2 id="1-introducción-a-postman">1. Introducción a Postman</h2>
+
+<p><strong>Postman</strong> es una aplicación gratuita y multiplataforma que permite enviar todo tipo de peticiones a un servidor determinado, y examinar la respuesta que éste produce. De esta forma, podemos comprobar que los servicios ofrecen la información adecuada antes de ser usados por una aplicación cliente real.</p>
+
+<p>Para descargar e instalar Postman, debemos ir a su web oficial, a la <a href="https://www.postman.com/downloads/">sección de descargas</a>, y descargar la aplicación (en el caso de nuestra máquina virtual, descargaremos la versión para Linux de 64 bits). Es un archivo portable, que se descomprime y dentro está la aplicación lista para ejecutarse.</p>
+
+<p>La primera vez que la ejecutemos nos preguntará si queremos registrarnos, de forma que podamos compartir los proyectos que hagamos entre los distintos equipos en que estemos registrados, pero podemos saltar este paso haciendo clic en el enlace inferior.</p>
+
+<h2 id="2-uso-básico-de-postman">2. Uso básico de Postman</h2>
+
+<p>Tras iniciar la aplicación, veremos la pantalla de inicio de Postman. En un principio aparecerán varias opciones en la zona central, para crear colecciones o peticiones, aunque también las podemos crear desde el botón <em>New</em> en la esquina superior izquierda. Por ejemplo, podemos crear una colección “Biblioteca”, y aparecerá en el panel izquierdo:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_colecciones.png" width="90%" />
+</div>
+
+<p>Desde el mismo botón <em>New</em> en la esquina superior izquierda podemos crear nuevas peticiones y asociarlas a una colección. Existe una forma alternativa (quizá más cómoda) de crear esas peticiones, a través del panel de pestañas, añadiendo nuevas:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request.png" width="90%" />
+</div>
+
+<h3 id="21-añadir-peticiones-get">2.1. Añadir peticiones GET</h3>
+
+<p>Para añadir una petición, habitualmente elegiremos el tipo de comando bajo las pestañas (GET, POST, PUT, DELETE) y la URL asociada a dicho comando. Por ejemplo:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request2.png" width="70%" />
+</div>
+
+<p>Entonces, podemos hacer clic en el botón “Save” en la parte derecha, y guardar la petición para poderla reutilizar. Al guardarla, nos pedirá que le asignemos un nombre (por ejemplo, “GET libros” en este caso), y la colección en la que se almacenará (nuestra colección de “Biblioteca”).</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request3.png" width="40%" />
+</div>
+
+<p>Después, podremos ver la prueba asociada a la colección, en el panel izquierdo:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request4.png" width="40%" />
+</div>
+
+<p>Si seleccionamos esta prueba y pulsamos en el botón azul de “Send” (parte derecha), podemos ver la respuesta emitida por el servidor en el panel inferior de respuesta (si tenemos, claro está, el servidor en marcha):</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request5.png" width="70%" />
+</div>
+
+<p>Siguiendo estos mismos pasos, podemos también crear una nueva petición para obtener un libro a partir de su <em>id</em>, por GET:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request6.png" width="90%" />
+</div>
+
+<p>Bastaría con reemplazar el <em>id</em> de la URL por el que queramos consultar realmente. Si probamos esta petición, obtendremos la respuesta correspondiente:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_request7.png" width="60%" />
+</div>
+
+<h3 id="22-añadir-otros-tipos-de-peticiones-post-put-delete">2.2. Añadir otros tipos de peticiones (POST, PUT, DELETE)</h3>
+
+<p>Las peticiones <strong>POST</strong> difieren de las peticiones GET en que se envía cierta información en el cuerpo de la petición. Esta información normalmente son los datos que se quieren añadir en el servidor. ¿Cómo podemos hacer esto con Postman?</p>
+
+<p>En primer lugar, creamos una nueva petición, elegimos el comando POST y definimos la URL (en nuestro caso, <em>localhost:8000/api/libros</em> o algo similar, dependiendo de cómo tengamos en marcha el servidor). Entonces, hacemos clic en la pestaña <em>Body</em>, bajo la URL, y establecemos el tipo como <em>raw</em> para que nos deje escribirlo sin restricciones. También conviene cambiar la propiedad <em>Text</em> para que sea <em>JSON</em>, y que así el servidor recoja el tipo de dato adecuado. Se añadirá automáticamente una cabecera de petición (Header) que especificará que el tipo de contenido que se va a enviar son datos JSON. 
+Después, en el cuadro de texto bajo estas opciones, especificamos el objeto JSON que queremos enviar para insertar:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_post.png" width="90%" />
+</div>
+
+<p>Tras esto, basta con guardar la petición como hemos hecho con las anteriores, y lanzarla para ver el resultado.</p>
+
+<p>En cuanto a las peticiones <strong>PUT</strong>, procederemos de forma similar a las peticiones POST: debemos elegir el comando (PUT en este caso), la URL, y completar el cuerpo de la petición con los datos que queramos modificar del contacto. En este caso, además, el <em>id</em> del libro lo enviaremos también en la propia URL:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_put.png" width="90%" />
+</div>
+
+<p>Para peticiones <strong>DELETE</strong>, la mecánica es similar a la ficha del elemento (operación GET), cambiando el comando GET por DELETE, y sin necesidad de establecer nada en el cuerpo de la petición:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_delete.png" width="70%" />
+</div>
+
+<h3 id="23-exportarimportar-colecciones">2.3. Exportar/Importar colecciones</h3>
+
+<p>Podemos exportar e importar nuestras colecciones en Postman, de forma que podemos llevarlas de un equipo a otro. Para <strong>exportar</strong> una colección, hacemos clic en el botón de puntos suspensivos (…) que hay junto a ella en el panel izquierdo, y elegimos <em>Export</em>.</p>
+
+<div align="center">
+    <img src="../../img/06_postman_export.png" width="30%" />
+</div>
+
+<p>Nos preguntará para qué versión de Postman queremos exportar (normalmente la recomendada es la mejor opción). Se creará un nuevo archivo Postman en la ubicación que elijamos.</p>
+
+<p>Si queremos <strong>importar</strong> una colección previamente exportada, podemos hacer clic en el botón <em>Import</em> de la esquina superior izquierda en la ventana principal y elegir después el archivo a importar.</p>
+
+<h2 id="3-prueba-de-autenticación-por-token-en-postman">3. Prueba de autenticación por token en Postman</h2>
+
+<p>Veamos cómo probar la autenticación por token utilizando Postman. Es necesario que antes de esto hayas echado un vistazo a <a href="07b">cómo definir la autenticación basada en tokens</a> en aplicaciones Laravel.</p>
+
+<p>En primer lugar, y tras poner en marcha el proyecto, vamos a asegurarnos de que podemos acceder sin restricciones a los servicios que no requieren autorización (típicamente <code class="language-plaintext highlighter-rouge">index</code> o <code class="language-plaintext highlighter-rouge">show</code>). Por ejemplo podemos hacer una petición como esta, y ver que obtenemos el resultado devuelto por el método <code class="language-plaintext highlighter-rouge">index</code>:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_token_1.png" width="60%" />
+</div>
+
+<p>Ahora vamos a intentar acceder a un recurso protegido, como por ejemplo el borrado, y veremos que obtenemos un código 401 indicando que no nos hemos autenticado:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_token_2.png" width="80%" />
+</div>
+
+<p>Para autenticarnos con nuestras credenciales y obtener el token, enviamos una petición POST al servicio <code class="language-plaintext highlighter-rouge">api/login</code> (que deberemos tener implementado), enviando por JSON nuestro login y password. Obtendremos de vuelta el token en formato JSON:</p>
+
+<div align="center">
+    <img src="../../img/06_postman_token_3.png" width="60%" />
+</div>
+
+<p>Ahora debemos copiar este token, y pegarlo en la petición de acceso restringido. Deberemos pegarlo en la cabecera <em>Authorization</em> (abrir esa pestaña bajo la URL de la petición en Postman), y lo normal es enviarlo como un <em>Bearer token</em>, según los estándares. Entonces sí tendremos la respuesta correcta de la operación solicitada.</p>
+
+<div align="center">
+    <img src="../../img/06_postman_token_4.png" width="80%" />
+</div>
+
+<p>A la hora de trasladar estas pruebas a una aplicación “real”, enviaríamos las credenciales por JSON al servidor, obtendríamos el token de vuelta y lo almacenaríamos localmente en alguna variable o soporte (por ejemplo, en el elemento <code class="language-plaintext highlighter-rouge">localStorage</code>, si trabajamos con algún framework JavaScript). Después, ante cada petición JSON que hiciéramos al servidor, adjuntaríamos este token en la cabecera <em>Authorization</em> para que fuese validado por el servidor.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

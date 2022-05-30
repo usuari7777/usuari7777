@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Uso de middleware | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Uso de middleware" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/06a.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Uso de middleware" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Uso de middleware","url":"http://nachoiborraies.github.io/nodejs/md/es/06a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="uso-de-middleware">Uso de <em>middleware</em></h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/06a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="06a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>El término <em>middleware</em> ha sido mencionado algunas veces con anterioridad, pero aún no habíamos explicado de qué se trata. En términos generales, podríamos definir <em>middleware</em> como un software que se ejecuta en medio de otros dos. En el ámbito en que lo estamos tratando, un <strong>middleware</strong> es una función que gestiona peticiones y respuestas HTTP, de forma que puede manipularlas y pasarlas al siguiente <em>middleware</em> para que las siga procesando, o bien terminar el proceso y enviar por sí misma una respuesta al cliente.</p>
+
+<h2 id="1-el-método-use">1. El método <em>use</em></h2>
+
+<p>Existen diferentes <em>middlewares</em> disponibles en los módulos de Node, tales como el procesador <code class="language-plaintext highlighter-rouge">express.json()</code> que hemos empleado en ejemplos previos para procesar el cuerpo de peticiones POST y poder acceder a su contenido de forma más cómoda. El middleware se aplica sobre una aplicación a través del método <code class="language-plaintext highlighter-rouge">use</code> de la misma. Por eso, cuando hacíamos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>… estábamos activando el <em>middleware</em> correspondiente de Express para procesar los cuerpos de las peticiones y extraer de ellos la información JSON que contengan, dejándola preparada para ser accedida.</p>
+
+<h2 id="2-definir-nuestro-propio-middleware">2. Definir nuestro propio <em>middleware</em></h2>
+
+<p>Además de este y otros ejemplos de <em>middleware</em> hecho por terceras partes y que podemos incorporar a nuestros proyectos, también podemos definir nuestra propia función de <em>middleware</em>, y mediante el método <code class="language-plaintext highlighter-rouge">use</code> de la aplicación, incluirla en la cadena de procesamiento de la petición y la respuesta. Por ejemplo, el siguiente middleware saca por consola la dirección IP del cliente que hace la petición:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Petición desde</span><span class="dl">"</span><span class="p">,</span> <span class="nx">req</span><span class="p">.</span><span class="nx">ip</span><span class="p">);</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Como vemos, el <em>middleware</em> no es más que una función que acepta tres parámetros: la petición, la respuesta, y una referencia al siguiente <em>middleware</em> que debe ser llamado (<code class="language-plaintext highlighter-rouge">next</code>). Cualquier <em>middleware</em> puede finalizar la cadena enviando algo en la respuesta al cliente, pero si no lo hace, debe obligatoriamente llamar al siguiente eslabón (<code class="language-plaintext highlighter-rouge">next</code>).</p>
+
+<p>Podemos emplear diversas llamadas a <code class="language-plaintext highlighter-rouge">use</code> para cargar distintos <em>middlewares</em>, y el orden en que hagamos estas llamadas es importante, porque marcará el orden en que se ejecutarán dichos <em>middlewares</em>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="kd">function</span><span class="p">(...)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(...);</span>
+</code></pre></div></div>
+
+<h2 id="3-flujo-básico-de-una-petición-y-respuesta">3. Flujo básico de una petición y respuesta</h2>
+
+<p>Teniendo en cuenta todo lo visto anteriormente, el flujo elemental de una petición cliente que llega a un servidor Express es el siguiente:</p>
+
+<div align="center">
+    <img src="../../img/06_flujo_middleware.png" width="90%" />
+</div>
+
+<p>Existen algunos middlewares realmente útiles, como el ya citado <code class="language-plaintext highlighter-rouge">express.json()</code>, o el servidor de contenido estático que veremos en breve, o el enrutador (<em>router</em>), que típicamente es el último eslabón de la cadena, y se emplea para configurar diferentes rutas de petición disponibles, y la respuesta para cada una de ellas. Veremos cómo enlazarlos a continuación.</p>
+
+<h2 id="4-añadir-middleware-a-enrutadores-concretos">4. Añadir middleware a enrutadores concretos</h2>
+
+<p>Cuando definimos enrutadores independientes en archivos separados, podemos añadir middleware por separado también a cada enrutador, empleando el método <code class="language-plaintext highlighter-rouge">use</code> del propio enrutador. Por ejemplo, podemos añadir un middleware en el archivo <code class="language-plaintext highlighter-rouge">routes/contactos.js</code> que muestre por consola la fecha actual:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toString</span><span class="p">());</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="p">...</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

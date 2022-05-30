@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Introducción a las aplicaciones web | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Introducción a las aplicaciones web" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/01b.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a las aplicaciones web" />
+<script type="application/ld+json">
+{"headline":"Introducción a las aplicaciones web","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/01b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="introducción-a-las-aplicaciones-web">Introducción a las aplicaciones web</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-tipos-de-aplicaciones">1. Tipos de aplicaciones</h2>
+
+<p>Cuando estamos utilizando un ordenador, una tablet o un teléfono móvil, ¿qué tipos de aplicaciones o programas podemos estar utilizando? Básicamente distinguimos dos grandes grupos:</p>
+
+<ul>
+  <li>Aquellas aplicaciones que no necesitan ninguna conexión a Internet o a una red de ordenadores para funcionar. Este tipo de aplicaciones suelen llamarse <strong>aplicaciones de escritorio</strong>, y podemos encontrar ejemplos muy variados: un procesador de textos, un lector de libros electrónicos, un reproductor de música o vídeo, e incluso videojuegos que tengamos instalados.</li>
+  <li>Aquellas aplicaciones que sí necesitan conexión, bien sea a Internet o a un ordenador de su red local. En este otro grupo también tenemos ejemplos variados de aplicaciones. Por ejemplo, si compartimos un documento de texto en Google Drive, o si abrimos el navegador para acceder a una plataforma de un curso online, o incluso si jugamos a videojuegos junto con otras personas de otros lugares. Aquí distinguimos varios subtipos de aplicaciones. Algunos de los más habituales son:
+    <ul>
+      <li>Las <strong>aplicaciones P2P</strong> (<em>peer-to-peer</em>), donde todos los elementos conectados a la red tienen el mismo “rango”, por así decirlo, y comparten información entre ellos. Es el mecanismo en el que se basan varios programas de descarga, como los de archivos tipo <em>torrent</em>.</li>
+      <li>Las <strong>aplicaciones cliente-servidor</strong>, llamadas así porque consisten en que un conjunto de ordenadores (llamados <em>clientes</em>) se conectan a uno central (llamado <em>servidor</em>) que es el que les proporciona la información y los servicios que solicitan. En el caso de videojuegos donde nos conectamos a otro lugar para jugar con otras personas, estamos utilizando aplicaciones cliente-servidor, donde nuestro ordenador (uno de los clientes), tiene instalada una parte de la aplicación y el servidor al que se conecta le proporciona la información de los escenarios y del resto de jugadores y personajes.
+        <ul>
+          <li>Dentro del tipo de aplicaciones cliente-servidor, las <strong>aplicaciones web</strong> son un subtipo, quizá el más numeroso. Es en este subtipo en el que nos vamos a centrar.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="11-qué-es-una-aplicación-web">1.1. ¿Qué es una aplicación web?</h3>
+
+<p>Podemos encontrar diversas definiciones de aplicación web buscando en Internet. Una de las más habituales hace referencia a aplicaciones que se cargan o ejecutan desde un navegador web, accediendo a un servidor.</p>
+
+<p>Sin embargo, el avance experimentado en este sector durante los últimos años hace que podamos definir un concepto más amplio. Así, una aplicación web sería aquella realizada a partir de lenguajes y tecnologías de desarrollo web, tales como HTML, CSS, Javascript, PHP… Pueden ejecutarse en un navegador convencional, o un motor de navegador embebido en otro sistema (como el <em>webview</em> de Android o iOS, por ejemplo). De este modo, además de las aplicaciones web “tradicionales”, también tendrían cabida las llamadas aplicaciones <em>híbridas</em> (desarrolladas con tecnologías web pero exportadas a formato nativo de diversos dispositivos), y aplicaciones de escritorio que emplean tecnologías web, como por ejemplo el framework Electron de Javascript.</p>
+
+<h2 id="2-arquitectura-de-una-aplicación-web">2. Arquitectura de una aplicación web</h2>
+
+<h3 id="21-qué-es-la-web">2.1. ¿Qué es “la web”?</h3>
+
+<p>Podemos ver la web (<strong>WWW</strong>, <em>World Wide Web</em>) como una especie de plataforma mundial donde tenemos disponibles gran cantidad de recursos (documentos, videojuegos, redes sociales, foros, etc.). Se hizo popular a principios de los años 90 gracias a aplicaciones como el correo electrónico, los chats, etc. y con la aparición de la web 2.0 vinieron otra serie de aplicaciones que la potenciaron aún más, como los blogs o las redes sociales. Poco a poco se han ido añadiendo funcionalidades, hasta el punto de que hace pocos años era impensable poder ver vídeos o películas en Internet, y hoy es algo muy habitual.</p>
+
+<h3 id="22-elementos-de-una-aplicación-web">2.2. Elementos de una aplicación web</h3>
+
+<p>En una aplicación web podemos distinguir en primer lugar dos grandes lados: el <strong>cliente</strong>, donde está el usuario, que utiliza normalmente un navegador web (Google Chrome, Firefox, etc.) para acceder a la aplicación, y el <strong>servidor</strong>, donde está ubicada la aplicación (el foro, la red social, el blog, el curso online, etc.), y que se encarga de atender las peticiones de los clientes y proporcionales la información que solicitan.</p>
+
+<h3 id="23-funcionamiento-de-una-aplicación-web">2.3. Funcionamiento de una aplicación web</h3>
+
+<p>Como hemos comentado, las aplicaciones web son un tipo de aplicaciones cliente-servidor. Este tipo de arquitecturas distribuyen las tareas entre quienes prestan los recursos y servicios (los servidores) y quienes los solicitan (los clientes).</p>
+
+<p>Los pasos que se siguen en la comunicación cliente-servidor, son, normalmente:</p>
+
+<ol>
+  <li>El cliente inicia sesión en el servidor</li>
+  <li>El cliente solicita al servidor el recurso o servicio que quiere utilizar (una página web, un documento, subir información, etc.)</li>
+  <li>El servidor recibe la petición del cliente, la procesa y decide qué programa debe darle servicio, enviando la petición a dicho programa.</li>
+  <li>El programa responsable procesa la petición, prepara la respuesta y la entrega al servidor.</li>
+  <li>El servidor envía la respuesta al cliente</li>
+  <li>El cliente puede volver al paso 2 y realizar una nueva petición, o bien</li>
+  <li>El cliente termina la sesión en el servidor.</li>
+</ol>
+
+<p>En general, el servidor no tiene por qué ejecutarse solo, sino que podemos tener diferentes aplicaciones en diferentes equipos (o en el mismo), lo que se conoce como <strong>arquitectura multicapa o multinivel</strong>. Por ejemplo, un servidor de bases de datos en una máquina, un servidor web en otra (o en la misma que el de bases de datos), un servidor de correo electrónico… y así distribuir los procesos y el trabajo a realizar, e incluso configurar opciones de seguridad y rendimiento separadas para cada servidor.</p>
+
+<p><strong>Ejemplo: arquitectura de dos o tres niveles</strong></p>
+
+<p>Por ejemplo, si el cliente conectara con el servidor para pedir un listado de noticias almacenadas en una base de datos, expresado como un diagrama de secuencia, el funcionamiento básico de esta petición (y de la arquitectura cliente-servidor en general) puede verse como algo así:</p>
+
+<div align="center">
+    <img src="../../img/01_arquitectura_cliente_servidor.png" alt="Ejemplo de arquitectura cliente-servidor" width="70%" />
+</div>
+
+<p>En este ejemplo, el servidor web y el servidor de bases de datos podrían estar instalados en la misma máquina o en máquinas separadas, cada una con su hardware específico y control de acceso de usuarios específico. En cualquier caso, estamos hablando de una arquitectura de <strong>tres niveles</strong> (cliente, servidor web y servidor de base de datos), que es algo bastante habitual en las aplicaciones web, pues casi todas cuentan con una base de datos con información que consultar y modificar.</p>
+
+<p>Sin el servidor de base de datos, estaríamos ante una arquitectura de <strong>dos niveles</strong>, donde el servidor es polivalente, y puede responder directamente a las peticiones de los clientes sin consultar con otros servidores o aplicaciones. Esta opción es menos flexible, menos segura y puede ofrecer peor rendimiento en sistemas congestionados, al no poder dividir el trabajo entre distintos tipos de servidores.</p>
+
+<h3 id="24-urls-y-dominios">2.4. URLs y dominios</h3>
+
+<p><strong>Hostings y nombres de dominio</strong></p>
+
+<p>El servidor es el componente de una aplicación web que se encarga de recibir peticiones de todos los clientes que se conecten a él y enviarles la información que solicitan. Para poder hacer esto, el servidor debe estar accesible en un lugar conocido, para que los usuarios puedan conectarse a él. Por ejemplo, cuando escribimos la dirección <em>www.google.es</em>, de alguna forma hay “algo” en Internet que sabe dónde está el servidor para el buscador Google en español, y envía la petición allí.</p>
+
+<p>En primer lugar, debemos localizar nuestro servidor en Internet. Esto puede hacerse de varias formas. Por ejemplo:</p>
+
+<ul>
+  <li>
+    <p>Disponer de un servidor (o servidores) propios y una dirección IP pública fija a la que acceder. Esta opción es poco habitual hoy en día</p>
+  </li>
+  <li>
+    <p>Contratando un espacio (o una máquina entera, si el proyecto es grande y se dispone de presupuesto suficiente) en una empresa de alojamiento o <strong>hosting</strong>. Esta opción es mucho más habitual, y de ahí que proliferen las empresas que se dedican al hosting, tales como OVH, Hostinger, Hostalia, 1&amp;1, etc.</p>
+  </li>
+</ul>
+
+<p>Además, debemos reservar (comprar) un <strong>nombre de dominio</strong> para nuestra empresa o web. El nombre de dominio es lo que escribimos en la barra del navegador. En el caso anterior, el dominio sería <em>google.es</em>. El precio de mantener dicho dominio puede variar, pero ronda los 10 o 15 euros al año.</p>
+
+<p><strong>URLs y DNS</strong></p>
+
+<p>Hemos visto que, en el esquema de funcionamiento de una aplicación web, el cliente solicita recursos al servidor. La forma en que los solicita es mediante URLs. Una URL (<em>Uniform Resource Locator</em>) es una manera de identificar y localizar cada recurso de una web. Por ejemplo, cuando escribimos en un navegador una dirección como <em>http://www.miweb.com/paginas/pagina.html</em>, estamos introduciendo una URL para localizar un recurso (en este caso, una página HTML). Una URL se compone de:</p>
+
+<ul>
+  <li>El <strong>protocolo</strong>, que indica las reglas que se van a seguir para comunicarse cliente y servidor. Veremos más adelante algunos ejemplos de protocolos, pero para lo que nos importa, en una URL el protocolo va al principio, hasta los dos puntos y el delimitador //. En nuestro ejemplo, el protocolo sería <em>http://</em></li>
+  <li>El <strong>nombre de dominio</strong>, que ya hemos explicado anteriormente. Identifica al servidor y la empresa/web a la que vamos a conectar. Va justo detrás del protocolo, hasta la siguiente barra. Normalmente termina en <em>.com, .es, .net</em>, etc. En nuestro ejemplo sería <em>www.miweb.com</em></li>
+  <li>La <strong>ruta hacia el recurso</strong>, que comprende todas las carpetas y subcarpetas (si las hay) y el nombre de archivo que queremos obtener. En nuestro ejemplo, la ruta sería <em>/paginas/pagina.html</em></li>
+</ul>
+
+<p>El navegador obtiene la URL que ha escrito el usuario, y transforma el nombre de dominio en una dirección IP gracias al <strong>servicio DNS</strong> (<em>Domain Name System</em>, sistema de nombres de dominio). Este servicio se encarga de traducir los nombres de dominio en direcciones IP, que son las que utilizan los routers para saber dónde encaminar los mensajes. Cada servidor en Internet tiene asignada una (o varias) direcciones IP, y existen diversos servidores DNS disponibles que se van “repartiendo” qué IP corresponde a cada dominio, para saber dónde enviar las peticiones.</p>
+
+<p>Podemos comprobar qué dirección IP tiene asignada un determinado dominio mediante comandos de terminal como <code class="language-plaintext highlighter-rouge">nslookup</code> o <code class="language-plaintext highlighter-rouge">ping</code>.</p>
+
+<ul>
+  <li>Si escribimos <code class="language-plaintext highlighter-rouge">nslookup www.google.es</code> obtendremos la dirección IP asociada a la web de Google.</li>
+  <li>Si escribimos <code class="language-plaintext highlighter-rouge">ping www.google.es</code> intentaremos comunicarnos con dicho servidor, y además, en el terminal nos mostrará la dirección IP con la que está intentando comunicar (que coincidirá con la obtenida con <em>nslookup</em>).</li>
+</ul>
+
+<h2 id="3-protocolos-más-utilizados">3. Protocolos más utilizados</h2>
+
+<p>A la hora de comunicar clientes y servidores, es necesario establecer un <strong>protocolo</strong> de comunicación, es decir, una serie de reglas que indiquen qué tipo de mensajes se van a intercambiar, en qué orden y qué contenido va a tener cada tipo de mensaje, de forma que los dos extremos de la comunicación (cliente y servidor) puedan entenderse.</p>
+
+<p>Todas las comunicaciones en una red (o en Internet) se basan en el protocolo <strong>TCP/IP</strong> para funcionar. Este protocolo está basado en dos partes: el protocolo TCP (que establece cómo debe estructurarse y fraccionarse la información para ser enviada) y el protocolo IP (que establece cómo se identifican los equipos en la red, mediante direcciones IP).</p>
+
+<p>Sobre esa base de TCP/IP, se establecen una serie de protocolos que se emplean según el tipo de aplicación que se vaya a utilizar (web, correo electrónico, subida de archivos, etc). Al trabajar con aplicaciones web, los protocolos de comunicación más empleados son:</p>
+
+<ul>
+  <li><strong>HTTP</strong> (<em>HyperText Transfer Protocol</em>), un protocolo existente desde 1990 y que permite la transferencia de archivos en general, aunque principalmente de archivos HTML (es decir, documentos web). Se sigue un esquema de peticiones y respuestas entre cliente y servidor como el visto anteriormente.</li>
+  <li><strong>HTTPS</strong>, versión segura del protocolo anterior, donde los datos de las peticiones y las respuestas se envían encriptados, para que nadie que intercepte la comunicación pueda descrifrar el contenido de la misma. Este tipo de protocolos se suele utilizar en sistemas bancarios, plataformas de pago (Paypal, por ejemplo), y otras aplicaciones que manejen información delicada (DNIs, números de tarjetas de crédito, etc.).</li>
+</ul>
+
+<p>Normalmente, los navegadores web cambian automáticamente del protocolo “normal” HTTP a HTTPS al conectar con páginas que necesitan ser más seguras (login, datos de pago, etc.). Se puede comprobar el cambio mirando la barra de dirección del navegador: al acceder al protocolo seguro se mostrará el protocolo <em>https</em> en la barra, o bien el icono de un candado. Sin embargo, sí deberemos configurar nuestro servidor web para aceptar comunicaciones HTTPS, si fuese el caso.</p>
+
+<p>Otros protocolos son menos utilizados a la hora de trabajar con aplicaciones web, pero sí se utilizan igualmente en otras aplicaciones que requieran de Internet. Por ejemplo, para el envío y recepción de correo electrónico se emplean los protocolos <strong>SMTP</strong> o <strong>POP3/IMAP</strong>, respectivamente. Para enviar archivos a un servidor remoto se puede emplear (además del propio protocolo HTTP) el protocolo <strong>FTP</strong>. Este último protocolo también es habitual a la hora de trabajar con aplicaciones web, especialmente cuando las estamos desarrollando, para subir las actualizaciones de la aplicación al servidor.</p>
+
+<h3 id="31-más-sobre-httphttps">3.1. Más sobre HTTP/HTTPS</h3>
+
+<p>El protocolo sobre el que se basan las aplicaciones web para funcionar es, por tanto, HTTP (o su versión segura, HTTPS). En ambos casos, se trata de un protocolo para aplicaciones cliente-servidor, donde los datos que se envían uno y otro tienen un formato determinado.</p>
+
+<p><strong>Peticiones HTTP</strong></p>
+
+<p>Por un lado, están los datos que el cliente envía al servidor, y que se denominan <strong>peticiones</strong> (en inglés, <em>requests</em>). Estas peticiones se componen, a grandes rasgos, de:</p>
+
+<ul>
+  <li>La <strong>URL</strong> del recurso solicitado</li>
+  <li>Unas <strong>cabeceras de petición</strong> que dan información sobre el recurso solicitado y el cliente que lo solicita. Por ejemplo, podemos obtener el navegador que se está utilizando en el cliente, el idioma, etc.</li>
+  <li>Unos <strong>datos</strong> adicionales, en caso de que sean necesarios. Por ejemplo, en el caso de enviar un formulario o subir un fichero al servidor, estos datos pueden consistir en la información introducida en el formulario, o en los propios bytes del fichero a subir, respectivamente.</li>
+</ul>
+
+<p>Todos estos datos, a bajo nivel, se encapsulan en paquetes y se fragmentan de acuerdo al protocolo TCP para ser enviados al servidor.</p>
+
+<p><strong>Respuestas HTTP</strong></p>
+
+<p>Por su parte, el servidor, cuando recibe una petición de un cliente, emite una <strong>respuesta</strong> (en inglés, <em>response</em>) con la información solicitada, o con algún código de error en caso de que hubiera sucedido alguno. Las respuestas se componen de estos elementos:</p>
+
+<ul>
+  <li>Un <strong>código de estado</strong>, que indica si se ha podido atender correctamente la petición o no. Estos códigos están agrupados en categorías, de forma que, por ejemplo:
+    <ul>
+      <li>Los códigos <em>2xx</em> indican una respuesta satisfactoria. Lo normal es recibir un código 200 si todo ha ido bien</li>
+      <li>Los códigos <em>3xx</em> indican que ha habido algún tipo de redirección: el recurso solicitado estaba en otra URL y se nos ha redirigido a ella</li>
+      <li>Los códigos <em>4xx</em> indican un error por parte del cliente. Por ejemplo, el error 404 es muy típico, e indica que la URL indicada no existe. El error 403 es también típico, e indica que el cliente no tiene permiso para acceder al recurso solicitado.</li>
+      <li>Los códigos <em>5xx</em> indican un error por parte del servidor. Por ejemplo, que esté colapsado y exceda el tiempo de espera para atender la petición.</li>
+    </ul>
+  </li>
+  <li>Unas <strong>cabeceras de respuesta</strong>, que dan información sobre la respuesta que se envía. Por ejemplo, el tamaño de la respuesta, el tipo de contenido (si es un documento web, un archivo ZIP, etc… es lo que se conoce como <em>tipo MIME</em>), la última fecha de modificación, etc.</li>
+  <li>El <strong>contenido</strong> solicitado, si no ha habido error al tramitar la petición. Por ejemplo, el contenido de la web que se ha solicitado, o de un archivo que se ha pedido descargar.</li>
+</ul>
+
+<p><strong>Monitorización con Google Chrome</strong></p>
+
+<p>Si tenemos a mano el navegador Google Chrome, podemos comprobar lo que cliente (navegador) y servidor se envían en un proceso HTTP. Para ello, vamos al menú de Herramientas para desarrolladores, y más concretamente a la sección Network. Desde ahí, accedemos a una web conocida (por ejemplo, <em>ceice.gva.es</em>), y podemos comprobar la información enviada y recibida:</p>
+
+<div align="center">
+    <img src="../../img/01_monitorizar_http_chrome.png" alt="Monitorización del protocolo HTTP con Google Chrome" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Utiliza Google Chrome (opción de <em>Herramientas para desarrolladores</em>, pestaña <em>Network</em>) para ver el esquema de petición y respuesta HTTP hacia alguna web conocida, como por ejemplo <em>stackoverflow.com</em>. Identifica el código de estado, las cabeceras de respuesta (trata de identificar algunas de ellas) y el contenido.</p>
+</blockquote>
+
+<h2 id="4-recursos-necesarios">4. Recursos necesarios</h2>
+
+<p>Para implantar una aplicación web y que los clientes puedan utilizarla, necesitamos contar con una serie recursos hardware y software.</p>
+
+<ul>
+  <li>En el lado del <strong>cliente</strong>, simplemente habrá que contar con un equipo con el hardware necesario (dependiendo de la aplicación web que sea, podrá ser un móvil, una tablet, portátil, PC…), y, típicamente, un navegador web instalado (aunque también podría tratarse de una aplicación híbrida para móvil, o de escritorio, en cuyo caso haría falta la aplicación en sí).</li>
+  <li>En el lado del <strong>servidor</strong>, normalmente necesitaremos al menos un PC servidor con un hardware relativamente potente (en cuanto a procesador, memoria RAM y capacidad de disco duro). En él, necesitaremos tener instalado:
+    <ul>
+      <li>Un <strong>servidor web</strong>, o servidor de aplicaciones, donde tendremos alojada nuestra aplicación web, y atenderá las peticiones de los clientes. Normalmente se tendrá un servidor web localizable en Internet donde instalar la aplicación web definitiva (llamado <em>servidor de producción</em>), y otro en algún ordenador local donde irla desarrollando y probando hasta terminarla (<em>servidor de pruebas</em>).</li>
+      <li>Adicionalmente, si nuestra aplicación web lo requiere, un <strong>servidor de base de datos</strong> o sistema gestor de bases de datos (SGBD). Esta opción es muy común en las aplicaciones web, pues la mayoría acceden a cierta información que, por lo general, está almacenada en una base de datos.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="41-lenguajes">4.1. Lenguajes</h3>
+
+<p>Al hablar de aplicaciones web, es importante determinar el lenguaje o lenguajes de programación en que se desarrollan. En el ámbito de las aplicaciones web, distinguimos dos tipos de lenguajes:</p>
+
+<ul>
+  <li>Lenguajes en el entorno cliente o <strong>lenguajes cliente</strong>: son los que permiten que el cliente interactúe con la aplicación web. Para ello, el cliente debe poder ver la aplicación web en el navegador, e interactuar con ella (pinchar en enlaces, rellenar formularios, etc.). En este lado, normalmente se habla de <strong>HTML</strong> y <strong>CSS</strong> para el diseño de las páginas (aunque no son lenguajes de programación propiamente dichos), y de <strong>JavaScript</strong> o <strong>TypeScript</strong> para poder facilitar la interacción entre el usuario y el navegador. También existen otros frameworks y herramientas que facilitan o amplían las posibilidades de desarrollo en el cliente, tales como SASS (un compilador CSS que permite introducir algo de programación en los documentos CSS), y muchos frameworks o librerías Javascript, como jQuery o, más recientemente, Angular, React, Vue…</li>
+  <li>Lenguajes en el entorno servidor o <strong>lenguajes servidor</strong>: son los que permiten que el servidor realice ciertas tareas cuando le llegan las peticiones de los clientes, como por ejemplo consultar una base de datos, guardar información en un fichero, o cargar una foto que el usuario está subiendo al servidor. En este otro lado, existen varias familias de lenguajes que podemos elegir, dependiendo del servidor web que queramos utilizar. Por ejemplo, podemos utilizar lenguaje <strong>ASP .NET</strong> (para servidores de Microsoft y entornos Windows), o el lenguaje <strong>JSP</strong> (lenguaje Java para aplicaciones web), o el lenguaje <strong>PHP</strong>, entre otros. También últimamente se ha hecho un hueco en este grupo el lenguaje <strong>JavaScript</strong>, a través del framework Node.js.</li>
+</ul>
+
+<h3 id="42-ejemplos-de-software">4.2. Ejemplos de software</h3>
+
+<p>Hemos visto a grandes rasgos el hardware y software que necesitaremos tanto en los clientes como en el servidor. ¿Qué software concreto vamos a utilizar en este curso?</p>
+
+<p>En el caso del <strong>navegador</strong> para el <strong>cliente</strong>, existen varias opciones dependiendo del sistema operativo del cliente: Mozilla Firefox, Google Chrome, Internet Explorer / Edge (sólo para Windows), Safari (sólo en Windows y Macintosh), Opera… Posiblemente los dos primeros (Chrome y Firefox) sean las mejores opciones.</p>
+
+<p>En el caso del <strong>servidor web</strong>, dependerá del tipo de lenguaje servidor que vayamos a utilizar para hacer nuestra página, y del sistema operativo del servidor. El más habitual a día de hoy es el lenguaje PHP, y para ello se suele emplear un servidor <strong>Apache</strong> o <strong>Nginx</strong>. Como sistema de bases de datos podemos instalar un servidor <strong>MySQL/MariaDB</strong>, por ejemplo. Algunas herramientas, como XAMPP, ya integran estos dos servidores en una sola aplicación, junto con el lenguaje PHP.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong>:</p>
+
+  <p>Utiliza la herramienta <em>Google Trends</em> (<em>https://trends.google.es</em>) para buscar los términos de <em>PHP</em>, <em>JSP</em> y <em>Node.js</em>. Son tres lenguajes de desarrollo web en servidor. Deduce a partir de las búsquedas cuál de ellos crees que es más popular actualmente.</p>
+
+  <p>Después, acude a la web de InfoJobs (<em>https://www.infojobs.net</em>) y busca ofertas de trabajo con estos tres lenguajes, para determinar cuál es el más demandado en la actualidad.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

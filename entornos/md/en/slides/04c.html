@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software analysis and design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software analysis and design
+### Use case diagrams
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Use case diagrams
+
+- UML behavioral diagram
+- Represents the interaction between the user(s) and the system
+- Also among the different parts of the system
+- Graphical representation of functional requirements
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Elements: system
+
+- A rectangle that define application boundaries
+- Use cases must be placed INSIDE the system
+- Actors must be placed OUTSIDE the system
+</script>
+</section>
+    
+    
+<section data-markdown>
+<script type="text/template">
+## Elements: use cases
+
+- Actions or functionalities of the system
+- Each one is represented by an oval with a name
+- Started by an actor, or by another use case
+- The whole set represents the functionality of the system
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Elements: actors
+
+- Each actor represents a different user type or role
+- They can also represent a system (current system or an external system that interacts with current one)
+- Represented by a (simplified) human figure
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Simple example
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-16_diagrama_casos_uso_en.png" alt="Example of the system for the use case diagram" width="50%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Relationships in a use case diagram
+
+- **Communication** between actors and use cases (actors activate use cases)
+- **Inclusion** or **extension** between use cases
+- **Generalization** to define subtypes
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Communication relationship
+
+Use case is activated by the given actor (continuous line)
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-16_diagrama_casos_uso_en.png" alt="Example of the system for the use case diagram" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Inclusion relationship
+
+- Discontinuous arrow with *include* text 
+- A use case ALWAYS includes or activates the behaviour of another use case
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-23_ejemplo_include_en.png" alt="Example of include relationship" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Extension relationship (I)
+
+- Discontinuous arrow with *extend* text 
+- A use case SOMETIMES includes or activates the behaviour of another use case. Arrow starts from the activated use case
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-24_ejemplo_extends2_en.png" alt="Example of extend relationship" width="40%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Extension relationship (II)
+
+- A use case is a subtype of another use case. Arrow points from the subtype to the general type
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-24_ejemplo_extends_en.png" alt="Example of extend relationship" width="40%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Generalization relationship (I)
+
+- An actor is a subtype of another actor
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-24_ejemplo_extends_en.png" alt="Example of generalization relationship" width="40%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Generalization relationship (II)
+
+- A use case is a subtype of another use case
+- Not recommended, it can be represented with extension
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-25_ejemplo_generalizacion_en.png" alt="Example of a generalization" width="30%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: Coffee machine
+
+For a user to get coffee from our machine, he must start by introducing enough money. The following step will be to choose the amount of sugar. In our new machine model, users can both choose the amount and type of sugar (white, brown...), and it will be white sugar by default. Once the sugar is set, the user will choose the product (just coffee, coffee with milk, etc.). The machine will return the change once the process has finished and the coffee has been prepared and served. In case the user cancels the operation before choosing the coffee type, the machine will also return his money back.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: Coffee machine
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-26_maq_cafe_en.png" alt="A complete, simple example" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do exercises 1 to 4 of the contents of this section.    
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

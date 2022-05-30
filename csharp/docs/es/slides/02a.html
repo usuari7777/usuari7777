@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Estructuras de control</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Estructuras de control
+#### Estructuras alternativas o selectivas
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructuras alternativas
+
+Permiten decidir qué conjunto de instrucciones ejecutar en función de ciertas condiciones
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operadores relacionales
+
+Comparan el valor de dos datos y devuelven un resultado de *verdadero* o *falso*
+
+|Operador|Significado|
+|---|---|
+|`>`|Mayor que|
+|`<`|Menor que|
+|`>=`|Mayor o igual que|
+|`<=`|Menor o igual que|
+|`==`|Igual a|
+|`!=`|Distinto de|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplos operadores relacionales
+
+|Ejemplo|Resultado|
+|---|---|
+|7 > 3|<!-- .element: class="fragment" -->true|
+|8 <= 5|<!-- .element: class="fragment" -->false|
+|4 == 4|<!-- .element: class="fragment" -->true|
+|9 != 9|<!-- .element: class="fragment" -->false|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La estructura *if*
+
+- Permite ejecutar un conjunto de instrucciones si se cumple la condición asociada
+
+```csharp
+if(condicion)
+{
+    instruccion1;
+    instruccion2;
+    ...
+    instruccionN;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *if*
+
+- Piensa un valor para la variable *n* que haga que se ejecuten las instrucciones
+
+```csharp
+if(n > 5)
+{
+    Console.WriteLine("Has entrado en el if");
+    Console.WriteLine("n vale {0}", n);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_01.cs** que le pida al usuario un número entero y le diga si es un número par. Si no lo es, el programa no debe mostrar nada por pantalla
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_02.cs** que le pida al usuario dos números enteros y diga cuál es el mayor de los dos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Más sobre *if*
+
+- Si sólo hay una instrucción que ejecutar, se pueden omitir las llaves
+   - Es recomendable ponerlas, en cualquier caso
+- Las instrucciones asociadas al *if* están tabuladas una posición a la derecha, dentro del *if*
+   - Es recomendable reemplazar el tabulado por espacios en blanco en la configuración del editor
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```csharp
+if(n > 5)
+    Console.WriteLine("Has entrado en el if");
+Console.WriteLine("Aquí estás fuera del if");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La estructura *if-else*
+
+- Permite ejecutar un conjunto de instrucciones si se cumple la condición asociada, y otro conjunto diferente si no se cumple
+
+```csharp
+if(condicion)
+{
+    instruccionA1;
+    ...
+    instruccionAN;
+}
+else
+{
+    instruccionB1;
+    ...
+    instruccionBN;
+}
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *if-else*
+
+- Piensa un valor para la variable *n* que haga que se ejecuten las instrucciones del *if* y otro para que se ejecuten las de *else*
+
+```csharp
+if(n < 0)
+{
+    Console.WriteLine("Has entrado en el if");
+    Console.WriteLine("n vale {0} en el if", n);
+}
+else
+{
+    Console.WriteLine("No has entrado en el if");
+    Console.WriteLine("n vale {0} en el else", n);
+}
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_03.cs** que mejore el *Ejercicio_02a_02* usando `else`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_04.cs** que le pida al usuario dos números y muestre la división del primero entre el segundo, siempre que el segundo no sea 0. Si el segundo número es 0, mostrará el mensaje de "No se puede dividir por cero"
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operadores lógicos
+
+Permiten comprobar múltiples condiciones, produciendo un único resultado final de *verdadero* o *falso*
+
+|Operador|Significado|
+|---|---|
+|`&&`|Y lógica|
+|&#124;&#124;|O lógica|
+|`!`|Negación|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## El operador lógico &&
+
+- Compara dos condiciones, devolviendo un resultado VERDADERO sólo si las dos condiciones son verdaderas
+
+```csharp
+if (3 > 2 && 8 < 9)  // Verdadero
+{
+    // Esto se va a ejecutar
+}
+
+if (3 > 2 && 9 < 8)  // falso
+{
+    // Esto NO se va a ejecutar
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tabla de verdad de &&
+
+|Expresión|Resultado|
+|---|---|
+|falso && falso|falso|
+|falso && verdadero|falso|
+|verdadero && falso|falso|
+|verdadero && verdadero|verdadero|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## El operador lógico ||
+
+- Compara dos condiciones, devolviendo un resultado VERDADERO si alguna de las dos condiciones (o las dos) son verdaderas
+
+```csharp
+if (3 > 2 || 9 < 8)  // Verdadero
+{
+    // Esto se va a ejecutar
+}
+
+if (3 < 2 || 9 < 8)  // falso
+{
+    // Esto NO se va a ejecutar
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Tabla de verdad de ||
+
+|Expresión|Resultado|
+|---|---|
+|falso &#124;&#124; falso|falso|
+|falso &#124;&#124; verdadero|verdadero|
+|verdadero &#124;&#124; falso|verdadero|
+|verdadero &#124;&#124; verdadero|verdadero|
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## El operador lógico !
+
+- Invierte el sentido de una condición (si es verdadera la hace falsa, y viceversa)
+
+```csharp
+if (!(3 > 2))  // Falso
+{
+    // Esto NO se va a ejecutar
+}
+
+if (!(9 < 8))  // Verdadero
+{
+    // Esto se va a ejecutar
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tabla de verdad de !
+
+|Expresión|Resultado|
+|---|---|
+|!falso|verdadero|
+|!verdadero|falso|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones en cortocircuito
+
+- En expresiones **&&**, si la primera condición es FALSA ya no se evalúa la segunda
+   - El resultado va a ser FALSO de todas formas
+- En expresiones **||**, si la primera condición es VERDADERA ya no se evalúa la segunda
+   - El resultado va a ser VERDADERO de todas formas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Combinación de operaciones lógicas
+
+- Primero se evalúan las que vayan entre PARÉNTESIS
+- Después se evalúan las NEGACIONES (`!`)
+- Después las operaciones Y (`&&`)
+- Finalmente las operaciones O (`||`)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Trata de adivinar el resultado final de las siguientes expresiones lógicas
+
+- 8 > 7 && 4 > 2
+- 7 > 8 || 4 > 2
+- 3 < 2 && 5 >= 5 || 8 == 8
+- 3 < 2 && (5 >= 5 || 8 == 8)
+- !(3 < 2) && (5 >= 5 || 8 == 8)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de operadores lógicos
+
+Podemos emplearlos al definir las condiciones de un *if*
+
+```csharp
+if (n >= 2 && n <= 10)
+{
+    Console.WriteLine("Está entre 2 y 10");
+}
+else
+{
+    Console.WriteLine("No está entre 2 y 10");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_05.cs** que le pida al usuario un número y le diga si es múltiplo de 2 o de 3 (de uno de los dos o de los dos)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_06.cs** que le pida al usuario un número y le diga si es múltiplo de 2 y de 3 (de los dos a la vez)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_07.cs** que le pida al usuario un número y le diga si es múltiplo de 2 pero no de 3
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_08.cs** que le pida al usuario tres números y le diga cuál es el mayor de los tres
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Enlazar condiciones
+    
+- Podemos enlazar bloques *if-else* para poder comprobar consecutivamente condiciones alternativas
+
+```csharp
+// Opción 1: anidar if-else
+if (n > 10)
+{
+    Console.WriteLine("Es mayor que 10");
+}
+else
+{
+    if (n > 5)
+    {
+        Console.WriteLine("Es mayor que 5");
+    }
+    else
+    {
+        Console.WriteLine("Es menor que 5");
+    }
+}
+
+// Opción 2: alinear if-else
+
+if (n > 10)
+{
+    Console.WriteLine("Es mayor que 10");
+}
+else if (n > 5)
+{
+    Console.WriteLine("Es mayor que 5");
+}
+else
+{
+    Console.WriteLine("Es menor que 5");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02a_09.cs** que sea una mejora del anterior *Ejercicio_02a_08* utilizando *if-else* enlazados
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Crea un programa llamado **Ejercicio_02a_10.cs** que pida al usuario dos números enteros y diga "Uno de los números es positivo", "Los dos números son positivos" o bien "Ninguno de losnúmeros es positivo", según corresponda.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## El operador condicional *?:*
+
+- También llamado *operador ternario*
+- Alternativa corta a *if-else*, que podemos emplear cuando queremos dar como resultado un valor
+   - Por ejemplo, para asignarlo a una variable
+
+```csharp
+condicion?valor_si_verdadero:valor_si_falso
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de operador condicional *?:*
+
+- Asignamos a la variable **a** un valor de 0 o 1 dependiendo de si **b** es par o no
+
+```csharp
+int a, b;
+...
+a = (b % 2 == 0)?0:1;
+
+// Equivale a:
+if (b % 2 == 0)
+    a = 0;
+else
+    a = 1;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Crea un programa llamado **Ejercicio_02a_11.cs** que, usando el operador condicional, muestre por pantalla el menor de dos números introducidos por el usuario.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La estructura *switch*
+    
+- Se emplea cuando queremos analizar varios posibles valores de una variable o expresión
+   - El conjunto de posibles valores debe ser FINITO
+
+```csharp
+switch(variable)
+{
+    case valor1:
+        instrucciones;
+        break;
+    case valor2:
+        instrucciones;
+        break;
+    ...
+    default:
+        instrucciones;
+        break;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Elementos de *switch*
+    
+- Tras *switch* se escribe la variable o expresión a evaluar
+- Cada uno de los posibles valores se asigna a un *case*
+   - Cada bloque *case* debe acabar con una instrucción *break*
+- El caso *default* sirve para recoger cualquier otro posible valor que no hayamos contemplado
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de *switch*
+
+```csharp
+int n;
+...
+switch(n)
+{
+    case 0:
+        Console.WriteLine("Es un 0");
+        break;
+    case 1:
+        Console.WriteLine("Es un 1");
+        break;
+    default:
+        Console.WriteLine("No es ni 0 ni 1");
+        break;
+}
+
+// Alternativa:
+
+if (n == 0)
+{
+    Console.WriteLine("Es un 0");
+}
+else if (n == 1)
+{
+    Console.WriteLine("Es un 1");
+}
+else
+{
+    Console.WriteLine("No es ni 0 ni 1");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aunar casos
+    
+- Si dos o más casos hacen lo mismo, podemos ponerlos consecutivos y dejarlos vacíos
+- También podemos usar una instrucción **goto case** para saltar de un caso a otro con un código común
+
+```csharp
+switch(numero)
+{
+    case 0:
+    case 2:
+    case 4:
+    case 6:
+    case 8:
+        Console.WriteLine("Es par");
+        break;
+    default:
+        Console.WriteLine("Es impar");
+        break;
+}
+
+switch(numero)
+{
+    case 0: goto case 8;
+    case 1: goto case 9;
+    case 2: goto case 8;
+    case 3: goto case 9;
+    case 4: goto case 8;
+    case 5: goto case 9;
+    case 6: goto case 8;
+    case 7: goto case 9;
+    case 8: 
+        Console.WriteLine("Es par");
+        break;
+    case 9:
+        Console.WriteLine("Es impar");
+        break;
+}
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Crea un programa llamado **Ejercicio_02a_12.cs** que le pida al usuario un número de mes (entre 1 y 12) y, usando *switch*, le diga el mes con letra
+- Por ejemplo, si el usuario escribe 3, se deberá mostrar "Marzo"
+- Si el número de mes no es correcto, se deberá mostrar el mensaje "Mes incorrecto"
+- ¿Cómo realizarías este ejercicio usando *if*?
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Crea un programa llamado **Ejercicio_02a_13.cs** que le pida al usuario una letra y diga si es una vocal o no.
+
+- PISTA: para leer una letra o carácter del teclado te puede servir este código:
+
+```csharp
+char letra = Convert.ToChar(Console.ReadLine());
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Crea un programa llamado **Ejercicio_02a_14.cs** que le pida al usuario un carácter y diga a cuál de estos grupos pertenece:
+
+- Letra alfabética de la A a la Z
+- Dígito del 0 al 9
+- Cualquier otra cosa (signos de puntuación, letras minúsculas...)
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

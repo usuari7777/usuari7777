@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 7 (I) | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 7 (I)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07ejercicios1.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/07ejercicios1.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 7 (I)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 7 (I)","url":"http://nachoiborraies.github.io/nodejs/md/es/07ejercicios1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-7-i">Ejercicios propuestos - Parte 7 (I)</h1>
+
+<p>Para el ejercicio de esta sesión, crea una subcarpeta llamada “<strong>Sesion7_1</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro crear el proyecto del ejercicio.</p>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_7_1</strong>” en la carpeta de ejercicios “<em>ProyectosNode/Ejercicios/Sesion7_1</em>”. Copia dentro el contenido del <em>Ejercicio_5_3</em> de la sesión 5, donde implementamos una API REST sobre los libros.</p>
+
+<p>Lo que vamos a hacer sobre este ejercicio es añadir una autenticación basada en tokens usando la librería <em>jsonwebtoken</em>. Definiremos un array estático de usuarios registrados, y añadiremos la librería y los métodos para generar y validar el token, como en el ejemplo. Los utilizaremos para proteger el acceso a los servicios que impliquen modificación de datos (POST, PUT y DELETE sobre la colección de libros). Deberás añadir también un servicio de <em>login</em> (<code class="language-plaintext highlighter-rouge">POST /login</code>) que reciba los datos del usuario en el cuerpo de la petición y le devuelva el token, como en el ejemplo resuelto de la sesión. Este servicio lo puedes crear en la aplicación principal <em>index</em>.</p>
+
+<p>Crea una nueva colección en <em>ThunderClient</em> llamada <em>LibrosToken</em>, y adapta la colección que hiciste originalmente, para utilizar tokens en los servicios que lo requieran, añadiendo también el servicio para el <em>login</em>.</p>
+
+<p>Deberás adjuntar como entrega de este ejercicio tanto el proyecto Node (sin la carpeta <code class="language-plaintext highlighter-rouge">node_modules</code>) como la colección de pruebas exportada.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

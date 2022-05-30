@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introducción a la autenticación por tokens | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Introducción a la autenticación por tokens" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/07a.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a la autenticación por tokens" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Introducción a la autenticación por tokens","url":"http://nachoiborraies.github.io/nodejs/md/es/07a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="introducción-a-la-autenticación-por-tokens">Introducción a la autenticación por tokens</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/07a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="07a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>A la hora de proteger ciertas rutas o secciones de una aplicación web, podemos utilizar diversos mecanismos. En lo que a las aplicaciones web “tradicionales” se refiere (es decir, aquellas que sirven contenido visible en un navegador, como por ejemplo, y sobre todo, contenido HTML), el mecanismo de autenticación por antonomasia es la autenticación basada en sesiones.</p>
+
+<p>Sin embargo, cuando queremos extender la aplicación web más allá del uso de un navegador, y permitir que otros tipos de clientes se conecten al <em>backend</em> (por ejemplo, aplicaciones de escritorio, o aplicaciones móviles), la autenticación basada en sesiones se queda corta o no sirve, y es necesario recurrir a otros mecanismos más universales, como la autenticación por tokens.</p>
+
+<h2 id="1-fundamentos-de-la-autenticación-por-tokens">1. Fundamentos de la autenticación por tokens</h2>
+
+<p>Un <strong>token</strong> por sí mismo es una cadena de texto que carece de significado. Pero, combinado con ciertas claves, es un mecanismo para proteger nuestras aplicaciones de accesos no permitidos. La autenticación basada en tokens es un método mediante el cual nos aseguramos de que cada petición a un servidor viene acompañada por un token firmado, que contiene los datos necesarios para verificar que el cliente ya ha sido validado previamente.</p>
+
+<p>El mecanismo empleado para la autenticación por token es el siguiente:</p>
+
+<ol>
+  <li>El cliente envía sus datos de autenticación al servidor (típicamente un login y password).</li>
+  <li>El servidor valida esas credenciales contra algún tipo de almacenamiento (normalmente una base de datos). En el caso de que sean correctas, genera un token, una cadena codificada que permite identificar al usuario. Este token se envía al cliente, normalmente como datos de la respuesta. Internamente, puede contener algún dato que permita identificar al usuario, como su login o e-mail.</li>
+</ol>
+
+<blockquote>
+  <p><strong>NOTA:</strong> No conviene añadir en el token (ni tampoco en las sesiones) información muy confidencial, como el password, por ejemplo, ya que puede ser fácilmente descodificable. Esto no quiere decir que el token sea un mecanismo inseguro de autenticación, ya que el servidor utiliza una palabra secreta para cifrar una parte del token, y así poder verificar que es correcto, pero el resto del token sí queda más descubierto.</p>
+</blockquote>
+
+<ol>
+  <li>El cliente recibe el token y lo almacena de alguna forma localmente (mediante mecanismos como <code class="language-plaintext highlighter-rouge">localStorage</code> en JavaScript o similares en otros lenguajes). Ante cada nueva petición que se haga, el cliente reenvía dicho token en las cabeceras de la petición, para que el servidor verifique que es un cliente autorizado.</li>
+</ol>
+
+<p>Normalmente a los tokens se les asigna un tiempo de vida o una fecha de caducidad (que pueden ser minutos, días, semanas… dependiendo de lo que nos interese y del tipo de aplicación). En cada nueva reconexión, el tiempo de vida se puede renovar (no es algo automático, deberemos hacerlo nosotros), y si pasa más de ese tiempo estipulado sin que el cliente intente conectar, se le solicitará de nuevo que se autentifique.</p>
+
+<p>Se suele emplear el estándar JWT (JSON Web Token), que define una forma compacta de transmitir esta información entre cliente y servidor empleando objetos JSON.</p>
+
+<h2 id="2-estructura-de-un-token-jwt">2. Estructura de un token JWT</h2>
+
+<p>Un token JWT consiste en tres partes:</p>
+
+<ul>
+  <li><strong>Cabecera (<em>header</em>)</strong>: con información sobre el tipo de token generado (en este caso, JWT), algoritmo de encriptación (HS256, por ejemplo), etc.</li>
+  <li><strong>Carga (<em>payload</em>)</strong>: contiene la información codificada por el token (login, roles, permisos concretos, caducidad, etc), lo que se conoce como declaraciones (<em>claims</em>). Conviene no enviar información confidencial en este elemento, ya que, como veremos, es fácilmente descodificable.</li>
+  <li><strong>Firma (<em>signature</em>)</strong>: se emplea para validar el token y protegerlo frente a manipulaciones. Esta firma se genera mezclando tres elementos: la cabecera, el payload y una palabra secreta.</li>
+</ul>
+
+<p>Se generará una cadena en formato <em>base64</em> con toda la información del token. Por ejemplo:</p>
+
+<pre>
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjoiSldUIFJ1bGVzISIsImlhdCI6MTQ1OTQ0ODExOSwiZXhwIjoxNDU5NDU0NTE5fQ.-yIVBD5b73C75osbmwwshQNRC7frWUYrqaTjTpza2y4
+</pre>
+
+<p>Si pegamos esta cadena en algún procesador de tokens, como el de <a href="https://jwt.io/">jwt.io</a>, podremos ver descodificadas la cabecera y el payload:</p>
+
+<div align="center">
+    <img src="../../img/07_token2.png" width="90%" />
+</div>
+
+<p>Esto quiere decir que no existe una encriptación para los datos que se envían (cabecera y payload), se pueden descodificar fácilmente desde <em>base64</em>. Pero sin conocer la palabra secreta que genera la firma, no se puede validar que ese token sea correcto. Esa palabra sólo la conoce el servidor. En el caso del ejemplo anterior, si utilizamos la palabra “L3@RNJWT” podremos obtener la validación del token en la página anterior.</p>
+
+<p>Es decir, la tercera parte del token se emplea por el servidor para, una vez obtenidas la cabecera y el payload (descodificándolas desde <em>base64</em>) y uniendo a ellas la palabra secreta, comprobar que la cadena generada coincide con esa tercera parte. Si es así, el token es auténtico.</p>
+
+<h2 id="3-ventajas-e-inconvenientes-de-la-autenticación-por-token">3. Ventajas e inconvenientes de la autenticación por token</h2>
+
+<p>El mecanismo de autenticación por token ofrece algunas ventajas respecto al tradicional método por sesiones:</p>
+
+<ul>
+  <li>Los tokens no tienen estado (<em>stateless</em>), lo que significa que el servidor no debe almacenar en ninguna parte el registro de usuarios autenticados para comprobar si quien entra ha sido autorizado antes. La propia cadena que se envían cliente y servidor contiene toda la información. Por contra, la información de las sesiones (o los identificadores de cada sesión) sí se almacenan en el servidor.</li>
+  <li>Cualquier aplicación cliente soporta tokens, lo que supone que podemos emplear este mismo mecanismo para autenticar una aplicación de escritorio, móvil o web contra el mismo <em>backend</em>.</li>
+  <li>Los tokens permiten especificar información adicional de acceso, como roles de usuario, permisos concretos a recursos, etc.</li>
+</ul>
+
+<p>Sin embargo, para poder implementar una autenticación basada en tokens en una aplicación tradicional de navegador, necesitamos que el cliente no sea un cliente “tonto”, que se limite a renderizar el contenido HTML y poco más. Es necesario cierto pre-procesamiento JavaScript en la parte cliente para enviar el token al servidor en cada petición, así como para recoger el token generado por el servidor cuando nos autenticamos. Esto hace imprescindible el uso de ciertas librerías en el cliente, como jQuery, Angular, React o Vue, entre otras.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

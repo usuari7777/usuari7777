@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Desarrollo de videojuegos con Phaser | Curso de desarrollo de videojuegos con Phaser. Escrito por Nacho Iborra profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Desarrollo de videojuegos con Phaser" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo de videojuegos con Phaser. Escrito por Nacho Iborra profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo de videojuegos con Phaser. Escrito por Nacho Iborra profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/phaser/md/es/01.html" />
+<meta property="og:site_name" content="Desarrollo de videojuegos con Phaser" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Desarrollo de videojuegos con Phaser" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo de videojuegos con Phaser. Escrito por Nacho Iborra profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Desarrollo de videojuegos con Phaser","url":"http://nachoiborraies.github.io/phaser/md/es/01.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=d40b0f202bf2f0f4cb67394684a3c6672349abe2">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/phaser/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+
+      <h1 id="desarrollo-de-videojuegos-con-phaser">Desarrollo de videojuegos con Phaser</h1>
+
+<h2 id="i---primeros-pasos-con-phaser">I - Primeros pasos con Phaser</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/phaser00.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="http://nachoiborraies.github.io/phaser/md/es/phaser00.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Phaser es un framework de desarrollo de videojuegos en JavaScript. Estos videojuegos se desarrollan empleando tecnologías web (HTML, CSS y JavaScript) y son multiplataforma, ya que pueden ejecutarse tanto en navegadores convencionales como en otras plataformas (iOS, Android) a través de determinados mecanismos de exportación.</p>
+
+<p>Entre sus principales características, podemos destacar las siguientes:</p>
+
+<ul>
+  <li>Utiliza la librería <em>WebGL</em> para renderizar los gráficos, pero también podemos basarnos en los <em>canvas</em> de HTML5 para renderizarlos (especialmente indicado para aquellos dispositivos que no soporten <em>WebGL</em>)</li>
+  <li>Incluye implementaciones básicas de algunos comportamientos físicos y maneo de <em>sprites</em>, tales como rotaciones, colisiones o gravedad.</li>
+  <li>Dispone también de otras características avanzadas, como sistemas de partículas, cámara, etc.</li>
+</ul>
+
+<h3 id="1-descarga-e-instalación">1. Descarga e instalación</h3>
+
+<p>Podemos descargar Phaser de su <a href="http://phaser.io/">web oficial</a>, en la sección de <a href="http://phaser.io/download/stable">descargas</a>. Podemos descargar la librería en distintos formatos:</p>
+
+<ul>
+  <li>Descargar el repositorio completo de GitHub (especialmente útil si queremos consultar la referencia de funciones que incorpora). También podemos descargar una versión comprimida en formato <em>zip</em> o <em>tar.gz</em>.</li>
+  <li>Descargar directamente el archivo <code class="language-plaintext highlighter-rouge">.js</code> o <code class="language-plaintext highlighter-rouge">.min.js</code> listo para incluir en nuestros proyectos.</li>
+</ul>
+
+<h3 id="2-eligiendo-un-ide">2. Eligiendo un IDE</h3>
+
+<p>Existen multitud de IDEs que podemos emplear para desarrollar videojuegos en Phaser, ya que, a priori, dicho framework no exige ningún requisito en particular. Así, podemos utilizar editores más o menos sencillos como <em>Notepad++</em>, <em>Geany</em> o incluso el mismo bloc de notas, y también otros que nos permitan estructurar y gestionar mejor el conjunto de archivos y carpetas del proyecto.</p>
+
+<p>Desde este último punto de vista, en este documento proponemos utilizar <strong>Visual Studio Code</strong> como editor de referencia, aunque existen otras alternativas similares como <em>Brackets</em>, <em>Sublime Text</em> o <em>Atom</em>, entre otros. <a href="https://nachoiborraies.github.io/entornos/md/en/02c">Aquí</a> tienes unos pasos sobre cómo descargar e instalar Visual Studio Code, si no estás familiarizado aún con este IDE.</p>
+
+<h3 id="3-uso-de-un-servidor-web">3. Uso de un servidor web</h3>
+
+<p>Aunque pueda parecer extraño, para hacer las pruebas en local de nuestros juegos necesitaremos tener activo un servidor web donde ejecutarlos. Esto es así para que el navegador otorgue los permisos correctos de acceso a los diferentes recursos del juego (imágenes, archivos de audio…), ya que de lo contrario es posible que algunos de estos recursos no se muestren o se reproduzcan.</p>
+
+<p>Existe gran variedad de opciones para elegir aquí, como por ejemplo:</p>
+
+<ul>
+  <li><strong>XAMPP</strong>, una herramienta que incluye un servidor web Apache junto con el lenguaje PHP y una base de datos MySQL (estas últimas dos opciones no son necesarias para Phaser). Podemos descargarlo e instalarlo en múltiples plataformas desde su <a href="https://www.apachefriends.org/es/index.html">web oficial</a>. Una vez instalado, ponemos en marcha el <em>manager</em> de XAMPP y ubicamos nuestro juego en la carpeta correspondiente (típicamente cualquier carpeta dentro de la subcarpeta <em>htdocs</em> de XAMPP).</li>
+  <li><strong>Web server for Chrome</strong>, una extensión de Google Chrome que lanza un pequeño servidor. A través de esta utilidad, podemos elegir qué carpeta queremos poner en marcha, y accedemos a ella bajo dicho servidor. La podemos descargar desde <a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb">aquí</a> y, al ponerla en marcha, elegimos la carpeta y listo.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/phaser_web_server_chrome.png" alt="Chrome web server" width="50%" />
+</div>
+
+<p>Para facilitar en todo momento la integración entre el desarrollo y las pruebas de nuestro videojuego, en este curso proponemos utilizar la extensión <strong>Live Server</strong> de Visual Studio Code. Podéis consultar más información en la <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">web del marketplace de VS Code</a>.</p>
+
+<p>Una vez instalada la extensión, para ejecutar cualquier página HTML en el servidor basta con abrirla en el editor VS Code, hacer clic derecho sobre ella y elegir la opción <em>Open with Live Server</em> en el menú contextual que aparecerá.</p>
+
+<div align="center">
+    <img src="../../img/phaser_liveserver.png" alt="Live Server" width="50%" />
+</div>
+
+<p>Se abrirá directamente nuestro navegador por defecto, accediendo a la página con la URL por defecto del servidor. Para detener el servidor después, con el mismo clic derecho podemos elegir la opción inmediatamente inferior (<em>Stop Live Server</em>).</p>
+
+<h3 id="4-una-primera-prueba-sencilla">4. Una primera prueba sencilla</h3>
+
+<p>Vamos a crear un primer ejemplo de uso de Phaser, que no se va a poder llamar juego propiamente dicho porque no vamos a tener, de momento, nada con lo que interactuar. Es una simple primera toma de contacto para ver cómo incorporar Phaser al proyecto y definir los parámetros de configuración principales.</p>
+
+<p>Creamos una carpeta llamada <strong>ejemplo00</strong>, con la siguiente estructura:</p>
+
+<ul>
+  <li>Subcarpeta <code class="language-plaintext highlighter-rouge">js</code> con:
+    <ul>
+      <li>La librería <code class="language-plaintext highlighter-rouge">phaser.min.js</code> que puedes descargar de la <a href="http://phaser.io/download/stable">web de descargas oficial</a>.</li>
+      <li>Archivo <code class="language-plaintext highlighter-rouge">game.js</code> donde rellenaremos el código de nuestro videojuego</li>
+    </ul>
+  </li>
+  <li>Página principal <code class="language-plaintext highlighter-rouge">index.html</code> en la raíz del proyecto.</li>
+</ul>
+
+<p>El contenido del archivo <code class="language-plaintext highlighter-rouge">index.html</code> puede ser algo así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Ejemplo 00<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/phaser.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/game.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Algunos comentarios sobre este código inicial:</p>
+
+<ul>
+  <li>En la cabecera (<em>head</em>) cargamos la librería Phaser</li>
+  <li>En el contenido de la página se dibujará el contenido del videojuego</li>
+</ul>
+
+<p>En cuanto al archivo <code class="language-plaintext highlighter-rouge">js/game.js</code>, definiremos un primer contenido como este:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

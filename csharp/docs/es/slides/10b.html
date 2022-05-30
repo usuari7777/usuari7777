@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Otros aspectos del lenguaje</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Otros aspectos del lenguaje
+#### Gestión de fechas y horas
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de fechas: DateTime
+
+Propiedad estática **Now** para obtener fecha y hora actuales, o **Today** sólo para fecha
+
+```cs
+DateTime ahora = DateTime.Now;
+DateTime fechaActual = DateTime.Today;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de fechas: DateTime
+
+Constructor para crear fechas (año, mes y día, o también hora minuto y segundo)
+
+```cs
+// 20 de Marzo de 2022
+DateTime fecha1 = new DateTime(2022, 3, 20);
+// 20 de Marzo de 2022 a las 22:30:15
+DateTime fecha2 = new DateTime(2022, 3, 20, 22, 30, 15);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Propiedades de las fechas
+
+*Day*, *Month*, *Year*, *Hour*, *Minute*, *Second* para acceder a partes de la fecha
+
+```cs
+DateTime ahora = DateTime.Now;
+int mes = ahora.Month;
+int segundo = ahora.Second;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sumar partes de fecha
+
+Métodos como *AddDays* y similares para sumar partes a la fecha
+
+```cs
+DateTime fecha = new DateTime(2022, 3, 20, 22, 30, 15);
+
+// 23 de Marzo de 2022 a las 22:30:15
+DateTime fecha2 = fecha.AddDays(3);
+// 20 de Marzo de 2022 a las 23:30:15
+DateTime unaHoraDespues = fecha.AddHours(1);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Períodos de tiempo
+
+Usamos el método *Subtract* para restar fechas y construir un *TimeSpan* con el que ver la diferencia en días o unidades inferiores (horas, minutos...)
+
+```cs
+DateTime ahora = DateTime.Today;
+DateTime fechaPasada = new DateTime(2000, 4, 14);
+TimeSpan diferencia = ahora.Subtract(fechaPasada);
+Console.WriteLine("Han pasado {0} días", diferencia.Days);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Leer fechas de teclado
+
+- Hay varias formas
+- Por ejemplo, podemos usar **DateTime.ParseExact**
+   - Texto a procesar
+   - Formato de fecha esperado
+   - Cultura en que viene la fecha (o *null* para no indicar ninguna)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Leer fechas de teclado
+
+Ejemplo
+
+```cs
+DateTime fecha = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", null);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mostrar fechas por pantalla
+
+Usamos *ToString* indicando el formato de salida (más información [aquí](https://docs.microsoft.com/es-es/dotnet/api/system.datetime.tostring))
+
+```cs
+DateTime ahora = DateTime.Now;
+Console.WriteLine(ahora.ToString("d")); // dd/MM/yyyy
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa **Ejercicio_10b_01** que le pida al usuario que escriba su fecha de nacimiento en formato *dd/MM/yyyy* y le diga:
+
+- Cuántos años tiene
+- Cuándo es su próximo cumpleaños
+- Cuántos días faltan para su próximo cumpleaños
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa **Ejercicio_10b_02** que muestre en pantalla el calendario del mes y año que se indiquen como parámetros por línea de comandos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Más información
+
+Consultar [API oficial](https://docs.microsoft.com/es-es/dotnet/api/system.datetime)
+
+</script>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

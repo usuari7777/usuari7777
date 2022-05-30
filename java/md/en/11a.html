@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functional programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Functional programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="11a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/11a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functional programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Functional programming","url":"http://nachoiborraies.github.io/java/md/en/11a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="functional-programming">Functional programming</h1>
+
+<h2 id="introduction-to-functional-programming">Introduction to functional programming</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/11a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="11a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Functional programming is a programming paradigm (this is, a way of implementing programs) that focuses on the evaluation of mathematical functions. It is based on <em>lambda calculus</em>, a system born in 1930 to evaluate function definition, application and recursion.</p>
+
+<p>Functional paradigm is declarative, this is, code is made with declarations instead of sentences or statements. In other words, we tell the program how things are, instead of how to solve a problem. On the opposite side we have imperative languages, which are based on commands in the source code, such as assignments, that tell the program how to solve the problem.</p>
+
+<h3 id="1-some-functional-programming-features">1. Some functional programming features</h3>
+
+<p>Functional programming relies on some fundamental concepts:</p>
+
+<ul>
+  <li><strong>Referential transparency</strong>:  the output of a function depends only on its arguments, so that if we call it many times with the same arguments, we will always get the same result. So, functional programming has no side effects that can modify something out of the function</li>
+  <li><strong>Data immutability</strong>: in order to make sure that no side effects will be produced when calling functions, one of the most important rules of functional programming paradigm is that data can’t be mutable.</li>
+  <li><strong>Function composition</strong>: functional languages treat functions as data, so we can apply function composition, this is, we can chain the output of a function with the input of next function.</li>
+  <li><strong>First order functions</strong>: these functions are higher level functions, which allow other functions as parameters. They are very popular in languages such as Javascript, when we can define <em>callbacks</em> to respond to some events or asynchronous tasks, but they are also an important aspect of functional languages.</li>
+</ul>
+
+<p>Imperative languages can produce side effects in external elements. They also have functions, just like functional programming has, but in this case functions are not mathematical definitions, but a group of sentences that can be called from different parts of the program. Taking into account possible side effects, we might have different results when calling a function many times with the same arguments. Let’s have a look at the following code written in C:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">externalValue</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">aFunction</span><span class="p">(</span><span class="kt">int</span> <span class="n">param</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">externalValue</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">externalValue</span> <span class="o">+</span> <span class="n">param</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>If we call the function as <code class="language-plaintext highlighter-rouge">aFunction(1)</code>, it will return 3. But if we call it again with the same arguments (<code class="language-plaintext highlighter-rouge">aFunction(1)</code>) it will return 4… and so on. This kind of situation is forbidden in a functional paradigm, although some functional languages let us commit this “crime”.</p>
+
+<h3 id="2-functional-languages">2. Functional languages</h3>
+
+<p>If we are looking for a functional language, we must distinguish between:</p>
+
+<ul>
+  <li><strong>Pure</strong> functional languages, this is, languages that were created to follow this paradigm, and no other. In this group we can find languages like <strong>Haskell</strong> or <strong>Miranda</strong>. The first one is used by Facebook to deal with big data and analysis.</li>
+  <li><strong>Hybrid</strong> languages, this is, languages that accept several paradigms, although they do well with functional approaches. In this group we can talk about <strong>Scala</strong>, <strong>Clojure</strong>, or <strong>Lisp</strong>.</li>
+  <li>Other languages, that were initially imperative, but have modified their syntax and structure to accept some functional features. This is the case of some of the most important languages of these years, such as <strong>Java</strong>, <strong>C#</strong>, <strong>Javascript</strong>…</li>
+</ul>
+
+<h3 id="3-an-introductory-example">3. An introductory example</h3>
+
+<p>Just to have a first experience with the functional paradigm, let’s see how to solve a typical problem. We are going to use a popular language, such as Java, to illustrate it. We have a list of <code class="language-plaintext highlighter-rouge">Person</code> objects, each one with its own name and age. If we want to get the people that are adults (i.e. their age is greater or equal than 18), we would do it this way with traditional, imperative programming:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">adultPeople</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">people</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">people</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+        <span class="n">adultPeople</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">people</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What we do is explore the original list, and add to a new one every person older than 18. But, if we take advantage of some of the new features provided with Java 8 regarding functional programming, we can solve the same problem like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">adultPeople</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                                 <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+                                 <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span> 
+</code></pre></div></div>
+
+<p>As we can see, code is more compact, less error-prone and (once we get used to the syntax), more understandable. You can also see how function composition works: the output of <code class="language-plaintext highlighter-rouge">stream</code> method is the input for <code class="language-plaintext highlighter-rouge">filter</code> method, and the output of this method is the input for <code class="language-plaintext highlighter-rouge">collect</code>.</p>
+
+<h3 id="4-functional-programming-in-java">4. Functional programming in Java</h3>
+
+<p>Regarding Java, it has added some functional programming features, specially since version 8, that let us operate with (almost) immutable data, and chain operations through function composition. We are mainly talking about lambda expressions and streams.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

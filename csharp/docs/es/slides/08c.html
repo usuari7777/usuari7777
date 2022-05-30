@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Manejo de ficheros</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Manejo de ficheros
+#### Gestión del sistema de ficheros
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Introducción
+
+Veremos las clases y métodos que ofrece C# para:
+
+- Explorar los archivos y carpetas de nuestro sistema
+- Realizar operaciones sobre ellos: crear carpetas, copiar/mover archivos, borrarlos...
+- Usaremos las clases **Directory** y **DirectoryInfo** para gestión de carpetas
+- Usaremos las clases **File** y **FileInfo** para gestión de archivos
+- Todas pertenecen a **System.IO**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Crear directorios
+
+- Usamos **Directory.CreateDirectory** con la ruta
+- Podemos usar **@** para no duplicar la barra `\\`
+
+```cs
+Directory.CreateDirectory(@"D:\Pruebas\carpeta1\subcarpeta1");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Mover/Borrar directorios
+
+- Usamos **Directory.Move** o **Directory.Delete** respectivamente
+- El borrado sólo funciona si el directorio está vacío, o si indicamos un segundo parámetro *true* para que lo borre recursivamente
+
+```cs
+Directory.Move(@"D:\Pruebas\aa", @"D:\Pruebas\aa_copia");
+Directory.Delete(@"D:\Pruebas\aa_copia", true);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listar información de directorios (1/4)
+
+- Obtener las rutas de archivos y carpetas (array de strings)
+- Podemos pasar parámetros adicionales para buscar ficheros o carpetas con un patrón determinado, y para buscar recursivamente en subcarpetas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listar información de directorios (2/4)
+
+```cs
+string ruta = @"D:\Pruebas";
+string[] subcarpetas = Directory.GetDirectories(ruta);
+string[] todasSubcarpetas = Directory.GetDirectories(ruta, "*", SearchOption.AllDirectories);
+string[] archivos = Directory.GetFiles(ruta);
+string[] todosArchivos = Directory.GetFiles(ruta, "*.pdf", SearchOption.AllDirectories);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listar información de directorios (3/4)
+
+- Obtener la información separada de cada archivo o carpeta (*FileInfo* / *DirectoryInfo*)
+- También podemos pasar parámetros adicionales para buscar ficheros o carpetas con un patrón determinado, y para buscar recursivamente en subcarpetas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listar información de directorios (4/4)
+
+```cs
+string ruta = @"D:\Pruebas";
+DirectoryInfo carpetaInicial = new DirectoryInfo(ruta);
+DirectoryInfo[] subcarpetas = 
+    carpetaInicial.GetDirectories("*", SearchOption.AllDirectories);
+
+foreach(DirectoryInfo carpeta in subcarpetas)
+{
+    Console.WriteLine("Nombre: " + carpeta.Name);
+    Console.WriteLine("Ruta absoluta: " + carpeta.FullName);
+    Console.WriteLine("Fecha de creación: " + carpeta.CreationTime);
+    Console.WriteLine();
+}
+
+FileInfo[] archivos = 
+    carpetaInicial.GetFiles("*.pdf", SearchOption.AllDirectories);
+
+foreach (FileInfo archivo in archivos)
+{
+    Console.WriteLine("Nombre: " + archivo.Name);
+    Console.WriteLine("Extensión: " + archivo.Extension);
+    Console.WriteLine("Tamaño (bytes): " + archivo.Length);
+    Console.WriteLine("Ruta absoluta: " + archivo.FullName);
+    Console.WriteLine("Fecha de creación: " + archivo.CreationTime);
+    Console.WriteLine();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Copiar/Mover/Borrar ficheros
+
+Usamos **File.Copy**, **File.Move** y **File.Delete**
+
+```cs
+string ruta = @"D:\Pruebas";
+
+File.Copy(ruta + @"\archivo1.txt", ruta + @"\archivo2.txt");
+File.Move(ruta + @"\archivo1.txt", ruta + @"\subcarpeta\archivo1_movido.txt");
+File.Delete(ruta + @"\archivo2.txt");
+
+// También podemos hacerlo a partir de otras búsquedas
+DirectoryInfo dirInicial = new DirectoryInfo(ruta);
+FileInfo[] ficheros = dirInicial.GetFiles("*", SearchOption.AllDirectories);
+foreach(FileInfo fi in ficheros)
+{
+    if (fi.Name == "fichero_determinado.txt")
+    {
+        File.Delete(fi.FullName);
+        Console.WriteLine("Fichero eliminado");
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comprobar existencia
+
+```cs
+if (Directory.Exists(@"D:\Pruebas"))
+{
+    Console.WriteLine("La carpeta inicial existe");
+}
+if (File.Exists(@"D:\Pruebas\prueba.pdf"))
+{
+    Console.WriteLine("El fichero existe");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Información sobre unidades y particiones
+
+Usamos la clase **DriveInfo**
+
+```cs
+DriveInfo[] di = DriveInfo.GetDrives();  
+foreach(DriveInfo items in di)  
+{  
+    Console.WriteLine(items.Name);    
+} 
+
+Console.Write("\nEscribe un nombre de partición:");  
+string particion = Console.ReadLine();  
+DriveInfo dInfo = new DriveInfo(particion);  
+Console.WriteLine("Nombre: {0}", dInfo.Name);  
+Console.WriteLine("Espacio total: {0} bytes", dInfo.TotalSize);  
+Console.WriteLine("Espacio libre: {0} bytes", dInfo.TotalFreeSpace);  
+Console.WriteLine("Formato: {0}", dInfo.DriveFormat);  
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08c_01** que:
+
+1. Cree una carpeta llamada "CopiasCSharp" en la ubicación que quieras (sin pedir nada al usuario)
+2. Pida al usuario un nombre de carpeta
+3. Busque todos los archivos fuente de C# en esa carpeta (extensión *.cs*), incluyendo subdirectorios
+4. Para cada archivo que encuentre, lo copiará a la carpeta "CopiasCSharp" anterior
+5. Esperará a que el usuario pulse una tecla
+6. En la carpeta "CopiasCSharp", eliminará todos los archivos *.cs* que sean de menos de 500 bytes.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

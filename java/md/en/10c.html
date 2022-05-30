@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software testing | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="10c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/10c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software testing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Software testing","url":"http://nachoiborraies.github.io/java/md/en/10c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="software-testing">Software testing</h1>
+
+<h2 id="integration-tests-and-continuous-integration">Integration tests and continuous integration</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/10c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="10c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Once the unit tests have been designed and run, it’s time to start integrating the different components of the application. This is when continuous integration can come into scene…</p>
+
+<h3 id="1-principles-of-continuous-integration">1. Principles of continuous integration</h3>
+
+<p>Continuous integration is a testing methodology that automatically launches a set of tests every time we try to integrate or join the components of an application. This way, every time we make a change in our project and upload the changes, a tool is in charge of launching the tests that we have defined (typically unit tests for each component) and determine if anything is going wrong. This methodology can also be helpful in a team environment, so whenever a team component uploads changes to a common repository, tests are automatically launched and every team member can notice if anything goes wrong.</p>
+
+<h4 id="11-tools-for-continuous-integration">1.1. Tools for continuous integration</h4>
+
+<p>There are several tools that we can use in order to include continuous integration features in our projects. For instance:</p>
+
+<ul>
+  <li><strong>GitHub Actions</strong> is a tool integrated with GitHub that lets us perform this integration tasks automatically.</li>
+  <li><strong>Travis CI</strong> is an external, open source tool that can be integrated with GitHub so that we can choose which project(s) are included in the continuous integration process.</li>
+  <li><strong>Jenkins</strong> is another external CI tool written in Java that can also be integrated with GitHub and some other control version tools.</li>
+  <li><strong>Circle CI</strong> is another external CI tool that can be integrated with some version control software, such as GitHub.</li>
+</ul>
+
+<p>Some of these tools offer a limited free account that let us perform some integration tests per month. For the purpose of this session, we are going to rely on Circle CI as our preferred tool.</p>
+
+<h4 id="12-using-a-dependency-manager-gradle">1.2. Using a dependency manager: Gradle</h4>
+
+<p>Most of the tools mentioned above use some default configuration files based on some dependency manager. A dependency manager is a tool that automatically looks for dependencies or external resources needed in a project to compile and/or run. Regarding Java projects, we can mention <em>Gradle</em> or <em>Maven</em> as some of the most relevant dependency managers.</p>
+
+<p>In order to ease the continuous integration in a remote, shared repository, we should create our Java project based on some of these dependency managers. In our case, we are going to use <em>Gradle</em> in the example shown in this session. So we create a new IntelliJ project and choose <em>Gradle</em> in the first section of the project wizard:</p>
+
+<div align="center">
+    <img src="../../img/10_intellij_gradle.png" />
+</div>
+
+<p>For the purpose of this session, let’s create a project called <em>SampleCITest</em>. When we finish creating the project, Gradle will automatically build it for the first time (it may take a few seconds/minutes).</p>
+
+<div align="center">
+    <img src="../../img/10_intellij_gradle2.png" />
+</div>
+
+<p>As you can see, Gradle automatically adds a <em>src</em> folder to include our source files, with a subfolder called <em>main</em> for the main source code and a <em>test</em> subfolder to automatically place the test classes.</p>
+
+<p>Now, let’s add a new package called <code class="language-plaintext highlighter-rouge">data</code> in the <em>src/main/java</em> subfolder, with a <code class="language-plaintext highlighter-rouge">Person</code> class inside with this code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">data</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Next, click on the class name and press <em>Alt</em> + <em>Enter</em> to create the associated test:</p>
+
+<div align="center">
+    <img src="../../img/10_intellij_gradle_test.png" />
+</div>
+
+<p>As you can see, in this case JUnit is automatically included in the project, and we only need to choose the method(s) for which we need to define the tests (<code class="language-plaintext highlighter-rouge">getName</code> method in this case).</p>
+
+<p>The new test class will be automatically added to <em>src/tests/java</em> subfolder. We can fill the code of the test method with something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">data</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">PersonTest</span> 
+<span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our project is now ready to be uploaded to a CI environment. Let’s go on.</p>
+
+<h3 id="2-using-continuous-integration-with-circle-ci">2. Using continuous integration with Circle CI</h3>
+
+<p>As we have said before, we are going to use <em>Circle CI</em> as our CI tool. First of all, we need to sign up in Circle CI home page and enable this tool in our GitHub account. Then, we can easily upload our Java projects with their tests included, and see how it works.</p>
+
+<h4 id="21-circle-ci-setup">2.1. Circle CI setup</h4>
+
+<p>First step in order to use Circle CI is to sign up in its <a href="https://www.circleci.com/signup">official web page</a>, using our GitHub account.</p>
+
+<div align="center">
+    <img src="../../img/10_circleci_signup.png" />
+</div>
+
+<p>Then, we need to allow CircleCI from our GitHub account to access our repositories (either public ones, or all of them).</p>
+
+<div align="center">
+    <img src="../../img/10_circleci_signup2.png" />
+</div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: this first step must be done only once, the first time we need to associate our GitHub account with Travis. Then, every repository that we want to include in our continuous integration flow can be automatically added.</p>
+</blockquote>
+
+<h4 id="22-adding-new-projects-to-our-ci-flow">2.2. Adding new projects to our CI flow</h4>
+
+<p>If we want to add any project to a continuous integration flow, we just need to follow these steps.</p>
+
+<p><strong>Create the project</strong></p>
+
+<p>We have already done this step with IntelliJ and Gradle. But, before going on, we could also include a <em>Circle CI</em> configuration file in our project, just to ease next steps. Create a directory called <code class="language-plaintext highlighter-rouge">.circleci</code> in the root folder of the project, and include a <code class="language-plaintext highlighter-rouge">config.yml</code> inside this folder like the one that you can get <a href="../../resources/en/config_yml.zip">here</a>.</p>
+
+<div align="center">
+    <img src="../../img/10_intellij_gradle_circleci.png" />
+</div>
+
+<p>This <em>.yml</em> file tells Circle CI how it should compile the project and run the tests using Gradle.</p>
+
+<p><strong>Upload the project to GitHub</strong></p>
+
+<p><a href="https://nachoiborraies.github.io/entornos/md/en/05d#3-using-git-in-intellij">Here</a> you can see how to do it but, to sum up, we need to go to <em>VCS</em> &gt; <em>Share project on GitHub</em>, and then choose the repository name (we may need to enter our credentials if we haven synchronized IntelliJ wigh GitHub yet).</p>
+
+<div align="center">
+    <img src="../../img/10_intellij_github.png" />
+</div>
+
+<p>You will be asked to do an initial commit and <em>push</em> with the files of the project.</p>
+
+<p><strong>Setup project in Circle CI</strong></p>
+
+<p>Then, go to <a href="https://app.circleci.com/projects/">Circle CI projects page</a> of your account and choose the project you want to manage.</p>
+
+<div align="center">
+    <img src="../../img/10_circleci_setup_project.png" width="80%" />
+</div>
+
+<p>Click on the <em>Setup Project</em> button, and choose the <em>Fastest</em> option. As you have manually added the <code class="language-plaintext highlighter-rouge">config.yml</code> file to your project, Circle CI should automatically detect this file in the <em>master</em> branch.</p>
+
+<div align="center">
+    <img src="../../img/10_circleci_setup_project2.png" />
+</div>
+
+<p>And that’s all. Now your continuous integration process is ready. In the <em>Dashboard</em> of Circle CI you can see the history of all the tests performed:</p>
+
+<div align="center">
+    <img src="../../img/10_circleci_dashboard.png" width="80%" />
+</div>
+
+<h4 id="23-making-changes-to-the-project">2.3. Making changes to the project</h4>
+
+<p>Whenever we make any change to the project, or add new tests, Circle CI will automatically launch them, so you will see a new entry in the dashboard. For instance, let’s add this new assertion to the <code class="language-plaintext highlighter-rouge">getName</code> test method. Notice that this assertion will make the test fail:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">data</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">PersonTest</span> 
+<span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"John"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Commit and push the changes to GitHub (from <em>Git</em> &gt; <em>Commit</em> menu, choosing the <em>Commit and Push</em> button):</p>
+
+<div align="center">
+    <img src="../../img/10_intellij_commit_push.png" width="50%" />
+</div>
+
+<p>Now you can see these new tests running automatically on Circle CI dashboard:</p>
+
+<div align="center">
+    <img src="../../img/10_circleci_dashboard2.png" width="80%" />
+</div>
+
+<p>Also, you will get an e-mail to your GitHub account every time a continuous integration is launched and failed, so you can see the results. Besides, these results are also available from GitHub. If you choose the appropriate repository and branch (<em>master</em>, in our case), you will see an icon next to the last commit information (red if any test has failed, green if everything is OK):</p>
+
+<div align="center">
+    <img src="../../img/10_github_ci_result.png" width="80%" />
+</div>
+
+<p>If we don’t want to include Circle CI features in a project any longer, we go back to the projects section in Circle CI web site and choose <em>Unfollow project</em></p>
+
+<div align="center">
+    <img src="../../img/10_circleci_setup_project3.png" width="80%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Follow the steps shown in this section to create the <em>SampleCITest</em> project with the <code class="language-plaintext highlighter-rouge">Person</code> class. Upload the initial version of the project to GitHub (including <code class="language-plaintext highlighter-rouge">config.yml</code> file for <em>Circle CI</em>) and then add new changes to both <code class="language-plaintext highlighter-rouge">Person</code> and <code class="language-plaintext highlighter-rouge">PersonTest</code> classes to include new methods and tests (for instance, the <code class="language-plaintext highlighter-rouge">setName</code> method). See how the Circle CI dashboard automatically updates with every new test that you include in the project.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

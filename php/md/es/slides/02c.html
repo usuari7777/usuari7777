@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Cookies y sesiones</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Cookies y sesiones
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Cookies
+
+- Texto que se intercambian navegador y servidor entre distintas peticiones
+- Contiene información acerca de las mismas y de lo que se ha estado haciendo
+   - Búsquedas realizadas, preferencias, login (no password)...
+- Tienen fecha de caducidad
+- Pueden desactivarse desde el navegador
+- Debemos advertir al usuario de que vamos a usarlas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Características de las cookies
+
+- Son independientes de cada servidor y usuario
+   - Guardaremos cookies distintas y aisladas para cada web que visitemos
+   - Dos usuarios que visiten la misma web tienen también sus propias cookies cada uno
+- No se pueden transmitir virus, ni acceder al disco duro. Es el navegador quien las controla y gestiona.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Crear cookies
+
+- Función **setcookie**
+   - Nombre de la cookie
+   - Valor que almacenamos (texto)
+   - Tiempo de vida: se suele usar la función *time()* para contar desde el momento actual. Un valor negativo borra la cookie, y un valor 0 la borra al cerrar el navegador
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Crear cookies
+
+Ejemplo: cookie con un color favorito que dura 1 hora (3600 segundos desde ahora)
+
+```php
+setcookie("colorFavorito", "#432FA1", time()+3600);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Consultar cookies
+
+Array global `$_COOKIE` con el nombre de la cookie
+
+```php
+$color = $_COOKIE["colorFavorito"];
+echo "<style>body { background-color: " . $color . "; }</style>";
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Realiza el *Ejercicio 1* del documento asociado a estas diapositivas 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sesiones
+
+- Otro mecanismo para guardar información entre cliente y servidor
+- Permite almacenar información más compleja (no solo texto)
+- Se almacena en el servidor (no en el navegador), y cada cliente accede a su sesión a través de un *id* alfanumérico que se intercambia con el servidor en las peticiones
+- Independientes entre servidores y entre usuarios (como las cookies)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones con sesiones
+
+- **session_start()**: inicializa la sesión o accede a la sesión actual (debe usarse al principio de cualquier página que utilice sesiones)
+- Array global asociativo `$_SESSION` para acceder y guardar/leer datos de la sesión
+- **session_destroy()**: para eliminar la sesión por completo
+- Podemos (debemos) usar `unset` para eliminar cada dato suelto antes de destruir la sesión, o reasignar el array entero
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones con sesiones
+
+Ejemplos (no necesariamente en la misma página)
+
+```php
+// Carga de sesión: deberemos hacerla en cualquier página
+// que quiera usar $_SESSION o alguna función de sesión
+session_start();
+
+// Guardar datos en sesión
+$_SESSION["loginUsuario"] = $_REQUEST["login"];
+
+// Acceso a la sesión para recuperar información
+echo '<p>Bienvenido/a, ' . $_SESSION["loginUsuario"] . '</p>';
+
+// Borrado del dato en sesión:
+unset($_SESSION["loginUsuario"]);
+
+// Borrado de la sesión
+$_SESSION = array();
+session_destroy();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+Guardamos el email del usuario, que nos llega desde un formulario, en sesión
+
+```php
+// Esto nos permitirá acceder al array $_SESSION
+session_start();
+
+// Comprobamos si llega un e-mail en la petición
+if (isset($_REQUEST['email']))
+{
+    // Almacenamos el e-mail en una casilla del array $_SESSION,
+    // con el nombre que queramos (por ejemplo, 'emailUsuario')
+    $_SESSION['emailUsuario'] = $_REQUEST['email'];
+}
+
+// ... Resto del código de la página
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+Accedemos al e-mail desde cualquier página
+
+```php
+session_start();
+if (isset($_SESSION['emailUsuario']))
+{
+    // Hacer lo que queramos con $_SESSION['emailUsuario']
+}
+else
+{
+    // Si no existe, podemos redirigir a otra página, por ejemplo
+    header("Location:otraPagina.php");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+Eliminar datos de sesión cuando se necesite
+
+```php
+session_start();
+if (isset($_SESSION['emailUsuario']))
+    unset($_SESSION['emailUsuario']);
+// También serviría esto:
+// $_SESSION = array();
+session_destroy();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Realiza el *Ejercicio 2* del documento asociado a estas diapositivas 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Realiza el *Ejercicio 3* del documento asociado a estas diapositivas 
+
+</script>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

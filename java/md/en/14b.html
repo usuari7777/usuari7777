@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Concurrent programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Concurrent programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="14b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/14b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Concurrent programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Concurrent programming","url":"http://nachoiborraies.github.io/java/md/en/14b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="concurrent-programming">Concurrent programming</h1>
+
+<h2 id="process-management-in-java">Process management in Java</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/14c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="14b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Now that we know what a process is, let’s see how Java deals with them. In fact, there are just a few classes and methods that we need to know, since Java is focused on threads, not on processes (every Java main application is a thread indeed). However, there are some functionalities added that allow us to call external programs or create processes from a Java application.</p>
+
+<h3 id="1-creating-processes">1. Creating processes</h3>
+
+<p>To create a process in Java, we need to get a <code class="language-plaintext highlighter-rouge">Process</code> object. This can be achieved by two different ways:</p>
+
+<ul>
+  <li>Using the <code class="language-plaintext highlighter-rouge">ProcessBuilder</code> class. We need to create an array of strings with the name of the program to run and its arguments, and then, call the <code class="language-plaintext highlighter-rouge">start</code> method.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span><span class="o">[]</span> <span class="n">cmd</span> <span class="o">=</span> <span class="o">{</span><span class="s">"ls"</span><span class="o">,</span> <span class="s">"-l"</span><span class="o">};</span>
+<span class="nc">ProcessBuilder</span> <span class="n">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProcessBuilder</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+<span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Using the <code class="language-plaintext highlighter-rouge">Runtime</code> class. We also need to create an array of strings with the name of the program and its arguments, and then we call the <code class="language-plaintext highlighter-rouge">exec</code> method with that array as a parameter.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span><span class="o">[]</span> <span class="n">cmd</span> <span class="o">=</span> <span class="o">{</span><span class="s">"notepad.exe"</span><span class="o">};</span>
+<span class="nc">Runtime</span> <span class="n">rt</span> <span class="o">=</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">();</span>
+<span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">rt</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In both cases, we are running an existing command or program in the operating system where Java is currently running. It can be a Linux shellscript, a Windows <em>exe</em> file, or even another Java application through a <em>java</em> command. If the program can’t be found, or we do not have permission to run it, an exception will be thrown when we try to call the <code class="language-plaintext highlighter-rouge">start</code> or <code class="language-plaintext highlighter-rouge">exec</code> methods from <code class="language-plaintext highlighter-rouge">ProcessBuilder</code> or <code class="language-plaintext highlighter-rouge">Runtime</code> classes, respectively. This exception will be a subtype of <code class="language-plaintext highlighter-rouge">IOException</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> 
+<span class="o">{</span>
+    <span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Exception: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(-</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="11-differences-between-processbuilder-and-runtime">1.1. Differences between <em>ProcessBuilder</em> and <em>Runtime</em></h4>
+
+<p>You may be wondering… why are there two ways of doing the same thing? Well, <code class="language-plaintext highlighter-rouge">Runtime</code> class belongs to Java core since its very first version, whereas <code class="language-plaintext highlighter-rouge">ProcessBuilder</code> was added in Java 5. With <code class="language-plaintext highlighter-rouge">ProcessBuilder</code> you can add environment variables and change the current working directory for the process to be launched. Such features are not available for <code class="language-plaintext highlighter-rouge">Runtime</code> class. Besides, there are some subtle differences between these two classes. For instance, <code class="language-plaintext highlighter-rouge">Runtime</code> class lets us execute a command by passing the whole string as an argument, without dividing it into separate arguments in an array:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="s">"ls -l"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="2-synchronizing-processes">2. Synchronizing processes</h3>
+
+<p>We have just learnt how to create and launch a process in Java. After calling the <code class="language-plaintext highlighter-rouge">start</code> or <code class="language-plaintext highlighter-rouge">exec</code> method, our Java program keeps going, and it runs its next instruction. If we want it to stop until the subprocess finishes its task, we can call the <code class="language-plaintext highlighter-rouge">waitFor</code> method from the <code class="language-plaintext highlighter-rouge">Process</code> object that we created. This causes the main program to halt until this process is completed.</p>
+
+<p>Calling the <code class="language-plaintext highlighter-rouge">waitFor</code> method can throw an <code class="language-plaintext highlighter-rouge">InterruptedException</code> if the subprocess has been interrupted unexpectedly. If everything is OK, then the control comes back to the Java main application as soon as the subprocess finishes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> 
+<span class="o">{</span>
+    <span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
+    <span class="o">...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Exception: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(-</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Interrupted: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">waitFor</code> method returns an integer value. This value is usually a 0 when the process has finished correctly, and any other number if it finished unexpectedly. So we can check the final state of a process by comparing its return value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">waitFor</span><span class="o">();</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The task finished unexpectedly"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="3-finishing-processes">3. Finishing processes</h3>
+
+<p>We can finish a process that we previously created in our program by calling the <code class="language-plaintext highlighter-rouge">destroy</code> method. By doing this, the Java <em>garbage collector</em> will free all the resources associated to that process.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ProcessBuilder</span> <span class="n">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProcessBuilder</span><span class="o">(...)</span>
+<span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">...</span>
+<span class="n">p</span><span class="o">.</span><span class="na">destroy</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="4-communicating-with-processes">4. Communicating with processes</h3>
+
+<p>A process usually needs to get some information (from the user, or from a file, for instance), and output some results (to a file, to a screen…). In many operating systems, when a process is using a given input/output, its children use the same input/output. In other words, if a process is reading data from a file as its standard input, and it creates a subprocess, this subprocess will also have the same file as its default input.</p>
+
+<p>However, Java does not have such behavior. When a process is created in Java from another (parent) process, it has its own communication interface. If we want to communicate with this subprocess, we have to get its input and output streams. By doing this, we will be able to send data to that subprocess from its parent process, and get its results from its parent as well.</p>
+
+<p>The following example gets the output of the subprocess and prints it to the screen:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Process output:"</span><span class="o">);</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There is something you must know when you deal with your process data. Some operating systems (such as Linux, Android, Mac OS X…) use UTF-8 as their encoding format, whereas other systems (Windows) use their own encoding format. This can be a problem if, for instance, we save a text file in Linux and we read it in Windows. To avoid these problems, we can use a second argument when creating the <code class="language-plaintext highlighter-rouge">InputStreamReader</code> object, to tell the JVM which is the expected encoding format for the input:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+<span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">(),</span> <span class="s">"UTF-8"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="5-example">5. Example</h3>
+
+<p>This example creates a process to call the <em>“ls”</em> command (it is expected to run on Linux or Mac OS X), with the option <em>“-l”</em> to have a detailed list of files and folders from current directory. Then, it captures the output and prints it in the console (or standard output).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FolderListing</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">cmd</span> <span class="o">=</span> <span class="o">{</span><span class="s">"ls"</span><span class="o">,</span> <span class="s">"-l"</span><span class="o">};</span>
+        <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="nc">ProcessBuilder</span> <span class="n">pb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProcessBuilder</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">Process</span> <span class="n">p</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+            <span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Process output:"</span><span class="o">);</span>
+            <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+            <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Exception:"</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>ProcessListPNG</strong> with a program that asks the user to introduce a path (for instance, <em>/myfolder/photos</em>), and then launches a process that prints a list of all PNG images found in this path. Try to do it recursively (either with a command from the operating system or with your own script).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>ProcessKillNotepad</strong> with a program that launches the notepad or any similar text editor from your operating system. Then, the program will wait 10 seconds for the subprocess to finish and, after that period, it will be destroyed. To sleep 10 seconds, use this instruction:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">milliseconds</span><span class="o">);</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

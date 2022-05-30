@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Algunas funciones útiles</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Funciones
+#### Algunas funciones útiles
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de TryParse
+
+- Alternativa a usar las funciones Convert.ToXXXX y tener que capturar las posibles excepciones en la conversión
+- Parámetros: dato a convertir (típicamente texto) y parámetro de tipo *out* donde almacenar la conversión
+- Devuelve un booleano indicando si se ha podido convertir o no el dato
+- Más compacto y fácil de usar
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de TryParse
+
+```csharp
+int numero;
+
+Console.WriteLine("Escribe un número del 1 al 10");
+if (Int32.TryParse(Console.ReadLine(), out numero) &&
+    numero >= 0 && numero <= 10)
+{
+    Console.WriteLine("Número correcto");
+}
+else
+{
+    Console.WriteLine("Número incorrecto");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05b_01.cs** que te pida tu edad repetidamente hasta que introduzcas un dato válido (entre 0 y 120)
+
+</script>
+</section>        
+    
+<section data-markdown>
+<script type="text/template">
+## Generar números aleatorios
+
+- Creamos una variable de tipo **Random**
+   - Debemos crearla UNA sola vez para todos los números que queramos generar
+- Usamos la función **Next** de dicha variable, indicando el rango de valores deseado
+   - Si no indicamos nada, se genera un entero aleatorio positivo
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Generar números aleatorios
+
+```csharp
+Random r = new Random();
+int valor1 = r.Next(100, 200);  // Entre 100 y 199 inclusive
+int valor2 = r.Next(0, 11);     // Entre 0 y 10 inclusive
+int valor3 = r.Next();          // Entero aleatorio positivo
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05b_02.cs** que genere un número al azar del 1 al 100 (inclusive) y dé al usuario 5 intentos para adivinarlo. Tras cada intento le dará pistas de si el número a adivinar es menor o mayor que el que ha dicho el usuario
+
+</script>
+</section>        
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05b_03.cs** que genere aleatoriamente los 6 números de la lotería (números del 1 al 49 inclusive, sin repetir). Después, le pedirá al usuario que escriba su apuesta y le dirá cuántos aciertos tiene
+
+</script>
+</section>        
+    
+<section data-markdown>
+<script type="text/template">
+## Uso avanzado de la consola (1/2)
+
+- La instrucción **Console.Clear()** limpia la consola
+- La instrucción **Console.SetCursorPosition(int x, int y)** coloca el cursor en las coordenadas indicadas como parámetro, siendo y = 0 la fila superior de la consola
+- La propiedad **Console.ForegroundColor** permite obtener o cambiar el color de texto
+- La propiedad **Console.BackgroundColor** permite obtener o cambiar el color de fondo
+- La instrucción **Console.ResetColor()** restablece los colores por defecto (fondo y texto)
+- Los colores disponibles varían con el sistema y versión de C#, pero algunos se pueden consultar [aquí](https://docs.microsoft.com/es-es/dotnet/api/system.consolecolor?view=net-5.0)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso avanzado de la consola (2/2)
+
+- La propiedad **Console.WindowWidth** permite obtener/establecer la anchura de la consola
+- La propiedad **Console.WindowHeight** permite obtener/establecer la altura de la consola
+- La instrucción **Console.ReadKey(bool)** recoge una pulsación de tecla del usuario. El parámetro *bool* a *true* servirá para que no se muestre la tecla en consola
+   - Podemos almacenarla en una variable de tipo *ConsoleKeyInfo*, y consultar su valor en la enumeración **ConsoleKey**
+- La propiedad **Console.CursorVisible** es un booleano que permite mostrar/ocultar el cursor en la consola
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso avanzado de la consola
+
+```csharp
+/* Dibujamos fila de 10 asteriscos rojos en línea 3 */
+Console.SetCursorPosition(0, 2);
+Console.ForegroundColor = ConsoleColor.Red;
+for(int i = 1; i <= 10; i++)
+    Console.Write("*");
+
+/* Vemos si el usuario ha pulsado la barra espaciadora */
+ConsoleKeyInfo tecla = Console.ReadKey(true);
+if (tecla.Key == ConsoleKey.Spacebar)
+{
+    Console.WriteLine("Has pulsado espacio");
+}
+
+// Ocultamos el cursor
+Console.CursorVisible = false;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Haz un programa en el fichero **Ejercicio_05b_04.cs** que dibuje la bandera del país que quieras en consola
+- PISTA: puedes jugar con el color de fondo (*BackgroundColor*) y dibujar espacios para que salga ese color
+
+</script>
+</section>        
+    
+<section data-markdown>
+<script type="text/template">
+## Thread.Sleep
+
+- Pausa el programa la cantidad de milisegundos que indiquemos
+- Debemos incluir el espacio *System.Threading*
+
+```csharp
+using System.Threading;
+...
+Console.WriteLine("Hola");
+Thread.Sleep(2000);
+Console.WriteLine("Este mensaje saldrá 2 segundos después");
+```
+
+</script>
+</section>        
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05b_05.cs** que dibuje con asteriscos verdes el contorno de un cuadrado de lado 5 con una pausa de 500ms entre cada asterisco
+
+</script>
+</section>        
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

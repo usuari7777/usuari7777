@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Diseño web adaptativo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Diseño web adaptativo
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Diseño web adaptativo
+
+- Aborda la problemática de diseñar webs que se vean correctamente en distintos tipos de dispositivos (móviles, tablets, pantallas 4K...)
+- Preguntas:
+   - ¿Qué tipos principales de dispositivos podemos o debemos considerar?
+   - ¿Qué estrategias hay para abordar el diseño web para esos tipos de dispositivos?
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipos de dispositivos
+
+* Resolución *extra-pequeña* (*xs*) - hasta **576px**
+* Resolución *pequeña* (*sm*) - hasta **768px**
+* Resolución *mediana* (*md*) - hasta **992px**
+* Resolución *grande*  (*lg*) - hasta **1200px**
+* Resolución *extra-grande* (*xl*) - hasta **1400px**
+* Resoluciones aún mayores
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estrategias de diseño
+
+- **Adaptativo**: se define un diseño para cada posible resolución a tratar, y el navegador carga uno u otro automáticamente. Se puede conseguir a través de **media queries**
+- **Responsive**: se define un único diseño que se ajusta automáticamente según las dimensiones de la pantalla. Se puede conseguir a través de **flexbox**, por ejemplo
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## El *viewport*
+
+- Permite a los diseñadores web controlar el área visible de una web
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Media queries
+
+- Técnica proporcionada por CSS3 que permite adaptar la visualización del contenido de una página a las características del dispositivo en que se va a mostrar
+- Podemos especificar resolución de pantalla, tipo de medio (impreso, pantalla...), etc.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura de una media query
+
+```css
+@media not|only tipo_medio and (expresiones)
+{
+    estilos CSS
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura de una media query
+
+- **tipo_medio** puede ser *screen* (el más habitual), *print* (impreso), *speech* (hablado) u *all*
+- Las **expresiones** son condiciones a comprobar sobre ciertas características del dispositivo destino, como por ejemplo y sobre todo su anchura mínima/máxima
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos
+
+```css
+/* Media query para pantallas de anchura mínima 768px */
+@media only screen and(min-width: 768px)
+{
+    ...
+}
+
+/* Media query general para dispositivos con anchura mínima de 768px*/
+@media (min-width: 768px)
+{
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estrategia de diseño con media queries
+
+1. Fuera de las media queries definimos estilos generales (tipos de letra, color de fondo...) y el diseño para uno de los dos extremos (mínima o máxima resolución)
+2. Después, definimos una media query para cada uno de los tamaños intermedios que queramos contemplar hasta llegar al otro extremo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Supongamos este HTML
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo media queries</title>
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/estilos.css">
+</head>
+<body>
+    <section id="contenedor">
+        <section id="caja1">Caja 1</section>
+        <section id="caja2">Caja 2</section>
+    </section>
+</body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+- Vamos a definir dos tipos de resoluciones: 
+   - Pantallas de hasta 768px: una caja debajo de la otra
+   - Pantallas de mayor anchura: en paralelo, usando *grid*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Diseño CSS base (sin media queries) para cosas generales y resolución baja
+
+```css
+body
+{
+    font-family: Arial;
+    margin: 10px 5%;
+}
+
+#caja1
+{
+    background-color:lightcoral;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
+
+#caja2
+{
+    background-color:lightskyblue;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Media query con diseño para resolución mayor
+
+```css
+@media(min-width: 768px)
+{
+    body
+    {
+        margin: 100px 20%;
+    }
+
+    #contenedor
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 10px;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Resultado final
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_media_queries.png" width="40%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Descarga [este ejemplo](../../../resources/UD3_Ejercicios/03d_ejercicio_responsive.html) y define un documento CSS donde definamos tres posibles disposiciones:
+
+* Resoluciones hasta 768px: cajas una debajo de otra
+* Resoluciones hasta 992px: caja 1 arriba, caja 4 abajo, y las dos intermedias en paralelo. Además, cambiaremos el color de las cajas 1 y 4 a gris
+* Resoluciones mayores: cuatro cajas en paralelo con sus colores iniciales
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (ejemplos)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_media_queries1.png" width="40%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (ejemplos)
+    
+<div align="center">
+    <img src="../../../img/03_ejercicio_media_queries2.png" width="40%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (ejemplos)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_media_queries3.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Flexbox
+
+- *Flexible boxes*, mecanismo de diseño web *responsive* facilitado por CSS3
+- Permite especificar una serie de propiedades en las cajas para que se adapten automáticamente al tamaño de pantalla existente
+- Es necesario definir un elemento contenedor de las cajas involucradas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Flexbox: configuración del contenedor
+
+* `display`: ***flex*** para habilitar contenedor flexible. Alternativamente, *inline-flex* para que las cajas internas se comporten como elementos en línea
+* `flex-direction`: *row*, *row-reverse*, *column*, *column-reverse*
+* `justify-content`:  *flex-start*, *flex-end*, *center*, *space-between*, *space-around*
+* `flex-wrap`: si le damos el valor *wrap* permitimos que las cajas se auto-distribuyan
+
+Podemos practicar estos y otros parámetros [aquí](https://the-echoplex.net/flexyboxes/)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Flexbox: configuración de las cajas
+
+* `order`: orden de la caja dentro de la secuencia, si no queremos que sea el orden natural
+* `flex`: tamaño de la caja respecto al resto. Puede ser tamaño relativo (2 es el doble que 1), o con unidades (200px, 40%...)
+* `min-width`: anchura mínima que debe tener la caja, por debajo de la cual se redistribuirán los elementos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Supongamos este HTML
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo flexbox</title>
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/estilos.css">
+</head>
+<body>
+    <section id="contenedor">
+        <section id="caja1">Caja 1</section>
+        <section id="caja2">Caja 2</section>
+        <section id="caja3">Caja 3</section>
+    </section>
+</body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Queremos poner las tres cajas en horizontal, con la caja 2 ocupando el doble de espacio, y que todas tengan una anchura mínima de 250px. Si eso no puede cumplirse, queremos que las cajas se redistribuyan para cumplir con esa anchura mínima (normalmente una debajo de otra).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Configuración del contenedor
+
+```css
+#contenedor
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Configuración de las cajas internas
+
+```css
+#caja1, #caja3
+{
+    background-color:lightcoral;
+    padding: 10px;
+    margin: 10px;    
+    flex: 1;
+    min-width: 250px;
+}
+
+#caja2
+{    
+    background-color:lightskyblue;
+    padding: 10px;
+    margin: 10px;
+    flex: 2;
+    min-width: 250px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+Resultado final
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_flexbox.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Descarga el mismo [ejemplo](../../../resources/UD3_Ejercicios/03d_ejercicio_responsive.html) del ejercicio anterior. Ahora vamos a configurarlo mediante *flexbox* para que:
+ 
+* Las dos cajas centrales ocupen el doble de tamaño que las laterales. Las laterales van a tener un color de fondo gris y las centrales amarillo-naranja.
+* Las cajas laterales tengan una anchura mínima de 200px, y las centrales de 300px. Cuando esto no sea posible, se redistribuirán
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2 (ejemplos)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_flexbox1.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2 (ejemplos)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_flexbox2.png" width="40%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2 (ejemplos)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_flexbox3.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Conclusiones
+
+- *Flexbox* es una buena opción para un control **unidimensional** de los elementos (disposición en filas o columnas)
+- *Media queries* y *grid* son mejor opción para un control **bidimensional** de los elementos (decidir qué queremos ver en cada fila o columna de una tabla)
+- Alternativa: frameworks de diseño como Bootstrap
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Autenticación basada en sesiones | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Autenticación basada en sesiones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/07c.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Autenticación basada en sesiones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Autenticación basada en sesiones","url":"http://nachoiborraies.github.io/nodejs/md/es/07c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="autenticación-basada-en-sesiones">Autenticación basada en sesiones</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/07c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="07c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Como ya comentamos anteriormente, la seguridad basada en sesiones es, quizá, el mecanismo más utilizado para definir autenticación en aplicaciones web tradicionales, basadas en navegador.</p>
+
+<p>Hay que tener en cuenta, antes de nada, que el protocolo HTTP que se emplea en las comunicaciones cliente-servidor es un protocolo <em>sin estado</em>, es decir, no se guarda ninguna información, ni existe ninguna relación, entre dos peticiones consecutivas al mismo servidor. Esto dificulta, en principio, el hecho de que el servidor pueda “recordar” quién ha accedido a la web, para dejarle seguir haciéndolo. Los mecanismos de seguridad basados en sesiones añaden un elemento llamado <em>sesión</em> a la comunicación cliente-servidor, que permite almacenar información sobre el cliente que accede, de forma que el servidor almacena esa información, y cuando el cliente vuelve a acceder le recuerda, y le da acceso.</p>
+
+<p>Veremos en esta sesión cómo configurar las sesiones en Express y definir mecanismos de autenticación y validación de usuarios.</p>
+
+<h2 id="1-fundamentos-de-la-autenticación-basada-en-sesiones">1. Fundamentos de la autenticación basada en sesiones</h2>
+
+<p>La autenticación basada en sesiones permite autenticar usuarios en aplicaciones web basadas en navegadores, y “recordar” el usuario que se validó en sus sucesivas visitas. Para ello, utilizan las <strong>sesiones</strong>, que comprenden un conjunto de interacciones de un cliente con un servidor en un determinado período. Cuando abrimos un navegador y accedemos a una web, automáticamente se inicia la sesión en dicha web, y mientras no cerremos el navegador o la sesión manualmente, la aplicación recuerda (o puede recordar, si quiere) que ya hemos accedido, y los pasos que hemos ido dando en la actual sesión.</p>
+
+<p>Cuando intentamos acceder a una zona restringida de ciertas webs, como por ejemplo nuestra página personal de una entidad bancaria, o los comentarios en un foro, la aplicación nos pide que nos validemos. Cuando introducimos un login y password, ésta los coteja con los que tenga almacenados y, si son correctos, almacena en la sesión datos sobre nuestro usuario, como por ejemplo, y sobre todo, nuestro <em>nick</em> o <em>login</em>, y el perfil de usuario que tenemos en la web (es decir, el rol: si somos administradores, editores, visitantes, etc). Así, para cada nueva petición que hagamos en esa misma sesión, el servidor comprueba en la sesión quiénes somos y qué rol tenemos, y en función de eso, nos permite hacer unas cosas u otras. Al finalizar, podemos cerrar la sesión (<em>logout</em>), y borrar los datos que se hayan guardado en ella de nuestra visita.</p>
+
+<h2 id="2-definición-de-sesiones-en-express">2. Definición de sesiones en Express</h2>
+
+<p>Para poder trabajar con sesiones en Express, vamos a instalar el módulo <em>express-session</em>. Es un <em>middleware</em> que permite, en cada petición que requiera una comprobación, determinar si el usuario ya se ha validado y con qué credenciales, antes de dejarle acceder a lo que busca o no.</p>
+
+<p>Así que lo primero que haremos será instalar el módulo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install express-session
+</code></pre></div></div>
+
+<p>Después, lo incorporamos a nuestro servidor Express junto con el resto de módulos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">session</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express-session</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>A continuación, configuramos la sesión dentro de la aplicación Express:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="p">...</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+    <span class="na">secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">resave</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">saveUninitialized</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<p>Los parámetros de configuración que hemos empleado son:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">secret</code>: una clave de cifrado para la sesión, que se empleará para enviarla cifrada entre cliente y servidor. Es algo similar a la palabra secreta para cifrar un token, en la autenticación basada en tokens.</li>
+  <li><code class="language-plaintext highlighter-rouge">resave</code>: se emplea para refrescar la sesión con cada nuevo acceso, de forma que mientras sigamos accediendo a la aplicación dentro del tiempo de caducidad establecido para la sesión, éste se renueva automáticamente</li>
+  <li><code class="language-plaintext highlighter-rouge">saveUninitialized</code>: sirve para guardar sesiones aunque no se hayan completado. Se utiliza si queremos almacenar en sesión datos de usuarios que no se hayan validado, por ejemplo. En nuestro caso no habilitaremos esta opción.</li>
+</ul>
+
+<blockquote>
+  <p><strong>NOTA</strong>: la configuración de la sesión deberá hacerse ANTES de definir los enrutadores, ya que de lo contrario este <em>middleware</em> se aplicará después de procesar las rutas, y no tendrá efecto.</p>
+</blockquote>
+
+<h3 id="21-validación">2.1. Validación</h3>
+
+<p>En todo proceso de autenticación debe haber una validación previa, donde el usuario envíe sus credenciales y se cotejen con las existentes en la base de datos, antes de dejarle acceder.</p>
+
+<p>Vamos a suponer, por simplicidad, que tenemos los usuarios cargados en un array, con su nombre de usuario y su password:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">usuarios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">12345</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe111</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Ahora tendríamos que definir una ruta que, normalmente por POST, recogiera las credenciales que envía el usuario y las cotejara con ese array. Si concuerda con algún usuario almacenado, se guarda en la sesión el nombre del usuario que accedió al sistema, y se puede redirigir a alguna página de inicio. En caso contrario, se puede redirigir a una página de login:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">login</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">login</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">password</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">;</span>
+
+    <span class="kd">let</span> <span class="nx">existeUsuario</span> <span class="o">=</span> <span class="nx">usuarios</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">usuario</span> <span class="o">=&gt;</span> 
+        <span class="nx">usuario</span><span class="p">.</span><span class="nx">usuario</span> <span class="o">==</span> <span class="nx">login</span> <span class="o">&amp;&amp;</span> <span class="nx">usuario</span><span class="p">.</span><span class="nx">password</span> <span class="o">==</span> <span class="nx">password</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existeUsuario</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">usuario</span> <span class="o">=</span> <span class="nx">existeUsuario</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">usuario</span><span class="p">;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">index</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">login</span><span class="dl">'</span><span class="p">,</span> 
+                   <span class="p">{</span><span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Usuario o contraseña incorrectos</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="22-autenticación">2.2. Autenticación</h3>
+
+<p>Una vez validado el usuario, debemos definir una función <em>middleware</em> que se encargará de aplicarse en cada ruta que queramos proteger. Lo que hará será comprobar si hay algún usuario en sesión. En caso afirmativo, dejará pasar la petición. De lo contrario, enviará a la página de validación o <em>login</em>, por ejemplo.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">autenticacion</span> <span class="o">=</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">session</span> <span class="o">&amp;&amp;</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">usuario</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">next</span><span class="p">();</span>
+    <span class="k">else</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">login</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Sólo nos queda aplicar este <em>middleware</em> en cada ruta que requiera validación por parte del usuario. Esto se hace en la misma llamada a <em>get, post, put</em> o <em>delete</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/protegido</span><span class="dl">'</span><span class="p">,</span> <span class="nx">autenticacion</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">protegido</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Notar que pasamos como segundo parámetro el <em>middleware</em> de autenticación. Si pasa ese filtro, se ejecutará el código del <code class="language-plaintext highlighter-rouge">get</code>. En caso contrario, el <em>middleware</em> está configurado para renderizar la vista de login.</p>
+
+<h2 id="3-definiendo-roles">3. Definiendo roles</h2>
+
+<p>Nuestra aplicación también puede tener distintos roles para los usuarios registrados. Por ejemplo, podemos tener administradores y usuarios normales. Esto se suele definir con un campo extra en la información de los usuarios:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">usuarios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">12345</span><span class="dl">'</span><span class="p">,</span> <span class="na">rol</span><span class="p">:</span> <span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="na">usuario</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe</span><span class="dl">'</span><span class="p">,</span> <span class="na">password</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pepe111</span><span class="dl">'</span><span class="p">,</span> <span class="na">rol</span><span class="p">:</span> <span class="dl">'</span><span class="s1">normal</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Cuando un usuario valide sus credenciales, además de almacenar su nombre de usuario en sesión, también podemos (debemos) almacenar su rol. Así que la ruta que valida el usuario se ve modificada para añadir este nuevo dato en sesión:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">login</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">login</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">password</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">;</span>
+
+    <span class="p">...</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existeUsuario</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">usuario</span> <span class="o">=</span> <span class="nx">existeUsuario</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">usuario</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">rol</span> <span class="o">=</span> <span class="nx">existeUsuario</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">rol</span><span class="p">;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">index</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Para poder comprobar si un usuario validado tiene el rol adecuado para acceder a un recurso, podemos definir otra función <em>middleware</em> que compruebe si el rol del usuario es el que se necesita (el que se le pasa como parámetro a la función):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">rol</span> <span class="o">=</span> <span class="p">(</span><span class="nx">rol</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">rol</span> <span class="o">===</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">rol</span><span class="p">)</span>
+            <span class="nx">next</span><span class="p">();</span>
+        <span class="k">else</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">login</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: el ejemplo que acabamos de ver es una muestra de cómo podemos definir <em>middleware</em> que necesite parámetros adicionales además de los tres que todo <em>middleware</em> debe tener (petición, respuesta y siguiente función a llamar). Basta con definir una función con los parámetros necesarios, y que internamente devuelva la función <em>middleware</em> con los tres parámetros base.</p>
+</blockquote>
+
+<p>Si queremos aplicar los dos <em>middleware</em> a una ruta determinada (es decir, comprobar si el usuario está autenticado y, además, si tiene el rol adecuado), podemos pasarlos uno tras otro, separados por comas, en la definición de la ruta. Por ejemplo, a esta ruta sólo deben poder acceder usuarios validados que tengan rol de administrador:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/protegidoAdmin</span><span class="dl">'</span><span class="p">,</span> <span class="nx">autenticacion</span><span class="p">,</span> 
+        <span class="nx">rol</span><span class="p">(</span><span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span><span class="p">),</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">protegido_admin</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="4-otras-opciones">4. Otras opciones</h2>
+
+<p>Además de las opciones vistas anteriormente, hay algunas operaciones más que, si bien pueden ser secundarias, conviene tener presentes cuando trabajamos con autenticación basada en sesiones.</p>
+
+<h3 id="41-cierre-de-sesión-o-logout">4.1. Cierre de sesión o <em>logout</em></h3>
+
+<p>Por un lado, está la posibilidad de hacer <strong>logout</strong> y salir de la sesión. Para esto, podemos definir una ruta que responda a esta petición, y destruya los datos de sesión del usuario, redirigiendo después a otro recurso:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/logout</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="42-acceder-a-la-sesión-desde-las-vistas">4.2. Acceder a la sesión desde las vistas</h3>
+
+<p>Para poder acceder a la sesión desde las vistas, debemos definir un <em>middleware</em> que asocie la sesión con los recursos de la vista:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">locals</span><span class="p">.</span><span class="nx">session</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">;</span>
+    <span class="nx">next</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: este middleware debe definirse después del middleware que configura la sesión y antes de los enrutadores, para que tenga efecto al renderizar las vistas.</p>
+</blockquote>
+
+<p>Después, podemos acceder a esta sesión desde las vistas, a través de la variable <code class="language-plaintext highlighter-rouge">session</code> que hemos definido en la respuesta (<code class="language-plaintext highlighter-rouge">res.locals</code>). Por ejemplo, así podríamos ver si un usuario está ya logueado, para mostrar o no el botón de “Login”:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% if (session and session.usuario) %}
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"btn btn-dark"</span> <span class="na">href=</span><span class="s">"/logout"</span><span class="nt">&gt;</span>Logout<span class="nt">&lt;/a&gt;</span>
+{% else %}
+    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"btn btn-dark"</span> <span class="na">href=</span><span class="s">"/login"</span><span class="nt">&gt;</span>Login<span class="nt">&lt;/a&gt;</span>
+{% endif %}
+</code></pre></div></div>
+<!---->
+
+<h3 id="43-tiempo-de-vida-de-la-sesión">4.3. Tiempo de vida de la sesión</h3>
+
+<p>Además, podemos establecer el <strong>tiempo de vida</strong> de la sesión, cuando la configuramos. Podemos hacerlo utilizando indistintamente el atributo <code class="language-plaintext highlighter-rouge">expires</code> o el atributo <code class="language-plaintext highlighter-rouge">maxAge</code>, aunque con una sintaxis algo distinta según cuál utilicemos. Debemos indicar el número de milisegundos de vida, contando desde el momento actual, por lo que se suele utilizar <code class="language-plaintext highlighter-rouge">Date.now()</code> en estos cálculos. Así definiríamos, por ejemplo, una sesión de 30 minutos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+    <span class="na">secret</span><span class="p">:</span> <span class="dl">'</span><span class="s1">1234</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">resave</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">saveUninitialized</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">expires</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">))</span>
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<p><a href="../../recursos/07/ejemplos_07b.zip">Aquí</a> puedes descargar un ejemplo completo para probar estos mecanismos. Se tiene una página de inicio pública, una restringida para usuarios validados y otra restringida para usuarios administradores. Se dispone también de un formulario de <em>login</em> y de una ruta de <em>logout</em>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

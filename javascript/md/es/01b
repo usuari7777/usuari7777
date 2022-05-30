@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Funciones y modularización de código | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Funciones y modularización de código" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/01b.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Funciones y modularización de código" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Funciones y modularización de código","url":"http://nachoiborraies.github.io/javascript/md/es/01b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="funciones-y-modularización-de-código">Funciones y modularización de código</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Si ponemos cualquier fragmento de código JavaScript de los que hemos visto hasta ahora en una página, se ejecutará nada más cargar la página, y eso no es lo habitual. Lo normal es que el código JavaScript se vaya activando o ejecutando a medida que el usuario vaya haciendo cosas en la página. Por ejemplo, cuando el usuario pulse el botón de enviar un formulario, debería activarse el código que comprueba que es correcto.</p>
+
+<p>Para evitar la ejecución inmediata del código JavaScript, y de paso poderlo estructurar mejor y dejarlo preparado para que cada trozo de código se active en un momento determinado, usamos funciones. Las funciones son fragmentos de código a los que les ponemos un nombre, de forma que podemos elegir el momento en que ejecutar esas instrucciones simplemente utilizando el nombre que hayamos puesto a la función.</p>
+
+<h2 id="1-definición-de-funciones">1. Definición de funciones</h2>
+
+<p>Estas funciones se crean con la palabra <code class="language-plaintext highlighter-rouge">function</code> seguida del nombre que queramos y unos paréntesis. El nombre que pongamos a la función debe ser representativo de lo que hace, y normalmente sólo usaremos letras, números y subrayados(_), como si fueran nombres de variables. Después, entre llaves, pondremos todas las instrucciones que queremos que se ejecuten en bloque.
+Por ejemplo, esta función crea dos variables numéricas, las suma y muestra el resultado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sumaVariables</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">num1</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">num2</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">suma</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El resultado de la suma es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">suma</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si luego queremos hacer que este código se active al hacer clic en un párrafo, por ejemplo, pondríamos esto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">onclick=</span><span class="s">"sumaVariables()"</span><span class="nt">&gt;</span>Bla bla bla bla...<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Como hemos comentado, el orden en que definamos las funciones en el código de la página (o del archivo JavaScript) es irrelevante. Podemos ponerlas antes o después del bloque de código que las invoca.</p>
+
+<h3 id="11-uso-de-parámetros">1.1. Uso de parámetros</h3>
+
+<p>Entre los paréntesis de las funciones podemos introducir, separados por comas, unos datos llamados <em>parámetros</em>. Básicamente son variables, a los que se les da valor desde otro lugar (por ejemplo, el contenido principal de la página) y se pueden utilizar dentro de la función. Esta función, por ejemplo, suma los dos datos que recibe como parámetros y muestra el resultado.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sumaDatos</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">suma</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El resultado de la suma es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">suma</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Podríamos llamarla desde otra función, o desde el contenido de la página, con algo como esto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p</span> <span class="na">onclick=</span><span class="s">"sumaDatos(3, 5)"</span><span class="nt">&gt;</span>Bla bla bla bla...<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: es habitual en JavaScript que tanto los nombres de funciones como los nombres de parámetros (y variables) sigan la nomenclatura <em>camel case</em>: comenzar en minúscula y luego iniciar cada palabra del nombre de la variable en mayúscula: <em>sumaDatos</em>, <em>nombreUsuario</em>, etc.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Crea un documento llamado <strong>operaciones_funcion_js.html</strong>. En él, define cuatro párrafos: uno que ponga “Suma”, otro que ponga “Resta”, otro que ponga “Multiplicación” y otro que ponga “División”. Añade un código JavaScript que defina cuatro funciones llamadas <em>sumar</em>, <em>restar</em>, <em>multiplicar</em> y <em>dividir</em> que reciban dos números como parámetro y hagan cada una de estas cuatro operaciones con los números que reciben, y muestren su resultado, como en el ejemplo anterior. Estas funciones se deben activar respectivamente cuando hagamos clic sobre el párrafo correspondiente, es decir, al hacer clic en el párrafo que pone “Suma”, deberemos activar la función <em>sumar</em>, y así sucesivamente. Pasa como parámetro a las funciones los números que quieras.</p>
+</blockquote>
+
+<h4 id="111-número-de-parámetros-y-parámetros-por-defecto">1.1.1. Número de parámetros y parámetros por defecto</h4>
+
+<p>JavaScript es algo laxo en cuanto al paso de parámetros a funciones, de forma que no “se queja” si pasamos parámetros de más o de menos. Si una función necesita dos parámetros y le pasamos sólo el primero, el segundo tomará el valor <em>undefined</em>. Si enviamos parámetros de más, el resto se descarta.</p>
+
+<p>Además, podemos dar valores por defecto a los parámetros que lo necesiten, asignándoselo en la declaración de la función:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sumaDatos</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">suma</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">El resultado de la suma es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">suma</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Según la declaración del ejemplo anterior, si llamamos a la función con <em>sumaDatos(3, 2)</em> obtendrá un resultado de 5, y si la llamamos con <em>sumaDatos(3)</em> obtendrá un resultado de 3, porque al segundo parámetro se le asigna el valor por defecto de 0.</p>
+
+<p>Es importante que los parámetros que tengan valor por defecto se coloquen al final de la secuencia de parámetros, para así poner primero todos los que tienen que tener valor, y después los que pueden no tenerlo, y no alterar el orden inicial de los parámetros en la declaración.</p>
+
+<h3 id="12-tipo-de-retorno">1.2. Tipo de retorno</h3>
+
+<p>En ocasiones nos interesa que una función produzca o <em>devuelva</em> un resultado, para poderlo utilizar en alguna otra expresión, o almacenarlo en una variable. Por ejemplo, la función de suma anterior podría devolver el resultado de la suma en lugar de mostrarlo con un <em>alert</em>, y así nosotros poder decidir qué hacer con ese valor (sacarlo por pantalla, guardarlo en un campo de formulario…).</p>
+
+<p>Para indicar qué valor devuelve una función, empleamos la instrucción <code class="language-plaintext highlighter-rouge">return</code> seguida del valor que se quiere devolver. Nuestra función de suma anterior podríamos transformarla en esta otra:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sumaDatos</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">suma</span> <span class="o">=</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">suma</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: también podríamos haber puesto directamente <code class="language-plaintext highlighter-rouge">return num1 + num2</code> y ahorrarnos la variable adicional <em>suma</em>.</p>
+</blockquote>
+
+<p>En este caso, la función no produce ningún resultado directamente visible. Si hacemos algo como esto, no veremos nada en ninguna parte al hacer clic en el párrafo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">p</span> <span class="nx">onclick</span><span class="o">=</span><span class="dl">"</span><span class="s2">sumaDatos(3, 5)</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Bla</span> <span class="nx">bla</span> <span class="nx">bla</span> <span class="nx">bla</span><span class="p">...</span><span class="o">&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Sin embargo, esto nos puede venir bien para, en cualquier parte del código, utilizar la función y almacenar el resultado producido, o hacer con él lo que queramos. En este ejemplo almacenamos el resultado en una variable, y luego la mostramos por la consola.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">sumaDatos</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong>:</p>
+
+  <p>Crea una página llamada <strong>calcular_precio_js.html</strong> que defina una función llamada <code class="language-plaintext highlighter-rouge">calcularPrecio</code> con 3 parámetros: el nombre de un producto, su precio y su porcentaje de IVA.</p>
+
+  <ul>
+    <li>Los tres parámetros deberán tener un valor por defecto: “Producto genérico”, 100 y 21.</li>
+    <li>Internamente, se debe convertir el nombre del producto a string y los otros dos datos a números</li>
+    <li>Si el precio o el porcentaje no son numéricos, se mostrará el mensaje de “Datos incorrectos”</li>
+    <li>Si son válidos, mostraremos por consola el nombre del producto y el precio final incluyendo el IVA</li>
+    <li>Llama a la función varias veces con varios datos de prueba para comprobar su funcionamiento</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 3</strong>:</p>
+
+  <p>Crea una página llamada <strong>tabla_multiplicar_js.html</strong>. Deberá pedirle al usuario un número del 1 al 10 (repetidamente hasta que sea válido) y después, usando una función previamente definida, mostrar la tabla de multiplicar de ese número en el contenido de la página (<code class="language-plaintext highlighter-rouge">document.write</code>), en forma de lista no ordenada.</p>
+</blockquote>
+
+<h3 id="13-variables-locales-y-globales">1.3. Variables locales y globales</h3>
+
+<p>Una variable definida dentro de una función es <em>local</em> a la función (no existe fuera de ella), independientemente de si se ha declarado con <em>var</em> o con <em>let</em>. Una variable declarada fuera de cualquier función es <em>global</em> a todas ellas. Cuando existe una variable local con el mismo nombre que una global, prevalece la local sobre la global. Dicho de otro modo, JavaScript comienza a buscar las variables en el ámbito local, y si no las encuentra, pasa al ámbito global.</p>
+
+<p><strong>Modo estricto</strong></p>
+
+<p>Si en algún momento usamos una variable que no hemos declarado, se considera una variable global a toda la aplicación. Esto puede provocar importantes efectos colaterales en un programa, y no es algo deseable.</p>
+
+<p>Para evitar que JavaScript sea tan permisivo, podemos habilitar su modo estricto, incluyendo esta instrucción al principio del fichero o código JavaScript:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">'</span><span class="s1">use strict</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="2-algunas-funciones-útiles">2. Algunas funciones útiles</h2>
+
+<p>Además de poder definir nuestras propias funciones, JavaScript incorpora una serie de funciones que nos pueden resultar útiles para ciertos ámbitos, como por ejemplo el manejo de cadenas de texto, o algunos cálculos matemáticos, entre otras categorías.</p>
+
+<h3 id="21-funciones-para-manejo-de-textos">2.1. Funciones para manejo de textos</h3>
+
+<p>Ya vimos anteriormente que uno de los tipos básicos que maneja JavaScript son los textos, que se podían representar indistintamente entre comillas dobles o simples.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">texto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola, buenas</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">otroTexto</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">Otro texto distinto</span><span class="dl">'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Además, el propio objeto o variable que almacena el texto dispone de una serie de instrucciones útiles que nos permiten manipularlo o transformarlo. Veremos aquí algunas de las instrucciones más útiles.</p>
+
+<ul>
+  <li>El operador <code class="language-plaintext highlighter-rouge">+</code> se emplea para concatenar cadenas de texto, enlazando una a continuación de otra.</li>
+  <li>Para acceder a un carácter determinado de la cadena, se utilizan los <strong>corchetes</strong> con su posición, empezando en 0. También se puede utilizar la instrucción <code class="language-plaintext highlighter-rouge">charAt</code> indicando entre paréntesis la posición a obtener (también empezando por la 0).</li>
+  <li>La propiedad <code class="language-plaintext highlighter-rouge">length</code> devuelve el tamaño o número de caracteres de la cadena en cuestión</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">indexOf</code> sirve para buscar un texto dentro de la cadena, devolviendo la posición donde se encuentra, o -1 si no hay coincidencias. También se puede emplear <code class="language-plaintext highlighter-rouge">includes</code> para ver si un texto está contenido dentro de otro.</li>
+  <li>En el caso de querer buscar patrones, podemos emplear la función <code class="language-plaintext highlighter-rouge">search</code>, que busca la primera ocurrencia que encaje con un patrón.</li>
+  <li>Las funciones <code class="language-plaintext highlighter-rouge">endsWith</code> y <code class="language-plaintext highlighter-rouge">startsWith</code> determinan si un texto termina o empieza por otro, respectivamente.</li>
+  <li>Las funciones <code class="language-plaintext highlighter-rouge">toUpperCase</code> y <code class="language-plaintext highlighter-rouge">toLowerCase</code> convierten a mayúscula y minúscula, respectivamente, la cadena entera.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">replace</code> se emplea para reemplazar un texto con otro. Recibe como parámetros el texto viejo y el nuevo, y reemplaza sólo la primera ocurrencia encontrada.</li>
+  <li>Para obtener una subcadena a partir de otra, empleamos la instrucción <code class="language-plaintext highlighter-rouge">substring</code>. Como parámetros indicamos desde qué posición empezar a obtener la subcadena, y hasta qué posición llegar. Si no se indica este segundo dato, se obtiene hasta el final de la cadena. Alternativamente, se puede usar la función <code class="language-plaintext highlighter-rouge">slice</code>, con los mismos parámetros y utilidad, y también se puede emplear la función <code class="language-plaintext highlighter-rouge">substr</code>, que se diferencia de las anteriores en que el segundo parámetro no indica la posición hasta la que llegar, sino cuántos caracteres queremos obtener desde la posición inicial.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">split</code> sirve para partir una cadena por un delimitador indicado, obteniendo un array con todas las partes encontradas.</li>
+  <li>La función <code class="language-plaintext highlighter-rouge">trim</code> (sin parámetros) elimina posibles espacios adicionales que pueda haber al principio o al final de la cadena. Es especialmente útil cuando se recoge información de un formulario, donde el usuario puede haber introducido espacios accidentalmente.</li>
+  <li>Para comparar dos cadenas podemos emplear los operadores de comparación <code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">!=</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>. Hay que tener en cuenta que esta comparación es alfabética.</li>
+</ul>
+
+<p>Veamos un ejemplo de todas estas funciones. En comentarios se indica el resultado que se produce en cada paso.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">texto</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">texto</span> <span class="o">=</span> <span class="nx">texto</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> buenas</span><span class="dl">"</span><span class="p">;</span>                       <span class="c1">// texto = "Hola buenas"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">texto</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>                           <span class="c1">// H</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">texto</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>                    <span class="c1">// H</span>
+<span class="kd">let</span> <span class="nx">tamano</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>                       <span class="c1">// 11</span>
+<span class="kd">let</span> <span class="nx">posicion</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">buenas</span><span class="dl">"</span><span class="p">);</span>          <span class="c1">// 5  </span>
+<span class="kd">let</span> <span class="nx">contiene</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="dl">"</span><span class="s2">bue</span><span class="dl">"</span><span class="p">);</span>            <span class="c1">// true</span>
+<span class="kd">let</span> <span class="nx">posicion2</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="sr">/</span><span class="se">[</span><span class="sr">aeiou</span><span class="se">]</span><span class="sr">/</span><span class="p">);</span>         <span class="c1">// 1 (posición de la primera vocal minúscula)</span>
+<span class="kd">let</span> <span class="nx">mayus</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>                 <span class="c1">// mayus = "HOLA BUENAS"</span>
+<span class="kd">let</span> <span class="nx">texto2</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="dl">"</span><span class="s2">bu</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">BU</span><span class="dl">"</span><span class="p">);</span>          <span class="c1">// texto2 = "Hola BUenas"</span>
+<span class="kd">let</span> <span class="nx">subcad</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>              <span class="c1">// subcad = "bu"</span>
+<span class="kd">let</span> <span class="nx">subcad2</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>                <span class="c1">// subcad2 = "bue"</span>
+<span class="kd">let</span> <span class="nx">partes</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">);</span>                   <span class="c1">// partes = ["Hola", "buenas"]</span>
+<span class="kd">let</span> <span class="nx">menor</span> <span class="o">=</span> <span class="nx">texto</span> <span class="o">&lt;</span> <span class="dl">"</span><span class="s2">Adiós</span><span class="dl">"</span><span class="p">;</span>                     <span class="c1">// false</span>
+<span class="kd">let</span> <span class="nx">empieza</span> <span class="o">=</span> <span class="nx">texto</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">);</span>          <span class="c1">// true</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4</strong>:</p>
+
+  <p>Crea una página llamada <strong>ejercicio_strings_js.html</strong> con las siguientes funciones:</p>
+
+  <ul>
+    <li>Función que reciba como parámetro dos textos <em>t1</em> y <em>t2</em> y devuelva el texto resultado de quitar de <em>t1</em> todas las apariciones de <em>t2</em></li>
+    <li>Función que reciba como parámetro un nombre de fichero (texto) y determine si es una imagen JPG o PNG.</li>
+    <li>Función que reciba como parámetro un texto y determine si es una matrícula válida. Una matrícula se considera válida si está compuesta por 4 dígitos y 3 letras mayúsculas.</li>
+  </ul>
+
+  <p>Comprueba el funcionamiento de todas estas funciones desde el propio código JavaScript, con los datos de entrada que quieras.</p>
+</blockquote>
+
+<h3 id="22-funciones-matemáticas">2.2. Funciones matemáticas</h3>
+
+<p>A través del elemento <code class="language-plaintext highlighter-rouge">Math</code> de JavaScript podemos acceder a una serie de funciones matemáticas, y también a algunas constantes numéricas que pueden resultar útiles, como el número PI o el número E.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Math.PI</code> y <code class="language-plaintext highlighter-rouge">Math.E</code> representan estos dos valores numéricos (<em>pi</em> y el número <em>e</em>)</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.round(x)</code> redondea <em>x</em> al entero más cercano (por arriba o por abajo)</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.floor(x)</code> y <code class="language-plaintext highlighter-rouge">Math.ceil(x)</code> aproximan al entero más cercano por abajo o por arriba, respectivamente.</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.min(n1, n2, n3...)</code> y <code class="language-plaintext highlighter-rouge">Math.max(n1, n2, n3...)</code> obtienen el menor/mayor valor de los que se le pasan como parámetro, respectivamente.</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.pow(b, e)</code> obtiene la potencia de elevar una base <em>b</em> a un exponente <em>e</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.abs(x)</code> obtiene el valor absoluto de <em>x</em></li>
+  <li><code class="language-plaintext highlighter-rouge">Math.random()</code> genera un número real aleatorio entre 0 y 1 (sin contar el 1)</li>
+  <li><code class="language-plaintext highlighter-rouge">Math.sqrt(x)</code> calcula la raíz cuadrada de <em>x</em></li>
+</ul>
+
+<p>Veamos algunos ejemplos de uso:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">n1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrd</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>             <span class="c1">// 4</span>
+<span class="kd">let</span> <span class="nx">n2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>      <span class="c1">// 1</span>
+<span class="kd">let</span> <span class="nx">n3</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>            <span class="c1">// 9</span>
+<span class="kd">let</span> <span class="nx">n4</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">ceil</span><span class="p">(</span><span class="mf">3.12</span><span class="p">);</span>           <span class="c1">// 4</span>
+<span class="kd">let</span> <span class="nx">n5</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>              <span class="c1">// 3</span>
+</code></pre></div></div>
+
+<h3 id="23-trabajando-con-fechas">2.3. Trabajando con fechas</h3>
+
+<p>Para gestionar fechas JavaScript proporciona el elemento <code class="language-plaintext highlighter-rouge">Date</code>. Podemos crear fechas de distintas formas:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">fecha1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>                    <span class="c1">// Fecha y hora actuales</span>
+<span class="kd">let</span> <span class="nx">fecha2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>          <span class="c1">// 4 de abril de 2021</span>
+<span class="kd">let</span> <span class="nx">fecha3</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="dl">"</span><span class="s2">2021-04-04</span><span class="dl">"</span><span class="p">);</span>        <span class="c1">// 4 de abril de 2021</span>
+<span class="kd">let</span> <span class="nx">fecha4</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>                    <span class="c1">// Fecha actual en milisegundos desde el 1/1/1970</span>
+
+<span class="kd">let</span> <span class="nx">texto1</span> <span class="o">=</span> <span class="nx">fecha2</span><span class="p">.</span><span class="nx">toLocaleDateString</span><span class="p">();</span>   <span class="c1">// 4/4/2021</span>
+</code></pre></div></div>
+
+<h2 id="3-opciones-avanzadas-con-funciones">3. Opciones avanzadas con funciones</h2>
+
+<p>Para terminar este documento, veamos algunas opciones algo más avanzadas que se pueden llevar a cabo con las funciones.</p>
+
+<h3 id="31-funciones-anónimas">3.1. Funciones anónimas</h3>
+
+<p>Las funciones anónimas, como su propio nombre indica, son funciones que no tienen nombre. Al declararlas con la palabra <em>function</em> no se les asigna ningún nombre, y lo normal es asignar su contenido a una variable para poderlas usar más adelante, o bien definirlas en el momento en que se van a usar.</p>
+
+<p>Por ejemplo, la siguiente función devuelve la suma de sus dos parámetros, pero esta vez la hemos definido como una función anónima asignada a la variable <em>suma</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">suma</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n1</span><span class="p">,</span> <span class="nx">n2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">n1</span> <span class="o">+</span> <span class="nx">n2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">...</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">suma</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">));</span>        <span class="c1">// 7</span>
+</code></pre></div></div>
+
+<p>A priori, usar una función anónima no aporta muchas ventajas respecto a una función tradicional. Se suelen emplear en el caso de funciones de un solo uso (cuando definimos una función que no se va a usar en ninguna otra parte del código), para poder definir el código de la función justo en el punto donde se va a usar.</p>
+
+<h3 id="32-funciones-lambda-o-arrow-functions">3.2. Funciones lambda o <em>arrow functions</em></h3>
+
+<p>Las funciones lambda son una forma abreviada de definir funciones, disponible desde ES2015. La idea es definir una función anónima pero con otra sintaxis:</p>
+
+<ul>
+  <li>Primero indicamos los parámetros de la función, entre paréntesis y separados por comas. En el caso de que sólo haya un parámetro, se pueden omitir los paréntesis</li>
+  <li>Después añadimos una flecha <code class="language-plaintext highlighter-rouge">=&gt;</code> (por eso se llaman <em>arrow functions</em> o <em>funciones flecha</em>)</li>
+  <li>Después colocamos, entre llaves, el código de la función.</li>
+</ul>
+
+<p>La función anónima de suma anterior podríamos expresarla así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">suma</span> <span class="o">=</span> <span class="p">(</span><span class="nx">n1</span><span class="p">,</span> <span class="nx">n2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">n1</span> <span class="o">+</span> <span class="nx">n2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como particularidad de las funciones lambda, si la función que implementamos se limita a devolver un valor, podemos omitir las llaves y la palabra <em>return</em>. El ejemplo anterior quedaría así de corto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">suma</span> <span class="o">=</span> <span class="p">(</span><span class="nx">n1</span><span class="p">,</span> <span class="nx">n2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">n1</span> <span class="o">+</span> <span class="nx">n2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Entre las ventajas del uso de las funciones lambda, conseguimos un código más compacto y resumido. Además, son ampliamente usadas en algunos ámbitos, como en la programación en servidor usando el framework Node.js. Igual que ocurre con las funciones anónimas, pueden utilizarse en el mismo lugar en que se definen.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 5</strong>:</p>
+
+  <p>Repite el ejercicio anterior definiendo las funciones requeridas como funciones lambda.</p>
+</blockquote>
+
+<h3 id="33-cargar-diversos-archivos-fuente">3.3. Cargar diversos archivos fuente</h3>
+
+<p>Además de definir funciones para modularizar nuestro código JavaScript, cuando la aplicación es lo suficientemente compleja, o cuando utilizamos librerías externas como las que veremos más adelante, puede ser necesario dividir el código en varios archivos fuente, de forma que cada uno de ellos incorpora un conjunto de funciones o utilidades. Podemos añadir así diversas etiquetas <em>script</em> en nuestro código HTML para incorporar cada uno de estos ficheros:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"fichero1.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"fichero2.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    ...
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>En esta situación, pueden darse dos casos:</p>
+
+<ul>
+  <li>Las funcionalidades incorporadas por todos los archivos son independientes o, dicho de otro modo, no hay dos funciones que se llamen igual en ningún archivo. En este caso no hay ningún problema. Dependiendo de la función que utilicemos en un punto determinado del HTML, se invocará desde un archivo o desde otro.</li>
+  <li>Las funcionalidades de los archivos se solapan (hay funciones con el mismo nombre en algunos archivos). En este caso, prevalecerá la función del último archivo incorporado. Por ejemplo, si en el caso anterior ambos archivos <em>fichero1.js</em> y <em>fichero2.js</em> tienen una función llamada <em>prueba</em> entonces se aplicará la de <em>fichero2.js</em> (aunque tengan distinto número de parámetros una y otra)</li>
+</ul>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

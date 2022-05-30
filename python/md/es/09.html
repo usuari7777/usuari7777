@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Módulos | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Módulos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="09.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/09.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Módulos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Módulos","url":"http://nachoiborraies.github.io/python/md/es/09.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="módulos">Módulos</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/09.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="09.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Python es un lenguaje que se puede (y muchas veces debe) modularizar, es decir, dividir su código en distintos módulos reutilizables. De hecho, el propio núcleo de Python que instalamos en el sistema ya está modularizado, y podemos incorporar algunos de esos módulos a nuestros programas con la instrucción <code class="language-plaintext highlighter-rouge">import</code>.</p>
+
+<h2 id="1-importando-módulos-de-python">1. Importando módulos de Python</h2>
+
+<p>Como decíamos, la instrucción <code class="language-plaintext highlighter-rouge">import</code> nos permite incorporar a nuestro programa módulos del núcleo de Python para poderlos utilizar. En el siguiente ejemplo importamos el módulo <code class="language-plaintext highlighter-rouge">sys</code> para acceder a los parámetros que se pasan al programa principal (<code class="language-plaintext highlighter-rouge">sys.argv</code>).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)):</span>
+	<span class="c1"># Recorremos los parámetros quitando el 0 (ejecutable)
+</span>	<span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div></div>
+
+<h2 id="2-descomponiendo-nuestro-código-en-módulos">2. Descomponiendo nuestro código en módulos</h2>
+
+<p>A medida que el código de nuestro programa crece, puede ser necesario dividirlo en distintos ficheros fuentes. Al hacer esto, podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">import</code> para “cargar” o utilizar unos módulos dentro de otros. Por ejemplo, supongamos que incluimos en un archivo llamado <em>modulo.py</em> el siguiente contenido:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pi</span> <span class="o">=</span> <span class="mf">3.141592</span>
+
+<span class="k">def</span> <span class="nf">sumar</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<p>Si queremos utilizar estos elementos desde otro fichero, basta con importarlo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">modulo</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">modulo</span><span class="p">.</span><span class="n">sumar</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">modulo</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">8</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Además, podemos utilizar una sintaxis alternativa para importar directamente unos elementos seleccionados, y así evitar tener que anteponer el nombre del módulo delante de esos elementos:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">modulo</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sumar</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">sumar</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">8</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Descompón el ejercicio 3 de <a href="08">esta sesión anterior</a> en módulos, de forma que cada clase esté en un módulo, y mediante instrucciones <code class="language-plaintext highlighter-rouge">import</code> se incluyan donde se necesiten.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Introducción a CSS</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Introducción a CSS
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## CSS y HTML
+
+- Los documentos **HTML** permiten definir la estructura y contenidos de la web
+- Los estilos **CSS** permiten definir la apariencia de esos contenidos (color, fuente, tamaño, posición...)
+- Son dos conceptos independientes y complementarios
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Historia de CSS
+
+- *Cascading StyleSheets*
+- **CSS1** surgió en 1996. Directrices básicas para estilos de texto, alineación, márgenes, bordes...
+- **CSS2** surgió en 1998. Ampliaba funcionalidades: posicionamiento, sombras, etc.
+- **CSS3** comenzó a idearse en 1999, y han ido surgiendo distintos módulos que añaden funcionalidad a CSS2, manteniendo la compatibilidad
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funcionamiento básico
+
+- Un documento CSS está basado en una serie de **reglas** de estilos a aplicar
+- Cada regla está formada por:
+   - Un **selector**, nombre que indica a qué elementos se le aplica la regla
+   - Un conjunto de **declaraciones** asociadas a esa regla, que comprenden los estilos a aplicar
+   - Cada declaración consta de una **propiedad** a cambiar (color de texto, tipo de letra...) y un **valor** asignado a esa propiedad
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+Definir color rojo y tamaño de letra 12 puntos para los párrafos del documento
+
+```css
+p 
+{ 
+    color:red; 
+    font-size: 12pt; 
+} 
+```
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otro ejemplo
+
+Podemos colocar todas las reglas que queramos, una tras otra
+
+```css
+p 
+{ 
+    color:red; 
+    font-size: 12pt; 
+} 
+
+h1 
+{ 
+    color: green; 
+}
+```
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aplicar estilos (1/3)
+
+- Definir el estilo sobre el elemento con el atributo *style*, finalizando las declaraciones con `;`
+- No recomendable, difícil de mantener y localizar
+
+```html
+<p style="color: red;font-size: 10pt;">Párrafo de color rojo.</p>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aplicar estilos (2/3)
+
+- Definir reglas de estilos en etiqueta *style* dentro de *head*
+- No recomendable si queremos aplicar los mismos en varias páginas
+
+```html
+<html>
+    <head>
+        ...
+        <style>
+            p { color: red; font-size: 12pt; }
+            h1 { color: green; }
+        </style>
+    </head>
+...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aplicar estilos (3/3)
+
+- Definir estilos en un documento CSS aparte y enlazarlo en el *head* usando etiqueta *link*
+- Mejor para compartir entre páginas y para dividir el trabajo
+
+```html
+<html>
+    <head>
+        ...
+        <link rel="stylesheet" type="text/css" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/estilos.css">
+    </head>
+...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estilos de carácter (1/2)
+
+- **font-family** establece el tipo de letra. Se le puede pasar un listado de fuentes separadas por comas, y tomará la primera disponible
+- **font-size** establece el tamaño de la fuente. Por ejemplo, en puntos (*pt*)
+- **font-weight** establece el grosor de la letra: *bold*, *normal*, *bolder*, *lighter*
+- **font-style** establece el estilo de letra: *italic*, *normal*, *oblique*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estilos de carácter (2/2)
+
+- **color** establece el color del texto: *red*, *blue*...
+- **text-decoration** establece decoración alrededor: *underline*, *overline*, *none*, *line-through*
+- **text-transform**: pone el texto en mayúsculas (*uppercase*), minúsculas (*lowercase*), primera letra en mayúsculas (*capitalize*)...
+- **text-shadow**: añade una sombra al texto con el desplazamiento horizontal, vertical, difuminación y color indicados
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo estilos de carácter
+
+```css
+p
+{
+    font-family: Arial, "Courier New";
+    font-size: 20pt;
+    font-weight: bold;
+    font-style: italic;
+    color: red;
+    text-decoration: underline;
+    text-shadow: 2px 4px 1px gray;
+}
+```
+
+<p style="font-family:Arial;font-size:20pt;font-weight:bold;font-style:italic;color:red;text-decoration:underline;text-shadow: 2px 4px 1px gray;">Resultado</p>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea una página llamada **fuentes.html** con un *h1* y un párrafo. Aplica los siguientes estilos 
+
+- Párrafo:
+   - Fuentes: Trebuchet MS, Arial, sans-serif
+   - Tamaño fuente 16pt, grosor 900
+   - Cursiva, subrayado y mayúsculas
+- Encabezado (*h1*):
+   - Fuente 22pt
+   - El sombreado que quieras
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Más sobre los tipos de letra
+
+- **Web safe fonts**: tipos de letra disponibles en (casi) todos los sistemas
+   - Algunas [webs](https://www.cssfontstack.com/) los recogen
+- **Fuentes externas**: en webs como [Google Fonts](https://fonts.google.com/)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Utilizando Google Fonts
+
+- Buscamos la fuente que queramos en el buscador
+- La seleccionamos, y elegimos el grosor que más nos guste. Hacemos clic en *Select this style*
+- Añadimos los *link* necesarios en las páginas donde la vayamos a utilizar
+- Añadimos la propiedad **font-family** necesaria en los elementos que queramos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Utilizando Google Fonts
+
+<div align="center">
+    <img src="../../../img/03_google_fonts.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Utilizando Google Fonts
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Birthstone&display=swap" 
+  rel="stylesheet">
+
+<!-- Aquí incluimos nuestros estilos -->
+<link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/estilos.css">
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Utilizando Google Fonts
+    
+```css
+p
+{
+    font-family: 'Birthstone', cursive;
+    font-size: 14pt;
+}
+``` 
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+- Elige una fuente que te guste de Google Fonts
+- Crea una página llamada **fuenteGoogle.html**, y carga esa fuente para aplicarla a los párrafos de la página
+- Comprueba que la fuente se visualiza correctamente
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Estilos de párrafo
+
+- **text-align**: alineación horizontal; *left*, *right*, *center*, *justify*
+- **vertical-align** alineación vertical respecto a elemento contenedor: *top*, *bottom*, *middle*
+- **background-color**: color de fondo
+- **text-indent**: indentación o tabulación izquierda
+- **line-height**: interlineado interno
+- **box-shadow**: sombra general para el párrafo (similar a *text-shadow* para el texto)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo estilos de párrafo
+
+```css
+p
+{
+    text-align: right;
+    background-color: yellow;
+    line-height: 1.5em;        /* 1,5 líneas */
+}
+```
+
+<p style="text-align: right;background-color:yellow;line-height:1.5em;">Este es un párrafo de varias líneas con estilos de párrafo para comprobar el resultado de aplicarlo en un texto más o menos largo</p>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea un documento HTML llamado **estilosTexto.html**. Añade en el `head` una etiqueta `style` con estos estilos:
+
+- Encabezados *h1*: letra Arial de 30 puntos, color rojo y subrayado.
+- Encabezados *h2*: letra Arial, color azul, tamaño 20 puntos, alineación horizontal derecha.
+- Párrafos: letra "Times New Roman", tamaño 12 puntos, color gris, alineación horizontal justificada e interlineado de 1,5 líneas.
+- En el *body* crea un elemento al menos de cada tipo para comprobar el estilo.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selectores
+
+- Identifican el elemento o elementos sobre los que se van a aplicar las declaraciones de la regla correspondiente
+- Existen distintos tipos de selectores para poder identificar tanto elementos aislados como grupos de elementos determinados
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selector de etiqueta
+
+- Aplica los estilos sobre la etiqueta con el nombre indicado, y todo lo que contenga
+   - Si aplicamos estilos en *body* afectan a todo el documento
+- Se pueden aplicar los mismos estilos sobre varias etiquetas, agrupándolas separadas por comas
+
+```css
+p { ... }            /* Párrafos */
+h1, h2, h3 { ... }   /* h1, h2 o h3 */
+h1 { ... }           /* Solo h1 */
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selector descendente
+
+- Aplica los estilos a una etiqueta contenida directa o indirectamente en otra
+- Se define poniendo la etiqueta contenedora y luego la contenida, separadas por un espacio
+
+```css
+p strong { ... }     /* Negritas en párrafos */
+section p { ... }    /* Párrafos en secciones */
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Clases
+
+- Podemos utilizar el atributo **class** en las etiquetas HTML para "marcar" algunas de forma especial
+- Esto permitirá distinguirlas para luego aplicarles un estilo diferente con CSS
+- Podemos poner varias clases en una etiqueta, separadas por espacios
+
+```html
+<p class="miEstilo">Este párrafo es del estilo miEstilo.</p>
+<p>Este otro párrafo es normal.</p>
+<p class="miEstilo otroEstilo">Este párrafo también es de estilo miEstilo.</p>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selector de clase
+
+- Ponemos el nombre de la clase precedido por un punto (.)
+- Se aplicaría a TODOS los elementos con esa clase. Si queremos concretar más, podemos anteponer el nombre de la etiqueta
+
+```css
+.miEstilo { ... }     /* Todos los class="miEstilo" */
+p.miEstilo { ... }    /* Párrafos con class="miEstilo" */
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Identificadores
+
+- Podemos utilizar el atributo **id** para dar un nombre ÚNICO a un elemento de una página
+   - No puede haber otro elemento en la misma página con el mismo *id*
+   - Sí puede haber otros elementos en otras páginas con ese *id*
+- Esto permitirá distinguirlos para luego aplicarles un estilo diferente con CSS
+
+```html
+<p id="miParrafo">Este párrafo está marcado.</p>
+<p>Este otro párrafo es normal.</p>
+<p>Este párrafo también es normal.</p>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Selector de *id*
+
+- Ponemos el nombre del *id* precedido de una almohadilla (`#`)
+- Se aplicaría al elemento con ese *id*. Podemos también anteponer el nombre de la etiqueta si queremos afinar más
+
+```css
+#miParrafo { ... }    /* Elemento con id="miParrafo" */
+p.#miParrafo { ... }  /* Párrafo con id="miParrafo" */
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Indica qué selector utilizarías para definir un estilo para cada uno de estos casos:
+ 
+1. Todos los elementos de una página
+2. Todos los párrafos de una página
+3. Un encabezado de nivel 2 con id "especial"
+4. Todas las negritas de clase "clase1"
+5. Todos las cursivas contenidas en encabezados de nivel 2
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Reglas y solapamiento
+
+Cuando más de una regla encaja en un elemento de la página, ¿qué estilos se aplican?
+    
+- Las propiedades de todas las reglas implicadas que no tengan incompatibilidades se aplican 
+- De las propiedades incompatibles entre sí (por ejemplo, dos que afecten al color del texto desde diferentes reglas) se aplica la más restrictiva sobre el elemento
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Reglas y solapamiento
+
+Ejemplo: fondo amarillo y color rojo (la clase es más restrictiva que la etiqueta)
+    
+```css
+.prueba
+{
+    background-color: yellow;
+    color: red;
+}
+p
+{
+    color: blue;
+}
+
+...
+
+<p class="prueba">Párrafo de prueba</p>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reglas y solapamiento
+
+Ejemplo: fondo amarillo y color azul (etiqueta de clase es más restrictivo que sólo clase)
+    
+```css
+.prueba
+{
+    background-color: yellow;
+    color: red;
+}
+p.prueba
+{
+    color: blue;
+}
+
+...
+
+<p class="prueba">Párrafo de prueba</p>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Dados los siguientes selectores y código HTML, indica a qué partes del HTML afecta cada selector:
+
+```html
+<html>
+    <head>
+        <style>
+            p { ... }
+            p.miClase { ... }
+            p .miClase { ... }
+            p, #miID { ... }
+            p span em { ... }
+            .miClase .miClase2 { ... } 
+        </style>
+    </head>
+    <body>
+        <p>blablablabla <span>blablablabla</span> blablablabla</p>
+        <p class="miClase">blabla <span>blablabla<em>blabla</em></span> </p>
+        <h1 class="miID">blablablabla <span class="miClase">aaaa</span> </h1>
+        <p>blablablabla <span class="miClase">blablabla</span> blabla</p>
+        <p class="miClase">blabla <span class="miClase2">blabla</span> </p>
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Unidades de medida
+
+- **Relativas**: su tamaño final depende de un factor externo:
+   - Unidades *em*, píxeles (*px*), porcentaje (*%*)...
+- **Absolutas**: su tamaño final es siempre el mismo:
+   - Puntos (*pt*), centímetros (*cm*), milímetros (*mm*)...
+    
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Más sobre unidades *em*
+
+- **em**: el tamaño se toma en base al tamaño actual del elemento contenedor:
+   - Si un párrafo tiene fuente 12pt, y definimos para las negritas internas un tamaño de *0.8em*, multiplicamos el tamaño del contenedor (12) por un 80% (= 9.6pt)
+- **rem**: similar, pero el tamaño base es el de la raíz del documento (no del elemento contenedor)
+    
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6
+
+Crea un documento HTML llamado **tamanosEM.html**. Dentro, en el `head` con una etiqueta `style`, define estos estilos:
+ 
+* Todo el documento (body) tendrá un tamaño de letra de 20 puntos.
+* Un selector de clase llamado `pequeno` que ponga el tamaño de letra a 0.8em
+* Otro selector de clase llamado `grande` que ponga el tamaño de letra en 1.2em
+
+Los estilos deben aplicarse a tres párrafos diferentes en el documento (uno pequeño, uno grande y uno normal) para ver cómo cambia el tamaño de letra en cada uno de ellos. Añade también un *h1* para ver qué tamaño toma.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colores
+
+- Colores básicos en inglés: *red*, *blue*, *green*
+- Colores RGB decimales: **rgb(255, 0, 0)**
+- Colores RGB hexadecimales: **#FF0000**
+   - El formato más habitual
+
+[Aquí](https://htmlcolorcodes.com/) se pueden consultar colores
+    
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 8
+
+- Crea un documento HTML llamado **coloresCSS.html**
+- Define un archivo de estilos CSS aparte, llamado **estilos.css**, y enlázalo con el documento HTML usando la etiqueta `link` dentro del bloque `head` 
+- En ese documento CSS, define tres estilos con selector de clase, usando RGB hexadecimal para los colores: 
+   - Uno llamado *amarillo* para definir un color de texto amarillo
+   - Otro llamado *rojo* para definir un color de texto rojo
+   - Otro llamado *verde* para definir un color de texto verde
+
+Después, añade tres párrafos al documento, cada uno con un estilo (y color) diferente.
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 9
+
+En [este enlace](../../../resources/UD3_Ejercicios/03a_curriculum.html) tienes un ejemplo de currículum HTML, sin formato. Crea una hoja de estilos llamada **estilos.css** y asóciala al documento. Los estilos que deberás aplicar son:
+ 
+* Toda la página: fondo `#B6EEF0` letra *Gluten* de Google Fonts (grosor 400), 12 puntos. Texto justificado, interlineado 1.2 líneas
+* *h1* *Arial* 24 puntos, color `#0728F6`.
+* *h2* *Arial* 20 puntos, color `#455CED`.
+* *h3* *Arial* 16 puntos, color `#6272D6`.
+* Negritas en color `#455CED`.
+
+En la siguiente diapositiva tienes un ejemplo del resultado final
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 7
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_curriculum.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

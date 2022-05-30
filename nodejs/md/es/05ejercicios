@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 5 | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 5" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/05ejercicios.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 5" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 5","url":"http://nachoiborraies.github.io/nodejs/md/es/05ejercicios.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-5">Ejercicios propuestos - Parte 5</h1>
+
+<p>Para los ejercicios de esta sesión, crea una subcarpeta llamada “<strong>Sesion5</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro ir creando un proyecto para cada ejercicio.</p>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_5_1</strong>” en la carpeta de ejercicios “<em>ProyectosNode/Ejercicios/Sesion5</em>”. Instala Express en ella, y define un servidor básico que responda por GET a estas dos URIs:</p>
+
+<ul>
+  <li>URI <code class="language-plaintext highlighter-rouge">/fecha</code>: el servidor enviará como respuesta al cliente la fecha y hora actuales. Puedes utilizar el tipo <code class="language-plaintext highlighter-rouge">Date</code> de JavaScript sin más, o también puedes “recrearte” con la librería “moment” vista en sesiones anteriores, si quieres.</li>
+  <li>URI <code class="language-plaintext highlighter-rouge">/usuario</code>: el servidor enviará el login del usuario que entró al sistema. Necesitarás emplear la librería “os” del núcleo de Node, vista en sesiones anteriores, para obtener dicho usuario.</li>
+</ul>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_5_2</strong>” en la carpeta de ejercicios “<em>ProyectosNode/Ejercicios/Sesion5</em>”. Instala Express y Mongoose en ella, y crea un archivo <code class="language-plaintext highlighter-rouge">index.js</code> que incorpore el modelo de libros básico (sin autores ni comentarios) que habrás hecho en los ejercicios de la sesión 4 para el <em>Ejercicio_4</em> (deja ese modelo en el archivo <code class="language-plaintext highlighter-rouge">models/libro.js</code> del proyecto).</p>
+
+<p>Después crea una instancia de servidor Express, y da respuesta desde el archivo <code class="language-plaintext highlighter-rouge">index.js</code> a estos servicios, tal y como se ha explicado en el <a href="05c">apartado 3</a> de esta sesión:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">GET /libros</code>: devolverá un listado en formato JSON del array de libros completo de la colección.</li>
+  <li><code class="language-plaintext highlighter-rouge">GET /libros/:id</code>: devolverá un objeto JSON con los datos del libro encontrado a partir de su <em>id</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">POST /libros</code>: recogerá los datos del libro que le llegarán en el cuerpo de la petición e insertará el libro en cuestión en la base de datos, devolviendo un objeto JSON con el libro insertado.</li>
+  <li><code class="language-plaintext highlighter-rouge">PUT /libros/:id</code>: recogerá los datos del libro que le llegarán en el cuerpo de la petición, y el <em>id</em> del libro a modificar de los parámetros de la URL, y realizará los cambios correspondientes, devolviendo un objeto JSON con el libro modificado.</li>
+  <li><code class="language-plaintext highlighter-rouge">DELETE /libros/:id</code>: eliminará el libro cuyo <em>id</em> se reciba como parámetro en la URL, devolviendo en formato JSON el libro borrado.</li>
+</ul>
+
+<p>En todos los casos, se emitirá un código de estado acorde al resultado de la respuesta, y un objeto JSON con los datos comentados en estos apuntes (un booleano <code class="language-plaintext highlighter-rouge">ok</code> indicando si se ha atendido bien o no la petición, un campo <code class="language-plaintext highlighter-rouge">error</code> con el mensaje de error, si lo hay, y el resultado a enviar si la petición ha sido exitosa).</p>
+
+<p>Comprueba el funcionamiento de estos servicios desde <em>ThunderClient</em>, creando una colección llamada <strong>LibrosV1</strong>. Exporta la colección y adjúntala a este proyecto cuando todo funcione correctamente.</p>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p>Crea una copia del ejercicio anterior en otra carpeta llamada “<strong>Ejercicio_5_3</strong>”, y estructura aquí la aplicación tal y como se ha explicado en el <a href="05d">apartado 4</a> de esta sesión, separando el modelo de datos, los enrutadores o controladores y la aplicación principal.</p>
+
+<p>Cuando ya tengas la aplicación lista, crea una colección en <em>ThunderClient</em> llamada <strong>LibrosV2</strong>, y añade dentro las pruebas de las peticiones GET, POST, PUT y DELETE para los servicios desarrollados. Comprueba su correcto funcionamiento, y después exporta la colección a un archivo, que adjuntarás a este proyecto.</p>
+
+<h2 id="ejercicio-4">Ejercicio 4</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Sobre el ejercicio anterior, añade en las carpetas correspondientes los siguientes archivos:</p>
+
+<ul>
+  <li>El modelo de autores, y su correspondiente relación con el modelo de libros. El propio modelo de autores puedes recuperarlo de los ejercicios de la sesión 4.</li>
+  <li>El enrutador para los autores. En este enrutador sólo vamos a definir los servicios de listado general (GET), inserción (POST) y borrado (DELETE).</li>
+  <li>Modifica el programa principal para que los libros respondan a URIs con el prefijo <code class="language-plaintext highlighter-rouge">/libros</code> y los autores estén asociados al prefijo <code class="language-plaintext highlighter-rouge">/autores</code>.</li>
+  <li>Añade las tres pruebas de GET, POST y DELETE para autores a la colección de prueba de Libros del ejercicio anterior.</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

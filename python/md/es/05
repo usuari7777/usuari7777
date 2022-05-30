@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Tuplas | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Tuplas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="05.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/05.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tuplas" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Tuplas","url":"http://nachoiborraies.github.io/python/md/es/05.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="tuplas">Tuplas</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/05.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="05.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Las tuplas son un tipo especial de datos en Python, que se parecen algo a las estructuras o <em>structs</em> de C o C#. Permiten definir un conjunto de datos heterogéneos, pero esos datos, una vez se definen, son <strong>inmutables</strong>, es decir, no podemos modificar su valor. Cada dato dentro de la tupla tiene un índice (empezando por cero), como si fuera un array.</p>
+
+<p>Para definir una tupla, especificamos sus datos entre paréntesis:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nombres</span> <span class="o">=</span> <span class="p">(</span><span class="s">"John"</span><span class="p">,</span> <span class="s">"Helen"</span><span class="p">,</span> <span class="s">"Mary"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Como decimos, podemos especificar también diferentes datos en cada posición. Por ejemplo, para almacenar información personal de una persona:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">datosPersonales</span> <span class="o">=</span> <span class="p">(</span><span class="s">"John Doe"</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="s">"611223344"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Crea un programa llamado <strong>Tuplas.py</strong> donde le pidas al usuario que rellene su dirección postal, que estará formada por su nombre de calle (texto), número de puerta (entero) y número de piso (entero). Almacena los datos en una tupla y luego muestra por pantalla el resultado (campo a campo).</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

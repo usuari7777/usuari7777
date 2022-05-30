@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Otros aspectos del lenguaje</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Otros aspectos del lenguaje
+#### Acceso a bases de datos relacionales
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de bases de datos
+
+- Conectaremos desde aplicaciones C# a bases de datos SQLite
+- De forma similar se puede conectar a otros SGBD más potentes, como MySQL u Oracle
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## SQLite
+
+- SGBD de pequeño tamaño
+- Tiene la ventaja de que se puede distribuir conjuntamente con el proyecto, sin necesitar ningún software externo
+- Se puede instalar haciendo clic derecho en *Dependencias* e instalando como un paquete *NuGet*
+   - Debemos buscar *System.Data.SQLite*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## SQLite: instalación
+
+<div align="center">
+    <img src="../../../img/10_sqlite_instalacion.png" width="60%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Creación de la base de datos
+
+- Usamos un objeto **SQLiteConnection** para crear el archivo de la base de datos
+   - Una vez establecida la conexión, usamos el método **Open** para abrirla
+- Nos guardamos ese objeto como un atributo para usarlo más adelante en el programa y hacer operaciones contra la base de datos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Creación de la base de datos
+
+```cs
+class PruebaSQLite
+{
+    private SQLiteConnection conexion;
+
+    public void CrearConexion()
+    {
+        if (!File.Exists("basedatos.sqlite"))
+        {
+            conexion =
+                new SQLiteConnection("Data Source=basedatos.sqlite;Version=3;New=True;Compress=True;");
+            conexion.Open();
+        }
+        else
+        {
+            conexion =
+                new SQLiteConnection("Data Source=basedatos.sqlite;Version=3;New=False;Compress=True;");
+            conexion.Open();
+        }
+    }
+}
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Creación de las tablas
+
+- A diferencia de otros SGBD, las tablas deberemos crearlas a mano con instrucciones SQL
+- Ejecutaremos estas instrucciones sólo la primera vez (cuando creamos la base de datos)
+- [Aquí](https://www.sqlite.org/datatype3.html) puedes consultar los tipos de datos que admiten las columnas en SQLite
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Creación de las tablas
+
+```cs
+class PruebaSQLite
+{
+    private SQLiteConnection conexion;
+
+    public void CrearConexion()
+    {
+        if (!File.Exists("basedatos.sqlite"))
+        {
+            conexion =
+                new SQLiteConnection("Data Source=basedatos.sqlite;Version=3;New=True;Compress=True;");
+            conexion.Open();
+            CrearTablas();
+        }
+        else
+        {
+            // Este código no cambia
+            ...
+        }
+    }
+
+    public void CrearTablas()
+    {
+        string creacion = "CREATE TABLE personas " +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "nombre VARCHAR(200) NOT NULL, " + 
+            "edad INTEGER NOT NULL);";
+        
+        SQLiteCommand cmd = new SQLiteCommand(creacion, conexion);
+        cmd.ExecuteNonQuery();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones sobre la base de datos
+
+- Seguimos un patrón similar a la creación de tablas, pero con operaciones INSERT, UPDATE, DELETE o SELECT
+   - En el caso de INSERT, UPDATE o DELETE, ejecutamos una *non query*, y obtendremos como resultado el número de filas afectadas por la operación
+   - En el caso de SELECT, obtendremos un **SQLiteDataReader**, y con su método **Read** iremos de registro en registro, consultando sus campos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de inserción
+
+```cs
+string insercion = "INSERT INTO personas (nombre, edad) VALUES ('Nacho', 44)";
+SQLiteCommand cmd = new SQLiteCommand(insercion, conexion);
+int cantidad = cmd.ExecuteNonQuery();
+if (cantidad < 1)
+    Console.WriteLine("No se ha podido insertar");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de búsqueda
+
+```cs
+string consulta = "SELECT * FROM personas WHERE edad > 20";
+SQLiteCommand cmd = new SQLiteCommand(consulta, conexion);
+SQLiteDataReader resultados = cmd.ExecuteReader();
+while (resultados.Read())
+{
+    // Campo 0 = id, campo 1 = nombre, campo 2 = edad
+    string nombre = Convert.ToString(resultados[1]);
+    int edad = Convert.ToInt32(resultados[2]);
+    Console.WriteLine("{0}: {1} años", nombre, edad);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cerrar conexión
+
+- Usamos el método **Close** de la conexión
+- Podemos cerrar al final del programa, o tras cada operación (mejor esto en programas largos o con muchos accesos)
+
+```cs
+conexion.Close();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones parametrizadas
+
+Cuando queremos pasar datos variables a una operación SQL, tenemos dos opciones:
+
+- Concatenar esos datos en medio de la instrucción
+   - El código puede resultar algo confuso en ocasiones
+- Dejar definidas unas marcas y luego reemplazarlas por los datos reales
+   - Sentencias conocidas como *prepared statements*
+   - Especificamos luego el valor de cada dato con *AddWithValue*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones parametrizadas
+
+Ejemplo
+
+```cs
+string insercion = "INSERT INTO videojuegos (titulo, precio)" +
+" VALUES (@titulo, @precio)";
+SQLiteCommand cmd = new SQLiteCommand(insercion, conexion);
+cmd.Parameters.AddWithValue("@titulo", titulo);
+cmd.Parameters.AddWithValue("@precio", precio);
+cmd.Prepare();
+int cantidad = cmd.ExecuteNonQuery();
+if (cantidad < 1)
+    Console.WriteLine("No se ha podido insertar");
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Ejercicio_10d_01**. Añade *System.Data.SQLite* en él y crea una base de datos de videojuegos. Cada videojuego tendrá un *id* autonumérico (clave primaria), un título y un precio (*FLOAT* o *REAL*). Ninguno debe admitir nulos. Muestra al usuario un menú para:
+
+1. Añadir un nuevo videojuego a la base de datos
+2. Listar todos los videojuegos
+3. Listar videojuegos más baratos que el precio que diga el usuario
+4. Salir
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bases de datos y objetos
+
+- En ocasiones nos puede interesar gestionar los registros de la base de datos como colecciones de objetos, en lugar de como simples arrays de datos sueltos
+- Deberemos crear la(s) clase(s) que encapsule(n) la información de cada tabla
+- A esa clase le podemos pasar la conexión a la base de datos por si queremos hacer alguna operación de actualización
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: personas
+
+```cs
+class Persona
+{
+    private int id;
+    private string nombre;
+    private int edad;
+
+    public int Id
+    {
+        get { return id; }
+    }
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Edad
+    {
+        get { return edad; }
+        set { edad = value; }
+    }
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public Persona(int id, string nombre, int edad)
+    {
+        this.id = id;
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return id + ": " + nombre + ", " + edad + " años.";
+    }
+
+    // Métodos adicionales para gestión del objeto en la base de datos
+
+    public bool Insertar(SQLiteConnection conexion)
+    {
+        string insercion = "INSERT INTO personas (nombre, edad)" +
+            " VALUES (@nombre, @edad)";
+        SQLiteCommand cmd = new SQLiteCommand(insercion, conexion);
+        cmd.Parameters.AddWithValue("@nombre", nombre);
+        cmd.Parameters.AddWithValue("@edad", edad);
+        cmd.Prepare();
+        int cantidad = cmd.ExecuteNonQuery();
+        return cantidad == 1;
+    }
+
+    public bool Borrar(SQLiteConnection conexion)
+    {
+        string borrado = "DELETE FROM personas WHERE id = @id";
+        SQLiteCommand cmd = new SQLiteCommand(borrado, conexion);
+        cmd.Parameters.AddWithValue("@id", id);
+        cmd.Prepare();
+        int cantidad = cmd.ExecuteNonQuery();
+        return cantidad == 1;
+    }
+
+    public bool Actualizar(SQLiteConnection conexion)
+    {
+        string actualizacion = "UPDATE personas SET nombre = @nombre, " +
+            "edad = @edad WHERE id = @id";
+        SQLiteCommand cmd = new SQLiteCommand(actualizacion, conexion);
+        cmd.Parameters.AddWithValue("@nombre", nombre);
+        cmd.Parameters.AddWithValue("@edad", edad);
+        cmd.Parameters.AddWithValue("@id", id);
+        cmd.Prepare();
+        int cantidad = cmd.ExecuteNonQuery();
+        return cantidad == 1;
+    }
+
+    static List<Persona> Listar(SQLiteConnection conexion)
+    {
+        List<Persona> resultado = new List<Persona>();
+        string consulta = "SELECT * FROM personas";
+        SQLiteCommand cmd = new SQLiteCommand(consulta, conexion);
+        SQLiteDataReader resultados = cmd.ExecuteReader();
+        while (resultados.Read())
+        {
+            int id = Convert.ToInt32(resultados[0]);
+            string nombre = Convert.ToString(resultados[1]);
+            int edad = Convert.ToInt32(resultados[2]);
+            resultado.Add(new Persona(id, nombre, edad));
+        }
+
+        return resultado;
+    }    
+}
+
+class Main
+{   
+    static void Main()
+    {
+        SQLiteConnection conexion = ... // Obtenemos la conexion
+
+        List<Persona> personas = Persona.Listar(conexion);
+
+        Persona nueva = new Persona("John Doe", 40);
+        nueva.Insertar(conexion);
+
+        personas = Persona.Listar();
+        personas[1].Nombre = "Otro nombre";
+        personas[1].Actualizar(conexion);
+        personas[0].Borrar(conexion);
+        personas.RemoveAt(0);
+
+        foreach (Persona p in personas)
+            Console.WriteLine(p);
+
+        conexion.Close();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Ejercicio_10d_02** que adapte el anterior creando la clase *Videojuego* con lo necesario para tratar cada registro de la tabla como un objeto *Videojuego*
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

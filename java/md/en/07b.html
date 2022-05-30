@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>File management | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="File management" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="07b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/07b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="File management" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"File management","url":"http://nachoiborraies.github.io/java/md/en/07b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="file-management">File management</h1>
+
+<h2 id="accessing-binary-files">Accessing binary files</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="http://nachoiborraies.github.io/java/md/en/slides/07b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="07b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Dealing with text files can be a good option in many situations, when we want to store some simple data, or retrieve it from an existing file. However, sometimes information is not stored in text mode, and we may need to access it. This is the case of many file types in our day to day life, such as audio files or images. In these files, information is stored as a sequence of <strong>bytes</strong>, and we can’t just open them and read them with text editors.</p>
+
+<p>Regarding binary files, Java provides two base, abstract classes called <code class="language-plaintext highlighter-rouge">InputStream</code> and <code class="language-plaintext highlighter-rouge">OutputStream</code>, which provide some simple methods to read and write bytes (or groups of bytes) from/to these files. In this document we will see some easy steps to manage these classes and their subtypes, and do some simple operations.</p>
+
+<h3 id="1-reading-from-binary-files">1. Reading from binary files</h3>
+
+<p><code class="language-plaintext highlighter-rouge">FileInputStream</code> class provides a <code class="language-plaintext highlighter-rouge">read</code> method to read a binary file byte by byte. It returns -1 when the end of file has been reached.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">FileInputStream</span> <span class="n">fIn</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"file.jpg"</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="k">while</span> <span class="o">((</span><span class="n">data</span> <span class="o">=</span> <span class="n">fIn</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error reading file: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The class also has another overloaded version of this method to read a bunch of bytes and store it in an array.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">100</span><span class="o">]:</span>
+
+<span class="k">try</span><span class="o">(</span><span class="nc">FileInputStream</span> <span class="n">fIn</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"file.jpg"</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="k">while</span> <span class="o">((</span><span class="n">size</span> <span class="o">=</span> <span class="n">fIn</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">data</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error reading file: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this last case, <code class="language-plaintext highlighter-rouge">read</code> method returns the total number of bytes read, or -1 if the end of file has been reached. Data read will be stored in the byte array that we pass as parameter.</p>
+
+<h3 id="2-writing-to-binary-files">2. Writing to binary files</h3>
+
+<p><code class="language-plaintext highlighter-rouge">FileOutputStream</code> class has a <code class="language-plaintext highlighter-rouge">write</code> method to write a byte to a binary file.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">FileOutputStream</span> <span class="n">fOut</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"file.dat"</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="n">fOut</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="mi">23</span><span class="o">);</span>
+    <span class="n">fOut</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="mi">44</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error writing file: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>It also has an overloaded version of this method to write an array of bytes to the file.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">100</span><span class="o">];</span>
+
+<span class="c1">// ... Fill array with data</span>
+
+<span class="k">try</span><span class="o">(</span><span class="nc">FileOutputStream</span> <span class="n">fOut</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"file.dat"</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="n">fOut</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error writing file: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-some-advanced-operations-with-binary-files">3. Some advanced operations with binary files</h3>
+
+<p>Dealing with single bytes in a binary file is not a usual operation. However, sometimes we may need to access a concrete byte or group of bytes in a binary file to check their value, or modify it. But, instead of going byte by byte throughout the file until we reach the desired position, we can make use of <strong>random access files</strong>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">RandomAccessFile</code> class lets us open a read and/or write stream over a binary file, so that we can move to a given position and read/change the information stored in this file. To do this, we can make use of some useful methods, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">read</code>, <code class="language-plaintext highlighter-rouge">readInt</code>, <code class="language-plaintext highlighter-rouge">readFloat</code> … to read information in a given basic type</li>
+  <li><code class="language-plaintext highlighter-rouge">write</code>, <code class="language-plaintext highlighter-rouge">writeInt</code>, <code class="language-plaintext highlighter-rouge">writeFloat</code> … to write information from a given basic type</li>
+  <li><code class="language-plaintext highlighter-rouge">seek(bytes)</code> or <code class="language-plaintext highlighter-rouge">skipBytes(int)</code> to go to a given position in the binary file</li>
+</ul>
+
+<p>For instance, we can check if a PNG file is valid by checking the starting sequence of bytes: 137, 80, 78, 71, 13, 10, 26 and 10​. This little piece of code checks this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kt">int</span><span class="o">[]</span> <span class="no">VALID_HEADER</span> <span class="o">=</span> <span class="o">{</span><span class="mi">137</span><span class="o">,</span> <span class="mi">80</span><span class="o">,</span> <span class="mi">78</span><span class="o">,</span> <span class="mi">71</span><span class="o">,</span> <span class="mi">13</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">26</span><span class="o">,</span> <span class="mi">10</span><span class="o">};</span>
+
+<span class="k">try</span> <span class="o">(</span><span class="nc">RandomAccessFile</span> <span class="n">raf</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RandomAccessFile</span><span class="o">(</span><span class="s">"image.png"</span><span class="o">,</span> <span class="s">"rw"</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">headerBytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="no">VALID_HEADER</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="no">VALID_HEADER</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+    <span class="o">{</span>
+        <span class="n">headerBytes</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">raf</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kt">boolean</span> <span class="n">ok</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="no">VALID_HEADER</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">headerBytes</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="no">VALID_HEADER</span><span class="o">[</span><span class="n">i</span><span class="o">])</span>
+            <span class="n">ok</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">ok</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Valid PNG"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Not valid PNG"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error processing image"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We could also modify the value of any of these bytes so that PNG turns into a not valid image, and could not be opened by an image editor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">raf</span><span class="o">.</span><span class="na">seek</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">raf</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program that opens a BMP image file and then:</p>
+
+  <ul>
+    <li>Make sure that BMP is a valid file by checking the first two bytes. They must correspond to letters <em>B</em> and <em>M</em>.</li>
+    <li>Determine the width and height of the BMP file by checking the integers stored at bytes 18-21 (width) and 22-25 (height).</li>
+  </ul>
+
+  <p><strong>HELP</strong>: when reading data greater than a byte (you must read an integer in this case), you must know that information is sometimes stored in <em>little endian</em> format. This means that the lowest byte is stored at the leftmost position. However, if we call <code class="language-plaintext highlighter-rouge">readInt</code> method, Java tries to read the information in <em>big endian</em>, this is, lowest byte is stored at the rightmost position. So, when you read the integer containing the width or height, the bytes will be inverted. In order to reverse this value, you can just use <code class="language-plaintext highlighter-rouge">Integer.reverseBytes(value)</code> method.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

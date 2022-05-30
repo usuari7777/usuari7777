@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Concurrent programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Concurrent programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/14d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/14d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Concurrent programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Concurrent programming","url":"http://nachoiborraies.github.io/java/md/en/14d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="concurrent-programming">Concurrent programming</h1>
+
+<h2 id="thread-synchronization-and-coordination">Thread synchronization and coordination</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/14d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/14d.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>There are different ways of synchronizing or coordinating threads when they are launched from the same application. We can, for instance, assign different priorities to each thread so that some of them are faster than the rest. We can also join threads, i.e., make a thread wait until another thread finishes its task completely. From that point on, there are more complex synchronization structures, such as mutual exclusion, locks… We will see some of this techniques in this section.</p>
+
+<h3 id="1-basic-coordination-joining-threads">1. Basic coordination. Joining threads</h3>
+
+<p>If we want a thread to wait until another thread finishes, we can use the join method from the thread that we want to wait for. In this example, the main application creates a thread and waits until it finishes before going on:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+    <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">t</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In fact, <code class="language-plaintext highlighter-rouge">join</code> method can throw an <code class="language-plaintext highlighter-rouge">InterruptedException</code>, so we have to catch it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+    <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we want a secondary thread (not main program) to wait for another thread, then we need to tell this thread which is the thread it must wait for. We typically use an attribute inside thread class to store this information:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">waitThread</span><span class="o">;</span>
+
+    <span class="c1">// We will use this constructor </span>
+    <span class="c1">// if thread does not have to wait for anyone</span>
+    <span class="kd">public</span> <span class="nf">MyThread</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">waitThread</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// We will use this constructor </span>
+    <span class="c1">// if thread has to wait for thread "wt"</span>
+    <span class="kd">public</span> <span class="nf">MyThread</span><span class="o">(</span><span class="nc">Thread</span> <span class="n">wt</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">waitThread</span> <span class="o">=</span> <span class="n">wt</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// We check if waitThread attribute is not null, </span>
+    <span class="c1">// and then call the join method before keep on running</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">waitThread</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">waitThread</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="o">...</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, in main application, we create two threads of type MyThread, and ask one of them to wait for the other:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+    <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">(</span><span class="n">t1</span><span class="o">);</span>
+    <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="c1">// We start thread t2, but it will not run until t1 finishes</span>
+    <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>ThreadRaceJoin</strong> based on previous project of <em>Exercise 3</em>. Change the behavior of the three running threads (A, B and C) so that each one starts running when previous thread has finished:</p>
+
+  <ul>
+    <li>Thread A will start at the beginning of the program.</li>
+    <li>Thread B will start when thread A finishes.</li>
+    <li>Thread C will start when thread B finishes.</li>
+    <li>Main program will wait until the last thread (C) finishes the race.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>MultiplierThreadsJoin</strong> based in previous project of <em>Exercise 2</em>. Change the behavior of the main application so that it waits for each thread to finish before starting the following. Therefore, all the multiplication tables will be shown in order:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 x 0 = 0
+0 x 1 = 0
+...
+0 x 10 = 0
+1 x 0 = 0
+...
+</code></pre></div></div>
+
+<h3 id="2-access-to-shared-resources-the-need-of-thread-synchronization">2. Access to shared resources. The need of thread synchronization</h3>
+
+<p>It is quite usual that multiple threads want to get the same resource (e.g. a variable, a text file, a database…), and it is difficult to guarantee that the information in that resource will not be mistakenly modified (for instance, that a thread changes the value of a variable while another thread is using it).</p>
+
+<p>The piece of code that is in charge of allowing threads to get that shared resource is commonly called <strong>critical section</strong>. This code must not be executed by more than one thread at the same time. To achieve this, Java offers some options.</p>
+
+<p>Let’s see the problem in depth with this example: first of all, we create an object of class <code class="language-plaintext highlighter-rouge">Counter</code>, that will be shared among threads:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Counter</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Counter</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">value</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">decrement</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">value</span><span class="o">--;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can see that <code class="language-plaintext highlighter-rouge">Counter</code> class has only one attribute, <em>value</em>, which is the value that will be read and/or modified by the threads, by calling <code class="language-plaintext highlighter-rouge">increment</code> or <code class="language-plaintext highlighter-rouge">decrement</code> methods.</p>
+
+<p>Then, we create two types of threads: one that will increment <code class="language-plaintext highlighter-rouge">Counter</code> value in a loop, and another one that will decrement it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">Counter</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Counter</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+
+    <span class="nc">Thread</span> <span class="n">tinc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">c</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Finishing inc. Final value = "</span><span class="o">+</span><span class="n">c</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+    <span class="o">});</span>
+
+    <span class="nc">Thread</span> <span class="n">tdec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">c</span><span class="o">.</span><span class="na">decrement</span><span class="o">();</span>
+            <span class="k">try</span>
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Finishing dec. Final value = "</span><span class="o">+</span><span class="n">c</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+    <span class="o">});</span>
+    <span class="n">tinc</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">tdec</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What will happen? If you try this example on your IDE, you will find out that the final value of <code class="language-plaintext highlighter-rouge">c</code> object is different every time you run the example. Sometimes it is 105, sometimes it is 97… but it should be always 100 (it starts with 100, and then one thread is expected to increment the value 100 times and the other thread is expected to decrement it 100 times as well).</p>
+
+<p>Why can this happen? Well, it may occur that <code class="language-plaintext highlighter-rouge">tinc</code> gets into <code class="language-plaintext highlighter-rouge">increment</code> method and then the control goes to <code class="language-plaintext highlighter-rouge">tdec</code>, that gets into <code class="language-plaintext highlighter-rouge">decrement</code> method. Then, one of these operations (either <code class="language-plaintext highlighter-rouge">value++</code> or <code class="language-plaintext highlighter-rouge">value--</code>) will have no effect. For instance, if <code class="language-plaintext highlighter-rouge">tinc</code> reads the value 100 and tries to set it to 101 but then the control goes to <code class="language-plaintext highlighter-rouge">tdec</code> that reads the same value 100 (<code class="language-plaintext highlighter-rouge">tinc</code> has not changed it yet) and sets it to 99, then when the control comes back to <code class="language-plaintext highlighter-rouge">tinc</code>, it will set value to 101, and the decrement will have disappeared.</p>
+
+<p>To solve this problem, Java offers some mechanisms that can be used by a thread to check if there is any other thread executing the critical section before getting into it. If so, then the thread trying to get into the critical section is suspended by the synchronization mechanism. If there is more than one thread waiting for a thread to finish the critical section, as soon as it finishes, the JVM chooses one of the waiting threads (randomly) to execute it. Let’s see how this mechanism works, and its variations.</p>
+
+<h4 id="21-synchronizing-methods">2.1. Synchronizing methods</h4>
+
+<p>One of the most basic methods of synchronization in Java is the <code class="language-plaintext highlighter-rouge">synchronized</code> keyword. We can use it to control the access to a method, so that it becomes a critical section.</p>
+
+<p>Java only allows the execution of one critical section on each object. If the method is static, then this critical section is independent from all the objects of that class. In other words, Java only allows the execution of one critical section per object, and one static critical section per class.</p>
+
+<p>In previous example, if we just add the <code class="language-plaintext highlighter-rouge">synchronized</code> keyword to the <code class="language-plaintext highlighter-rouge">increment</code> and <code class="language-plaintext highlighter-rouge">decrement</code> methods of Counter class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Counter</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Counter</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">value</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">decrement</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">value</span><span class="o">--;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>and we run again the program, we will notice that it works perfectly now. Why? Well, if <code class="language-plaintext highlighter-rouge">tinc</code> goes into <code class="language-plaintext highlighter-rouge">increment</code> method, then <code class="language-plaintext highlighter-rouge">tdec</code> will not be able to enter <code class="language-plaintext highlighter-rouge">decrement</code> method, and vice versa, so we will not have the problem of incrementing and decrementing the value at the same time, because both threads are sharing the same <code class="language-plaintext highlighter-rouge">Counter</code> object, and only one thread can be running a <em>synchronized</em> method at the same time.</p>
+
+<p>You will also notice that the program runs slower than before. This is one of the effects of synchronization, it penalizes the performance of the application.</p>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a project called <strong>BankAccountSynchronized</strong> with these classes and methods:</p>
+
+  <ul>
+    <li>A <code class="language-plaintext highlighter-rouge">BankAccount</code> class with an attribute called <code class="language-plaintext highlighter-rouge">balance</code> that will store how much money is there in the account. Add a constructor to initialize the money in the account, and two methods <code class="language-plaintext highlighter-rouge">addMoney</code> and <code class="language-plaintext highlighter-rouge">takeOutMoney</code>, that will add or take out the amount passed as a parameter. Add a <code class="language-plaintext highlighter-rouge">getBalance</code> method as well, to retrieve the current balance of the account.</li>
+  </ul>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">BankAccount</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addMoney</span><span class="o">(</span><span class="kt">int</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">takeOutMoney</span><span class="o">(</span><span class="kt">int</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <ul>
+    <li>A <code class="language-plaintext highlighter-rouge">BankThreadSave</code> class with an attribute of type <code class="language-plaintext highlighter-rouge">BankAccount</code>. You can either extend <code class="language-plaintext highlighter-rouge">Thread</code> class or implement <code class="language-plaintext highlighter-rouge">Runnable</code> interface to do that class. In the <code class="language-plaintext highlighter-rouge">run</code> method, the thread will add 100€ to the bank account for 5 times, sleeping 100 ms between each operation.</li>
+    <li>A <code class="language-plaintext highlighter-rouge">BankThreadSpend</code> class with an attribute of type <code class="language-plaintext highlighter-rouge">BankAccount</code>. You can either extend <code class="language-plaintext highlighter-rouge">Thread</code> class or implement <code class="language-plaintext highlighter-rouge">Runnable</code> interface to do that class. In the <code class="language-plaintext highlighter-rouge">run</code> method, the thread will take out 100€ from the bank account for 5 times, sleeping 100 ms between each operation.</li>
+    <li>From main class, create a <code class="language-plaintext highlighter-rouge">BankAccount</code> object, and an array of 20 <code class="language-plaintext highlighter-rouge">BankThreadSave</code> and 20 <code class="language-plaintext highlighter-rouge">BankThreadSpend</code> objects, using all of them the same <code class="language-plaintext highlighter-rouge">BankAccount</code> object. Start them all and see how the bank account balance changes (print a message somewhere to show the balance after each operation).</li>
+    <li>At this point, you should have noticed that your bank account does not work properly. Add the synchronization mechanisms that you consider to solve the problem.</li>
+  </ul>
+</blockquote>
+
+<h4 id="22-synchronizing-objects">2.2. Synchronizing objects</h4>
+
+<p>We can also apply the <code class="language-plaintext highlighter-rouge">synchronized</code> keyword to a given object in a piece of code, passing the object as a parameter, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">myMethod</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">someValue</span><span class="o">;</span>
+    <span class="o">...</span>
+    <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">someValue</span><span class="o">++;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Value changed: "</span> <span class="o">+</span> <span class="n">someValue</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, when a thread A tries to execute the instructions inside this block, it will not be able to do it if another thread B is already executing a critical section affecting the object <code class="language-plaintext highlighter-rouge">this</code>. As soon as this thread B finishes the critical section, the other thread A will wake up and enter the critical section.</p>
+
+<p>Of course, we can use any other object with <code class="language-plaintext highlighter-rouge">synchronized</code> keyword. For instance, if we have an object called <code class="language-plaintext highlighter-rouge">file</code> and we want to create a critical section around it, we can do it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">someMethod</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="kd">synchronized</span><span class="o">(</span><span class="n">file</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="o">...</span> <span class="c1">// Critical section</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a project <strong>BankAccountSynchronizedObject</strong> based on previous exercise. In this case, you can’t synchronize any method, you can only synchronize objects. What changes would you add to the project to make sure that it will keep on running properly?</p>
+</blockquote>
+
+<h3 id="3-thread-priorities">3. Thread priorities</h3>
+
+<p>When we have multiple threads running on a program, we can change the priority of each thread, so that those threads with higher priority will get the processor more frequently. This feature is only applied to threads, not to processes, since JVM is not responsible for outer processes.</p>
+
+<p>Priorities in threads are just integers from 1 (stored in <code class="language-plaintext highlighter-rouge">Thread.MIN_PRIORITY</code> constant) to 10 (stored in <code class="language-plaintext highlighter-rouge">Thread.MAX_PRIORITY</code> constant). By default, every thread has a priority of 5 (<code class="language-plaintext highlighter-rouge">Thread.NORM_PRIORITY</code> constant), and every thread inherits its parent’s priority, unless we change it later.</p>
+
+<p>To change the priority of a thread, we can use its <code class="language-plaintext highlighter-rouge">setPriority</code> method, passing an integer as a parameter. We can also check the thread’s priority with <code class="language-plaintext highlighter-rouge">getPriority</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+<span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+<span class="nc">Thread</span> <span class="n">t3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+
+<span class="n">t1</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">MIN_PRIORITY</span><span class="o">);</span>
+<span class="n">t2</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">NORM_PRIORITY</span><span class="o">);</span>
+<span class="n">t3</span><span class="o">.</span><span class="na">setPriority</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">MAX_PRIORITY</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Priority of thread #2 is "</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="na">getPriority</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h4 id="31-operating-system-dependency">3.1. Operating system dependency</h4>
+
+<p>There is a problem with priorities depending on the operating system that we are using. In Windows systems, you will see that your threads behave more or less according to their priorities, but in Linux and Mac OS X systems, the priority that we try to set to each thread has no effect. So we have to keep in mind that the expected behavior of our threads is not guaranteed, and it will depend on the operating system, unless we look for another options.</p>
+
+<p>If we need to be sure that some threads will have a higher priority, we can’t rely on <code class="language-plaintext highlighter-rouge">setPriority</code> method, because the operating system may ignore these priorities. An alternative option is to use random numbers and the <code class="language-plaintext highlighter-rouge">yield</code> or <code class="language-plaintext highlighter-rouge">sleep</code> methods to force threads to free the processor according to their real priority. Let’s have a look at this example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyPrioritizedThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">priority</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyPrioritizedThread</span><span class="o">(</span><span class="kt">int</span> <span class="n">priority</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">priority</span> <span class="o">=</span> <span class="n">priority</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Random</span> <span class="n">r</span> <span class="o">=</span> 
+            <span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Random</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">condition</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="c1">// Generate a random number between 1 and 10</span>
+            <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+
+            <span class="c1">// If this number is greater or equal than thread's </span>
+            <span class="c1">// priority, yield</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">&gt;=</span> <span class="n">priority</span><span class="o">)</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+
+            <span class="o">...</span> <span class="c1">// Rest of the instructions for our run loop</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We define our <code class="language-plaintext highlighter-rouge">Thread</code> subclass with its own <code class="language-plaintext highlighter-rouge">priority</code> attribute, that will be managed by our code. In <code class="language-plaintext highlighter-rouge">run</code> method, we generate a random number between 1 (that will correspond to <code class="language-plaintext highlighter-rouge">Thread.MIN_PRIORITY</code>) and 10 (that will correspond to <code class="language-plaintext highlighter-rouge">Thread.MAX_PRIORITY</code>). If this number is greater or equal than <code class="language-plaintext highlighter-rouge">priority</code> attribute, then our thread will yield. Notice that threads with lower priorities (i.e. closer to 1) will yield more frequently, and threads with higher priorities (i.e. closer to 10) will yield from time to time.</p>
+
+<p>If the task planner ignores the <code class="language-plaintext highlighter-rouge">yield</code> instruction and our priorities do not seem to have any effect, then replace the <code class="language-plaintext highlighter-rouge">yield</code> instruction with some sleeping time:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">&gt;=</span> <span class="n">priority</span><span class="o">)</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+</code></pre></div></div>
+
+<p>The more milliseconds you put your threads to sleep, the more time will take for threads with lower priorities to finish their task. It is up to you to adjust the most appropriate number of milliseconds, depending on the application you are developing.</p>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Create a project called <strong>ThreadRacePriorities</strong> based in <em>ThreadRace</em> project of <em>Exercise 5</em>. Modify the code so that thread <em>A</em> has <code class="language-plaintext highlighter-rouge">MAX_PRIORITY</code>, thread <em>B</em> has <code class="language-plaintext highlighter-rouge">NORM_PRIORITY</code> and thread <em>C</em> has <code class="language-plaintext highlighter-rouge">MIN_PRIORITY</code>. Do it with <code class="language-plaintext highlighter-rouge">setPriority</code> method. Try to check or see the results in different operating systems.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 6:</strong></p>
+
+  <p>Create a project called <strong>ThreadRacePrioritiesRandom</strong> that changes the assignment of priorities of previous exercise for the second option explained (random numbers and <em>yield/sleep</em> method). Try to check or see the results in different operating systems.</p>
+</blockquote>
+
+<h3 id="4-the-producer-consumer-problem">4. The producer-consumer problem</h3>
+
+<p>The producer-consumer problem is a classic problem in concurrent programming. In this type of problems, we have a data buffer, some producers that put data into that buffer and some consumers that take data from the buffer. We have to make sure that consumers will not try to take data when the buffer is empty and, in some cases, that producers will not produce more data until consumers take the existing one, or if buffer is full.</p>
+
+<p>In these type of problems the use of <code class="language-plaintext highlighter-rouge">synchronized</code> keyword is not enough. We have to add some mechanisms to make either producers or consumers wait until the other side has done its job. To do this, we can use the <code class="language-plaintext highlighter-rouge">wait</code>, <code class="language-plaintext highlighter-rouge">notify</code> and <code class="language-plaintext highlighter-rouge">notifyAll</code> methods, from <code class="language-plaintext highlighter-rouge">Object</code> class:</p>
+
+<ul>
+  <li>The <code class="language-plaintext highlighter-rouge">wait</code> method can be called inside a synchronized block. Then, the JVM puts the thread to sleep and releases the object controlled by this synchronized block, so that other threads running synchronized blocks of the same object can go on.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">notify</code> or <code class="language-plaintext highlighter-rouge">notifyAll</code> methods are called by a thread that has finished its task inside a critical section, before leaving it, to tell the JVM that it can wake up a thread previously put to sleep with a <code class="language-plaintext highlighter-rouge">wait</code> method. The main difference between these two methods (<code class="language-plaintext highlighter-rouge">notify</code> and <code class="language-plaintext highlighter-rouge">notifyAll</code>) is that, with <code class="language-plaintext highlighter-rouge">notify</code>, the JVM chooses one thread waiting (randomly), whereas with <code class="language-plaintext highlighter-rouge">notifyAll</code> the JVM wakes up every thread waiting, and the first who gets into the critical section is the one who goes on (the others will keep on waiting).</li>
+</ul>
+
+<p>Let’s see an example: we will create two types of threads: a <code class="language-plaintext highlighter-rouge">Producer</code> that will put some data (for instance, an integer) into a given object (we will call it <code class="language-plaintext highlighter-rouge">SharedData</code>), and a <code class="language-plaintext highlighter-rouge">Consumer</code> that will get this data.</p>
+
+<p>Our <code class="language-plaintext highlighter-rouge">SharedData</code> class is this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SharedData</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="kt">int</span> <span class="n">newData</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">newData</span><span class="o">;</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our <code class="language-plaintext highlighter-rouge">Producer</code> and <code class="language-plaintext highlighter-rouge">Consumer</code> threads are these ones:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Producer</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="nc">SharedData</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Producer</span><span class="o">(</span><span class="nc">SharedData</span> <span class="n">data</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+        <span class="o">{</span>
+            <span class="n">data</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Produced number "</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Consumer</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="nc">SharedData</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Consumer</span><span class="o">(</span><span class="nc">SharedData</span> <span class="n">data</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+        <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Consumed number "</span> <span class="o">+</span> <span class="n">n</span><span class="o">);</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The main application will create a <code class="language-plaintext highlighter-rouge">SharedData</code> object and a thread of each type, and will start both.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">SharedData</span> <span class="n">sd</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SharedData</span><span class="o">();</span>
+    <span class="nc">Producer</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Producer</span><span class="o">(</span><span class="n">sd</span><span class="o">);</span>
+    <span class="nc">Consumer</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Consumer</span><span class="o">(</span><span class="n">sd</span><span class="o">);</span>
+    <span class="n">p</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">c</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we copy this example and see how it works, we will see something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Consumed number 0
+Produced number 0
+Consumed number 0
+Produced number 1
+Consumed number 1
+Produced number 2
+Produced number 3
+Consumed number 3
+Produced number 4
+Consumed number 4
+Consumed number 4
+</code></pre></div></div>
+
+<p>See how, sometimes, the producer puts numbers too fast, and sometimes, the consumer gets numbers too fast as well, so that they are not coordinated (the consumer may read twice the same number, or the producer may put two consecutive numbers).</p>
+
+<p>We could think that, if we just add the <code class="language-plaintext highlighter-rouge">synchronized</code> keyword to <code class="language-plaintext highlighter-rouge">get</code> and <code class="language-plaintext highlighter-rouge">put</code> methods from <code class="language-plaintext highlighter-rouge">SharedData</code> class, we would solve the problem:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SharedData</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="kt">int</span> <span class="n">newData</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">newData</span><span class="o">;</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, if we run the program again, we may notice that it still fails:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Consumed number 0
+Produced number 0
+Consumed number 1
+Produced number 1
+Produced number 2
+Consumed number 1
+Produced number 3
+Consumed number 3
+Produced number 4
+Consumed number 4
+</code></pre></div></div>
+
+<p>In fact, there are two problems that we need to solve. But let’s start with the most important one: producer and consumer have to work coordinated: as soon as the producer puts a number, the consumer can get it, and the producer will not be able to produce more numbers until the consumer gets the previous ones.</p>
+
+<p>To do this, we need to add some changes to our <code class="language-plaintext highlighter-rouge">SharedData</code> class. First of all, we need a flag that tells producers and consumers who goes next. It will depend on whether there is new data to be consumed (turn for the consumer) or not (turn for the producer).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SharedData</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">available</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="kt">int</span> <span class="n">newData</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">newData</span><span class="o">;</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Besides, we need to make sure that <code class="language-plaintext highlighter-rouge">get</code> and <code class="language-plaintext highlighter-rouge">put</code> methods will be called alternatively. To do this, we need to use the boolean flag and the <code class="language-plaintext highlighter-rouge">wait</code> and <code class="language-plaintext highlighter-rouge">notify/notifyAll</code> methods, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SharedData</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">available</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">available</span><span class="o">)</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="n">wait</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">notify</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="kt">int</span> <span class="n">newData</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">available</span><span class="o">)</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="n">wait</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">newData</span><span class="o">;</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="n">notify</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>See how we use <code class="language-plaintext highlighter-rouge">wait</code> and <code class="language-plaintext highlighter-rouge">notify</code> methods. Regarding <code class="language-plaintext highlighter-rouge">get</code> method (called by the <code class="language-plaintext highlighter-rouge">Consumer</code>), if there is nothing available, we wait. Then, we get the number, set the flag to false again and notify the other thread. In the <code class="language-plaintext highlighter-rouge">put</code> method (called by the <code class="language-plaintext highlighter-rouge">Producer</code>), if there is something available, we wait until someone notifies us. Then, we set the new data, set the flag to <em>true</em> again and notify the other thread.</p>
+
+<p>If both threads try to get to the critical section at the same time, <code class="language-plaintext highlighter-rouge">Consumer</code> will have to wait (<em>available</em> flag is set to <em>false</em> at the beginning), and <code class="language-plaintext highlighter-rouge">Producer</code> will set the first data to be consumed. From then on, they alternate in the critical section, consuming and producing new data each time.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Consumed number 0
+Produced number 0
+Produced number 1
+Consumed number 1
+Consumed number 2
+Produced number 2
+Produced number 3
+Consumed number 3
+Produced number 4
+Consumed number 4
+...
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 7:</strong></p>
+
+  <p>Create a project called <strong>DishWasher</strong>. We are going to simulate a dish washing process at home, when someone wash the dishes and someone else dries them. Create the following classes:</p>
+
+  <ul>
+    <li>A <code class="language-plaintext highlighter-rouge">Dish</code> class with just an integer attribute: the dish number (to identify the different dishes).</li>
+    <li>A <code class="language-plaintext highlighter-rouge">DishPile</code> class that will store up to 5 dishes. It will have a <code class="language-plaintext highlighter-rouge">wash</code> method that will put a <em>dish</em> in the pile (if there is space available), and a <code class="language-plaintext highlighter-rouge">dry</code> method that will take a <em>dish</em> from the pile (if there is any). Maybe you will need a <code class="language-plaintext highlighter-rouge">Dish</code> parameter in <code class="language-plaintext highlighter-rouge">wash</code> method, to add a <em>dish</em> to the <em>pile</em>.</li>
+    <li>A <code class="language-plaintext highlighter-rouge">Washer</code> thread that will receive a number N as a parameter, and a <code class="language-plaintext highlighter-rouge">DishPile</code> object. In its <code class="language-plaintext highlighter-rouge">run</code> method, it will put (wash) N dishes in the pile, with a pause of 50ms between each dish.</li>
+    <li>A <code class="language-plaintext highlighter-rouge">Dryer</code> thread that will receive a number N as a parameter, and a <code class="language-plaintext highlighter-rouge">DishPile</code> object. In its <code class="language-plaintext highlighter-rouge">run</code> method, it will take out (dry) N dishes from the pile, with a pause of 100 ms between each dish.</li>
+    <li>The main class will create the <code class="language-plaintext highlighter-rouge">DishPile</code> object, and a thread of each type (<code class="language-plaintext highlighter-rouge">Washer</code> and <code class="language-plaintext highlighter-rouge">Dryer</code>). They will have to wash/dry 20 dishes coordinately, so that the output must be something like this:</li>
+  </ul>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Washed dish #1, total in pile: 1
+Drying dish #1, total in pile: 0
+Washed dish #2, total in pile: 1
+Drying dish #2, total in pile: 0
+Washed dish #3, total in pile: 1
+Washed dish #4, total in pile: 2
+Drying dish #4, total in pile: 1
+Washed dish #5, total in pile: 2
+Washed dish #6, total in pile: 3
+Drying dish #6, total in pile: 2
+Washed dish #7, total in pile: 3
+...
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

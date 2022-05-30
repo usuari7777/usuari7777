@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Controladores en Laravel | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Controladores en Laravel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/03a.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Controladores en Laravel" />
+<script type="application/ld+json">
+{"headline":"Controladores en Laravel","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/03a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="controladores-en-laravel">Controladores en Laravel</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/03a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="03a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Los controladores permiten estructurar mejor el código de nuestra aplicación. Su principal utilidad radica en liberar a los archivos de rutas de tener que ocuparse también de gestionar cierta lógica común de las peticiones, como el acceso a los datos, validación de formularios, etc. Además, a medida que la aplicación crezca, el archivo de rutas puede ser demasiado grande si tiene que almacenar también la lógica de cada ruta, y el tiempo de procesamiento del archivo también crecerá. Lo mejor es dividir esa lógica en controladores.</p>
+
+<p>Para definir un controlador en nuestra aplicación, tenemos que echar mano de nuevo del comando <code class="language-plaintext highlighter-rouge">php artisan</code> visto previamente. En concreto, utilizaremos la opción <code class="language-plaintext highlighter-rouge">make:controller</code> seguida del nombre que le queramos dar al controlador. Típicamente, los nombres de controladores terminan con el sufijo <em>Controller</em>, por lo que podemos crear uno de prueba así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller PruebaController
+</code></pre></div></div>
+
+<p>Esto generará una clase vacía con el nombre del controlador. Por defecto, los controladores se guardan en la subcarpeta <code class="language-plaintext highlighter-rouge">app/Http/Controllers</code> de nuestro proyecto Laravel.</p>
+
+<h2 id="1-controladores-de-un-sólo-método-invoke">1. Controladores de un sólo método (<em>invoke</em>)</h2>
+
+<p>El comando anterior admite algunos parámetros adicionales más. Uno muy útil es el parámetro <code class="language-plaintext highlighter-rouge">-i</code>, que crea el controlador con un método llamado <code class="language-plaintext highlighter-rouge">__invoke</code>, que se auto ejecuta cuando es llamado desde algún proceso de enrutamiento. Por ejemplo, si creamos el controlador así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller PruebaController -i
+</code></pre></div></div>
+
+<p>Se creará la clase <code class="language-plaintext highlighter-rouge">PruebaController</code> en la carpeta <code class="language-plaintext highlighter-rouge">app/Http/Controllers</code>, con un contenido como éste:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">PruebaController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__invoke</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Dentro del método <code class="language-plaintext highlighter-rouge">__invoke</code> podemos definir la lógica de generar u obtener los datos que necesita una vista, y renderizarla. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">public</span> <span class="k">function</span> <span class="n">__invoke</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$datos</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mf">...</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'miVista'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'datos'</span><span class="p">));</span>
+    <span class="p">}</span> 
+</code></pre></div></div>
+
+<p>Así, en el archivo de rutas, basta con definir la ruta que queramos, y como segundo parámetro del método <code class="language-plaintext highlighter-rouge">get</code>, indicar el nombre del controlador que se va a disparar para procesar esa ruta. Adicionalmente, también le podemos asignar un nombre a la ruta, como ya hemos hecho en ejemplos anteriores.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="s1">'PruebaController'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Alternativamente (y de manera especial desde Laravel 8, donde la anterior forma de definir rutas asociadas a controlador ya no funciona directamente), podemos especificar la clase del controlador, incluyendo con <code class="language-plaintext highlighter-rouge">use</code> dicha clase en el archivo de rutas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\PruebaController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="nc">PruebaController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="2-controladores-de-varios-métodos">2. Controladores de varios métodos</h2>
+
+<p>Los controladores de tipo <em>invoke</em> son útiles para definir controladores simples, donde sólo necesitamos un método para procesar rutas asociadas a una entidad del programa. Esto no es lo habitual, ya que, por ejemplo, para una misma entidad (como puedan ser los libros de nuestra biblioteca), necesitaremos métodos para listarlos, crearlos, borrarlos, etc. En este caso, podemos crear otros tipos de controladores que ofrecen más métodos disponibles.</p>
+
+<h3 id="21-controladores-de-recursos">2.1. Controladores de recursos</h3>
+
+<p>Si creamos un controlador con la opción <code class="language-plaintext highlighter-rouge">-r</code> en lugar de la opción <code class="language-plaintext highlighter-rouge">-i</code> utilizada en el ejemplo anterior, creará un controlador de recursos (<code class="language-plaintext highlighter-rouge">resources</code>), y predefinirá en él una serie de métodos de utilidad para las operaciones principales que se pueden realizar sobre una entidad de nuestra aplicación:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">index</code>: muestra un listado de los elementos de esa entidad o recurso</li>
+  <li><code class="language-plaintext highlighter-rouge">create</code>: muestra el formulario para dar de alta nuevos elementos</li>
+  <li><code class="language-plaintext highlighter-rouge">store</code>: almacena en la base de datos el recurso creado con el formulario anterior</li>
+  <li><code class="language-plaintext highlighter-rouge">show</code>: muestra los datos de un recurso específico (a partir de su clave o <em>id</em>).</li>
+  <li><code class="language-plaintext highlighter-rouge">edit</code>: muestra el formulario para editar un recurso existente</li>
+  <li><code class="language-plaintext highlighter-rouge">update</code>: actualiza en la base de datos el recurso editado con el formulario anterior</li>
+  <li><code class="language-plaintext highlighter-rouge">destroy</code>: elimina un recurso por su identificador.</li>
+</ul>
+
+<p>Obviamente, el código de todos estos métodos aparecerá vacío al principio, y los deberemos rellenar con las operaciones correspondientes más adelante.</p>
+
+<p>Si queremos utilizar un controlador de este tipo, y llamar a alguno de sus métodos desde alguna ruta, ya no basta con poner el nombre del controlador, como hacíamos antes con los de tipo <em>invoke</em>, puesto que ahora hay más de un método que elegir. Lo que haremos será poner el nombre del controlador, seguido de una arroba <code class="language-plaintext highlighter-rouge">@</code> y el nombre del método a invocar. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="s1">'PruebaController@index'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'listado_prueba'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>También de forma alternativa podemos emplear la propia clase del controlador en la definición de la ruta (recomendado desde Laravel 8). En este caso, definimos un array con la clase del controlador y el método a llamar (<code class="language-plaintext highlighter-rouge">index</code> en nuestro caso):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\PruebaController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="p">[</span><span class="nc">PruebaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">])</span>
+    <span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'listado_prueba'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Vamos a probar esta opción en nuestro proyecto de biblioteca. Crearemos un controlador para gestionar los libros, con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller -r LibroController
+</code></pre></div></div>
+
+<p>De momento varios de los métodos generados en el controlador no los vamos a utilizar. Podemos modificar los dos que sí vamos a usar de momento (<code class="language-plaintext highlighter-rouge">index</code> y <code class="language-plaintext highlighter-rouge">show</code>) y poner en ellos lo que antes teníamos en el archivo de rutas. Así nos quedarían, respectivamente:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span> 
+<span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"El juego de Ender"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"Orson Scott Card"</span><span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"La tabla de Flandes"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"Arturo Pérez Reverte"</span><span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"La historia interminable"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"Michael Ende"</span><span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"El Señor de los Anillos"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"J.R.R. Tolkien"</span><span class="p">)</span>
+    <span class="p">);</span>
+
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'listado'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Mostrando ficha de libro </span><span class="nv">$id</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> el método <code class="language-plaintext highlighter-rouge">show</code> no lo habíamos implementado en la sesión anterior, pero básicamente lo vamos a utilizar para mostrar la ficha de un libro. De momento mostramos sólo el <em>id</em> del libro recibido, como texto plano.</p>
+</blockquote>
+
+<p>Estas dos rutas quedarían ahora así en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code> (eliminaríamos la vieja ruta de listado de posts):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="s1">'LibroController@index'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'libros/{id}'</span><span class="p">,</span> <span class="s1">'LibroController@show'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>O de forma alternativa (Laravel 8):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\LibroController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">]);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'libros/{id}'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h3 id="22-controladores-de-api">2.2. Controladores de API</h3>
+
+<p>Como alternativa a los controladores de recursos vistos antes, podemos crear los controladores con la opción <code class="language-plaintext highlighter-rouge">--api</code>. Creará un controlador con los mismos métodos que el de recursos, salvo los métodos <code class="language-plaintext highlighter-rouge">create</code> y <code class="language-plaintext highlighter-rouge">edit</code>, encargados de mostrar los formularios de creación y edición de recursos, ya que en las APIs estos formularios no son necesarios, como veremos en sesiones posteriores.</p>
+
+<h2 id="3-rutas-vistas-y-controladores">3. Rutas, vistas y controladores</h2>
+
+<p>A medida que el proyecto crece, generaremos un buen número de vistas asociadas a controladores, y es necesario estructurar estas vistas de una forma adecuada para poderlas identificar rápidamente. Una convención que podemos seguir es nombrar las vistas a partir del controlador o modelo al que hacen referencia, y a la operación que realizan. Por ejemplo, si tenemos un controlador llamado <code class="language-plaintext highlighter-rouge">PruebaController</code>, se supone que actuará sobre una tabla llamada <code class="language-plaintext highlighter-rouge">pruebas</code> (lo veremos más adelante, en la sesión de acceso a datos). En nuestro caso de la biblioteca, podemos almacenar las vistas de los libros de la biblioteca en la subcarpeta <code class="language-plaintext highlighter-rouge">resources/views/libros</code>, y definir dentro las vistas asociadas a cada operación del controlador que tengamos definida. Por ejemplo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">index.blade.php</code></li>
+  <li><code class="language-plaintext highlighter-rouge">show.blade.php</code></li>
+  <li>…</li>
+</ul>
+
+<p>Paralelamente, cada vez que vayamos a cargar una vista desde algún controlador o ruta, haremos referencia a este nombre. Así, si queremos renderizar la vista <code class="language-plaintext highlighter-rouge">show</code> para los libros desde el método <code class="language-plaintext highlighter-rouge">show</code> del controlador de libros, haríamos algo así (pasándole como parámetro el <em>id</em> del libro a buscar, para que lo saque en la vista por ahora):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.show'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'id'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Del mismo modo, los nombres que asociemos a las rutas deberían seguir este mismo patrón.</p>
+
+<h3 id="31-aunando-todas-las-rutas-de-un-controlador">3.1. Aunando todas las rutas de un controlador</h3>
+
+<p>Al final de todo el proceso de implementación de un controlador (de recursos o de API) tendremos en el archivo de rutas una dedicada a cada método del controlador (una para <code class="language-plaintext highlighter-rouge">index</code>, otra para <code class="language-plaintext highlighter-rouge">show</code>, etc.). Estas rutas pueden agruparse en una sola usando el método <code class="language-plaintext highlighter-rouge">resource</code> de la clase <code class="language-plaintext highlighter-rouge">Route</code>, en lugar de <code class="language-plaintext highlighter-rouge">get</code>, indicándole como parámetros el nombre base de la ruta, y el controlador que se va a encargar de ella:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\LibroController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>La ruta anterior definirá una ruta GET hacia <code class="language-plaintext highlighter-rouge">/libros</code>, atendida por el método <code class="language-plaintext highlighter-rouge">index</code> del controlador, otra ruta GET hacia <code class="language-plaintext highlighter-rouge">/libros/{id}</code> atendida por el método <code class="language-plaintext highlighter-rouge">show</code> del controlador… etc.</p>
+
+<blockquote>
+  <p><strong>IMPORTANTE</strong>: a través de la ruta <code class="language-plaintext highlighter-rouge">Route::resource</code> sólo se incluyen los métodos estándar de un controlador de recursos (<code class="language-plaintext highlighter-rouge">index</code>, <code class="language-plaintext highlighter-rouge">show</code>, <code class="language-plaintext highlighter-rouge">create</code>, <code class="language-plaintext highlighter-rouge">edit</code>, etc), pero NO los que añadamos a mano después en dicho controlador con otros nombres.</p>
+</blockquote>
+
+<p>También podemos utilizar el método <code class="language-plaintext highlighter-rouge">only</code> para indicar para qué métodos queremos rutas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\LibroController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nf">only</span><span class="p">([</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Desde el lado opuesto, tenemos disponible el método <code class="language-plaintext highlighter-rouge">except</code> para indicar que se generen todas las rutas excepto aquellas para los métodos indicados:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\LibroController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nf">except</span><span class="p">([</span><span class="s1">'update'</span><span class="p">,</span> <span class="s1">'edit'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Con los controladores de tipo API también podemos generar automáticamente todas las rutas para sus métodos, utilizando el método <code class="language-plaintext highlighter-rouge">apiResource</code> de la clase <code class="language-plaintext highlighter-rouge">Route</code>, en lugar del método <code class="language-plaintext highlighter-rouge">resource</code> empleado antes:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\PruebaController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="nc">PruebaController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="32-renombrando-las-rutas">3.2. Renombrando las rutas</h3>
+
+<p>Si generamos rutas automáticas para los métodos de un controlador, veremos que para los formularios de crear y editar se define una ruta terminada en <code class="language-plaintext highlighter-rouge">/create</code> o en <code class="language-plaintext highlighter-rouge">/edit</code>, respectivamente. Esto puede chocar si pretendemos una web hecha en otro idioma. Pero podemos cambiar el nombre que se genera automáticamente para estas rutas, editando el proveedor de servicios <code class="language-plaintext highlighter-rouge">AppServiceProvider</code>, ubicado en la carpeta <code class="language-plaintext highlighter-rouge">app/Providers</code>. En el método <code class="language-plaintext highlighter-rouge">boot</code>, podemos llamar al método <code class="language-plaintext highlighter-rouge">resourceVerbs</code> de la clase <code class="language-plaintext highlighter-rouge">Route</code> y renombrar los verbos utilizados para acceder a las rutas del recurso. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">boot</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nc">Route</span><span class="o">::</span><span class="nf">resourceVerbs</span><span class="p">([</span>
+        <span class="s1">'create'</span> <span class="o">=&gt;</span> <span class="s1">'crear'</span><span class="p">,</span>
+        <span class="s1">'edit'</span> <span class="o">=&gt;</span> <span class="s1">'editar'</span>
+    <span class="p">])</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: deberemos incluir con <code class="language-plaintext highlighter-rouge">use</code> el espacio de nombres <code class="language-plaintext highlighter-rouge">Illuminate\Support\Facades\Route</code> para poder emplear la clase <code class="language-plaintext highlighter-rouge">Route</code> en el proveedor de servicios.</p>
+</blockquote>
+
+<p>Para nuestro ejemplo de la biblioteca, podemos devolver un texto plano en los métodos <code class="language-plaintext highlighter-rouge">create</code> y <code class="language-plaintext highlighter-rouge">edit</code> que indiquen que ahí va un formulario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">create</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Formulario de inserción de libros"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="n">edit</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Formulario de edición de libros"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Nuestro archivo de rutas se puede quedar con esta única instrucción para todas las rutas de libros, indicando que por ahora sólo vamos a gestionar el listado, la ficha y los dos formularios:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">resource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="nf">only</span><span class="p">([</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">,</span> <span class="s1">'create'</span><span class="p">,</span> <span class="s1">'edit'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Ahora ya podemos acceder a estas 4 URLs y ver la respuesta correspondiente:</p>
+
+<ul>
+  <li>http://biblioteca/libros (llamará a <code class="language-plaintext highlighter-rouge">index</code>)</li>
+  <li>http://biblioteca/libros/3 (llamará a <code class="language-plaintext highlighter-rouge">show</code> para el libro 3)</li>
+  <li>http://biblioteca/libros/crear (llamará a <code class="language-plaintext highlighter-rouge">create</code>)</li>
+  <li>http://biblioteca/libros/3/editar (llamará a <code class="language-plaintext highlighter-rouge">edit</code> para el libro 3)</li>
+</ul>
+
+<p>Notar que la URL aparece en castellano gracias a los cambios en <code class="language-plaintext highlighter-rouge">AppServiceProvider</code>, pero los nombres de funciones en los controladores siguen estando en inglés, así como en los elementos de la llamada al método <code class="language-plaintext highlighter-rouge">only</code>.</p>
+
+<p>Podemos consultar el conjunto de rutas al que está respondiendo nuestra aplicación en todo momento con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan route:list
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

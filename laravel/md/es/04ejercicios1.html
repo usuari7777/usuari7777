@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Ejercicios propuestos - Parte 4 (I) | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 4 (I)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04ejercicios1.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04ejercicios1.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 4 (I)" />
+<script type="application/ld+json">
+{"headline":"Ejercicios propuestos - Parte 4 (I)","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04ejercicios1.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-4-i">Ejercicios propuestos - Parte 4 (I)</h1>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> de la sesión anterior, vamos a añadir estos cambios:</p>
+
+<ul>
+  <li>Crea una base de datos llamada <code class="language-plaintext highlighter-rouge">blog</code> en tu servidor de bases de datos a través de <em>phpMyAdmin</em>. Modifica también el archivo <code class="language-plaintext highlighter-rouge">.env</code> del proyecto para acceder a dicha base de datos con las credenciales adecuadas, similares a las del ejemplo de la biblioteca (cambiando el nombre de la base de datos).</li>
+  <li>Elimina todas las migraciones existentes, salvo la de <em>create_users_table</em>. Edita esta migración de la tabla usuarios para dejarla igual que el ejemplo de la biblioteca (únicamente con los campos <em>login</em> y <em>password</em>, además del <em>id</em> y los <em>timestamps</em>).</li>
+  <li>Crea una nueva migración llamada <code class="language-plaintext highlighter-rouge">crear_tabla_posts</code>, que creará una tabla llamada <code class="language-plaintext highlighter-rouge">posts</code> con estos campos:
+    <ul>
+      <li>Id autonumérico</li>
+      <li>Título del post (<code class="language-plaintext highlighter-rouge">string</code>)</li>
+      <li>Contenido del post (<code class="language-plaintext highlighter-rouge">text</code>)</li>
+      <li><em>Timestamps</em> para gestionar automáticamente la fecha de creación o modificación del post</li>
+    </ul>
+  </li>
+  <li>Lanza las migraciones y comprueba que se crean las tablas correspondientes con los campos asociados en la base de datos.</li>
+</ul>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Continuamos con el proyecto <strong>blog</strong> anterior. Modifica si no lo has hecho aún el modelo <code class="language-plaintext highlighter-rouge">User</code> que viene por defecto para que se llame <code class="language-plaintext highlighter-rouge">Usuario</code>, igual que hemos hecho en el ejemplo de la biblioteca. Crea un nuevo modelo llamado <code class="language-plaintext highlighter-rouge">Post</code> para los posts de nuestro blog. Asegúrate de que ambos modelos se ubican en la carpeta <code class="language-plaintext highlighter-rouge">App\Models</code> del proyecto.</p>
+
+<p>Después, modifica los métodos del controlador <code class="language-plaintext highlighter-rouge">PostController</code> creado en sesiones anteriores, de este modo:</p>
+
+<ul>
+  <li>El método <code class="language-plaintext highlighter-rouge">index</code> debe obtener todos los posts de la tabla, y mostrar la vista <code class="language-plaintext highlighter-rouge">posts.index</code> con ese listado de posts.
+    <ul>
+      <li>La vista <code class="language-plaintext highlighter-rouge">posts.index</code>, por su parte, recibirá el listado de posts y mostrará los títulos de cada uno, y un botón <code class="language-plaintext highlighter-rouge">Ver</code> para mostrar su ficha (<code class="language-plaintext highlighter-rouge">posts.show</code>).</li>
+      <li>Debes mostrar el listado de posts ordenado por <em>título</em> en orden ascendente, y paginado de 5 en 5.</li>
+    </ul>
+  </li>
+  <li>El método <code class="language-plaintext highlighter-rouge">show</code> debe obtener el post cuyo <em>id</em> se pasará como parámetro, y mostrarlo en la vista <code class="language-plaintext highlighter-rouge">posts.show</code>.
+    <ul>
+      <li>La vista <code class="language-plaintext highlighter-rouge">posts.show</code> recibirá el objeto con el post a mostrar, y mostraremos el título, contenido y fecha de creación del post, con el formato que quieras.</li>
+    </ul>
+  </li>
+  <li>El método <code class="language-plaintext highlighter-rouge">destroy</code> eliminará el post cuyo <em>id</em> recibirá como parámetro, y devolverá la vista <code class="language-plaintext highlighter-rouge">posts.index</code> con el listado actualizado. Para probar este método, recuerda que debes definir un formulario en una vista (lo puedes hacer para cada post mostrado en la vista <code class="language-plaintext highlighter-rouge">posts.index</code>) que envíe a la ruta <code class="language-plaintext highlighter-rouge">posts.destroy</code> usando un método <em>DELETE</em>, como hemos explicado en un ejemplo anterior.</li>
+  <li>Los métodos <code class="language-plaintext highlighter-rouge">create</code>, <code class="language-plaintext highlighter-rouge">edit</code>, <code class="language-plaintext highlighter-rouge">store</code> y <code class="language-plaintext highlighter-rouge">update</code> de momento los vamos a dejar sin hacer, hasta que veamos cómo gestionar formularios.</li>
+  <li>Para simular la inserción y la modificación, vamos a crear dos métodos adicionales en el controlador, que usaremos de forma temporal:
+    <ul>
+      <li>Un método llamado <code class="language-plaintext highlighter-rouge">nuevoPrueba</code>, que cada vez que lo llamemos creará un post con un título al azar (por ejemplo, “Título X”, siendo X un entero aleatorio), y un contenido al azar (“Contenido X”). Puedes emplear la función <a href="https://www.php.net/manual/es/function.rand.php">rand</a> de  PHP para generar estos números aleatorios para título y contenido.</li>
+      <li>Un método llamado <code class="language-plaintext highlighter-rouge">editarPrueba</code>, que recibirá como parámetro un <em>id</em> y modificará el título y contenido del post otros generados aleatoriamente, como en el punto anterior.</li>
+      <li>Estos dos métodos (especialmente el primero) nos servirán para crear una serie de posts de prueba que luego nos servirán para probar el listado y la ficha de los posts.</li>
+    </ul>
+  </li>
+  <li>En el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code>, recuerda añadir dos nuevas rutas temporales de tipo <code class="language-plaintext highlighter-rouge">get</code> para probar estas inserciones y modificaciones. La primera puede apuntar a <code class="language-plaintext highlighter-rouge">/posts/nuevoPrueba</code>, por ejemplo, y la segunda a <code class="language-plaintext highlighter-rouge">/posts/editarPrueba/{id}</code>. Recuerda también eliminar o editar la restricción <code class="language-plaintext highlighter-rouge">only</code> de las rutas del controlador que estableciste la sesión anterior, para que no sólo permita las rutas <em>index</em>, <em>show</em>, <em>create</em> y <em>edit</em>, y además permita la de <em>destroy</em> (o todas las posibles, si quieres, ya que tarde o temprano las utilizaremos).</li>
+</ul>
+
+<blockquote>
+  <p><strong>IMPORTANTE</strong>: los métodos <code class="language-plaintext highlighter-rouge">nuevoPrueba</code> y <code class="language-plaintext highlighter-rouge">editarPrueba</code> que has creado en <code class="language-plaintext highlighter-rouge">PostController</code> NO son métodos estándar de un controlador de recursos, y de ninguna manera estarán disponibles a través de <code class="language-plaintext highlighter-rouge">Route::resource</code> en <code class="language-plaintext highlighter-rouge">routes/web.php</code>. Por eso debes definir a mano una ruta para cada uno de ellos en ese archivo, a través de <code class="language-plaintext highlighter-rouge">Route::get</code>, y esas rutas deben definirse ANTES de la de recursos (<code class="language-plaintext highlighter-rouge">Route::resource</code>) porque de lo contrario no se emparejarán correctamente.</p>
+</blockquote>
+
+<p><strong>¿Qué entregar?</strong></p>
+
+<p>Como entrega de esta sesión deberás comprimir el proyecto <strong>blog</strong> con todos los cambios incorporados, y eliminando las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code> como se explicó en las sesiones anteriores. Renombra el archivo comprimido a <code class="language-plaintext highlighter-rouge">blog_04.zip</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

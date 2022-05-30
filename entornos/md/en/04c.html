@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software analysis and design | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software analysis and design" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/04c.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software analysis and design" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software analysis and design","url":"http://nachoiborraies.github.io/entornos/md/en/04c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-analysis-and-design">Software analysis and design</h1>
+
+<h2 id="use-case-diagrams">Use case diagrams</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/04c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="04c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Use case diagrams are a subtype of the UML behavioral diagrams. The main purpose of these diagrams is to represent the possible interactions between the user(s) and the system, and also between the different parts of the system itself, and with other systems. This way, we get a general overview of the application, and a graphical representation of the functional requirements, from the point of view of the final user. It is a good guide for the development process that will come later.</p>
+
+<p>Use case diagrams will use actors and use cases to represent the use of the different functionalities or services of the system. We can use many different actors to represent different system roles, so we can see them and their permissions.</p>
+
+<h3 id="1-elements-of-a-use-case-diagram">1. Elements of a use case diagram</h3>
+
+<p>This type of diagram is one of the easiest to represent, since it has just a few different elements, and it is relatively easy to place and connect them.</p>
+
+<h4 id="system">System</h4>
+
+<p>It is the rectangle that defines the system boundaries. Every use case must be placed within this rectangle, and every actor must be placed out of it.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-16_diagrama_casos_uso_en.png" alt="Example of the system for the use case diagram" width="70%" />
+</div>
+
+<h4 id="use-case">Use case</h4>
+
+<p>Use cases represent what an actor wants the system to do. Use cases are a set of actions with a final result. They must always be started by an actor, and they can also launch other use cases. The full set of use cases represents the whole functionality of the system.</p>
+
+<p>Use cases are represented with an oval or ellipse, and they have a name inside, with a verb that indicates the action that will be run (for instance, “Print report”, “Pay the bill”…). In previous example, we can see two use cases, named “Make appointment” and “Perform medical tests”. Use cases can also be named following a given sequence, such as CU1, CU2, CU1.2. Then, later, this sequence is indexed in a table or something similar.</p>
+
+<h4 id="actor">Actor</h4>
+
+<p>Actors are users that interact with the system, and start the different actions represented in the use cases.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-18_actor.png" alt="Actor" width="15%" />
+</div>
+
+<p>Actors can also represent the different system roles, or other systems that interact with our system.</p>
+
+<h4 id="relationships">Relationships</h4>
+
+<p>There are two main types of relationships in a use case diagram. The relationships <strong>between actors and use cases</strong> are represented by a continuous line, and they mean the beginning of an action started by this actor.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Relationship</th>
+      <th>Representation</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Communicates</td>
+      <td><img src="../../img/ED_b1_tema04-19_flujo_comunica.png" alt="Communication relationship" /></td>
+      <td>It communicates an actor with a use case.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For instance, in the example above, the actor <em>Patient</em> can activate a use case called <em>Make appointment</em>.</p>
+
+<p>The relationships <strong>between use cases</strong> can be of different types, according to the following table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Relationship</th>
+      <th>Representation</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Include</td>
+      <td><img src="../../img/ED_b1_tema04-20_flujo_include.png" alt="Include relationship" /></td>
+      <td>This relationship is used when a use case includes or activates the behaviour of another use case.</td>
+    </tr>
+    <tr>
+      <td>Extend</td>
+      <td><img src="../../img/ED_b1_tema04-21_flujo_extend.png" alt="Extends relationship" /></td>
+      <td>This relationship lets us add new functionalities to existing use cases in certain points called <em>extension points</em>. The arrow points to the base use case from which we want to extend the functionality.</td>
+    </tr>
+    <tr>
+      <td>Generalization</td>
+      <td><img src="../../img/ED_b1_tema04-22_flujo_generaliza.png" alt="Generalization relationship" /></td>
+      <td>It is used when a use case or actor is a subtype of another use case or actor. Regarding use cases, is very similar to the <em>extend</em> relationship, so it is only recommended for actors (not for use cases).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Let’s see some examples of these relationships to reinforce what we have learnt so far.</p>
+
+<p>This is an example of an <strong>include</strong> relationship. It represents two basic operations in a bank, with two use cases: one called “Deposit funds” and the other one called “Withdraw money”. In both cases, user needs to authenticate in the system, so they both include this use case functionality.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-23_ejemplo_include_en.png" alt="Example of include relationship" width="50%" />
+</div>
+
+<p>Regarding the <strong>extend</strong> relationship, we use it to define a use case that is sometimes activated by another use case (but not always, since it would be an <em>include</em> relationship in this case). Then, we draw the arrow from the activated use case to the origin of this activation. Here you can find an example:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-24_ejemplo_extends2_en.png" alt="Example of extend relationship" width="50%" />
+</div>
+
+<p>From the <em>Reserve room</em> use case we create an <em>extension point</em> to the use case <em>Ask for temporary bed</em>. If we reserve a room, sometimes (but not always) we may be interested in adding an additional bed to that room. So this is an extension point that is sometimes activated.</p>
+
+<p>Besides, we can also use <em>extend</em> relationship to define use cases that are subtypes of another use case. In the following use case diagram, there are two actors: <em>Employee</em> and <em>Manager</em> They both do their respective work, but, besides, the manager must pay the employee. So we define the “Give Employee Raise” use case that extends the “Do Work” use case to let the manager pay the employee.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-24_ejemplo_extends_en.png" alt="Example of extend relationship" width="70%" />
+</div>
+
+<p>The example above also shows an example of a <strong>generalization</strong>, since the <em>Manager</em> actor is a subtype of <em>Employee</em>. Below we can see another example of generalization, applied to use cases (although we have seen before that this usage is NOT recommended): we can see a main super-case called <em>Place order</em> with two sub-cases that inherit from it: one for phone orders (<em>Phone order</em>) and the other one for Internet orders (<em>Internet order</em>). Both are different subtypes of the general use case, and they could be reflected as <em>extend</em> relationships as well.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-25_ejemplo_generalizacion_en.png" alt="Example of a generalization" width="70%" />
+</div>
+
+<h3 id="2-a-classical-example">2. A classical example</h3>
+
+<p>Let’s see how to get a use case diagram from the system requirements. We are in charge of developing a software to control a coffee machine. After talking with the customer, we get the following system requirements specification.</p>
+
+<p><em>For a user to get coffee from our machine, he must start by introducing enough money. The following step will be to choose the amount of sugar. In our new machine model, users can both choose the amount and type of sugar (white, brown…), and it will be white sugar by default. Once the sugar is set, the user will choose the product (just coffee, coffee with milk, etc.). The machine will return the change once the process has finished and the coffee has been prepared and served. In case the user cancels the operation before choosing the coffee type, the machine will also return his money back.</em></p>
+
+<p>As we can see, it is a quite detailed specification, but with the use case diagram we can have an overview from the user’s point of view, this is, what the coffee machine is expected to do.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-26_maq_cafe_en.png" alt="A complete, simple example" />
+</div>
+
+<p>Here you can find some exercises to practice. If you are going to do them using Modelio, we recommend you to place all of them in a single project called <em>Block1</em>, for instance.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Design the use case diagram for the following system requirements specification.</p>
+
+  <p><em>A customer asks us to develop a software for a snack vending machine. This machine has a two digit code for each product, and it has five shelves with eight products on each shelf. In the first shelf, products are numbered from 11 to 18, in the second shelf numbers go from 21 to 28 and so on. We must take into account that the machine will not accept the money until the user chooses the product first. The user can cancel the operation at any time before pressing the confirmation button, then his money will be returned. After pressing this button, the machine will move a spiral for the chosen product until it falls to the bottom of the machine, so that it can be taken by the user. Then, the user will be able to take his change back, if necessary.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Design a use case diagram for this system requirements specification.</p>
+
+  <p><em>We want to implement an App to solve Sudokus. In order to start a game, the user must choose the “Start Game” option, and then he will choose the difficulty level. Once it is chosen, the game starts. Then, the user will iteratively choose an empty cell, and place a number from 1 to 9, until it completes the Sudoku. During the game, the user can press the “Check” button in order to check if he has solved the Sudoku, or if he has made any mistake. The app will show the message “Everything is OK, you have X cells left”, or “Error in highlighted cells”. In this last case, the cells with wrong numbers will be highlighted. Once the Sudoku is solved, the system will show the message “Well done!”, and the user will see his stats and total time employed.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Design a use case diagram adapted to the following system requirements specification.</p>
+
+  <p><em>We want to design an invoice checking module. This module can be accessed either by customers or by business agents, by logging in with their credentials (user and password). When a customer logs in the module, he will be able to search his own invoices, either by date range or by amount. In case a business agent logs in the system, he will be able to search for his customer’s invoices, or by customer and date range, or by customer and amount. Once the search is completed, the module will show in the screen the results.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Design a use case diagram for the following specification.</p>
+
+  <p><em>A cultural organization is focused on the loan of two type of objects: music discs and books. We need an application that lets us add new objects to the system from both types. Besides, there are many users that come to this organization. They will need to log in with a user name and password. Then, they may be able to search any disc or book, either by object type (disk/book) and/or by object name (title). Once the object is chosen, they can ask for it if it is not available. Users can have up to 5 objects on loan simultaneously. As this organization is settled in a small town, we don’t expect to have many users asking for books or disks at the same time, so we just need a single computer and a small database to store the information. In case a user does not remember his password, the system will send it by email to the same account that he entered when he registered.</em></p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

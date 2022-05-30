@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Formularios</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Formularios
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de formularios
+
+- Permiten al usuario interactuar con la aplicación web, junto con los enlaces
+- Permiten al usuario enviar información al servidor a través de los distintos *controles*
+   - Ejemplo: registro en una web
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura básica de un formulario
+
+- Etiqueta **form**
+- Atributo **action** para indicar dónde se envía (similar a *href* en enlaces)
+- Atributo **method** para indicar método de envío (*get* o *post*)
+- Atributo **autocomplete** a *on*/*off* para habilitar autocompletado de campos
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura básica de un formulario
+
+```html
+<form action="http://nachoiborraies.github.io/htmlcss/md/es/slides/mipagina.php" method="post">
+   ... Contenido del formulario
+</form>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Elementos básicos de un formulario
+
+* Cuadros de texto (nombres, e-mails, passwords...)
+* Áreas de texto
+* *Checkboxes*
+* Botones de radio
+* Listas desplegables o fijas
+* Botones
+* Etiquetas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *input* (1/2)
+
+- Permite definir varios tipos de controles, con su atributo **type**
+   - *text*: cuadros de texto simples (una línea)
+   - *password*: cuadros enmascarados para contraseñas
+   - *file*: para subir archivos
+   - *checkbox*: para casillas de verificación
+   - *radio*: para botones de radio
+   - *hidden*: campos ocultos (útiles con JavaScript y parte servidor)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *input* (2/2)
+
+- Desde HTML 5 se permiten otros tipos adicionales
+    - *email*: para correos electrónicos
+    - *date*: para fechas (también *time* y *datetime*)
+    - *number*: para números (enteros o reales)
+    - *color*: para colores
+    - *search*: para cuadros de búsqueda
+    - *url*: para direcciones
+    - *range*: para rangos de valores (*slides*)
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Atributos de *input*
+
+- *name*: nombre del control*
+- *id*: identificador del control* 
+- *value*: valor o texto del control
+- *size*: tamaño en pantalla
+- *maxlength*: número máximo de caracteres permitido
+- *checked*: marcado (para *checkboxes* o botones de radio)
+- *disabled*: desactivado (no se puede editar ni se envía)
+- *readonly*: sólo lectura (no se puede editar y SI se envía)
+- *placeholder*: texto interno descriptivo de ayuda
+
+*También para elementos distintos a *input*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Botones
+
+- Etiqueta *input* o *button*
+- Atributo *type* puede ser:
+   - *submit*: para enviar el formulario
+   - *reset*: para borrar los datos del formulario
+   - *button*: botón normal, sin acción por defecto
+
+```html
+<input type="submit" value="Enviar datos">
+<button type="submit">Enviar datos</button>
+```
+   
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```html
+<form action="http://nachoiborraies.github.io/htmlcss/md/es/slides/mipagina.php" method="post">
+    <p>Introduce tu nombre:</p>
+    <input type="text" name="nombre" size="20" placeholder="Nombre completo">
+    <br>
+
+    <p>Introduce tu e-mail:</p>
+    <input type="email" name="email" size="20" maxlength="50">
+    <br>
+
+    <input type="checkbox" name="casado"> Casado
+    <p>Elige tu idioma preferido:</p>
+    <input type="radio" name="idioma" value="ingles" checked>Inglés
+    <br>
+    <input type="radio" name="idioma" value="frances">Francés
+    <br>
+
+    <input type="submit" value="Enviar datos">
+</form>
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_formulario.png" width="30%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Etiquetas o *label*
+
+- Se asocian a los controles por su *id*
+- Muestran un texto asociado al control
+- Se definen con etiqueta **label** 
+   - En atributo **for** indicamos el *id* del control asociado para poder acceder a él al hacer clic en la etiqueta
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```html
+<form action="http://nachoiborraies.github.io/htmlcss/md/es/slides/mipagina.php" method="post">
+    <label for="nombre">Introduce tu nombre:</label>
+    <br>
+    <input type="text" name="nombre" id="nombre" size="20">
+    <br>
+
+    <label for="email">Introduce tu e-mail:</label>
+    <br>
+    <input type="email" name="email" id="email" size="20" maxlength="50">
+    <br>
+
+    <input type="checkbox" name="casado" id="casado">
+    <label for="casado">Casado</label>
+    <br>
+
+    <label>Elige tu idioma preferido:</label>
+    <br>
+    <input type="radio" name="idioma" id="ingles" value="ingles" checked>
+    <label for="ingles">Inglés</label>
+    <br>
+    <input type="radio" name="idioma" id="frances" value="frances">
+    <label for="frances">Francés</label>
+    <br>
+
+	<input type="submit" value="Enviar datos">
+</form>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Etiquetas o *label*
+
+Alternativamente, podemos hacer que engloben al control asociado y así evitar el atributo "for"
+
+```html
+<label>
+    Introduce tu nombre:
+    <input type="text" name="nombre" id="nombre" size="20">
+</label>
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Áreas de texto
+
+- Etiqueta **textarea** (no vacía)
+- En su interior se coloca el texto por defecto
+- Atributos *rows* y *cols* para definir tamaño en filas y columnas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```html
+<textarea name="noticia" rows="5" cols="20">
+Texto de la noticia
+</textarea>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listas
+
+- Etiqueta **select**
+   - Atributo *size* para indicar tamaño
+- Subetiqueta **option** para cada una de las opciones
+   - Atributo *value* para el valor de cada opción
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```html
+<select name="navegador" size="5">
+    <option value="ie">Internet Explorer</option>
+    <option value="firefox" selected>Firefox</option>
+    <option value="chrome">Chrome</option>
+    <option value="opera">Opera</option>
+    <option value="safari">Safari</option>
+</select>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_lista_form.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea una página llamada **formDatos.html** para rellenar tus datos personales. Añade un encabezado 1 (*h1*) que diga "Rellena tus datos", y debajo un formulario como el que tienes a continuación.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_formulario1.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página llamada **formMatricula.html** para simular un proceso de matrícula en ciclos formativos. Deberás tener en cuenta que:
+ 
+* El campo *Fecha de nacimiento* es de tipo *date*
+* El campo *Correo electrónico* es de tipo *email*
+* El campo *Hermanos en el centro* es de tipo numérico (*number*)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_formulario2.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Validación de formularios
+
+- Desde HTML 5
+- Atributo **required** para campos obligatorios
+- Atributo **pattern** para campos que deban seguir algún formato (ej: 8 dígitos y una letra)
+- Atributos **min**, **max** y **step** para campos numéricos (*number* y *range*)
+- Auto-validación de ciertos campos (e-mails, urls, números...)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos
+
+```html
+<input type="text" name="login" required>
+
+<input type="text" name="telefono" pattern="[0-9]{9,11}" 
+ placeholder="Entre 9 y 11 dígitos">
+
+<input type="number" name="numero" min="1" max="5" step="0.01">
+
+<input type="range" name="porcentaje" min="0" max="100" step="5">
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Vamos a aplicar validación al formulario del *Ejercicio 2*. En concreto, deberá cumplir lo siguiente:
+ 
+* El nombre completo y el e-mail son obligatorios
+* El móvil de contacto debe empezar por 6, 7 u 8, y contener en total 9 dígitos
+* El número de hermanos admite valores entre 0 y 10, ambos inclusive
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Conjuntos de campos o *fieldsets*
+
+- Etiqueta **fieldset** para enmarcar un conjunto de campos
+   - Subetiqueta **legend** para poner un título al marco
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```html
+<fieldset>
+    <legend>Datos personales</legend>
+    <label for="nombre">Nombre</label>
+    <br>
+    <input type="text" name="nombre">
+    <br>
+    <label for="apellidos">Apellidos</label>
+    <br>
+    <input type="text" name="apellidos">
+    <br>
+    <label for="dni">DNI</label>
+    <br>
+    <input type="text" name="dni" size="10" maxlength="9">
+    <br>
+</fieldset>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_fieldset.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Agrupar opciones en listas
+
+```html
+<label for="programa">Programa seleccionado</label>
+<br>
+<select name="programa">
+	<optgroup label="Sistemas Operativos">
+		<option value="Windows">Windows</option>
+		<option value="Mac">Mac</option>
+		<option value="Linux" selected>Linux</option>
+		<option value="Otro">Otro</option>
+	</optgroup>
+	<optgroup label="Navegadores">
+		<option value="IE">Internet Explorer</option>
+		<option value="Firefox">Firefox</option>
+		...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Agrupar opciones en listas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_lista_categorias_form.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea una página llamada **formProducto.html** con el siguiente formulario (más el encabezado 1 con el texto "Información sobre el producto", y un botón de "Enviar" en la parte inferior)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_formulario4.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

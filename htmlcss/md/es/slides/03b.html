@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Posicionamiento en CSS</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Posicionamiento
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Modelo de cajas CSS
+
+Cada elemento de un documento HTML tiene una caja o rectángulo que lo engloba y separa del resto
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_cajas.png" width="50%" >
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Partes de una caja
+
+* **Contenido** HTML que tenga
+* **Borde**, recuadro (visible o no) que la encierra
+* **Relleno o *padding***, espacio entre contenido y borde
+* **Margen (margin)**, espacio entre caja y otras cajas
+* Tamaño de la caja (**anchura y altura**)
+* **Color y/o imagen de fondo**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Partes de una caja
+
+<div align="center">
+    <img src="../../../img/03_modelo_cajas.png" width="50%" >
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Márgenes
+
+- **margin**: superior, derecho, inferior, izquierdo
+   - Un solo valor para los cuatro, o uno para cada uno, en ese orden
+- **margin-top**, **margin-bottom**, **margin-right**, **margin-left**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Márgenes
+
+```css
+/* Opción 1 */
+p
+{
+    margin: 10px 5px 2px 5px;
+}
+
+/* Opción 2 */
+p
+{
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    margin-left: 5px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Relleno o *padding*
+
+- **padding**: superior, derecho, inferior, izquierdo
+    - Un solo valor para los cuatro, o uno para cada uno, en ese orden
+- **padding-top**, **padding-bottom**, **padding-right**, **padding-left**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Relleno o *padding*
+
+```css
+div
+{
+    padding: 10px 20px 5px 20px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bordes: características a definir
+
+- Estilo del borde: *solid*, *double*, *dotted*, *none*...
+- Grosor del borde: normalmente en *px*
+- Color del borde
+- Radio del borde (*border-radius*): 0 para cuadrado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Bordes
+
+- **border**: definimos estilo, grosor y color separados por espacios
+- **border-style**, **border-width**, **border-color**: cada cosa por separado
+- **border-bottom-style**, **border-top-width**, ...: estilo para cada característica en cada lado
+- **border-radius**: para el radio del borde
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bordes
+
+```css
+h1 
+{ 
+    border-style: double; 
+    border-color: red; 
+    border-width: 5px; 
+}
+
+h2 
+{ 
+    border-bottom-style: solid; 
+    border-right-style: solid; 
+    border-bottom-color: blue; 
+    border-right-color: blue;
+    border-bottom-width: 2px; 
+    border-right-width: 2px; 
+    /* Borde superior izq, superior der, inferior izq, inferior der */
+    border-radius: 5px 5px 10px 10px;
+}
+
+h3 
+{ 
+    border-bottom: solid 1px red; 
+    border-radius: 10px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Fondo
+
+```css
+p 
+{ 
+    background-color: ##12FF3A; 
+}
+
+div 
+{ 
+    background-image: url("imagenes/foto.png"); 
+    background-repeat: repeat-x:
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tamaño
+
+- **width** y **height**: anchura y altura del elemento
+- **max-width**, **min-width**, **max-height** y **min-height** para establecer rangos de tamaño
+- NO se incluye *padding* ni tamaño de los bordes (estos se suman al tamaño indicado)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tamaño
+
+```css
+h1 
+{ 
+    width: 70%; 
+    height: 50px; 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea un documento **cajasCSS.html** y un CSS externo que defina un selector de clase llamado *caja*, con los siguientes estilos:
+ 
+* Margen izquierdo y derecho del 20%, superior de 30 píxeles e inferior de 0
+* Relleno (*padding*) de 10 píxeles a cada lado
+* Borde superior rojo de 4 píxeles de grosor, derecho azul de 6 píxeles e inferior verde de 2 píxeles, todos con estilo sólido.
+* Color de fondo amarillo
+
+Finalmente, crea un párrafo (más o menos largo, de unas 3 o 4 líneas al menos) y aplícale este estilo.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posicionando los elementos
+
+- Usando CSS2: definimos el posicionamiento y la ubicación para cada elemento, con respecto a otros elementos o de forma absoluta
+- Usando CSS3: utilizamos una rejilla (*grid*) donde definimos qué casilla(s) ocupa cada elemento
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posicionamiento CSS2
+
+Tipos de posicionamiento
+
+* Normal (**static**): por defecto. Depende de cada caja (si es en línea o de bloque, tamaño...)
+* Relativo (**relative**): se desplaza respecto a su posición normal
+* Absoluto (**absolute**): posición absoluta respecto de elemento contenedor
+* Fijo (**fixed**): posición fija en pantalla
+* Flotante (**float**): todo lo posible a la izquierda o derecha, puede ser *left*, *right* o *none*
+
+Todas salvo *float* se especifican como valores de la propiedad **position**
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 1
+
+No hay posicionamiento
+
+```css
+#caja1
+{
+    background-color: blue;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+}
+
+#caja2
+{
+    background-color: red;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 1
+
+<div align="center">
+    <img src="../../../img/03_ejemplofloat1.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 2
+
+Posicionamiento flotante izquierda y derecha
+
+```css
+#caja1
+{
+    background-color: blue;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+    float: left;
+}
+
+#caja2
+{
+    background-color: red;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+    float: right;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 2
+
+Posicionamiento flotante izquierda y derecha
+
+<div align="center">
+    <img src="../../../img/03_ejemplofloat2.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 3
+
+Posicionamiento flotante derecha
+
+```css
+#caja1
+{
+    background-color: blue;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+    float: right;
+}
+
+#caja2
+{
+    background-color: red;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+    float: right;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 3
+
+Posicionamiento flotante derecha
+
+<div align="center">
+    <img src="../../../img/03_ejemplofloat3.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 4
+
+Posicionamiento fijo
+
+```css
+#caja1
+{
+    background-color: blue;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+}
+
+#caja2
+{
+    background-color: red;
+    width: 30%;
+    height: 100px;
+    text-align:center;
+    margin: 20px;
+    float: right;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 4
+
+Posicionamiento fijo
+
+<div align="center">
+    <img src="../../../img/03_ejemplofloat4.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 5
+
+Posicionamiento izquierdo excluyente
+
+```css
+.caja1 { float: left; }
+.caja2 { float: left; }
+.caja3 { float: left; clear:left }
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo 5
+
+Posicionamiento izquierdo excluyente
+
+<div align="center">
+    <img src="../../../img/03_ejemplofloat5.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea un documento **cajas.html** con tres cajas (*div*) y con CSS externo con estos estilos:
+ 
+* Caja 1: fondo azul, borde gris continuo 2px, margen derecho e inferior de 10 píxeles. Anchura 50% y altura 100 px
+* Caja 2: fondo amarillo claro, sin borde. Anchura 20% y altura de 50 px
+* Caja 3: fondo rojo claro, borde negro doble de 1 px. Anchura 20% y altura 50 px
+* Posicionamiento flotante a la izquierda para todas las cajas, pero la tercera debe tener una propiedad `clear` para estar alineada con el margen izquierdo.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Resultado final (aproximado)
+    
+<div align="center">
+    <img src="../../../img/03_ejerciciofloat.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otros parámetros de posición
+
+**top**, **bottom**, **left** y/o **right** para distancia respecto a los bordes de la página
+
+```css
+/* Posición en esquina inferior izquierda (pegado al borde inferior) */
+div
+{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posicionamiento con rejilla (*grid*)
+
+1. Ubicar todos los elementos a posicionar dentro de un elemento contenedor (típicamente, un *div* o *section*)
+2. Definir en el elemento contenedor las dimensiones y tamaños de la rejilla
+3. Ubicar cada elemento en la(s) celda(s) deseada(s)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posicionamiento con rejilla (*grid*)
+
+Paso 1
+
+```html
+<section id="contenedor">
+    <div id="elemento1">Uno</div>
+    <div id="elemento2">Dos</div>
+    <div id="elemento3">Tres</div>
+    <div id="elemento4">Cuatro</div>
+    ...
+</section>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posicionamiento con rejilla (*grid*)
+
+Paso 2
+
+```css
+/* Rejilla de 2 filas y 3 columnas */
+#contenedor
+{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 50px auto;
+    gap: 10px;
+}
+
+/* Alternativamente, podemos usar otras unidades */
+#contenedor
+{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: 50px auto;
+    gap: 10px;
+}
+```
+
+Unidad *fr*: fracción del espacio disponible
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Posicionamiento con rejilla (*grid*)
+
+Paso 3
+
+```css
+#elemento1
+{
+    grid-row: 1 / 3;
+    grid-column: 1;
+}
+
+#elemento2
+{
+    grid-row: 1;
+    grid-column: 2 / 4;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posicionamiento con rejilla (*grid*)
+
+Resultado final
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_grid.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea un documento HTML llamado **ofertas.html**, y trata de simular esta apariencia usando CSS Grid, bordes y otras propiedades CSS que hemos estado viendo hasta ahora:
+
+- Algunas pistas:
+   - Margen lateral del 20% a cada lado, y fuente Arial en todo el documento
+   - Color *blue* para bordes, precios y fondo del anuncio
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_grid.png" width="60%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La propiedad *display*
+
+Define cómo queremos disponer un elemento en la página
+
+- **block**: elementos en línea se comportan como en bloque
+- **inline**: elementos en bloque se comportan como en línea
+- **inline-block**: como la anterior, pero podemos definir anchura y altura del elemento
+- **none**: elemento oculto
+- **hidden**: elemento oculto pero mantiene su espacio
+- **grid**: para rejillas
+- ...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estilos para listas
+
+- **list-style-type**
+   - *disc*, *circle*, *square*... para listas no ordenadas (*ul*)
+   - *decimal*, *lower-roman*, *upper-roman*, *lower-alpha*, *upper-alpha*... para listas ordenadas (*ol*)
+- **list-style-position**
+   - *inside* / *outside* (valor por defecto)
+- **list-style-image** (poco flexible para indicar tamaño y posición de la imagen)
+   
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estilos para listas
+
+```css
+ol
+{
+    list-style-type: upper-roman;
+    list-style-position: inside;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Viñetas personalizadas
+
+```css
+ul
+{
+    list-style-type: none;
+}
+
+ul li 
+{
+    padding-left: 10px;
+    background-image: url("imagenes/estrella.svg");
+    background-position: 0 0;
+    background-size: 1.6rem 1.6rem;
+    background-repeat: no-repeat;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listas y posicionamiento
+
+Menú de navegación con lista *inline*
+
+```css
+nav
+{
+    background-color: #CCC;
+}
+
+nav ul.navegacion
+{
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul.navegacion li
+{
+    display: inline;
+    margin: 20px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas y posicionamiento
+
+Menú de navegación con lista *inline*
+
+```html
+<nav>
+    <ul class="navegacion">
+        <li>Inicio</li>
+        <li>Preguntas frecuentes</li>
+        <li>Tienda online</li>
+        <li>Contacto</li>
+    </ul>
+<nav>
+```
+
+</script>
+</section>
+
+<section>
+<h2>Listas y posicionamiento</h2>
+
+<p style="text-align:center;">Menú de navegación con lista <em>inline</em></p>
+
+<nav style="background-color:#CCC;">
+    <ul class="navegacion" style="list-style-type:none;text-align:center;">
+        <li style="margin:20px;display:inline;">Inicio</li>
+        <li style="margin:20px;display:inline;">Preguntas frecuentes</li>
+        <li style="margin:20px;display:inline;">Tienda online</li>
+        <li style="margin:20px;display:inline;">Contacto</li>
+    </ul>
+</nav>
+
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+En [este enlace](../../../resources/UD3_Ejercicios/03b_instituto.html) puedes descargar el contenido HTML de una página web que simula la página de inicio de un instituto. Añade el CSS necesario para que se vea como se indica a continuación.
+
+- Algunas pistas:
+   - Color de fondo de encabezado y pie: `#84250C`.
+   - Encabezado pegado a la esquina superior izquierda, y pie a la esquina inferior izquierda.
+   - Zona entre encabezado y pie: margen superior de 150px, y lateral de 20% a cada lado.
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_instituto.png" width="60%">
+</div>
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

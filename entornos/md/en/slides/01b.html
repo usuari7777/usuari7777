@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Programs, languages and compilers</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programs, languages and compilers
+### First steps with Java
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Java
+    
+* Beginning of the 90s
+* Object oriented programming (classes and objects)
+* Multi-platform (JVM)
+* More restricted hardware access
+* *Garbage collector* and other advanced features
+* Usages: mobile, web, desktop...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (1/8)
+
+- From Java 7:
+    - Oracle version 
+    - [OpenJDK](https://jdk.java.net/archive/): official reference implementation
+    - Other: AdoptOpenJDK, Excelsior JET... 
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (2/8)
+
+1. Unzip the file to any folder (easy to find):
+2. Set up PATH environment variable to point to `bin` subfolder
+3. Set up JAVA_HOME environment variable to point to OpenJDK main folder
+- In Mac there is a *Contents/Home* subfolder inside ZIP file
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (3/8)
+<img src="../../../img/ED_b1_tema01-02-variables_entorno.png" width="50%" />
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (4/8)
+<img src="../../../img/ED_b1_tema01-02-variables_entorno_2.png" width="50%" />
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Installing Java (5/8)
+<img src="../../../img/ED_b1_tema01-04-java_home.png" width="50%" />
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (6/8)
+
+Linux
+
+```
+echo "export PATH=$PATH:/home/username/openjdk-11/bin" >> ~/.bashrc
+echo "export JAVA_HOME=/home/username/openjdk-11" >> ~/.bashrc
+source ~/.bashrc
+``` 
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (7/8)
+
+Mac
+
+```
+echo "export PATH=$PATH:/openjdk-11/Contents/Home/bin" >> ~/.bash_profile
+echo "export JAVA_HOME=/openjdk-11/Contents/Home" >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installing Java (8/8)
+
+Checking installation
+
+```
+javac -version
+java -version
+```
+
+Output similar to:
+
+```
+javac version 11.0.2
+```
+</script>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Create a source file called <strong>Test.java</strong> in your source folder with this code. Compile it using <strong>javac Test.java</strong> and run it using <strong>java Test</strong>.</p>
+    <pre><code data-trim data-noescape>    
+public class Test
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Hello");
+    }
+}
+    </code></pre>
+</section>
+
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

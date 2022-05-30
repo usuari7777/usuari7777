@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Validación de formularios | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Validación de formularios" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/05b.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Validación de formularios" />
+<script type="application/ld+json">
+{"headline":"Validación de formularios","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/05b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="validación-de-formularios">Validación de formularios</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/05b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="05b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Además de aplicar una validación en el cliente a través de HTML5, que también es recomendable, se deben validar los datos en el servidor. Para hacer esto, el propio objeto <code class="language-plaintext highlighter-rouge">request</code> proporciona un método llamado <code class="language-plaintext highlighter-rouge">validate</code>, al que le pasamos un array con las reglas de validación.</p>
+
+<h2 id="1-ejemplo-de-validación">1. Ejemplo de validación</h2>
+
+<p>Por ejemplo, así comprobaríamos que el título y la editorial de los libros de nuestra <em>biblioteca</em> se han enviado, y que el título tiene un tamaño mínimo de 3 caracteres. Además, comprobamos que el precio es un valor numérico real positivo.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nf">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s1">'titulo'</span> <span class="o">=&gt;</span> <span class="s1">'required|min:3'</span><span class="p">,</span>
+            <span class="s1">'editorial'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+            <span class="s1">'precio'</span> <span class="o">=&gt;</span> <span class="s1">'required|numeric|min:0'</span>
+        <span class="p">]</span>
+    <span class="p">);</span>
+
+    <span class="c1">// ... Código para procesar el formulario</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: notar que en varios campos se han añadido dos o más reglas de validación enlazadas por una barra vertical. Para el precio, por ejemplo, se comprueba que se ha enviado, que es numérico y que es mayor o igual que 0. Podéis consultar en la <a href="https://laravel.com/docs/validation">documentación de Laravel</a> sobre otras reglas de validación disponibles, especialmente en el apartado de <em>Available Validation Rules</em>.</p>
+</blockquote>
+
+<h2 id="2-utilizar-form-requests-para-validaciones-más-complejas">2. Utilizar <em>form requests</em> para validaciones más complejas</h2>
+
+<p>Si tenemos que validar unos pocos campos, puede ser adecuado llamar al método <code class="language-plaintext highlighter-rouge">validate</code> desde el propio método del controlador, pero para formularios más grandes el código puede crecer demasiado.</p>
+
+<p>Una alternativa que ofrece laravel es crear un <em>form request</em>, una clase adicional que contiene la lógica de validación de una petición. Se crean con el comando <code class="language-plaintext highlighter-rouge">php artisan</code>, y la opción <code class="language-plaintext highlighter-rouge">make:request</code>, seguida del nombre de la clase a crear:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:request LibroPost
+</code></pre></div></div>
+
+<p>Esta clase se almacena por defecto en <code class="language-plaintext highlighter-rouge">app/Http/Requests</code>, y contiene un par de métodos predefinidos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">authorize</code>: devuelve un booleano dependiendo de si el usuario actual está autorizado a enviar la petición o no. Para muchos formularios que no requieran autorización previa podemos simplemente devolver <code class="language-plaintext highlighter-rouge">true</code>. Será lo que haremos de momento en este formulario.</li>
+  <li><code class="language-plaintext highlighter-rouge">rules</code>: este es el método que más nos interesa. Devuelve un array de reglas de validación como las que teníamos en el controller, así que movemos ese código aquí:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">rules</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'titulo'</span> <span class="o">=&gt;</span> <span class="s1">'required|min:3'</span><span class="p">,</span>
+        <span class="s1">'editorial'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+        <span class="s1">'precio'</span> <span class="o">=&gt;</span> <span class="s1">'required|numeric|min:0'</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ahora, en el método del controlador simplemente tenemos que inyectar este <em>form request</em> como parámetro (si observamos la clase que se ha creado, es un subtipo de <code class="language-plaintext highlighter-rouge">Request</code>), y usarlo para validar. La validación es automática, es decir, no tenemos que añadir más código al controlador que el objeto inyectado como parámetro, que se encargará de validar la propia petición que contiene a través del método <code class="language-plaintext highlighter-rouge">rules</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">LibroPost</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Si entramos aquí, el formulario es válido</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="3-mostrar-mensajes-de-error">3. Mostrar mensajes de error</h2>
+
+<p>Si la validación es correcta, se retornará el dato del final de la función, pero si falla algún campo, se volverá a la página del formulario, con la información del error que se haya producido. Podemos acceder desde cualquier lugar de Laravel a la variable <code class="language-plaintext highlighter-rouge">$errors</code> con los errores que se hayan producido en una operación determinada. Esta variable tiene un método booleano llamado <code class="language-plaintext highlighter-rouge">any</code> que comprueba si hay algún error, y otro método llamado <code class="language-plaintext highlighter-rouge">all</code> que devuelve el array de errores producidos. Combinando estos dos métodos con Blade, podemos mostrar el listado de errores de validación antes del formulario, de esta forma:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">if</span> <span class="p">(</span><span class="nv">$errors</span><span class="o">-&gt;</span><span class="nf">any</span><span class="p">())</span>
+    <span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="k">foreach</span><span class="p">(</span><span class="nv">$errors</span><span class="o">-&gt;</span><span class="nf">all</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$error</span><span class="p">)</span>
+        <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nv">$error</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="k">endforeach</span>
+    <span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="k">endif</span>
+<span class="o">&lt;</span><span class="n">form</span> <span class="mf">...</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="n">csrf</span>
+    <span class="mf">...</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>También podemos emplear el método <code class="language-plaintext highlighter-rouge">first</code> del array de errores para obtener el primer error asociado a un campo, y mostrarlo bajo o sobre el campo en cuestión. Por ejemplo:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"{{ route('libros.store') }}"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+
+    @csrf
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"titulo"</span><span class="nt">&gt;</span>Título:<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"titulo"</span> 
+            <span class="na">id=</span><span class="s">"titulo"</span><span class="nt">&gt;</span>
+        @if ($errors-&gt;has('titulo'))
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"text-danger"</span><span class="nt">&gt;</span>
+                {{ $errors-&gt;first('titulo') }}
+            <span class="nt">&lt;/div&gt;</span>
+        @endif
+    <span class="nt">&lt;/div&gt;</span>
+
+    ...
+</code></pre></div></div>
+<!---->
+
+<p>Además, podemos <strong>personalizar el mensaje de error</strong> a mostrar, redefiniendo en la clase del <em>form request</em> el método <code class="language-plaintext highlighter-rouge">messages</code>. En este método devolvemos un array con el mensaje a mostrar para cada posible error de validación. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">messages</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'titulo.required'</span> <span class="o">=&gt;</span> <span class="s1">'El título es obligatorio'</span><span class="p">,</span>
+        <span class="mf">...</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>De forma alternativa, si optamos por validar el formulario en el propio controlador, este array de mensajes se pasa como segundo parámetro en la llamada al método <code class="language-plaintext highlighter-rouge">validate</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">validate</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="s1">'titulo'</span> <span class="o">=&gt;</span> <span class="s1">'required|min:3'</span><span class="p">,</span>
+        <span class="s1">'editorial'</span> <span class="o">=&gt;</span> <span class="s1">'required'</span><span class="p">,</span>
+        <span class="s1">'precio'</span> <span class="o">=&gt;</span> <span class="s1">'required|numeric|min:0'</span>
+    <span class="p">],</span> <span class="p">[</span>
+        <span class="s1">'titulo.required'</span> <span class="o">=&gt;</span> <span class="s1">'El título es obligatorio'</span><span class="p">,</span>
+        <span class="mf">...</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>En definitiva, conseguiremos mostrar mensajes de error para los campos que hayan dado errores al validar:</p>
+
+<div align="center">
+    <img src="../../img/05_errores_validacion.png" width="90%" />
+</div>
+
+<h3 id="31-recordar-valores-enviados">3.1. Recordar valores enviados</h3>
+
+<p>Un problema derivado de la validación de datos es que, al volver a la página del formulario tras un error, los campos que ya se han examinado hasta el error, aunque fueran correctos, han perdido el valor que tenían, y puede resultar engorroso tenerlos que rellenar otra vez. Para mantener su antiguo valor, podemos añadir el atributo <code class="language-plaintext highlighter-rouge">value</code> en cada campo del formulario, y utilizar con Blade una función llamada <code class="language-plaintext highlighter-rouge">old</code>, que permite acceder al anterior valor de un determinado campo, referenciado por su nombre:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"{{ route('libros.store') }}"</span> <span class="na">method=</span><span class="s">"POST"</span><span class="nt">&gt;</span>
+
+    @csrf
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"titulo"</span><span class="nt">&gt;</span>Título:<span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"titulo"</span> 
+            <span class="na">id=</span><span class="s">"titulo"</span> <span class="na">value=</span><span class="s">"{{ old('titulo') }}"</span><span class="nt">&gt;</span>
+        @if ($errors-&gt;has('titulo'))
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"text-danger"</span><span class="nt">&gt;</span>
+                {{ $errors-&gt;first('titulo') }}
+            <span class="nt">&lt;/div&gt;</span>
+        @endif
+    <span class="nt">&lt;/div&gt;</span>
+
+    ...
+</code></pre></div></div>
+<!---->
+
+<p>En el caso de áreas de texto, usamos esta expresión dentro del área (es decir, entre la etiqueta de apertura y la de cierre del <em>textarea</em>):</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;textarea</span> <span class="na">name=</span><span class="s">"mensaje"</span> <span class="na">placeholder=</span><span class="s">"Mensaje..."</span><span class="nt">&gt;</span>
+{{ old('mensaje') }}
+<span class="nt">&lt;/textarea&gt;</span>
+</code></pre></div></div>
+<!---->
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

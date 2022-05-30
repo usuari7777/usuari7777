@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Otros aspectos del lenguaje</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Otros aspectos del lenguaje
+#### Procesos externos e información del sistema
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Obtener información del sistema
+
+- Dentro del propio espacio *System.Diagnostics*, la clase **Environment** permite obtener información del sistema:
+    - **Environment.CurrentDirectory** obtiene la ruta del directorio actual
+    - **Environment.UserName** el nombre del usuario actual
+    - **Environment.OSVersion** la versión del sistema operativo
+    - ... [Consultar API](https://docs.microsoft.com/es-es/dotnet/api/system.environment?view=net-6.0) para más información
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Invocar procesos externos
+
+- Usamos el método **Process.Start** de la clase *Process*
+   - Espacio **System.Diagnostics**
+- Opcionalmente, podemos llamar al método **WaitForExit** tras invocarlo, para que el programa espere a que se cierre
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Invocar procesos externos
+
+```cs
+using System.Diagnostics;
+
+...
+
+Process proc = Process.Start("notepad.exe");
+proc.WaitForExit();
+Console.WriteLine("Notepad finalizado");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Invocar procesos externos
+
+- Usamos el método **Process.Start** de la clase *Process*
+    - Espacio **System.Diagnostics**
+- Opcionalmente, podemos llamar al método **WaitForExit** tras invocarlo, para que el programa espere a que se cierre
+- Si ponemos sólo el nombre del ejecutable, el programa debe estar en el *PATH* del sistema operativo
+   - Alternativa: poner la ruta completa hasta el ejecutable
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Invocar procesos externos
+
+```cs
+using System.Diagnostics;
+
+...
+
+Process proc = Process.Start("notepad.exe");
+proc.WaitForExit();
+Console.WriteLine("Notepad finalizado");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa **Ejercicio_10e_01** que muestre continuamente un menú con estas opciones al usuario, y según la tecla que pulse (leída con *Console.ReadKey*), abrirá la aplicación correspondiente (sin esperar a que finalice):
+
+1. Notepad (*notepad.exe*)
+2. Calculadora (*calc.exe*)
+3. Paint (*mspaint.exe*)
+0. Salir
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros de entrada
+
+Si un proceso necesita parámetros de entrada, se los podemos pasar todos juntos como segundo parámetro del método *Start*
+
+```cs
+Process proc = Process.Start("copy", "fichero1.txt fichero2.txt");
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Resultado de la ejecución
+
+- Podemos esperar a que un proceso termine y recoger su estado con la propiedad **ExitCode**
+- Si es 0 todo ha ido correctamente
+
+```cs
+Process proc = Process.Start("copy", "fichero1.txt fichero2.txt");
+proc.WaitForExit();
+if (proc.ExitCode != 0)
+    Console.WriteLine("Error ejecutando proceso");
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Otras opciones
+
+- Podemos controlar el estado de la ventana del proceso, y minimizarla o incluso ocultarla, usando **ProcessStartInfo**
+- Mismos parámetros que *Process.Start* (si queremos pasar argumentos, usamos un segundo parámetro)
+
+```cs
+ProcessStartInfo pInfo = new ProcessStartInfo("notepad.exe"); 
+pInfo.WindowStyle = ProcessWindowStyle.Minimized;
+Process proc = Process.Start(pInfo);
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un ejercicio llamado **Ejercicio_10e_02** donde utilizaremos una herramienta de compresión por línea de comandos para crear un archivo comprimido con el contenido que quieras, encriptado con el password 1234
+- Por ejemplo, podemos usar [7Zip](https://www.7-zip.org/), con este comando:
+
+```
+7z a <archivo.zip> <archivos_a_añadir> -p1234
+```
+
+</script>
+</section>
+
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

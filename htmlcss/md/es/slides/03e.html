@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Frameworks de diseño. Bootstrap</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Frameworks de diseño. Bootstrap
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bootstrap
+
+- Framework de diseño web
+- Facilita una serie de selectores CSS para incorporar estilos automáticamente en nuestras páginas
+- Dispone de una serie de componentes (barras de navegación, paneles modales, etc) que también podemos utilizar 
+- Alternativas: Ionic, Tailwind, Materialize...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Descarga e instalación
+
+- Descargar de [web oficial](https://getbootstrap.com/docs/5.1/getting-started/download/)
+   - Versión comprimida: más eficiente, no modificable (recomendada)
+   - Versión sin comprimir: menos eficiente, modificable
+- Incluir archivo *css/bootstrap.min.css* y archivo *js/bootstrap.min.js*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Descarga e instalación
+
+<div align="center">
+    <img src="../../../img/03_bootstrap_js1.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso desde una fuente externa
+
+Seguir los pasos indicados en la [documentación oficial](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+
+<div align="center">
+    <img src="../../../img/03_bootstrap_js2.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bootstrap y estilos propios
+
+Podemos incorporar nuestros propios CSS (recomendado después de los estilos de Bootstrap)
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ejemplo Bootstrap</title>
+        <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/css/estilos.css">
+    </head>
+    ...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La rejilla Bootstrap
+
+- Divide la página en filas de hasta 12 columnas
+- Con los selectores **row** y **col** podemos especificar cómo estructurar en filas y columnas el contenido
+- Los selectores **col** admiten una serie de sufijos para indicar para qué resoluciones se aplican
+- El selector **container** define unos márgenes automáticos alrededor del contenido. Con **container-fluid** los márgenes son mínimos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+3 columnas para resolución *sm* o superior, 1 columna para inferiores
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ejemplo Bootstrap</title>
+        <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/bootstrap/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2>Columna 1</h3>
+                    <p>Texto de prueba para esta primera columna.</p>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Columna 2</h3>
+                    <p>Texto de prueba para esta segunda columna.</p>
+                    <p>Un segundo párrafo para esta columna de prueba.</p>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Columna 3</h3>
+                    <p>Tercera y última columna.</p>
+                </div>
+            </div>
+        </div>
+        ...
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_bootstrap.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo múltiples resoluciones
+
+4 rejillas para dispositivos pequeños *sm* o superiores, 6 rejillas para *xs*
+
+```html
+<div class="col-sm-4 col-6">...</div>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Espaciado
+
+- El selector **p** define un *padding* en el elemento que se aplica, que puede ser de distintos tipos
+- El selector **m** define un margen en el elemento que se aplica, también con distintos tipos y tamaños
+   - Si definimos un margen en las casillas, no podrá haber 12 por fila
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo espaciado
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/estilos.css">
+        <title>Ejemplo Bootstrap</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Prueba de rejilla Bootstrap</h1>
+            <div class="row m-2">
+                <div class="col-md-3 m-1 p-2 caja">
+                    <h2>Caja 1</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                       Dolores eligendi dolorem iure. Expedita, pariatur in.</p>
+                </div>
+                <div class="col-md-5 m-1 p-2 caja">
+                    <h2>Caja 2</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                       Dolorem totam voluptate repellat sunt rem neque quia 
+                       distinctio quo nulla esse.</p>
+                </div>
+                <div class="col-md-3 m-1 p-2 caja">
+                    <h2>Caja 3</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                       Earum accusantium quod nesciunt porro reiciendis architecto 
+                       nobis dolorem maxime! Ipsam accusamus nisi dolorem 
+                       consequuntur sit nihil voluptatibus, libero animi autem eius.</p>
+                </div>
+            </div>
+        </div>     
+        ...       
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo espaciado
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_rejilla_bootstrap.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Descarga [este ejemplo](../../../resources/UD3_Ejercicios/03d_ejercicio_responsive.html) que ya hemos utilizado en secciones anteriores. Añade una hoja propia *estilos.css* simplemente para dar un color de fondo a las cajas. Ahora vamos a utilizar la rejilla de Bootstrap para que:
+ 
+* Las cuatro cajas se muestren una junto a otra en dispositivos tamaño *lg* o superior
+* Las cajas se muestren de dos en dos en tamaño *sm* o superior
+* Las cajas se muestren una bajo la otra en dispositivos más pequeños
+ 
+Define un margen entre las cajas para separarlas, y asigna a cada caja una anchura en celdas apropiada para su contenido, a tu gusto.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bootstrap y formularios
+
+- Bootstrap proporciona algunos selectores de clase, como *form-label* y *form-control* para cambiar la apariencia por defecto de los formularios
+- Además, dispone de distintos selectores que permiten dar distintos colores a botones y otros componentes
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo formulario sin Bootstrap
+
+```html
+<form action="http://nachoiborraies.github.io/htmlcss/md/es/slides/mipagina.php" method="post">
+    <label for="nombre">Introduce tu nombre:</label>
+    <br>
+    <input type="text" name="nombre" id="nombre" size="20">
+    <br>
+
+    <label for="email">Introduce tu e-mail:</label>
+    <br>
+    <input type="email" name="email" id="email" size="20" maxlength="50">
+    <br>
+
+    <input type="checkbox" name="casado" id="casado">
+    <label for="casado">Casado</label>
+    <br>
+
+    <label>Elige tu idioma preferido:</label>
+    <br>
+    <input type="radio" name="idioma" id="ingles" value="ingles" checked>
+    <label for="ingles">Inglés</label>
+    <br>
+    <input type="radio" name="idioma" id="frances" value="frances">
+    <label for="frances">Francés</label>
+    <br>
+
+    <input type="submit" value="Enviar datos">
+</form>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo formulario sin Bootstrap
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_form_no_bootstrap.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo formulario con Bootstrap
+
+```html
+<form action="http://nachoiborraies.github.io/htmlcss/md/es/slides/mipagina.php" method="post">
+    <label class="form-label" for="nombre">Introduce tu nombre:</label>
+    <br>
+    <input class="form-control" type="text" name="nombre" id="nombre" size="20">
+    <br>
+
+    <label class="form-label" for="email">Introduce tu e-mail:</label>
+    <br>
+    <input class="form-control" type="email" name="email" id="email" size="20" 
+     maxlength="50">
+    <br>
+
+    <input type="checkbox" name="casado" id="casado">
+    <label class="form-label" for="casado">Casado</label>
+    <br>
+
+    <label class="form-label">Elige tu idioma preferido:</label>
+    <br>
+    <input type="radio" name="idioma" id="ingles" value="ingles" checked>
+    <label class="form-label" for="ingles">Inglés</label>
+    <br>
+    <input type="radio" name="idioma" id="frances" value="frances">
+    <label class="form-label" for="frances">Francés</label>
+    <br>
+
+    <input class="form-control" type="submit" value="Enviar datos">
+</form>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo formulario con Bootstrap
+
+<div align="center">
+    <img src="../../../img/03_ejemplo_form_bootstrap.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Botones y colores
+
+```html
+<input type="submit" value="Enviar datos" class="form-control btn btn-primary">
+```
+
+<div align="center">
+    <img src="../../../img/03_bootstrap_botones.png" width="70%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Descarga [este formulario](../../../resources/UD3_Ejercicios/03e_ejercicio_formulario.html) y aplícale los estilos facilitados por Bootstrap para poderlo visualizar de este modo:
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_bootstrap_formulario.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Barras de navegación
+
+```html
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="03e.html#">Mi Web</a>
+        <button class="navbar-toggler" type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navbarScroll" 
+            aria-controls="navbarScroll" aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" 
+            style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" 
+                    href="http://nachoiborraies.github.io/htmlcss/md/es/slides/inicio.html">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="03e.html#" 
+                    id="navbarScrollingDropdown" role="button" 
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                        Noticias
+                    </a>
+                    <ul class="dropdown-menu" 
+                    aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" 
+                            href="http://nachoiborraies.github.io/htmlcss/md/es/slides/economia.html">Economía</a></li>
+                        <li><a class="dropdown-item" 
+                            href="http://nachoiborraies.github.io/htmlcss/md/es/slides/deportes.html">Deportes</a></li>
+                        <li><a class="dropdown-item" 
+                            href="http://nachoiborraies.github.io/htmlcss/md/es/slides/sociedad.html">Sociedad</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" 
+                    href="http://nachoiborraies.github.io/htmlcss/md/es/slides/contacto.html">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Barras de navegación
+
+<div align="center">
+    <img src="../../../img/03_bootstrap_navbar.png" width="90%">
+</div>
+
+Es IMPORTANTE cargar el componente JavaScript de Bootstrap para el efecto *dropdown*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Alertas
+
+```html
+<form action="http://nachoiborraies.github.io/htmlcss/md/es/slides/mipagina.php" method="post">
+    <label class="form-label" for="nombre">Introduce tu nombre:</label>
+    <input class="form-control" type="text" name="nombre" id="nombre" size="20">
+    <div class="alert alert-danger">Error: el nombre no puede estar vacío</div>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Alertas
+
+<div align="center">
+    <img src="../../../img/03_bootstrap_alert.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Insignias (*badges*)
+
+```html
+<p>
+    Ya a la venta nuestro nuevo curso de diseño web para principiantes
+    <span class="badge badge-warning">Nuevo!</span>
+</p>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Insignias (*badges*)
+
+<div align="center">
+    <img src="../../../img/03_bootstrap_badges.png">
+</div>
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

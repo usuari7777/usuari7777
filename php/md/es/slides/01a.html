@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Primeros pasos con PHP</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Primeros pasos con PHP
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## PHP
+
+- Lenguaje de *script* (interpretado)
+- Entorno servidor, como JSP o ASP.NET
+- Usado en el 80% de las webs actuales
+- Multiparadigma (estructurado, modular, orientado a objetos...)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## PHP: características
+
+* Open source
+* Fácil de aprender
+* Multiplataforma
+   * A diferencia de ASP.NET
+* Acceso a diversos SGBD (MySQL, Oracle...)
+* Admite diversas librerías y entornos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recursos necesarios
+
+- Servidor web compatible con PHP
+   - Escuchará peticiones locales y remotas y las procesará con PHP
+- Lenguaje PHP
+- Normalmente algún servidor de bases de datos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## XAMPP
+
+- Integra Apache + PHP + MySQL
+- [Web oficial](https://www.apachefriends.org/es/index.html)
+- Dispone de herramienta *phpMyAdmin* para administrar las bases de datos MySQL
+- Disponible en Windows, Linux y Mac
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## XAMPP
+
+Instalación en Windows
+
+<div align="center">
+    <img src="../../../img/01_xampp_windows.png" width="50%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## XAMPP MANAGER
+
+Archivo *xampp-control* en Windows. Permite iniciar/parar los servidores. **Importante** dar permisos a *xampp-control.ini* en Windows
+
+<div align="center">
+    <img src="../../../img/01_xampp_manager_windows.jpg" width="70%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ubicación de las webs
+
+- Subcarpeta **htdocs** dentro de la carpeta de instalación
+- Se pueden definir otras ubicaciones, pero utilizaremos esta en el curso
+- Crearemos cada web en una subcarpeta independiente dentro de esta ubicación
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+- Descarga e instala XAMPP en tu ordenador. Abre el *manager* y pon en marcha Apache y MySQL para comprobar que arrancan satisfactoriamente. Intenta acceder a la página de inicio *http://localhost*
+- Crea la carpeta *prueba* dentro de la carpeta *htdocs* y añade dentro un archivo *index.html* con un mensaje de bienvenida. Prueba a acceder a dicha página *http://localhost/prueba/index.html*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mi primer programa PHP
+
+- Archivos con extensión *.php* normalmente
+- Código embebido junto a código HTML
+- Identificamos los fragmentos PHP entre el inicio `<?php` y el final `?>`
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mi primer programa PHP
+
+Ejemplo: mensaje de bienvenida
+
+```php
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>Página de bienvenida</h1>
+    <?php
+        echo "<p>Bienvenido a esta página</p>";
+    ?>
+</body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+En la misma carpeta *htdocs/prueba* del ejercicio anterior, crea una página llamada `informacion.php` y, utilizando la instrucción `echo` de PHP que hemos visto en el ejemplo anterior, muestra algo de información sobre tí, generando algunos párrafos con formato HTML: nombre, aficiones, estudios, etc. Prueba a cargar la página (con el servidor Apache en marcha) y comprueba que el contenido se genera con el formato esperado.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Esquema de funcionamiento general
+
+- El navegador pide cargar un recurso PHP (ejemplo: *bienvenida.php*)
+- El servidor recibe la petición e interpreta el archivo PHP solicitado
+- El código HTML que se genera en la interpretación se envía como resultado al cliente
+- El cliente NO puede ver el código PHP que se ejecuta. Sólo recibe el resultado generado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+Resultado de intepretar el PHP anterior
+
+```php
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>Página de bienvenida</h1>
+    <p>Bienvenido a esta página</p>
+</body>
+</html>
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

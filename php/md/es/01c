@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Uso de funciones | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Uso de funciones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/01c.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Uso de funciones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Uso de funciones","url":"http://nachoiborraies.github.io/php/md/es/01c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="uso-de-funciones">Uso de funciones</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Al igual que en otros lenguajes de programación (como por ejemplo JavaScript), las funciones en PHP nos van a permitir encapsular un conjunto de instrucciones bajo un nombre, y poderlo ejecutar en bloque cada vez que lo necesitemos, simplemente utilizando el nombre que le hayamos puesto a la función.</p>
+
+<h2 id="1-definición-de-funciones">1. Definición de funciones</h2>
+
+<p>Las funciones en PHP se definen con la palabra <code class="language-plaintext highlighter-rouge">function</code> (como en JavaScript), seguida del nombre de la función y unos paréntesis. A diferencia de otros lenguajes, en PHP no se distinguen mayúsculas y minúsculas en los nombres de funciones (sí se distinguen en los nombres de variables). Veamos un ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">saluda</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Hola, buenas"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este caso, la función muestra un mensaje de saludo. Podríamos usarla en cualquier lugar de nuestra página PHP con:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">saluda</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>y mostraría en la página web el texto “Hola, buenas” en el lugar donde la hubiéramos colocado.</p>
+
+<p>Notar que estos dos fragmentos de código pueden ir en bloques PHP diferentes. Por ejemplo, podemos definir las funciones al inicio del código PHP, y luego llamarlas después:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="n">saluda</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Hola, buenas"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+...
+<span class="cp">&lt;?php</span>
+<span class="nf">saluda</span><span class="p">();</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="2-uso-de-parámetros">2. Uso de parámetros</h2>
+
+<p>Como en otros lenguajes, las funciones PHP también admiten unos datos entre los paréntesis, llamados <em>parámetros</em>, que sirven para proporcionar datos a la función desde fuera, al llamarla. Por ejemplo, esta función suma los dos datos (numéricos) que se le pasan como parámetros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">suma</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$a</span> <span class="o">+</span> <span class="nv">$b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y para utilizarla, simplemente la llamamos pasándole dos datos numéricos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">suma</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>ejercicios2</strong> en tu carpeta de documentos de Apache, y dentro guarda los ejercicios de esta sesión. Crea una página llamada <strong>saludo_funciones.php</strong>. Crea en ella una función llamada <code class="language-plaintext highlighter-rouge">saludo($n)</code>, y pon dentro el código para que saque un saludo con el nombre que se le pase como parámetro. Por ejemplo, “Hola, Nacho”. Después, llama a esta función desde el código PHP para que muestre un saludo en la página con el nombre que quieras.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página llamada <strong>contador_funciones.php</strong> en la carpeta de ejercicios de la sesión. Crea una función llamada <code class="language-plaintext highlighter-rouge">cuenta($a, $b)</code> que reciba dos parámetros y vaya contando de un número al otro, separando los números por comas. Después, pruébala en el código PHP haciendo que cuente del 10 al 20.</p>
+</blockquote>
+
+<h3 id="21-uso-de-parámetros-por-referencia">2.1. Uso de parámetros por referencia</h3>
+
+<p>Hemos visto que, entre los paréntesis de las funciones, podemos incluir unos datos llamados argumentos o parámetros. Estos parámetros nos sirven para darle información a la función para poder realizar sus operaciones, como en el ejemplo anterior, donde le pasamos los dos números que tiene que sumar.</p>
+
+<p>En ocasiones nos puede interesar que alguno de esos parámetros sea modificable, es decir, que la función pueda modificar directamente el valor del parámetro. En este caso, debemos pasar el parámetro por referencia, y eso en PHP se consigue anteponiéndole el símbolo &amp; al parámetro. Por ejemplo, la siguiente función calcula la suma de los parámetros $n1 y $n2 y guarda el resultado en el parámetro $resultado, que se pasa por referencia.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">sumaNumeros</span><span class="p">(</span><span class="nv">$n1</span><span class="p">,</span> <span class="nv">$n2</span><span class="p">,</span> <span class="o">&amp;</span><span class="nv">$resultado</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$resultado</span> <span class="o">=</span> <span class="nv">$n1</span> <span class="o">+</span> <span class="nv">$n2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A la hora de utilizar esta función, tendremos que pasarle tres parámetros, siendo el tercero de ellos una variable que poder modificar y guardar el resultado de la suma:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nf">sumaNumeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="nv">$result</span><span class="p">);</span>
+<span class="c1">// En este punto, la variable $result vale 33</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea una página llamada <strong>intercambia.php</strong> en la carpeta de ejercicios. Añade dentro una función llamada <code class="language-plaintext highlighter-rouge">intercambia</code> que reciba 2 parámetros numéricos por referencia, y lo que haga sea intercambiar sus valores. Es decir, si recibe el parámetro <code class="language-plaintext highlighter-rouge">$a</code> y el <code class="language-plaintext highlighter-rouge">$b</code>, debe hacer que <code class="language-plaintext highlighter-rouge">$a</code> tome el valor de <code class="language-plaintext highlighter-rouge">$b</code>, y <code class="language-plaintext highlighter-rouge">$b</code> tome el valor de <code class="language-plaintext highlighter-rouge">$a</code>.</p>
+</blockquote>
+
+<h3 id="22-uso-de-parámetros-por-defecto">2.2. Uso de parámetros por defecto</h3>
+
+<p>También podemos incluir en la función parámetros con valores por defecto, de forma que, si no los ponemos, automáticamente toman el valor por defecto que hayamos indicado.</p>
+
+<p>Estos parámetros deben ponerse todos al final, tras los parámetros “obligatorios”, y debemos tener cuidado cuando no rellenamos alguno de ellos, para seguir el orden en que están. Por ejemplo, la siguiente función tiene los parámetros del nombre del alumno, su teléfono, una nota del examen y un año de nacimiento. La nota del examen tiene el valor por defecto de 0, y el año de nacimiento, por defecto es 1995.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">datosAlumno</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">,</span> <span class="nv">$telefono</span><span class="p">,</span> <span class="nv">$nota</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$aNacimiento</span> <span class="o">=</span> <span class="mi">1995</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si utilizamos esta función, tenemos varias alternativas: la primera es utilizarla rellenando todos los parámetros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">datosAlumno</span><span class="p">(</span><span class="s2">"Nacho Iborra"</span><span class="p">,</span> <span class="s2">"611223344"</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1978</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>La segunda es utilizarla dejando vacío algún parámetro que tenga valor por defecto. En este caso, si no ponemos la nota pero sí el año, entonces el año se asignaría a la nota, porque está en tercera posición en los paréntesis:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">datosAlumno</span><span class="p">(</span><span class="s2">"Nacho Iborra"</span><span class="p">,</span> <span class="s2">"611223344"</span><span class="p">,</span> <span class="mi">1978</span><span class="p">);</span>
+<span class="c1">// En este caso, la nota sería 1978, y el año de nacimiento 1995</span>
+</code></pre></div></div>
+
+<p>En cambio, si rellenamos la nota, y dejamos vacío el año, entonces el año toma su valor por defecto.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">datosAlumno</span><span class="p">(</span><span class="s2">"Nacho Iborra"</span><span class="p">,</span> <span class="s2">"611223344"</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+<span class="c1">// En este caso, la nota sería 8 y el año de nacimiento 1995</span>
+</code></pre></div></div>
+
+<p>En definitiva, si dejamos vacío algún parámetro que no esté al final, los de la derecha ocupan su lugar y se asignan a datos equivocados. En estos casos es mejor dejar vacíos todos, o rellenarlos con un valor por defecto para no descuadrar los demás.</p>
+
+<h2 id="3-retorno-de-valores">3. Retorno de valores</h2>
+
+<p>Una función, además de hacer operaciones, y poder modificar parámetros, puede devolver un resultado de una operación (que puede ser matemática, una comprobación, etc.). Para hacer que una función devuelva un resultado, se utiliza la palabra <code class="language-plaintext highlighter-rouge">return</code> seguida del dato a devolver. Por ejemplo, la siguiente función devuelve la suma de los dos números que recibe como parámetros.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">sumaNumeros</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nv">$a</span><span class="o">+</span><span class="nv">$b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Después, desde el código PHP, normalmente asignaremos lo que devuelve la función a alguna variable o expresión:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$resultado</span> <span class="o">=</span> <span class="nf">sumaNumeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="c1">// Aquí, la variable $resultado valdría 13</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Crea una página llamada <strong>descuento.php</strong> en la carpeta de ejercicios. Crea una función llamada <code class="language-plaintext highlighter-rouge">calculaDescuento</code> que reciba un parámetro <code class="language-plaintext highlighter-rouge">$precio</code> con el precio de una compra, y un parámetro opcional llamado <code class="language-plaintext highlighter-rouge">$descuento</code> con el porcentaje de descuento a aplicar. Si no se pone este segundo parámetro, el valor por defecto será 0. La función devolverá con un <em>return</em> el precio con el descuento aplicado. Utiliza después la función desde el código PHP para calcular el descuento de un precio de 250 euros con un 10% de descuento, y el de un precio de 85 euros sin indicar descuento.</p>
+</blockquote>
+
+<h3 id="31-type-hinting">3.1. <em>Type hinting</em></h3>
+
+<p>A pesar de que PHP es un lenguaje débilmente tipado (es decir, no tenemos que especificar de qué tipo de dato son las variables y parámetros que utilizamos), sí que permite indicar el tipo de dato en los parámetros y tipo de retorno de las funciones, si lo queremos, para “obligar” a que los datos que se pasen y recojan sean de esos tipos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Comprueba si dos números son iguales</span>
+<span class="k">function</span> <span class="n">iguales</span><span class="p">(</span><span class="kt">int</span> <span class="nv">$param1</span><span class="p">,</span> <span class="kt">int</span> <span class="nv">$param2</span><span class="p">):</span> <span class="kt">boolean</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$param1</span> <span class="o">===</span> <span class="nv">$param2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Puedes obtener más información al respecto <a href="https://www.php.net/manual/es/language.types.declarations.php">aquí</a>.</p>
+
+<h3 id="32-funciones-anónimas">3.2. Funciones anónimas</h3>
+
+<p>Igual que ocurre con otros lenguajes, como JavaScript, podemos definir funciones anónimas. Es decir, funciones sin nombre, que pueden asignarse a una variable, o utilizarse en un punto determinado del programa para invocarlas directamente.</p>
+
+<p>El siguiente ejemplo utiliza la función <em>array_filter</em> de PHP, que hace un filtrado de los elementos de un array. Como segundo parámetro, usamos una función anónima que especifica el criterio de filtrado para cada dato <code class="language-plaintext highlighter-rouge">$n</code> del array: nos quedamos con los números que sean múltiplos de 5:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numeros</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+ 
+<span class="nv">$multiplos5</span> <span class="o">=</span> <span class="nb">array_filter</span><span class="p">(</span><span class="nv">$numeros</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// $multiplos5 = [5, 10, 95]</span>
+</code></pre></div></div>
+
+<h2 id="4-modularizando-el-código">4. Modularizando el código</h2>
+
+<p>La definición de funciones en PHP es una herramienta poderosa, como en cualquier otro lenguaje, porque nos permite reutilizar un mismo código en varios puntos de la aplicación, invocando varias veces la misma función. Pero… ¿qué ocurriría si queremos invocar una misma función en diferentes páginas PHP de nuestra aplicación? Con lo que hemos visto hasta ahora, tendríamos que volver a definir la misma función en cada página. Afortunadamente, esto no tiene que ser así.</p>
+
+<p>PHP ofrece un mecanismo de inclusión de contenidos en otras páginas PHP a través de cuatro directivas:</p>
+
+<ul>
+  <li><strong>include fichero</strong>: incluye el contenido del fichero indicado en el actual, en el punto donde se invoca esta directiva. Es básicamente como un <em>copiar-pegar</em> del fichero indicado en el punto de inclusión, pero sin repetir el código de nuevo.</li>
+  <li><strong>include_once fichero</strong>: similar al anterior, pero sólo lo incluye si no ha sido incluido ya anteriormente en el fichero (para evitar repetir inclusiones)</li>
+  <li><strong>require fichero</strong>: similar a include, pero emite un error fatal si no se encuentra el fichero indicado (mientras que <em>include</em> sólo emite un <em>warning</em>, pero sigue cargando la página). Todo dependerá de la importancia del fichero que estemos incluyendo.</li>
+  <li><strong>require_once fichero</strong>: similar al anterior, pero sólo carga el fichero si no ha sido incluido anteriormente.</li>
+</ul>
+
+<p>Podemos utilizar estas directivas para varios fines:</p>
+
+<ul>
+  <li>Definir un mismo contenido común a varias páginas (por ejemplo, mismo encabezado y/o mismo pie de página) e incluirlas en las distintas páginas que lo compartan. Aquí podemos elegir si utilizar <em>include</em> o <em>require</em>, dependiendo de lo vital que sea el contenido que estemos cargando para el correcto funcionamiento de la página.</li>
+  <li>Definir un conjunto de funciones a compartir por varias partes de la aplicación, e incluirlos en las páginas que los necesiten (en este caso, lo normal sería utilizar <em>require</em> o <em>require_once</em>, ya que de lo contrario intentaríamos usar funciones que no existirían).</li>
+</ul>
+
+<p>Los ficheros incluidos tienen a menudo una extensión especial, que puede ser <strong>.inc</strong> o bien <strong>.inc.php</strong>, para saber que no son fichero autónomos, sino que necesitan ser incluidos en otros.</p>
+
+<p>Por ejemplo, podríamos definir un fichero llamado <strong>funciones.inc</strong> con algunas funciones de uso común:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">function</span> <span class="n">saluda</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Hola, buenas"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">suma</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Y después, utilizar este fichero en las páginas que lo necesiten, de este modo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="k">include</span> <span class="s2">"funciones.inc"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+...
+<span class="cp">&lt;?php</span>
+<span class="nf">suma</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+...
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 5:</strong></p>
+
+  <p>Crea un archivo llamado <strong>funciones.inc</strong> en la carpeta de ejercicios de la sesión y añade dentro las funciones que hemos definido en los ejercicios anteriores. Incluye el fichero en cada uno de los ejercicios para que pueda hacer uso de las funciones que necesite.</p>
+</blockquote>
+
+<h2 id="5-algunas-funciones-útiles-predefinidas-en-php">5. Algunas funciones útiles predefinidas en PHP</h2>
+
+<p>PHP dispone de multitud de funciones para diferentes propósitos: manejo de textos, conexión con bases de datos, uso de expresiones regulares, etc. Veremos aquí algunos de estos conjuntos de funciones (salvo el de acceso a base de datos, que lo veremos con más detalle más adelante).</p>
+
+<h3 id="51-funciones-para-manejo-de-textos">5.1. Funciones para manejo de textos</h3>
+
+<p>Veamos algunas funciones predefinidas que pueden sernos útiles para manejar datos de texto, como por ejemplo los que nos pueda enviar el usuario desde un formulario:</p>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">trim(cadena)</code> elimina espacios del principio y del final de la cadena, incluyendo tabulaciones o saltos de línea. Es especialmente útil para borrar espacios que se han quedado puestos accidentalmente.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"   Esto es un texto con espacios   "</span><span class="p">;</span>
+<span class="nv">$texto2</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$texto</span><span class="p">);</span>
+<span class="c1">// En este punto, $texto2 vale "Esto es un texto con espacios"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">number_format(numero, decimales)</code> crea un texto mostrando el número indicado, con los decimales que se digan.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mf">3.14159</span><span class="p">;</span>
+<span class="nv">$texto</span> <span class="o">=</span> <span class="nb">number_format</span><span class="p">(</span><span class="nv">$numero</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="c1">// En este punto, $texto vale 3.14</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">htmlspecialchars(cadena)</code> formatea la cadena sustituyendo algunos símbolos especiales (como por ejemplo <code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">"</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>…) por sus correspondientes códigos HTML (<code class="language-plaintext highlighter-rouge">&amp;amp;</code>, <code class="language-plaintext highlighter-rouge">&amp;quot;</code>, <code class="language-plaintext highlighter-rouge">&amp;lt;</code>…)</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"if (var1 &lt; var2 &amp;&amp; ..."</span><span class="p">;</span>
+<span class="nv">$textoHTML</span> <span class="o">=</span> <span class="nb">htmlspecialchars</span><span class="p">(</span><span class="nv">$texto</span><span class="p">);</span>
+<span class="c1">// En este punto, $textoHTML vale "if (var1 &amp;lt; var2 &amp;amp;&amp;amp; ..."</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Las funciones <code class="language-plaintext highlighter-rouge">strtoupper(cadena)</code> y <code class="language-plaintext highlighter-rouge">strtolower(cadena)</code> convierten toda la cadena a mayúsculas y minúsculas, respectivamente.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hola, buenas Tardes"</span><span class="p">;</span>
+<span class="nv">$textoMayus</span> <span class="o">=</span> <span class="nb">strtoupper</span><span class="p">(</span><span class="nv">$texto</span><span class="p">);</span>
+<span class="c1">// En este punto, $textoMayus vale "HOLA, BUENAS TARDES"</span>
+<span class="nv">$textoMinus</span> <span class="o">=</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$texto</span><span class="p">);</span>
+<span class="c1">// En este punto, $textoMinus vale "hola, buenas tardes"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">explode(separador, cadena)</code> devuelve una lista (array) con todas las partes de la cadena en que se puede dividir cortando por el separador indicado. La función <code class="language-plaintext highlighter-rouge">implode(separador, array)</code> combina todos los elementos de la lista (array), uniéndolos con el separador indicado.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"uno-dos-tres-cuatro"</span><span class="p">;</span>
+<span class="nv">$partes</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">'-'</span><span class="p">,</span> <span class="nv">$texto</span><span class="p">);</span>
+<span class="c1">// En este punto, $partes es una lista o array. En su posición 0 está</span>
+<span class="c1">// la palabra 'uno', en la 1 está 'dos', en la 2 está '3' y en la 3 </span>
+<span class="c1">// está 'cuatro'</span>
+<span class="nv">$texto2</span> <span class="o">=</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">';'</span><span class="p">,</span> <span class="nv">$partes</span><span class="p">);</span>
+<span class="c1">// Aquí $texto2 vale 'uno;dos;tres;cuatro'</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">substr(cadena, comienzo, fin)</code> obtiene una subcadena de la cadena, a partir de la posición de comienzo indicada hasta (opcionalmente) la posición de fin indicada (si no se pone fin, se toma hasta el final de la cadena).</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hola, buenas tardes"</span><span class="p">;</span>
+<span class="nv">$texto2</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$texto</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">);</span>
+<span class="c1">// Aquí $texto2 vale 'buenas'</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">strcmp(cadena1, cadena2)</code> compara las dos cadenas viendo cuál es mayor alfabéticamente. Dará un número positivo si la <em>cadena1</em> es mayor, negativo si la <em>cadena2</em> es mayor, o cero si son iguales. La función <code class="language-plaintext highlighter-rouge">strcasecmp(cadena1, cadena2)</code> funciona como la anterior, pero sin distinguir mayúsculas y minúsculas (las mayúsculas, si no se indica lo contrario, se consideran menores que las minúsculas).</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto1</span> <span class="o">=</span> <span class="s2">"hola"</span><span class="p">;</span>
+<span class="nv">$texto2</span> <span class="o">=</span> <span class="s2">"adiós"</span><span class="p">;</span>
+<span class="nv">$resultado</span> <span class="o">=</span> <span class="nb">strcmp</span><span class="p">(</span><span class="nv">$texto1</span><span class="p">,</span> <span class="nv">$texto2</span><span class="p">);</span>
+<span class="c1">// Aquí $resultado es &gt; 0, porque "hola" es mayor que "adiós".</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">strlen(cadena)</code> indica cuántos caracteres tiene la cadena.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hola, buenas tardes"</span><span class="p">;</span>
+<span class="nv">$caracteres</span> <span class="o">=</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$texto</span><span class="p">);</span>
+<span class="c1">// Aquí $caracteres valdrá 19</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">strpos(cadena, parte)</code> indica en qué posición está la primera ocurrencia de la cadena <em>parte</em> en la cadena <em>cadena</em> (o un número negativo si no se encuentra).</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hola, buenas tardes"</span><span class="p">;</span>
+<span class="nv">$posicion</span> <span class="o">=</span> <span class="nb">strpos</span><span class="p">(</span><span class="nv">$texto</span><span class="p">,</span> <span class="s2">"buenas"</span><span class="p">);</span>
+<span class="c1">// Aquí $posicion valdrá 6</span>
+</code></pre></div></div>
+
+<ul>
+  <li>La función <code class="language-plaintext highlighter-rouge">str_replace(viejacadena, nuevacadena , cadena)</code> reemplaza todas las ocurrencias de la cadena <em>viejacadena</em> por la cadena <em>nuevacadena</em> en la cadena global <em>cadena</em>.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$errores</span> <span class="o">=</span> <span class="s2">"Un téxto de prueba con acento en la palabra téxto"</span><span class="p">;</span>
+<span class="nv">$corregido</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">"téxto"</span><span class="p">,</span> <span class="s2">"texto"</span><span class="p">,</span> <span class="nv">$errores</span><span class="p">);</span>
+<span class="c1">// Aquí corregido vale "Un texto de prueba con acento en la palabra texto"</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 6:</strong></p>
+
+  <p>Crea una página llamada <strong>manejo_textos.php</strong>. Realiza en ella las siguientes operaciones:</p>
+
+  <ul>
+    <li>Crea una variable <code class="language-plaintext highlighter-rouge">$radio</code> con un radio de circunferencia (el que quieras).</li>
+    <li>Crea una variable <code class="language-plaintext highlighter-rouge">$area</code> y calcula en ella el área del círculo, como has hecho en algún ejercicio anterior (PI * radio<sup>2</sup>, definiendo la constante PI).</li>
+    <li>Crea una variable <code class="language-plaintext highlighter-rouge">$textoResultado</code> que diga “El área calculada del círculo es” y luego ponga la variable <code class="language-plaintext highlighter-rouge">$area</code>, mostrando sólo 2 decimales (utiliza la función <code class="language-plaintext highlighter-rouge">number_format</code>). Muestra luego esta variable por pantalla con un <em>echo</em>.</li>
+    <li>Crea una variable <code class="language-plaintext highlighter-rouge">$textoResultadoMayus</code> que convierta el texto anterior a mayúsculas, usando la función <code class="language-plaintext highlighter-rouge">strtoupper</code>. Muestra también esta variable por pantalla.</li>
+    <li>Crea una variable llamada <code class="language-plaintext highlighter-rouge">$textoResultadoModificado</code> que reemplace la palabra “calculada” por la palabra “obtenida”, usando la función <code class="language-plaintext highlighter-rouge">str_replace</code>, en la variable <code class="language-plaintext highlighter-rouge">$textoResultado</code>.</li>
+    <li>Averigua la longitud del texto de la variable anterior usando la función <code class="language-plaintext highlighter-rouge">strlen</code>.</li>
+    <li>Averigua en qué posición del texto de la variable anterior se encuentra la palabra “círculo”, usando la función <code class="language-plaintext highlighter-rouge">strpos</code>.</li>
+    <li>Crea una variable <code class="language-plaintext highlighter-rouge">$numeros</code> que tenga el valor “1,2,3,4,5”, y utiliza la función <code class="language-plaintext highlighter-rouge">explode</code> para quedarte con los números por separado. Sácalos por pantalla, separados por el signo “+” (“1+2+3+4+5”), y después, intenta sumarlos entre sí y mostrar el resultado de la suma a continuación (al final, te quedará algo como “1+2+3+4+5=15”).</li>
+  </ul>
+</blockquote>
+
+<h3 id="52-funciones-para-manejo-de-fechas-y-horas">5.2. Funciones para manejo de fechas y horas</h3>
+
+<p>Existen algunas funciones que pueden sernos muy útiles para manejar fechas y horas, y poderlas procesar o almacenar correctamente en bases de datos.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">time()</code>: nos da el nº de segundos que han transcurrido desde el 1/1/1970. Esto nos servirá para establecer marcas temporales (<em>timestamps</em>), o para convertir después esta marca temporal en una fecha y hora concretas.</li>
+  <li><code class="language-plaintext highlighter-rouge">checkdate(mes, dia, año)</code> comprueba si la fecha formada por el mes, día y año que recibe como parámetros es correcta o no (da un valor de verdadero o falso)</li>
+  <li><code class="language-plaintext highlighter-rouge">date(formato, fecha)</code> obtiene una cadena de texto formateando la fecha con el formato indicado. Si no se indica ninguna fecha, se le aplicará el formato indicado a la fecha actual. Dentro del formato, podemos usar diferentes patrones, dependiendo del tipo de formato que queramos. Usaremos los símbolos d/D (para día numérico o con letra), m/M (para mes numérico o abreviado), y/Y (año de dos o cuatro dígitos), h/H (hora de 12 o 24 horas), i (minutos), s(segundos), y otras variantes que se pueden consultar en la <a href="https://www.php.net/manual/es/function.date.php">documentación oficial</a></li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fechaActual</span> <span class="o">=</span> <span class="nb">time</span><span class="p">();</span>
+<span class="nv">$textoFecha</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s2">"d/m/Y H:i:s"</span><span class="p">);</span>
+<span class="c1">// Suponiendo que $fechaActual sea, por ejemplo, el 3 de noviembre de 2014</span>
+<span class="c1">// a las 18:23:55, entonces $textoFecha sería '03/11/2014 18:23:55'</span>
+<span class="nv">$esCorrecta</span> <span class="o">=</span> <span class="nb">checkdate</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2014</span><span class="p">);</span>
+<span class="c1">// La variable $esCorrecta sería FALSE, porque 15 no es un mes válido</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">strtotime(texto)</code> convierte un texto que intenta representar una fecha en una fecha determinada. La fecha se representa en formato <em>mes/día/año</em> o <em>mes-día-año</em>, normalmente. Esta fecha sería incorrecta porque no existe el mes 21:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fecha</span> <span class="o">=</span> <span class="nb">strtotime</span><span class="p">(</span><span class="s2">"21/12/2013"</span><span class="p">);</span> 
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 7:</strong></p>
+
+  <p>Crea una página llamada <strong>ahora.php</strong> en tu carpeta de ejercicios. Saca en la página la fecha y hora actuales en un formato como este: <em>07 Mar 2022 - 21:55:12</em></p>
+</blockquote>
+
+<h3 id="53-funciones-para-gestión-de-expresiones-regulares">5.3. Funciones para gestión de expresiones regulares</h3>
+
+<p>Al igual que otros lenguajes como JavaScript, desde PHP también podemos utilizar expresiones regulares para procesar ciertos textos y extraer patrones de ellos. La sintaxis de las expresiones regulares es muy similar a la de JavaScript, y se basa en un conjunto de símbolos y expresiones que podemos utilizar para representar los distintos tipos de caracteres de un texto (números, letras, espacios, etc.).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Símbolo</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Se utiliza para indicar el comienzo de un texto o línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>Se utiliza para indicar el final de un texto o línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Indica que el carácter anterior puede aparecer 0 o más veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Indica que el carácter anterior puede aparecer 1 o más veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Indica que el carácter anterior puede aparecer 0 o 1 vez</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Representa a cualquier carácter, salvo el salto de línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x|y</code></td>
+      <td>Indica que puede haber un elemento x o y</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{n}</code></td>
+      <td>Indica que el carácter anterior debe aparecer n veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{m, n}</code></td>
+      <td>Indica que el carácter anterior debe aparecer entre m y n veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+      <td>Cualquiera de los caracteres entre corchetes. Podemos especificar rangos con un guión, como por ejemplo <code class="language-plaintext highlighter-rouge">[A-L]</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[^abc]</code></td>
+      <td>Cualquier carácter que no esté entre los corchetes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\b</code></td>
+      <td>Un límite de palabra (espacio, salto de línea…)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\B</code></td>
+      <td>Cualquier cosa que no sea un límite de palabra</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\d</code></td>
+      <td>Un dígito (equivaldría al intervalo <code class="language-plaintext highlighter-rouge">[0-9]</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\D</code></td>
+      <td>Cualquier cosa que no sea un dígito (equivaldría a <code class="language-plaintext highlighter-rouge">[^0-9]</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\n</code></td>
+      <td>Salto de línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\s</code></td>
+      <td>Cualquier carácter separador (espacio, tabulación, salto de página o de línea)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\S</code></td>
+      <td>Cualquier carácter que no sea separador</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\t</code></td>
+      <td>Tabulación</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\w</code></td>
+      <td>Cualquier alfanumérico incluyendo subrayado (igual a <code class="language-plaintext highlighter-rouge">[A-Za-z0-9_]</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\W</code></td>
+      <td>Cualquier no alfanumérico ni subrayado (<code class="language-plaintext highlighter-rouge">[^A-Za-z0-9_]</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Algunos símbolos especiales (como el punto, o el +), se representan literalmente anteponiéndoles la barra invertida. Por ejemplo, si queremos indicar el carácter del punto, se pondría <code class="language-plaintext highlighter-rouge">\.</code> Veamos algunos ejemplos:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ejemplo</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^\d{9,11}$</code></td>
+      <td>Entre 9 y 11 dígitos</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^\d{1,2}\/\d{1,2}\/\d{2,4}$</code></td>
+      <td>Fecha (d/m/a)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A partir de esa sintaxis, disponemos de las siguientes funciones para procesar expresiones regulares:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">preg_match(patron, texto)</code> devuelve 1 si el texto encaja en el patrón</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dni</span> <span class="o">=</span> <span class="s2">"11223344A"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">"/^\d</span><span class="si">{</span><span class="nv">9</span><span class="si">}</span><span class="s2">[A-Z]$/"</span><span class="p">,</span> <span class="nv">$dni</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"DNI válido"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">preg_replace(patron, reemplazo, cadena)</code> examina la cadena buscando coincidencias del patrón, y reemplaza el texto encontrado por el texto de reemplazo.</li>
+  <li><code class="language-plaintext highlighter-rouge">preg_split(patron, cadena, limite)</code> devuelve un array o lista de cadenas, resultado de todas las ocurrencias del patrón en la cadena. Podemos especificar opcionalmente un límite de cadenas devueltas.</li>
+</ul>
+
+<p>Además, podemos trabajar con expresiones regulares formando <strong>grupos</strong>. Esto se refiere a que, en un patrón de expresión regular podemos definir partes de esa expresión entre paréntesis, formando lo que se llaman grupos, cuando queremos que, a la vez que se encuentran coincidencias del patrón, se extraigan partes del mismo con información.</p>
+
+<p>Por ejemplo, la siguiente variable tiene una fecha. Utilizamos una expresión regular para extraer el día, mes y año por separado, creando grupos para cada cosa. Como resultado, se obtiene una lista o array donde, en la primera posición, se tiene la fecha completa detectada, y en las siguientes 3 posiciones se tienen los tres grupos identificados (día, mes y año, respectivamente).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fecha</span> <span class="o">=</span> <span class="s2">"03-11-2014"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">"/^([0-9]</span><span class="si">{</span><span class="nv">2})-([0-9]{2})-([0-9]{4</span><span class="si">}</span><span class="s2">)$/"</span><span class="p">,</span> <span class="nv">$fecha</span><span class="p">,</span> <span class="nv">$partes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"La fecha completa es "</span> <span class="mf">.</span> <span class="nv">$partes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">echo</span> <span class="s2">"El día es "</span> <span class="mf">.</span> <span class="nv">$partes</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">echo</span> <span class="s2">"El mes es "</span> <span class="mf">.</span> <span class="nv">$partes</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="k">echo</span> <span class="s2">"El año es "</span> <span class="mf">.</span> <span class="nv">$partes</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>	
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Formato de fecha no válido"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 8:</strong></p>
+
+  <p>Crea una página llamada <strong>comprueba_hora.php</strong> en tu carpeta de ejercicios. Crea una variable de texto con una hora en ella (por ejemplo, “21:30:12”), y luego procésala para extraer por separado la hora, el minuto y el segundo, y comprobar si es una hora válida. Por ejemplo, la hora anterior sí debería ser válida, pero si ponemos “12:63:11” no debería serlo, porque 63 no es un minuto válido.</p>
+</blockquote>
+
+<h3 id="54-funciones-para-manejo-de-ficheros">5.4. Funciones para manejo de ficheros</h3>
+
+<p>A veces nos puede resultar útil leer un fichero de texto o escribir información en él. Existen multitud de funciones en PHP para abrir un fichero, leerlo línea a línea, o leer o guardar un conjunto de bytes… Vamos a ver aquí sólo algunas de las funciones más útiles para manejo de ficheros.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">readfile(fichero)</code> lee un fichero entero y lo vuelca al buffer de salida (es decir, a la página que se está generando, si estamos en una página PHP).</li>
+  <li><code class="language-plaintext highlighter-rouge">file(fichero)</code> lee un fichero entero y devuelve un array o lista, donde en cada posición hay una línea del fichero</li>
+  <li><code class="language-plaintext highlighter-rouge">file_get_contents(fichero)</code> lee un fichero entero y lo devuelve en una cadena (no en un array, como la anterior)</li>
+  <li><code class="language-plaintext highlighter-rouge">file_put_contents(fichero, texto)</code> escribe la cadena de texto en el fichero indicado, sobreescribiendo su anterior contenido si lo tenía. En el caso de que no queramos sobreescribir, sino añadir, pondremos un tercer parámetro con la constante FILE_APPEND.</li>
+  <li><code class="language-plaintext highlighter-rouge">file_exists(fichero)</code> devuelve TRUE o FALSE dependiendo de si el fichero indicado existe o no</li>
+  <li><code class="language-plaintext highlighter-rouge">filesize(fichero)</code> devuelve el tamaño en bytes del fichero, o FALSE si no existe</li>
+</ul>
+
+<p>El siguiente ejemplo lee un archivo llamado <em>libro.txt</em> (en la misma carpeta que el archivo actual) añade la palabra “Fin” al final y vuelve a guardar su contenido.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fichero</span> <span class="o">=</span> <span class="s2">"libro.txt"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$fichero</span><span class="p">))</span>
+<span class="p">{</span>
+	<span class="nv">$contenido</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$fichero</span><span class="p">);</span>
+	<span class="nv">$contenido</span> <span class="mf">.</span><span class="o">=</span> <span class="s2">"Fin"</span><span class="p">;</span>
+	<span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$fichero</span><span class="p">,</span> <span class="nv">$contenido</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Este mismo ejemplo lo podríamos haber hecho así también, añadiendo la nueva palabra Fin al final de lo existente:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fichero</span> <span class="o">=</span> <span class="s2">"libro.txt"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$fichero</span><span class="p">))</span>
+<span class="p">{</span>
+      <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$fichero</span><span class="p">,</span> <span class="s2">"Fin"</span><span class="p">,</span> <span class="no">FILE_APPEND</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 9:</strong></p>
+
+  <p>Crea una página llamada <strong>copia_seguridad.php</strong>. En la misma carpeta, crea un archivo llamado <em>datos.txt</em> con tus datos personales en varias líneas (Nombre, Dirección, Teléfono y E-mail, tuyos o inventados). Haz que la página php lea el archivo y lo guarde en otro llamado <em>copia_datos.txt</em>, en la misma carpeta.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

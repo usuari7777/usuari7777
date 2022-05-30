@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software analysis and design | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software analysis and design" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/04e.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software analysis and design" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software analysis and design","url":"http://nachoiborraies.github.io/entornos/md/en/04e.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-analysis-and-design">Software analysis and design</h1>
+
+<h2 id="class-diagrams">Class diagrams</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/04e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="04e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>A class diagram is a graphical representation of the relationships between the classes of a software project. But, before going on, we need to clarify what a class is, and how to identify them in the system that we are going to develop.</p>
+
+<h3 id="1-introduction-to-classes-and-objects">1. Introduction to classes and objects</h3>
+
+<p>Let’s suppose that we are going to implement an application for an online shop. This shop will have some <em>customers</em> registered, and will sell a list of <em>products</em>. So each customer can have his/her own <em>shopping cart</em>, make <em>orders</em> and so on.</p>
+
+<p>We could define a use case diagram to specify the main functionalities of this application: customer can register, login, add products to his/her shopping cart, make orders… We could also have employees or administrators, who would be in charge of adding products to the shop catalog, and so on. But the purpose of the class diagram is different (and both diagram can be present in the analysis of the system).</p>
+
+<p>With a class diagram, we focus on the different types of elements that are involved in the application that we are going to develop. If we think about that, we can see that our application has customers, products, shopping carts, orders… These elements will be the <strong>classes</strong> of our application.</p>
+
+<p>From each element we need to store some essential information. For instance, for the customers we may need to store their login, password, e-mail… From each product, we need its identifier, brand, model, price… All these things are the <strong>attributes</strong> for each class.</p>
+
+<p>When the application is running, there may be a real customer with login <em>john123</em>, password <em>johnny111</em>, and e-mail <em>john@gmail.com</em>. These specific data makes an <strong>object</strong> for the <em>customer</em> class. So an object is a specific instance of a class, with concrete information. There can be many objects of a class at the same time in the program (in our case, for instance, many customers of the shop entering at the same time).</p>
+
+<p>As an object of our application needs to do something, we need to provide some additional functionality to this object. For instance, customers need to login, add products to their shopping carts… These operations are called <strong>methods</strong>.</p>
+
+<p>Finally, the objects of the different classes can be connected between them. For instance, a shopping cart belongs to a given customer, and it contains one or more products of the shop. This way, we establish <strong>relationships</strong> among the different elements of the application.</p>
+
+<h3 id="2-representing-classes-in-a-class-diagram">2. Representing classes in a class diagram</h3>
+
+<p>Now, let’s see how to represent classes in a class diagram. The class is the basic element of the diagram, and it includes all the information about a given class, so that every object that is created from this class will have this information and functionality.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-EstructuraClaseUML_en.png" alt="Class example" />
+</div>
+
+<p>In the upper part we will place the class name. Below this part, we will specify the attributes (also called <em>instance variables</em>) of the class. And last, in the lower part, we will add the methods that let the objects do some operations, or interact with other objects.</p>
+
+<p>Let’s see an example of a <em>BankAccount</em> class with some attributes and methods:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-ejemplo_clase_en.png" alt="Class example" />
+</div>
+
+<p>This class represents a bank account with an attribute called <em>balance</em> that stores the current amount of money that is available in the account. Besides, the class can do some operations: add money, transfer money or check the balance.</p>
+
+<p><strong>Access modifiers</strong></p>
+
+<p>If we pay attention to the attributes and methods in previous example, we can see that they are preceded by a strange symbol. This symbol represents the <strong>visibility</strong> of the attribute or method. There are two main types of visibility:</p>
+
+<ul>
+  <li><strong>public (+)</strong>: it can be accessed from any other class.</li>
+  <li><strong>private (-)</strong>: it can only be accessed from within current class, and can only be used by current class’ methods.</li>
+</ul>
+
+<p>In previous example, <em>balance</em> attribute is private, so we can only access it from <em>BankAccount</em> class. This is very usual regarding attributes, so we can make sure that no other class will modify their values in a wrong way. Regarding the methods, they are public, which is also usual, because this way we can <em>invoke</em> this functionality from any other part of the program. So, to sum up, in general, attributes will be private, and methods will be public.</p>
+
+<h3 id="3-relationships-in-a-class-diagram">3. Relationships in a class diagram</h3>
+
+<p>Now that we know what a class is, let’s see how we can establish relationships between different classes. We are going to talk about the three main types of relationships: generalizations, associations and dependency.</p>
+
+<h4 id="31-generalization">3.1. Generalization</h4>
+
+<p><img src="../../img/ED_b1_tema04-generaliza_small.png" alt="Generalization" /></p>
+
+<p>This relationship, also called inheritance, establishes that a given class called <strong>subclass</strong> or <strong>child class</strong> inherits the attributes and methods of another class also called <strong>superclass</strong> or <strong>parent class</strong>. Besides, subclass can also have its own attributes and methods.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-ejemplo_herencia_en.png" alt="Generalization example" />
+</div>
+
+<p>In this example, we can see that classes <code class="language-plaintext highlighter-rouge">Car</code> and <code class="language-plaintext highlighter-rouge">Van</code> inherit from <code class="language-plaintext highlighter-rouge">Vehicle</code> parent class. <code class="language-plaintext highlighter-rouge">Car</code> class has all the features inherited from <code class="language-plaintext highlighter-rouge">Vehicle</code> (brand, model, doors, wheels… and also the methods) and an additional attribute <em>convertible</em>. Regarding <code class="language-plaintext highlighter-rouge">Van</code> class, it also inherits all the attributes from <code class="language-plaintext highlighter-rouge">Vehicle</code>, and adds its own new attributes <em>tare</em> and <em>load</em>.</p>
+
+<p>So generalization lets us define subtypes of a given class, so that we don’t need to specify again all the elements of parent class in this new class, just the new specific features of this subtype.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Represent in a class diagram the following specification:</p>
+
+  <p>We must represent the main features and classes of ships. As attributes, we need to store the <strong>name</strong>, the number of <strong>anchors</strong>, the <strong>material</strong> with which it is built (wood, metal, fiberglass…) and its <strong>length</strong> (in metres). We are going to focus on four ship types:</p>
+
+  <ul>
+    <li><strong>Container ship</strong>, for which we must also store its capacity in <strong>TEU</strong>, a unit of measurement which is equivalent to one container.</li>
+    <li><strong>Bulk carrier</strong>, for which we need to know the number of load <strong>hatches</strong> (it is usually an odd number).</li>
+    <li><strong>Tanker</strong>, for which we need to know if it has <strong>double helmet</strong> or not, and its <strong>capacity</strong> in tons.</li>
+    <li><strong>Fishing boat</strong>, for which we will store the <strong>type of fishing</strong> (commercial, artisan or sport).</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Represent the following specification in a class diagram:</p>
+
+  <p>Let’s suppose that we want to develop a video game, and we need to think about the characters of this videogame. We are going to define a <strong>Character</strong> class, that will have some attributes such as the <strong>age</strong>, <strong>height</strong>, <strong>genre</strong> and <strong>life level</strong>. Depending on the role of this character in the game, it can be:</p>
+
+  <ul>
+    <li><strong>Soldier</strong>, whose additional attribute will be the <strong>weapon</strong> that he will be carrying (sword, bow…). There are two main types of soldiers:
+      <ul>
+        <li><strong>Bowman</strong>, whose additional attributes will be the <strong>movement type</strong> and the <strong>damage</strong> caused.</li>
+        <li><strong>Knight</strong>, with a <strong>movement type</strong>, <strong>damage</strong> caused and life level of its <strong>horse</strong>.</li>
+      </ul>
+    </li>
+    <li><strong>Citizen</strong>, whose single additional attribute will be his <strong>tool</strong> (hammer, hoe…).
+      <ul>
+        <li><strong>Farmer</strong>, whose additional properties will be the <strong>movement type</strong>, the <strong>job</strong> (gather, plant…) and the <strong>work level</strong>, that will indicate how much it will take to finish a task.</li>
+        <li><strong>Miner</strong>, whose properties will be the <strong>movement type</strong>, the <strong>job</strong> to be done (chop, demolish, extract…), and the <strong>fatigue level</strong>, that will tell us when he will be exhausted.</li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+
+<h4 id="32-association">3.2. Association</h4>
+
+<p><img src="../../img/ED_b1_tema04-asociacion_small.png" alt="Association" /></p>
+
+<p>This relationship lets us link two classes that collaborate between them, so that an object of a class has an object (or some objects) of the other class. Related to this concept, we need to talk about the concept of <strong>cardinality</strong> of an association. Cardinality sets the dependency level of two classes, this is, how many objects of one class can be associated with one object of the other class. This must be indicated at both sides of the relationship. It can be:</p>
+
+<ul>
+  <li><strong>One to many</strong>: specified as <code class="language-plaintext highlighter-rouge">1..*</code> or <code class="language-plaintext highlighter-rouge">(1..n)</code></li>
+  <li><strong>Zero to many</strong>: <code class="language-plaintext highlighter-rouge">0..*</code> or <code class="language-plaintext highlighter-rouge">(0..n)</code></li>
+  <li><strong>Fixed number</strong>: <code class="language-plaintext highlighter-rouge">m</code> (m is a given number)</li>
+</ul>
+
+<p>In general, association is not a strong relationship, this is, the lifetime of one side does not depend on the other side. Let’s see an example:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-ejemplo_asociacion_en.png" alt="Association example" />
+</div>
+
+<p>In this example we can see a <strong>Customer</strong> class that has many <strong>Purchase orders</strong> (or none). A purchase order can only be associated to one customer.</p>
+
+<p>There can be an arrow at one of the edges of the association. In this case, the arrow indicates the <strong>navigability</strong> of the association. It indicates that we can only get the objects of the edge pointed by the arrow from the other edge (but not the opposite).</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-ejemplo_asociacion_navegable.png" alt="Association example" />
+</div>
+
+<p>In the image above, class B2 is <em>navigable</em> from class A2, so we can access B2 object(s) contained in A2 class, but we can’t get A2 elements present in B2. If the arrow is not present, then navigability is not specified: we can either navigate both sides of the association.</p>
+
+<h5 id="321-aggregation-and-composition">3.2.1. Aggregation and composition</h5>
+
+<p>There are two special types of associations in which one class is a whole which contains the other class.</p>
+
+<p>A <strong>composition</strong> is a special type of association in which the lifetime of an object depends on another object that includes it (there is a <em>strong</em> relationship between them). In other words, if we delete the main object that includes the other one, then the included object is also deleted. It is represented by a black diamond next to the main including class.</p>
+
+<p>An <strong>aggregation</strong> is a special type of association in which an object is part of the other object (as composition is), but its lifetime does not depend on the main containing object (it is a <em>weaker</em> relationship). It is represented by an empty diamond next to the main including class.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-ejemplo_agregacion_en.png" alt="Aggregation and composition example" />
+</div>
+
+<p>In this example we can see a <strong>Store</strong> that has <strong>Customers</strong> and <strong>Accounts</strong>. The diamonds are next to the main containing class (<em>Store</em>), and there is a composition with the <strong>Account</strong> class (so, if the store is deleted, its accounts will also be deleted), and an aggregation with the <strong>Customer</strong> class (so that customers will not be deleted, and can be linked to other stores).</p>
+
+<h4 id="33-dependency-instantiation-or-usage">3.3. Dependency, instantiation or usage</h4>
+
+<p>This is a usage relationship, this is, a class uses another class in some part of its code. This is the weakest relationship, and it is represented with a discontinuous arrow: <img src="../../img/ED_b1_tema04-dependenciaInstancia_small.png" alt="Dependency or instantiation" />, the direction of the arrow tells us which class is being used (the one pointed by the arrow).</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-ejemplo_dependencia_en.png" alt="Dependency example" />
+</div>
+
+<p>This example shows how dependency works in a class diagram. <strong>Application</strong> class intantiates a <strong>Window</strong> object in some part of its code, so the instantiation of this object depends on the behaviour of the <em>Application</em> object.</p>
+
+<h3 id="4-a-complete-example">4. A complete example</h3>
+
+<p>To finish with this section, let’s see the complete class diagram of a simple online shop like the one that we introduced at the beginning of this document.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-tienda_en.png" alt="Online shop example" width="85%" />
+</div>
+
+<p>It has two types of users: customers and system administrators. Customers can have one current shopping cart and many orders. Every shopping cart or order is made of one or many products, and each product can belong to many different shopping carts or orders. Besides, both customers and administrators make use of <em>Product</em> objects in their code, since they need to add products to shopping carts, or to catalog, for instance.</p>
+
+<p>Note that the relationship between <em>Customer</em> class and <em>ShoppingCart</em> or <em>Order</em> class is a composition: if customer is removed, the it makes no sense to store his/her shopping cart or orders. However, the relationship between <em>ShoppingCart</em> or <em>Order</em> and <em>Product</em> class is an aggregation: a shopping cart is composed by some products, but if we remove the shopping cart, the product can still be added to another shopping carts. The same happens with orders.</p>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Represent the following specification in a class diagram:</p>
+
+  <p>A blog has three types of users: administrators, editors and visitors. For all of them we will save their login and password. Administrators can register other users, editors can publish posts, and visitors can comment them. Besides, we will have an additional user type, called <em>author</em> which is a subtype of editor that can create and publish posts, but he must be always under the supervision of an editor.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Represent the following specification in a class diagram:</p>
+
+  <p>A cultural organization is focused on the loan of two type of objects: music discs and books. For both of them we store some general information, such as the <em>id</em>, title and author. Regarding books, we also store the number of pages, and for music discs we are interested in the record company. There are many users that come to this organization, for whom we store its <em>id</em> (DNI) and name. They can ask for books and music discs (up to 5 objects simultaneously), for which we will store the start and end date.</p>
+</blockquote>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

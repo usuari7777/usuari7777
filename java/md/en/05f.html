@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object oriented programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Object oriented programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="05f.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/05f.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object oriented programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Object oriented programming","url":"http://nachoiborraies.github.io/java/md/en/05f.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="object-oriented-programming">Object oriented programming</h1>
+
+<h2 id="refactoring-and-software-patterns">Refactoring and software patterns</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05f.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05f.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-code-refactoring">1. Code refactoring</h3>
+
+<p>In software engineering, <em>refactoring</em> often refers to a code update that does not affect its behavior, which is also known as <em>cleaning the code</em>. Refactoring is used as part of the software development process: developers sometimes add new functionalities and test cases, and sometimes refactor their code to make it clearer and more robust. In this case, running the tests again may prove that refactoring has not changed the behavior of the application.</p>
+
+<p>So refactoring is a part of software maintenance that does not fix any bug nor add any new feature. The main target is to improve code comprehension or change its structure to ease its future maintenance. Sometimes it is difficult to add new functionalities to a program with its current code structure, so a developer can refactor it before adding more new code.</p>
+
+<h4 id="11-why-to-refactor">1.1. Why to refactor?</h4>
+
+<p>There are many reasons why we should use this technique:</p>
+
+<ul>
+  <li><strong>Quality.</strong> It is the main reason. Refactoring is a continuous thinking over our code in an environment where we don’t have too much time to look back. Good code is simple and well structured, and anyone can read it and understand it without being part of the development team. We should not come back to those programs written in a single line, where conciseness was better than readability.</li>
+  <li><strong>Efficiency.</strong> Keeping a good design and a structured code is the most efficient way to develop a program. The effort that we put into avoiding duplicated code and simplifying the design will be retrieved when we need to make later modifications, either to fix some bugs or to add new features.</li>
+  <li><strong>Evolutive Design.</strong> Instead of an initial Big Design, sometimes the requirements are not clearly specified at the beginning, so we must face the design gradually. New functionalities can be added as we are implementing the project, so the initial design can become useless. Refactoring lets us make the design evolve as new functionalities join the old ones. This often implies important changes in the architecture of the project.</li>
+  <li><strong>Avoid rewriting code.</strong> In most cases, refactoring is better than rewriting. It is not easy to face a code that is not ours, and does not follow our own standards, but this is not a good reason to start from scratch. Especially in an environment where cost savings make it impossible. Anyway, updating our code is not always necessary. There must be a good reason, and we only need to make an update if there is a bad design that difficults future developments. Whenever we notice that our code is difficult to understand, or there is duplicated code, then we need to refactor it. Sometimes we may need to step back and rethink some aspects, so that we can move on quickly and easily.</li>
+</ul>
+
+<h4 id="12-when-to-refactor">1.2. When to refactor?</h4>
+
+<p>Refactoring code is not due to aesthetic reason. We must pay attention to some situations in which it is better to stop and rearrange our code. The elements that warn us that our code is in trouble are known as <em>Bad Smells</em>. An experienced programmer can determine that his/her program is starting to “stink” when there are:</p>
+
+<ul>
+  <li><strong>Ambiguous identifiers</strong>. They can be either variable, class or method names. We will need to rename them to clarify our code. For instance, we can rename a variable called <code class="language-plaintext highlighter-rouge">t</code> with another one called <code class="language-plaintext highlighter-rouge">waitTime</code>.</li>
+  <li><strong>Duplicated code</strong>. This is the main reason to refactor our code. If we detect the same piece of code in more than one place, we need to unify it.</li>
+  <li><strong>Long method</strong>. This is a very usual feature of structured programming, but in object oriented programming, the shorter a method is, the easier we can use it. So we can divide the main program in sub-programs.</li>
+  <li><strong>Large class</strong>. If a single class tries to solve too many problems, it may also have too many instance variables, which can lead to duplicated code.</li>
+  <li><strong>Long parameter list</strong>. We should not pass too many parameters to our methods. We should only use those really needed for the method to complete its task. Those methods who get too many input parameters change their behavior very often, and become very difficult to understand.</li>
+  <li><strong>Feature envy</strong>. It happens when a method uses more elements of another class than from its own class. This problem is usually solved by moving this method to the other class.</li>
+</ul>
+
+<p>Therefore, we must take into account these factors as we are implementing the program, so that we can refactor it and avoid these situations. Let’s have a look at this example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoRefactor</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">sum1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">sum2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">array1</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">},</span> <span class="n">array2</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">8</span><span class="o">};</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array1</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">sum1</span> <span class="o">+=</span> <span class="n">array1</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">sum1</span><span class="o">/</span><span class="n">array1</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">sum2</span> <span class="o">+=</span> <span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">sum2</span><span class="o">/</span><span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The result is: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can easily find duplicated code in this example, so we can refactor it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Refactor</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculateResult</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span><span class="n">array</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+        <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sum</span><span class="o">/</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">array1</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">},</span> <span class="n">array2</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span><span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">8</span><span class="o">};</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">calculateResult</span><span class="o">(</span><span class="n">array1</span><span class="o">);</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">calculateResult</span><span class="o">(</span><span class="n">array2</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The result is: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now let’s have a look at this code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LongMethod</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[])</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">array</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+        <span class="nc">BufferedReader</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="c1">// Array initialization</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Enter value for array[%d]"</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="c1">// Sum of the array</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Sum: "</span><span class="o">);</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> 
+                <span class="o">(</span><span class="n">i</span><span class="o">==</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">?</span><span class="s">" "</span><span class="o">:</span><span class="s">"+ "</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"= "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">main</code> method is too large, and we can divide it into functions.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoLongMethod</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">initialize</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">array</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+        
+        <span class="nc">BufferedReader</span> <span class="n">input</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Enter value for array[%d]"</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">readLine</span><span class="o">());</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">array</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sumArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Sum: "</span><span class="o">);</span>
+
+        <span class="c1">// Sum of the array</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> 
+                <span class="o">(</span><span class="n">i</span><span class="o">==</span><span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">?</span><span class="s">" "</span><span class="o">:</span><span class="s">"+ "</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"= "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[])</span>
+    <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="n">initialize</span><span class="o">();</span>
+        <span class="n">sumArray</span><span class="o">(</span><span class="n">array</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="13-refactoring-in-intellij">1.3. Refactoring in IntelliJ</h4>
+
+<p>In <strong>IntelliJ</strong>, we can find a <em>Refactor</em> main menu with some options to refactor our code. Also, we can right click over any element of the code (variable, method, class name…) and choose <em>Refactor</em> option. With these options we can:</p>
+
+<ul>
+  <li><em>Refactor &gt; Rename</em>: Rename variables, classes, methods… and apply these changes to the whole code</li>
+  <li><em>Refactor &gt; Move</em>: Move classes/members from one package/class to another.</li>
+  <li><em>Refactor &gt; Introduce constant</em>: Convert a number or literal string into a constant.</li>
+  <li><em>Refactor &gt; Introduce field</em>: Transform a local variable into a private attribute of the class.</li>
+  <li><em>Refactor &gt; Extract interface</em>: Extract an interface from the methods of a class.</li>
+  <li><em>Refactor &gt; Extract superclass</em>: Extract a superclass with methods that will belong to this superclass.</li>
+  <li>…</li>
+</ul>
+
+<h3 id="2-design-patterns">2. Design patterns</h3>
+
+<p>There are some useful techniques that we can apply when we need to refactor our code: the design patterns. They are a repeteable solution for a problem in software design.</p>
+
+<p>The main advantages in using design patterns are:</p>
+
+<ul>
+  <li>They constitute a wide catalog of solutions to problems</li>
+  <li>They standardize how to resolve some given problems</li>
+  <li>They simplify the learning of good programming practices</li>
+  <li>They provide a common vocabulary among developers</li>
+  <li>They avoid reinventing the wheel</li>
+</ul>
+
+<h4 id="21-types-of-design-patterns">2.1. Types of design patterns</h4>
+
+<p>According to the purpose, we can divide design patterns into these categories:</p>
+
+<ul>
+  <li><strong>Creational patterns</strong>: They encapsulate the logic of the object instantiation, hiding the concrete details of every object. This way, we can just work with abstractions.</li>
+  <li><strong>Structural patterns</strong>: They help us define how objects are composed.</li>
+  <li><strong>Behavioral patterns</strong>: They help us define how objects interact between them.</li>
+</ul>
+
+<h4 id="22-factory-pattern">2.2. Factory Pattern</h4>
+
+<p><strong>Factory</strong> pattern is one of the most used patterns in Java. It is a creational pattern that provides one of the best ways of creating objects. Using this pattern lets us create objects without showing the logic of the creation to the user. We just use a common interface.</p>
+
+<p>For instance, let’s go back to the <em>Shapes</em> example of previous documents. We had a <em>Shape</em> interface that was implemented by some classes, such as <em>Circle</em>, <em>Square</em> or <em>Rectangle</em>. Whenever we wanted to create an object, we had to call a concrete constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Shape</span> <span class="n">myShape</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="nc">Shape</span> <span class="n">myShape2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Square</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">myShape</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>Therefore, developer must know the name of every class implementing <em>Shape</em> interface. But, if we use <em>Factory</em> pattern, we can encapsulate all the possible ways of creating a shape, so that we just need to specify which shape do we need, and the pattern will provide an instance of the concrete shape.</p>
+
+<p>First step is to define the <em>shape factory</em>. This typically consists in creating a new class with a static method which is in charge of creating the objects of a given class or class hierarchy. In our case, we define a static method to create <em>Shape</em> subtypes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShapeFactory</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Shape</span> <span class="nf">getShape</span><span class="o">(</span><span class="nc">ShapeType</span> <span class="n">type</span><span class="o">,</span> <span class="kt">float</span> <span class="n">param1</span><span class="o">,</span> <span class="kt">float</span> <span class="n">param2</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">ShapeType</span><span class="o">.</span><span class="na">CIRCLE</span><span class="o">){</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">Circle</span><span class="o">(</span><span class="n">param1</span><span class="o">);</span>            
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">ShapeType</span><span class="o">.</span><span class="na">RECTANGLE</span><span class="o">){</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">Rectangle</span><span class="o">(</span><span class="n">param1</span><span class="o">,</span><span class="n">param2</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">ShapeType</span><span class="o">.</span><span class="na">SQUARE</span><span class="o">){</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">Square</span><span class="o">(</span><span class="n">param1</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This way, if we want to create an instance of any shape, we just need to call this factory with the name of the shape we want to create, and its parameters</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Shape</span> <span class="n">shape1</span> <span class="o">=</span> <span class="nc">ShapeFactory</span><span class="o">.</span><span class="na">getShape</span><span class="o">(</span><span class="nc">ShapeType</span><span class="o">.</span><span class="na">CIRCLE</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+<span class="n">shape1</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">shape1</span><span class="o">.</span><span class="na">calculateArea</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>Regarding <code class="language-plaintext highlighter-rouge">ShapeType</code>, it’s just an enum where we can specify all the subtypes that we want to manage:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">ShapeType</span> <span class="o">{</span> <span class="no">CIRCLE</span><span class="o">,</span> <span class="no">SQUARE</span><span class="o">,</span> <span class="no">RECTANGLE</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>From the developer’s point of view, there’s only one class (or interface, in this case), which is “Shape”, and he doesn’t need to know anything about the rest of implementing classes. This design pattern is really useful when there is a complex class hierarchy with a common instantiation pattern (similar parameters), or a huge bunch of classes which are really similar and implement the same parent interface or abstract class, as we can see in the following example.</p>
+
+<p><em>We have a company that sells some products. We must apply the general VAT to some products, and a reduced VAT to some others. So we start by defining an abstract class called <code class="language-plaintext highlighter-rouge">Invoice</code> with two subclasses to represent these two types of VAT.</em></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Invoice</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">amount</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getAmount</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">amount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAmount</span><span class="o">(</span><span class="kt">double</span> <span class="n">amount</span><span class="o">)</span> 	
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">amount</span> <span class="o">=</span> <span class="n">amount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">double</span> <span class="nf">getAmountVAT</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>These are the subclasses:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InvoiceVAT</span> <span class="kd">extends</span> <span class="nc">Invoice</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getAmountVAT</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">getAmount</span><span class="o">()*</span><span class="mf">1.21</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InvoiceVATReduced</span> <span class="kd">extends</span> <span class="nc">Invoice</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getAmountVAT</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">getAmount</span><span class="o">()*</span><span class="mf">1.10</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This way, we can define an <code class="language-plaintext highlighter-rouge">InvoiceType</code> enum to identify the enum types:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">InvoiceType</span> <span class="o">{</span> <span class="no">NORMAL</span><span class="o">,</span> <span class="no">REDUCED</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>And also an <code class="language-plaintext highlighter-rouge">InvoiceFactory</code> class to create one of the invoice types depending on the parameters:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InvoiceFactory</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Invoice</span> <span class="nf">getInvoice</span><span class="o">(</span><span class="nc">InvoiceType</span> <span class="n">type</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">InvoiceType</span><span class="o">.</span><span class="na">NORMAL</span><span class="o">)</span>
+        <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">InvoiceVAT</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="nc">InvoiceType</span><span class="o">.</span><span class="na">REDUCED</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">InvoiceVATReduced</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Finally, we can use this factory to create the invoices:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Invoice</span> <span class="n">myInvoice</span> <span class="o">=</span> <span class="nc">FactoryInvoice</span><span class="o">.</span><span class="na">getInvoice</span><span class="o">(</span><span class="nc">InvoiceType</span><span class="o">.</span><span class="na">NORMAL</span><span class="o">);</span>
+<span class="nc">Invoice</span> <span class="n">myInvoiceRed</span> <span class="o">=</span> <span class="nc">FactoryInvoice</span><span class="o">.</span><span class="na">getInvoice</span><span class="o">(</span><span class="nc">InvoiceType</span><span class="o">.</span><span class="na">REDUCED</span><span class="o">);</span>
+
+<span class="n">myInvoice</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">myInvoice</span><span class="o">.</span><span class="na">setAmount</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+
+<span class="n">myInvoiceRed</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+<span class="n">myInvoiceRed</span><span class="o">.</span><span class="na">setAmount</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myInvoice</span><span class="o">.</span><span class="na">getAmountVAT</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myInvoiceRed</span><span class="o">.</span><span class="na">getAmountVAT</span><span class="o">());</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Implement the <em>Factory</em> pattern in the Exercise 6 of <a href="05e">this document</a> as we have shown in previous example and test it.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a new project called <strong>Invoices</strong> with the packages <code class="language-plaintext highlighter-rouge">invoices.types</code>  for the invoice types, and  <code class="language-plaintext highlighter-rouge">invoices.main</code> with the main class. Implement the classes of the invoices example above, and add a new type of invoice with a super-reduced VAT (4%).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Update the <em>Animals</em> project of Exercise 1 of <a href="05e">this document</a> and add an <em>animal factory</em> so that we no longer use the constructor of each animal type.</p>
+</blockquote>
+
+<h4 id="23-singleton-pattern">2.3. Singleton pattern</h4>
+
+<p>This pattern is also a creational pattern that lets us manage just one single object of a given class. It is commonly used in classes that store configuration parameters for a given application, so that there should only be one object of this type for the whole application, and this object must be shared among all the components of the application.</p>
+
+<p><em>Singleton</em> pattern consists in having a static instance of the class itself, which will be returned every time we ask for a new instance from every part of the code. There will also be a private constructor that will be called only once to create the static attribute the first time it is needed.</p>
+
+<p>For instance, if we have a class to count the total number of invoices:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InvoiceCounter</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">counter</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increaseCounter</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">counter</span><span class="o">++;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCounter</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">counter</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can add a (private) static attribute that points to the same class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="nc">InvoiceCounter</span> <span class="n">myCounter</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>And a private constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nf">InvoiceCounter</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In order to have an instance of this class, we need to add a public, static method, such as <em>getInstance</em> or, in this case, <em>getCounter</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">InvoiceCounter</span> <span class="nf">getInvoiceCounter</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">myCounter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">myCounter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InvoiceCounter</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">myCounter</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, there will only be one single instance of this object in the system. If we want to use it to deal with some invoices, we can do it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">InvoiceCounter</span> <span class="n">counter</span> <span class="o">=</span> <span class="nc">InvoiceCounter</span><span class="o">.</span><span class="na">getCounter</span><span class="o">();</span>
+    <span class="nc">Invoice</span> <span class="n">myInvoice</span> <span class="o">=</span> 
+        <span class="nc">InvoiceFactory</span><span class="o">.</span><span class="na">getInvoice</span><span class="o">(</span><span class="nc">InvoiceType</span><span class="o">.</span><span class="na">NORMAL</span><span class="o">);</span>
+    <span class="nc">Invoice</span> <span class="n">myInvoiceRed</span> <span class="o">=</span> 
+        <span class="nc">InvoiceFactory</span><span class="o">.</span><span class="na">getInvoice</span><span class="o">(</span><span class="nc">InvoiceType</span><span class="o">.</span><span class="na">REDUCED</span><span class="o">);</span>
+
+    <span class="n">counter</span><span class="o">.</span><span class="na">increaseCounter</span><span class="o">();</span>
+    <span class="n">myInvoice</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">getCounter</span><span class="o">());</span>
+    <span class="n">myInvoice</span><span class="o">.</span><span class="na">setAmount</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+
+    <span class="n">counter</span><span class="o">.</span><span class="na">increaseCounter</span><span class="o">();</span>
+    <span class="n">myInvoiceRed</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">counter</span><span class="o">.</span><span class="na">getCounter</span><span class="o">());</span>
+    <span class="n">myInvoiceRed</span><span class="o">.</span><span class="na">setAmount</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myInvoice</span><span class="o">.</span><span class="na">getAmountVAT</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myInvoiceRed</span><span class="o">.</span><span class="na">getAmountVAT</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Add the <code class="language-plaintext highlighter-rouge">InvoiceCounter</code> class to the <em>Invoices</em> project started in previous exercises. Make the appropriate changes to automatically increase the invoice counter as soon as we instantiate a new invoice from <code class="language-plaintext highlighter-rouge">InvoiceFactory</code>, so we don’t need to increase it manually from the <em>main</em> method, as we did in previous example.</p>
+</blockquote>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

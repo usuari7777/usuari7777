@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Posicionamiento | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Posicionamiento" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/03b.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Posicionamiento" />
+<script type="application/ld+json">
+{"headline":"Posicionamiento","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/03b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="posicionamiento">Posicionamiento</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>En este documento vamos a ver qué propiedades tienen los elementos CSS para definir su posicionamiento en las páginas y distancia respecto al resto, así como las estrategias que podemos aplicar para establecer la ubicación o posición de los distintos componentes de la página.</p>
+
+<h2 id="1-el-modelo-de-cajas-css">1. El modelo de cajas CSS</h2>
+
+<p>El modelo de cajas en CSS es uno de los aspectos más complicados de dominar, pero que más versatilidad puede dar a nuestras webs. Este modelo se basa en que cada elemento de un documento HTML (cada párrafo, <em>h1</em>, <em>div</em>, etc, incluso elementos en línea como negritas o <em>spans</em>) tiene una caja, un rectángulo que lo engloba y lo separa del resto.</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_cajas.png" width="70%" />
+</div>
+
+<p>Así, CSS permite definir las características de cada una de estas cajas (altura, anchura, posición, color…). Para ello, hemos de tener en cuenta que cada caja se compone de ciertos elementos:</p>
+
+<ul>
+  <li>El <strong>contenido</strong> HTML que tenga</li>
+  <li>El <strong>borde</strong>, un recuadro (visible o no) que encierra al contenido</li>
+  <li>El <strong>relleno o <em>padding</em></strong>, que es el espacio entre el contenido y el borde</li>
+  <li>El <strong>margen (margin)</strong>, que es el espacio entre la caja y otras cajas adyacentes.</li>
+  <li>El tamaño de la caja (<strong>anchura y altura</strong>)</li>
+  <li>El <strong>color de fondo</strong> del elemento. Alternativamente, también se puede definir una imagen de fondo con la propiedad <em>background-image</em>, que se superpone al color de fondo.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/03_modelo_cajas.png" width="70%" />
+</div>
+
+<h2 id="2-cambiando-algunas-propiedades-básicas">2. Cambiando algunas propiedades básicas</h2>
+
+<p>Veamos a continuación cómo definir ciertas propiedades básicas de las vistas anteriormente, tales como márgenes, rellenos, bordes, etc.</p>
+
+<h3 id="21-definiendo-los-márgenes">2.1. Definiendo los márgenes</h3>
+
+<p>Para definir márgenes, podemos usar la propiedad <code class="language-plaintext highlighter-rouge">margin</code> y definir separados por espacios los márgenes de los 4 lados, en el orden <em>arriba</em>, <em>derecha</em>, <em>abajo</em>, <em>izquierda</em>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">p</span>
+<span class="p">{</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span> <span class="m">5px</span> <span class="m">2px</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también podemos usar las propiedades <code class="language-plaintext highlighter-rouge">margin-top</code>, <code class="language-plaintext highlighter-rouge">margin-right</code>, <code class="language-plaintext highlighter-rouge">margin-bottom</code> y <code class="language-plaintext highlighter-rouge">margin-left</code> y definir cada margen por separado. Estas regla sería equivalente a la anterior:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">p</span>
+<span class="p">{</span>
+    <span class="nl">margin-top</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">margin-right</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span>
+    <span class="nl">margin-left</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si en la propiedad <code class="language-plaintext highlighter-rouge">margin</code> usamos un solo valor, los 4 márgenes toman ese mismo valor. Si usamos dos valores, el primero se aplica arriba y abajo, y el segundo a izquierda y derecha. Si usamos tres valores, el primero es para arriba, el segundo para izquierda y derecha, y el tercero para abajo.</p>
+
+<h3 id="22-definiendo-el-relleno-o-padding">2.2. Definiendo el relleno o <em>padding</em></h3>
+
+<p>Del mismo modo, podemos emplear la propiedad <code class="language-plaintext highlighter-rouge">padding</code> para definir la distancia de relleno interior del elemento (usando los mismos valores y en el mismo orden que <em>margin</em>), y también podemos optar por especificar los cuatro rellenos por separado con <code class="language-plaintext highlighter-rouge">padding-top</code>, <code class="language-plaintext highlighter-rouge">padding-bottom</code>, <code class="language-plaintext highlighter-rouge">padding-left</code> y <code class="language-plaintext highlighter-rouge">padding-right</code>.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span>
+<span class="p">{</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span> <span class="m">20px</span> <span class="m">5px</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="23-definiendo-los-bordes">2.3. Definiendo los bordes</h3>
+
+<p>Para el borde, podemos modificar varias propiedades del mismo: su estilo (simple, doble, punteado, etc.), su color, su grosor, su radio… Para ello, tenemos las propiedades <code class="language-plaintext highlighter-rouge">border-style</code>, <code class="language-plaintext highlighter-rouge">border-color</code>, <code class="language-plaintext highlighter-rouge">border-width</code> y <code class="language-plaintext highlighter-rouge">border-radius</code>, respectivamente.</p>
+
+<p>Entre los estilos más utilizados está el simple continuo (<em>solid</em>), el doble (<em>double</em>), el punteado (<em>dotted</em>) o ninguno (<em>none</em>, valor por defecto). Por ejemplo, para un borde de un <em>h1</em> de color rojo y trazo doble, con grosor de 5 píxeles, pondríamos:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span> <span class="p">{</span> <span class="nl">border-style</span><span class="p">:</span> <span class="nb">double</span><span class="p">;</span> <span class="nl">border-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span> <span class="nl">border-width</span><span class="p">:</span> <span class="m">5px</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Podemos definir estilos de borde para cada lado, colocando el lado en medio de la propiedad. Por ejemplo, para modificar el color del borde inferior, pondríamos <code class="language-plaintext highlighter-rouge">border-bottom-color</code>, y para cambiar el grosor del borde derecho, pondríamos <code class="language-plaintext highlighter-rouge">border-right-width</code>. Así, el siguiente ejemplo establece un borde inferior y derecho simple, de color azul y 2 píxeles de grosor:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span> 
+<span class="p">{</span> 
+    <span class="nl">border-bottom-style</span><span class="p">:</span> <span class="nb">solid</span><span class="p">;</span> <span class="nl">border-right-style</span><span class="p">:</span> <span class="nb">solid</span><span class="p">;</span> 
+    <span class="nl">border-bottom-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span> <span class="nl">border-right-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">border-bottom-width</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span> <span class="nl">border-right-width</span><span class="p">:</span> <span class="m">2px</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>También podemos usar las propiedades <code class="language-plaintext highlighter-rouge">border-top</code>, <code class="language-plaintext highlighter-rouge">border-bottom</code>, <code class="language-plaintext highlighter-rouge">border-left</code> y/o <code class="language-plaintext highlighter-rouge">border-right</code> (e incluso la propiedad <code class="language-plaintext highlighter-rouge">border</code> a secas) y definirles sus tres propiedades (estilo, grosor y color) separadas por espacios:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span> <span class="p">{</span> <span class="nl">border-bottom</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">2px</span> <span class="no">blue</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>En lo que respecta al radio del borde, desde CSS3 se permite definir bordes redondeados dotándoles de un radio de circunferencia. Un valor de 0 dejaría un borde cuadrado, y cuanto mayor valor le demos, más redondeado será dicho borde. Podemos aplicar el radio a todos los bordes del elemento, o a alguno(s) en concreto:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* Borde superior izq, superior der, inferior izq, inferior der */</span>
+<span class="nt">h1</span> <span class="p">{</span> <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span> <span class="m">5px</span> <span class="m">10px</span> <span class="m">10px</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c">/* Mismo radio en todos los bordes */</span>
+<span class="nt">p</span> <span class="p">{</span> <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="24-definiendo-el-fondo">2.4. Definiendo el fondo</h3>
+
+<p>Ya hemos visto anteriormente que la propiedad <code class="language-plaintext highlighter-rouge">background-color</code> define el color de fondo del elemento sobre el que se aplica, y que dicho color lo podemos expresar como un color simple en inglés o en formato RGB (decimal o hexadecimal):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">p</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="err">#</span><span class="m">#12FF3A</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Adicionalmente, podemos indicar una imagen de fondo para el elemento mediante la propiedad <code class="language-plaintext highlighter-rouge">background-image</code>. En este caso indicamos la ruta relativa desde la carpeta principal de la aplicación web:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> <span class="p">{</span> <span class="nl">background-image</span><span class="p">:</span> <span class="sx">url("imagenes/foto.png")</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esta imagen se pondrá por encima del color de fondo que haya definido, si hay alguno. Si la imagen no es lo suficientemente grande como para abarcar todo el elemento, podemos indicar que se repita vertical u horizontalmente añadiendo la propiedad <code class="language-plaintext highlighter-rouge">background-repeat</code>, que puede valer <em>repeat-x</em> (repetir horizontalmente), <em>repeat-y</em> (repetir verticalmente), <em>repeat</em> (repetir en todas direcciones) o <em>no-repeat</em> (no repetir, valor por defecto)</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">background-image</span><span class="p">:</span> <span class="sx">url("imagenes/foto.png")</span><span class="p">;</span> 
+    <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">repeat-x</span><span class="p">:</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="25-definiendo-el-tamaño">2.5. Definiendo el tamaño</h3>
+
+<p>Finalmente, podemos cambiar el tamaño de la caja modificando sus dimensiones (anchura y altura) con las propiedades <code class="language-plaintext highlighter-rouge">width</code> y <code class="language-plaintext highlighter-rouge">height</code>, utilizando el tipo de medida que queramos (normalmente, porcentajes o píxeles).</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span> <span class="p">{</span> <span class="nl">width</span><span class="p">:</span> <span class="m">70%</span><span class="p">;</span> <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>También existen las propiedades <code class="language-plaintext highlighter-rouge">max-width</code>, <code class="language-plaintext highlighter-rouge">min-width</code>, <code class="language-plaintext highlighter-rouge">max-height</code> y <code class="language-plaintext highlighter-rouge">min-height</code> para establecer unos rangos de anchura y altura variables.</p>
+
+<blockquote>
+  <p><strong>NOTA IMPORTANTE</strong>: cuando definimos el tamaño (<em>width</em> y <em>height</em>) de un elemento, este tamaño se define sin contar el tamaño del posible borde ni del <em>padding</em>. Si añadimos después estas propiedades al elemento, las dimensiones de las mismas se añaden al tamaño inicial.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea un documento llamado <strong>cajasCSS.html</strong> que, a través de un documento CSS externo, defina un selector de clase llamado <em>caja</em>, con los siguientes estilos para una caja:</p>
+
+  <ul>
+    <li>Margen izquierdo y derecho del 20%, superior de 30 píxeles e inferior de 0</li>
+    <li>Relleno (<em>padding</em>) de 10 píxeles a cada lado</li>
+    <li>Borde superior rojo de 4 píxeles de grosor, derecho azul de 6 píxeles e inferior verde de 2 píxeles, todos con estilo sólido.</li>
+    <li>Color de fondo amarillo</li>
+  </ul>
+
+  <p>Finalmente, crea un párrafo (más o menos largo, de unas 3 o 4 líneas al menos) y aplícale este estilo.</p>
+</blockquote>
+
+<h2 id="3-posicionando-los-elementos">3. Posicionando los elementos</h2>
+
+<p>Existen diferentes alternativas para definir la posición de un elemento en una página. Aquí vamos a analizar dos de ellas. La primera viene incorporada desde CSS2, aunque ya está más en desuso, y consiste en definir el tipo de posicionamiento de cada elemento, junto con su tamaño (anchura y/o altura) para que se ubique respecto al resto. La segunda alternativa, más reciente, consiste en tratar la página como una rejilla (<em>grid</em>) de casillas, y definir qué casillas queremos que ocupe cada elemento.</p>
+
+<h3 id="31-posicionamiento-css2">3.1. Posicionamiento CSS2</h3>
+
+<p>A la hora de colocar cada una de las cajas (elementos HTML) en la página, el navegador sigue una serie de pautas, según las características de cada caja y el estilo que tenga configurado en el CSS. Existen diferentes tipos de posicionamiento:</p>
+
+<ul>
+  <li><strong>Normal</strong>: el que utiliza el navegador por defecto, si no se le indica lo contrario en el CSS. Depende de las características de cada caja (si es un elemento en línea o de bloque, si su tamaño permite tener otro elemento al lado, el posicionamiento que tiene el elemento que lo contiene, etc.)</li>
+  <li><strong>Relativo</strong>: se desplaza la caja respecto a lo que sería su posicionamiento normal</li>
+  <li><strong>Absoluto</strong>: la caja se sitúa en una posición absoluta respecto de su elemento contenedor</li>
+  <li><strong>Fijo</strong>: la caja se sitúa en una posición fija en pantalla, independientemente de si el usuario sube o baja la página.</li>
+  <li><strong>Flotante</strong>: la caja se sitúa todo lo posible a la izquierda o derecha, dentro de la línea horizontal en que se encuentra.</li>
+</ul>
+
+<p>El tipo de posicionamiento se establece con la propiedad <code class="language-plaintext highlighter-rouge">position</code>, que puede valer cualquiera de los tipos anteriores, salvo el flotante: <code class="language-plaintext highlighter-rouge">static</code> (normal), <code class="language-plaintext highlighter-rouge">relative</code>, <code class="language-plaintext highlighter-rouge">absolute</code> o <code class="language-plaintext highlighter-rouge">fixed</code>. Por ejemplo, la siguiente caja tiene un posicionamiento relativo 20 píxeles por debajo y 10 píxeles más a la derecha de su posicionamiento normal:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> <span class="p">{</span> <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span> <span class="nl">top</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span> <span class="nl">left</span><span class="p">:</span> <span class="m">10px</span> <span class="p">}</span> 
+</code></pre></div></div>
+
+<p>En el caso del posicionamiento flotante, se especifica con la propiedad <code class="language-plaintext highlighter-rouge">float</code>, que puede valer <code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code> o <code class="language-plaintext highlighter-rouge">none</code>.</p>
+
+<ul>
+  <li>Si no existe ningún tipo de posicionamiento flotante, las cajas se posicionan según su configuración natural. Así, los elementos de bloque, como <em>h1</em>, <em>p</em>, <em>div</em>, etc., se posicionan uno debajo del otro.</li>
+  <li>Si algún elemento tiene posicionamiento flotante a izquierda o derecha, queda alineado a la izquierda o derecha de la línea que ocupa. Si son varios los que tienen ese mismo posicionamiento, quedan colocados uno junto a otro, dependiendo de la anchura que ocupe cada uno, hasta completar la línea (se continúa en la siguiente línea si no hay más espacio).</li>
+</ul>
+
+<p>Veamos algunos ejemplos:</p>
+
+<p><strong>Caso 1: sin posicionamiento</strong></p>
+
+<p>En este caso no se indica posicionamiento en ninguna de las cajas, por lo que se colocan una debajo de la otra, aunque quepan juntas en la misma línea, porque son elementos en bloque (<em>div</em>).</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#caja1</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja2</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_ejemplofloat1.png" />
+</div>
+
+<p><strong>Caso 2: posicionamiento izquierda y derecha</strong></p>
+
+<p>En este caso la <em>caja2</em> tiene un posicionamiento flotante a la derecha y la <em>caja1</em> a la izquierda.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#caja1</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja2</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_ejemplofloat2.png" />
+</div>
+
+<p><strong>Caso 3: posicionamiento derecha</strong></p>
+
+<p>Ahora ambas cajas tienen posicionamiento a la derecha, por lo que, si caben, aparecen una junto a otra. El orden en que aparecen dependerá del orden en que se añadan en el documento HTML. En este ejemplo, se habría añadido primero la <em>caja2</em> y luego la <em>caja1</em>.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#caja1</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja2</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_ejemplofloat3.png" />
+</div>
+
+<p><strong>Caso 4: posicionamiento fijo</strong></p>
+
+<p>En este caso la <em>caja1</em> tiene un posicionamiento fijo, a 50px del borde superior y otros 50px del borde derecho. Si primero colocamos la <em>caja2</em> con posicionamiento flotante derecha y luego la <em>caja1</em>, ésta se superpondrá parcialmente a la <em>caja2</em>, al compartir un espacio común por su posicionamiento fijo.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#caja1</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+    <span class="nl">right</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja2</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span><span class="nb">center</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+    <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_ejemplofloat4.png" />
+</div>
+
+<p><strong>Caso 5: posicionamiento izquierdo excluyente</strong></p>
+
+<p>En el caso de que necesitemos que una caja quede pegada al borde izquierdo o derecho y que ninguna caja le “moleste” para colocarse allí, podemos limpiar la línea con la propiedad <code class="language-plaintext highlighter-rouge">clear</code>, que puede valer <code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code> o <code class="language-plaintext highlighter-rouge">both</code>, dependiendo de a qué lado queramos ajustar las cajas. Por ejemplo, en el siguiente caso, si queremos que la caja 3 quede ajustada al margen izquierdo, le pondríamos en su estilo:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.caja1</span> <span class="p">{</span> <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.caja2</span> <span class="p">{</span> <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.caja3</span> <span class="p">{</span> <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span> <span class="nl">clear</span><span class="p">:</span><span class="nb">left</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_ejemplofloat5.png" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea un documento HTML llamado <strong>cajas.html</strong>. Dentro, crea tres cajas (tres div) y, con estilos CSS cargados de un documento aparte llamado <strong>estilos.css</strong>, haz que:</p>
+
+  <ul>
+    <li>La primera caja tenga color de fondo azul, borde gris continuo de 2 píxeles de grosor por todo el contorno y margen derecho e inferior de 10 píxeles. Debe tener una anchura (<em>width</em>) del 50% y una altura (<em>height</em>) de 100 píxeles.</li>
+    <li>La segunda caja tenga color de fondo amarillo claro, sin borde. Debe tener una anchura del 20% y una altura de 50 píxeles.</li>
+    <li>La tercera caja debe tener color de fondo rojo claro, con borde negro doble de 1 píxel de grosor. Debe tener una anchura del 20% y una altura de 50 píxeles.</li>
+    <li>Las tres cajas deben tener un posicionamiento flotante a la izquierda, pero la tercera debe tener una propiedad <code class="language-plaintext highlighter-rouge">clear</code> para estar alineada con el margen izquierdo.</li>
+  </ul>
+
+  <p>Al final, debe quedarte algo parecido a esto (aunque con otras proporciones seguramente):</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejerciciofloat.png" />
+</div>
+
+<p>Prueba a cambiar el tamaño de la ventana para comprobar cómo se ajusta la anchura de las cajas al nuevo tamaño.</p>
+
+<h4 id="311-otros-parámetros-de-posición">3.1.1. Otros parámetros de posición</h4>
+
+<p>Podemos utilizar las propiedades <code class="language-plaintext highlighter-rouge">top</code>, <code class="language-plaintext highlighter-rouge">bottom</code>, <code class="language-plaintext highlighter-rouge">left</code> y/o <code class="language-plaintext highlighter-rouge">right</code> para indicar una distancia respecto a los cuatro bordes de la página. Por ejemplo, el siguiente <em>div</em> queda posicionado justo en la esquina inferior izquierda:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span>
+<span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+    <span class="nl">bottom</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="32-posicionamiento-con-rejilla-grid">3.2. Posicionamiento con rejilla (<em>grid</em>)</h3>
+
+<p>El modo de posicionamiento anterior ha sido muy utilizado durante muchos años, pero tiene el inconveniente de su complejidad: hay que ajustar bien las dimensiones y el posicionamiento de las cajas para evitar que se nos descuadren en una web.</p>
+
+<p>Como alternativa, desde hace unos pocos años, se ha implantado un sistema de posicionamiento CSS basado en una rejilla. Esto, junto con otras herramientas CSS que han surgido en los últimos años como Flexbox, permite colocar los componentes de la página de una forma más flexible y limpia.</p>
+
+<p><strong>Estructura del documento</strong></p>
+
+<p>Para empezar a trabajar con CSS Grid, debemos ubicar todos los elementos que queramos posicionar dentro de un elemento contenedor, que puede ser un <em>div</em>, o un <em>section</em>, por ejemplo. A este elemento contenedor lo identificamos con una clase (<em>class</em>) o con un <em>id</em>, si va a ser único en la página.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"contenedor"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"elemento1"</span><span class="nt">&gt;</span>Uno<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"elemento2"</span><span class="nt">&gt;</span>Dos<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"elemento3"</span><span class="nt">&gt;</span>Tres<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"elemento4"</span><span class="nt">&gt;</span>Cuatro<span class="nt">&lt;/div&gt;</span>
+    ...
+<span class="nt">&lt;/section&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Configuración de la rejilla</strong></p>
+
+<p>Después, debemos activar <em>grid</em> en el elemento contenedor. Para ello, haremos uso de una propiedad llamada <code class="language-plaintext highlighter-rouge">display</code>, y le pondremos el valor de <em>grid</em>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#contenedor</span>
+<span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">grid</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para establecer el tamaño o número de celdas de la rejilla podemos hacer uso de las siguientes propiedades CSS:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">grid-template-columns</code>: indicamos, separados por espacios, los tamaños de cada columna de la rejilla. Podemos utilizar las unidades habituales (porcentajes, píxeles, etc) o utilizar una unidad propia de CSS Grid llamada <code class="language-plaintext highlighter-rouge">fr</code> (<em>fraction</em>), que se refiere a fracciones del espacio disponible. Así, una columna de <em>2fr</em> será el doble de ancha que una columna de <em>1fr</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">grid-template-rows</code>: indicamos, separados por espacios, los tamaños de cada fila de la rejilla. Aquí la unidad <em>fr</em> ya no se utiliza, porque el alto disponible no está delimitado, y solemos echar mano de alturas en píxeles o de alturas de ajuste automático al contenido (<em>auto</em>).</li>
+</ul>
+
+<p>Por ejemplo, así establecemos una rejilla de 3 columnas y 2 filas en el contenedor. La columna central será el doble de ancha que el resto. La primera fila tiene una altura fija de 50 píxeles, y la segunda tiene un ajuste automático al contenido.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#contenedor</span>
+<span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">grid</span><span class="p">;</span>
+    <span class="py">grid-template-columns</span><span class="p">:</span> <span class="m">1</span><span class="n">fr</span> <span class="m">2</span><span class="n">fr</span> <span class="m">1</span><span class="n">fr</span><span class="p">;</span>
+    <span class="py">grid-template-rows</span><span class="p">:</span> <span class="m">50px</span> <span class="nb">auto</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div></div>
+
+<p>El espaciado entre celdas lo podemos definir con la propiedad <code class="language-plaintext highlighter-rouge">gap</code>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#contenedor</span>
+<span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">grid</span><span class="p">;</span>
+    <span class="py">grid-template-columns</span><span class="p">:</span> <span class="m">1</span><span class="n">fr</span> <span class="m">2</span><span class="n">fr</span> <span class="m">1</span><span class="n">fr</span><span class="p">;</span>
+    <span class="py">grid-template-rows</span><span class="p">:</span> <span class="m">50px</span> <span class="nb">auto</span><span class="p">;</span>
+    <span class="py">gap</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notar que las anchuras y alturas también pueden darse en otras unidades, como indicábamos. Por ejemplo, las tres columnas del ejemplo anterior también podríamos definirlas así:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#contenedor</span>
+<span class="p">{</span>
+    <span class="err">...</span>
+    <span class="py">grid-template-columns</span><span class="p">:</span> <span class="m">25%</span> <span class="m">50%</span> <span class="m">25%</span><span class="p">;</span>
+    <span class="err">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Ubicar elementos en la rejilla</strong></p>
+
+<p>Si no indicamos en CSS la ubicación de cada elemento, éstos se colocarán por defecto de izquierda a derecha y de arriba a abajo, ocupando cada uno una celda de la rejilla. Alternativamente, podemos utilizar propiedades como <code class="language-plaintext highlighter-rouge">grid-row-start</code>, <code class="language-plaintext highlighter-rouge">grid-row-end</code>, <code class="language-plaintext highlighter-rouge">grid-column-start</code> y <code class="language-plaintext highlighter-rouge">grid-column-end</code> para ubicar cada elemento en la rejilla. Las filas y columnas de fin (<em>grid-row-end</em> y <em>grid-column-end</em>) indicadas quedarían sin ocupar. Por ejemplo, de este modo indicamos que el primer elemento ocupe la primera casilla de la rejilla en las dos primeras filas, y el segundo elemento ocupe las otras dos casillas de la primera fila:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#elemento1</span>
+<span class="p">{</span>
+    <span class="py">grid-row-start</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="py">grid-row-end</span><span class="p">:</span> <span class="m">3</span><span class="p">;</span>
+    <span class="py">grid-column-start</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="py">grid-column-end</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#elemento2</span>
+<span class="p">{</span>
+    <span class="py">grid-row-start</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="py">grid-row-end</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+    <span class="py">grid-column-start</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+    <span class="py">grid-column-end</span><span class="p">:</span> <span class="m">4</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como alternativa, podemos utilizar la notación <em>X / Y</em> para indicar, con las propiedades <code class="language-plaintext highlighter-rouge">grid-row</code> y <code class="language-plaintext highlighter-rouge">grid-column</code> la posición del elemento. En este caso <em>X</em> hace referencia a la fila o columna de inicio (inclusive), e <em>Y</em> hace referencia a la fila o columna de fin (exclusive). Si sólo se ocupa una fila o una columna, el elemento <em>Y</em> puede omitirse. El siguiente fragmento CSS sería equivalente al anterior:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#elemento1</span>
+<span class="p">{</span>
+    <span class="nl">grid-row</span><span class="p">:</span> <span class="m">1</span> <span class="p">/</span> <span class="m">3</span><span class="p">;</span>
+    <span class="nl">grid-column</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#elemento2</span>
+<span class="p">{</span>
+    <span class="nl">grid-row</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">grid-column</span><span class="p">:</span> <span class="m">2</span> <span class="p">/</span> <span class="m">4</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Así quedarían ubicados los elementos anteriores en la rejilla definida (los marcamos con fondo azul para identificarlos mejor). Notar como los elementos “Tres” y “Cuatro” simplemente ocupan una casilla cada uno, a continuación de los anteriores, ya que para ellos no hemos definido ninguna disposición.</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_grid.png" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea un documento HTML llamado <strong>ofertas.html</strong>, y trata de simular esta apariencia usando CSS Grid, bordes y otras propiedades CSS que hemos estado viendo hasta ahora:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_grid.png" width="90%" />
+</div>
+
+<blockquote>
+  <p>Algunas pistas:</p>
+
+  <ul>
+    <li>La página tiene un margen lateral del 20% a cada lado, y fuente Arial en todo el documento</li>
+    <li>El color empleado para los bordes, el anuncio de prueba de versión profesional y los precios es azul (<em>blue</em>).</li>
+  </ul>
+</blockquote>
+
+<h3 id="33-la-propiedad-display">3.3. La propiedad <em>display</em></h3>
+
+<p>Hemos utilizado en algún ejemplo anterior una propiedad CSS llamada <code class="language-plaintext highlighter-rouge">display</code>. Mediante esta propiedad podemos determinar cómo queremos que se disponga un elemento en una página. Algunos de los valores más habituales que podemos darle son:</p>
+
+<ul>
+  <li><strong>block</strong>: queremos que el elemento se comporte como un elemento en bloque. Este valor es útil cuando el elemento no es un elemento en bloque (por ejemplo, un enlace, o una imagen) y queremos que se comporte como tal</li>
+  <li><strong>inline</strong>: queremos que se comporte como un elemento en línea. Al contrario que el anterior, esta opción puede resultar útil para hacer que elementos en bloque (como párrafos, o items de listas) se comporten como elementos en línea. Veremos un ejemplo a continuación.</li>
+  <li><strong>inline-block</strong>: es una mezcla de las dos anteriores. Permite a un elemento en bloque comportarse como un elemento en línea, pero conservando algunas propiedades de elemento en bloque, como por ejemplo, y sobre todo, la posibilidad de definir su anchura y altura.</li>
+  <li><strong>none</strong>: oculta el elemento en la página</li>
+  <li><strong>hidden</strong>: similar al anterior, pero el elemento sigue conservando su espacio (no se ve, pero se mantiene el espacio que ocupa)</li>
+  <li><strong>grid</strong>: para definir rejillas CSS con sus diferentes filas y columnas, como hemos visto en un ejemplo anterior.</li>
+</ul>
+
+<h2 id="4-estilos-para-listas">4. Estilos para listas</h2>
+
+<p>Ya hemos visto en documentos anteriores que existen diferentes tipos de listas HTML (ordenadas, no ordenadas y de definición) y que las etiquetas disponen de una serie de atributos para, por ejemplo, elegir el tipo de numeración (letras, números romanos, etc), el número de comienzo, tipo de viñeta, etc.</p>
+
+<p>Mediante CSS podemos aplicar los estilos generales que hemos visto hasta ahora para texto y párrafo (tipo de letra, interlineado, etc), pero también existen una serie de propiedades específicas para el estilo de las listas en sí.</p>
+
+<p><code class="language-plaintext highlighter-rouge">list-stype-type</code></p>
+
+<p>Esta propiedad permite elegir el tipo de viñeta (listas no ordenadas) o numeración (listas ordenadas) que aplicar en las listas. Sería la alternativa al atributo <code class="language-plaintext highlighter-rouge">type</code> en las etiquetas <code class="language-plaintext highlighter-rouge">ol</code> o <code class="language-plaintext highlighter-rouge">ul</code>.</p>
+
+<p>En el caso de listas no ordenadas, algunos de los valores posibles son <em>disc</em>, <em>circle</em>, <em>square</em>… Para las listas ordenadas, podemos elegir entre numeración normal (<em>decimal</em>), romanos en minúscula (<em>lower-roman</em>), en mayúscula (<em>upper-roman</em>), letras en minúscula (<em>lower-alpha</em>), mayúscula (<em>upper-alpha</em>), etc. <a href="https://www.w3schools.com/cssref/pr_list-style-type.asp">Aquí</a> podéis encontrar información más detallada sobre los valores de esta propiedad.</p>
+
+<p>En este ejemplo, definimos que las listas ordenadas estarán definidas por números romanos en mayúscula:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">ol</span>
+<span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">upper-roman</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">list-style-position</code></p>
+
+<p>Esta propiedad define la posición de la viñeta (o numeración) respecto al contenido del ítem. Sus valores pueden ser <em>inside</em> (la viñeta o numeración se añade junto al contenido del ítem, lo que provoca que todo quede alineado a la izquierda), o <em>outside</em> (la viñeta o numeración queda fuera del ítem, con lo que las viñetas se alinean por su cuenta, y los items por la suya. Es el valor por defecto).</p>
+
+<p>Por ejemplo, esta lista ordenada con números romanos queda definida con posición <em>inside</em>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">ol</span>
+<span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">upper-roman</span><span class="p">;</span>
+    <span class="nl">list-style-position</span><span class="p">:</span> <span class="nb">inside</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">...</span>
+
+<span class="o">&lt;</span><span class="nt">ol</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">Uno</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">Este</span> <span class="nt">es</span> <span class="nt">el</span> <span class="nt">dos</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">Este</span> <span class="nt">el</span> <span class="nt">tres</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nt">li</span><span class="o">&gt;</span><span class="nt">Y</span><span class="o">,</span> <span class="nt">para</span> <span class="nt">finalizar</span><span class="o">,</span> <span class="nt">este</span> <span class="nt">es</span> <span class="nt">el</span> <span class="nt">cuatro</span><span class="o">&lt;/</span><span class="nt">li</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nt">ol</span><span class="o">&gt;</span>
+
+</code></pre></div></div>
+
+<p>Obtendríamos este resultado:</p>
+
+<ol style="list-style-type:upper-roman;list-style-position:inside;">
+    <li>Uno</li>
+    <li>Este es el dos</li>
+    <li>Este el tres</li>
+    <li>Y, para finalizar, este es el cuatro</li>
+</ol>
+
+<p>En cambio, si la definimos con posición <em>outside</em> (o no indicamos posición)…</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">ol</span>
+<span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">upper-roman</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>… obtendríamos este otro resultado:</p>
+
+<ol style="list-style-type:upper-roman;">
+    <li>Uno</li>
+    <li>Este es el dos</li>
+    <li>Este el tres</li>
+    <li>Y, para finalizar, este es el cuatro</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">list-style-image</code></p>
+
+<p>Esta propiedad permite definir nuestra propia imagen como viñeta, y utilizarla en listas no ordenadas.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">ul</span>
+<span class="p">{</span>
+    <span class="nl">list-style-image</span><span class="p">:</span> <span class="sx">url("imagenes/estrella.svg")</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Sin embargo, la propiedad está algo limitada en algunos aspectos. Por ejemplo, no podemos controlar el tamaño de la imagen a mostrar (tendríamos que guardarla ya escalada al tamaño que queramos mostrar), y tampoco podríamos controlar su posición. Como alternativa, podemos definir un estilo de viñeta nulo (<em>none</em>) sobre la lista en general, y poner un estilo sobre cada item de la lista (<em>li</em>) indicando que queremos ponerle una imagen de fondo sin repetir, que hará de viñeta. En este caso, podemos especificar la posición y tamaño de la imagen. Por ejemplo:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">ul</span>
+<span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> 
+<span class="p">{</span>
+    <span class="nl">padding-left</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">background-image</span><span class="p">:</span> <span class="sx">url("imagenes/estrella.svg")</span><span class="p">;</span>
+    <span class="nl">background-position</span><span class="p">:</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">background-size</span><span class="p">:</span> <span class="m">1.6rem</span> <span class="m">1.6rem</span><span class="p">;</span>
+    <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">no-repeat</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="41-listas-y-posicionamiento">4.1. Listas y posicionamiento</h3>
+
+<p>Es muy habitual utilizar listas para definir los elementos de un menú de navegación (dentro de una etiqueta <code class="language-plaintext highlighter-rouge">nav</code>, por ejemplo). En este caso, los elementos suelen estar adyacentes, uno junto a otro. Pero, como hemos visto, las listas son elementos de bloque, en las que, por defecto, los ítems se colocan uno debajo del otro. Sin embargo, podemos utilizar la propiedad <code class="language-plaintext highlighter-rouge">display</code> de los items de la lista para indicar que queremos que se comporten como elementos en línea. Además, podemos definir la propiedad <code class="language-plaintext highlighter-rouge">list-style-type</code> como <code class="language-plaintext highlighter-rouge">none</code> para que no tengan ningún tipo de viñeta. Uniendo ambas cosas, podemos definir un menú de navegación horizontal. Aquí vemos un ejemplo:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">nav</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#CCC</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">ul</span><span class="nc">.navegacion</span>
+<span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">ul</span><span class="nc">.navegacion</span> <span class="nt">li</span>
+<span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nb">inline</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y lo podríamos aplicar de este modo a una lista en una barra de navegación:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"navegacion"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Inicio<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Preguntas frecuentes<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Tienda online<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Contacto<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;nav&gt;</span>
+</code></pre></div></div>
+
+<p>El resultado sería algo así:</p>
+
+<nav style="background-color:#CCC;">
+    <ul class="navegacion" style="list-style-type:none;text-align:center;">
+        <li style="margin:20px;display:inline;">Inicio</li>
+        <li style="margin:20px;display:inline;">Preguntas frecuentes</li>
+        <li style="margin:20px;display:inline;">Tienda online</li>
+        <li style="margin:20px;display:inline;">Contacto</li>
+    </ul>
+</nav>
+
+<blockquote>
+  <p><strong>Ejercicio 4</strong></p>
+
+  <p>En <a href="../../resources/UD3_Ejercicios/03b_instituto.html">este enlace</a> puedes descargar el contenido HTML de una página web que simula la página de inicio de un instituto. Hay un título principal de la página, un menú de navegación, un apartado de oferta formativa, y otro de novedades. Finalmente, hay una sección de pie de página con información de contacto del instituto. Se propone añadir el CSS necesario (desde un archivo aparte) para que se vea de este modo:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_instituto.png" width="80%" />
+</div>
+
+<blockquote>
+  <p>Algunas pistas:</p>
+
+  <ul>
+    <li>El color de fondo del encabezado y el pie es <code class="language-plaintext highlighter-rouge">#84250C</code>.</li>
+    <li>El encabezado está ubicado pegado a la esquina superior izquierda, y el pie a la esquina inferior izquierda.</li>
+    <li>La zona entre encabezado y pie tiene un margen superior de 150px, y lateral de 20% a cada lado.</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>JavaFX application development | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="JavaFX application development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="13c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/13c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="JavaFX application development" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"JavaFX application development","url":"http://nachoiborraies.github.io/java/md/en/13c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="javafx-application-development">JavaFX application development</h1>
+
+<h2 id="building-complex-javafx-applications">Building complex JavaFX applications</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/13c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="13c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this document we are going to learn some advanced concepts that we need to know if we want to create more complex applications using JavaFX.</p>
+
+<h3 id="1-closing-window-event">1. Closing window event</h3>
+
+<p>If the user tries to close the application window with the close button of the upper bar (or typing <code class="language-plaintext highlighter-rouge">Alt</code> + <code class="language-plaintext highlighter-rouge">F4</code> or any other shortcut), our efforts to try to save the data before closing, or get a confirmation from the user before exiting the program will be skipped.</p>
+
+<p>But do not worry. There is a way of catching this event and redirect it to our control methods. However, we’ll need to start the application in a different way, so we can get a reference to the controller from the main application class. In the <code class="language-plaintext highlighter-rouge">start</code> method of the application (from the main class), we do something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="nc">Stage</span> <span class="n">primaryStage</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> 
+<span class="o">{</span>
+    <span class="nc">FXMLLoader</span> <span class="n">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FXMLLoader</span><span class="o">(...);</span>
+    <span class="nc">Parent</span> <span class="n">root</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+
+    <span class="nc">Controller</span> <span class="n">controller</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Controller</span><span class="o">)</span><span class="n">loader</span><span class="o">.</span><span class="na">getController</span><span class="o">();</span>
+    <span class="n">controller</span><span class="o">.</span><span class="na">setOnCloseListener</span><span class="o">(</span><span class="n">primaryStage</span><span class="o">);</span>
+
+    <span class="n">primaryStage</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can see that once we have a reference to our controller, we can call a method that we have created and named <code class="language-plaintext highlighter-rouge">setOnCloseListener</code>, passing the stage as an argument. This is how this method is implemented in the controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setOnCloseListener</span><span class="o">(</span><span class="nc">Stage</span> <span class="n">stage</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">setOnCloseRequest</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span>
+    <span class="o">{</span>
+        <span class="c1">// This way we can prevent window from closing</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">consume</span><span class="o">();</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we want to avoid window closing, we just use the <code class="language-plaintext highlighter-rouge">consume</code> method of the event, just to consume the event with no effects. Otherwise, we can also save some data before letting the window close.</p>
+
+<h3 id="2-changing-the-default-appearance-with-css">2. Changing the default appearance with CSS</h3>
+
+<p>We can change the default, old fashioned appearance of our applications by adding styles through CSS documents. This is a file type very used in web design, and we are not going to learn CSS now, since we assume that you have an idea of what it is and how it works. We are going to see how to add these files to our JavaFX applications.</p>
+
+<p>First of all, we need to add a CSS file to our project. To do this, go to <em>File</em> &gt; <em>New</em>, and select <em>File</em>. Then, create a new file with <code class="language-plaintext highlighter-rouge">.css</code> extension in your source folder (inside your desired package). Then, we can add the styles to our CSS file. There is a special naming that we need to follow in order to set the styles to the appropriate controls. For instance, if we want to apply general styles to all the elements of the application (such as background color, font styles…) we use the <code class="language-plaintext highlighter-rouge">root</code> class selector:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.root</span>
+<span class="p">{</span>
+   <span class="py">-fx-background-color</span><span class="p">:</span> <span class="n">lightgray</span><span class="p">;</span>
+   <span class="py">-fx-font-family</span><span class="p">:</span> <span class="s1">"Arial"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notice that every CSS style begins with the <code class="language-plaintext highlighter-rouge">-fx-</code> prefix, followed by the typical CSS style name (<code class="language-plaintext highlighter-rouge">background-color</code>, <code class="language-plaintext highlighter-rouge">font-family</code>…). There are also some other class selectors that we can use to apply styles to some specific controls (buttons, labels…). For instance, this style is applied to every button of our application:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.button</span> <span class="p">{</span>
+   <span class="py">-fx-background-color</span><span class="p">:</span> <span class="m">#A22E15</span><span class="p">;</span>
+   <span class="py">-fx-color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can also define our own class or id selectors, such as</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.myButton</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+<span class="nf">#myID</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then, if we want to apply these styles to some selected controls, we need to assign them the corresponding class or id, from Scene Builder. We can also aggregate individual CSS properties there, or even attach a CSS style sheet file to an element an its descendants. All of this can be found inside the <em>Properties</em> panel in the right side, inside a CSS section.</p>
+
+<p>Once we have our CSS file created, we can add it to a scene by adding it to the main (root) container of the application (the style sheet is also applied to elements inside it).</p>
+
+<div align="center">
+    <img src="../../img/13_css.png" width="40%" />
+</div>
+
+<p>Alternatively, we can also attach the CSS file to the scene with this line of code in the main application class’ <code class="language-plaintext highlighter-rouge">start</code> method (the path to the CSS file is relative to the main class package):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+<span class="n">scene</span><span class="o">.</span><span class="na">getStylesheets</span><span class="o">().</span><span class="na">add</span><span class="o">(</span>
+<span class="err">    </span><span class="n">getClass</span><span class="o">().</span><span class="na">getResource</span><span class="o">(</span><span class="s">"MyStyle.css"</span><span class="o">).</span><span class="na">toExternalForm</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><a href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/doc-files/cssref.html">Here</a> you can learn more about the official JavaFX CSS reference.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>CalculatorCSS</strong>, that will be a copy of project <em>Calculator</em> from previous document. Change its default style by using a CSS file that sets the background color of the whole application to black, the labels’ text color to white, and the font family to Courier New. At the end, your application should look like this:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/13_calculator_css.png" width="40%" />
+</div>
+
+<h3 id="3-applications-with-multiple-views">3. Applications with multiple views</h3>
+
+<p>It is also useful to create applications with multiple views that can be easily swapped. For instance, an application with a login screen and a main screen. Let’s see how it works with an example: create a new JavaFX project called <em>MultipleViews</em>. Rename default FXML file to <em>main.fxml</em> and create a view like this.</p>
+
+<div align="center">
+    <img src="../../img/13_multiview1.png" width="40%" />
+</div>
+
+<p>We’ll have two other views that will be loaded from this one. We must create a new FXML file to each new screen (call them <em>view1.fxml</em> and <em>view2.fxml</em>). Each FXML file is associated to a Controller class, that you have to create. The other two views will look like this:</p>
+
+<div align="center">
+    <img src="../../img/13_multiview2.png" width="40%" />
+</div>
+
+<p>In the “Go View 1” button’s action event method from main scene, we’ll just need to load the FXML of the view we want to load, and replace what is shown in the main window with that.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">goToView1</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span>
+<span class="o">{</span>
+    <span class="nc">Parent</span> <span class="n">root</span> <span class="o">=</span> <span class="nc">FXMLLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span>
+        <span class="nc">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"view1.fxml"</span><span class="o">));</span>
+    <span class="nc">Scene</span> <span class="n">view1Scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+    <span class="nc">Stage</span> <span class="n">stage</span> <span class="o">=</span> 
+        <span class="o">(</span><span class="nc">Stage</span><span class="o">)((</span><span class="nc">Node</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getScene</span><span class="o">().</span><span class="na">getWindow</span><span class="o">();</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">view1Scene</span><span class="o">);</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As the code is mostly the same for all the views, we could create a class to manage these view changes (maybe with a static method or using inheritance).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SceneLoader</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">loadScreen</span><span class="o">(</span><span class="nc">String</span> <span class="n">viewPath</span><span class="o">,</span> <span class="nc">Stage</span> <span class="n">stage</span><span class="o">)</span>
+    <span class="kd">throws</span> <span class="nc">IOException</span>
+    <span class="o">{</span>
+        <span class="nc">Parent</span> <span class="n">root</span> <span class="o">=</span> <span class="nc">FXMLLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span>
+            <span class="nc">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="n">viewPath</span><span class="o">));</span>
+        <span class="nc">Scene</span> <span class="n">viewScene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+        <span class="n">stage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">viewScene</span><span class="o">);</span>
+        <span class="n">stage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, we can use this class as shown below:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">goToView1</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span>
+<span class="o">{</span>
+    <span class="nc">ScreenLoader</span><span class="o">.</span><span class="na">loadScreen</span><span class="o">(</span><span class="s">"view1.fxml"</span><span class="o">,</span> 
+        <span class="o">(</span><span class="nc">Stage</span><span class="o">)((</span><span class="nc">Node</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getScene</span><span class="o">().</span><span class="na">getWindow</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can then apply the same pattern to “Go View 2” and “Back to Main” buttons. Of course we can make it a better and more organized code, but for this example or a simple application it should be enough.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Complete the example above by adding the events to change the view in every pending button.</p>
+</blockquote>
+
+<h4 id="31-loading-views-in-different-stages">3.1. Loading views in different stages</h4>
+
+<p>Sometimes it may be useful to add a scene in a different stage that pops up over current stage, so that we can’t go back to the main stage unless we close this new one. They are called <em>modal dialogs</em>.</p>
+
+<p>In order to define a new scene (a new FXML file) in a different stage, we must do something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. Load FXML file for the new scene</span>
+<span class="nc">Parent</span> <span class="n">view</span> <span class="o">=</span> <span class="nc">FXMLLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="nc">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"newApp.fxml"</span><span class="o">));</span>
+<span class="c1">// 2. Attach FXML to a new scene</span>
+<span class="nc">Scene</span> <span class="n">viewScene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">view</span><span class="o">);</span>
+<span class="c1">// 3. Get current main stage</span>
+<span class="nc">Stage</span> <span class="n">stage</span><span class="o">=</span>
+    <span class="o">(</span><span class="nc">Stage</span><span class="o">)</span> <span class="o">((</span><span class="nc">Node</span><span class="o">)</span> <span class="n">actionEvent</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getScene</span><span class="o">().</span><span class="na">getWindow</span><span class="o">();</span>
+<span class="c1">// 4. Create a new stage with the new scene</span>
+<span class="nc">Stage</span> <span class="n">secondaryStage</span><span class="o">=</span> <span class="k">new</span> <span class="nc">Stage</span><span class="o">();</span>
+<span class="n">secondaryStage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">viewScene</span><span class="o">);</span>
+<span class="c1">// 5. Set it as a modal stage and attach it to the main stage</span>
+<span class="n">secondaryStage</span><span class="o">.</span><span class="na">initModality</span><span class="o">(</span><span class="nc">Modality</span><span class="o">.</span><span class="na">WINDOW_MODAL</span><span class="o">);</span>
+<span class="n">secondaryStage</span><span class="o">.</span><span class="na">initOwner</span><span class="o">(</span><span class="n">stage</span><span class="o">);</span>
+<span class="c1">// 6. Define close event for modal stage and show it</span>
+<span class="n">secondaryStage</span><span class="o">.</span><span class="na">setOnCloseRequest</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="c1">// Do whatever);</span>
+<span class="n">secondaryStage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="4-using-charts">4. Using charts</h3>
+
+<p>Charts let us represent the information in a graphical, summarized way that is often much more understandable than just reading a table of data. You can find some different chart types in the chart list of Scene Builder.</p>
+
+<div align="center">
+    <img src="../../img/13_charts.png" width="40%" />
+</div>
+
+<p>To use any of them, we just drag and drop it to the scene, like we do with any other common control. Depending on the chart type, it has some specific attributes and methods to provide the data. <a href="https://docs.oracle.com/javase/8/javafx/user-interface-tutorial/charts.htm">Here</a> you can have a look at some tutorials.</p>
+
+<p>For instance, if we are working with a <code class="language-plaintext highlighter-rouge">BarChart</code>, we need to clarify the data type for the X axis (categories) and for the Y axis (values). If we want to represent something like this:</p>
+
+<div align="center">
+    <img src="../../img/13_charts2.png" width="70%" />
+</div>
+
+<p>Then we need to associate this BarChart element to our controller, and set an appropriate name for it (for instance, <code class="language-plaintext highlighter-rouge">chart</code>). After doing this, in the controller, we need to specify the data type of the X axis (categories) and the Y axis (numbers):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FXML</span>
+<span class="kd">private</span> <span class="nc">BarChart</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Number</span><span class="o">&gt;</span> <span class="n">chart</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can fill the chart with some static data, such as predefined arrays. To create every single bar, we need to create an instance of a <code class="language-plaintext highlighter-rouge">XYChart.Data</code> object, and fill a <code class="language-plaintext highlighter-rouge">XYChart.Series</code> object with them.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span><span class="o">[]</span> <span class="n">categories</span> <span class="o">=</span> <span class="o">{</span><span class="s">"Programming"</span><span class="o">,</span> <span class="s">"Databases"</span><span class="o">,</span> <span class="s">"Markup languages"</span><span class="o">};</span>
+<span class="kt">double</span><span class="o">[]</span> <span class="n">marks</span> <span class="o">=</span> <span class="o">{</span> <span class="mf">6.4</span><span class="o">,</span> <span class="mf">7.2</span><span class="o">,</span> <span class="mf">8.6</span> <span class="o">};</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Final marks 1DAM"</span><span class="o">);</span>
+
+<span class="nc">XYChart</span><span class="o">.</span><span class="na">Series</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">XYChart</span><span class="o">.</span><span class="na">Series</span><span class="o">();</span>
+<span class="n">data</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"Me"</span><span class="o">);</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">categories</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+<span class="err">    </span><span class="n">data</span><span class="o">.</span><span class="na">getData</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">XYChart</span><span class="o">.</span><span class="na">Data</span><span class="o">(</span><span class="n">categories</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">marks</span><span class="o">[</span><span class="n">i</span><span class="o">]));</span>
+<span class="o">}</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="na">getData</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>As you can see, we can also define a main title for the chart. You may also notice that we can add as many series as we need. Each one will be represented with a different bar color.</p>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>This is the list of average temperatures for every month in Alicante during 2017.</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>Jan</th>
+      <th>Feb</th>
+      <th>Mar</th>
+      <th>Apr</th>
+      <th>May</th>
+      <th>Jun</th>
+      <th>Jul</th>
+      <th>Aug</th>
+      <th>Sep</th>
+      <th>Oct</th>
+      <th>Nov</th>
+      <th>Dec</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>9</td>
+      <td>8</td>
+      <td>14</td>
+      <td>17</td>
+      <td>21</td>
+      <td>24</td>
+      <td>28</td>
+      <td>30</td>
+      <td>26</td>
+      <td>21</td>
+      <td>16</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>Create a new JavaFX FXML project called Temperatures and add a bar chart (<code class="language-plaintext highlighter-rouge">BarChart</code> control) to it to represent this array. At the end, you should see something like this when launching the application:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/13_charts3.png" width="80%" />
+</div>
+
+<h3 id="5-some-advanced-controls">5. Some advanced controls</h3>
+
+<p>Apart from the list of basic controls that we can place in JavaFX applications, that have been explained in previous document, there are some controls that need some special setup, or that are not so basic.</p>
+
+<h4 id="51-working-with-tables">5.1. Working with tables</h4>
+
+<p>There is a very useful control that we can use when we work with large amounts of data, or with some structured data that we need to keep visible at the same time: tables. This control lets us arrange the information so that we can show different registers in different rows, and different information about the same register in different columns.</p>
+
+<p>To deal with tables, we will use the <code class="language-plaintext highlighter-rouge">TableView</code> control. We can define the column headers with the <code class="language-plaintext highlighter-rouge">TableColumn</code> class. For instance, if we want to manage a list of books with their ISBN, title and author, we would create a table like this one:</p>
+
+<div align="center">
+    <img src="../../img/13_tableview.png" width="80%" />
+</div>
+
+<p>Once we have our table created, we may need to fill it with some data that we have previously stored. It is recommended to create a class (a public class) that stores every object of the table (every row), and associate each column to an attribute of this class. In our previous example, if we want to work with books, we can create a <code class="language-plaintext highlighter-rouge">Book</code> class with three attributes (ISBN, title and author), and their corresponding getters and setters:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">isbn</span><span class="o">,</span> <span class="n">title</span><span class="o">,</span> <span class="n">author</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Book</span> <span class="o">(</span><span class="nc">String</span> <span class="n">isbn</span><span class="o">,</span> <span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="nc">String</span> <span class="n">author</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">isbn</span> <span class="o">=</span> <span class="n">isbn</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getIsbn</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">isbn</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIsbn</span><span class="o">(</span><span class="nc">String</span> <span class="n">isbn</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">isbn</span> <span class="o">=</span> <span class="n">isbn</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//... Rest of getters and setters</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Once we have defined our object class, we can create or load a collection of books with our <code class="language-plaintext highlighter-rouge">FXCollections</code> class, as we did in previous examples:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ObservableList</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">FXCollections</span><span class="o">.</span><span class="na">observableArrayList</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">Book</span><span class="o">(</span><span class="s">"111111"</span><span class="o">,</span> <span class="s">"Ender's game"</span><span class="o">,</span> <span class="s">"Orson Scott Card"</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">Book</span><span class="o">(</span><span class="s">"222222"</span><span class="o">,</span> <span class="s">"The adventures of Tom Sawyer"</span><span class="o">,</span> <span class="s">"Mark Twain"</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">Book</span><span class="o">(</span><span class="s">"333333"</span><span class="o">,</span> <span class="s">"The never ending story"</span><span class="o">,</span> <span class="s">"Michael Ende"</span><span class="o">)</span>
+<span class="o">);</span>
+<span class="n">table</span><span class="o">.</span><span class="na">setItems</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Adding new rows to a TableView is as easy as adding new objects to the list associated to it. In our example, whenever we add or remove data to our observable list (variable <code class="language-plaintext highlighter-rouge">data</code>), the <code class="language-plaintext highlighter-rouge">TableView</code> will be automatically updated.</p>
+
+<p>We can use the <code class="language-plaintext highlighter-rouge">add</code> method from <code class="language-plaintext highlighter-rouge">ObservableList</code> interface to add elements to the list:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"44444"</span><span class="o">,</span> <span class="s">"Misery"</span><span class="o">,</span> <span class="s">"Stephen King"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>We can also use the <code class="language-plaintext highlighter-rouge">remove</code> method to remove an element (or a set of elements) from a given position (or range). This line removes the last element of the list/table:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="na">size</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In order to check which element (row) of the table is currently selected, we can use the same methods that we used with <code class="language-plaintext highlighter-rouge">ListView</code> control. Typically, we will get the index of the currently selected item, and get the whole object from the arraylist:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="na">getSelectionModel</span><span class="o">().</span><span class="na">getSelectedIndex</span><span class="o">();</span>
+<span class="nc">Book</span> <span class="n">selBook</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Setting up the columns</strong></p>
+
+<p>In order to specify the value that will be shown in each column of our table, we need to associate every table column (apart from the table itself) with an attribute in our controller. For every <em>TableColumn</em> attribute we need to define the type of items the table is going to hold (<code class="language-plaintext highlighter-rouge">Book</code>), and for each column, we also specify the type of data it will show (<code class="language-plaintext highlighter-rouge">String</code>, <code class="language-plaintext highlighter-rouge">Integer</code>,…).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FXML</span> 
+<span class="kd">private</span> <span class="nc">TableView</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">&gt;</span> <span class="n">table</span><span class="o">;</span>
+<span class="nd">@FXML</span> 
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">colIsbn</span><span class="o">;</span>
+<span class="nd">@FXML</span> 
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">colTitle</span><span class="o">;</span>
+<span class="nd">@FXML</span> 
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Book</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">colAuthor</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="c1">// Text to show when the table is empty</span>
+    <span class="n">table</span><span class="o">.</span><span class="na">setPlaceholder</span><span class="o">(</span><span class="k">new</span> <span class="nc">Label</span><span class="o">(</span><span class="s">"No items to show..."</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We also attach each book property to a given TableColumn object, in the <code class="language-plaintext highlighter-rouge">initialize</code> method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colIsbn</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"isbn"</span><span class="o">));</span>
+<span class="n">colTitle</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"title"</span><span class="o">));</span>
+<span class="n">colAuthor</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"author"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE:</strong> it is important that we use the same name in the parameter of <code class="language-plaintext highlighter-rouge">PropertyValueFactory</code> than a corresponding getter but without the prefix “get”. For instance, if we create a method called <code class="language-plaintext highlighter-rouge">getTotalPrice()</code>, we should use the name “totalPrice” in the column to show this value. In other words, <em>PropertyValueFactory</em> refers to class getters, not attributes.</p>
+</blockquote>
+
+<h4 id="52-date-pickers">5.2. Date pickers</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">DatePicker</code> JavaFX control allows the user to select a date from a pop-up calendar that appears when we click its button on the right.</p>
+
+<p>We can access the <code class="language-plaintext highlighter-rouge">TextField</code> inside the DatePicker control using the <code class="language-plaintext highlighter-rouge">getEditor()</code> method. Once we have access to that text field, we can get its value easily. We can also get the <code class="language-plaintext highlighter-rouge">LocalDate</code> object representing the current selected date using <code class="language-plaintext highlighter-rouge">getValue()</code>.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// By default today is selected</span>
+<span class="n">datepicker</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span> 
+<span class="o">...</span>
+<span class="nc">LocalDate</span> <span class="n">date</span> <span class="o">=</span> <span class="n">datepicker</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h4 id="53-adding-images">5.3. Adding images</h4>
+
+<p>It is very usual to add some images to our application to make some controls (or the general appearance) more appealing. To do this, we use the <code class="language-plaintext highlighter-rouge">Image</code> and <code class="language-plaintext highlighter-rouge">ImageView</code> classes (from <code class="language-plaintext highlighter-rouge">javafx.scene.image</code> package). The first one allows us to load an image from a file. The <code class="language-plaintext highlighter-rouge">ImageView</code> class adapts the image loaded to something drawable in our application.</p>
+
+<p>In order to attach an <code class="language-plaintext highlighter-rouge">Image</code> object (loaded from a file) to an <code class="language-plaintext highlighter-rouge">ImageView</code> control, we can follow these steps:</p>
+
+<p>Firs of all, we need to load the image in the <code class="language-plaintext highlighter-rouge">Image</code> file. We can use <code class="language-plaintext highlighter-rouge">getResource</code> method seen in previous documents, or <code class="language-plaintext highlighter-rouge">getResourceAsStream</code>, when we loaded initial FXML file in the main class. The path to this image can be written as an absolute path from source folder’s root:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Image</span> <span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span> <span class="o">(</span>
+    <span class="n">getClass</span><span class="o">().</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">"/sample/img/javafx.png"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>Also, we can define an absolute path from project’s root folder:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Image</span> <span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span> <span class="o">(</span><span class="s">"file:src/sample/img/javafx.png"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Finally, we can make use of main class’ <code class="language-plaintext highlighter-rouge">getResourceAsStream</code> method to locate these images. For instance, if main class is placed at package <code class="language-plaintext highlighter-rouge">myapplication</code> and we have the images placed in the same package (inside <em>resources</em> folder), we can just do this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Image</span> <span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Image</span> <span class="o">(</span><span class="nc">MyMainClass</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"javafx.png"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: this last example will work as long as image file is located in the same package than main class (although they can be in different source or resource folders).</p>
+</blockquote>
+
+<p>Once we have our image loaded in an <code class="language-plaintext highlighter-rouge">Image</code> object, we just need to set this image in the <code class="language-plaintext highlighter-rouge">ImageView</code> control. For instance, if this control is associated to a variable called <code class="language-plaintext highlighter-rouge">imgFX</code>, we can do it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">imgFX</span><span class="o">.</span><span class="na">setImage</span><span class="o">(</span><span class="n">image</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="6-example-healthymenu">6. Example: <em>HealthyMenu</em></h3>
+
+<p>To support our learning of JavaFX and Scene Builder, we’ll build a small application from scratch. This application will have two views: one to show and edit the data, and another one to show a chart that summarizes current data. To begin with, let’s create a new JavaFX project called <strong>HealthyMenu</strong>. Rename the default files as follows:</p>
+
+<ul>
+  <li>Default FXML file will be renamed to <code class="language-plaintext highlighter-rouge">main.fxml</code></li>
+  <li>Default main application class will be <code class="language-plaintext highlighter-rouge">HealthyMenu</code></li>
+  <li>Default initial controller will be <code class="language-plaintext highlighter-rouge">MainController</code>. Make sure FXML file has this controller associated at every moment.</li>
+</ul>
+
+<p>All the classes will belong to a main package called <code class="language-plaintext highlighter-rouge">healthymenu</code>, and the FXML will be placed in this same package (in the <em>resources</em> folder). Then, follow the steps given in next subsections.</p>
+
+<h4 id="61-layout-for-the-main-view">6.1. Layout for the main view</h4>
+
+<p>The main FXML view will have the following appearance:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu1.png" width="80%" />
+</div>
+
+<p>To get this appearance, we can, for instance, set a vertical <code class="language-plaintext highlighter-rouge">SplitPane</code> as the main layout. By default, it will have two <code class="language-plaintext highlighter-rouge">AnchorPanes</code> as layout managers for its two halves. That’s ok for us, although we can change them anyway.</p>
+
+<p><strong>Defining the table</strong></p>
+
+<p>At the top half of the split pane, let’s add a <code class="language-plaintext highlighter-rouge">TableView</code>. In order to make it fit the total size of the <code class="language-plaintext highlighter-rouge">AnchorPane</code>, right click on the table view and choose <em>Fit to Parent</em> option…</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu2.png" width="80%" />
+</div>
+
+<p>The table will have four columns:</p>
+
+<ul>
+  <li>The name of a food that we have eaten. For instance, “Tomatoes”, or “Milk”.</li>
+  <li>The food category, that will be chosen among a pre-defined set of values: “<em>Fruits and vegetables</em>”, “<em>Meat and fish</em>”, “<em>Milk derivatives</em>” and “<em>Other</em>”.</li>
+  <li>The amount of food in grams.</li>
+  <li>The amount of food in ounces (oz), that will be automatically calculated from previous column.</li>
+</ul>
+
+<p>In order to set the header of these four columns, we just need to add as many <code class="language-plaintext highlighter-rouge">TableColumn</code> elements to the table as we need:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu3.png" width="40%" />
+</div>
+
+<p>Then, we click on each <code class="language-plaintext highlighter-rouge">TableColumn</code> in the left panel, and change its properties in the right panel. For instance, for the first column, we change its <em>Text</em> property to “Food name”…</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu4.png" width="40%" />
+</div>
+
+<p>… and its fx:id property to reference it from our code:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu5.png" width="40%" />
+</div>
+
+<p>After changing these properties for the four columns, you’ll get this table:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu6.png" width="90%" />
+</div>
+
+<p><strong>Defining the bottom form</strong></p>
+
+<p>The bottom form will let us add food to the upper table. We will need the following form fields:</p>
+
+<ul>
+  <li>A text field to specify the food name (with its associated label)</li>
+  <li>A choice box to choose the food category (with its associated label)</li>
+  <li>Another text field to set the weight in grams (with its associated label)</li>
+  <li>A button to add the data to the table</li>
+</ul>
+
+<p>Let’s start by adding each pair of label and associated field. For the first pair (food name), we start by adding the label, and then the text field next to it. As you can see when you move an item near others or near the borders of a container, there are some auxiliary lines that will help you align that item with the same margin as others or put some items in line. At the end, you should get something like this:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu7.png" width="80%" />
+</div>
+
+<p>For this example, we have associated the food name text field, weight text field, choice box and button with these <em>fx:ids</em>, respectively: <code class="language-plaintext highlighter-rouge">txtFoodName</code>, <code class="language-plaintext highlighter-rouge">choiceCategory</code>, <code class="language-plaintext highlighter-rouge">txtWeight</code> and <code class="language-plaintext highlighter-rouge">btnAdd</code>. Associate each control an appropriate fx:id and update the controller.</p>
+
+<p>Now, we need to fill the choice box with the pre-defined list of possible values. First of all, specify the data type of the choice box in the controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">ChoiceBox</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">choiceCategory</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Then, add these lines to the <code class="language-plaintext highlighter-rouge">initialize</code> method of the main controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">choiceCategory</span><span class="o">.</span><span class="na">setItems</span><span class="o">(</span><span class="nc">FXCollections</span><span class="o">.</span><span class="na">observableArrayList</span><span class="o">(</span>
+    <span class="s">"Fruits and vegetables"</span><span class="o">,</span> <span class="s">"Meat and fish"</span><span class="o">,</span>
+    <span class="s">"Milk derivatives"</span><span class="o">,</span> <span class="s">"Other"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>To help the form resize with the window, first we’ll have to tell the controls how to resize. It can be helpful to wrap some controls in a <em>HBox</em> or <em>VBox</em> layout manager, in order to treat them as a whole. For instance, we wrap the Food name label, its associated text field and the Add button in a <em>HBox</em>. To group them inside an HBox, select all the controls involved (click them while pressing <em>shift</em> key), and in the menu select <em>Arrange</em> → <em>Wrap in</em> → <em>HBox</em>. You can also activate this menu by right-clicking on the selection itself.</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu8.png" width="60%" />
+</div>
+
+<p>After that, select the space (margin) that will separate the elements inside the HBox from each other (in pixels).</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu9.png" width="60%" />
+</div>
+
+<p>We repeat these same steps for the Food category row and for the Weight row. Then, we will have three HBox layout managers inside our AnchorPane:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu10.png" width="40%" />
+</div>
+
+<p>We can now wrap these HBoxes inside a VBox to treat the whole form at once. Select the three HBox containers and wrap them in a VBox, as we did before for the form controls. We can also set the vertical spacing for this VBox.</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu11.png" width="90%" />
+</div>
+
+<p>Finally, in order to let the form grow or shrink as we resize the window, select the VBox and anchor it to its left and right borders:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu12.png" width="40%" />
+</div>
+
+<p>If you try to resize the window now, you’ll notice that labels may hide their content if they shrink too much. To avoid this, we can set a minimum width for them:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu13.png" width="60%" />
+</div>
+
+<p>We can also tell the input fields to grow as much as possible if we increase window width. This can be set with these two properties:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu14.png" width="60%" />
+</div>
+
+<h4 id="62-loading-data-into-the-table">6.2. Loading data into the table</h4>
+
+<p>It’s time to fill our food table with some data. In order to do so, we are going to create a class called <code class="language-plaintext highlighter-rouge">Food</code> in a package called <code class="language-plaintext highlighter-rouge">healthymenu.model</code>.</p>
+
+<p>This class will have the following attributes:</p>
+
+<ul>
+  <li>Food name (<em>String</em>)</li>
+  <li>Food category (<em>String</em>)</li>
+  <li>Food weight in grams (<em>int</em>)</li>
+</ul>
+
+<p>Besides, it will have a constructor to assign these values, and the corresponding getters and setters. Finally, we will add an additional getter to calculate the weight in ounces from the grams attribute. An overridden version of the <code class="language-plaintext highlighter-rouge">toString</code> method can also be helpful for later purposes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Food</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">category</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">weight</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Food</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">category</span><span class="o">,</span> <span class="kt">int</span> <span class="n">weight</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">category</span> <span class="o">=</span> <span class="n">category</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getCategory</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">category</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCategory</span><span class="o">(</span><span class="nc">String</span> <span class="n">category</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">category</span> <span class="o">=</span> <span class="n">category</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWeight</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWeight</span><span class="o">(</span><span class="kt">int</span> <span class="n">weight</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getWeightInOz</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span><span class="n">weight</span> <span class="o">*</span> <span class="mf">0.035274f</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">";"</span> <span class="o">+</span> <span class="n">category</span> <span class="o">+</span> <span class="s">";"</span> <span class="o">+</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, let’s move to our main controller class. For this example we have called the <em>TableView</em> object <code class="language-plaintext highlighter-rouge">tableFood</code>, and the corresponding columns are <code class="language-plaintext highlighter-rouge">colFoodName</code>, <code class="language-plaintext highlighter-rouge">colFoodCategory</code>, <code class="language-plaintext highlighter-rouge">colWeightG</code> and <code class="language-plaintext highlighter-rouge">colWeightOz</code>. We need to specify the data type of these elements, so that they will be like these ones:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FXML</span>
+<span class="kd">private</span> <span class="nc">TableView</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">&gt;</span> <span class="n">tableFood</span><span class="o">;</span>
+<span class="nd">@FXML</span>
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">colFoodName</span><span class="o">;</span>
+<span class="nd">@FXML</span>
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">colFoodCategory</span><span class="o">;</span>
+<span class="nd">@FXML</span>
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">colWeightG</span><span class="o">;</span>
+<span class="nd">@FXML</span>
+<span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">,</span> <span class="nc">Float</span><span class="o">&gt;</span> <span class="n">colWeightOz</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We need to define a collection of <code class="language-plaintext highlighter-rouge">Food</code> objects to fill the table. As you have learnt in previous session, tables use a special type of collection called <code class="language-plaintext highlighter-rouge">ObservableList</code> to fill the data. So we create a new attribute of this type in the controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">ObservableList</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">&gt;</span> <span class="n">food</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>and we can initialize it with some sample data in the <code class="language-plaintext highlighter-rouge">initialize</code> method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span> <span class="o">=</span> <span class="nc">FXCollections</span><span class="o">.</span><span class="na">observableArrayList</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">Food</span> <span class="o">(</span><span class="s">"Potatoes"</span><span class="o">,</span> <span class="s">"Fruits and vegetables"</span><span class="o">,</span> <span class="mi">200</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">Food</span> <span class="o">(</span><span class="s">"Chicken"</span><span class="o">,</span> <span class="s">"Meat and fish"</span><span class="o">,</span> <span class="mi">300</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">Food</span> <span class="o">(</span><span class="s">"Milkshake"</span><span class="o">,</span> <span class="s">"Milk derivatives"</span><span class="o">,</span> <span class="mi">250</span><span class="o">),</span>
+    <span class="k">new</span> <span class="nf">Food</span> <span class="o">(</span><span class="s">"Salmon"</span><span class="o">,</span> <span class="s">"Meat and fish"</span><span class="o">,</span> <span class="mi">300</span><span class="o">)</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<p>Finally, we associate this list to the table, setting the attribute for each column (also in the <code class="language-plaintext highlighter-rouge">initialize</code> method):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">colFoodName</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"name"</span><span class="o">));</span>
+<span class="n">colFoodCategory</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"category"</span><span class="o">));</span>
+<span class="n">colWeightG</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"weight"</span><span class="o">));</span>
+<span class="n">colWeightOz</span><span class="o">.</span><span class="na">setCellValueFactory</span><span class="o">(</span><span class="k">new</span> <span class="nc">PropertyValueFactory</span><span class="o">(</span><span class="s">"weightInOz"</span><span class="o">));</span>
+
+<span class="n">tableFood</span><span class="o">.</span><span class="na">setItems</span><span class="o">(</span><span class="n">food</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>After these steps, we should see the table this way when we launch the application:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu15.png" width="80%" />
+</div>
+
+<p>Notice that we have associated each table column with a getter method of <code class="language-plaintext highlighter-rouge">Food</code> class by its name (without the <em>get</em> prefix). We can still improve the appearance of the table by formatting the weight in ounces with 2 decimal numbers. To do this, we can just return a formatted <em>String</em> in the corresponding getter (<code class="language-plaintext highlighter-rouge">Food</code> class), instead of returning just a float:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">String</span> <span class="nf">getWeightInOz</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="nc">DecimalFormat</span> <span class="n">df</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DecimalFormat</span><span class="o">();</span>
+    <span class="n">df</span><span class="o">.</span><span class="na">setMaximumFractionDigits</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="na">format</span><span class="o">((</span><span class="kt">float</span><span class="o">)</span><span class="n">weight</span> <span class="o">*</span> <span class="mf">0.035274f</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We also need to change the <em>generics</em> configuration of the associated table column, since now it contains a formatted String:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">TableColumn</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">colWeightOz</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><strong>Reading/Saving data from/to a file</strong></p>
+
+<p>In order to have a more professional application, let’s replace our sample food list with a list read from a text file. The text file will have the following structure:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Food name;Category;Weight in grams
+</code></pre></div></div>
+
+<p>We can create a file called <code class="language-plaintext highlighter-rouge">food.txt</code> in the root folder of our project, and fill it with our sample data:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Potatoes;Fruits and vegetables;200
+Chicken;Meat and fish;300
+Milkshake;Milk derivatives;250
+Salmon;Meat and fish;300
+</code></pre></div></div>
+
+<p>Then, we can create two static methods in our controller (or in a separate class, if we plan to use them elsewhere) to read the data from the file (and return a list of food) and store the data, respectively.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">&gt;</span> <span class="nf">readFile</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">try</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Files</span><span class="o">.</span><span class="na">lines</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"food.txt"</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">line</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">Food</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">";"</span><span class="o">)[</span><span class="mi">0</span><span class="o">],</span> <span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">";"</span><span class="o">)[</span><span class="mi">1</span><span class="o">],</span>
+                <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">line</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">";"</span><span class="o">)[</span><span class="mi">2</span><span class="o">])))</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">saveFile</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">&gt;</span> <span class="n">food</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">try</span><span class="o">(</span><span class="nc">PrintWriter</span> <span class="n">pw</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span><span class="o">(</span><span class="s">"food.txt"</span><span class="o">))</span>
+    <span class="o">{</span>
+        <span class="n">food</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">pw</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">toString</span><span class="o">()));</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice that we rely on the <code class="language-plaintext highlighter-rouge">toString</code> method in the <code class="language-plaintext highlighter-rouge">saveFile</code> code to automatically output the string version of the Food object. Also check how easy is to read or write a text file using functional programming (streams and lambdas).</p>
+
+<p>We can use <code class="language-plaintext highlighter-rouge">readFile</code> method in the <code class="language-plaintext highlighter-rouge">initialize</code> method, in order to fill <code class="language-plaintext highlighter-rouge">food</code> list (we no longer use our pre-defined list of food in this method):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span> <span class="o">=</span> <span class="nc">FXCollections</span><span class="o">.</span><span class="na">observableArrayList</span><span class="o">(</span><span class="n">readFile</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>Finally, we will use the <code class="language-plaintext highlighter-rouge">saveFile</code> method whenever we add new food to the list, as soon as we define the event to add food in next steps.</p>
+
+<h4 id="63-the-chart-view">6.3. The chart view</h4>
+
+<p>Let’s create now our secondary view. It will be a view with a pie chart and a button to go back to the main view. Create a new FXML file in the <em>resources</em> folder, in the same package than the primary FXML file. Call it <code class="language-plaintext highlighter-rouge">chart.fxml</code>, and create a new controller associated to it, in the same package than <code class="language-plaintext highlighter-rouge">MainController</code> class, called <code class="language-plaintext highlighter-rouge">ChartController</code>.</p>
+
+<p>Then, we edit FXML file in Scene Builder. We can use a vertical <code class="language-plaintext highlighter-rouge">SplitPane</code> as the main layout manager, with the top pane greater than the bottom pane:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu16.png" width="80%" />
+</div>
+
+<p>Add a PieChart at the top pane (and fit it to parent), and a button in the middle of the bottom pane. You should get something like this:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu17.png" width="80%" />
+</div>
+
+<p>In order to show this view from the main one, we need to add a new button in that main view. We can do it under the Add button:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu18.png" width="80%" />
+</div>
+
+<h4 id="64-adding-events">6.4. Adding events</h4>
+
+<p>To finish the main behaviour of our application, we need to add three events:</p>
+
+<ul>
+  <li>An event to add a new food to the table whenever we click on the <em>Add</em> button, and then save the changes into a file.</li>
+  <li>An event to change to the chart view and update its contents whenever we click on the <em>Chart</em> button</li>
+  <li>An event to go back to the main view when we click on the <em>Back to Main View</em> button</li>
+</ul>
+
+<p><strong>Adding new food to the table</strong></p>
+
+<p>To add new food to the table when we click on the Add button, we firstly specify the event name to be fired when we click on the button:</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu19.png" width="40%" />
+</div>
+
+<p>Then we make the controller, and fill the code of this event handler:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">addFood</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">txtName</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">""</span><span class="o">)</span> <span class="o">||</span>  
+        <span class="n">choiceCategory</span><span class="o">.</span><span class="na">getSelectionModel</span><span class="o">().</span><span class="na">getSelectedIndex</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span>
+        <span class="n">txtWeight</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="s">""</span><span class="o">))</span>
+    <span class="o">{</span>
+        <span class="nc">Alert</span> <span class="n">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Alert</span><span class="o">(</span><span class="nc">AlertType</span><span class="o">.</span><span class="na">ERROR</span><span class="o">);</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Error"</span><span class="o">);</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="na">setHeaderText</span><span class="o">(</span><span class="s">"Error adding data"</span><span class="o">);</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">"No field can be empty"</span><span class="o">);</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="na">showAndWait</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">food</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Food</span><span class="o">(</span><span class="n">txtName</span><span class="o">.</span><span class="na">getText</span><span class="o">(),</span>
+            <span class="n">choiceCategory</span><span class="o">.</span><span class="na">getSelectionModel</span><span class="o">().</span><span class="na">getSelectedItem</span><span class="o">(),</span>
+            <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">txtWeight</span><span class="o">.</span><span class="na">getText</span><span class="o">())));</span>
+        <span class="n">saveFile</span><span class="o">(</span><span class="n">food</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As you can see, we check if there is any empty input field. If not, then we add a new <em>Food</em> object to the list (we consider that the user will specify correct data into each input field), and use <code class="language-plaintext highlighter-rouge">saveFile</code> method defined before to store the information in the text file.</p>
+
+<p><strong>Changing view to chart view</strong></p>
+
+<p>Whenever we want to see the chart view, we need to pass to this view the current food list. So it is a good idea to define a public getter for this attribute in the main controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">&gt;</span> <span class="nf">getFood</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">return</span> <span class="n">food</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, we define a new event in the <em>Chart</em> button to change to the chart view:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">goToChartView</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span>
+<span class="o">{</span>
+    <span class="nc">FXMLLoader</span> <span class="n">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FXMLLoader</span><span class="o">(</span><span class="nc">HealthyMenu</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"chart.fxml"</span><span class="o">));</span>
+    <span class="nc">Parent</span> <span class="n">view1</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+    <span class="nc">Scene</span> <span class="n">view1Scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">view1</span><span class="o">);</span>
+    <span class="nc">Stage</span> <span class="n">stage</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Stage</span><span class="o">)</span> <span class="o">((</span><span class="nc">Node</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getScene</span><span class="o">().</span><span class="na">getWindow</span><span class="o">();</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">hide</span><span class="o">();</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">view1Scene</span><span class="o">);</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Inside the chart view controller, we go to the <code class="language-plaintext highlighter-rouge">initialize</code> method and define the code to get the food list from the main controller, and then update the pie chart data from it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="c1">// Get the controller object to get to the food list</span>
+
+    <span class="nc">FXMLLoader</span> <span class="n">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FXMLLoader</span><span class="o">(</span><span class="nc">HealthyMenu</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"main.fxml"</span><span class="o">));</span>
+
+    <span class="k">try</span>
+    <span class="o">{</span>
+        <span class="nc">Parent</span> <span class="n">root</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Parent</span><span class="o">)</span><span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+
+    <span class="nc">MainController</span> <span class="n">controller</span> <span class="o">=</span>
+        <span class="o">(</span><span class="nc">MainController</span><span class="o">)</span><span class="n">loader</span><span class="o">.</span><span class="na">getController</span><span class="o">();</span>
+
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Food</span><span class="o">&gt;</span> <span class="n">food</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="na">getFood</span><span class="o">();</span>
+
+    <span class="c1">// Update the pie chart data from the food list data</span>
+
+    <span class="n">pieChart</span><span class="o">.</span><span class="na">getData</span><span class="o">().</span><span class="na">clear</span><span class="o">();</span>
+
+    <span class="c1">// We get a map with all the categories and the sum of its weights</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">result</span><span class="o">;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">food</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                 <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">groupingBy</span><span class="o">(</span>
+                    <span class="n">f</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="o">.</span><span class="na">getCategory</span><span class="o">(),</span>
+                    <span class="nc">Collectors</span><span class="o">.</span><span class="na">summingInt</span><span class="o">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">f</span><span class="o">.</span><span class="na">getWeight</span><span class="o">())</span>
+            <span class="o">));</span>
+
+    <span class="c1">// We add an entry for the pie chart with each category and its sum</span>
+    <span class="n">result</span><span class="o">.</span><span class="na">forEach</span><span class="o">((</span><span class="n">cat</span><span class="o">,</span> <span class="n">sum</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">pieChart</span><span class="o">.</span><span class="na">getData</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">PieChart</span><span class="o">.</span><span class="na">Data</span><span class="o">(</span><span class="n">cat</span><span class="o">,</span> <span class="n">sum</span><span class="o">));</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note how we get to the main controller, get the food list and then (again) use functional programming to easily produce a map with the categories and the sum of their corresponding weights. This is what we reflect on the pie chart.</p>
+
+<div align="center">
+    <img src="../../img/13_healthymenu20.png" width="80%" />
+</div>
+
+<p><strong>Changing view to main view</strong></p>
+
+<p>Finally, we need to add an event to the <em>Back to Main View</em> button in the <code class="language-plaintext highlighter-rouge">ChartController</code> to go back to the main view.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">back</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span>
+<span class="o">{</span>
+    <span class="nc">FXMLLoader</span> <span class="n">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FXMLLoader</span><span class="o">(</span><span class="nc">HealthyMenu</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"main.fxml"</span><span class="o">));</span>
+    <span class="nc">Parent</span> <span class="n">view1</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">load</span><span class="o">();</span>
+    <span class="nc">Scene</span> <span class="n">view1Scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">view1</span><span class="o">);</span>
+    <span class="nc">Stage</span> <span class="n">stage</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Stage</span><span class="o">)</span> <span class="o">((</span><span class="nc">Node</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getSource</span><span class="o">()).</span><span class="na">getScene</span><span class="o">().</span><span class="na">getWindow</span><span class="o">();</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">hide</span><span class="o">();</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">view1Scene</span><span class="o">);</span>
+    <span class="n">stage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: we could have also used the <code class="language-plaintext highlighter-rouge">ScreenLoader</code> class commented in previous subsections to avoid duplicating the code to change the view.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTE</strong>: every time we change the view of an application, the corresponding <code class="language-plaintext highlighter-rouge">initialize</code> method is called. Keep that in mind.</p>
+</blockquote>
+
+<h4 id="65-modularity">6.5. Modularity</h4>
+
+<p>We may need to update <code class="language-plaintext highlighter-rouge">module-info.java</code> file to be able to use current package structure:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">module</span> <span class="n">healthyMenu</span>
+<span class="o">{</span>
+    <span class="n">requires</span> <span class="n">javafx</span><span class="o">.</span><span class="na">controls</span><span class="o">;</span>
+    <span class="n">requires</span> <span class="n">javafx</span><span class="o">.</span><span class="na">fxml</span><span class="o">;</span>
+
+    <span class="n">exports</span> <span class="n">healthymenu</span><span class="o">.</span><span class="na">model</span><span class="o">;</span>
+
+    <span class="n">opens</span> <span class="n">healthymenu</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In <a href="https://youtu.be/YBZMYxBY6to">this video</a> you have a step by step tutorial about how to implement this application. You can follow it if you need some more help.</p>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Update the <strong>HealthyMenu</strong> project by adding a <em>Delete</em> button at the bottom form, with this appearance:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/13_healthymenu21.png" width="80%" />
+</div>
+
+<blockquote>
+  <p>When that button is clicked, it will delete currently selected row from the table (and from the associated list and text file as well). Before deleting the row, a confirmation dialog will be shown to ask the user if he really wants to delete the selected row.</p>
+</blockquote>
+
+<h3 id="7-javafx-animations">7. JavaFX animations</h3>
+
+<p>JavaFX also provides some ways to animate our controls or nodes. Basically, what we do is to change the properties of the nodes (size, position, color…) at regular intervals. In this process, there are two important factors:</p>
+
+<ul>
+  <li>How much do we change the node properties. For instance, if we are moving a button, it will move faster if we increase its X position from 3 to 3 pixels than if we increase it from 1 to 1 pixel.</li>
+  <li>The frequency of these changes. If we change the position of the button every 20 milliseconds, it will move slower than if we change it every 10 milliseconds.</li>
+</ul>
+
+<p>There are two ways of making an animation: one of them is totally manual, and the other is (almost) totally automatic.</p>
+
+<h4 id="71-automatic-animations">7.1. Automatic animations</h4>
+
+<p>The easiest way to create an animation is by using transition classes. There are some types of transition classes, such as <code class="language-plaintext highlighter-rouge">TranslateTransition</code> (to move elements), <code class="language-plaintext highlighter-rouge">RotateTransition</code> (to rotate elements), <code class="language-plaintext highlighter-rouge">FadeTransition</code> (to change the opacity)… All these transitions have some useful methods, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">play</code> / <code class="language-plaintext highlighter-rouge">playFromStart</code>: plays the animation from its current position or from the start, respectively</li>
+  <li><code class="language-plaintext highlighter-rouge">stop</code> / <code class="language-plaintext highlighter-rouge">pause</code>: stops or pauses the animation, respectively.</li>
+  <li><code class="language-plaintext highlighter-rouge">setCycleCount</code>: sets how many times should the animation be repeated. If we want to repeat it indefinitely, we can use the Timeline.INDEFINITE constant.</li>
+  <li><code class="language-plaintext highlighter-rouge">setAutoReverse</code>: sets if the animation should reverse every time it finishes.</li>
+  <li><code class="language-plaintext highlighter-rouge">setInterpolator</code>: sets how to calculate the intermediate positions of the animation. Some of its possible values are <code class="language-plaintext highlighter-rouge">Interpolator.LINEAR</code> (always at the same speed), <code class="language-plaintext highlighter-rouge">Interpolator.EASE_IN</code> (faster at the beginning), <code class="language-plaintext highlighter-rouge">Interpolator.EASE_OUT</code> (faster at the end), <code class="language-plaintext highlighter-rouge">Interpolator.EASE_BOTH</code> (default value, it means faster at the beginning and at the end)…</li>
+</ul>
+
+<p>Apart from these common methods, there are also some particular methods that belong to each concrete type of transition. For instance, if we use a <code class="language-plaintext highlighter-rouge">FadeTransition</code>, we will have to set the initial value of the opacity, and the final value. If we use a <code class="language-plaintext highlighter-rouge">RotateTransition</code>, we will have to specify the initial and the final angles.</p>
+
+<p>The following example moves a label <code class="language-plaintext highlighter-rouge">lbl</code> from the left of the window to the right (assuming a window of 300px width), in 3 seconds.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">TranslateTransition</span> <span class="n">t</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nf">TranslateTransition</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">millis</span><span class="o">(</span><span class="mi">3000</span><span class="o">),</span> <span class="n">lbl</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setFromX</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setFromY</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setToX</span><span class="o">(</span><span class="mi">300</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setToY</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>In the transition constructor, we specify the duration of the transition (3 seconds), and the node or control to which it will be applied (the label). Then, we set the initial and final values (position) of the node (label), and the <code class="language-plaintext highlighter-rouge">TranslateTransition</code> object takes the control by calling its <code class="language-plaintext highlighter-rouge">play</code> method. In this example, we could have omitted the lines referring to Y coordinate (<code class="language-plaintext highlighter-rouge">t.setFromY</code> and <code class="language-plaintext highlighter-rouge">t.setToY</code> methods), since we are moving the label horizontally.</p>
+
+<p>We can also combine some transitions to run one after the other by using the <code class="language-plaintext highlighter-rouge">SequentialTransition</code> class. We add as many transitions as we need in its constructor, and then call its play method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">SequentialTransition</span> <span class="n">s</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nf">SequentialTransition</span><span class="o">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="o">,</span> <span class="n">t3</span><span class="o">,</span> <span class="n">t4</span><span class="o">);</span>
+<span class="n">s</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>If we need to run some transitions in parallel (simultaneously), we use the <code class="language-plaintext highlighter-rouge">ParallelTransition</code> class, in the same way that <code class="language-plaintext highlighter-rouge">SequentialTransition</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ParallelTransition</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ParallelTransition</span><span class="o">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="o">);</span>
+<span class="n">p</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Create a project named <strong>AnimationCredits</strong>. The window will have a black <code class="language-plaintext highlighter-rouge">FlowPane</code> at its bottom (use a <code class="language-plaintext highlighter-rouge">BorderPane</code> as main container), and inside this <code class="language-plaintext highlighter-rouge">FlowPane</code> there will be a label with white text with your name. This text must be continuously coming from the left side of the window and hiding at the right side, like a ticker.</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/13_animationcredits.png" width="50%" />
+</div>
+
+<h4 id="72-manual-animations">7.2. Manual animations</h4>
+
+<p>If we prefer to create an animation in a more manual way, we need to work with these classes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">KeyFrame</code>, a timing interval that launches an <em>ActionEvent</em> every time the interval expires. We need to specify the duration of the interval and the event handler that will control the <em>ActionEvent</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">Timeline</code>, a sequence of <em>KeyFrames</em>. When we call it, each <em>KeyFrame</em> is played in sequence.</li>
+</ul>
+
+<p>If we wanted to create the same animation as in previous example with these classes, we would have the following code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">KeyFrame</span> <span class="n">kf</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">KeyFrame</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">millis</span><span class="o">(</span><span class="mi">10</span><span class="o">),</span> <span class="n">e</span> <span class="o">-&gt;</span>
+<span class="o">{</span>
+    <span class="n">lbl</span><span class="o">.</span><span class="na">setTranslateX</span><span class="o">(</span><span class="n">lbl</span><span class="o">.</span><span class="na">getTranslateX</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+<span class="o">});</span>
+
+<span class="nc">Timeline</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Timeline</span><span class="o">(</span><span class="n">kf</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setCycleCount</span><span class="o">(</span><span class="mi">300</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">KeyFrame</code> will be activated every 10 milliseconds, and then it will increase the label X coordinate in 1 pixel. Finally, we add the <code class="language-plaintext highlighter-rouge">KeyFrame</code> to a <code class="language-plaintext highlighter-rouge">Timeline</code>, and set the cycle count. This value must be calculated manually. In our example, if we want to move the label from X = 0 to X = 300 in 3 seconds, moving it 1 pixel every 10 milliseconds, then we need a total of 300 iterations to get to X = 300.</p>
+
+<blockquote>
+  <p><strong>Exercise 6:</strong></p>
+
+  <p>Create a project called <strong>GrowingButton</strong> with a button in the middle (use a <code class="language-plaintext highlighter-rouge">BorderPane</code>), with a preferred width of 100 pixels and a preferred height of 50 pixels (use the corresponding properties, or the methods <code class="language-plaintext highlighter-rouge">setPrefWidth</code> and <code class="language-plaintext highlighter-rouge">setPrefHeight</code> to set these values at the beginning). Every time we move the mouse inside the button, its width and height must grow up to 300 x 250 pixels, in 2 seconds. As soon as we move the mouse outside of the button, it must recover its initial size. Do this animation with the manual technique.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

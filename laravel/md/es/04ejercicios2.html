@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Ejercicios propuestos - Parte 4 (II) | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 4 (II)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04ejercicios2.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04ejercicios2.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 4 (II)" />
+<script type="application/ld+json">
+{"headline":"Ejercicios propuestos - Parte 4 (II)","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04ejercicios2.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-4-ii">Ejercicios propuestos - Parte 4 (II)</h1>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> de la sesión anterior, vamos a añadir estos cambios:</p>
+
+<ul>
+  <li>Crea una relación <em>uno a muchos</em> entre el modelo de <code class="language-plaintext highlighter-rouge">Usuario</code> y el modelo de <code class="language-plaintext highlighter-rouge">Post</code>, ambos ya existentes en la aplicación, de forma que un post es de un usuario, y un usuario puede tener muchos posts. Deberás definir una nueva migración de modificación sobre la tabla <em>posts</em> que añada un nuevo campo <code class="language-plaintext highlighter-rouge">usuario_id</code>, y establecer a partir de él la relación, como hemos hecho en el ejemplo con autores y libros.</li>
+  <li>Crea desde <em>phpMyAdmin</em> una serie de usuarios de prueba en la tabla <em>usuarios</em>, y asocia algunos de ellos a los posts que haya.</li>
+  <li>Modifica la vista <code class="language-plaintext highlighter-rouge">posts/index.blade.php</code> para que, junto al título de cada post, entre paréntesis, aparezca el login del usuario que lo creó.</li>
+</ul>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/laravel/md/es/img/t5_listado_posts.png" width="50%" />
+</div>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Continuamos con el proyecto <strong>blog</strong> anterior. Ahora añadiremos lo siguiente:</p>
+
+<ul>
+  <li>Crea un <em>seeder</em> llamado <code class="language-plaintext highlighter-rouge">UsuariosSeeder</code>, con un factory asociado llamado <code class="language-plaintext highlighter-rouge">UsuarioFactory</code> (renombra el que viene por defecto <code class="language-plaintext highlighter-rouge">UserFactory</code> para aprovecharlo). Crea con esto 3 usuarios de prueba, con <em>logins</em> que sean únicos y de una sola palabra (usa el <em>faker</em>), y passwords también de una sola palabra, sin encriptar (para poderlos identificar después, llegado el caso).</li>
+  <li>Crea otro <em>seeder</em> llamado <code class="language-plaintext highlighter-rouge">PostsSeeder</code> con un factory asociado llamado <code class="language-plaintext highlighter-rouge">PostFactory</code>. En el <em>factory</em>, define con el <em>faker</em> títulos aleatorios (frases) y contenidos aleatorios (textos largos). Usa el <em>seeder</em> para crear 3 posts para cada uno de los usuarios existentes.</li>
+</ul>
+
+<p>Utiliza la opción <code class="language-plaintext highlighter-rouge">php artisan migrate:fresh --seed</code> para borrar todo contenido previo y poblar la base de datos con estos nuevos elementos.  Comprueba después desde la página del listado de posts, y desde <em>phpMyAdmin</em>, que la información que aparece es correcta.</p>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Añade al proyecto <strong>blog</strong> un nuevo modelo llamado <code class="language-plaintext highlighter-rouge">Comentario</code>, junto con su migración y controlador asociados. Cada comentario tendrá como campo el contenido del comentario, y estará relacionado <em>uno a muchos</em> con el modelo <code class="language-plaintext highlighter-rouge">Usuario</code>, de forma que un usuario puede tener muchos comentarios, y cada comentario pertenece a un usuario. También tendrá una relación <em>uno a muchos</em> con el modelo <code class="language-plaintext highlighter-rouge">Post</code>, de modo que un comentario pertenece a un post, y un post puede tener muchos comentarios. Por lo tanto, la migración de los comentarios deberá tener como campos adicionales la relación con el usuario (<code class="language-plaintext highlighter-rouge">usuario_id</code>) y con el post al que pertenece (<code class="language-plaintext highlighter-rouge">post_id</code>).</p>
+
+<p>Aplica la migración para reflejar la nueva tabla en la base de datos, y utiliza un <em>seeder</em> y un <em>factory</em> para crear 3 comentarios en cada post, con el usuario que sea. A la hora de aplicar todo esto, borra los contenidos previos de la base de datos (<code class="language-plaintext highlighter-rouge">migrate:fresh --seed</code>).</p>
+
+<blockquote>
+  <p><strong>AYUDA</strong>: si quieres elegir un usuario al azar como autor de cada comentario, puedes hacer algo así:</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Usuario</span><span class="o">::</span><span class="nf">inRandomOrder</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>En este caso, sería conveniente que ese usuario aleatorio se añada directamente en el <em>factory</em> del comentario, y no en el <em>seeder</em>, ya que de lo contrario es posible que genere el mismo usuario para todos los comentarios de un post.</p>
+</blockquote>
+
+<p>En la ficha de los posts (vista <code class="language-plaintext highlighter-rouge">posts/show.blade.php</code>), añade el código necesario para mostrar el <em>login</em> del usuario que ha hecho el <em>post</em>, y el listado de comentarios asociado al post, mostrando para cada uno el <em>login</em> del usuario que lo hizo, y el texto del comentario en sí. Utiliza también la librería <em>Carbon</em> para mostrar la fecha de creación del post (o la de los comentarios, como prefieras) en formato <em>d/m/Y</em>.</p>
+
+<p>Aquí tienes una captura de pantalla de cómo podría quedar:</p>
+
+<div align="center">
+    <img src="../../img/04_listado_posts_comentarios.png" width="90%" />
+</div>
+
+<p><strong>¿Qué entregar?</strong></p>
+
+<p>Como entrega de esta sesión deberás comprimir el proyecto <strong>blog</strong> con todos los cambios incorporados, y eliminando las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code> como se explicó en las sesiones anteriores. Renombra el archivo comprimido a <code class="language-plaintext highlighter-rouge">blog_05.zip</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

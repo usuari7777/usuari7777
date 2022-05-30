@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Acceso a bases de datos con PHP | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Acceso a bases de datos con PHP" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/03b.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Acceso a bases de datos con PHP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Acceso a bases de datos con PHP","url":"http://nachoiborraies.github.io/php/md/es/03b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="acceso-a-bases-de-datos-con-php">Acceso a bases de datos con PHP</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Existen diferentes alternativas para conectar y acceder a bases de datos desde PHP. El propio lenguaje ya incorpora una serie de funciones específicas que permiten conectar y utilizar directamente distintos SGBD conocidos, como MySQL o PostgreSQL. Sin embargo, en esta sección vamos a aprender a gestionar bases de datos utilizando <strong>PDO</strong> (<em>PHP Data Objects</em>), una capa de acceso a bases de datos independiente del SGBD que se vaya a utilizar. De este modo, el código que vamos a definir para conectar, consultar, insertar, etc, va a servirnos para cualquier servidor de base de datos que utilicemos, cambiando únicamente los datos de la conexión.</p>
+
+<h2 id="1-preparación-de-la-base-de-datos">1. Preparación de la base de datos</h2>
+
+<p>Antes de conectar con una base de datos, evidentemente tenemos que tenerla creada y lista. Si utilizamos XAMPP, este paso puede hacerse fácilmente a través de la herramienta <strong>phpMyAdmin</strong> que ya viene instalada. Para usarla, accedemos a su URL predeterminada, que suele ser <em>http://localhost/phpmyadmin</em>.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en el <em>manager</em> de XAMPP, tendremos que tener en marcha tanto el servidor Apache como el servidor MySQL para poder conectar con <em>phpMyAdmin</em>.</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_phpmyadmin.png" />
+</div>
+
+<p>En el panel izquierdo tenemos un enlace <em>Nueva</em> para crear bases de datos, y debajo de este enlace, un listado con las bases de datos actuales para poder acceder a cualquiera de ellas.</p>
+
+<p>Para crear una base de datos, simplemente indicamos su nombre y su sistema de codificación (típicamente UTF8):</p>
+
+<div align="center">
+    <img src="../../img/03_phpmyadmin2.png" />
+</div>
+
+<p>Después, ya podemos crear tabla(s) en la base de datos, indicando cuántas columnas necesitamos (aunque luego podemos añadir más, o quitar):</p>
+
+<div align="center">
+    <img src="../../img/03_phpmyadmin3.png" />
+</div>
+
+<p>El siguiente paso será definir el nombre, tipo de datos y restricciones de cada campo de la tabla:</p>
+
+<div align="center">
+    <img src="../../img/03_phpmyadmin4.png" />
+</div>
+
+<p>Con esto, ya tendremos la tabla creada en la base de datos. Haciendo clic en ella desde el panel principal podremos consultar la información que haya guardada en cada momento.</p>
+
+<p>Además, desde las opciones del menú superior <em>Importar</em> y <em>Exportar</em> podemos incorporar nuevas bases de datos (previamente exportadas) o exportar el contenido de las existentes para hacer copias de seguridad o llevarlas a otro servidor.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una base de datos llamada <em>videojuegos</em> con una tabla <em>videojuegos</em> como la del ejemplo anterior, usando <em>phpMyAdmin</em>.</p>
+</blockquote>
+
+<h2 id="2-configuración-de-la-conexión">2. Configuración de la conexión</h2>
+
+<p>A la hora de conectar con cualquier base de datos, tenemos que tener en cuenta cuatro o cinco parámetros clave:</p>
+
+<ul>
+  <li>Dirección del servidor de bases de datos. Típicamente suele estar alojado en la misma máquina donde tenemos el servidor web Apache, así que esta dirección suele ser <em>localhost</em>.</li>
+  <li>Puerto de conexión con el servidor. Normalmente cada servidor queda escuchando por su puerto por defecto y no es necesario configurarlo. Así, el puerto por defecto de MySQL es el 3306, por ejemplo.</li>
+  <li>Nombre de la base de datos a la que queremos conectar.</li>
+  <li>Login y password del usuario con el que queremos conectar. En el caso de XAMPP, por defecto se crea un usuario <em>root</em> con contraseña vacía.</li>
+</ul>
+
+<p>Teniendo todo esto en cuenta, el siguiente código nos va a permitir conectar con una base de datos como la que hemos creado en el paso anterior:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$host</span> <span class="o">=</span> <span class="s2">"localhost"</span><span class="p">;</span>
+<span class="nv">$nombreBD</span> <span class="o">=</span> <span class="s2">"videojuegos"</span><span class="p">;</span>
+<span class="nv">$usuario</span> <span class="o">=</span> <span class="s2">"root"</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+
+<span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PDO</span><span class="p">(</span><span class="s2">"mysql:host=</span><span class="nv">$host</span><span class="s2">;dbname=</span><span class="nv">$nombreBD</span><span class="s2">;charset=utf8"</span><span class="p">,</span>
+    <span class="nv">$usuario</span><span class="p">,</span> <span class="nv">$password</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El objeto <em>PDO</em> anterior se construye usando tres parámetros:</p>
+
+<ul>
+  <li>URL de conexión, donde indicamos el tipo de base de datos que vamos a usar (MySQL, en este caso), dirección del servidor, nombre de la base de datos y codificación. Notar que simplemente cambiando el tipo de base de datos (PostgreSQL, Oracle…) esta misma línea nos va a servir para conectar con distintos SGBD.</li>
+  <li>Usuario y contraseña de acceso</li>
+</ul>
+
+<blockquote>
+  <p><strong>NOTA</strong>: estas líneas de conexión van a resultar muy frecuentes en nuestras aplicaciones si accedemos a la base de datos desde distintas páginas PHP, por lo que convendría definirlas en un archivo <em>.inc</em> e incluirlo en las páginas que necesiten esa conexión.</p>
+</blockquote>
+
+<h2 id="3-ejecución-de-instrucciones-sql">3. Ejecución de instrucciones SQL</h2>
+
+<p>Para ejecutar instrucciones SQL, seguiremos dos pasos:</p>
+
+<ol>
+  <li>Preparamos la instrucción SQL a ejecutar (SELECT, INSERT, UPDATE, DELETE…). Utilizaremos la instrucción <code class="language-plaintext highlighter-rouge">prepare</code> para ello.</li>
+  <li>La ejecutamos, indicando si es necesario algunos parámetros variables en la operación (valores para algunas condiciones o campos). Emplearemos la instrucción <code class="language-plaintext highlighter-rouge">execute</code> para esta ejecución.</li>
+</ol>
+
+<p>Así lanzaríamos una instrucción INSERT para insertar datos fijos en nuestra tabla <em>videojuegos</em> del ejemplo anterior, una vez obtenida la conexión en el objeto <code class="language-plaintext highlighter-rouge">$pdo</code> anterior.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$insercion</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="s2">"INSERT INTO videojuegos(titulo, genero, precio)"</span> <span class="mf">.</span>
+    <span class="s2">" VALUES('Fifa 2020', 'Deportes', 40.95)"</span><span class="p">);</span>
+<span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="31-parametrizar-operaciones">3.1. Parametrizar operaciones</h3>
+
+<p>Lo normal es que no hagamos operaciones con todos los datos fijos, sino que parte de la <em>query</em> dependa de ciertos parámetros externos (datos que nos llegan de un formulario, por ejemplo). En este caso, se prepara la instrucción dejando ciertas partes variables, y luego se le asigna un valor a cada parte con la instrucción <code class="language-plaintext highlighter-rouge">bindParam</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$insercion</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="s2">"INSERT INTO videojuegos(titulo, genero, precio)"</span> <span class="mf">.</span>
+    <span class="s2">" VALUES(:titulo, :genero, :precio)"</span><span class="p">);</span>
+<span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">bindParam</span><span class="p">(</span><span class="s1">':titulo'</span><span class="p">,</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'titulo'</span><span class="p">]);</span>
+<span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">bindParam</span><span class="p">(</span><span class="s1">':genero'</span><span class="p">,</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'genero'</span><span class="p">]);</span>
+<span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">bindParam</span><span class="p">(</span><span class="s1">':precio'</span><span class="p">,</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'precio'</span><span class="p">]);</span>
+<span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Notar que etiquetamos las partes variables anteponiendo <code class="language-plaintext highlighter-rouge">:</code> delante de cada una, y luego usamos una instrucción <code class="language-plaintext highlighter-rouge">bindParam</code> para asignar un valor a cada parámetro (en este caso, con datos supuestamente recogidos de un envío de formulario).</p>
+
+<h3 id="32-resultado-de-las-operaciones">3.2. Resultado de las operaciones</h3>
+
+<p>En el caso de operaciones de actualización (inserciones, borrados o modificaciones), el resultado que podemos obtener tras la llamada a <code class="language-plaintext highlighter-rouge">execute</code> nos proporcionará información sobre si se ha podido realizar correctamente o no la operación, a través de un booleano. Así podríamos saber si la inserción anterior ha sido exitosa:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="c1">// OK</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="c1">// Error</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Además, en el caso de las inserciones nos puede venir bien obtener el <em>id</em> automático del nuevo registro generado. Para ello podemos utilizar el método <code class="language-plaintext highlighter-rouge">lastInserId</code> del objeto <code class="language-plaintext highlighter-rouge">$pdo</code>, tras ejecutar la inserción:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$insercion</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">();</span>
+<span class="nv">$nuevoID</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">lastInserId</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Para las consultas (<em>SELECT</em>), lo que obtendremos es un array con los registros que cumplen las condiciones para entrar en el listado, con sus datos. Podemos recorrer uno a uno estos registros usando la instrucción <code class="language-plaintext highlighter-rouge">fetch</code>, y luego acceder a cada campo de cada registro usando un array asociativo (con el nombre de cada campo en la base de datos). Aquí vemos un ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$consulta</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="s2">"SELECT * FROM videojuegos WHERE genero=:genero"</span><span class="p">);</span>
+<span class="nv">$consulta</span><span class="o">-&gt;</span><span class="nf">bindParam</span><span class="p">(</span><span class="s1">':genero'</span><span class="p">,</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'genero'</span><span class="p">]);</span>
+<span class="nv">$consulta</span><span class="o">-&gt;</span><span class="nf">execute</span><span class="p">();</span>
+<span class="k">while</span><span class="p">(</span><span class="nv">$registro</span> <span class="o">=</span> <span class="nv">$consulta</span><span class="o">-&gt;</span><span class="nf">fetch</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$registro</span><span class="p">[</span><span class="s1">'titulo'</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="4-liberar-las-conexiones">4. Liberar las conexiones</h2>
+
+<p>Una vez hemos terminado de trabajar con la base de datos (en cada página donde lo hayamos hecho), para liberar la conexión y que la pueda utilizar otro cliente que quiera acceder, debemos anular (asignar a <em>NULL</em>) tanto el objeto de la conexión (<code class="language-plaintext highlighter-rouge">$pdo</code> en los ejemplos anteriores) como el que hemos utilizado para realizar la operación (variables <code class="language-plaintext highlighter-rouge">$insercion</code> o <code class="language-plaintext highlighter-rouge">$consulta</code> en los ejemplos anteriores). Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$consulta</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">;</span>
+<span class="nv">$pdo</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>videojuegos</strong> en tu espacio de trabajo XAMPP. Define dentro una página llamada <strong>form_videojuego.php</strong> que simplemente tenga un formulario para dar de alta un videojuego en la base de datos (con los campos del título, género y precio, siendo el género un desplegable con varias opciones predefinidas). El formulario se enviará a <strong>insertar_videojuego.php</strong>, que realizará la inserción recogiendo los datos del formulario. Si todo ha ido bien, redirigirá a <strong>index.php</strong>, que mostrará un listado de videojuegos actualizado. Si algo ha ido mal, redirigirá a <strong>error.php</strong> con el mensaje <em>Error insertando videojuego</em>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Modifica el archivo <strong>index.php</strong> del ejercicio anterior para añadir un formulario de búsqueda que permita filtrar videojuegos por precio. Si especificamos un precio, se mostrarán sólo los videojuegos que sean más baratos que el precio indicado.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

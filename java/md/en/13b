@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>JavaFX application development | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="JavaFX application development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/13b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/13b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="JavaFX application development" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"JavaFX application development","url":"http://nachoiborraies.github.io/java/md/en/13b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="javafx-application-development">JavaFX application development</h1>
+
+<h2 id="basic-javafx-elements">Basic JavaFX elements</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/13b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/13b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Now that we have learnt the basics about creating JavaFX projects and using Scene Builder, let’s see the main elements that we can include in these applications. These components can be found in the upper left panel, inside the <em>Containers</em> or <em>Controls</em> tab, respectively.</p>
+
+<h3 id="1-the-stage-and-scene-classes">1. The <em>Stage</em> and <em>Scene</em> classes</h3>
+
+<p><strong>The <em>Stage</em> class</strong></p>
+
+<p>When we create a JavaFX application, the main class extends the <code class="language-plaintext highlighter-rouge">Application</code> class, and overrides a <code class="language-plaintext highlighter-rouge">start</code> method that has a <code class="language-plaintext highlighter-rouge">Stage</code> object as a parameter. The <code class="language-plaintext highlighter-rouge">Stage</code> object is a reference to the main container of our application. This will be a window in operating systems like Linux, Windows or Mac OS X, but it can be the full screen if our application runs on a smartphone or a tablet.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Stage</code> class provides some useful methods to change some features (size, behaviour…). Some of the most useful methods are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">setTitle(String)</code>: sets the application title (it is visible in the upper bar of the window).</li>
+  <li><code class="language-plaintext highlighter-rouge">setScene(Scene)</code>: sets our application scene (where all the controls will be placed). We will learn later that there can be more than one scene in a stage.</li>
+  <li><code class="language-plaintext highlighter-rouge">show</code>: makes the application (stage) visible, and keeps on running next instructions</li>
+  <li><code class="language-plaintext highlighter-rouge">showAndWait</code>: makes the application (stage) visible, and waits until it is closed before going on.</li>
+  <li><code class="language-plaintext highlighter-rouge">setMinWidth(double)</code>, <code class="language-plaintext highlighter-rouge">setMaxWidth(double)</code>: set the minimum and maximum width (respectively) of the window, so that we will not be able to resize it beyond these limits.</li>
+  <li><code class="language-plaintext highlighter-rouge">setMinHeight(double)</code>, <code class="language-plaintext highlighter-rouge">setMaxHeight(double)</code>: set the minimum and maximum height (respectively) of the window, similar to the width methods seen before.</li>
+  <li><code class="language-plaintext highlighter-rouge">getMinWidth</code>, <code class="language-plaintext highlighter-rouge">getMaxWidth</code>, <code class="language-plaintext highlighter-rouge">getMinHeight</code>, <code class="language-plaintext highlighter-rouge">getMaxHeight</code>: get the maximum or minimum width or height of the application.</li>
+  <li><code class="language-plaintext highlighter-rouge">setFullScreen(boolean)</code>: sets if our application will run in full screen mode (so it will not be resizable, and there will not be any upper bar), or not.</li>
+  <li><code class="language-plaintext highlighter-rouge">setMaximized(boolean)</code>: sets if our application is maximized or not.</li>
+  <li><code class="language-plaintext highlighter-rouge">setIconified(boolean)</code>: sets if our application is iconified (minimized) or not.</li>
+  <li><code class="language-plaintext highlighter-rouge">setResizable(boolean)</code>: sets if our application is resizable or not.</li>
+</ul>
+
+<p>You can see the full description of <code class="language-plaintext highlighter-rouge">Stage</code> class in the official <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html">API</a></p>
+
+<p>For instance, with these lines inside the <code class="language-plaintext highlighter-rouge">start</code> method we can define the window title, and the maximum and minimum size for our window (if we resize it):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stage</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
+<span class="n">stage</span><span class="o">.</span><span class="na">setMinimumWidth</span><span class="o">(</span><span class="mi">200</span><span class="o">);</span>
+<span class="n">stage</span><span class="o">.</span><span class="na">setMaximumWidth</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+<span class="n">stage</span><span class="o">.</span><span class="na">setMinimumHeight</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+<span class="n">stage</span><span class="o">.</span><span class="na">setMaximumHeight</span><span class="o">(</span><span class="mi">400</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>The <em>Scene</em> class</strong></p>
+
+<p>Every JavaFX program has (at least) one <code class="language-plaintext highlighter-rouge">Scene</code> object to hold all the controls of the application. When we create it, we need to specify its main node (the one that <em>FXMLLoader</em> returns when we parse an FXML):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">FXMLLoader</span> <span class="n">fxmlLoader</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nf">FXMLLoader</span><span class="o">(</span><span class="nc">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"hello-view.fxml"</span><span class="o">));</span>
+<span class="nc">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">fxmlLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(),</span> <span class="mi">320</span><span class="o">,</span> <span class="mi">240</span><span class="o">);</span>
+<span class="n">stage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">scene</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Then we can find some useful methods inside <code class="language-plaintext highlighter-rouge">Scene</code> class, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">getWidth</code>, <code class="language-plaintext highlighter-rouge">getHeight</code>: gets the scene’s current width and height</li>
+  <li><code class="language-plaintext highlighter-rouge">getX</code>, <code class="language-plaintext highlighter-rouge">getY</code>: gets the scene’s current coordinates in the screen (referring its upper left corner)</li>
+  <li><code class="language-plaintext highlighter-rouge">setRoot (Parent)</code>: sets a new layout manager as the main node for this scene.</li>
+</ul>
+
+<p>A stage can switch among multiple scenes by calling its <code class="language-plaintext highlighter-rouge">setScene</code> method, as we will see later. You can learn more about the <code class="language-plaintext highlighter-rouge">Scene</code> class by checking its official <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">API</a>.</p>
+
+<h3 id="2-javafx-containers">2. JavaFX containers</h3>
+
+<p>Every control that we can place in an application, such as buttons, labels and so on, must be placed inside a <strong>container</strong>, also known as <em>layout managers</em>. These components let us arrange the controls in a given way, so that we don’t need to take care of placing the components in their positions manually.</p>
+
+<p>Every JavaFX project that we create starts with a default root container. Depending on the IDE that we are using, this default container can be an <em>AnchorPane</em>, <em>GridPane</em>, <em>Vbox</em>… Some of the most common containers in JavaFX are:</p>
+
+<ul>
+  <li><strong>HBox</strong> and <strong>VBox</strong>: arrange controls horizontally and vertically (respectively). These two containers have some interesting properties in the right <em>Properties</em> tab, such as <em>Spacing</em> to automatically separate each control from the rest.</li>
+</ul>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_hboxvbox.png" width="90%" />
+</div>
+
+<ul>
+  <li><strong>FlowPane</strong>: arranges controls next to each other until there is no more space (vertically or horizontally). Then, it goes to next row (or column, depending on its configuration) to keep on arranging more controls. In a <em>FlowPane</em> we can control the space between elements horizontally (Hgap) and vertically (Vgap).</li>
+</ul>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_flowpane.png" width="90%" />
+</div>
+
+<ul>
+  <li><strong>BorderPane</strong>: this layout divides the pane into five regions: top, bottom, left, right and center, and we can add a control (or a container with some controls) in each region.</li>
+</ul>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_borderpane1.png" width="50%" />
+    &nbsp;
+    <img src="https://nachoiborraies.github.io/java/img/13_borderpane2.png" width="30%" />
+</div>
+
+<ul>
+  <li><strong>AnchorPane</strong>: this layout enables you to anchor nodes to the top, bottom, left side, right side, or center of the pane. As the window is resized, the nodes maintain their position relative to their anchor point. Nodes can be anchored to more than one position and more than one node can be anchored to the same position.</li>
+</ul>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_anchorpane.png" width="90%" />
+</div>
+
+<p>There are other layout panes, such as <em>GridPane</em> (it creates some kind of table in the pane to arrange the controls), <em>TilePane</em> (similar to FlowPane, but leaving the same space for each control), and <a href="http://docs.oracle.com/javase/8/javafx/layout-tutorial/builtin_layouts.htm">so on</a>.</p>
+
+<h3 id="3-javafx-controls">3. JavaFX controls</h3>
+
+<p>Once we have chosen the appropriate container(s) for our application, we need to place the controls inside it/them. It is important to assign an id (<em>fx:id</em> from the <em>Code</em> tab) to each control that needs to be accessed from the Java code, so that a variable will be created in the corresponding controller.</p>
+
+<h4 id="31-some-basic-controls">3.1. Some basic controls</h4>
+
+<p>The most common controls that we can find in many JavaFX applications are:</p>
+
+<ul>
+  <li><strong>Labels</strong>: they display some text in the scene. Once we have put the label inside a container, there are some useful methods in the <code class="language-plaintext highlighter-rouge">Label</code> class, such as <code class="language-plaintext highlighter-rouge">getText</code> or <code class="language-plaintext highlighter-rouge">setText</code>, to get/set the text of the label.</li>
+  <li><strong>Buttons</strong>: they let us click on them to fire some action. We can specify the text of the button either in the constructor or with the corresponding <code class="language-plaintext highlighter-rouge">setText</code> method, as we do with labels.</li>
+  <li><strong>RadioButtons</strong>: a set of buttons where only one of them can be selected at the same time. We need to define a group (<code class="language-plaintext highlighter-rouge">ToggleGroup</code> class), and add the radio buttons to it. For instance, if we have three radio buttons to choose three different colors, associated to three variables called <code class="language-plaintext highlighter-rouge">white</code>, <code class="language-plaintext highlighter-rouge">gray</code> and <code class="language-plaintext highlighter-rouge">black</code>, we can add them all to a toggle group and leave one of them selected by default with the following piece of code:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ToggleGroup</span> <span class="n">colorGroup</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ToggleGroup</span><span class="o">();</span>
+
+<span class="n">white</span><span class="o">.</span><span class="na">setToggleGroup</span><span class="o">(</span><span class="n">colorGroup</span><span class="o">);</span>
+<span class="n">gray</span><span class="o">.</span><span class="na">setToggleGroup</span><span class="o">(</span><span class="n">colorGroup</span><span class="o">);</span>
+<span class="n">black</span><span class="o">.</span><span class="na">setToggleGroup</span><span class="o">(</span><span class="n">colorGroup</span><span class="o">);</span>
+
+<span class="n">colorGroup</span><span class="o">.</span><span class="na">selectToggle</span><span class="o">(</span><span class="n">white</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Checkboxes</strong>: a control that we can check and uncheck, alternatively, every time we click on it. It has the methods <code class="language-plaintext highlighter-rouge">setSelected</code> and <code class="language-plaintext highlighter-rouge">isSelected</code> to check/uncheck it, and determine if it is currently checked.</li>
+  <li><strong>Text fields</strong>: Regarding text fields, the most common controls that we can use in our applications are <code class="language-plaintext highlighter-rouge">TextField</code> (for short text inputs, with a single line), and <code class="language-plaintext highlighter-rouge">TextArea</code> (for longer texts, with several rows and columns). There are some methods such as <code class="language-plaintext highlighter-rouge">getText</code> or <code class="language-plaintext highlighter-rouge">setText</code> to get and set the text of the control, respectively.</li>
+</ul>
+
+<h4 id="32-working-with-lists">3.2. Working with lists</h4>
+
+<p>There are two main types of lists that we can use in any application: <code class="language-plaintext highlighter-rouge">ListView</code>, with a fixed size where some elements are shown, and dropdown lists. In this last category we can choose between <code class="language-plaintext highlighter-rouge">ChoiceBox</code> or <code class="language-plaintext highlighter-rouge">ComboBox</code>. Anyway, we usually use an <code class="language-plaintext highlighter-rouge">ObservableList</code> of items to add elements to these type of lists.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">setItems</span><span class="o">(</span>
+    <span class="nc">FXCollections</span><span class="o">.</span><span class="na">observableArrayList</span><span class="o">(</span>
+        <span class="s">"Windows"</span><span class="o">,</span> <span class="s">"Linux"</span><span class="o">,</span> <span class="s">"Mac OS X"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>We can also get current items and add values to this list:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list</span><span class="o">.</span><span class="na">getItems</span><span class="o">().</span><span class="na">addAll</span><span class="o">(</span><span class="s">"Windows"</span><span class="o">,</span> <span class="s">"Linux"</span><span class="o">,</span> <span class="s">"Mac OS X"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>There are also some useful methods to get the currently selected item(s), or their indexes. If we are using a dropdown list (such as <code class="language-plaintext highlighter-rouge">ChoiceBox</code> or <code class="language-plaintext highlighter-rouge">ComboBox</code>), then we can just call <code class="language-plaintext highlighter-rouge">getValue</code> method to get the currently selected value. We need to typecast it, unless we define the attribute as generic in the controller:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)(</span><span class="n">list</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>If we have a <code class="language-plaintext highlighter-rouge">ListView</code> get can also use <code class="language-plaintext highlighter-rouge">getSelectionModel</code> method to access some other additional methods, that let us check or even change currently selected item(s) or index(es).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">element</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)(</span><span class="n">myList</span><span class="o">.</span><span class="na">getSelectionModel</span><span class="o">().</span><span class="na">getSelectedItem</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>There are some other useful methods inside <code class="language-plaintext highlighter-rouge">getSelectionModel()</code>, such as <code class="language-plaintext highlighter-rouge">getSelectionModel().getSelectedItems()</code> (if we allow multiple selection), or <code class="language-plaintext highlighter-rouge">getSelectionModel().getSelectedIndex()</code> / <code class="language-plaintext highlighter-rouge">getSelectionModel().getSelectedIndexes()</code> to get the selected index instead of the value itself.</p>
+
+<p><strong>Lists of objects</strong></p>
+
+<p>If we want to put some complex objects (such as books, people and so on) in a list, we just need to override <code class="language-plaintext highlighter-rouge">toString</code> method of the affected class to show the appropriate information of each control in the corresponding list.</p>
+
+<h4 id="33-working-with-menus">3.3. Working with menus</h4>
+
+<p>As in many desktop applications, we can add a menu to our JavaFX application (this is not usual when we are developing a mobile application). The pattern that we usually follow is to put a menu bar (with default menus inside that we can edit), define the categories (Menu), and add menu items to the categories.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_menus.png" width="70%" />
+</div>
+
+<p>As you can see, we need to use three different elements when working with menus:</p>
+
+<ul>
+  <li><strong>MenuBar</strong> to define the bar where all menus and menu items will be placed</li>
+  <li><strong>Menu</strong> to define the categories for the menu items. A category is an item that can be displayed, but it has no action (if we click on it, nothing else happens but showing the items that this category contains).</li>
+  <li><strong>MenuItem</strong> defines each item of our menus. If we click on an item, we can define some code associated to that action, as we will see when talking about events. In the example above we have defined a menu item called “Close” inside File menu. There are also some <code class="language-plaintext highlighter-rouge">MenuItem</code> subtypes, such as <code class="language-plaintext highlighter-rouge">CheckMenuItem</code> (items that can be checked/unchecked, like checkboxes), or <code class="language-plaintext highlighter-rouge">RadioMenuItem</code> (groups of items where only one of them can be checked at the same time, like radio buttons). We can also use a <code class="language-plaintext highlighter-rouge">SeparatorMenuItem</code> to create a separation line between groups of menu items.</li>
+</ul>
+
+<p>All these elements are available in the <em>Menu</em> section in the upper left corner of Scene Builder.</p>
+
+<h3 id="4-placing-components-and-updating-the-application">4. Placing components and updating the application</h3>
+
+<p>Now that we know the most important containers and controls that we can use in a JavaFX application, let’s see how to use them with Scene Builder, and how to update the code related with this graphical design.</p>
+
+<p>First of all, we need to choose the appropriate containers and controls and arrange them in Scene Builder. We may need to remove any existing content, and we can do it by right clicking on the corresponding control or container in the lower left panel (<em>Custom</em> tab), and choosing <em>Delete</em>.</p>
+
+<h4 id="41-synchronizing-the-controller-class">4.1. Synchronizing the controller class</h4>
+
+<p>Every FXML file in our JavaFX project has a controller Java class associated, so that every component in this FXML file can be accessed from Java code. When we create a default JavaFX application, the association between the controller class and the FXML file is automatically added in this last file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;VBox</span> <span class="na">alignment=</span><span class="s">"CENTER"</span> <span class="na">spacing=</span><span class="s">"20.0"</span> <span class="na">xmlns:fx=</span><span class="s">"http://javafx.com/fxml"</span>
+      <span class="na">fx:controller=</span><span class="s">"example.myfirstjavafxproject.HelloController"</span><span class="nt">&gt;</span>
+    ...
+</code></pre></div></div>
+
+<p>However, if we remove the main container and place a new one, this association is lost, and we have to manually add it. For instance, if we replace previous <em>VBox</em> controller with an <em>AnchorPane</em>, we need to add a <code class="language-plaintext highlighter-rouge">fx:controller</code> attribute in it with the controller associated:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;AnchorPane</span> <span class="na">fx:controller=</span><span class="s">"example.myfirstjavafxproject.HelloController"</span> 
+<span class="err">...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: this step must ONLY be done with the root container of our application (not with every container that we use).</p>
+</blockquote>
+
+<h4 id="42-adding-elements-to-the-controller">4.2. Adding elements to the controller</h4>
+
+<p>As we add controls and containers to the application in SceneBuilder, they are automatically added to the FXML file but, in order to have them accessible from the controller Java code, we need to assign them an id (<em>fx:id</em> property in the <em>Code</em> tab of Scene Builder).</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_scenebuilder_fxid.png" width="80%" />
+</div>
+
+<p>This <em>id</em> will be automatically added to the FXML file, as a property of the corresponding control:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Button</span> <span class="na">fx:id=</span><span class="s">"btnClic"</span> <span class="na">layoutX=</span><span class="s">"131.0"</span> <span class="na">layoutY=</span><span class="s">"141.0"</span> 
+<span class="na">mnemonicParsing=</span><span class="s">"false"</span> <span class="na">text=</span><span class="s">"Click me!"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Then, we need to manually add this property to the controller class (as long as the controller is properly attached to the FXML file, as we have explained before). To do this, we can just move the mouse over the corresponding attribute in the FXML file, then go to the “bulb” that will be shown and choose <em>Create field XXX</em>, where XXX will be the <em>id</em> given to our control:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_scenebuilder_fxid2.png" width="30%" />
+</div>
+
+<p>This is how our controller should look like after this change:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">Button</span> <span class="n">btnClic</span><span class="o">;</span>
+
+</code></pre></div></div>
+
+<p>However, the attributes of a class should be private, so we set these controls as private attributes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">Button</span> <span class="n">btnClic</span><span class="o">;</span>
+
+</code></pre></div></div>
+
+<p>This last change will cause an error in our FXML file, since it can’t access this private file. To solve it, we just move the mouse over the control name, go to the red bulb on the left margin and choose <em>Annotate field XXXXX as @FXML</em>.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_intellij_annotate_fxml.png" />
+</div>
+
+<p>These steps must be repeated for every control in the FXML file that needs to be accessed from the controller.</p>
+
+<h4 id="43-initializing-components">4.3. Initializing components</h4>
+
+<p>Some components need to be initialized with some default values. For instance, lists may need to be populated with some values at the beginning. If we need to initialize some components in a JavaFX application, then we need to make the controller implement <code class="language-plaintext highlighter-rouge">Initializable</code> interface:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">javafx.fxml.Initializable</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HomeController</span> <span class="kd">implements</span> <span class="nc">Initializable</span>
+</code></pre></div></div>
+
+<p>This forces us to add a new method, called <code class="language-plaintext highlighter-rouge">initialize</code>, where all the initialization code must be placed. This method is called at the beginning, before showing the scene.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HomeController</span> <span class="kd">implements</span> <span class="nc">Initializable</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="no">URL</span> <span class="n">url</span><span class="o">,</span> 
+        <span class="nc">ResourceBundle</span> <span class="n">resourceBundle</span><span class="o">)</span> 
+    <span class="o">{</span>
+        
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="44-renaming-components">4.4. Renaming components</h4>
+
+<p>Usually, we don’t want to use the default names provided by IntelliJ for our FXML and <em>.java</em> files. If you want to rename them, it’s a good choice to do it at the beginning. Just right click on the file name and choose <em>Refactor &gt; Rename</em> menu. Then, type the new name and make sure that every reference is still OK:</p>
+
+<ul>
+  <li>The name of the FXML file loaded in <code class="language-plaintext highlighter-rouge">start</code> method in the main class</li>
+  <li>The name of the controller associated to the FXML file</li>
+</ul>
+
+<p>You may need to add more FXML files and controllers in a complex application, as we will see in next document. In this case, you can decide if you place all the FXML files in the same resources folder, and all the controller classes in the same Java package.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a new JavaFX project called <strong>NotepadFX</strong> with the following appearance:</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_notepadfx.png" width="40%" />
+</div>
+
+<blockquote>
+  <p>You must choose an appropriate container, and place a menu bar at the top, with the <em>File</em> menu containing the specified menu items (<em>Open</em>, <em>Save</em> and <em>Exit</em>). Then, place a <em>TextArea</em> in the center and a label at the bottom. Once you have finished placing the container(s) and controls, save your project. We will go on with it in later sections.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a JavaFX project called <strong>ContactsFX</strong> with the following main window:</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_contactsfx.png" width="80%" />
+</div>
+
+<blockquote>
+  <p>There is a list view on the left, and some labels, text fields and buttons on the right. Choose the appropriate containers and controls to get a similar appearance. Save your project when you are done, we will go on with it later.</p>
+</blockquote>
+
+<h3 id="5-events">5. Events</h3>
+
+<p>If we only add controls to our JavaFX application (buttons, labels, text fields…) we will not be able to do anything but clicking and typing with it. There will be no file loading, data saving, or any operation with the data that we type or add to the application.</p>
+
+<p>In order to allow our application to respond to our clicks and typings, we need to define event handlers. An <strong>event</strong> is something that happens in our application. Clicking the mouse, pressing a key, or even passing a mouse over the application window, are examples of events. An <strong>event handler</strong> is a method (or object with a method) that responds to a given event by executing some instructions. For instance, we can define a handler that, when a user clicks a given button, takes the numerical values from some text boxes, adds them and shows the result.</p>
+
+<h4 id="51-main-event-types">5.1. Main event types</h4>
+
+<p>Every event produced in our application is a subclass of <code class="language-plaintext highlighter-rouge">Event</code> class. Some of the most common types (subclasses) of events are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ActionEvent</code>: typically created when the user clicks on a button or a menu item (and also when he tabs to the button or menu item and presses the Enter key).</li>
+  <li><code class="language-plaintext highlighter-rouge">KeyEvent</code>: created when the user presses a key</li>
+  <li><code class="language-plaintext highlighter-rouge">MouseEvent</code>: created when the user does something with the mouse (click a button, move the mouse…)</li>
+  <li><code class="language-plaintext highlighter-rouge">WindowEvent</code>: created when the status of the window changes (for instance, it is maximized, minimized, or closed).</li>
+</ul>
+
+<h4 id="52-defining-handlers-through-scene-builder">5.2. Defining handlers through Scene Builder</h4>
+
+<p>Most common events (but not all) can be connected to an event handler with Scene Builder (FXML). In order to do that, we select the element and in the right (<em>Code</em> tab) we will see the different event types we can bind to a method in the controller.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_scenebuilder_events.png" width="40%" />
+</div>
+
+<p>We need to type the handler name in the desired event, save the changes manually add the corresponding method to the controller (as we did for the <em>fx:ids</em> of the components before, going to the “bulb” and choosing <em>Create method…</em> option). Then, a new event handler will appear in the code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleButton</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="c1">// Code</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, we just need to type the code associated to this handler.</p>
+
+<h4 id="53-defining-handlers-by-code">5.3. Defining handlers by code</h4>
+
+<p>We can also define our event handlers in the code of the controller. This can be typically done in the <code class="language-plaintext highlighter-rouge">initialize</code> method, where every component is initialized as the application starts. Let’s see some examples.</p>
+
+<p><strong>Action event over a button</strong></p>
+
+<p>This way we could define an action event over a button whose variable name is <code class="language-plaintext highlighter-rouge">button</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">(</span><span class="no">URL</span> <span class="n">url</span><span class="o">,</span> <span class="nc">ResourceBundle</span> <span class="n">rb</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="n">button</span><span class="o">.</span><span class="na">setOnAction</span><span class="o">(</span><span class="k">new</span> <span class="nc">EventHandler</span><span class="o">&lt;</span><span class="nc">ActionEvent</span><span class="o">&gt;()</span> 
+    <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="nc">ActionEvent</span> <span class="n">event</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="c1">// Code</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+<span class="o">}</span> 
+</code></pre></div></div>
+
+<p><strong>Event over a list view to detect selection changes</strong></p>
+
+<p>This way we could fire an event whenever we change the currently selected item of a list view (in this case, it is a list view of <code class="language-plaintext highlighter-rouge">String</code> elements):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">listView</span><span class="o">.</span><span class="na">getSelectionModel</span><span class="o">().</span><span class="na">selectedItemProperty</span><span class="o">().</span><span class="na">addListener</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nc">ChangeListener</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> 
+    <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changed</span><span class="o">(</span><span class="nc">ObservableValue</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">obs</span><span class="o">,</span> 
+                            <span class="nc">String</span> <span class="n">oldValue</span><span class="o">,</span> <span class="nc">String</span> <span class="n">newValue</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="c1">// "newValue" contains the new selected item</span>
+            <span class="c1">// and "oldValue" the previously selected one</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Follow the steps shown in <a href="https://youtu.be/PJmU7EmjOKM">this video</a> to complete a project called <strong>CalculatorFX</strong>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a project called <strong>CurrencyConverter</strong> that allows us to convert between three different types of currencies: euro (EUR), dollar (USD) and british pound (GBP). There will be a menu to choose one of the six possible combinations, by using <em>RadioMenuItems</em>: EUR&gt;USD (default option), EUR&gt;GBP, USD&gt;EUR, USD&gt;GBP, GBP&gt;EUR and GBP&gt;USD. Below that, there will be a text field, and a label. Everytime we type anything in the text field, the program must convert the amount automatically to the given currency, and show the result in the label. For instance, if we have chosen EUR&gt;GBP, and we know that 1 EUR = 0.8 GBP, then when we type “12” in the text field, the program should look like this:</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_currency_converter.png" width="30%" />
+</div>
+
+<blockquote>
+  <p>To complete the application, add an <em>ActionEvent</em> to each <em>RadioButtonItem</em> that clears the text in the text field and label, to start a new conversion with new currencies.</p>
+
+  <p>In order to help you finish the program, assume that the currency exchanges are as follows:</p>
+
+  <ul>
+    <li>1 EUR = 1.10 USD</li>
+    <li>1 EUR = 0.8 GBP</li>
+    <li>1 USD = 0.7 GBP</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Complete <em>NotepadFX</em> project from previous exercises by adding these events:</p>
+
+  <ul>
+    <li>If we choose <em>File &gt; Open</em> menu item, then the program will read a text file called “notes.txt” and write the text in the text area. Besides, the bottom label must show how many line have been read from the text file.</li>
+    <li>If we choose <em>File &gt; Save</em> menu item, the program will get the text of the text area and save it in the <em>notes.txt</em> file, erasing any previous content of this file. The bottom label must show a message indicating if the file has been successfully saved or not.</li>
+    <li>If we choose <em>File &gt; Exit</em> menu item, the application will close.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 6:</strong></p>
+
+  <p>Complete <em>ContactsFX</em> project from previous exercises with these events:</p>
+
+  <ul>
+    <li>At the beginning (in the <code class="language-plaintext highlighter-rouge">initialize</code> method), the program will load a list of contacts from a text file called “contacts.txt” (create a <code class="language-plaintext highlighter-rouge">Contact</code> class for this purpose) and show it in the left list view.</li>
+    <li>Whenever we select any contact from the list view, his information will be shown in the corresponding text fields of the right part of the window.</li>
+    <li>If we click on the <em>Add</em> button, then a new Contact with the information of the text fields will be created, and added to the list. Also, the new contacts list will be saved in “contacts.txt” file, erasing any previous contents of the file.</li>
+    <li>If we click on the <em>Remove</em> button, then the currently selected contact from the list (if any) will be removed, and the corresponding text file will be updated.</li>
+  </ul>
+</blockquote>
+
+<h3 id="6-using-dialogs">6. Using dialogs</h3>
+
+<p>Since JavaFX 8 (or rather, since JavaFX version 8u40) there are some built-in dialogs available for JavaFX. Some of them show information messages or confirmation dialogs. Most of these dialogs can be built from the <code class="language-plaintext highlighter-rouge">Alert</code> class. It has methods to define the dialog title, header and content, although all these messages are optional. The basic usage of this class is to show basic messages, such as error messages, or information messages.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Alert</span> <span class="n">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Alert</span><span class="o">(</span><span class="nc">AlertType</span><span class="o">.</span><span class="na">ERROR</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Error"</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">setHeaderText</span><span class="o">(</span><span class="s">"Error loading data"</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">"File 'data.txt' not found"</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">showAndWait</span><span class="o">();</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_alert.png" width="40%" />
+</div>
+
+<p>We can change the parameter of the constructor (<code class="language-plaintext highlighter-rouge">AlertType.ERROR</code>) for any other constant from <code class="language-plaintext highlighter-rouge">AlertType</code> class, such as <code class="language-plaintext highlighter-rouge">CONFIRMATION</code>, <code class="language-plaintext highlighter-rouge">WARNING</code>, <code class="language-plaintext highlighter-rouge">INFORMATION</code>… If we use a <code class="language-plaintext highlighter-rouge">CONFIRMATION</code> dialog, then two buttons will be shown:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Alert</span> <span class="n">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Alert</span><span class="o">(</span><span class="nc">AlertType</span><span class="o">.</span><span class="na">CONFIRMATION</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Confirmation"</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">setHeaderText</span><span class="o">(</span><span class="s">""</span><span class="o">);</span>
+<span class="n">dialog</span><span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">"Are you sure you want to close the application?"</span><span class="o">);</span>
+<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">ButtonType</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="na">showAndWait</span><span class="o">();</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="o">==</span> <span class="nc">ButtonType</span><span class="o">.</span><span class="na">OK</span><span class="o">)</span>
+    <span class="c1">// Code for "OK"</span>
+<span class="k">else</span>
+    <span class="c1">// Code for "Cancel"</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/13_alert2.png" width="40%" />
+</div>
+
+<p>If we choose the “OK” button, then a value will be returned. Otherwise (if we click on the cancel button, or we close the dialog), no value will be returned. We can store this in an <code class="language-plaintext highlighter-rouge">Optional</code> value to check the confirmation result.</p>
+
+<h4 id="61-dialogs-for-file-choosing">6.1. Dialogs for file choosing</h4>
+
+<p>Another built-in dialog since JavaFX 2.0 is the <code class="language-plaintext highlighter-rouge">FileChooser</code> dialog. We use it to display a dialog box to make the user choose a file to open/save data from/into. To use this dialog, we can just add these lines to our code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">FileChooser</span> <span class="n">fileChooser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileChooser</span><span class="o">();</span>
+<span class="n">fileChooser</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Open Resource File"</span><span class="o">);</span>
+<span class="nc">File</span> <span class="n">selectedFile</span> <span class="o">=</span> <span class="n">fileChooser</span><span class="o">.</span><span class="na">showOpenDialog</span><span class="o">(</span><span class="n">stage</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>There is also a <code class="language-plaintext highlighter-rouge">showSaveDialog</code> method to let the user save some data into a file, and some other useful methods (check the API for more details).</p>
+
+<p>There are also some other built-in dialogs that may be useful. For instance, we can customize the confirmation dialog with more buttons, and we can create some other dialog types, such as text input dialogs (with <code class="language-plaintext highlighter-rouge">TextInputDialog</code> class, to ask the user to introduce some text), or choice dialogs (with <code class="language-plaintext highlighter-rouge">ChoiceDialog</code> class, to make the user choose among a list of options). You can look for more examples <a href="http://code.makery.ch/blog/javafx-dialogs-official/">here</a>.</p>
+
+<blockquote>
+  <p><strong>Exercise 7:</strong></p>
+
+  <p>Improve <em>NotepadFX</em> project by adding a <em>FileChooser</em> dialog to let us choose the file to be read or saved from the application, when we choose <em>File &gt; Open</em> and <em>File &gt; Save</em> menu items, respectively.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 8:</strong></p>
+
+  <p>Improve <em>ContactsFX</em> project by adding some alerts:</p>
+
+  <ul>
+    <li>Show an error alert if we try to add a new contact with some empty field.</li>
+    <li>Show an information alert if the contact has been successfully added to the list.</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

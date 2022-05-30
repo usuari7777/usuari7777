@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software testing | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/06a.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software testing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software testing","url":"http://nachoiborraies.github.io/entornos/md/en/06a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-testing">Software testing</h1>
+
+<h2 id="introduction-to-software-testing">Introduction to software testing</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/06a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="06a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>As we saw in earlier sections of this course, one of the stages in the software development process is testing. An it’s a really important stage. In this <a href="https://www.youtube.com/watch?v=TDynSmrzpXw&amp;list=PLDC2A0C8D2EC934C7">video</a> you can see how important is to set up an appropriate and efficient test stage.</p>
+
+<p>Software tests consist in the dynamic verification of the behavior of a program, with a properly selected set of test cases. Tests are performed in order to find possible bugs in the implementation, quality or usability of a given software.</p>
+
+<h3 id="1-targets-and-principles-of-software-testing">1. Targets and principles of software testing</h3>
+
+<p>The main targets of software testing are:</p>
+
+<ul>
+  <li>Detect software failures or bugs, and make sure that every previously detected bug has been fixed.</li>
+  <li>Verify the appropriate integration of the components.</li>
+  <li>Verify that every requirement has been implemented.</li>
+</ul>
+
+<p>In order to reach these targets, software testing must follow a set of principles:</p>
+
+<ul>
+  <li>Test can help us find bugs, but not their absence.</li>
+  <li>The most difficult part of the testing process is to decide when to stop.</li>
+  <li>Try to avoid test cases that are not previously planned, not reusable and/or trivial, unless the program is really easy to test.</li>
+  <li>Test cases must be written for both valid and not valid or unexpected input.</li>
+  <li>The number of bugs to be found is directly proportional to the number of bugs already found. In other words, the more bugs we have detected with our test cases, the more bugs are waiting for us.</li>
+</ul>
+
+<h3 id="2-stages-of-software-testing">2. Stages of software testing</h3>
+
+<p>The stages of every testing process are:</p>
+
+<ol>
+  <li>Select what the test must detect, its main target.</li>
+  <li>Decide which kind of test is going to be performed and what kind of elements do we need to do it.</li>
+  <li>Implement the test cases. A <em>test case</em> is a set of data or input conditions that will be used in order to reveal something about the program, or the attribute(s) that we are checking.</li>
+  <li>Determine the expected results of the test cases and create a document with all of them.</li>
+  <li>Run the test cases</li>
+</ol>
+
+<h4 id="21-evaluating-the-results">2.1. Evaluating the results</h4>
+
+<p>Evaluating the results consists in comparing the actual test results with the expected results. Every difference between them means that there is a bug, and this bug is usually due to the unit or attribute that we are testing, although sometimes it can be due to the test process itself, if it hasn’t been properly run.</p>
+
+<h3 id="3-test-types">3. Test types</h3>
+
+<p>There are different types of tests. Let’s see them from lower to higher level.</p>
+
+<h4 id="31-unit-tests">3.1. Unit tests</h4>
+
+<p>Unit tests check the appropriate behavior of one code unit. A code unit is typically a class in object oriented languages (Java, C#…), or a set of functions closely related in non object-oriented languages (Python, JavaScript…). They are usually run by the development team, and they must be:</p>
+
+<ul>
+  <li>Automatable</li>
+  <li>Complete</li>
+  <li>Repeatable</li>
+  <li>Independent (a unit test must not affect the result of another one)</li>
+</ul>
+
+<h4 id="32-integration-tests">3.2. Integration tests</h4>
+
+<p>They try to find bugs in the interface connections and/or in the interaction between different components or units of an application. In other words, once the unit tests are successful, we try to join all (or some of) these units and see how the program works. They are performed by the development team by applying some of these techniques:</p>
+
+<ul>
+  <li><em>Big bang</em>: it consists in integrating and testing everything at once (not recommended, unless the project is too simple)</li>
+  <li><em>Top down</em>: components are tested according to their hierarchy, from top to down. This way, bottom components that are not implemented or tested yet are replaced by auxiliary components that simulate their behavior. So, interfaces between components are checked in early stages of the project.</li>
+  <li><em>Bottom up</em>: bottom componentes are firstly implemented and tested, so we don’t need any auxiliary component to replace them. As they are tested, then upper components can be integrated and tested as well.</li>
+  <li><em>Combined</em>: some parts are tested using a top down technique, and some others use a bottom up.</li>
+</ul>
+
+<p>In this category we can also talk about <strong>regression tests</strong>. They consist in testing a given component whenever it has been modified, in order to find out any fault that was not previously checked. These faults can be found in either the modified code or in any other component integrated or related with the one that has been modified.</p>
+
+<p><strong>CI/CD</strong></p>
+
+<p>CI/CD stands for <em>Continuous Integration / Continuous Deployment</em>. It goes one step further after continuous integration and, if all the tests have been passed, then the application is automatically deployed on its target environment. Actually, we can distinguish between:</p>
+
+<ul>
+  <li><em>Continuous Integration / Continuous Delivery</em> if the deployment process after the CI is manual</li>
+  <li><em>Continuous Integration / Continuous Deployment</em> if this deployment process is automatic after the CI stage</li>
+</ul>
+
+<p>We are not going to delve into these aspects here, since they depend on the project architecture itself. CI/CD can be completely different depending on the operating system, IDE and language that we are using, so there are no commong guidelines that we can learn in this stage.</p>
+
+<h4 id="33-upper-level-tests">3.3. Upper level tests</h4>
+
+<p>After the unit and integration stages, we can still differentiate two additional types of tests:</p>
+
+<ul>
+  <li><strong>Acceptance or validation tests</strong>: these tests are performed by customers and project managers in order to check that every requirement registered in the analysis stage is being satisfied.</li>
+  <li><strong>System tests</strong>: they must prove that the deployment of the application in its real environment is successful, and its behavior is as expected. In this test, the customer is also involved, along with the project manager or the development team.</li>
+</ul>
+
+<h3 id="4-test-cases">4. Test cases</h3>
+
+<p>When we want to do any test over an application, we need to design the <em>test cases</em>. As we have said before, they are a set of conditions that can determine if software runs properly or not. The concrete definition according to the ISTQB (International Software Testing Qualifications Board) is: “<em>a set of input values, execution preconditions, expected results and execution postconditions, developed for a particular objective or test condition, such as to exercise a particular program path or to verify compliance with a specific requirement</em>”.</p>
+
+<p>There are several formats for these test cases, but we must include the following data anyway:</p>
+
+<ul>
+  <li><strong>Identifier</strong>: it can be numeric or alphanumeric, and it help us identify each test case</li>
+  <li><strong>Name</strong>: a descriptive (meaningful) name.</li>
+  <li><strong>Preconditions</strong>: what needs to be ready before starting the test, such as a given input file, the results of other test cases previously run…</li>
+  <li><strong>Steps</strong>: it defines the interaction with the user, such as entering a name, or pressing a button.</li>
+  <li><strong>Test data</strong>: data to be used in the test case, such as a concrete user name, password…</li>
+  <li><strong>Expected result</strong>: what the test must produce or output</li>
+  <li><strong>Actual result</strong>: result that we actually get when we run the test. This last field is filled when we run the test, whereas the rest of fields must be specified before running the test.</li>
+</ul>
+
+<p><strong>Example:</strong></p>
+
+<p>We want to check the behavior of a given form to log in an application. These are some of the test cases that we could specify:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Preconditions</th>
+      <th>Steps</th>
+      <th>Data</th>
+      <th>Expected result</th>
+      <th>Actual result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>U1</td>
+      <td>ValidInput1</td>
+      <td>User <strong>pepe</strong> exists with password 1234</td>
+      <td>Type user and password</td>
+      <td>pepe 1234</td>
+      <td>OK</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U2</td>
+      <td>UserNotValid</td>
+      <td>User <strong>pepito</strong> does not exist</td>
+      <td>Type user and password</td>
+      <td>pepito 1234</td>
+      <td>error</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U3</td>
+      <td>PasswordNotValid</td>
+      <td>User <strong>pepe</strong> exists with password different than 4567</td>
+      <td>Type user and password</td>
+      <td>pepe 4567</td>
+      <td>error</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Exercise 1:</strong></p>
+<blockquote>
+
+  <p>Design test cases to check the behavior of a function that returns a boolean indicating if the number specified as a parameter is even or not.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

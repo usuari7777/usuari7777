@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Elementos básicos del lenguaje PHP</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Elementos básicos de PHP
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sintaxis básica
+
+- Englobamos fragmentos de código PHP entre `<?php` y `?>`, en una línea o varias
+- Cada instrucción finaliza con `;`
+
+```php
+<?php 
+    ... código PHP ... 
+?>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comentarios
+
+```php
+<?php 
+
+/* Comentario que puede ocupar varias líneas */
+// Comentario de una línea
+# Otro ejemplo de comentario de una línea    
+
+?>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo introductorio
+
+```php
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    ...
+</head>
+<body>
+    <h1>Página de prueba en PHP</h1>
+    <?php
+        // Variables para almacenar el nombre y el año actual
+        $nombre = "Nacho Iborra";
+        $anyo = 2014;
+    ?>
+    <p>El autor de esta página es <?php echo $nombre; ?> y está 
+    realizada en el año <?php echo $anyo; ?>.</p>
+...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo introductorio
+
+La expresión `<?= ... ?>` puede reemplazar a `<?php ... ?>` si sólo queremos sacar el valor de un dato
+
+```php
+<p>El autor de esta página es <?= $nombre; ?> y está 
+realizada en el año <?= $anyo; ?>.</p>
+``` 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo introductorio
+
+Podemos usar **print** o **echo** para sacar la información por pantalla
+
+```php
+<p>El autor de esta página es <?php print $nombre; ?> y está 
+realizada en el año <?php print $anyo; ?>.</p>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+- Crea una carpeta llamada **ejercicios1** en tu carpeta de documentos de Apache. Guardaremos aquí los ejercicios de esta sesión
+- Crea un documento en esta carpeta llamado **info_basica.php**, mostrando tu nombre y tu año de nacimiento usando variables: "Me llamo XXXX y nací en el año YYYY"
+- Prueba la página en un navegador y echa un vistazo al código fuente
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Variables
+
+- Su nombre empieza por `$`, seguido de letras, números y subrayados (no puede empezar por número)
+- Nombres válidos: `$nombre`, `$primer_apellido`, `$apellido2`
+- Se distinguen mayúsculas y minúsculas
+- No hace falta declararlas antes, se declaran cuando se van a usar
+- No se indica tipo de dato. Se le asigna cuando se les da valor
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Variables
+
+```php
+<?php
+    $edad = 36;
+    $nombre = "Nacho";
+    ...
+    echo $nombre;
+    echo $edad;
+?>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estado de las variables
+
+* **unset($variable)**: borra la variable (como si no la hubiéramos creado)
+* **isset($variable)**: comprueba si una variable existe
+* **empty($variable)**: comprueba si una variable no tiene un valor concreto asignado.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estado de las variables
+
+```php
+<?php
+    $dato="Hola";
+    unset($dato);		// La variable dato deja de existir
+    $dato = "";
+    echo empty($dato);	// Diría que es cierto, porque $dato está vacía	
+?>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de datos básicos
+
+* **Booleanos**: TRUE o FALSE
+* **Enteros**: en formato decimal (79), octal (0233) o hexadecimal (0x1A3)
+* **Reales**: por ejemplo, 3.14. También podemos usar notación científica (1.3e3)
+* **Textos**: entre comillas simples o dobles. Si usamos comillas dobles, podemos intercalar variables dentro.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de datos básicos
+
+```php
+<?php
+    $edad = 20;
+    $esMayorEdad = TRUE;
+    $nota = 9.5;
+    $nombre = "Juan Pérez";
+
+    echo "El alumno $nombre tiene una nota de $nota";
+?>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipos de datos complejos
+
+* **Array**: conjuntos de datos
+* **Object**: para programación orientada a objetos, almacena instancias de clases
+* **Resource**: para recursos externos, como una conexión a una base de datos
+* **null**: es un valor especial para darle a variables que, en un momento dado, no tengan un valor concreto.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Conversiones entre tipos de datos
+
+* **intval**: convertir un valor a entero.
+* **doubleval**: convertir un valor a número real.
+* **strval**: convertir un valor a una cadena de texto.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conversiones entre tipos de datos
+
+```php
+<?php
+	$textoEdad='21';
+	$edad = intval($textoEdad);
+?>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Constantes
+
+```php
+<?php
+    define('PI', 3.1416);
+    $radio = 5;
+    $longitud = 2 * PI * $radio;
+
+    echo "La longitud de la circunferencia es $longitud";
+?>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página en la carpeta de ejercicios llamada **area_circulo.php**. En ella, crea una variable `$radio` y ponle el valor 3.5. Según esa variable, calcula en otra variable el área del círculo (PI * radio<sup>2</sup>, deberás definir la constante PI), y muestra por pantalla el texto "El área del círculo es XX.XX", donde XX.XX será el resultado de calcular el área. 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operadores aritméticos
+
+|Operador|Significado|
+|---|---|
+|`+`|Suma|
+|`-`|Resta|
+|`*`|Multiplicación|
+|`/`|División|
+|`%`|Resto de división|
+|`.`|Concatenación (para textos)|
+|`++`|Autoincremento|
+|`--`|Autodecremento|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operadores de asignación
+
+|Operador|Significado|
+|---|---|
+|`=`|Asignación simple|
+|`+=`|Autosuma|
+|`-=`|Autoresta|
+|`*=`|Automultiplicación|
+|`/=`|Autodivisión|
+|`%=`|Autoresto|
+|`.=`|Autoconcatenación|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operadores de comparación
+
+|Operador|Significado|
+|---|---|
+|`==`|Igual que|
+|`===`|Idéntico a (igual y del mismo tipo)|
+|`!=, <>`|Distinto de|
+|`!==`|No idéntico|
+|`<`|Menor que|
+|`<=`|Menor o igual que|
+|`>=`|Mayor o igual que|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operadores de nave espacial
+
+Compara dos datos y devuelve -1, 0 o 1 según si el primero es menor, igual o mayor que el segundo
+
+```php
+$a = 3;
+$b = 5;
+echo $a <=> $b;     // -1
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operadores de comprobación de nulo
+
+Determina si un dato es nulo y, en ese caso, permite mostrar una información alternativa
+
+```php
+// Mostrará "No existe el dato" si $dato es nulo
+echo $dato ?? 'No existe el dato';
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operadores lógicos
+
+|Operador|Significado|
+|---|---|
+|`and , &&`|Operador AND (Y)|
+|`or, ||`|Operador OR (O)|
+|`xor`|Operador XOR|
+|`!`|Negación (NO)|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Intenta predecir qué resultado va a sacar por pantalla cada instrucción echo de este código PHP. Luego podrás comprobar si estabas en lo cierto poniendo el código en una página y probándolo en un navegador.
+
+```php
+<?php
+    $num1 = 3;
+    $num2 = 5;
+    $num3 = 8;
+    $num1 *= 4;
+
+    echo $num1;
+    echo $num1 <= $num2;
+    echo $num3 > $num1 and $num3 > $num2;
+    echo $num3 > $num1 or $num3 > $num2;
+    echo $num1 > $num2 xor $num1 > $num3;
+    $num3--;
+    echo $num3;
+    $num3 += $num1;
+    echo $num3;
+?>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructuras selectivas: if..else
+
+```php
+$edad = ...
+if ($edad < 10)
+{
+    echo "No tienes edad para ver esta web";
+}
+elseif ($edad < 18)
+{
+    echo "Aún eres menor de edad, pero puedes acceder a esta web";
+}
+else
+{
+    echo "Todo correcto";
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea una página llamada **prueba_if.php** en la carpeta de ejercicios del tema. Crea en ella dos variables llamadas `$nota1` y `$nota2`, y dales el valor de dos notas de examen cualesquiera (con decimales si quieres). Después, utiliza expresiones *if..else* para determinar qué nota es la mayor de las dos.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Modifica el ejercicio anterior añadiendo una tercera nota `$nota3`, y determinando cuál de las 3 notas es ahora la mayor. Para ello, deberás ayudarte esta vez de la estructura *if..elseif..else*.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructuras selectivas: switch-case
+
+```php
+switch($variable)
+{
+    case 0:
+        echo "La variable es 0";
+        break;
+    case 1:
+        echo "La variable es 1";
+        break;
+    default:
+        echo "La variable es otra cosa";
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructuras repetitivas: for
+
+```php
+for ($i = 0; $i < count($lista); $i++)
+{
+    echo $lista[i];			// Muestra el valor de cada elemento
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructuras repetitivas: foreach
+
+```php
+foreach ($lista as $elemento)
+{
+    echo $elemento;			// Muestra el valor de cada elemento
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructuras repetitivas: while
+
+```php
+$numero = 1;
+while ($numero <= 5)
+{
+    echo $numero;
+    $numero++;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructuras repetitivas: do..while
+
+```php
+$numero = 1;
+do
+{
+    echo $numero;
+    $numero++;
+} while ($numero <= 5);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6
+
+Crea una página llamada **contador.php**. Utiliza *for* para contar los números del 1 al 100 (separados por comas), y *while* para contar los números del 10 al 0 (una cuenta atrás, separada por guiones).
+
+```
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15...
+10-9-8-7-6-5-4-3-2-1-0
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Intercalar control de flujo y HTML
+
+```php
+<?php 
+if ($edad < 10=) 
+{ 
+?>
+   <div class="menor">Eres demasiado pequeño para entrar a esta web</div>
+<?php }  elseif ($edad < 18) {  ?>
+   <div class="mediano">No eres mayor de edad, pero puedes entrar</div>
+<?php } else {  ?>
+   <div class="mayor">Todo correcto. Bienvenido</div>
+<?php } ?>
+``` 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 7
+
+Modifica el ejercicio anterior y añádele algún HTML externo al PHP, explicando lo que se va a hacer. Por ejemplo, que te quede algo así:
+
+<h3>Contadores</h3>
+<p>Este contador va del 1 al 100:</p>
+<p>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15...</p>
+<p>Este otro va del 10 al 0:</p>
+<p>10-9-8-7-6-5-4-3-2-1-0</p>
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

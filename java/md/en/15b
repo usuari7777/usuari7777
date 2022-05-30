@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic client-server communications | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic client-server communications" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/15b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/15b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic client-server communications" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic client-server communications","url":"http://nachoiborraies.github.io/java/md/en/15b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="basic-client-server-communications">Basic client-server communications</h1>
+
+<h2 id="some-advanced-concepts-about-sockets">Some advanced concepts about sockets</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/15b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/15b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-object-serialization-in-sockets">1. Object serialization in sockets</h3>
+
+<p>When we talk about serializing an object, we actually talk about converting it into a bit sequence, so that it can be sent through a connection or stream. In Java, we can serialize any simple value (int, char, double…) or any object that implements the <code class="language-plaintext highlighter-rouge">Serializable</code> interface. If it is a compound object, all of its attributes must be simple, or implement this interface. You can read more about object serialization in <a href="https://nachoiborraies.github.io/java/md/en/7d">this document</a>.</p>
+
+<h4 id="11-sharing-classes-and-objects-between-server-and-client">1.1. Sharing classes and objects between server and client</h4>
+
+<p>The classes that we serialize and send between server and client must be shared between both projects. To do this, one option is to create a separate project with all the classes involved in the serialization process.</p>
+
+<p>Then, we add this project as a library of both projects (client and server). To do this, we right click on both client and server project, and go to <em>Open Module Settings</em> option. Then, from the <em>Project Settings</em> section of left panel, we choose <em>Modules</em>, click on <em>+</em> button on the right panel and then <em>1 JARs or directories</em>. Select the appropriate subfolder inside <em>out</em> directory of the common project (the one where the root package begins)</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/15_share_serialization.png" width="80%" />
+</div>
+
+<h4 id="12-serialization-through-tcp-sockets">1.2. Serialization through TCP sockets</h4>
+
+<p>Given a TCP socket, we can create, for instance, an <code class="language-plaintext highlighter-rouge">ObjectOutputStream</code> from it and send an object through it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ObjectOutputStream</span> <span class="n">objOut</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nf">ObjectOutputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+<span class="n">objOut</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">myObject</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In the same way, we can create an <code class="language-plaintext highlighter-rouge">ObjectInputStream</code> in a socket, and read objects from it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ObjectInputStream</span> <span class="n">objIn</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nf">ObjectInputStream</span><span class="o">(</span><span class="n">socket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+<span class="nc">MyObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">objIn</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a serialization application with the following projects:</p>
+
+  <ul>
+    <li>We are going to work with user data. So, create a new project called <strong>UserData_Model</strong>, and define a <code class="language-plaintext highlighter-rouge">User</code> class inside,  with the following attributes: the user login and password (Strings), and the registration date, and the appropriate constructors, getters and setters. The constructor must leave the login and password empty (“”), and the registration date will be automatically filled with current date.</li>
+    <li>A server project called <strong>UserData_Server</strong>. When a client connects, the server will create a new <em>User</em> (from <code class="language-plaintext highlighter-rouge">User</code> class explained before). Then, it will send that <em>User</em> object to the client, and wait for a response.</li>
+    <li>The client project will be called <strong>UserData_Client</strong>. It will connect to the server, receive the <em>User</em> object, and then it will ask the user to fill its login and password. Once this data is completed, the client will send the <em>User</em> object back to the server.</li>
+    <li>When the server receives the complete <em>User</em> object, it will print its information in the server console.</li>
+  </ul>
+</blockquote>
+
+<h4 id="13-serialization-through-udp-sockets">1.3. Serialization through UDP sockets</h4>
+
+<p>If we are working with UDP sockets, then we need to convert our serializable objects into byte arrays, so that we can put them in the datagram packets. We will use <code class="language-plaintext highlighter-rouge">ByteArrayInputStream</code> and <code class="language-plaintext highlighter-rouge">ByteArrayOutputStream</code> objects to read and write objects in this case.</p>
+
+<p>So, to write a serializable object in a UDP socket, we follow these steps:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Write the object in a ByteArrayOutputStream</span>
+<span class="nc">ByteArrayOutputStream</span> <span class="n">bs</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByteArrayOutputStream</span><span class="o">();</span>
+<span class="nc">ObjectOutputStream</span> <span class="n">objOut</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="n">bs</span><span class="o">);</span>
+<span class="n">objOut</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">myObject</span><span class="o">);</span>
+<span class="c1">// Get the byte array from the written object</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="n">bs</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+<span class="c1">// Now, we just send the byte array as we did before with UDP sockets</span>
+</code></pre></div></div>
+
+<p>If we want to read a serializable object from a UDP socket, then we do this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Receive the byte array, as we did before with UDP sockets</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+<span class="nc">DatagramPacket</span> <span class="n">packet</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">bytes</span><span class="o">,</span> <span class="n">bytes</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+<span class="n">socket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packet</span><span class="o">);</span>
+<span class="c1">// Assign the byte array to a ByteArrayInputStream, and read the object</span>
+<span class="nc">ByteArrayInputStream</span> <span class="n">bis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByteArrayInputStream</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+<span class="nc">ObjectInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectInputStream</span><span class="o">(</span><span class="n">bis</span><span class="o">);</span>
+<span class="nc">MyObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>In this exercise we are going to simulate a simplified version of an auction. To do this, we will store the information of the product that we want to sell in a <code class="language-plaintext highlighter-rouge">Product</code> class (remember to create a separate project to handle this class). The attributes that we want to store are the product name, buyer’s name and the product price. Initially, the server will create a <em>Product</em> with its product name and an initial auction price (buyer’s name will be initially empty). Then, the server will wait for 3 different clients to connect, and it will send the product to them. Each client will see the product information in the console, and then they will type their name and the amount that each one wants to pay for the product, in one line, separated by a whitespace. For instance:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nacho 150
+</code></pre></div></div>
+
+<blockquote>
+  <p>The server will pick up the responses from all the clients, and it will take the maximum amount from them. Then, it will update product information with the current price and buyer’s name, and will send the updated product to the clients, to make them know who won the auction. Here you can see an example of how it should work…</p>
+
+  <ol>
+    <li>Initially, the server creates a product, with a name and initial price. For instance, “Xbox One”, 100 euros.</li>
+    <li>Then, it will wait for 3 clients to connect</li>
+    <li>Next, it will send the whole <em>Product</em> object to each client. So they will see this information on their consoles:</li>
+  </ol>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Product name: Xbox One
+Product initial price: 100 euros
+</code></pre></div></div>
+
+<blockquote>
+  <ol>
+    <li>Then, each client will be asked to introduce his name and price, in the same format explained before. For instance, we might have these three offers from the 3 different clients:</li>
+  </ol>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nacho 150
+arturo 170
+ana 120
+</code></pre></div></div>
+
+<blockquote>
+  <ol>
+    <li>The server will receive these 3 messages, compare them and pick up the one with the highest offer. Then, it will update the product data with the buyer’s name and price, and send the information back to the clients. So, the clients would see this information as the final result:</li>
+  </ol>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Final price: 170 euros
+Buyer's name: arturo
+</code></pre></div></div>
+
+<blockquote>
+  <p>Call the projects <strong>Auction_Model</strong> (project to store the <code class="language-plaintext highlighter-rouge">Product</code> class), <strong>Auction_Server</strong> and <strong>Auction_Client</strong>. You can also add any additional class or method that you may need (for instance, to manage clients connected to server)</p>
+</blockquote>
+
+<h3 id="2-multicast-sockets">2. Multicast sockets</h3>
+
+<p>Multicast sockets are a special type of sockets that we use when we want to send the same information to a group of clients at the same time. Before doing this, we need to create a multicast group, by assigning all the components of the group the same IP address (of class D), and the same UDP port number. Regarding the multicast IP addresses, we can use any from the range 224.0.0.0 to 239.255.255.255, although the first one (224.0.0.0) is reserved and it should not be used.</p>
+
+<p>So the general structure of a multicast communication between server and clients is the same for server and client (the only differences are in what each side must do when receiving or sending packets from the group):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MulticastSocket</span> <span class="n">ms</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MulticastSocket</span><span class="o">(</span><span class="mi">6000</span><span class="o">);</span>
+<span class="nc">InetAddress</span> <span class="n">groupAddr</span> <span class="o">=</span> <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="s">"225.0.0.1"</span><span class="o">);</span>
+<span class="n">ms</span><span class="o">.</span><span class="na">joinGroup</span><span class="o">(</span><span class="n">groupAddr</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+<span class="nc">DatagramPacket</span> <span class="n">packetR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+<span class="n">ms</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packetR</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="nc">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"Welcome to this group"</span><span class="o">;</span>
+<span class="nc">DatagramPacket</span> <span class="n">packetS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span> 
+    <span class="n">message</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">groupAddr</span><span class="o">,</span> <span class="n">groupPort</span><span class="o">);</span>
+<span class="n">ms</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">packetS</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">ms</span><span class="o">.</span><span class="na">leaveGroup</span><span class="o">(</span><span class="n">groupAddr</span><span class="o">);</span>
+<span class="n">ms</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>As you can see, multicast process relies on UDP protocol, so data transfers are not reliable (it would be inefficient to wait for all the clients in the group to confirm each reception).</p>
+
+<p>Also keep in mind that, in some cases, you will not need any server side. For instance, if we implement some kind of simple chat, where every client connects and sends messages to everyone in the group, the server would not be necessary, since we would only need to send our messages and receive everything that is sent to the group.</p>
+
+<blockquote>
+  <p><strong>Exercise 3</strong>:</p>
+
+  <p>Create a multicast application with the following projects:</p>
+
+  <ul>
+    <li>A server project called <strong>MulticastMessage_Server</strong> that asks the user to enter messages from the keyboard, and sends them to all the clients connected to the group. The process will finish when the user types “finish”.</li>
+    <li>A client project called <strong>MulticastMessage_Client</strong> that connects to the server and prints in the console every message received from the server.</li>
+  </ul>
+
+  <p><strong>NOTE:</strong> if you get an error such as “Can’t assign requested address” when trying to launch the server or client, try to run the applications with this option:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -Djava.net.preferIPv4Stack=true YourClass
+</code></pre></div></div>
+
+<blockquote>
+  <p>You can set it up in the menu <em>Run</em> &gt; <em>Edit Configurations…</em>, and then fill the <em>VM Options</em> text field with <code class="language-plaintext highlighter-rouge">-Djava.net.preferIPv4Stack=true</code>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4</strong>:</p>
+
+  <p>Create a multicast application that implements a chat. In this case, we won’t need a server side, jusst a client side that will be a JavaFX application in a project called <strong>MulticastChat</strong> with the following appearance:</p>
+</blockquote>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/15_chat.png" width="80%" />
+</div>
+
+<blockquote>
+  <p>At the beginning, it will ask the user to introduce his nickname at the top of the window, and then it will try to connect to the group. Once it connects, the user will be able to send messages with the lower text field. It will receive the messages sent by everyone and will print them in the main text area. As soon as the window client is closed, the connection must be closed as well.</p>
+
+  <p>To receive messages from the group periodically, you will need to implement any of the thread-safe methods of communicating with a JavaFX application seen in Unit 2. For instance, you can implement a Service that periodically receives messages from the group and prints them in the text area.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

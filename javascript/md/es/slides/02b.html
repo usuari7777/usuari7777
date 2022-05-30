@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Gestión de eventos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Gestión de eventos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Eventos y programación tradicional
+
+- Los programas tradicionales ejecutan sus instrucciones secuencialmente
+- En algunos programas esto puede no ser suficiente
+- La programación dirigida por eventos permite ejecutar un conjunto de instrucciones cuando se produce un evento en el programa
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Evento
+
+- Algo que sucede en un programa
+   - Hacer clic en un elemento, escribir algo, pasar el ratón por encima de una zona...
+- Permite responder a ese evento ejecutando unas instrucciones
+   - Se definen en una función llamada gestor de evento (*event handler*)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Eventos sobre el contenido
+
+* **load**: cuando la página termina de cargarse
+* **unload**: cuando se cierra la página
+* **beforeunload**: antes de cerrar la página
+* **resize**: cuando cambia el tamaño de la ventana donde está el contenido
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Eventos sobre el teclado
+
+* **keydown** / **keyup**: cuando se pulsa / suelta una tecla
+* **keypress**: ambas acciones juntas (desaconsejado, mejor usar alguno de los anteriores)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Eventos sobre el ratón
+
+* **click** / **dblclick**: cuando hacemos clic / doble clic con cualquier botón
+* **mousedown** / **mouseup**: cuando pulsamos / levantamos un botón del ratón
+* **mouseenter**: cuando entramos con el ratón en una zona
+* **mouseleave**: cuando salimos con el ratón de una zona
+* **mousemove**: cuando movemos el ratón dentro de una zona
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Eventos sobre el formulario
+
+* **focus**: cuando un elemento del formulario tiene el foco
+* **blur**: cuando un elemento del formulario pierde el foco
+* **change**: cuando el contenido del elemento ha cambiado
+   - También existe evento **input** para controles de texto
+* **submit**: cuando se envía el formulario
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Más eventos
+
+Consultar [aquí](https://www.w3schools.com/jsref/dom_obj_event.asp)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Definir eventos
+
+* Mediante atributos XHTML
+* Mediante atributos XHTML y funciones
+* Mediante el DOM
+* Mediante *event listeners* (recomendado)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definir eventos mediante atributos XHTML
+
+```html
+<form action="http://nachoiborraies.github.io/javascript/md/es/slides/pagina.php" onmouseleave="alert('Saliendo del formulario');">
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *this*
+
+Permite acceder al elemento sobre el que se causa el evento
+
+```html
+<div onmouseenter="this.style.backgroundColor='yellow';">...</div>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definir eventos mediante atributos XHTML y funciones
+
+No se puede usar *this* en la función, se debe pasar el elemento como parámetro
+
+```html
+function cambiarColor(elemento)
+{
+    elemento.style.backgroundColor= "yellow";
+}
+
+...
+
+<div onmouseenter="cambiarColor(this)">...</div>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definir eventos mediante el DOM
+
+```html
+<div id="div1">...</div>
+
+let div = document.getElementById("div1");
+div.onmouseenter = function() {
+    this.style.backgroundColor = "yellow";
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definir eventos mediante *event listeners*
+
+Permite añadir varios *handlers* sobre un mismo evento
+
+```js
+let div = document.getElementById("div1");
+div.addEventListener('mouseenter', function() {
+    this.style.backgroundColor = "yellow";
+});
+div.addEventListener('mouseenter', function() {
+    ... // Otro código diferente
+});
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definir eventos mediante *event listeners*
+
+Podemos definir las funciones aparte y usarlas en *addEventListener*
+
+```js
+let cambiarColorFondo = function() {
+    this.style.backgroundColor = "yellow";
+}
+
+let div = document.getElementById("div1");
+div.addEventListener('mouseenter', cambiarColorFondo);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Prueba de ejemplos
+
+Puedes probarlos [aquí](../../../resources/ejemplos_eventos.html)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea una página llamada **eventos_imagenes.html**. Coloca en ella tres imágenes centradas, con un tamaño de 100 x 100 píxeles (mediante CSS). Haz que, al pasar el ratón por encima de cualquiera de ellas, se cambie su tamaño a 200 x 200 y se le ponga un borde rojo de 3 píxeles de grosor. Haz que este efecto desaparezca al salir el ratón de la imagen.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2 (1/2)
+
+Crea una página llamada **evento_form.html** con un formulario como este:
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_eventos_formulario.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2 (2/2)
+
+Define eventos JavaScript sobre los dos cuadros de texto para que:
+
+* Si salimos del cuadro de texto (evento *blur*) y no tiene valor (propiedad *value* está vacía), se le ponga el color de fondo rojo al cuadro de texto. Si tiene valor, dejaremos el color de fondo blanco.
+* Cuando entramos al cuadro de texto (evento *focus*), se le ponga el color de fondo amarillo.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Propagación de eventos
+
+- El contenido HTML es jerárquico (unos elementos están dentro de otros)
+- Cuando se produce un evento en un elemento, afecta a los elementos que lo contienen
+- Existen dos tipos de propagación de eventos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de propagación
+
+Ejemplo: clic sobre una imagen que está dentro de un párrafo, que está dentro de un *div*
+
+* *Bubbling*: se responde al evento desde el elemento más específico (la imagen, en el ejemplo anterior) al menos específico (el *div*)
+* *Capturing*: se responde al evento desde el elemento menos específico (el *div* en el ejemplo anterior) al más específico (la imagen)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```html
+<div id="div1">
+    <p id="p1">
+        <img id="img1" src="http://nachoiborraies.github.io/javascript/md/es/slides/foto.png">
+    </p>
+</div>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Bubbling
+
+```js
+let eventoClic = function() {
+    alert("Has pulsado " + this.id);
+}
+
+let div = document.getElementById("div1");
+let p = document.getElementById("p1");
+let img = document.getElementById("img1");
+
+div.addEventListener("click", eventoClic);
+p.addEventListener("click", eventoClic);
+img.addEventListener("click", eventoClic);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Capturing
+
+```js
+let eventoClic = function() {
+    alert("Has pulsado " + this.id);
+}
+
+let div = document.getElementById("div1");
+let p = document.getElementById("p1");
+let img = document.getElementById("img1");
+
+div.addEventListener("click", eventoClic, true);
+p.addEventListener("click", eventoClic, true);
+img.addEventListener("click", eventoClic, true);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea una página llamada **bubbling_capturing.html** y prueba el código de los ejemplos anteriores con la imagen que quieras. Define un color de fondo y un *padding* para el *div* y para el párrafo, de forma que te ayude a localizarlos mejor en la página y ver donde tienes que hacer clic en cada caso.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Información del evento
+
+- A veces puede ser necesario obtener información del evento que se produce
+   - Coordenadas donde hemos hecho clic, tecla que hemos pulsado...
+- Podemos pasar el evento como parámetro al manejador
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Información del evento
+
+```js
+let evento = function(event) 
+{
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Información del evento
+
+* Si ha sido un evento de teclado (pulsar una tecla, por ejemplo), en la propiedad `key` tendremos el nombre de la tecla pulsada, y en `keyCode` tendremos el código interno de la tecla en Unicode. Por ejemplo, 65 para la 'A' o 48 para el '0'.
+* Si ha sido un evento de ratón, en las propiedades `clientX` y `clientY` tendremos las coordenadas del ratón con respecto a la ventana del navegador, y en `screenX` y `screenY` tendremos las coordenadas respecto a la pantalla.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Información del evento
+
+Ejemplo: detectar ciertas pulsaciones de teclas
+
+```js
+document.addEventListener("keydown", function(evento)
+{
+    if (evento.ctrlKey && evento.key == 'z')
+    {
+        alert("Has pulsado Ctrl + Z = deshacer");
+    }
+    else if (evento.shiftKey)
+    {
+        alert("Mayúsculas pulsadas");
+    }
+});
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Información del evento
+
+Ejemplo: en qué coordenadas se hace clic con el ratón, en un documento.
+
+```js
+document.addEventListener("click", function(event) 
+{
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+    alert(mouseX + ", " + mouseY);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea una página llamada **info_eventos.html**. Define en ella un div con un borde negro, y que dentro de ese div se informe de las coordenadas actuales del ratón dentro de la ventana. Si pulsamos cualquier tecla, deberemos mostrar un alert con su código.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otras propiedades de los eventos
+
+Comunes a todo evento
+
+* **target**: elemento HTML sobre el que se ha producido el evento
+* **type**: tipo de evento producido (*click*, *mouseenter*...)
+* **preventDefault()**: evita que se desencadene la acción por defecto (enviar un formulario, cargar una página...)
+* **stopPropagation()**: evita que el evento se siga propagando a niveles superiores o inferiores
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otras propiedades de los eventos
+
+Ejemplo: mostrar contenido HTML del elemento y tipo de evento
+
+```js
+let informacion = function(event)
+{
+    alert(event.target.innerHTML);
+    alert(event.type);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evento *drag and drop*
+
+- Permite arrastrar componentes en una página y soltarlos en ciertas zonas habilitadas
+- Evento **dragstart**: se aplica sobre el elemento que arrastramos
+- Evento **dragover**: se aplica para habilitar el contenedor donde soltarlo
+- Evento **drop**: se activa al soltar el elemento sobre el contenedor afectado
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evento *drag and drop*
+
+Ejemplo HTML
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo Drag & Drop</title>
+    <style>
+        #contenedor
+        {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        #receptor
+        {
+            border: 1px solid black;
+            border-radius: 10px;
+            height: 300px;
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div>
+            <img id="logo" draggable="true" 
+                src="http://nachoiborraies.github.io/javascript/md/es/slides/javascript_logo.png">
+        </div>
+        <div id="receptor">
+        </div>
+    </div>
+</body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evento *drag and drop*
+
+Ejemplo JavaScript
+
+```js
+let imagen = document.getElementById("logo");
+let contenedor = document.getElementById("receptor");
+
+imagen.addEventListener("dragstart", function(evento) {
+    evento.dataTransfer.setData("elemento", evento.target.id);
+});
+contenedor.addEventListener("dragover", function(evento) {
+    evento.preventDefault();
+});
+contenedor.addEventListener("drop", function(evento) {
+    evento.preventDefault();
+    let datos = evento.dataTransfer.getData("elemento");
+    evento.target.appendChild(document.getElementById(datos));
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evento *drag and drop*
+
+Explicación del ejemplo:
+
+- Usamos **dragstart** para quedarnos con la referencia del elemento (su id) y la guardamos en el evento
+- Usamos **dragover** para desactivar la acción por defecto en el receptor (que sería rechazar el elemento)
+- Usamos **drop** para añadir el elemento como hijo del receptor
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Crea una página llamada **drag_drop_js.html** y utiliza [esta plantilla](../../../resources/plantilla_ejercicio_drag_drop.zip) como base. Se pide que añadas el código JavaScript necesario para poder arrastrar los logos de los navegadores cada uno a su casilla correspondiente. En principio puedes arrastrar cualquier logo a cualquier casilla, pero al pulsar el botón de *Comprobar* se debe mostrar un alert indicando si has acertado o no.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Encapsular código JavaScript
+
+- Evita que pueda ser accedido desde fuera del código
+- Útil para evitar solapamientos entre bloques de código distintos, cuando haya funciones o nombres de variables que sean iguales
+- Alternativas:
+   - Encapsular en evento *load* de la página
+   - Utilizar **IIFE** (*Immediately Invoked Function Expression*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Encapsular código JavaScript
+
+Uso de evento *load* (podemos colocar el código donde queramos)
+
+```js
+window.addEventListener('load', function()
+{
+    let eventoClic = function() {
+        alert("Has pulsado " + this.id);
+    }
+
+    let div = document.getElementById("div1");
+    let p = document.getElementById("p1");
+    let img = document.getElementById("img1");
+
+    div.addEventListener("click", eventoClic);
+    p.addEventListener("click", eventoClic);
+    img.addEventListener("click", eventoClic);
+});
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Encapsular código JavaScript
+
+Uso de IIFE (el código se ejecuta automáticamente; cuidado con ponerlo al inicio si necesitamos acceder al DOM)
+
+```js
+(function()
+{
+    let eventoClic = function() {
+        alert("Has pulsado " + this.id);
+    }
+
+    let div = document.getElementById("div1");
+    let p = document.getElementById("p1");
+    let img = document.getElementById("img1");
+
+    div.addEventListener("click", eventoClic);
+    p.addEventListener("click", eventoClic);
+    img.addEventListener("click", eventoClic);
+})();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6
+
+Crea una versión del ejercicio 4 en otro archivo llamado **info_eventos_iife.html** y encapsula el código JavaScript utilizando IIFE.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Gestión dinámica de memoria</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Gestión dinámica de memoria
+#### Listas, pilas y colas
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructuras dinámicas de datos
+
+- Permiten almacenar un conjunto cambiante de datos complejos
+- No tienen un tamaño prefijado, se pueden añadir o quitar elementos durante la ejecución del programa
+- Principales tipos:
+   - Listas, pilas y colas
+   - Diccionarios o mapas
+   - Conjuntos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pilas
+
+- Se crean con la clase **Stack** del espacio **System.Collections**
+- Permiten añadir y quitar elementos sólo por un extremo llamado *tope*
+   - Estructuras LIFO (*Last In, First Out*)
+- Operación de añadir normalmente llamada *push*
+- Operación de sacar normalmente llamada *pop*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pilas
+
+Métodos útiles
+
+- **Push(elemento)**: añade el elemento al tope
+- **Pop()**: quita el elemento del tope y lo devuelve
+- **Peek()**: consulta el elemento del tope (sin quitarlo)
+- **Count**: obtiene cuántos elementos hay en la pila
+- **Clear()**: elimina todos los elementos de la pila
+- **Contains(elemento)**: comprueba si la pila contiene al elemento
+- **ToArray()**: obtiene un array con los elementos de la pila
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pilas
+
+Ejemplo
+
+```cs
+using System;
+using System.Collections;
+
+class PruebaPila
+{
+    static void Main()
+    {
+        Stack pila = new Stack();
+        pila.Push("Uno");
+        pila.Push("Dos");
+        pila.Push("Tres");
+
+        Console.WriteLine(pila.Peek());  // Tres
+        while(pila.Count > 0)
+        {
+            string dato = (string)pila.Pop();
+            Console.WriteLine(dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Genéricos (*generics*)
+
+- Permiten especificar de qué tipo es una colección concreta
+- Facilitan la gestión de elementos de la colección (evitan *typecast*)
+- Espacio de nombres *System.Collections.Generic* en lugar de *System.Collections*
+- Especificamos entre &lt; y &gt; el tipo de dato de la colección
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Genéricos (*generics*)
+
+Ejemplo de pila usando genéricos
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class PruebaPila
+{
+    static void Main()
+    {
+        Stack<string> pila = new Stack<string>();
+        pila.Push("Uno");
+        pila.Push("Dos");
+        pila.Push("Tres");
+
+        Console.WriteLine(pila.Peek());  // Tres
+        while(pila.Count > 0)
+        {
+            string dato = pila.Pop();
+            Console.WriteLine(dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_01** que le pida al usuario una secuencia de 5 números enteros y los muestre en orden inverso usando una pila
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (1/2)
+
+La  *notación  polaca  inversa*  es  una  forma  de  expresar  operaciones  que consiste en indicar los operandos antes del correspondiente operador. 
+Por ejemplo,  en  vez  de  "3 + 4"  se  escribiría  "3 4 +". No  necesita paréntesis y que se puede resolver usando una pila: 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (2/2)
+
+* Si se recibe un dato numérico, éste se guarda en la pila
+* Si se recibe un operador, se obtienen los dos operandos que  hay  en  la  cima  de  la  pila,  se  realiza  la  operación  y  se  apila  su  resultado.  
+* El proceso  termina  cuando  sólo  hay  un  dato  en  la  pila.  
+   * Ejemplo,  "3  4  +" se convierte en: apilar 3, apilar 4, sacar dos datos y sumarlos, guardar 7, terminado. 
+
+Impleméntalo en un ejercicio **Ejercicio_07a_02** y comprueba si el resultado de "3 4 6 5 - + * 6 +" es 21
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colas
+
+- Se crean con la clase **Queue** del espacio *System.Collections* (o *System.Collections.Generic* si queremos colas genéricas)
+- Permiten añadir elementos por un extremo y quitarlos por el opuesto
+    - Estructuras FIFO (*First In, First Out*)
+- Operación de añadir normalmente llamada *enqueue*
+- Operación de sacar normalmente llamada *dequeue*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colas
+
+Métodos útiles
+
+- **Enqueue(elemento)**: añade el elemento al final
+- **Dequeue()**: quita el elemento del inicio de la cola y lo devuelve
+- Resto de métodos similares a la pila (*Peek(), Count, Clear(), Contains(...)...*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colas
+
+Ejemplo
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class PruebaCola
+{
+    static void Main()
+    {
+        Queue<string> cola = new Queue<string>();
+        cola.Enqueue("Uno");
+        cola.Enqueue("Dos");
+        cola.Enqueue("Tres");
+
+        Console.WriteLine(cola.Peek());  // Uno
+        while(cola.Count > 0)
+        {
+            string dato = cola.Dequeue();
+            Console.WriteLine(dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_03** que le pida al usuario una secuencia de 5 números reales, los guarde en una cola y los muestre por pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_04** que le pida al usuario frases y las añada en una cola, hasta que introduzca una frase vacía. En ese momento el programa mostrará todas las frases que hay en la cola
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listas
+
+- Colecciones indexadas de datos
+   - Cada elemento ocupa una posición numérica empezando por 0, como los arrays
+- Podemos añadir/quitar libremente elementos en cualquier posición
+- Tipos en C#:
+   - *ArrayList* (no genérica) 
+   - *List* (genérica)
+
+</script>
+</section>
+     
+<section data-markdown>
+<script type="text/template">
+## Uso de ArrayList
+
+- Lista que internamente contiene un array con las posiciones
+- No tenemos que preocuparnos de la gestión del array
+- Usamos los corchetes para acceder a la posición deseada (como los arrays) 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de ArrayList
+
+Métodos de interés
+
+- **Add(elemento)**: añade el elemento al final de los existentes
+- **Insert(posicion, elemento)**: inserta el elemento en la posición indicada (y desplaza a la derecha el resto de elementos)
+- **IndexOf(elemento)**: devuelve la posición donde se encuentra el elemento, o -1 si no existe
+- **RemoveAt(posicion)**: elimina el elemento de la posición indicad (y desplaza el resto a la izquierda)
+- **Count**, **Clear()**, **Contains(...)** igual que las anteriores
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de ArrayList
+
+Ejemplo
+
+```cs
+using System;
+using System.Collections;
+
+class PruebaArrayList
+{
+    static void Main()
+    {
+        ArrayList lista = new ArrayList();
+        lista.Add("Uno");
+        lista.Add("Tres");
+        lista.Add("Cuatro");
+        lista.Insert(1, "Dos");
+
+        Console.WriteLine(lista[2]);    // Tres
+
+        for (int i = 0; i < lista.Count; i++)
+        {
+            string dato = (string)lista[i];
+            Console.WriteLine(dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de List
+
+Mismos métodos de *ArrayList*, pero permite usar genéricos
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class PruebaList
+{
+    static void Main()
+    {
+        List<string> lista = new List<string>();
+        lista.Add("Uno");
+        lista.Add("Tres");
+        lista.Add("Cuatro");
+        lista.Insert(1, "Dos");
+
+        Console.WriteLine(lista[2]);    // Tres
+
+        for (int i = 0; i < lista.Count; i++)
+        {
+            string dato = lista[i];
+            Console.WriteLine(dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_05** que pida frases al usuario y las almacene en una lista, hasta que escriba una frase vacía. Luego le pedirá que escriba un texto y le mostrará las frases almacenadas en la lista que contengan ese texto.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_06** que pida números al usuario hasta que escriba 0 y los vaya almacenando en una lista. Luego deberá sacar los números ordenados de menor a mayor. Para ello, puedes usar el método *Sort* de las listas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas y borrados
+
+Cuando tengamos que eliminar un elemento de la lista, debemos tener en cuenta que:
+
+- Al borrar una posición, el resto de posiciones a la derecha se desplaza a la izquierda automáticamente
+- No conviene usar bucles tipo *for* para borrar elementos de forma masiva (corremos el riesgo de dejar alguno sin borrar al desplazarse la lista)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_07** que: 
+
+- Pida números al usuario hasta que escriba 0 y los vaya almacenando en una lista. 
+- Muestre la lista con los datos introducidos
+- Pida al usuario un número y elimine de la lista todas las veces que aparezca dicho número
+- Muestre de nuevo la lista resultante
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ordenación de listas de objetos
+
+- Podemos ordenar listas de objetos haciendo que la clase de esos objetos defina el criterio de comparación implementando la interfaz **IComparable**
+- Alternativamente, también podemos utilizar una clase adicional que implemente la interfaz *IComparer*
+- Llamamos al método **Sort** de la lista y queda automáticamente ordenada en base al criterio definido
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ordenación de listas de objetos
+
+Ejemplo: ordenar personas por edad de mayor a menor usando IComparable
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class Persona : IComparable<Persona>
+{
+    private string nombre;
+    private int edad;
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return nombre + " (" + edad + " años)";
+    }
+
+    public int CompareTo(Persona otra)
+    {
+        return otra.edad.CompareTo(this.edad);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        List<Persona> personas = new List<Persona>();
+        personas.Add(new Persona("Nacho", 43));
+        personas.Add(new Persona("Ana", 39));
+        personas.Add(new Persona("Juan", 70));
+        personas.Add(new Persona("Mario", 8)); 
+        
+        personas.Sort();
+        
+        foreach(Persona p in personas)
+        {
+			Console.WriteLine(p);
+		}
+    }
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Ordenación de listas de objetos
+
+Mismo ejemplo usando *IComparer*
+
+```cs
+// Nueva clase que implementa la interfaz
+class ComparadorPersonas: IComparer<Persona>
+{
+    public int Compare(Persona p1, Persona p2)
+    {
+        return p1.Nombre.CompareTo(p2.Nombre);
+    }
+}
+
+// Clase Persona (sin interfaz)
+class Persona
+{
+    private string nombre;
+    private int edad;
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Edad
+    {
+        get { return edad; }
+        set { edad = value; }
+    }
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return nombre + " (" + edad + " años)";
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        List<Persona> personas = new List<Persona>();
+        personas.Add(new Persona("Nacho", 43));
+        personas.Add(new Persona("Ana", 39));
+        personas.Add(new Persona("Juan", 70));
+        personas.Add(new Persona("Mario", 8)); 
+        
+        personas.Sort(new ComparadorPersonas());
+    
+        foreach(Persona p in personas)
+            Console.WriteLine(p);
+    }
+}
+```
+
+</script>
+</section>        
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07a_08** que: 
+
+- Defina una clase *Libro* para almacenar el título y número de páginas de un libro
+- Pida al usuario libros, leyendo los datos de cada libro en una línea, en formato "titulo;paginas"
+   - Terminaremos cuando el usuario escriba una cadena vacía
+   - Cada cadena la debemos convertir en un objeto *Libro* y añadirlo a una lista genérica de libros
+- Al terminar, mostraremos la lista ordenada por título, alfabéticamente
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

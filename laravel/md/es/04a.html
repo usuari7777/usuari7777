@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Acceso a la base de datos | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Acceso a la base de datos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04a.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Acceso a la base de datos" />
+<script type="application/ld+json">
+{"headline":"Acceso a la base de datos","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="acceso-a-la-base-de-datos">Acceso a la base de datos</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/04a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="04a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Una vez vistas dos de las tres patas en que se sustenta el patrón MVC (las vistas y los controladores), en esta sección abordaremos la tercera de ellas: el modelo de datos. Con esto, trataremos algunas cuestiones importantes sobre cómo gestiona Laravel el acceso a bases de datos, y qué mecanismos ofrece para sincronizar los datos de nuestra aplicación con los documentos o registros de una base de datos, así como para generar automáticamente la estructura de tablas y campos de la base de datos a partir del modelo de la aplicación.</p>
+
+<h2 id="1-parámetros-de-conexión-a-la-base-de-datos">1. Parámetros de conexión a la base de datos</h2>
+
+<p>Una de las primeras cosas que debemos hacer para configurar el acceso a la base de datos en nuestro proyecto es establecer los parámetros con los que conectar a dicha base de datos: nombre del servidor, usuario, contraseña, etc. Estos parámetros se definen en el archivo <code class="language-plaintext highlighter-rouge">.env</code> para cada entorno despliegue de la aplicación (recuerda que este archivo no se sube a Git, por lo que cada entorno tendrá el suyo). Dentro de este archivo, debemos modificar las siguientes variables de entorno:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DB_CONNECTION</code>: tipo de SGBD a usar</li>
+  <li><code class="language-plaintext highlighter-rouge">DB_HOST</code>: dirección o IP del SGBD (<em>127.0.0.1</em> para conexión local)</li>
+  <li><code class="language-plaintext highlighter-rouge">DB_PORT</code>: puerto por el que el SGBD estará escuchando. Por ejemplo, el puerto por defecto para MySQL es 3306</li>
+  <li><code class="language-plaintext highlighter-rouge">DB_DATABASE</code>: nombre de la base de datos a la que conectar</li>
+  <li><code class="language-plaintext highlighter-rouge">DB_USERNAME</code>: login del usuario para conectar</li>
+  <li><code class="language-plaintext highlighter-rouge">DB_PASSWORD</code>: password del usuario para conectar</li>
+</ul>
+
+<p>En cuanto al primer parámetro (<code class="language-plaintext highlighter-rouge">DB_CONNECTION</code>), aquí tenemos un listado de los sistemas más habituales, junto con sus puertos por defecto que podemos utilizar en <code class="language-plaintext highlighter-rouge">DB_PORT</code>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><em>Id</em> SGBD</th>
+      <th>Nombre SGBD</th>
+      <th style="text-align: center">Puerto por defecto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mysql</td>
+      <td>MySQL/MariaDB</td>
+      <td style="text-align: center">3306</td>
+    </tr>
+    <tr>
+      <td>oracle</td>
+      <td>Oracle</td>
+      <td style="text-align: center">1521</td>
+    </tr>
+    <tr>
+      <td>pgsql</td>
+      <td>PostgreSQL</td>
+      <td style="text-align: center">5432</td>
+    </tr>
+    <tr>
+      <td>sqlsrv</td>
+      <td>SQL Server</td>
+      <td style="text-align: center">1433</td>
+    </tr>
+    <tr>
+      <td>sqlite</td>
+      <td>SQLite</td>
+      <td style="text-align: center">-</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Por ejemplo, para nuestro ejemplo de la biblioteca, el archivo <code class="language-plaintext highlighter-rouge">.env</code> del proyecto podría quedar así, suponiendo el usuario y contraseña por defecto que se instala con XAMPP (usuario <em>root</em> y password vacío).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biblioteca
+DB_USERNAME=root
+DB_PASSWORD=
+</code></pre></div></div>
+
+<p>En el archivo <code class="language-plaintext highlighter-rouge">config/database.php</code> existen unos valores por defecto asociados a cada parámetro de configuración del archivo <code class="language-plaintext highlighter-rouge">.env</code>, de modo que si no se encuentra el parámetro, se toma el valor por defecto. Por ejemplo, el SGBD seleccionado si no se especifica ninguno es <em>mysql</em>, a juzgar por esta línea del archivo <code class="language-plaintext highlighter-rouge">database.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'default'</span> <span class="o">=&gt;</span> <span class="nf">env</span><span class="p">(</span><span class="s1">'DB_CONNECTION'</span><span class="p">,</span> <span class="s1">'mysql'</span><span class="p">),</span>
+</code></pre></div></div>
+
+<h2 id="2-creación-de-la-base-de-datos">2. Creación de la base de datos</h2>
+
+<p>El único paso necesario desde fuera de Laravel para acceder a la base de datos será crearla. El resto de operaciones (creación de tablas, campos, claves, relaciones, datos, etc) se podrán hacer desde el propio Laravel, como iremos viendo más adelante.</p>
+
+<p>La base de datos podemos crearla a través de algún administrador que tengamos disponible (por ejemplo, <em>phpMyAdmin</em> para bases de datos MySQL), o bien por línea de comandos, conectando con el SGBD en cuestión y creando la base de datos.</p>
+
+<p>En nuestro caso, tendremos que crear una base de datos llamada “biblioteca”, tal y como hemos especificado en la propiedad <code class="language-plaintext highlighter-rouge">DB_DATABASE</code> del archivo <code class="language-plaintext highlighter-rouge">.env</code>. Vamos a la opción <em>Nueva</em> del panel izquierdo y escribimos el nombre de la nueva base de datos en el formulario que aparecerá. Pulsando el botón de <em>Crear</em> ya aparecerá la nueva base de datos en el listado izquierdo.</p>
+
+<div align="center">
+    <img src="../../img/04_phpmyadmin.png" width="80%" />
+</div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic elements of a Java program | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic elements of a Java program" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/01b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic elements of a Java program" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic elements of a Java program","url":"http://nachoiborraies.github.io/java/md/en/01b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="basic-elements-of-a-java-program">Basic elements of a Java program</h1>
+
+<h2 id="variables-and-operators">Variables and operators</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/01b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/01b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-using-variables">1. Using variables</h3>
+
+<p>Variables are essential elements in every program, since they let us store values in them, so that we can operate with them, or modify them along the program execution. Every variable has a <em>type</em> which lets us know what kind of information we can store in it. For instanec, there are <em>integer</em> variables, that lets us store integer numbers, or <em>string</em> variables to manage texts. We’ll learn about data types in other sections.</p>
+
+<p>Whenever we want to use a variable we must <strong>declare</strong> it. This step consists in:</p>
+
+<ul>
+  <li>Specifying the data type of the variable (integer, text…)</li>
+  <li>Specifying the name of the variable, which is also known as the variable <em>identifier</em>.</li>
+</ul>
+
+<p>For instance, this way we declare a variable to store integer values, using the word <code class="language-plaintext highlighter-rouge">int</code> to specify the data type:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">myVariable</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Additionally, we can also <strong>assign</strong> a value to the variable. This step can be done either when we declare it, or later in the code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">myOtherVariable</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="n">myOtherVariable</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Also, variables can change their values in later sentences.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="n">myVariable</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can also declare multiple variables of the same type in the same line, separated by commas, and we can decide for each one if we want to assign an initial value or not:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">number2</span><span class="o">,</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Regarding the <strong>identifier</strong>, it can contain letters (in either lower or upper case), digits, and the underscore symbol <code class="language-plaintext highlighter-rouge">_</code>, but it can’t start with a digit. These are examples of valid identifiers (they usually start with a lower case letter in Java, but this is not compulsory)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">aNumber</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">another_number</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">number1</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">_one_more_number</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Whereas these are examples of non-valid identifiers:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="mi">1</span><span class="n">number</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">another</span> <span class="n">number</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can use the <code class="language-plaintext highlighter-rouge">System.out.println</code> instruction to show the value of a variable in the screen:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>    
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myVariable</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-some-basic-java-operators">2. Some basic Java operators</h3>
+
+<p>Operators let us evaluate expressions and produce a given result. For instance, if we use the addition operator <code class="language-plaintext highlighter-rouge">+</code> we can sum a couple of numbers and get the final result. This final result can either be assigned to a variable or shown in the screen.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">4</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="mi">32</span> <span class="o">+</span> <span class="mi">52</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="21-arithmetic-operators">2.1. Arithmetic operators</h4>
+
+<p>Arithmetic operators let us do some basic, mathematical operations with numbers. This is the list of basic arithmetic operators in Java:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Addition</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Substraction</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Multiplication</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>Division</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Division module</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Regarding the <em>division</em> operator, we must take into account that it produces a result of the same type that the numbers involved. In other words, if we divide two integer numbers, such as 5 / 2, then the result will be integer (2), not real. The <em>module</em> operator gets the module of an integer division. In previous example, 5 % 2 gets the module of dividing 5 by 2, which is 1.</p>
+
+<p><strong>Operator precedence</strong></p>
+
+<p>The order in which operators are evaluated in an arithmetic expression is important. For instance, if we set an expression like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">result</code> variable gets a final value of 5, because the division <code class="language-plaintext highlighter-rouge">2 / 2</code> is evaluated BEFORE the addition. This is the precedence order for arithmetic operators:</p>
+
+<ol>
+  <li>Multiplications, divisions and modules</li>
+  <li>Additions and substractions</li>
+</ol>
+
+<p>If there are more than one operator of the same range in an operation, then they are evaluated from left to right. For instance, in this case, we first apply the multiplication, and then the division, and the final result is 2:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>However, we can alter the order in which operations are evaluated in an expression, putting between <strong>parentheses</strong> the operations that we want to evaluate in first places. This expression has a result of 0, because we are forcing to evaluate the division 3 / 6 = 0 in first place.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="o">(</span><span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This other expression has a reuslt of 3, because we are forcing to evaluate the addition before the division:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Try to determine the final value stored in <code class="language-plaintext highlighter-rouge">result</code> variable in each one of these expressions. You can write a small Java program later to check your answers:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">int result = 4 + 8 * 2 / 4</code></li>
+    <li><code class="language-plaintext highlighter-rouge">int result = (4 + 8) * 2 / 4</code></li>
+    <li><code class="language-plaintext highlighter-rouge">int result = (4 + 8) * 3 % 5</code></li>
+  </ul>
+</blockquote>
+
+<h4 id="22-assignment-operators">2.2. Assignment operators</h4>
+
+<p>We have already used the <code class="language-plaintext highlighter-rouge">=</code> operator to assign a value to a variable. But there are some other assignment operators that we can use if we want to include some arithmetic operation in the process. For instance, <code class="language-plaintext highlighter-rouge">+=</code> operator, which is also known as <em>auto-addition</em> operator, automatically adds the specified value to variable’s current value. In this example, the final value of <code class="language-plaintext highlighter-rouge">result</code> variable is 5:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="n">result</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>This is the list of the assignment operators available:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">=</code></td>
+      <td>Simple assignment</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+=</code></td>
+      <td>Auto-addition</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-=</code></td>
+      <td>Auto-substraction</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*=</code></td>
+      <td>Auto-multiplication</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/=</code></td>
+      <td>Auto-division</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%=</code></td>
+      <td>Auto-module</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Auto increment and auto decrement operators</strong></p>
+
+<p>Java also provides two additional operators, which are a mix of arithmetic and assignment operators. These operators are the auto-increment <code class="language-plaintext highlighter-rouge">++</code> and auto-decrement <code class="language-plaintext highlighter-rouge">--</code> operators. They apply to a single variable, and automatically increase or decrease its value in 1 unit, respectively.</p>
+
+<p>For instance, final value of <code class="language-plaintext highlighter-rouge">result</code> variable in the following code is 4:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="n">result</span><span class="o">++;</span>
+</code></pre></div></div>
+
+<p>These operators can be placed either before or after the affected variable. There is an important difference that you must take into account regarding the operator placement:</p>
+
+<ul>
+  <li>If we place the operator BEFORE the variable in a complex expression, then we first increase/decrease the affected variable, and then we complete the expression. For instance, in this code, the final value of <code class="language-plaintext highlighter-rouge">b</code> variable is 6, because we first increase <code class="language-plaintext highlighter-rouge">a</code> value (to 4), and then we auto-sum this value to <code class="language-plaintext highlighter-rouge">b</code>.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="n">b</span> <span class="o">+=</span> <span class="o">++</span><span class="n">a</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>If we place the operator AFTER the variable in a complex expression, we first evaluate the whole expression, assign the value, and then, we increase/decrease the affected variable. The same code of previous example gets a result of 5 for <code class="language-plaintext highlighter-rouge">b</code> variable if we type it like this, although <code class="language-plaintext highlighter-rouge">a</code> variable will end with the same final result, which is 4.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="n">b</span> <span class="o">+=</span> <span class="n">a</span><span class="o">++;</span>
+</code></pre></div></div>
+
+<p>Note that these rules don’t apply if we use the auto-increment or decrement operator in a single line. These two lines have the same effect over variable <code class="language-plaintext highlighter-rouge">a</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">++;</span>
+<span class="o">++</span><span class="n">a</span><span class="o">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Determine the final value of <code class="language-plaintext highlighter-rouge">result</code> variable after running all these instructions:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="n">result</span> <span class="o">+=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="n">result</span> <span class="o">*=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="n">result</span><span class="o">--;</span>
+<span class="n">result</span> <span class="o">%=</span> <span class="mi">4</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="3-constants-declaration">3. Constants declaration</h3>
+
+<p>Constants are values that never change. We declare constants in Java by declaring the data as <code class="language-plaintext highlighter-rouge">final</code> and <code class="language-plaintext highlighter-rouge">static</code> (we will learn later the meaning of these terms). Typically these constants are placed at the beginning of the class.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_USERS</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="4-comments">4. Comments</h3>
+
+<p>Comments help us clarify some parts of our code, by adding some “human” text. This text is ignored by the compiler, but helps the developer understand or find some parts of the code.</p>
+
+<p>In Java, there are two types of comments:</p>
+
+<ul>
+  <li>Single line comments, which are preceded by a double slash <code class="language-plaintext highlighter-rouge">//</code>:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// We declare an integer variable</span>
+<span class="kt">int</span> <span class="n">variable</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Multiple line comments, which are started by <code class="language-plaintext highlighter-rouge">/*</code> and finished by <code class="language-plaintext highlighter-rouge">*/</code>. Everything in between makes up the comment, and it’s ignored by the compiler:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* This is a comment of
+   multiple lines before
+   declaring a variable */</span>
+<span class="kt">int</span> <span class="n">variable</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

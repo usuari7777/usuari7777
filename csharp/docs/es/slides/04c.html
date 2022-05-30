@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Cadenas de texto</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Arrays, estructuras y cadenas de texto
+#### Cadenas de texto
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso básico
+
+- Los textos se definen entre comillas dobles en el código
+- Se leen de teclado directamente con **Console.ReadLine()**
+- Enlazamos texto con `+`
+
+```csharp
+string texto1 = "Hola, buenas";
+string texto2 = Console.ReadLine();
+string texto3 = "Has escrito " + texto2;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Haz un programa en el fichero **Ejercicio_04c_01.cs** que le pida al usuario dos números enteros y una operación matemática (suma, resta, multiplicación o división), y saque por pantalla el resultado
+- Las operaciones se pueden especificar como "suma", "resta", "multiplicacion", "division", o bien con "+", "-", "*", "/". Adicionalmente, para la multiplicación también admitiremos "x"
+- El mensaje final debe tener la forma "La suma de X e Y es Z", sustituyendo la operación y los datos por los que haya indicado el usuario
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Acceso a las letras de la cadena
+
+- C# trata los textos como arrays de caracteres
+- Podemos usar los corchetes para acceder a una letra concreta, desde 0 hasta el tamaño (*Length*) del texto
+
+```csharp
+string texto = "Hola, buenas";
+char letra = texto[1];              // 'o'
+for (int i = 0; i < texto.Length; i++)
+    Console.WriteLine(texto[i]);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_02.cs** que le pida al usuario su nombre y le diga cuál es su inicial
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_03.cs** que le pida al usuario su nombre y muestre sus letras separadas por guiones. Por ejemplo, si el usuario se llama Juan, deberá mostrar J-u-a-n
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_04.cs** que recoja en dos *strings* dos números muy largos y luego muestre su suma por pantalla. Deberás sumarlos manualmente como se enseña en el colegio (viendo si tienes que llevar o no en cada columna)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Extraer una subcadena
+
+- La instrucción **Substring** extrae una subcadena de una cadena original
+- Le indicamos la posición desde la que queremos empezar a cortar y cuántos caracteres queremos extraer
+   - Si no indicamos cuántos caracteres, corta desde la posición que digamos hasta el final de la cadena
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Extraer una subcadena
+
+```csharp
+string texto = "Hola, buenas";
+string subcadena1 = texto.Substring(6, 3);  // "bue"
+string subcadena2 = texto.Substring(6);     // "buenas"
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_05.cs** que le pida al usuario su nombre y lo muestre como un triángulo creciente. Por ejemplo, si el usuario se llama Juan deberá mostrar:
+
+```
+J
+Ju
+Jua
+Juan
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Buscar en una subcadena
+
+- La instrucción **IndexOf** indica en qué posición se encuentra un texto dentro de otro
+   - Devuelve el valor de -1 si no se encuentra el texto
+- Podemos indicar un segundo parámetro que indica desde qué posición queremos empezar a buscar (por defecto busca desde el principio)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Buscar en una subcadena
+
+```csharp
+string texto = "Hola, buenas";
+int posicion = texto.IndexOf("buenas");     // 6
+int posicion2 = texto.IndexOf("buenas", 7); // -1
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Alternativas de búsqueda
+
+- La instrucción **LastIndexOf** es similar a *IndexOf*, pero comienza a buscar por el final de la cadena
+- La instrucción **Contains** simplemente indica (con un booleano) si el texto existe o no
+- Las instrucciones **StartsWith** y **EndsWith** comprueban si el texto comienza o termina por la cadena indicada, respectivamente
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Alternativas de búsqueda
+
+```csharp
+string texto = "Hola, buenas";
+bool resultado1 = texto.Contains("buenas");     // true
+bool resultado2 = texto.StartsWith("buenas");   // false
+bool resultado3 = texto.EndsWith("buenas");     // true
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_06.cs** que le pida al usuario 10 frases, las guarde en un array, y luego le pida repetidamente textos, hasta que escriba la palabra "fin". Para cada texto, le tendrá que decir en cuáles de las 10 posiciones del array está contenido
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otras manipulaciones de cadenas
+
+- La instrucción **ToUpper()** devuelve un texto igual que el original, pasado a mayúsculas
+- La instrucción **ToLower()** devuelve un texto igual que el original, pasado a minúsculas
+- La instrucción **Insert(posicion, subcadena)** inserta la subcadena en la posición indicada
+- La instrucción **Remove(posicion, cantidad)** quita *cantidad* caracteres desde la posición indicada
+- La instrucción **Replace(textoViejo, textoNuevo)** reemplaza todas las ocurrencias del *textoViejo* en la cadena por el *textoNuevo*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otras manipulaciones de cadenas
+
+```csharp
+string texto = "Hola buenas";
+Console.WriteLine(texto.ToUpper());                   // HOLA BUENAS
+Console.WriteLine(texto.Insert(5, "muy "));           // Hola muy buenas
+Console.WriteLine(texto.Replace("Hola", "Qué tal?")); // Qué tal? buenas
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_07.cs** que sea una variante del *Ejercicio_04c_06* donde no importe si el texto está en mayúsculas o minúsculas a la hora de encontrarlo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_08.cs** que sea una variante del *Ejercicio_04c_06* donde, en lugar de pedirle al usuario que busque textos, reemplazaremos en los 10 textos del array el texto "Java" por "CSharp", y luego mostraremos el contenido del array completo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sobre las operaciones de manipulación
+
+- Cualquier operación que manipule una cadena (*ToLower*, *Substring*, *Replace*...) NUNCA modifica la cadena original. SIEMPRE se obtiene una cadena alternativa como resultado
+
+```csharp
+string texto = "Hola, buenas";
+texto.ToUpper();
+Console.WriteLine(texto);           // Hola, buenas
+texto = texto.ToUpper();    
+Console.WriteLine(texto);           // HOLA, BUENAS
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_09.cs** que le pida al usuario un texto y elimine todos los espacios redundantes que contenga (dobles o triples espacios seguidos, por ejemplo). Mostrará al final el texto corregido.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Descomponer una cadena en fragmentos
+
+- La instrucción **Split** descompone una cadena en tantos fragmentos como haya, a partir del delimitador que indiquemos
+- Obtenemos un array con todas las partes que se han extraído
+- Por defecto, si no se indica nada, se asume que el delimitador es el espacio en blanco
+
+```csharp
+string texto = "Hola buenas tardes";
+string[] partes = texto.Split(' '); // {"Hola", "buenas", "tardes"}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Descomponer una cadena en fragmentos
+
+- Podemos especificar un array de delimitadores
+- En este caso, se parte la cadena en fragmentos si se encuentra cualquiera de estos delimitadores
+
+```csharp
+string texto = "Hola,buenas tardes";
+char[] delimitadores = {',', ' '};
+string[] partes = texto.Split(delimitadores); // {"Hola", "buenas", "tardes"}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Unir una cadena a partir de fragmentos
+
+- La instrucción **String.Join** (con S mayúscula en *String*) une los fragmentos de un array en una sola cadena, uniéndolas por el delimitador que indiquemos
+
+```csharp
+string texto = "Uno Dos Tres Cuatro";
+string[] partes = texto.Split();                // {"Uno", "Dos", "Tres", "Cuatro"}
+Console.WriteLine(String.Join("-", partes));    // Uno-Dos-Tres-Cuatro
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_10.cs** que le pida al usuario una frase y muestre sus palabras en orden inverso
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_11.cs** que le pida al usuario números separados por espacios (los que el usuario quiera) y muestre después el resultado de su suma
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comparación de cadenas
+
+- Podemos comparar cadenas para ver si son iguales o no con los operadores `==` o `!=`
+- Para ver cuál es mayor o menor que otra (alfabéticamente), usamos la instrucción **CompareTo**
+- **texto1.CompareTo(texto2)** devuelve un valor entero que será:
+   - Negativo si *texto1* es menor (alfabéticamente) que *texto2*
+   - Positivo si *texto1* es mayor (alfabéticamente) que *texto2*
+   - Cero si son iguales
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comparación de cadenas
+
+```csharp
+string texto1 = "Hola", texto2 = "Buenas";
+if (texto1.CompareTo(texto2) > 0)   // true (H > B)
+
+string texto1 = "Hola", texto2 = "buenas";
+if (texto1.CompareTo(texto2) > 0)   // false (las minúsculas van después en ASCII)
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comparación ignorando mayúsculas / minúsculas
+
+- Podemos convertir ambos textos a mayúsculas/minúsculas y luego comparar
+
+```csharp
+string texto1 = "Hola", texto2 = "buenas";
+if (texto1.ToUpper().CompareTo(texto2.ToUpper()) > 0)   // true (H > B)
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Comparación ignorando mayúsculas / minúsculas
+
+- Podemos usar **String.Compare**, pasando los dos textos a comparar y un tercer dato que será **true** si queremos ignorar mayúsculas/minúsculas
+
+```csharp
+string texto1 = "Hola", texto2 = "buenas";
+if (String.Compare(texto1, texto2, true) > 0)   // true (H > B)
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_12.cs** que le pida al usuario 5 frases, las guarde en un array y le diga cuál es la mayor de todas, sin tener en cuenta mayúsculas o minúsculas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cadenas modificables: StringBuilder
+
+- Las cadenas "normales" no se pueden modificar (siempre se genera una cadena nueva como resultado)
+- Con **StringBuilder** podemos aplicar cambios sobre la cadena original
+- Debemos incluir con *using* el espacio *System.Text*
+
+```csharp
+using System.Text;
+...
+StringBuilder cadenaModificable = new StringBuilder("hola");
+cadenaModificable[0] = 'H';     // "Hola"
+string textoNormal = cadenaModificable.ToString();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_13.cs** que le pida al usuario una frase y la modifique para que todas las vocales se conviertan en "o" minúscula
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_14.cs** para jugar al juego del ahorcado, de modo que un primer usuario introduzca la palabra a adivinar, se muestre ésta oculta con guiones (-----) y el programa acepte las letras que introduzca el segundo usuario, cambiando los guiones por letras correctas cada vez que acierte (por ejemplo, a---a-t-). La partida terminará cuando se acierte la palabra por completo o el usuario agote sus 8 intentos.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cadenas repetitivas
+
+- Podemos crear una cadena con un símbolo repetido N veces de la siguiente forma
+
+```csharp
+string asteriscos = new String('*', 10);        // **********
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04c_15.cs** que le pida al usuario una frase y la muestre subrayada, mostrando tantos guiones bajo la frase como caracteres tenga.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

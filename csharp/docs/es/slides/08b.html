@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Manejo de ficheros</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Manejo de ficheros
+#### Ficheros binarios
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ficheros binarios
+
+- Ficheros que no contienen sólo información textual:
+   - Imágenes
+   - Archivos de audio
+   - Ejecutables 
+   - Archivos de programas específicos...
+- Clases disponibles en **System.IO**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura de datos con FileStream
+
+- Método **ReadByte** para leer byte a byte
+   - Devuelve -1 si se llega a final de fichero
+- Método **Read** para leer un array de bytes de golpe
+- Propiedad **Length** para obtener el tamaño en bytes 
+- Podemos abrir el archivo de varios modos (consultar [aquí](https://docs.microsoft.com/es-es/dotnet/api/system.io.filemode?view=net-6.0))
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura de datos con FileStream
+
+Ejemplo 1
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        FileStream fichero = File.OpenRead("prueba.bmp");
+        byte dato;
+        do
+        {
+            dato = (byte)fichero.ReadByte();
+            if (dato != -1)
+            {
+                Console.WriteLine("Leído byte: " + dato);
+            }
+        }
+        while (dato != -1);
+        fichero.Close();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura de datos con FileStream
+
+Ejemplo 2 (con *using*)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(FileStream fichero = new FileStream("prueba.bmp", FileMode.Open))
+        {
+            byte dato;
+            do
+            {
+                dato = (byte)fichero.ReadByte();
+                if (dato != -1)
+                {
+                    Console.WriteLine("Leído byte: " + dato);
+                }
+            }
+            while (dato != -1);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lectura de datos con FileStream
+
+Ejemplo 3 (leer los primeros 10 bytes)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(FileStream fichero = new FileStream("prueba.bmp", FileMode.Open))
+        {
+            byte[] datos = new byte[10];
+            int cantidadLeida = fichero.Read(datos, 0, datos.Length);
+            if (cantidadLeida < 10)
+            {
+                Console.WriteLine("No se pudieron leer 10 bytes");
+            }
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08b_01** que lea los 3 primeros bytes de una imagen GIF y compruebe si se corresponden con las letras G, I, F.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Posición en el fichero
+
+- La instrucción **Seek** permite posicionar el lector en un byte concreto del fichero, para leer a partir de ahí
+- Le indicamos la posición a donde saltar, y desde dónde queremos que se cuente la posición:
+   - *SeekOrigin.Begin*: inicio del fichero
+   - *SeekOrigin.Current*: desde la posición actual
+   - *SeekOrigin.End*: desde el final del fichero (hacia atrás)
+- Podemos usar la propiedad **Position** para saber en qué posición estamos ahora
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Posición en el fichero
+
+Ejemplo: leer el byte 20 del fichero
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(FileStream fichero = new FileStream("prueba.bmp", FileMode.Open))
+        {
+            fichero.Seek(19, SeekOrigin.Begin);
+            byte dato = (byte)fichero.ReadByte();
+            Console.WriteLine("El byte 20 es " + dato);
+            Console.WriteLine("Ahora estoy en posición " + fichero.Position);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08b_02** que compruebe si una imagen BMP está comprimida o no. Para ello debemos comprobar si su byte en la posición 30 (empezando a contar desde 0) es 0 o no. Si es un 0 significa que no está comprimido.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Leer datos nativos
+
+- Clase **BinaryReader**
+- Métodos específicos para leer enteros, enteros largos, reales, etc
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Leer datos nativos
+
+Ejemplo: leer un "short" al inicio del fichero
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(BinaryReader fichero = 
+            new BinaryReader(File.Open("fichero.dat", FileMode.Open)))
+        {
+            short dato = fichero.ReadInt16();
+            Console.WriteLine("Leído " + dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Leer datos nativos
+
+Ejemplo: leer anchura de un BMP (4 bytes, un entero, posiciones 18 a 21)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(BinaryReader fichero = 
+            new BinaryReader(File.Open("fichero.bmp", FileMode.Open)))
+        {
+            fichero.BaseStream.Seek(18, SeekOrigin.Begin);
+            int anchura = fichero.ReadInt32();
+            Console.WriteLine("La anchura es de {0} píxeles", anchura);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Escritura en archivos binarios
+
+- Podemos usar **FileStream** y su método **WriteByte** (para escribir un byte) o **Write** (para escribir un array)
+- También podemos usar **BinaryWriter** para escribir información de otros tipos (enteros, largos, etc)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Escritura en archivos binarios
+
+Ejemplo 1 (escritura de un byte en posición 20 de archivo existente)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(FileStream fichero = new FileStream("prueba.dat", FileMode.Open))
+        {
+            fichero.Seek(19, SeekOrigin.Begin);
+            fichero.WriteByte(20);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Escritura en archivos binarios
+
+Ejemplo 2 (escritura de un entero en posición 20 de archivo existente)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(BinaryWriter fichero = 
+            new BinaryWriter(File.Open("fichero.dat", FileMode.Open)))
+        {
+            int dato = 44;
+            fichero.BaseStream.Seek(19, SeekOrigin.Begin);
+            fichero.Write(dato);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura y escritura simultáneas
+
+Abrimos el archivo en modo *ReadWrite*
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(FileStream fichero = 
+            File.Open("prueba.dat", FileMode.Open, FileAccess.ReadWrite))
+        {
+            // Leemos byte 20
+            fichero.Seek(19, SeekOrigin.Begin);
+            byte leido = (byte)fichero.ReadByte();
+            // Modificamos byte 30
+            fichero.Seek(29, SeekOrigin.Begin);
+            fichero.WriteByte(44);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08b_03** que "encripte" el contenido de un archivo BMP intercambiando el valor de sus dos primeros bytes. Cada vez que se ejecute el programa, el archivo BMP se encriptará/desencriptará, alternativamente.
+
+**NOTA**: si copias el archivo BMP desde el código fuente de tu proyecto a la carbeta *bin/Debug*, deberás ahora decirle que lo copie sólo si es posterior, para que no se sobreescriba cada vez.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

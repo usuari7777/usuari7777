@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Collections</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Collections in Java
+### Collection types
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Static vs Dynamic
+
+- **Static** data types: the size does NOT change along program execution
+    - Integers, doubles, strings, arrays...
+    - Remember: strings don't change the size, we create new strings instead
+- **Dynamic** data types: size changes along program execution
+    - We can easily add/remove elements
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Collection types in Java
+
+- **Lists**: values ordered by numeric index
+   - **Stacks** and **queues** are special types of lists
+- **Maps**: values associated with keys
+- **Sets**: no repeated values
+- **Trees**: special relationship between certain nodes
+- Most of them belong to **java.util** package
+
+</script>
+</section>
+
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

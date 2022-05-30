@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Enums</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Static data types
+### Enums
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Enums
+
+- Data type with a finite or concrete set of possible values
+- Examples: seasons of the year, days of the week...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Enum definition
+
+- *enum* + *enum name* + {  + values + }
+- Must be placed outside the class
+
+```java
+enum dayOfWeek { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, 
+    FRIDAY, SATURDAY, SUNDAY};
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enum usage
+
+- *enum name* + *variable name*
+
+```java
+dayOfWeek aDay = dayOfWeek.FRIDAY;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enum values
+
+- Every value inside an *enum* as a numeric index associated, starting at 0
+- We can either work with the enum value or with its inner index using *ordinal()*
+
+```java
+dayOfWeek aDay = dayOfWeek.FRIDAY;
+System.out.println(aDay);           // Prints FRIDAY
+System.out.println(aDay.ordinal()); // Prints 4
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reading enums from keyboard
+
+- We can use **valueOf** or **value** instructions depending on whether we want the user to type the variable name or its numeric index
+
+```java
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter a day of the week:");
+dayOfWeek aDay1 = dayOfWeek.valueOf(sc.nextLine());  // If user types FRIDAY
+dayOfWeek aDay2 = dayOfWeek.values()[sc.nextInt()];  // If user types 4
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **MonthEnum.java** that defines an enum to store the months of the year. Then, ask the user to type a month and tell him/her the number of days of this month (we assume that February has 28 days).
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

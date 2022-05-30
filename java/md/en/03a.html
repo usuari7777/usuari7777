@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Static data types | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Static data types" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="03a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/03a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Static data types" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Static data types","url":"http://nachoiborraies.github.io/java/md/en/03a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="static-data-types">Static data types</h1>
+
+<h2 id="arrays">Arrays</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Static data types store values so that the total size of these values does not change along the program execution. In this document we are going to explain what an array is and how to use them to store many values of the same type.</p>
+
+<p>An array is a set of data of the same type (integers, texts, characters…) grouped in a single variable. Data is structured so that we can access each element by its index or position in the array, starting at 0. The total number of elements contained in the array must be known before creating the array. So the size of the array is constant, and can’t be changed along the program execution.</p>
+
+<h3 id="1-unidimensional-arrays">1. Unidimensional arrays</h3>
+
+<p>Unidimensional arrays are the simplest type of arrays. They consist in a sequence of data with a single index to access each position. We use square brackets <code class="language-plaintext highlighter-rouge">[]</code> to declare a variable as an array, and the <code class="language-plaintext highlighter-rouge">new</code> operator to determine its size (number of positions). We can declare the array variable in one line and determine its size in another, different line (once we know the size that we need for the array) or do it all in the same line:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>        <span class="c1">// Array of 10 integers</span>
+
+<span class="kt">float</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">n</span><span class="o">;</span>
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Enter the array size:"</span><span class="o">);</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+<span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>               <span class="c1">// Array of n floats</span>
+</code></pre></div></div>
+
+<p>Square brackets can also be placed after the variable name, although we recommend you to place them before, so we can easily see that this variable is an array:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">numbers</span><span class="o">[]</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<p>In order to access the elements of an array, we set the desired index inside the square brackets, starting at position 0. This way we can, for instance, specify a concrete value for each element in the array:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numbers</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="n">numbers</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>We can also use these indexes to check the concrete value of a position:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="mi">1</span><span class="o">]);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="o">[</span><span class="mi">4</span><span class="o">]);</span>
+</code></pre></div></div>
+
+<p>In order to check the total number of elements of an array, we can use its <code class="language-plaintext highlighter-rouge">length</code> property. For instance, inside a <code class="language-plaintext highlighter-rouge">for</code> loop:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Alternatively, we can use this <code class="language-plaintext highlighter-rouge">for</code> structure to explore the contents of the array. This structure is particularly useful if we just want to check (not change) the values of the array:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="nl">n:</span> <span class="n">numbers</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Finally, we can set the initial values of the array when we declare it, placing these values into curly braces, separated by commas:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">};</span>       <span class="c1">// Array of 4 numbers</span>
+</code></pre></div></div>
+
+<h4 id="11-array-search">1.1. Array search</h4>
+
+<p>If we want to search a given value inside an array, we usually explore the array from the beginning to the end, looking for that value. We may need to:</p>
+
+<ul>
+  <li>Determine if a given value exists in the array. In this case, we can finish as soon as we find this value in the array. For instance, this code checks if number 15 exists in an integer array. Note that we use a <code class="language-plaintext highlighter-rouge">while</code> loop along with a <em>boolean</em> variable to stop checkin whenever we find the value:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">found</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(!</span><span class="n">found</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="mi">15</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="n">i</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">found</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Number found at position "</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Number not found"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Check how many times a value exists in an array. In this second case, we need to explore the whole array. For instance, this code counts the occurrences of number 15 in an integer array. To do this, we can better use a <code class="language-plaintext highlighter-rouge">for</code> structure with a counter:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="mi">15</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">counter</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Numbe 15 has been found "</span> <span class="o">+</span> <span class="n">counter</span> <span class="o">+</span> <span class="s">" times"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Looking for minimum / maximum</strong></p>
+
+<p>In some situations, we may need to find the maximum or minimum value in an array. An appropriate approach for this consists in:</p>
+
+<ol>
+  <li>Assign this minimum/maximum value to position 0. In other words, we suppose that this first number will be the minimum or maximum we are looking for.</li>
+  <li>Explore the rest of the array (from position 1) and check if there is a number that exceeds previous minimum/maximum. If so, we need to update this minimum/maximum.</li>
+</ol>
+
+<p>This example finds the maximum value in an integer array called <em>numbers</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">maximum</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">maximum</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">maximum</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The maximum is "</span> <span class="o">+</span> <span class="n">maximum</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="12-array-sort">1.2. Array sort</h4>
+
+<p>Sorting arrays is a task that consists in placing each value in its appropriate position, according to a sorting criteria. For instance, if we want to sort an integer array in ascending order, we need to make sure that every number is placed before the numbers that are higher.</p>
+
+<p>There are many different algorithms to face this task. One of the most common are the <em>bubble</em> algorithm and the <em>direct exchange</em> algorithm.</p>
+
+<p><strong>Bubble algorithm</strong> it compares two consecutive numbers of the array and, if they are not ordered, it swaps their values. At the end of this process, the highest/lowest value will be placed at the end of the array (depending on whether we are sorting in ascending or descending order). We need to replace this process N times to sort the N values of the array. This is the algorithm in Java to sort an array in ascending order:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">])</span>
+        <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">aux</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">aux</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that, in every iteration of <em>j</em> variable, we finish one position before previous iteration, because the latest positions of the array have already been sorted in earlier iterations.</p>
+
+<p>The <strong>direct exchange</strong> algorithm explores the whole array for every position <em>i</em>, looking for for the lowest/highest element, and places this element in this <em>i</em> position. This is the algorithm in Java for ascending order:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">])</span>
+        <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">aux</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">numbers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="n">numbers</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">aux</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that <em>j</em> index is always greater than <em>i</em> index, so if element at position <em>i</em> is greater than element at position <em>j</em>, we need to swap their values to keep the array sorted.</p>
+
+<p>All these sorting algorithms have a complexity of <strong>O(n<sup>2</sup>)</strong>, which means that, for an array of size <em>n</em> we need to do n<sup>2</sup> iterations, approximately, to sort the whole array. There are other approaches, such as the <em>quicksort</em> algorithm, which are faster, but much more difficult to understand and type.</p>
+
+<p>Also, Java provides an automatic sorting method for arrays, through <code class="language-plaintext highlighter-rouge">Arrays.sort</code> instruction. If array is made of simple data (such as integers, strings or floats, for instance), this instruction automatically sorts the array in ascending order. We need to import <code class="language-plaintext highlighter-rouge">java.util</code> package in order to use this instruction.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+<span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="2-bidimensional-arrays">2. Bidimensional arrays</h3>
+
+<p>Although we can use unidimensional arrays for most of the tasks that we can do with arrays, in some situations we may need to store the information in a table, for instance, with its rows and columns, or store different sequences of data in separate indexes. To do this, we need to use bidimensional arrays.</p>
+
+<p>In bidimensional arrays we need two indexes: one to refer to the row we are interested, and another one to point at the column inside this row. We need two pairs of square brackets when we declare a bidimensional array. Inside each pair of brackets we specify the total number of rows and columns of the array, respectively:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[][]</span> <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">][</span><span class="mi">10</span><span class="o">];</span>     <span class="c1">// 3 rows, 10 columns</span>
+</code></pre></div></div>
+
+<p>We refer to each column by its row number, and then column number (both starting at 0):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>        <span class="c1">// 1st row, 3rd column</span>
+<span class="n">table</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">8</span><span class="o">]</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span>       <span class="c1">// 3rd row, 9th column</span>
+</code></pre></div></div>
+
+<p>If we want to explore bidimensional arrays, we need a nested loop: In the outer loop we can explore rows/columns, and in the inner loop we explore the opposite. We can use the <code class="language-plaintext highlighter-rouge">length</code> property of each dimension to determine its size. This example shows the contents of an array row by row:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">table</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">table</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">table.length</code> stores the number of rows, and <code class="language-plaintext highlighter-rouge">table[i].length</code> the number of columns for row <em>i</em>.</p>
+
+<p>Alternatively, we can also establish a different number of columns for each row. This is called an <em>array of arrays</em>. To do this, we need to leave empty the second pair of square brackets when we declare the array:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[][]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">][];</span>        <span class="c1">// 3 rows</span>
+</code></pre></div></div>
+
+<p>Then, we need to go row by row establishing the number of columns for this row:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>       <span class="c1">// 1st row: 3 columns</span>
+<span class="n">data</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>       <span class="c1">// 2nd row: 5 columns</span>
+<span class="n">data</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span>       <span class="c1">// 3rd row: 8 columns</span>
+</code></pre></div></div>
+
+<p>We can also establish the default values of the whole array in the same way that we did for unidimensional arrays. In this case, the data of each row is enclosed in curly braces as well:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span><span class="o">[][]</span> <span class="n">someMoreData</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">},</span>
+    <span class="o">{</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">},</span>
+    <span class="o">{</span><span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">}</span>
+<span class="o">};</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>MatrixAddition</strong> that asks the user to enter two bidimensional matrices or tables of 3 rows and columns, and then prints the result of adding them. In order to add two matrices, you must do it cell by cell:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result[i][j] = matrixA[i][j] + matrixB[i][j]
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a program called <strong>MarkCount</strong> that asks the user to enter 10 marks (integers between 0 and 10). The program must output how many marks of each type have been typed. For instance, if the user types these marks: 1, 7, 5, 7, 2, 6, 7, 3, 5, 8, then the program must output:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Marks per category: 
+0: 0 marks
+1: 1 marks
+2: 1 marks
+3: 1 marks
+4: 0 marks
+5: 2 marks
+6: 1 marks
+7: 3 marks
+8: 1 marks
+9: 0 marks
+10: 0 marks
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

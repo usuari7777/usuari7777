@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Redirecciones e inclusiones</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Redirecciones e inclusiones
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Redirecciones
+
+- Se producen cuando desde el cliente accedemos a una página que está preparada para, según ciertas condiciones, enviarnos a otra
+   - Ejemplo: enviar a *login* si intentamos acceder a un recurso para el que no tenemos autorización
+- Usaremos cabeceras HTTP para indicar la redirección
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Redirecciones simples
+
+- Usamos la instrucción **header** con la cabecera *Location* para indicar dónde redirigir
+- Debemos usarla ANTES de generar cualquier contenido HTML
+
+```php
+header("Location:login.php");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Redirecciones con demora
+
+Usamos la cabecera *Refresh* indicando el tiempo de espera y la URL a la que redirigir después
+
+```php
+header("Refresh:5; url=index.php");
+...
+echo '<p>En breve le redirigiremos a la página principal.</p>';
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Redirecciones y validación
+
+Podemos aplicar las redirecciones si falla la validación de algún dato de un formulario, por ejemplo
+
+```php
+if (!isset($_REQUEST['login']) || empty($_REQUEST['login']))
+{
+    header("Location:login.php");
+}
+...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+- Crea una carpeta llamada **ejercicios5** donde ubicar los ejercicios de esta sesión
+- Copia en ella la carpeta *libros* de la sesión anterior
+- Modifica *result_libros.php* para que, si no le llega texto a buscar, redirija a la página *form_libros.php* para rellenar los datos. 
+- Opcionalmente, trata de mostrar un mensaje de error en color rojo, en el formulario, indicando que "Debes rellenar los campos antes de enviar el formulario".
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Más sobre redirecciones
+
+- No conviene abusar de ellas, ya que los buscadores suelen castigar este hecho si se hace con frecuencia, penalizando el posicionamiento de la web. 
+- Además, reduce el rendimiento al estar haciendo nuevas peticiones para cargar otra página
+
+</script>
+</section>
+   
+<section data-markdown>
+<script type="text/template">
+## Más sobre redirecciones
+
+Conviene llamar a **die()** o **exit()** tras cada una para evitar que se siga ejecutando el resto de la página
+
+```php
+// Así se ejecuta la última redirección
+
+if (....)
+    header("Location:pag1.php");
+
+if (....)
+    header("Location:pag2.php");
+
+if (....)
+    header("Location:pag3.php");
+
+// Así se ejecuta la primera redirección que encaje
+
+if (....)
+{
+    header("Location:pag1.php");
+    die();
+}
+
+if (....)
+{
+    header("Location:pag2.php");
+    die();
+}
+
+if (....)
+{
+    header("Location:pag3.php");
+    die();
+}
+``` 
+
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Inclusiones
+
+- Usamos las directivas *include*, *include_once*, *require* o *require_once* para incluir unas páginas dentro de otras. 
+- Las dos primeras incluyen el contenido dando un *warning* si no lo encuentran
+- Las dos últimas incluyen el contenido provocando un error fatal si no lo encuentran
+- Todas "copian y pegan" el contenido incluido en el punto de inclusión
+- El contenido incluido suele tener extensión *.inc* o *.inc.php* si no es una página completa
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Inclusiones
+
+Ejemplo: incluir una *cabecera.inc* común en varias páginas
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        ...
+    </head>
+    <body>
+        <img class="logo" src="http://nachoiborraies.github.io/php/md/es/slides/imgs/logoempresa.jpg" />
+        <ul class="menuNavegacion">
+            <li><a href="http://nachoiborraies.github.io/php/md/es/slides/inicio.php">Inicio</a></li>
+            <li><a href="http://nachoiborraies.github.io/php/md/es/slides/noticias.php">Noticias</a></li>
+            ...
+        </ul>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Inclusiones
+
+Ejemplo: incluir una cabecera común en varias páginas
+
+```php
+<?php include('cabecera.inc'); ?>
+    <div class="principal">
+    ...
+    </div>
+    ...
+</body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Añade en la carpeta anterior un nuevo archivo llamado *cabecera.inc*, con la cabecera de las dos páginas web (*html*, *head*, CSS, algún logo en el body). Después, haz que las otras dos páginas (*form_libros.php* y *result_libros.php*) incluyan la nueva cabecera y quiten las suyas propias, para compartir cabecera.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Realiza el *Ejercicio 3* del documento asociado a estas diapositivas
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

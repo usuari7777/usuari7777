@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Ejercicios propuestos - Parte 2 | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/02ejercicios.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 2" />
+<script type="application/ld+json">
+{"headline":"Ejercicios propuestos - Parte 2","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/02ejercicios.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-2">Ejercicios propuestos - Parte 2</h1>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> de ejercicios anteriores, edita el fichero <code class="language-plaintext highlighter-rouge">routes/web.php</code> y añade una nueva ruta a la URL <code class="language-plaintext highlighter-rouge">posts</code>. Al acceder a esta ruta (<em>http://blog/posts</em>), deberemos ver un mensaje con el texto “Listado de posts”.</p>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> anterior, vamos a añadir estos dos cambios:</p>
+
+<ul>
+  <li>Añade una nueva ruta parametrizada a <code class="language-plaintext highlighter-rouge">posts/{id}</code>, de manera que el parámetro <code class="language-plaintext highlighter-rouge">id</code> sea numérico (es decir, sólo contenga dígitos del 0 al 9) y obligatorio. Haz que la ruta devuelva el mensaje “Ficha del post XXXX”, siendo XXXX el id que haya recibido como parámetro.</li>
+  <li>Pon un nombre a las tres rutas que hay definidas hasta ahora: a la página de inicio ponle el nombre “inicio”, a la del listado la llamaremos “posts_listado” y a la de ficha que acabas de crear, la llamaremos “posts_ficha”.</li>
+</ul>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p>Continuamos con el proyecto <strong>blog</strong>. En este caso vamos a definir una plantilla y una serie de vistas que la utilicen.</p>
+
+<ul>
+  <li>Comenzaremos definiendo una plantilla llamada <code class="language-plaintext highlighter-rouge">plantilla.blade.php</code> en la carpeta de vistas del proyecto (<code class="language-plaintext highlighter-rouge">resources/views</code>). Define una cabecera con una sección <code class="language-plaintext highlighter-rouge">yield</code> para el título, y otra para el contenido de la página, como la del ejemplo que hemos visto anteriormente.</li>
+  <li>Define en un archivo aparte en la subcarpeta <code class="language-plaintext highlighter-rouge">partials</code>, llamado <code class="language-plaintext highlighter-rouge">nav.blade.php</code>, una barra de navegación que nos permita acceder a estas direcciones de momento:
+    <ul>
+      <li>Página de inicio</li>
+      <li>Listado de posts</li>
+    </ul>
+  </li>
+  <li>Incluye la barra de navegación en la plantilla base que has definido antes</li>
+  <li>A partir de la plantilla base, define otras dos vistas en una subcarpeta <code class="language-plaintext highlighter-rouge">posts</code>, llamadas <code class="language-plaintext highlighter-rouge">posts/listado.blade.php</code> y <code class="language-plaintext highlighter-rouge">posts/ficha.blade.php</code>. Como título de cada página pon un breve texto de lo que son (por ejemplo, “Listado posts” y “Ficha post”), y como contenido de momento deja un encabezado <code class="language-plaintext highlighter-rouge">h1</code> que indique la página en la que estamos: “Listado de posts” o “Ficha del post XXXX”, donde <em>XXXX</em> será el identificador del post que habremos pasado por la URL (y que deberás pasar a la vista). Haz que las rutas correspondientes de <code class="language-plaintext highlighter-rouge">routes/web.php</code> que ya has definido rendericen estas vistas en lugar de devolver texto plano.</li>
+</ul>
+
+<h2 id="ejercicio-4">Ejercicio 4</h2>
+
+<p>Sobre el mismo proyecto <strong>blog</strong> que venimos desarrollando, incorpora ahora los estilos de Bootstrap siguiendo los pasos vistos en estos apuntes:</p>
+
+<ul>
+  <li>Instala con <em>composer</em> la librería <code class="language-plaintext highlighter-rouge">laravel/ui</code>, y utilízala para incorporar Bootstrap al proyecto</li>
+  <li>Descarga Bootstrap con <code class="language-plaintext highlighter-rouge">npm install</code>, y actualiza los archivos CSS y JavaScript con <code class="language-plaintext highlighter-rouge">npm run dev</code></li>
+  <li>Incorpora los estilos <code class="language-plaintext highlighter-rouge">/css/app.css</code> a la plantilla base del proyecto, para que los utilicen todas las vistas que heredan de ella.</li>
+  <li>Edita el archivo <code class="language-plaintext highlighter-rouge">partials/nav.blade.php</code> para modificar la barra de navegación y dejarla con un estilo particular de Bootstrap. Puedes consultar <a href="https://getbootstrap.com/docs/4.5/components/navbar/">esta página</a> para tomar ideas de algunos diseños que puedes aplicar en la barra de navegación.</li>
+  <li>Renombra el archivo <code class="language-plaintext highlighter-rouge">welcome.blade.php</code> a <code class="language-plaintext highlighter-rouge">inicio.blade.php</code> y cámbialo para que también herede de la plantilla base. Añade algún texto introductorio como contenido. Puede quedarte más o menos así (la barra de navegación superior puede variar en función del estilo que hayas querido darle)</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/02_blog_inicio.png" width="90%" />
+</div>
+
+<p><strong>¿Qué entregar?</strong></p>
+
+<p>Como entrega de esta sesión deberás comprimir el proyecto <strong>blog</strong> con todos los cambios incorporados, y eliminando las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code> como se explicó en las sesiones anteriores. Renombra el archivo comprimido a <code class="language-plaintext highlighter-rouge">blog_02.zip</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

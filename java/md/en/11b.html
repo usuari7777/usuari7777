@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functional programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Functional programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="11b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/11b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functional programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Functional programming","url":"http://nachoiborraies.github.io/java/md/en/11b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="functional-programming">Functional programming</h1>
+
+<h2 id="using-lambda-expressions">Using lambda expressions</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/11b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="11b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Since Java 8, lambda expressions, also called <em>anonymous functions</em> in many languages, are an easy and fast way to implement an interface method without having to create a new class for doing that. In this document we are going to explain what they are, how to implement them and how to use them.</p>
+
+<h3 id="1-functional-interfaces-and-lambda-expressions">1. Functional interfaces and lambda expressions</h3>
+
+<p>In previous documents we have explained what <strong>functional interfaces</strong> are: they are interfaces with just one method to be implemented. In the Java API documentation, these interfaces are usually tagged with the annotation <code class="language-plaintext highlighter-rouge">@FunctionalInterface</code> to let the developer know that this interface is functional.</p>
+
+<p>There are many useful examples of functional interfaces in Java API, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Comparator</code>, that we can use to define a comparison method to sort a collection of objects</li>
+  <li><code class="language-plaintext highlighter-rouge">Predicate</code>, that can be used to filter a sublist of objects that meet some criteria</li>
+  <li><code class="language-plaintext highlighter-rouge">Consumer</code>, that can be used to process each object of a collection in a given way</li>
+  <li>…</li>
+</ul>
+
+<p>Lambda expressions are an easy way to implement these interfaces, without having to define a new class, or even an anonymous class.</p>
+
+<h3 id="2-defining-lambda-expressions">2. Defining lambda expressions</h3>
+
+<p>Lambda expressions can be seen as <em>single use</em> functions. We implement a functional interface at the point where we need to use it, and then this code is left aside. Let’s see how to define these expressions with some examples.</p>
+
+<h4 id="21-a-first-example-javaiofilefilter">2.1. A first example: java.io.FileFilter</h4>
+
+<p><code class="language-plaintext highlighter-rouge">java.io.FileFilter</code> is a functional interface available in Java core API. It defines a method called <code class="language-plaintext highlighter-rouge">accept</code> so that we can define an acceptance criteria for files. In other words, when we implement this method, we must specify which files will be accepted from a list of files, according to one or many factors: file size, extension…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FileFilter</span> 
+<span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We are going to implement this interface to accept only Java files (i.e. files with <code class="language-plaintext highlighter-rouge">.java</code> extension). We will see how to do this in different Java versions, so that you can compare the evolution of these programming patterns.</p>
+
+<p><strong>Implementation before Java 7: normal class</strong></p>
+
+<p>Before Java 7, we had to create a new class for every new implementation we wanted to define. For example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaFileFilter</span> <span class="kd">implements</span> <span class="nc">FileFilter</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">endsWith</span><span class="o">(</span><span class="s">".java"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And then use it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"/home/arturo"</span><span class="o">);</span>
+<span class="nc">File</span><span class="o">[]</span> <span class="n">javaFiles</span> <span class="o">=</span> <span class="n">dir</span><span class="o">.</span><span class="na">listFiles</span><span class="o">(</span><span class="k">new</span> <span class="nc">JavaFileFilter</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p><strong>Implementation in Java 7: anonymous class</strong></p>
+
+<p>Besides using normal classes, since Java 7 we could create anonymous classes implementing interfaces or extending abstract classes, whose methods are implemented when we create the object (we could make different implementations every time).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"/home/arturo"</span><span class="o">);</span>
+<span class="nc">File</span><span class="o">[]</span> <span class="n">javaFiles</span> <span class="o">=</span> <span class="n">dir</span><span class="o">.</span><span class="na">listFiles</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileFilter</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">File</span> <span class="n">file</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">endsWith</span><span class="o">(</span><span class="s">".java"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p><strong>Implementation since Java 8: lambda expression</strong></p>
+
+<p>Besides normal and anonymous classes, since Java 8, when we are implementing a functional interface, we can do it with less code using a lambda expression:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">dir</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"/home/arturo"</span><span class="o">);</span>
+<span class="nc">File</span><span class="o">[]</span> <span class="n">javaFiles</span><span class="o">=</span><span class="n">dir</span><span class="o">.</span><span class="na">listFiles</span><span class="o">((</span><span class="nc">File</span> <span class="n">file</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">endsWith</span><span class="o">(</span><span class="s">".java"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>We don’t have to specify that it’s a <code class="language-plaintext highlighter-rouge">FileFilter</code> interface what we are implementing because the compiler knows that the <code class="language-plaintext highlighter-rouge">listFiles()</code> method needs a <code class="language-plaintext highlighter-rouge">FileFilter</code> object as an argument. We don’t need to use the <code class="language-plaintext highlighter-rouge">return</code> word either, because the compiler will assume it. We can even omit the parameter type because the compiler can look at it in the interface definition. So the lambda expression can be even more simple, like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span><span class="o">[]</span> <span class="n">javaFiles</span> <span class="o">=</span> <span class="n">dir</span><span class="o">.</span><span class="na">listFiles</span><span class="o">(</span><span class="n">file</span> <span class="o">-&gt;</span> <span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">endsWith</span><span class="o">(</span><span class="s">".java"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h4 id="22-another-example-javautilcomparator">2.2. Another example: java.util.Comparator</h4>
+
+<p><code class="language-plaintext highlighter-rouge">Comparator</code> interface from <code class="language-plaintext highlighter-rouge">java.util</code> package is another functional interface. It has only one method called <code class="language-plaintext highlighter-rouge">compare</code> that takes two objects as parameters, and compares them returning an integer that tells us which object comes first. Let’s see how to implement this comparator to compare two <code class="language-plaintext highlighter-rouge">String</code> objects according to their length.</p>
+
+<p><strong>Implementation before Java 7</strong></p>
+
+<p>If we are using Java 6 or earlier versions, we need to define a normal class that implements the interface, and then create an object of this class and use it whenever we need to compare strings. For instance:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyStringComparator</span> <span class="kd">implements</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">String</span> <span class="n">s1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">s2</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// MAIN</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"Hi"</span><span class="o">,</span> <span class="s">"Goodbye"</span><span class="o">,</span> <span class="s">"Farewell"</span><span class="o">,</span> <span class="s">"Bye"</span><span class="o">);</span>
+<span class="nc">MyStringComparator</span> <span class="n">msc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyStringComparator</span><span class="o">();</span>
+<span class="o">...</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">msc</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Implementation in Java 7</strong></p>
+
+<p>If we are using Java 7, we can also use an anonymous class to implement the interface, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// MAIN</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"Hi"</span><span class="o">,</span> <span class="s">"Goodbye"</span><span class="o">,</span> <span class="s">"Farewell"</span><span class="o">,</span> <span class="s">"Bye"</span><span class="o">);</span>
+<span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">comp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">String</span> <span class="n">s1</span><span class="o">,</span> <span class="nc">String</span> <span class="n">s2</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">comp</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Implementation in Java 8</strong></p>
+
+<p>Finally, if we are using Java 8 or later, we can also use a lambda expression. In this case, the method to be implemented has two parameters, so we define both in the parentheses of the lambda expression:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lComp</span> <span class="o">=</span> <span class="o">(</span><span class="n">s1</span><span class="o">,</span><span class="n">s2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"Hi"</span><span class="o">,</span> <span class="s">"Goodbye"</span><span class="o">,</span> <span class="s">"Farewell"</span><span class="o">,</span> <span class="s">"Bye"</span><span class="o">);</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">lComp</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>We can even shorten this code placing the lambda expression as the second parameter of <code class="language-plaintext highlighter-rouge">Collections.sort</code> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"Hi"</span><span class="o">,</span> <span class="s">"Goodbye"</span><span class="o">,</span> <span class="s">"Farewell"</span><span class="o">,</span> <span class="s">"Bye"</span><span class="o">);</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="o">(</span><span class="n">s1</span><span class="o">,</span><span class="n">s2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">()));</span>
+</code></pre></div></div>
+
+<h4 id="23-one-more-example-javalangrunnable">2.3. One more example: java.lang.Runnable</h4>
+
+<p>You will use this interface when talking about threads and multithreaded programming. It has only one method to implement, with no parameters nor return type. It is used in <code class="language-plaintext highlighter-rouge">Thread</code> objects to define the method these threads will execute.</p>
+
+<p><strong>Implementation before Java 7</strong></p>
+
+<p>In versions earlier than Java 7, as usual, we need to define a class that implements the interface, and then use an object of this class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRunnable</span> <span class="kd">implements</span> <span class="nc">Runnable</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is thread: "</span> <span class="o">+</span> 
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// MAIN</span>
+<span class="nc">Runnable</span> <span class="n">run</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyRunnable</span><span class="o">()</span>
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">run</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><strong>Implementation in Java 7</strong></p>
+
+<p>In Java 7, we can define an anonymous class whenever we want to implement the interface:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// MAIN</span>
+<span class="nc">Runnable</span> <span class="n">run</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is thread: "</span> <span class="o">+</span> 
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">run</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p><strong>Implementation in Java 8</strong></p>
+
+<p>If we use Java 8 or later, we can also use a lambda expression. In this case, as the method has no parameters, we leave the parentheses of the lambda expression empty (we need to type the parentheses anyway):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Runnable</span> <span class="n">lambdaRun</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is thread: "</span> <span class="o">+</span> 
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">lambdaRun</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Note that, in this example, our code needs more than one sentence, so we need to use the curly brackets { … } after the arrow of the lambda expression. Again, we can also define the lambda expression in the parameter of <code class="language-plaintext highlighter-rouge">Thread</code> constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is thread: "</span> <span class="o">+</span> 
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h4 id="24-conclusions">2.4. Conclusions</h4>
+
+<p>When we want to use a lambda expression, we only have to focus on the implemented method, and check:</p>
+
+<ul>
+  <li>The input parameters of the method</li>
+  <li>The value returned (if any)</li>
+</ul>
+
+<p>Then, in the place of our application where we want to use the lambda expression, we define an object of the given interface, and define the lambda expression as follows:</p>
+
+<ul>
+  <li>First, we specify the input parameters of the function, separated by commas, and between parentheses (unless there’s only one parameter)</li>
+  <li>Then we type an arrow (<code class="language-plaintext highlighter-rouge">-&gt;</code>). That’s why these expressions are also called <em>arrow functions</em>.</li>
+  <li>Finally, we write the code of the method. If it’s just a simple <code class="language-plaintext highlighter-rouge">return</code>, we don’t need to use curly braces <code class="language-plaintext highlighter-rouge">{ … }</code>. Otherwise, these curly braces are compulsory.</li>
+</ul>
+
+<p>Remember the way we have created the lambda expression for <code class="language-plaintext highlighter-rouge">Comparator</code> (two parameters, a String returned):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lComp</span> <span class="o">=</span> <span class="o">(</span><span class="n">s1</span><span class="o">,</span><span class="n">s2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span> <span class="n">s2</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>and the way we have created the lambda expression for <code class="language-plaintext highlighter-rouge">Runnable</code> (no parameters nor return type):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Runnable</span> <span class="n">lambdaRun</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This is thread: "</span> <span class="o">+</span> 
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+</code></pre></div></div>
+
+<p><strong>Some more concepts we can take into account</strong></p>
+
+<p>There is a way to make a lambda expression even shorter. When it contains a method call that takes the same parameters as the lambda expression and in the same order, we can just write a reference to that method, omitting even the parameters, using this especial syntax:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Normal version</span>
+<span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">comp</span> <span class="o">=</span> <span class="o">(</span><span class="n">i1</span><span class="o">,</span> <span class="n">i2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">i1</span><span class="o">,</span> <span class="n">i2</span><span class="o">);</span>
+<span class="c1">// Shorter version</span>
+<span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">comp2</span> <span class="o">=</span> <span class="nl">Integer:</span><span class="o">:</span><span class="n">compare</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We mentioned at the beginning of this section that lambda expressions are also called anonymous functions. If we use an anonymous class to implement an interface, then the compiler creates a whole object to deal with its methods. However, when working with  lambda expressions, the compiler doesn’t create full objects, but instead it creates a special and lighter type of object, so it’s usually a better choice.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>BookComparators</strong>, with a <code class="language-plaintext highlighter-rouge">Book</code> class to store some information about books (title and price). Then, in the main program, create a list of books and use lambda expressions to sort and print the list by title (in alphabetical, ascending order) and then by price (in descending order).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>ListFilter</strong> that includes the following:</p>
+
+  <ul>
+    <li>A class called <code class="language-plaintext highlighter-rouge">Student</code> that has these properties (getters/setters when necessary): name, age and a list of subjects (as strings).</li>
+    <li>A <code class="language-plaintext highlighter-rouge">Main</code> class with a main method and also a static method called:</li>
+  </ul>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="nf">filterStudents</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="n">srcList</span><span class="o">,</span> <span class="nc">Predicate</span><span class="o">&lt;</span><span class="nc">Student</span><span class="o">&gt;</span> <span class="n">predicate</span><span class="o">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>The <code class="language-plaintext highlighter-rouge">filterStudents</code> method receives a student list and returns another list with only the items which meet the condition defined in the <code class="language-plaintext highlighter-rouge">Predicate</code>. A <code class="language-plaintext highlighter-rouge">Predicate</code> is a functional interface that needs to implement a method (<code class="language-plaintext highlighter-rouge">boolean test(T t)</code>). Implement it using lambda expressions.</p>
+
+  <p>In the main method you’ll have to create a list of at least 8 students, and then, using <code class="language-plaintext highlighter-rouge">filterStudents</code> method,  generate 3 other lists that only hold students who:</p>
+
+  <ul>
+    <li>Are older than 20.</li>
+    <li>Have the “Programming” subject.</li>
+    <li>His name contains “Peter”.</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

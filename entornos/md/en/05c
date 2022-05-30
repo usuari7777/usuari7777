@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Version control tools | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Version control tools" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/05c.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Version control tools" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Version control tools","url":"http://nachoiborraies.github.io/entornos/md/en/05c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="version-control-tools">Version control tools</h1>
+
+<h2 id="using-git-commands">Using Git commands</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>As we have seen before, Git is a distributed version control system (DVCS) created by the Linux team. It is currently used by many version control servers, such as GitHub, BitBucket or GitLab, to store projects remotely. But, if we want to interact with these remote projects or repositories from our local machine, we need to install Git locally, and make use of the different commands provided by Git. In this document we’ll learn how to install Git, and how to use some of the basic commands provided.</p>
+
+<h3 id="1-git-installation-and-setup">1. Git installation and setup</h3>
+
+<p>Git installation depends on the operating system in which we want to install it.</p>
+
+<ul>
+  <li>For <strong>Linux</strong> systems, we just need to run the specified command to install Git. For instance, in Ubuntu systems we need to run this command:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install git
+</code></pre></div></div>
+
+<ul>
+  <li>For <strong>Windows</strong> and <strong>Mac</strong>, we need to go to <a href="https://git-scm.com/downloads">Git web site</a> and download the appropriate version. Regarding Mac, you can also install Git by installing XCode.</li>
+</ul>
+
+<h4 id="11-git-setup">1.1. Git setup</h4>
+
+<p>Before using Git commands, we should set up some default variables in our system, so that we can easily connect to server and store our credentials for later connections. We are going to use <code class="language-plaintext highlighter-rouge">git config</code> command to store these variables, and we can store them in three different levels:</p>
+
+<ul>
+  <li><strong>System</strong>: using <code class="language-plaintext highlighter-rouge">--system</code> parameter, the configuration applies to every user in our system.</li>
+  <li><strong>User</strong>: using <code class="language-plaintext highlighter-rouge">--global</code> parameter, the configuration applies only to current user in the system. This is the option that we are going to use in this section.</li>
+  <li><strong>Repository</strong>: each repository would store its own Git configuration parameters.</li>
+</ul>
+
+<p>First of all, let’s define our full name through this command (replace <em>John Doe</em> with your real name):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global user.name "John Doe"
+</code></pre></div></div>
+
+<p>Next, we specify the e-mail with which we created our GitHub account:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global user.email yourEmail@server.com
+</code></pre></div></div>
+
+<p>Then, we can specify Git default editor. This step is not necessary, but if Git needs to open a text file to show some information, this will be the editor that we will use. For instance, we can use Notepad in Windows this way:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global core.editor notepad
+</code></pre></div></div>
+
+<p>Finally, we need to specify the way Git is going to store our credentials, so that we don’t need to type them every time we need to connect to the repositories. The helper that we use in order to store our credentials depends on the operating system in which we are using Git, but the general command is like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global credential.helper &lt;helper&gt;
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">&lt;helper&gt;</code> depends on the operating system:</p>
+
+<ul>
+  <li>For <strong>Windows</strong> we use <code class="language-plaintext highlighter-rouge">wincred</code></li>
+  <li>For <strong>Linux</strong> we use <code class="language-plaintext highlighter-rouge">cache</code></li>
+  <li>For <strong>Mac OSX</strong> we use <code class="language-plaintext highlighter-rouge">osxkeychain</code></li>
+</ul>
+
+<p>So if we want to set up the credentials helper in Windows, for instance, we type something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global credential.helper wincred
+</code></pre></div></div>
+
+<p>This way, we are ready to go using Git, even from different IDEs, as we will see in other sections. We can check current configuration using <code class="language-plaintext highlighter-rouge">git config --list</code> command. Also, we can check the version that we have installed currently with the command <code class="language-plaintext highlighter-rouge">git version</code>.</p>
+
+<h3 id="2-basic-useful-local-commands">2. Basic useful local commands</h3>
+
+<p>Let’s have a look now at some commands that we can use to deal with local projects (without connecting to any remote repository or server). These commands are useful either for local projects and for remote projects that we have previously downloaded, if we want to work locally with them for a while.</p>
+
+<h4 id="21-create-a-local-repository">2.1. Create a local repository</h4>
+
+<p>If we want to initialize or create a new local repository, first we need to create the folder in which this project is going to be stored. Then, we can initialize it as a Git repository with this command (from inside project folder):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<p>This will initialize this folder as a Git folder, by creating a hidden subfolder called <code class="language-plaintext highlighter-rouge">.git</code>, where the repository database will be stored. We don’t need to care about this subfolder.</p>
+
+<p>Every file inside this repository will be in one of the three states mentioned in previous sections (commited, staged or modified), and we can change the state of every file by typing some of the commands that we will see now. We can also check the status of the repository at any time with the command <code class="language-plaintext highlighter-rouge">git status</code> (we must run it from the root folder of the repository). It will let us know if everything is committed, or if there is any file with unsaved changes.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a folder called <strong>GitExercises</strong> in your system. We are going to store some repositories on it. To begin with, create inside this folder a new subfolder called <strong>MyFirstLocalRepo</strong>, get inside this folder and run the command <code class="language-plaintext highlighter-rouge">git init</code> to initialize this folder as a Git repository.</p>
+</blockquote>
+
+<h4 id="22-add-or-edit-files-in-the-repository">2.2. Add or edit files in the repository</h4>
+
+<p>If we add any new file to the repository folder (for instance, a file called <em>file.txt</em>) and run <code class="language-plaintext highlighter-rouge">git status</code> command, Git will show that there are some files that must be added to the repository.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-08-GitCommands_status.png" />
+</div>
+
+<p>These files are in <em>modified</em> state. If we use <code class="language-plaintext highlighter-rouge">git add</code> command, the file(s) will be marked as <em>staged</em>. If we just want to add a single file, we specify this new file as a parameter:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add file.txt
+</code></pre></div></div>
+
+<p>However, there can be many changes in our repository. If we want to add them all at once, we use <code class="language-plaintext highlighter-rouge">.</code> as parameter:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add .
+</code></pre></div></div>
+
+<p>After every new change that we make in the repository (either adding, editing or removing files), we need to repeat this command to stage the changes. Once the changes have been added, this is the result of <code class="language-plaintext highlighter-rouge">git status</code> command:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-08-GitCommands_status2.png" />
+</div>
+
+<p>As you can see in the image above, we can use <code class="language-plaintext highlighter-rouge">git rm</code> command to unstage this file if we want to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rm --cached file.txt
+</code></pre></div></div>
+
+<h4 id="23-saving-or-committing-changes">2.3. Saving or committing changes</h4>
+
+<p>After adding or staging the changes we need to do one final step in order to update our repository database. This operation is <em>commit</em>, and we can do it through <code class="language-plaintext highlighter-rouge">git commit</code> command. We can run it after one or many <code class="language-plaintext highlighter-rouge">git add</code> operations that have added one or more files to the staging area.</p>
+
+<p>This is the general structure of <code class="language-plaintext highlighter-rouge">git commit</code> command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit -m "My first commit"
+</code></pre></div></div>
+
+<p>Parameter <code class="language-plaintext highlighter-rouge">-m</code> lets us specify a commit message. This message is compulsory in order to save the commit, so that, if we want to retrieve it later, we can identify this message in the commit list. After committing changes, if we run <code class="language-plaintext highlighter-rouge">git status</code> we should see that there’s nothing to commit:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>On branch master
+nothing to commit, working tree clean
+</code></pre></div></div>
+
+<p>Alternatively, we can also use <code class="language-plaintext highlighter-rouge">-a</code> parameter to automatically add or stage changes before committing. This command joins a <code class="language-plaintext highlighter-rouge">git add .</code> and a <code class="language-plaintext highlighter-rouge">git commit</code> command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit -a -m "Your commit message"
+</code></pre></div></div>
+
+<p><strong>Showing commit history</strong></p>
+
+<p>If we want to see the commit history of our repository, we can type this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-08-GitCommands_log.png" />
+</div>
+
+<p>Note that every commit has a <strong>label</strong> which consists in a large sequence of digits and letters. In previous example, our commit has been labeled as <em>08f4ed1751…</em>. This label will be useful in order to check the commit later, although we don’t need to remember all these characters, just the starting prefix.</p>
+
+<p><strong>Showing changes</strong></p>
+
+<p>We can also see the changes between two consecutive versions of the repository. There are many ways of doing this:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">git show</code>: this shows the changes made in the last commit</li>
+  <li><code class="language-plaintext highlighter-rouge">git show cb1fd6f8</code>: this shows the changes made in the comit labeled with label starting with <em>cb1fd6f8</em> (as you can see, we don’t need to type the whole label).</li>
+  <li><code class="language-plaintext highlighter-rouge">git diff</code>: this shows the changes made in the last version that has not been committed yet.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Make these changes in the repository <em>MyFirstLocalRepo</em> that you have created in previous exercise:</p>
+
+  <ul>
+    <li>Create a new file called <code class="language-plaintext highlighter-rouge">file.txt</code> with the text “My first text file”. Save changes in this file</li>
+    <li>Run <code class="language-plaintext highlighter-rouge">git add .</code> command to stage this file</li>
+    <li>Run <code class="language-plaintext highlighter-rouge">git commit</code> command with the message “My first commit” to save the changes in the database</li>
+    <li>Edit <code class="language-plaintext highlighter-rouge">file.txt</code> and add a second line with your name</li>
+    <li>Run <code class="language-plaintext highlighter-rouge">git commit -a -m</code> to automatically stage the changes and commit them, with the message “My second commit”.</li>
+    <li>Run <code class="language-plaintext highlighter-rouge">git log</code> command to see the commit history. You should see something like this:</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-08-GitCommands_log2.png" />
+</div>
+
+<blockquote>
+  <ul>
+    <li>Run <code class="language-plaintext highlighter-rouge">git show</code> command to see the changes made in last commit. You should see something like this:</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-08-GitCommands_show.png" />
+</div>
+
+<blockquote>
+  <p>New changes are shown in green if they are added (in this case, your name at the end of the file contents), or in red it they have been removed.</p>
+</blockquote>
+
+<p><strong>Labeling commits</strong></p>
+
+<p>We can manually add labels to a given commit, so that we can easily find it later when we want to show its changes. We use <code class="language-plaintext highlighter-rouge">git tag</code> command, followed by the tag name:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag v1.0
+</code></pre></div></div>
+
+<p>This applies to the last commit sent. Then, we can show the changes of this commit with this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git show v1.0
+</code></pre></div></div>
+
+<p>If we want to tag a commit that is not the last one, then we must specify the previous label of this commit (or its initial prefix), after the new label that we want to assign to it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag v1.0 cb1fd6f8
+</code></pre></div></div>
+
+<h4 id="24-undoing-changes">2.4. Undoing changes</h4>
+
+<p>What if we want to go back to a previous commit and undo the changes made in last commit(s)? We can use <code class="language-plaintext highlighter-rouge">git reset</code> command. This command can be used in many ways, but here we will explain one of them: we need to identify the label of the commit that we want to set as our current one, and then type this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard 0305afd
+</code></pre></div></div>
+
+<p>where <em>0305afd</em> is the prefix of the label for the commit we want to set as our current, active status.</p>
+
+<h4 id="25-the-gitignore-file">2.5. The <em>.gitignore</em> file</h4>
+
+<p>In every Git repository, we can manually add a file called <code class="language-plaintext highlighter-rouge">.gitignore</code>. It’s just a text file containing a list of files and folders that must be ignored when uploading new changes. For instance, if we are working in a C# project, we don’t need to upload <em>exe</em> files to the repository, since we can just recompile the project again. So we can edit this file and specify this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*.exe
+</code></pre></div></div>
+
+<p>This will skip every <em>.exe</em> file in the main folder of the project. In the same way, we can add as many files and folders as we need in this file. For instance:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node_modules/
+*.exe
+*.tmp
+</code></pre></div></div>
+
+<p>This skips <em>node_modules</em> folder and every <em>.exe</em> or <em>.tmp</em> file in the root folder. <a href="https://github.com/github/gitignore">Here</a> you can find typical <em>.gitignore</em> files ready for many different project types, such as Node projects, Laravel projects and so on.</p>
+
+<blockquote>
+  <p><strong>NOTE</strong>: <code class="language-plaintext highlighter-rouge">.gitignore</code> file does NOT exclude files that have been already commited previously. For instance, if we tell this file to ignore <em>.exe</em> files but we have previously commited an <em>.exe</em> file to the repository, this file will not be removed from it.</p>
+</blockquote>
+
+<h3 id="3-working-with-remote-repositories">3. Working with remote repositories</h3>
+
+<p>Now that we have learned how to add and edit content in a local repository, let’s see how to connect to a remote GitHub repository to download/upload the changes. First of all, if we want to work with remote repositories stored in GitHub, we need to create this remote repository there.</p>
+
+<h4 id="31-cloning-repositories">3.1. Cloning repositories</h4>
+
+<p>Once we have our repository created in GitHub, we need to copy it into our local machine. This operation is commonly called a <strong>clone</strong> operation, and we do it through <code class="language-plaintext highlighter-rouge">git clone</code> command, specifying the URL of the repository, which can be retrieved from the <em>Clone or download</em> button in the repository itself.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-06-CreateRepositoryGitHub3.png" alt="Repository main page" width="90%" />
+</div>
+
+<p>For instance, this could be the appropriate command to clone the repository in the image above:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/nachoiborraIES/test
+</code></pre></div></div>
+
+<p>This command will create a folder called <em>test</em> in the directory from which we are running this command, so make sure you are running it inside the folder you want to place your project in.</p>
+
+<h4 id="32-updating-remote-changes-in-local">3.2. Updating remote changes in local</h4>
+
+<p>Now that we have our repository cloned locally, whenever we work in a team, or if we are managing the same repository from different computers, we may need to download the latest changes of this repository to our local copy. This step is <em>essential</em> in order to update our contents before making new changes.</p>
+
+<p>To do this, we can just use <code class="language-plaintext highlighter-rouge">git pull</code> command from the repository folder:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull
+</code></pre></div></div>
+
+<p>This automatically downloads the latest changes and updates the affected files.</p>
+
+<h4 id="33-updating-local-changes-in-remote">3.3. Updating local changes in remote</h4>
+
+<p>If we have our local repository up to date and make new changes to any file, we can upload these changes to the remote repository. The required steps are:</p>
+
+<ol>
+  <li>Make changes to the desired file(s)</li>
+  <li>Tag them as staged through the <code class="language-plaintext highlighter-rouge">git add .</code> command that we have seen before</li>
+  <li>Commit your changes locally through the <code class="language-plaintext highlighter-rouge">git commit</code> command that we have also seen before</li>
+  <li>Upload this commit (or last commits, if there’s more than one) with <code class="language-plaintext highlighter-rouge">git push</code> command.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Clone the GitHub repository <em>MyFirstRepo</em> that you should have created in previous document. Clone it inside the same main folder in which you are creating the rest of local repositories in this document, so you will see a new folder called <em>MyFirstRepo</em> containing all the elements of your remote repository. Then, apply these changes:</p>
+
+  <ol>
+    <li>Add a new file called <em>shopping_list.txt</em> with a list of items that you want to buy.</li>
+    <li>Upload this file to the remote repository (remember, first <em>add</em> the changes, then <em>commit</em> them and finally <em>push</em> them)</li>
+    <li>Go to GitHub and check that the new file has been uploaded successfully</li>
+    <li>Go to another different folder of your computer and clone a new copy of the same repository.</li>
+    <li>From this second folder, add a new file called <em>to_do.txt</em> and add some tasks that you have pending for these next weeks.</li>
+    <li>Upload the changes to the remote repository</li>
+    <li>Go back to your original <em>MyFirstRepo</em> folder and do a <code class="language-plaintext highlighter-rouge">git pull</code> command. Check if the new file <em>to_do.txt</em> has been downloaded to this local copy.</li>
+  </ol>
+</blockquote>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

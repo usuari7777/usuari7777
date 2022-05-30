@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Date and time</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Date and time
+### New classes for date and time management
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Introduction
+
+- From Java 8 we have new classes to deal with dates and times (**java.time** package)
+- **LocalDate** for dates made of day, month and year
+- **LocalTime** for times including hour, minute, second and even nanosecond.
+- **LocalDateTime** for all together
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Creating dates/times with "now"
+
+Gets the current date/time instant
+
+```java
+LocalDate dateNow = LocalDate.now();
+LocalTime timeNow = LocalTime.now();
+LocalDateTime fullNow = LocalDateTime.now();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Creating dates/times with "of"
+
+Lets us specify the parts of the date/time (months starting with 1)
+
+```java
+LocalDate myBirthday = LocalDate.of(1978, 4, 7);  // Year, month, day
+LocalTime myTime = LocalTime.of(22, 30, 10);      // Hour, minute, second
+LocalDateTime fullDate = LocalDateTime.of(1978, 4, 7, 22, 30, 10);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Getting parts of date/time
+
+Different getters depending on the object itself
+
+```java
+int year = myBirthday.getYear();
+int month = fullDate.getMonthValue();
+int hour = myTime.getHour();
+int second = fullDate.getSecond();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Formatting dates and times
+
+We use [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) from **java.time.format** package to specify the pattern
+
+```java
+LocalDate myBirthday = LocalDate.of(1978, 4, 7);
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd - MMMM - yyyy");
+System.out.println(formatter.format(myBirthday));
+// Output: 07 - april - 1978
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parsing dates and times from keyboard
+
+We use *DateTimeFormatter* to specify the expected pattern, and **parse** method to parse text
+
+```java
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+Scanner sc = new Scanner(System.in);
+LocalDate userDate = LocalDate.parse(sc.nextLine(), formatter);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+You can do **Exercises 1 and 2** from the document attached to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## More information
+
+* [LocalDate](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html)
+* [LocalTime](https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html)
+* [LocalDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html)
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

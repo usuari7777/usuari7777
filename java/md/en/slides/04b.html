@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Useful Java functions</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Functions and error handling
+### Useful Java functions
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Math functions
+
+* `Math.sqrt(n)` square root of the parameter *n* 
+* `Math.pow(b, e)` first argument *b* raised to the power of the second argument *e*
+* `Math.abs(n)` absolute value of the number *n*
+* `Math.log(n)` natural logarithm (base e) of a double value
+* More at [official documentation](https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **Equation.java** that tries to solve a 2nd degree equation ax^2 + bx + c = 0, given the values of *a*, *b* and *c*. Here you can see the general formula:
+
+<div align="center">
+    <img src="../../../img/04_equation.jpg" width="30%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Random numbers using Math.random
+
+- Returns a double between 0 and 1 (1 is not included)
+
+```Java
+// Double value between 0 and 1 (1 excluded)
+double randomValue = Math.random();
+
+// Integer between 0 and 10 (10 excluded)
+int randomValue2 = (int)(Math.random() * 10);
+
+// Integer between 20 and 30 (30 excluded)
+int randomValue3 = 20 + (int)(Math.random() * 10);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Random numbers using Random
+
+- Need to import *java.util.Random*
+- Create a *Random* variable (only once per program execution)
+- Use methods such as *nextInt* to generate a number in a given range
+- Check [here](https://docs.oracle.com/javase/8/docs/api/java/util/Random.html) more options about *Random*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Random numbers using Random
+
+```java
+import java.util.Random;
+...
+Random r = new Random();
+
+// Random integer between 0 and 5 (5 is excluded)
+int randomValue = r.nextInt(5);
+
+// Random integer between 10 and 20 (20 is excluded)
+int randomValue2 = 10 + r.nextInt(10);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **NumberGuess.java** that generates a random number between 1 and 50 (both included) and give the user 5 attempts to guess the number. After each attempt, the program must inform the user if the secret number is greater or lower than the one specified by the user.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

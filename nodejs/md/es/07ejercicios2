@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 7 (II) | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 7 (II)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07ejercicios2.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/07ejercicios2.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 7 (II)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 7 (II)","url":"http://nachoiborraies.github.io/nodejs/md/es/07ejercicios2.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-7-ii">Ejercicios propuestos - Parte 7 (II)</h1>
+
+<p>Para el ejercicio de esta sesión, crea una subcarpeta llamada “<strong>Sesion7_2</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro crear el proyecto del ejercicio.</p>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_7_2</strong>” en la carpeta de ejercicios “<em>ProyectosNode/Ejercicios/Sesion7_2</em>”. Copia dentro el contenido del <em>Ejercicio_6_2</em> de sesiones anteriores, incluyendo los cambios que se hicieron en ejercicios posteriores (inserción y borrado de libros).</p>
+
+<p>A partir de esa base, vamos a añadir ahora autenticación basada en sesiones. Instala el <em>middleware express-session</em> en el proyecto, y configúralo como en el ejemplo visto antes. Define a mano en el servidor principal un array con nombres y passwords de usuarios autorizados, y protege las rutas que permitan hacer cualquier modificación sobre el catálogo de libros. En concreto, sólo los usuarios validados podrán:</p>
+
+<ul>
+  <li>Ver el formulario de inserción de libros e insertar libros (enviar el formulario anterior)</li>
+  <li>Borrar libros</li>
+  <li>Ver el formulario de edición de libros y editar libros (enviar el formulario), en caso de que hayáis implementado esta opción.</li>
+</ul>
+
+<p>Añade para ello una vista <code class="language-plaintext highlighter-rouge">login.njk</code> al conjunto de vistas de la aplicación. Puedes emplear el mismo formulario de login que en el ejemplo, y también añade las dos rutas para mostrar el formulario y para recoger los datos y validar el usuario. En caso de validación exitosa, se renderizará la vista del listado de libros. En caso contrario, el formulario de login con un mensaje de error, como en el ejemplo proporcionado.</p>
+
+<p><strong>Opcionalmente</strong>, añade también una función de <em>logout</em> al menú de la aplicación, que sólo será visible si el usuario ya está validado, y que permitirá destruir su sesión y redirigir al listado de libros.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

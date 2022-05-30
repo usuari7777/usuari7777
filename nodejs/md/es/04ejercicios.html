@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 4 | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 4" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/04ejercicios.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 4" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 4","url":"http://nachoiborraies.github.io/nodejs/md/es/04ejercicios.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-4">Ejercicios propuestos - Parte 4</h1>
+
+<p>Para los ejercicios de esta sesión, crea una subcarpeta llamada “<strong>Sesion4</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro ir creando un proyecto para cada ejercicio.</p>
+
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_4</strong>” dentro de “<em>ProyectosNode/Ejercicios/Sesion4</em>”. Aquí iremos desarrollando los ejercicios que se proponen en esta sesión. Verás que se trata de un ejercicio incremental, donde poco a poco iremos añadiendo código sobre un mismo proyecto.</p>
+
+<p>Para empezar, instala Mongoose en dicho proyecto, y crea un archivo <code class="language-plaintext highlighter-rouge">index.js</code> que conecte con una base de datos llamada “libros”, en el servidor Mongo local. Recuerda que, aunque la base de datos aún no exista, no es problema para establecer una conexión, hasta que se añadan colecciones y documentos a ella.</p>
+
+<p>A continuación, vamos a definir un esquema para almacenar la información que nos interese de los libros. En concreto, almacenaremos su título, editorial y precio en euros. El título y el precio son obligatorios, el título debe tener una longitud mínima de 3 caracteres, y el precio debe ser positivo (mayor o igual que 0). Define estas reglas de validación en el esquema, y asócialo a un modelo llamado “libro” (con lo que se creará posteriormente la colección “libros” en la base de datos). Define todo este código en el archivo <code class="language-plaintext highlighter-rouge">models/libro.js</code>, que deberás crear.</p>
+
+<p>Desde el archivo principal <code class="language-plaintext highlighter-rouge">index.js</code>, incorpora con <code class="language-plaintext highlighter-rouge">require</code> el modelo de libros creado, y, después de conectar con la base de datos, realiza estas operaciones:</p>
+
+<ul>
+  <li>Crea un par de libros con estos datos. Muestra por pantalla con <code class="language-plaintext highlighter-rouge">console.log</code> el resultado de las inserciones y, si algo falla, muestra el error completo:
+    <ul>
+      <li>Libro 1:
+        <ul>
+          <li>Título: “El capitán Alatriste”</li>
+          <li>Editorial: “Alfaguara”</li>
+          <li>Precio: 15 euros</li>
+        </ul>
+      </li>
+      <li>Libro 2:
+        <ul>
+          <li>Título: “El juego de Ender”</li>
+          <li>Editorial: “Ediciones B”</li>
+          <li>Precio: 8.95 euros</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Utiliza el método genérico <code class="language-plaintext highlighter-rouge">find</code> para buscar los libros cuyo precio oscile entre los 10 y los 20 euros (inclusive)</li>
+  <li>Utiliza <code class="language-plaintext highlighter-rouge">findById</code> para mostrar la información del libro que quieras (averigua el id de alguno de los libros y saca su información).</li>
+  <li>Borra uno de los libros de la colección empleando el método <code class="language-plaintext highlighter-rouge">findByIdAndRemove</code>. Muestra por pantalla los datos del libro borrado, cuando todo haya ido correctamente.</li>
+  <li>Modifica el precio de otro de los libros de la colección. Muestra por pantalla los datos del nuevo libro modificado, una vez se haya completado la operación. Opcionalmente, prueba también a incrementar su versión (campo <code class="language-plaintext highlighter-rouge">__v</code>) en una unidad.</li>
+</ul>
+
+<blockquote>
+  <p><strong>NOTA</strong>: Puedes dejar comentado el código que no vayas a probar de los pasos anteriores, para centrarte sólo en el del paso en cuestión. También ten en cuenta que, si haces las inserciones más de una vez, se añadirán los libros nuevamente a la colección, ya que no hemos puesto ninguna regla de validación para eliminar duplicados. No es problema. Siempre puedes eliminar los duplicados a mano desde la extensión para MongoDB de Visual Studio Code.</p>
+</blockquote>
+
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+
+<p>Vamos ahora a definir un segundo esquema para almacenar información sobre el <strong>autor</strong> de cada libro. Dicho autor tendrá un nombre (obligatorio) y un año de nacimiento (opcional, pero con valores entre 0 y 2000). Define también el modelo para la colección, asociado a este esquema. Todo este código deberá ir en el archivo <code class="language-plaintext highlighter-rouge">models/autor.js</code>.</p>
+
+<p>Después, relaciona la colección de libros con la de autores, añadiendo a la primera un nuevo campo llamado <code class="language-plaintext highlighter-rouge">autor</code>, que enlazará con el <em>id</em> del autor correspondiente en la colección de autores. Dicho campo <em>autor</em> no será obligatorio, para respetar así los libros sin autor que tengamos añadidos con anterioridad.</p>
+
+<p>En el archivo principal <code class="language-plaintext highlighter-rouge">index.js</code>, incorpora con <code class="language-plaintext highlighter-rouge">require</code> el modelo de autores, además del de libros que ya teníamos previamente, y añade el código para insertar uno o dos nuevos autores, y algún libro vinculado a cada uno de ellos.</p>
+
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+
+<p>Sobre el ejercicio anterior, edita el archivo <code class="language-plaintext highlighter-rouge">models/libro.js</code> y define un nuevo esquema para almacenar comentarios relativos a un libro. Cada comentario tendrá una fecha (tipo <code class="language-plaintext highlighter-rouge">Date</code>), el nick de quien hace el comentario (<code class="language-plaintext highlighter-rouge">String</code>) y el comentario en sí (<code class="language-plaintext highlighter-rouge">String</code>), siendo todos estos campos obligatorios. Además, en el caso de la fecha, estableceremos como valor por defecto (<code class="language-plaintext highlighter-rouge">default</code>) la fecha actual (<code class="language-plaintext highlighter-rouge">Date.now</code>). Vamos a crear un subdocumento dentro del esquema de libros que almacene un array de comentarios para dicho libro, utilizando el esquema de comentarios que acabas de crear.</p>
+
+<p>Una vez hecho esto, desde el programa principal <code class="language-plaintext highlighter-rouge">index.js</code> crea un nuevo libro con sus datos, y añade a mano un par de comentarios al array, antes de guardar todos los datos.</p>
+
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Añade al ejercicio anterior estas dos consultas:</p>
+
+<ul>
+  <li>
+    <p>Una consulta que muestre el título y precio (junto con el <em>id</em>) de los tres libros más baratos, ordenados de menor a mayor precio. En el caso de que haya menos de tres libros en el listado, se mostrarán sólo los libros disponibles, obviamente.</p>
+  </li>
+  <li>
+    <p>Una consulta que muestre los nombres de los autores que tengan algún libro a la venta por menos de 10 euros (únicamente deberán mostrarse los nombres de los autores en el listado). Antes de realizar esta consulta, procura que haya al menos dos o tres autores en la colección de autores, y al menos tres o cuatro libros con autores diferentes.</p>
+  </li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

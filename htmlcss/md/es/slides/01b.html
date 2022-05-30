@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Introducción a las aplicaciones web</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Introducción a las aplicaciones web
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de aplicaciones
+
+- No necesitan conexión: aplicaciones **de escritorio**
+   - Procesadores de texto, editores de imágenes...
+- Sí necesitan conexión:
+   - **Aplicaciones P2P**: compartir recursos entre pares (Torrents, por ejemplo)
+   - **Aplicaciones cliente-servidor**: clientes solicitan recursos a servidores
+   - Las **aplicaciones web** son un tipo de *cliente-servidor*
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Aplicaciones Web
+
+- Aquella realizada a partir de lenguajes y tecnologías de desarrollo web
+- HTML, CSS, JavaScript, PHP...
+- Pueden ejecutarse en navegadores, o "embebidas" en otras aplicaciones (móviles)
+- Aplicaciones *híbridas*: realizadas con tecnologías web y exportadas a formato nativo de otros dispositivos, como los móviles
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La Web
+
+- **WWW**: *World Wide Web*, plataforma mundial con gran cantidad de recursos disponibles
+- Se popularizó en los años 90 con el correo electrónico, chats, etc.
+- A principios de s. XXI se le dió un nuevo empujón con la Web 2.0: redes sociales, wikis...
+- Nuevas funcionalidades: juegos online, streaming, plataformas de contenidos multimedia (Netflix, Disney+...)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Elementos de una aplicación web
+
+- **Cliente**: usuario que realiza peticiones de contenidos o recursos
+- **Servidor**: sistema que recoge las peticiones, las procesa y emite una respuesta
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funcionamiento de una aplicación web
+
+1. El cliente inicia sesión en el servidor
+2. El cliente solicita al servidor el recurso o servicio que quiere utilizar
+3. El servidor recibe la petición del cliente, la procesa y decide qué programa debe darle servicio, enviando la petición a dicho programa.
+4. El programa responsable procesa la petición, prepara la respuesta y la entrega al servidor.
+5. El servidor envía la respuesta al cliente
+6. El cliente puede volver al paso 2 y realizar una nueva petición, o bien
+7. El cliente termina la sesión en el servidor.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arquitectura de una aplicación web
+
+De 2 a N niveles, dependiendo de cuántos servidores haya implicados. Ejemplo de arquitectura a 3 niveles (Cliente - Servidor Web - Servidor BD)
+
+<div align="center">
+    <img src="../../../img/01_arquitectura_cliente_servidor.png" alt="Ejemplo de arquitectura cliente-servidor" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Hosting y dominios
+
+- Los servidores deben estar localizables en Internet para poder acceder a ellos
+- Podemos disponer del nuestro propio o contratar un alojamiento o *hosting* en una empresa especializada
+- Para poder identificar el servidor, se le asocia un *nombre de dominio*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## URLs
+
+- *Uniform Resource Locator*
+- Permite identificar y localizar cada recurso de una web
+- Compuesto de: protocolo + nombre dominio + ruta al recurso
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## URLs
+
+http://www.miweb.com/paginas/pagina.html
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DNS
+
+- *Domain Name Service* 
+- Traduce cada nombre de dominio en la dirección en Internet donde se ubica un servidor
+- Las herramientas **nslookup** o **ping** nos permite obtener esta traducción
+   - Ejemplo: **ping www.google.es**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Protocolos de Internet
+
+- **TCP/IP**: el protocolo **TCP** define cómo enviar la información, e **IP** cómo identificar las máquinas implicadas
+- **HTTP**: utiliza TCP/IP para enviar archivos vía web (típicamente documentos HTML)
+- **HTTPS**: versión segura (encriptada) de HTTP
+- **SMTP**: envío de correo electrónico
+- **FTP**: envío de archivos
+- ... 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Peticiones HTTP
+
+- *URL* del recurso solicitado
+- **Cabeceras de petición**: información sobre el cliente que lo solicita (idioma, navegador...)
+- **Datos** adicionales, como información introducida en un formulario
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Respuestas HTTP
+
+- **Código de estado**: *2xx* OK, *3xx* redirección, *4xx* error cliente, *5xx* error servidor
+- **Cabeceras de respuesta**: información sobre el recurso solicitado (tipo de archivo, tamaño, etc)
+- **Datos**: típicamente el contenido solicitado, o los bytes del archivo requerido
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Monitorización con Google Chrome
+
+Menú *Herramientas para desarrolladores*, sección *Network*
+
+<div align="center">
+    <img src="../../../img/01_monitorizar_http_chrome.png" alt="Monitorización del protocolo HTTP con Google Chrome" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+- Utiliza Google Chrome para ver el esquema de petición y respuesta HTTP hacia alguna web conocida, como por ejemplo *stackoverflow.com*. 
+- Identifica el código de estado, las cabeceras de respuesta (trata de identificar algunas de ellas) y el contenido.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recursos para desarrollar aplicaciones web 
+
+- **Cliente**: basta con un navegador normalmente (Chrome, Firefox, Opera, Safari, Edge...)
+- **Servidor**: normalmente hace falta un servidor web (Apache, Nginx...) y un servidor de base de datos (MySQL, PostgreSQL, Oracle...)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lenguajes de desarrollo web
+
+- **Cliente**: HTML, CSS, JavaScript/TypeScript
+- **Servidor**: PHP (el más popular), JSP, JavaScript (Node.js), ASP.NET...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+- Utiliza *Google Trends* (*https://trends.google.es*) para buscar los términos de *PHP*, *JSP* y *Node.js*. Deduce cuál de ellos crees que es más popular actualmente. 
+- Acude a *InfoJobs* (*https://www.infojobs.net*) y busca ofertas de trabajo con estos tres lenguajes. ¿Cuál tiene más demanda?
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

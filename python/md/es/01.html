@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Primeros pasos con Python | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Primeros pasos con Python" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/01.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Primeros pasos con Python" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Primeros pasos con Python","url":"http://nachoiborraies.github.io/python/md/es/01.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="primeros-pasos-con-python">Primeros pasos con Python</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/01.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="01.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Python es un lenguaje de programación creado a principios de los años 90. Su nombre es un tributo al grupo de comedia <em>Monty Python</em>, y entre sus muchas virtudes, podemos destacar las siguientes:</p>
+
+<ul>
+  <li>Se utiliza a menudo en etapas tempranas de aprendizaje de programación, porque es bastante sencillo de entender.</li>
+  <li>Es un lenguaje multiplataforma, con el que podemos desarrollar aplicaciones de todo tipo (escritorio, web, etc) en diferentes sistemas (Windows, Mac, Linux).</li>
+  <li>Es un lenguaje interpretado (no compilado), y puede utilizarse como un lenguaje de <em>script</em> en terminal, como ocurre con Perl, PowerShell u otros lenguajes de script.</li>
+  <li>Utiliza tipado dinámico de datos, es decir, no existen tipos de datos implícitos, ni tenemos que indicarlos al utilizar las variables en el programa. A medida que asignamos valores a las variables, éstas toman el tipo de dato adecuado.</li>
+  <li>Podemos utilizar Python tanto desde una perspectiva orientada a objetos (usando clases y objetos) como sin dicha perspectiva (sin necesidad de clases).</li>
+</ul>
+
+<h2 id="1-instalación-de-python">1. Instalación de Python</h2>
+
+<p>Para instalar Python en nuestro sistema, basta con ir a la <a href="https://www.python.org/downloads/">web oficial</a> y descargar la versión apropiada para nuestro sistema. El intérprete de Python es normalmente un comando llamado <code class="language-plaintext highlighter-rouge">python</code> o <code class="language-plaintext highlighter-rouge">python3</code>, dependiendo del sistema operativo en el que estemos. Por ejemplo, en Windows se utiliza el comando <em>python</em>, pero en Linux se emplea <em>python3</em>.</p>
+
+<p>Cuando instalemos Python en Windows, debemos marcar en el asistente de instalación la casilla para añadir Python directamente al PATH del sistema. De lo contrario, deberemos editar manualmente nosotros la variable de entorno para añadir la carpeta de instalación de Python.</p>
+
+<div align="center">
+    <img src="../../img/01_asistente.png" width="80%" />
+</div>
+
+<p>En lo que respecta a Linux, primero podemos comprobar si ya tenemos Python instalado en nuestra distribución, con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 --version
+</code></pre></div></div>
+
+<p>De lo contrario, podemos actualizar a Python 3 fácilmente con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install python3
+</code></pre></div></div>
+
+<h2 id="2-elegir-un-ide-apropiado">2. Elegir un IDE apropiado</h2>
+
+<p>Una vez tengamos Python instalado en nuestro sistema, debemos elegir un IDE apropiado para desarrollar nuestras aplicaciones. Podemos encontrar diferentes alternativas en Internet, como por ejemplo IDLE (el entorno que viene integrado en la instalación de Python), Eclipse, Visual Studio Code… En este documento vamos a dar unas breves nociones sobre algunos de los que consideramos más interesantes.</p>
+
+<h3 id="21-utilizando-idle">2.1. Utilizando IDLE</h3>
+
+<p>IDLE es un entorno que se descarga en la propia instalación de Python. Podemos ejecutarlo escribiendo <code class="language-plaintext highlighter-rouge">idle</code> o <code class="language-plaintext highlighter-rouge">idle3</code> en el terminal (dependiendo de nuestro sistema operativo y versión de Python). También podemos elegir el correspondiente acceso directo en el menú de Windows, o en la sección de <em>Aplicaciones</em> de Mac. Finalmente, veremos una ventana como esta:</p>
+
+<div align="center">
+    <img src="../../img/01_IDLE.png" alt="Python IDLE" width="70%" />
+</div>
+
+<p>Lo que vemos es un terminal de comandos Python. Podemos escribir comandos sueltos y se ejecutan uno a uno, pero esto no es lo habitual, sino que necesitaremos editar un archivo de código fuente. Para ello, desde el menú <em>File &gt; New File</em> podemos crear nuevos archivos de código Python, y guardarlos con el nombre adecuado (los archivos deben tener extensión <em>.py</em>, como por ejemplo <em>prueba.py</em>). Después, editamos el código fuente y podemos ejecutarlo desde el menú <em>Run &gt; Run Module</em> de la ventana de edición, o bien pulsando la tecla F5.</p>
+
+<p>Sin embargo, este entorno se nos puede quedar algo corto o limitado si queremos gestionar varios archivos, y puede resultar algo engorroso estar cambiando entre el terminal y la ventana de edición.</p>
+
+<h3 id="23-utilizando-geany">2.3. Utilizando Geany</h3>
+
+<p>Si ya tenemos descargado e instalado Python, el intérprete <code class="language-plaintext highlighter-rouge">python</code> (o <code class="language-plaintext highlighter-rouge">python3</code>) estará ya correctamente configurado en nuestro sistema. En este caso, podemos emplear un IDE de propósito general como <a href="https://geany.org/">Geany</a> para editar nuestros programas. Podemos instalarlo fácilmente desde su web oficial en Windows y en Mac. En el caso de Linux es mejor instalar el paquete <em>geany</em> junto con sus dependencias desde el gestor de dependencias del sistema operativo.</p>
+
+<p>La mecánica es similar al caso anterior: con el menú <em>Archivo &gt; Nuevo</em> creamos nuevos archivos fuente, que debemos guardar con el nombre adecuado (extensión <em>.py</em>) en la carpeta que elijamos. Después, editamos el código fuente y podemos ejecutarlos con el botón de <em>Ejecutar</em>. Geany se autoconfigura con la instalación de Python, y utiliza automáticamente el comando <code class="language-plaintext highlighter-rouge">python</code> o <code class="language-plaintext highlighter-rouge">python3</code> para lanzar los programas. Podemos comprobarlo abriendo el panel <em>Construir &gt; Establecer comandos de construcción</em> desde el archivo Python que estemos editando.</p>
+
+<h3 id="23-intérpretes-online">2.3. Intérpretes online</h3>
+
+<p>Una opción alternativa para desarrollar programas en Python, especialmente cuando son relativamente simples y cortos, es utilizar algún editor online, como <a href="https://repl.it/languages/python3">éste</a>. Simplemente debemos escribir el código en el panel correspondiente, y hacer clic en el botón para ejecutar la aplicación, viendo el resultado en la consola derecha.</p>
+
+<h3 id="24-visual-studio-code">2.4. Visual Studio Code</h3>
+
+<p>Como cuarta y última alternativa que propondremos en este documento, está utilizar Visual Studio Code. Ofrece unas funcionalidades similares a Geany, pero nos será de mayor utilidad cuando queramos gestionar un proyecto con varios archivos fuente. Podemos descargar VS Code de su <a href="https://code.visualstudio.com/">web oficial</a>. En el caso de Windows y Mac, simplemente ejecutamos el instalador. En el caso de Linux (Ubuntu), desde el terminal, ubicado en la carpeta donde hemos descargado el archivo, ejecutamos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dpkg -i nombre_archivo.deb
+</code></pre></div></div>
+
+<p>donde <em>nombre_archivo.deb</em> será el archivo con extensión <em>.deb</em> que habremos descargado.</p>
+
+<p>Para poder trabajar con Python desde Visual Studio Code, debemos abrir la carpeta donde vayamos a editar los archivos Python (menú <em>Archivo &gt; Abrir carpeta</em>), y luego crear los archivos y carpetas que queramos desde el panel izquierdo del explorador. También es recomendable instalar la extensión <em>Code Runner</em> y configurarla para poder ejecutar los programas Python en el terminal integrado de Visual Studio Code.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_coderunner.png" width="70%" />
+</div>
+
+<h2 id="3-nuestro-primer-programa-python">3. Nuestro primer programa Python</h2>
+
+<p>Vamos a crear nuestro primer programa Python que muestre un saludo por pantalla. Podemos emplear cualquiera de los IDEs comentados anteriormente. Creamos un archivo fuente Python llamado, por ejemplo, <code class="language-plaintext highlighter-rouge">prueba.py</code> en la carpeta donde queramos trabajar, y lo guardamos con este contenido:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Hola"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>A la hora de ejecutarlo:</p>
+
+<ul>
+  <li>Si usamos IDLE, pulsamos F5</li>
+  <li>Si usamos Geany, pulsamos el botón de <em>Ejecutar</em> de la barra de herramientas</li>
+  <li>Si usamos el editor online de <em>replIt</em>, pulsamos el botón de ejecutar o <em>Run</em></li>
+  <li>Si utilizamos Visual Studio Code y hemos instalado la extensión <em>Code Runner</em>, hacemos clic derecho sobre el código fuente y elegimos la opción <em>Run Code</em> que aparecerá en el menú contextual</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/01_vscode_coderunner2.png" width="70%" />
+</div>
+
+<p>El resultado en cualquier caso será el mismo, viendo por terminal el texto que hemos indicado en la instrucción <code class="language-plaintext highlighter-rouge">print</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hola
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

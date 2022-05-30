@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Servicios REST con Express | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Servicios REST con Express" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/05c.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Servicios REST con Express" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Servicios REST con Express","url":"http://nachoiborraies.github.io/nodejs/md/es/05c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="servicios-rest-con-express">Servicios REST con Express</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/05c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="05c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En este apartado veremos cómo emplear un enrutamiento simple para ofrecer diferentes servicios empleando Mongoose contra una base de datos MongoDB. Para ello, crearemos una carpeta llamada “<em>PruebaContactosExpress</em>” en nuestra carpeta de pruebas (“<em>ProyectosNode/Pruebas</em>”), continuación del proyecto <em>PruebaContactosMongo_v2</em> de sesiones anteriores (copia y pega el código de ese proyecto en esta nueva carpeta). Instalaremos Express y Mongoose en ella, lo que puede hacerse con un simple comando (aunque previamente necesitaremos haber ejecutado <code class="language-plaintext highlighter-rouge">npm init</code> para crear el archivo <em>package.json</em>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install mongoose express
+</code></pre></div></div>
+
+<p>Nuestra aplicación tendrá una carpeta <code class="language-plaintext highlighter-rouge">models</code> con los modelos de datos (contactos, restaurantes y mascotas, según habíamos creado en versiones anteriores) y un archivo <code class="language-plaintext highlighter-rouge">index.js</code>, que anteriormente lanzaba una serie de operaciones simples, y donde ahora vamos a definir nuestro servidor Express con las rutas para responder a las diferentes operaciones sobre los contactos.</p>
+
+<h2 id="1-esqueleto-básico-del-servidor-principal">1. Esqueleto básico del servidor principal</h2>
+
+<p>Vamos a definir la estructura básica que va a tener nuestro servidor <code class="language-plaintext highlighter-rouge">index.js</code>, antes de añadirle las rutas para dar respuesta a los servicios. Esta estructura consistirá en incorporar Express y Mongoose, incorporar los modelos de datos, conectar con la base de datos y poner en marcha el servidor Express:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/models/contacto</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Restaurante</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/models/restaurante</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Mascota</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/models/mascota</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="2-servicios-de-listado-get">2. Servicios de listado (GET)</h2>
+
+<p>Veremos ahora cómo ofrecer diferentes servicios de listado para recuperar información de la base de datos, o bien con listados generales de varios documentos, o con listados específicos de un solo documento.</p>
+
+<h3 id="21-listado-de-todos-los-contactos">2.1. Listado de todos los contactos</h3>
+
+<p>El servicio que lista todos los contactos es el más sencillo: atenderemos por GET a la URI  <code class="language-plaintext highlighter-rouge">/contactos</code>, y en el código haremos un <code class="language-plaintext highlighter-rouge">find</code> de todos los contactos, usando el modelo Mongoose que ya hemos creado. Devolveremos el resultado directamente en la respuesta, lo que lo convertirá automáticamente a formato JSON. Añadimos el servicio en el archivo principal <code class="language-plaintext highlighter-rouge">index.js</code>. Normalmente se añaden antes de poner en marcha el servidor (después de haber creado la variable <code class="language-plaintext highlighter-rouge">app</code>).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="p">{</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="p">{</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+                   <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Error obteniendo contactos</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Observad que enviamos un código de estado (200 si todo ha ido bien, 500 o fallo del servidor si no hemos podido recuperar los contactos), y el objeto JSON con los campos que explicábamos antes: el dato booleano indicando si se ha podido servir o no la respuesta, y el mensaje de error o el resultado correspondiente, según sea el caso.</p>
+
+<h3 id="22-ficha-de-un-contacto-a-partir-de-su-id">2.2. Ficha de un contacto a partir de su <em>id</em></h3>
+
+<p>Veamos ahora cómo procesar con Express URIs dinámicas. En este caso, accederemos por GET a una URI con el formato <code class="language-plaintext highlighter-rouge">/contactos/:id</code>, siendo <em>:id</em> el <em>id</em> del contacto que queremos obtener. Si especificamos la URI con ese mismo formato en Express, automáticamente se le asocia al parámetro que venga a continuación de <em>/contactos</em> el nombre <code class="language-plaintext highlighter-rouge">id</code>, con lo que podemos acceder a él directamente por el objeto <code class="language-plaintext highlighter-rouge">req.params</code> de la petición. De este modo, el servicio queda así de simple:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">resultado</span><span class="p">)</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+               <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+        <span class="k">else</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+               <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+                      <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">No se han encontrado contactos</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+                  <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Error buscando el contacto indicado</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span> 
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En este caso, distinguimos si el objeto <code class="language-plaintext highlighter-rouge">resultado</code> obtenido con <code class="language-plaintext highlighter-rouge">findById</code> devuelve algo o no, para emitir una u otra respuesta. En caso de que no se pueda encontrar el resultado, asumimos que es a causa de que la petición del cliente no es correcta, y emitimos un código de estado 400 (por ejemplo).</p>
+
+<h3 id="23-uso-de-la-query-string-para-pasar-parámetros">2.3. Uso de la <em>query string</em> para pasar parámetros</h3>
+
+<p>En el caso de querer pasar los parámetros en la <em>query string</em> (es decir, por ejemplo, <code class="language-plaintext highlighter-rouge">/contactos?id=XXX</code>) no hay forma de establecer dichos parámetros en la URI del método <code class="language-plaintext highlighter-rouge">get</code>. En ese caso deberemos comprobar si existe el parámetro correspondiente dentro del objeto <code class="language-plaintext highlighter-rouge">req.query</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Buscar por id</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Listado general de contactos</span>
+    <span class="p">});</span> 
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En cualquier caso, en estos apuntes optaremos por la versión anterior, incluyendo el parámetro en la propia URI.</p>
+
+<h3 id="24-prueba-de-los-servicios-desde-el-navegador">2.4. Prueba de los servicios desde el navegador</h3>
+
+<p>Estos dos servicios de listado (general y por id) se pueden probar fácilmente desde un navegador web. Basta con poner en marcha el servidor Node, abrir un navegador y acceder a esta URL para el listado general:</p>
+
+<p><em>http://localhost:8080/contactos</em></p>
+
+<p>O a esta otra para la ficha de un contacto (sustituyendo el <em>id</em> de la URL por uno correcto que exista en la base de datos):</p>
+
+<p><em>http://localhost:8080/contactos/5ab391d296b06243a7cc4c4e</em></p>
+
+<p>En este último caso, observa que:</p>
+
+<ul>
+  <li>Si pasamos un <em>id</em> que no exista, nos indicará con un mensaje de error que “No se han encontrado contactos”</li>
+  <li>Si pasamos un <em>id</em> que no sea adecuado (por ejemplo, que no tenga 12 bytes), obtendremos una excepción, y por tanto el mensaje de “Error buscando el contacto indicado”.</li>
+</ul>
+
+<h2 id="3-probar-servicios-rest">3. Probar servicios REST</h2>
+
+<p>Ya hemos visto que probar unos servicios de listado (GET) es sencillo a través de un navegador. Sin embargo, pronto aprenderemos a hacer otros servicios (inserciones, modificaciones y borrados) que no son tan sencillos de probar con esta herramienta. Así que conviene ir entrando en contacto con otra más potente, que nos permita probar todos los servicios que vamos a desarrollar. Existen varias alternativas al respecto, como por ejemplo <a href="https://www.postman.com/">Postman</a>, pero para evitar depender de más aplicaciones externas, vamos a utilizar la extensión <strong>ThunderClient</strong> de Visual Studio Code, que ya deberíamos tener instalada siguiendo los pasos del apartado de <a href="01b">software necesario</a>.</p>
+
+<p>Para utilizar esta extensión deberemos seleccionar su icono asociado en la barra izquierda:</p>
+
+<div align="center">
+    <img src="../../img/01_extension_thunderclient_2.png" />
+</div>
+
+<p>Es aconsejable que nuestras peticiones las agrupemos en colecciones (<em>collections</em>) de forma que cada colección se centre en un proyecto o aplicación concreta. Para ello vamos a la pestaña de colecciones y elegimos crear una, con el nombre que queramos (por ejemplo, <em>Contactos</em>).</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_collections.png" width="40%" />
+</div>
+
+<p>Desde el botón de puntos suspensivos junto al nombre de la colección podremos añadir nuevas peticiones asociadas a dicha colección (<em>New Request</em>), y después le pondremos un nombre.</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request.png" width="40%" />
+</div>
+
+<h3 id="31-añadir-peticiones-get">3.1. Añadir peticiones GET</h3>
+
+<p>Para añadir una petición GET, podemos en primer lugar identificarla con su nombre (por ejemplo, <em>GET /contactos</em>), y en el panel que se abrirá definimos la URL de acceso (también podemos elegir el tipo de comando: GET, POST, etc). Por ejemplo:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request_get.png" width="70%" />
+</div>
+
+<p>Si pulsamos en el botón de <em>Send</em>, podemos ver la respuesta emitida por el servidor en el panel de respuesta:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_response.png" width="70%" />
+</div>
+
+<p>Siguiendo estos mismos pasos, podemos también crear una nueva petición para obtener un contacto a partir de su <em>id</em>, por GET:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request_get2.png" width="70%" />
+</div>
+
+<p>Bastaría con reemplazar el <em>id</em> de la URL por el que queramos consultar realmente.</p>
+
+<h3 id="32-exportarimportar-colecciones">3.2. Exportar/Importar colecciones</h3>
+
+<p>Podemos exportar e importar nuestras colecciones en <em>ThunderClient</em>, de forma que podemos llevarlas de un equipo a otro. Para <strong>exportar</strong> una colección, hacemos clic en el botón de puntos suspensivos (…) que hay junto a ella en el panel izquierdo, y elegimos <em>Export</em>.</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request.png" width="40%" />
+</div>
+
+<p>Si queremos <strong>importar</strong> una colección previamente exportada, podemos hacer clic en el botón para crear colecciones, y elegimos la opción <em>Import</em>:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_collections.png" width="40%" />
+</div>
+
+<p>En cualquiera de los dos casos, las colecciones se exportan/importan a/desde un archivo en formato JSON que contiene la información de cada petición.</p>
+
+<h2 id="4-operaciones-de-actualización-post-put-delete">4. Operaciones de actualización (POST, PUT, DELETE)</h2>
+
+<p>Tras haber visto cómo añadir servicios GET a un servidor Express, quedan pendientes las otras tres operaciones básicas (POST, PUT y DELETE), así que veremos ahora cómo desarrollarlas en Express, y cómo probarlas con la herramienta <em>ThunderClient</em>.</p>
+
+<h3 id="41-las-inserciones-post">4.1. Las inserciones (POST)</h3>
+
+<p>Vamos a insertar un nuevo contacto, pasando en el cuerpo de la petición los datos del mismo (nombre, teléfono y edad) en formato JSON. Para poder recoger esta información desde el cliente en nuestro servidor Node/Express, debemos utilizar un <em>middleware</em> que procese la petición para dejarnos accesibles y preparados estos datos.</p>
+
+<p>Express incorpora, desde su versión 4.16, un middleware propio para este cometido. Basta con añadirlo a la aplicación, justo después de inicializar la <code class="language-plaintext highlighter-rouge">app</code> Express. Como lo que vamos a hacer es trabajar con objetos JSON, añadiremos el procesador JSON de este modo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: antes de la versión 4.16, para este cometido era necesario utilizar una librería de terceros llamada <em>body-parser</em>. <a href="https://www.npmjs.com/package/body-parser">Aquí</a> tenéis la documentación sobre dicha librería.</p>
+</blockquote>
+
+<p>Ahora vamos a nuestro servicio POST. Añadimos para ello un método <code class="language-plaintext highlighter-rouge">post</code> del objeto <code class="language-plaintext highlighter-rouge">app</code>, con los mismos parámetros que tenía el método <code class="language-plaintext highlighter-rouge">get</code> (recordemos: la ruta a la que responder, y el <em>callback</em> que se ejecutará como respuesta). El método en cuestión podría quedar así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="kd">let</span> <span class="nx">nuevoContacto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span>
+        <span class="na">nombre</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">nombre</span><span class="p">,</span>
+        <span class="na">telefono</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">telefono</span><span class="p">,</span>
+        <span class="na">edad</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">edad</span>
+    <span class="p">});</span>
+
+    <span class="nx">nuevoContacto</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+                  <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Error añadiendo contacto</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Al principio, construimos el contacto a partir de los datos JSON que llegan en el cuerpo, accediendo a cada campo por separado con <code class="language-plaintext highlighter-rouge">req.body.nombre_campo</code>. Esto es posible hacerlo gracias a que el <em>middleware</em> anterior ha pre-procesado la petición, y nos ha dejado los datos disponibles dentro del objeto <code class="language-plaintext highlighter-rouge">req.body</code>. De lo contrario, tendríamos que leer los bytes de la petición manualmente, almacenarlos en un array, y convertir desde JSON.</p>
+
+<p>El resto del código es el que ya conoces de ejemplos previos con Mongoose (llamada a <code class="language-plaintext highlighter-rouge">save</code> y procesamiento del resultado), combinado con el envío del código de estado y la respuesta REST.</p>
+
+<h4 id="411-prueba-de-operaciones-post">4.1.1. Prueba de operaciones POST</h4>
+
+<p>Las peticiones POST difieren de las peticiones GET en que se envía cierta información en el cuerpo de la petición. Esta información normalmente son los datos que se quieren añadir en el servidor. ¿Cómo podemos hacer esto con <em>ThunderClient</em>?</p>
+
+<p>En primer lugar, creamos una nueva petición, elegimos el comando POST y definimos la URL (en este caso, <em>localhost:8080/contactos</em>). Entonces, hacemos clic en la pestaña <em>Body</em>, bajo la URL, y establecemos el tipo como <em>JSON</em> para que nos deje escribirlo en dicho formato. Después, en el cuadro de texto bajo estas opciones, especificamos el objeto JSON que queremos enviar para insertar:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request_post.png" width="50%" />
+</div>
+
+<p>Al enviar la petición, podremos ver en el cuadro la respuesta (en este caso, el documento que se acaba de insertar).</p>
+
+<h3 id="42-las-modificaciones-put">4.2. Las modificaciones (PUT)</h3>
+
+<p>La modificación de contactos es estructuralmente muy similar a la inserción: enviaremos en el cuerpo de la petición los datos nuevos del contacto a modificar (a partir de su <em>id</em>, normalmente), y utilizaremos el mismo <em>middleware</em> anterior para obtenerlos, y llamar a los métodos apropiados de Mongoose para realizar la modificación del contacto. La URI a la que asociaremos este servicio será similar a la del POST, pero añadiendo el <em>id</em> del contacto que queramos modificar. El código puede ser similar a éste:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndUpdate</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">$set</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">nombre</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">nombre</span><span class="p">,</span>
+            <span class="na">telefono</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">telefono</span><span class="p">,</span>
+            <span class="na">edad</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">edad</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span><span class="na">new</span><span class="p">:</span> <span class="kc">true</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+                  <span class="na">error</span><span class="p">:</span><span class="dl">"</span><span class="s2">Error actualizando contacto</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Como se puede ver, obtenemos el <em>id</em> desde los parámetros (<code class="language-plaintext highlighter-rouge">req.params</code>) como cuando consultábamos la ficha de un contacto, y utilizamos dicho <em>id</em> para buscar al contacto en cuestión y actualizar sus campos con <code class="language-plaintext highlighter-rouge">findByIdAndUpdate</code>. En este punto, volvemos a hacer uso del <em>middleware</em> de Express para procesar la petición y obtener los datos que llegan en formato JSON. Tras la llamada al método, devolvemos el estado y la respuesta JSON correspondiente.</p>
+
+<h4 id="421-prueba-de-operaciones-put">4.2.1. Prueba de operaciones PUT</h4>
+
+<p>En el caso de peticiones PUT, procederemos de forma similar a las peticiones POST vistas antes: debemos elegir el comando (PUT en este caso), la URL, y completar el cuerpo de la petición con los datos que queramos modificar del contacto. En este caso, además, el <em>id</em> del contacto lo enviaremos también en la propia URL:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request_put.png" width="50%" />
+</div>
+
+<h3 id="43-los-borrados-delete">4.3. Los borrados (DELETE)</h3>
+
+<p>Para el borrado de contactos, emplearemos una URI similar a la ficha de un contacto o a la actualización, pero en este caso asociada al comando DELETE. Le pasaremos el <em>id</em> del contacto a borrar. Obtendremos dicho <em>id</em> también de <code class="language-plaintext highlighter-rouge">req.params</code>, y buscaremos y eliminaremos el contacto indicado.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndRemove</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+           <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+                  <span class="na">error</span><span class="p">:</span><span class="dl">"</span><span class="s2">Error eliminando contacto</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h4 id="431-prueba-de-operaciones-delete">4.3.1. Prueba de operaciones DELETE</h4>
+
+<p>Para peticiones DELETE, la mecánica es similar a la ficha del contacto, cambiando el comando GET por DELETE, y sin necesidad de establecer nada en el cuerpo de la petición:</p>
+
+<div align="center">
+    <img src="../../img/05_thunderclient_request_delete.png" width="50%" />
+</div>
+
+<h3 id="44-sobre-el-resultado-de-la-actualización-o-el-borrado">4.4. Sobre el resultado de la actualización o el borrado</h3>
+
+<p>En los ejemplos anteriores para PUT y DELETE, tras la llamada a <code class="language-plaintext highlighter-rouge">findByIdAndUpdate</code> o <code class="language-plaintext highlighter-rouge">findByIdAndRemove</code>, nos hemos limitado a devolver el resultado en la cláusula <code class="language-plaintext highlighter-rouge">then</code>. Sin embargo, conviene tener en cuenta que, si proporcionamos un <em>id</em> válido pero que no exista en la base de datos, el código de esta cláusula también se ejecutará, pero el objeto resultado será nulo (<code class="language-plaintext highlighter-rouge">null</code>). Podemos, por tanto, diferenciar con <code class="language-plaintext highlighter-rouge">if..else</code> si el resultado es correcto o no, y mostrar una u otra cosa:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span><span class="p">)</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+       <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">resultado</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+<span class="k">else</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+       <span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="na">ok</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> 
+              <span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">No se ha encontrado el contacto</span><span class="dl">"</span><span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="45-más-sobre-el-middleware-de-procesado-de-la-petición">4.5. Más sobre el <em>middleware</em> de procesado de la petición</h3>
+
+<p>Existen otras posibilidades de uso del <em>middleware</em> que procesa la petición. En los ejemplos anteriores lo hemos empleado para procesar cuerpos con formato JSON. Pero es posible también que empleemos formularios tradicionales HTML, que envían los datos como si fueran parte de una <em>query-string</em>, pero por POST. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nombre=Nacho&amp;telefono=911223344&amp;edad=39
+</code></pre></div></div>
+
+<p>Para procesar contenidos de este otro tipo, basta con cargar el <em>middleware</em> de este otro modo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>También es posible añadir ambos modos juntos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>En este caso, el servidor Express aceptaría datos de la petición tanto en formato JSON como en formato <em>query-string</em>. En cualquier caso, deberemos asegurarnos desde el cliente (incluso si usamos <em>ThunderClient</em>) de que el tipo de contenido de la petición se ajusta al <em>middleware</em> correspondiente: para peticiones en formato JSON, el contenido deberá ser <code class="language-plaintext highlighter-rouge">application/json</code> (pestaña <em>JSON</em> en <em>ThunderClient</em>), mientras que para enviar los datos del formulario en formato <em>query-string</em>, el tipo deberá ser <code class="language-plaintext highlighter-rouge">application/x-www-form-urlencoded</code> (pestaña <em>Form-encode</em> en <em>ThunderClient</em>). Si añadimos los dos middlewares (tanto para JSON como para <code class="language-plaintext highlighter-rouge">urlencoded</code>), entonces se activará uno u otro automáticamente, dependiendo del tipo de petición que llegue desde el cliente.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

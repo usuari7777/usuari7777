@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software testing | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/06b.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software testing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software testing","url":"http://nachoiborraies.github.io/entornos/md/en/06b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-testing">Software testing</h1>
+
+<h2 id="unit-test-design">Unit test design</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/06b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="06b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Unit tests are an essential part of software testing, in which we must check if every unit of our application (class or set of functions) works as expected. In order to check this, we need to plan a strategy to define the set ot test cases as complete as possible.</p>
+
+<p>There are three approaches to design these unit test cases:</p>
+
+<ul>
+  <li><strong>Structural</strong> approach or <strong>white box</strong>, in which we focus on the inner working of the units that we are testing.</li>
+  <li><strong>Functional</strong> approach or <strong>black box</strong>, in which we focus on the interface of the units that we are testing, this is, their inputs and outputs, but not in their inner behavior.</li>
+  <li><strong>Random</strong> approach, which consists in using statistical models to generate the possible input for the program. This way, we generate the test cases.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b3-tema01-02-WBox.jpg" alt="Ejercicio1" width="50%" />
+</div>
+
+<h3 id="1-white-box-tests">1. White box tests</h3>
+
+<p>White box tests focus on the inner working of a program. This is the first tests that we must apply to a system, so that we can find basic shortcomings that are not related with user interface.</p>
+
+<p>There are several types of white box tests, as we are going to see right now. We can apply one or many of the following approaches in order to complete these type of tests.</p>
+
+<h4 id="11-basic-path-tests">1.1. Basic path tests</h4>
+
+<p>This method was focused on determining the complexity of a piece of code, so that we use this complexity to establish how many execution paths can be achieved.</p>
+
+<p>It relies on a principle that sets that every procedural design can be represented as a flow graph. The <strong>cyclomatic complexity</strong> of this graph determines the number of independent paths. Each one of these paths corresponds to a new set of sentences or a new condition. Let’s have a look a this short piece of code and the possible paths that can be run with it:</p>
+
+<div align="center">
+    <img src="../../img/ED_b3-tema01-03-CaminoB.png" alt="Ejercicio1" width="70%" />
+</div>
+
+<p>If we want to properly test this piece of code, we need to test the following paths:</p>
+
+<ul>
+  <li>1,2,3,F</li>
+  <li>1,4,5,F</li>
+  <li>1,2,4,5,F</li>
+  <li>1,2,4,F</li>
+</ul>
+
+<p>Which correspond to the following tests:</p>
+
+<ul>
+  <li>a=true, b=true, c=true</li>
+  <li>a=false, b=*,c=true</li>
+  <li>a=true, b=false, c=true</li>
+  <li>a=true, b=false, c=false</li>
+</ul>
+
+<p>So we should define 4 test cases, each one corresponding to an item of previous list, with the appropriate values for the input params <em>a</em>, <em>b</em> and <em>c</em>.</p>
+
+<p><strong>Exercise 1:</strong></p>
+<blockquote>
+
+  <p>Design the white box test set for the following piece of code, using the <em>Basic path test</em> approach explained above. Determine the corresponding paths to be tested, and the test cases to test each path.</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">num1</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">num2</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">)</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Both are greater"</span><span class="o">);</span>
+    <span class="k">else</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"First is greater"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">num2</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">)</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Second is greater"</span><span class="o">);</span>
+    <span class="k">else</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"None is greater"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="12-condition-tests">1.2. Condition tests</h4>
+
+<p>This method is similar to the previous one: it evaluates every possible path of the code, but it only focuses on the conditions of the code. Let’s have a look at this example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isLeapYear</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+        <span class="k">if</span><span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+            <span class="k">if</span><span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="o">{</span>
+                <span class="n">result</span><span class="o">=</span><span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Conditions:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">if(year % 4 == 0)</code> : <strong>C1</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">if(year % 100 == 0)</code>: <strong>C2</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">if(year % 400 == 0)</code>: <strong>C3</strong></li>
+</ul>
+
+<p>From this set of conditions, we need to build the truth tables to check every possible combination:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>N</th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>true</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>false</td>
+      <td>false</td>
+      <td>true</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>false</td>
+      <td>false</td>
+      <td>false</td>
+      <td>false</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As we can see, cases 3 and 4 lead to the same result regardless of the value of C3. And the same thing happens with cases 5 to 8 (condition C1 determines the final result regardless of the other two conditions). So the tests needed for this function are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>N</th>
+      <th>C1</th>
+      <th>C2</th>
+      <th>C3</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>true</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>false</td>
+      <td>true</td>
+      <td>true</td>
+      <td>false</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Again, we need to design 4 test cases associated to the 4 rows of previous table.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Repeat previous exercise using now the <em>Condition tests</em> approach.</p>
+</blockquote>
+
+<h4 id="13-loop-tests">1.3. Loop tests</h4>
+
+<p>This test evaluates the possible paths for loops. For every loop with n iterations, we must check if:</p>
+
+<ul>
+  <li>The loop is never iterated</li>
+  <li>The loop is iterated only once</li>
+  <li>The loop is iterated twice</li>
+  <li>The loop is iterated m times, being m &lt; n</li>
+  <li>The loop performs n and n-1 iterations.</li>
+</ul>
+
+<p>If we have any nested loop, we must start exploring the inner loops and then go to the outer ones.</p>
+
+<p>For instance, let’s have a look at the following code that checks if a given number (previously entered by the user) is primer or not:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">number</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="n">result</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="k">else</span>
+        <span class="n">i</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The loop is expected to run up to <em>N = number / 2 - 1</em> times as much. From the <em>loop test</em> approach, we must design test cases in which:</p>
+
+<ul>
+  <li>Loop is never iterated. For instance, if <em>number</em> is 2, it is automatically prime, no iteration is performed
+    <ul>
+      <li>We could also test the case of 0 and 1, that are covered with the first <em>if</em> clause</li>
+    </ul>
+  </li>
+  <li>Loop is iterated once. This can be achieved with <em>number = 3</em></li>
+  <li>Loop is iterated twice. For instance, with <em>number = 9</em></li>
+  <li>Loop is iterated <em>m</em> times &lt; <em>N</em>. For instance, for <em>number = 25</em> the loop is iterated 4 times.</li>
+  <li>Loop is iterated <em>N</em> times and/or <em>N-1</em> times. In order to reach <em>N</em> times, we just need a primer number, such as 23. In order to iterate <em>N-1</em> times, we need a non-prime number that is not found out until the last iteration. In this case, we could use <em>number = 4</em>, although it’s a quite simple test case.</li>
+</ul>
+
+<p>So we could build this table for the test cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Data</th>
+      <th>Expected result</th>
+      <th>Actual result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>U0</td>
+      <td>BasicCases</td>
+      <td>1</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U1</td>
+      <td>NoIterations</td>
+      <td>2</td>
+      <td>true</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U2</td>
+      <td>OneIteration</td>
+      <td>3</td>
+      <td>true</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U3</td>
+      <td>TwoIterations</td>
+      <td>9</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U4</td>
+      <td>MIterations</td>
+      <td>25</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U5</td>
+      <td>N-1Iterations</td>
+      <td>4</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U6</td>
+      <td>NIterations</td>
+      <td>23</td>
+      <td>true</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>The following piece of code checks if a number has its digits in ascending order:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">number</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">result</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">lastDigit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="n">number</span> <span class="o">/=</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">newLastDigit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">lastDigit</span> <span class="o">&lt;</span> <span class="n">newLastDigit</span><span class="o">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>You are asked to design a test case table for every possible loop iteration, according to previous example.</p>
+</blockquote>
+
+<h3 id="2-black-box-tests">2. Black box tests</h3>
+
+<p>These tests focus on the input and output of the application or module to be tested, and we don’t need to pay attention to the inner code of this module. There are also some different techniques that we can apply to these tests.</p>
+
+<h4 id="21-equivalent-partition">2.1. Equivalent partition</h4>
+
+<p>It consists in dividing the possible inputs of the application in groups called <em>equivalence classes</em>. Some input values will be valid inputs and some other will be not valid, so we must design test cases to check both valid and invalid equivalence classes.</p>
+
+<p>For instance, if we have a method to determine the total amount of a sale, given the concept (string starting with letter), product amount (integer other than 0) and product price (double greater or equal than zero), the possible equivalence classes are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input condition</th>
+      <th>Valid class</th>
+      <th>Invalid class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Concept not empty starting with letter</td>
+      <td>string=letter+*</td>
+      <td>empty string OR string starting with number OR string starting with special character</td>
+    </tr>
+    <tr>
+      <td>Amount integer other than 0</td>
+      <td>amount other than 0</td>
+      <td>amount 0 OR not integer</td>
+    </tr>
+    <tr>
+      <td>Price double greater or equal than 0</td>
+      <td>price&gt;=0</td>
+      <td>price&lt;0 OR not numeric</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Once we define the equivalence classes, we can design the test cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Preconditions</th>
+      <th>Steps</th>
+      <th>Data</th>
+      <th>Expected result</th>
+      <th>Actual result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>U1</td>
+      <td>Valid</td>
+      <td><em>SalesList</em> object exists</td>
+      <td>Enter valid classes for concept, amount and price</td>
+      <td>concept=”screw”, amount=2,price=2</td>
+      <td>0, a new element is added</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U2</td>
+      <td>NotValidConcept1</td>
+      <td><em>SalesList</em> object exists</td>
+      <td>Enter empty string as concept</td>
+      <td>concept=””, amount=2, price=2</td>
+      <td>-1, no element added</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U3</td>
+      <td>NotValidConcept2</td>
+      <td><em>SalesList</em> object exists</td>
+      <td>Enter string starting with number</td>
+      <td>concept=”2screw”, cantidad=2, precio=2</td>
+      <td>-1, no element added</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U4</td>
+      <td>NotValidConcept3</td>
+      <td><em>SalesList</em> object exists</td>
+      <td>Enter string starting with special char</td>
+      <td>concept=”@screw”, amount=2, price=2</td>
+      <td>-1, no element added</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U5</td>
+      <td>ValidAmount</td>
+      <td><em>SalesList</em> object exists</td>
+      <td>Enter negative amount</td>
+      <td>concept=”screw”, amount=-2, price=2</td>
+      <td>0, a new element is added</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U6</td>
+      <td>NotValidAmount</td>
+      <td><em>SalesList</em> object exists</td>
+      <td>Enter amount of 0</td>
+      <td>concept=”screw”, amount=0, price=2</td>
+      <td>-1, no element added</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>…</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>You have been asked to implement the tests for a class called <em>SalesList</em>, whose attribute is a <code class="language-plaintext highlighter-rouge">HashMap&lt;String,Double&gt;</code>. The string is the product description, and the number is the total amount of sales over this product. The class has the following methods:</p>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">addSale(String concept, int amount, double price)</code>: it adds a new element to the <em>HashMap</em> with the specified concept as product description. The incomes will be calculated by multiplying the amount and the price. It will return 0 if everything is OK, and -1 if there is any error. We will not be able to add sales with amount = 0 or price &lt; 0, but we can add sales with negative amounts (but not negative prices).</li>
+    <li><code class="language-plaintext highlighter-rouge">getTotal()</code>: it will return the total sum of the incomes of the HashMap.</li>
+    <li><code class="language-plaintext highlighter-rouge">getAverage()</code> : it will return the income average.</li>
+  </ul>
+
+  <p>Design the possible test cases for every method of the class. Regarding <code class="language-plaintext highlighter-rouge">addSale</code> method, you just have to complete the table shown in previous example. For <code class="language-plaintext highlighter-rouge">getTotal</code> and <code class="language-plaintext highlighter-rouge">getAverage</code> methods, you just need to set the preconditions to get the desired result, since they have no parameters.</p>
+</blockquote>
+
+<h4 id="22-analysis-of-limit-values">2.2. Analysis of limit values</h4>
+
+<p>In order to design the test cases, we take into account input and ouput conditions:</p>
+
+<ul>
+  <li>If the input condition is a range, we must design test cases for the limits of this range.</li>
+  <li>If the input condition is a finite and consecutive set of values, we must define the test cases for the minimum and maximum value, along with the <em>minimum + 1</em> and <em>maximum - 1</em> values.</li>
+  <li>We must apply these same rules for the output conditions.</li>
+</ul>
+
+<p>For instance, let’s suppose that we are testing a function that checks the average of a list of marks that must contain between 3 and 9 marks. In this case, we should define these test cases to check the <strong>input values</strong>:</p>
+
+<ul>
+  <li>Lists of 2, 3 and 4 marks
+    <ul>
+      <li>Regarding the case of 2 marks, it should produce an error</li>
+    </ul>
+  </li>
+  <li>Lists of 8, 9 and 10 marks
+    <ul>
+      <li>Again, regarding the case of 10 marks, it should also produce an error</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Regarding the <strong>output values</strong>, the average must be between 0 and 10, so we should also define cases for:</p>
+
+<ul>
+  <li>Final averages of -1, 0 and 1</li>
+  <li>Final averages of 9, 10 and 11</li>
+</ul>
+
+<p>Depending on the internal code of the function to be tested, sometimes some of these cases are impossible to reach. For instance, if we make sure that marks are all values between 0 and 10, we will never get an average &lt; 0 or &gt; 10.</p>
+
+<p>A possible test case table for this example could be this one:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Data</th>
+      <th>Expected result</th>
+      <th>Actual result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TC1</td>
+      <td>2Marks</td>
+      <td>[2, 6]</td>
+      <td>Error</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC2</td>
+      <td>3Marks</td>
+      <td>[4, 5, 6]</td>
+      <td>5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC3</td>
+      <td>4Marks</td>
+      <td>[7, 7, 9, 9]</td>
+      <td>8</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC4</td>
+      <td>8Marks</td>
+      <td>[1, 2, 3, 4, 6, 7, 8, 9]</td>
+      <td>5</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC5</td>
+      <td>9Marks</td>
+      <td>[2, 3, 4, 5, 6, 7, 8, 9, 10]</td>
+      <td>6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC6</td>
+      <td>10Marks</td>
+      <td>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</td>
+      <td>Error</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC7</td>
+      <td>Average-1</td>
+      <td>[-2, -1, -1]</td>
+      <td>Error</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC8</td>
+      <td>Average0</td>
+      <td>[0, 0, 0]</td>
+      <td>0</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC9</td>
+      <td>Average1</td>
+      <td>[0, 1, 2]</td>
+      <td>1</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC10</td>
+      <td>Average9</td>
+      <td>[8, 9, 10]</td>
+      <td>9</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC11</td>
+      <td>Average10</td>
+      <td>[10, 10, 10, 10]</td>
+      <td>10</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>TC12</td>
+      <td>Average11</td>
+      <td>[10, 11, 12]</td>
+      <td>Error</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Let’s test a function that gets as input the day of a month (integer between 1 and 31) and a month number (integer between 1 and 12) and returns how many days are left in this month (an integer between 1 and 30, depending on the month).</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">getDaysLeft</span><span class="o">(</span><span class="kt">int</span> <span class="n">dayOfMonth</span><span class="o">,</span> <span class="kt">int</span> <span class="n">monthNumber</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Think of the possible test cases to cover all the limit values.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

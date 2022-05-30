@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Elementos básicos del lenguaje | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Elementos básicos del lenguaje" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/01b.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Elementos básicos del lenguaje" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Elementos básicos del lenguaje","url":"http://nachoiborraies.github.io/php/md/es/01b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="elementos-básicos-del-lenguaje">Elementos básicos del lenguaje</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Como hemos visto en el documento anterior, la sintaxis básica para escribir código PHP consiste en un bloque como el siguiente:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+    <span class="mf">...</span> <span class="n">código</span> <span class="no">PHP</span> <span class="mf">...</span> 
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Dentro de los símbolos <code class="language-plaintext highlighter-rouge">&lt;?php</code> (de apertura) y <code class="language-plaintext highlighter-rouge">?&gt;</code> (de cierre) pondremos las instrucciones que consideremos. Todo esto puede ocupar una sola línea (para instrucciones simples y cortas) o dividir el código en varias líneas, una por instrucción.</p>
+
+<h2 id="1-sintaxis-básica-y-comentarios">1. Sintaxis básica y comentarios</h2>
+
+<p>Dentro de cada bloque de código PHP que escribamos en una página, debemos tener en cuenta que:</p>
+
+<ul>
+  <li>Cada instrucción en PHP termina siempre en un punto y coma (<code class="language-plaintext highlighter-rouge">;</code>) que la separa de la siguiente, aunque estén en líneas separadas.</li>
+  <li>Los comentarios en PHP se pueden poner de diversas formas.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Comentario que puede ocupar varias líneas */</span>
+<span class="c1">// Comentario de una línea</span>
+<span class="c1"># Otro ejemplo de comentario de una línea</span>
+</code></pre></div></div>
+
+<p>Veamos a continuación un ejemplo sencillo de código PHP, embebido dentro de una página HTML. En este caso, creamos unas variables en PHP que almacenan un nombre y un año, y luego mostramos esas variables entre el contenido HTML propiamente dicho:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    ...
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Página de prueba en PHP<span class="nt">&lt;/h1&gt;</span>
+    <span class="cp">&lt;?php</span>
+        <span class="c1">// Variables para almacenar el nombre y el año actual</span>
+        <span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Nacho Iborra"</span><span class="p">;</span>
+        <span class="nv">$anyo</span> <span class="o">=</span> <span class="mi">2014</span><span class="p">;</span>
+    <span class="cp">?&gt;</span>
+    <span class="nt">&lt;p&gt;</span>El autor de esta página es <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$nombre</span><span class="p">;</span> <span class="cp">?&gt;</span> y está 
+    realizada en el año <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$anyo</span><span class="p">;</span> <span class="cp">?&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+...
+</code></pre></div></div>
+
+<p>Observa cómo podemos incluir código PHP en cualquier zona de la página. En la primera, hemos definido dos variables, <code class="language-plaintext highlighter-rouge">$nombre</code> y <code class="language-plaintext highlighter-rouge">$anyo</code>, y después, con instrucciones cortas, las hemos mostrado en otras zonas de la página (instrucción <code class="language-plaintext highlighter-rouge">echo</code>).</p>
+
+<p>Lo que hace el servidor cuando se le solicita esta página es procesarla, detectar el código PHP, ejecutarlo y sustituirlo en la página por el código HTML que éste genera (en el ejemplo anterior, mostrar el valor de las variables en los lugares correspondientes).</p>
+
+<p>Opcionalmente, en el caso de que sólo tengamos instrucciones <code class="language-plaintext highlighter-rouge">echo</code>, podemos sustituir la estructura <code class="language-plaintext highlighter-rouge">&lt;?php ... ?&gt;</code> por la estructura <code class="language-plaintext highlighter-rouge">&lt;?= ... ?&gt;</code> y ahorrarnos la instrucción <em>echo</em>. Así, el párrafo que se muestra en el ejemplo anterior lo podríamos poner así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>El autor de esta página es <span class="cp">&lt;?=</span> <span class="nv">$nombre</span><span class="p">;</span> <span class="cp">?&gt;</span> y está 
+realizada en el año <span class="cp">&lt;?=</span> <span class="nv">$anyo</span><span class="p">;</span> <span class="cp">?&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>También podemos utilizar indistintamente la instrucción <code class="language-plaintext highlighter-rouge">print</code> en lugar de <code class="language-plaintext highlighter-rouge">echo</code> para mostrar información por pantalla.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>El autor de esta página es <span class="cp">&lt;?php</span> <span class="k">print</span> <span class="nv">$nombre</span><span class="p">;</span> <span class="cp">?&gt;</span> y está 
+realizada en el año <span class="cp">&lt;?php</span> <span class="k">print</span> <span class="nv">$anyo</span><span class="p">;</span> <span class="cp">?&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>ejercicios1</strong> en tu carpeta de documentos de Apache. En esta carpeta guardarás este ejercicio y los siguientes, ya que serán muchos y así evitamos llenar la carpeta de documentos de demasiadas subcarpetas con ejercicios cortos.</p>
+
+  <p>Para este ejercicio, crea un documento en esta carpeta llamado <strong>info_basica.php</strong>, similar al del ejemplo anterior, pero mostrando tu nombre y tu año de nacimiento usando variables. Es decir, crearás dos variables para almacenar estos dos datos, y los mostrarás en una frase que diga “Me llamo XXXX y nací en el año YYYY”. Prueba la página en un navegador y echa un vistazo al código fuente, intentando detectar qué contenidos HTML se han generado desde PHP.</p>
+</blockquote>
+
+<h2 id="2-variables-y-tipos-de-datos">2. Variables y tipos de datos</h2>
+
+<p>Como en todo lenguaje de programación, las variables en PHP nos van a servir para almacenar información, de manera que, además de tenerla disponible, podemos modificarla o cambiarla por otra durante el tiempo de ejecución de la aplicación web.</p>
+
+<p>Como hemos visto en el ejemplo anterior, las variables en PHP se definen mediante el símbolo del dólar (<code class="language-plaintext highlighter-rouge">$</code>) seguido de una serie de letras, números o caracteres de subrayado, aunque no pueden empezar por número. Ejemplos de nombres de variables válidos son: <code class="language-plaintext highlighter-rouge">$nombre</code>, <code class="language-plaintext highlighter-rouge">$primer_apellido</code>, <code class="language-plaintext highlighter-rouge">$apellido2</code>… En las variables, se distinguen mayúsculas de minúsculas, y no hace falta declararlas (es decir, no se indica de qué tipo son, como en lenguajes como C o Java, ni se les reserva memoria de antemano).</p>
+
+<p>Veamos algunos ejemplos de uso de variables:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$edad</span> <span class="o">=</span> <span class="mi">36</span><span class="p">;</span>
+    <span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Nacho"</span><span class="p">;</span>
+    <span class="mf">...</span>
+    <span class="k">echo</span> <span class="nv">$nombre</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$edad</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="21-comprobar-el-estado-de-las-variables">2.1. Comprobar el estado de las variables</h3>
+
+<p>Es posible que, en algún momento de la ejecución del programa, una variable no tenga un valor definido, o queramos eliminar el valor que tiene. Para ello tenemos algunas instrucciones útiles:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">unset($variable)</code> permite borrar la variable (como si no la hubiéramos creado)</li>
+  <li><code class="language-plaintext highlighter-rouge">isset($variable)</code> permite comprobar si una variable existe</li>
+  <li><code class="language-plaintext highlighter-rouge">empty($variable)</code> permite comprobar si una variable está vacía, es decir, no tiene un valor concreto asignado.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$dato</span><span class="o">=</span><span class="s2">"Hola"</span><span class="p">;</span>
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$dato</span><span class="p">);</span>		<span class="c1">// La variable dato deja de existir</span>
+    <span class="nv">$dato</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nb">empty</span><span class="p">(</span><span class="nv">$dato</span><span class="p">);</span>	<span class="c1">// Diría que es cierto, porque $dato está vacía	</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="22-tipos-de-datos">2.2. Tipos de datos</h3>
+
+<p>Las variables almacenan datos, y esos datos son de un tipo concreto. Por ejemplo, pueden ser números, o textos. En concreto, PHP soporta los siguientes tipos de datos básicos:</p>
+
+<ul>
+  <li><strong>Booleanos</strong>: datos que sólo pueden valer verdadero o falso (en PHP se representan con las palabras TRUE y FALSE, respectivamente, en mayúsculas).</li>
+  <li><strong>Enteros</strong>: números sin decimales. Los podemos representar en formato decimal (el normal, por ejemplo 79), formato octal (poniendo un 0 delante, por ejemplo 0233) o hexadecimal (poniendo 0x delante, por ejemplo 0x1A3).</li>
+  <li><strong>Reales</strong>: números con decimales. La parte decimal queda separada de la entera con un punto. Por ejemplo, 3.14. También podemos usar notación científica, como por ejemplo 1.3e3, que equivale a 1.3·10<sup>3</sup>.</li>
+  <li><strong>Textos</strong>: se pueden representar entre comillas simples o dobles. Si los representamos con comillas dobles, podemos intercalar variables dentro.</li>
+</ul>
+
+<p>Veamos algunos ejemplos de cada tipo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$edad</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="nv">$esMayorEdad</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">;</span>
+    <span class="nv">$nota</span> <span class="o">=</span> <span class="mf">9.5</span><span class="p">;</span>
+    <span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Juan Pérez"</span><span class="p">;</span>
+
+    <span class="k">echo</span> <span class="s2">"El alumno </span><span class="nv">$nombre</span><span class="s2"> tiene una nota de </span><span class="nv">$nota</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Además, en PHP podemos manejar otros tipos de datos algo más complejos, que son:</p>
+
+<ul>
+  <li><strong>Array</strong>: conjuntos de datos</li>
+  <li><strong>Object</strong>: para programación orientada a objetos, almacena instancias de clases</li>
+  <li><strong>Resource</strong>: para recursos externos, como una conexión a una base de datos</li>
+  <li><strong>null</strong>: es un valor especial para darle a variables que, en un momento dado, no tengan un valor concreto. Así, quedan vacías, sin valor.</li>
+</ul>
+
+<h4 id="221-conversiones-entre-tipos-de-datos">2.2.1. Conversiones entre tipos de datos</h4>
+
+<p>Si tenemos un dato de un tipo y lo queremos convertir a otro, se tienen una serie de funciones que nos permiten hacer estas conversiones.</p>
+
+<ul>
+  <li><strong>intval</strong> sirve para convertir un valor (en formato cadena, o real) a entero.</li>
+  <li><strong>doubleval</strong> sirve para convertir un valor a número real.</li>
+  <li><strong>strval</strong> sirve para convertir un valor a una cadena de texto.</li>
+</ul>
+
+<p>Es habitual usarlas cuando le pedimos datos al usuario en un formulario. Si por ejemplo le pedimos que escriba su edad en un cuadro de texto, este valor se envía como tipo cadena de texto, no como un número, y luego tendríamos que convertirlo a número entero. Realmente, estas conversiones son automáticas con las últimas versiones de PHP, pero conviene saber que estas funciones existen para poderlas utilizar si es el caso. Veamos otro ejemplo más sencillo, con una variable cadena de texto que convertimos al entero correspondiente:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+	<span class="nv">$textoEdad</span><span class="o">=</span><span class="s1">'21'</span><span class="p">;</span>
+	<span class="nv">$edad</span> <span class="o">=</span> <span class="nb">intval</span><span class="p">(</span><span class="nv">$textoEdad</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="23-constantes">2.3. Constantes</h3>
+
+<p>Hemos visto que las variables son datos cuyo valor puede cambiar a lo largo de la ejecución de la aplicación. A veces nos puede interesar almacenar otros datos que no queramos que cambien a lo largo del programa. Por ejemplo, si almacenamos el número <em>pi</em>, ese valor siempre va a ser el mismo, no lo vamos a cambiar.</p>
+
+<p>Para definir constantes en PHP se utiliza la función <code class="language-plaintext highlighter-rouge">define</code>, y entre paréntesis pondremos el nombre que le damos a la constante (entre comillas), y el valor que va a tener, separados ambos datos por coma. Después, para utilizar la constante más adelante, usamos el nombre que le hemos dado, pero sin las comillas. Veamos este ejemplo que calcula la longitud de una circunferencia:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nb">define</span><span class="p">(</span><span class="s1">'PI'</span><span class="p">,</span> <span class="mf">3.1416</span><span class="p">);</span>
+    <span class="nv">$radio</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="nv">$longitud</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="no">PI</span> <span class="o">*</span> <span class="nv">$radio</span><span class="p">;</span>
+
+    <span class="k">echo</span> <span class="s2">"La longitud de la circunferencia es </span><span class="nv">$longitud</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Aunque no es obligatorio, sí es bastante convencional que las constantes tengan todo su nombre en mayúsculas, para distinguirlas a simple vista de las variables (aunque, además, las variables en PHP empiezan por un dólar, y las constantes no).</p>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página en la carpeta de ejercicios llamada <strong>area_circulo.php</strong>. En ella, crea una variable <code class="language-plaintext highlighter-rouge">$radio</code> y ponle el valor 3.5. Según esa variable, calcula en otra variable el área del círculo (PI * radio<sup>2</sup>, deberás definir la constante PI), y muestra por pantalla el texto “El área del círculo es XX.XX”, donde XX.XX será el resultado de calcular el área.</p>
+</blockquote>
+
+<h3 id="24-operaciones">2.4. Operaciones</h3>
+
+<p>Podemos realizar distintos tipos de operaciones con los datos que manejamos en PHP: aritméticas, comparaciones, asignaciones, etc. Veremos los operadores que podemos utilizar en cada caso.</p>
+
+<p><strong>Operaciones aritméticas</strong></p>
+
+<p>Son las operaciones matemáticas básicas (sumar, restar, multiplicar…). Los operadores para llevarlas a cabo son:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operador</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Suma</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Resta</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Multiplicación</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>División</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Resto de división</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Concatenación (para textos)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">++</code></td>
+      <td>Autoincremento</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">--</code></td>
+      <td>Autodecremento</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>El operador . sirve para concatenar o enlazar textos, de forma que podemos unir varios en una variable o al sacarlos por pantalla:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$edad</span> <span class="o">=</span> <span class="mi">36</span><span class="p">;</span>
+<span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Nacho"</span><span class="p">;</span>
+<span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"Hola, me llamo "</span> <span class="mf">.</span> <span class="nv">$nombre</span> <span class="mf">.</span> <span class="s2">" y tengo "</span> <span class="mf">.</span> <span class="nv">$edad</span> <span class="mf">.</span> <span class="s2">" años."</span><span class="p">;</span>
+<span class="c1">// En este punto, $texto vale "Hola, me llamo Nacho y tengo 36 años."</span>
+<span class="nv">$edad</span><span class="o">++</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">"El usuario se llama "</span> <span class="mf">.</span> <span class="nv">$nombre</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Operaciones de asignación</strong></p>
+
+<p>Permiten asignar a una variable un cierto valor. Se tienen los siguientes operadores:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operador</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">=</code></td>
+      <td>Asignación simple</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+=</code></td>
+      <td>Autosuma</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-=</code></td>
+      <td>Autoresta</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*=</code></td>
+      <td>Automultiplicación</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/=</code></td>
+      <td>Autodivisión</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%=</code></td>
+      <td>Autoresto</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.=</code></td>
+      <td>Autoconcatenación</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>La asignación simple ya la hemos visto en ejemplos previos, y sirve simplemente para darle un valor a una variable.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dato</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Los operadores de Auto… afectan a la propia variable, sumándole/restándole/… etc. un valor. Por ejemplo, si hacemos algo como:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dato</span> <span class="o">*=</span> <span class="mi">5</span><span class="p">;</span>     <span class="c1">// Dato = 15</span>
+</code></pre></div></div>
+
+<p><strong>Operaciones de comparación</strong></p>
+
+<p>Estas operaciones permiten comparar valores entre sí, para ver cuál es mayor, o si son iguales, entre otras cosas. En concreto, los operadores disponibles son:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operador</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">==</code></td>
+      <td>Igual que</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">===</code></td>
+      <td>Idéntico a (igual y del mismo tipo)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!=, &lt;&gt;</code></td>
+      <td>Distinto de</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!==</code></td>
+      <td>No idéntico</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>Menor que</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;=</code></td>
+      <td>Menor o igual que</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;=</code></td>
+      <td>Mayor o igual que</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Lo que se obtiene con estas comparaciones es un valor booleano (es decir, verdadero o falso). Por ejemplo, 5 != 3 sería verdadero, y 4 &lt;= 1 sería falso.</p>
+
+<p>Además, en versiones recientes de PHP se han añadido algunos operadores adicionales, como el operador <em>nave espacial</em> y el operador de comprobación de nulos.</p>
+
+<ul>
+  <li>El operador de nave espacial <code class="language-plaintext highlighter-rouge">&lt;=&gt;</code> compara dos datos y devuelve -1 si el primero es menor, 1 si es mayor o 0 si son iguales. Tiene un funcionamiento similar a la función <em>compareTo</em> que existe en otros lenguajes como Java o C#.</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="nv">$b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$a</span> <span class="o">&lt;=&gt;</span> <span class="nv">$b</span><span class="p">;</span>     <span class="c1">// -1</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Por su parte, el operador de comprobación de nulo <code class="language-plaintext highlighter-rouge">??</code> se emplea para determinar si una variable tiene valor nulo, y ofrecer una alternativa en ese caso:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Mostrará "No existe el dato" si $dato es nulo</span>
+<span class="k">echo</span> <span class="nv">$dato</span> <span class="o">??</span> <span class="s1">'No existe el dato'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>Operaciones lógicas</strong></p>
+
+<p>Estas operaciones permiten enlazar varias comprobaciones simples, o cambiarles el sentido, según el operador. En concreto tenemos estos operadores lógicos en PHP:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operador</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">and , &amp;&amp;</code></td>
+      <td>Operador AND (Y)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">or, ||</code></td>
+      <td>Operador OR (O)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">xor</code></td>
+      <td>Operador XOR</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">!</code></td>
+      <td>Negación (NO)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Ejemplos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="nv">$n1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nv">$n2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$n1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="nv">$n2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$n1</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">xor</span> <span class="nv">$n2</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>El operador de negación invierte el sentido de una comprobación (si era verdadera, la vuelve falsa, y viceversa). Por ejemplo, si queremos ver si una edad no es mayor de edad, podríamos ponerlo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="o">!</span><span class="p">(</span><span class="nv">$edad</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>Precedencia de operadores</strong></p>
+
+<p>¿Qué ocurre si tenemos varios operadores de distintos tipos en una misma expresión? PHP sigue un orden a la hora de evaluarlos:</p>
+
+<ol>
+  <li>Toda expresión entre paréntesis</li>
+  <li>Autoincrementos y autodecrementos</li>
+  <li>Negaciones y cambios de signo</li>
+  <li>Multiplicaciones, divisiones y restos</li>
+  <li>Sumas, restas y concatenaciones</li>
+  <li>Comparaciones</li>
+  <li>Operaciones lógicas (<code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, <code class="language-plaintext highlighter-rouge">||</code>)</li>
+  <li>Asignaciones</li>
+</ol>
+
+<p>Existen, además, otros operadores que no hemos visto aquí, como operadores de bits, conversiones tipo cast, operador ternario… pero no son tan habituales ni importantes.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Intenta predecir qué resultado va a sacar por pantalla cada instrucción echo de este código PHP. Luego podrás comprobar si estabas en lo cierto poniendo el código en una página y probándolo en un navegador.</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$num1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="nv">$num2</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="nv">$num3</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+    <span class="nv">$num1</span> <span class="o">*=</span> <span class="mi">4</span><span class="p">;</span>
+
+    <span class="k">echo</span> <span class="nv">$num1</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$num1</span> <span class="o">&lt;=</span> <span class="nv">$num2</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$num3</span> <span class="o">&gt;</span> <span class="nv">$num1</span> <span class="k">and</span> <span class="nv">$num3</span> <span class="o">&gt;</span> <span class="nv">$num2</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$num3</span> <span class="o">&gt;</span> <span class="nv">$num1</span> <span class="k">or</span> <span class="nv">$num3</span> <span class="o">&gt;</span> <span class="nv">$num2</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$num1</span> <span class="o">&gt;</span> <span class="nv">$num2</span> <span class="k">xor</span> <span class="nv">$num1</span> <span class="o">&gt;</span> <span class="nv">$num3</span><span class="p">;</span>
+    <span class="nv">$num3</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$num3</span><span class="p">;</span>
+    <span class="nv">$num3</span> <span class="o">+=</span> <span class="nv">$num1</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$num3</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="25-control-de-flujo">2.5. Control de flujo</h3>
+
+<h4 id="251-estructuras-selectivas">2.5.1. Estructuras selectivas</h4>
+
+<p>A veces nos interesa realizar una operación si se cumple una determinada condición y no hacerla (o hacer otra distinta) si no se cumple esa condición. Por ejemplo, si está vacía una variable querremos hacer una cosa, y si no lo está, hacer otra. Para decidir entre varios caminos a seguir en función de una determinada condición, al igual que en otros lenguajes como Javascript, Java o C, se utiliza la estructura <strong>if..else</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="n">condicion</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">instruccion1a</span><span class="p">;</span>
+    <span class="n">instruccion2a</span><span class="p">;</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="n">instruccion1b</span><span class="p">;</span>
+    <span class="n">instruccion2b</span><span class="p">;</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si queremos elegir entre más de dos caminos, podemos utilizar la estructura <em>if..elseif.. elseif..</em> y poner una condición en cada if para cada camino. Por ejemplo, imaginemos que tenemos una variable edad donde almacenaremos la edad del usuario. Si el usuario no llega a 10 años le diremos que no tiene edad para ver la web. Si no llega a 18 años, le diremos que aún es menor de edad, pero puede ver la web, y si tiene más de 18 años le diremos que está todo correcto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$edad</span> <span class="o">=</span> <span class="mf">...</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$edad</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"No tienes edad para ver esta web"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">elseif</span> <span class="p">(</span><span class="nv">$edad</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Aún eres menor de edad, pero puedes acceder a esta web"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Todo correcto"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Crea una página llamada <strong>prueba_if.php</strong> en la carpeta de ejercicios del tema. Crea en ella dos variables llamadas <code class="language-plaintext highlighter-rouge">$nota1</code> y <code class="language-plaintext highlighter-rouge">$nota2</code>, y dales el valor de dos notas de examen cualesquiera (con decimales si quieres). Después, utiliza expresiones <em>if..else</em> para determinar qué nota es la mayor de las dos.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 5:</strong></p>
+
+  <p>Modifica el ejercicio anterior añadiendo una tercera nota <code class="language-plaintext highlighter-rouge">$nota3</code>, y determinando cuál de las 3 notas es ahora la mayor. Para ello, deberás ayudarte esta vez de la estructura <em>if..elseif..else</em>.</p>
+</blockquote>
+
+<p>También disponemos de la estructura <strong>switch..case</strong>, similar a otros lenguajes, para elegir entre el conjunto de valores que puede tomar una expresión:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span><span class="p">(</span><span class="nv">$variable</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="k">echo</span> <span class="s2">"La variable es 0"</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="k">echo</span> <span class="s2">"La variable es 1"</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+        <span class="k">echo</span> <span class="s2">"La variable es otra cosa"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="252-estructuras-repetitivas-o-bucles">2.5.2. Estructuras repetitivas o bucles</h4>
+
+<p>Para poder repetir código o recorrer conjuntos de datos, al igual que en otros lenguajes de programación, disponemos de algunas estructuras repetitivas o bucles.</p>
+
+<p>Una de ellas es la estructura <strong>for</strong>. Supongamos que tenemos una variable <code class="language-plaintext highlighter-rouge">$lista</code> con una lista de elementos. Si queremos recorrerla, tenemos dos opciones: la primera es utilizar una variable que vaya desde el principio de la lista (posición 0) hasta el final (indicado por la función <code class="language-plaintext highlighter-rouge">count</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$lista</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$lista</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>			<span class="c1">// Muestra el valor de cada elemento</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La segunda alternativa es utilizar una variable que sirva para almacenar cada elemento de la lista. Para esta opción usamos la estructura <strong>foreach</strong>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$lista</span> <span class="k">as</span> <span class="nv">$elemento</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$elemento</span><span class="p">;</span>			<span class="c1">// Muestra el valor de cada elemento</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Además, existe una tercera forma de repetir un conjunto de instrucciones: la estructura <strong>while</strong>. Pondremos entre paréntesis una condición que debe cumplirse para que las instrucciones entre las llaves se repitan. Este código cuenta del 1 al 5:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$numero</span><span class="p">;</span>
+    <span class="nv">$numero</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Una variante de la estructura while es la estructura <strong>do..while</strong>, similar a la anterior, pero donde la condición para terminar el bucle se comprueba al final:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">do</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$numero</span><span class="p">;</span>
+    <span class="nv">$numero</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$numero</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 6:</strong></p>
+
+  <p>Crea una página llamada <strong>contador.php</strong> en la carpeta de ejercicios del tema. Utiliza una estructura <em>for</em> para contar los números del 1 al 100 (separados por comas), y luego una estructura <em>while</em> para contar los números del 10 al 0 (una cuenta atrás, separada por guiones). Al final debe quedarte algo como esto:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15...
+10-9-8-7-6-5-4-3-2-1-0
+</code></pre></div></div>
+
+<h3 id="26-intercalar-control-de-flujo-y-html">2.6. Intercalar control de flujo y HTML</h3>
+
+<p>Podemos intercalar bloques de código PHP y bloques HTML, incluso cortando bloques de control de flujo para introducir el código HTML. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="k">if</span> <span class="p">(</span><span class="nv">$edad</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">=</span><span class="p">)</span> 
+<span class="p">{</span> 
+<span class="cp">?&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"menor"</span><span class="nt">&gt;</span>Eres demasiado pequeño para entrar a esta web<span class="nt">&lt;/div&gt;</span>
+<span class="cp">&lt;?php</span> <span class="p">}</span>  <span class="k">elseif</span> <span class="p">(</span><span class="nv">$edad</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">)</span> <span class="p">{</span>  <span class="cp">?&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"mediano"</span><span class="nt">&gt;</span>No eres mayor de edad, pero puedes entrar<span class="nt">&lt;/div&gt;</span>
+<span class="cp">&lt;?php</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>  <span class="cp">?&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"mayor"</span><span class="nt">&gt;</span>Todo correcto. Bienvenido<span class="nt">&lt;/div&gt;</span>
+<span class="cp">&lt;?php</span> <span class="p">}</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Sería equivalente a haber hecho un solo bloque PHP que, con instrucciones echo, sacara el contenido HTML, pero a veces es más cómodo poner el HTML directamente.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 7:</strong></p>
+
+  <p>Modifica el ejercicio anterior y añádele algún <em>h1</em> y párrafos explicativos a la página, fuera del código PHP, explicando lo que se va a hacer. Por ejemplo, que te quede algo así:</p>
+</blockquote>
+
+<h3>Contadores</h3>
+<p>Este contador va del 1 al 100:</p>
+<p>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15...</p>
+<p>Este otro va del 10 al 0:</p>
+<p>10-9-8-7-6-5-4-3-2-1-0</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

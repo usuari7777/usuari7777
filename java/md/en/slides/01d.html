@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Basic input and output</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Basic elements of a Java program
+### Basic input and output
+</script>
+</section> 
+
+
+<section data-markdown>
+<script type="text/template">
+## Basic output
+
+- **System.out.println** prints a given message and jumps into next new line
+- **System.out.print** prints a message without going to a new line
+
+```Java
+int result = 12;
+System.out.println("The result is " + result);
+System.out.print("Have a nice day!");
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Formatted output
+
+- **System.out.printf** help us produce a formatted output
+- We can add some special symbols in the string:
+   - **%d** to represent an integer value
+   - **%f** to represent a real value
+   - **%s** to represent a string value
+   - **%c** to represent a character value
+- Then we replace each symbol with its corresponding expression
+   - These expressions are placed next to the first string, separated by commas
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Formatted output
+
+```Java
+int number1, number2;
+float average;
+...
+System.out.printf("The average of %d and %d is %f", 
+    number1, number2, average);
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Specifying integer digits
+
+```Java
+int number = 33;
+System.out.printf("number is %05d", number); // number is 00033
+System.out.printf("number is %5d", number);  // number is    33
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Specifying fraction digits
+
+```Java
+float number = 3.14159f;
+System.out.printf("number is %5.3f", number); // number is     3.142
+System.out.printf("number is %.4f", number); // number is 3.1416
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Getting user input
+
+- We use a **Scanner** variable
+   - We need to import **java.util.Scanner** class at the beginning of the source file
+- Instructions **nextInt**, **nextFloat**, **nextDouble**, **nextLine**... to gather different data types
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Getting user input
+
+```java
+import java.util.Scanner;
+...
+public class ClassName
+{ 
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        String text = sc.nextLine();	
+        sc.close();
+    }
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Caution: scanner and new lines
+
+```
+23 42
+Hello world
+```
+
+There are two integers (23 and 42), a new line (empty string) and a second line (*Hello world*)
+
+</script>
+</section> 
+    
+
+<section data-markdown>
+<script type="text/template">
+## Caution: scanner and new lines
+
+```Java
+int number1 = sc.nextInt();     // 23
+int number2 = sc.nextInt();     // 42
+sc.nextLine();                  // New line after numbers
+String text = sc.nextLine();    // Hello world
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Getting user input
+
+- We can also use **System.console.readLine()**, which always gets a String
+- Then, we can convert it into a numeric value using *Integer.parseInt*, *Float.parseFloat* or whatever suitable instruction
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Getting user input
+
+```java
+System.out.println("Write a number:");
+String text = System.console.readLine();
+int number = Integer.parseInt(text);
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **FormattedDate** with a class with the same name inside. The program will ask the user to enter the day, month and year of birth (all values are integers). Then, it will print his birth date with the format *d/m/y*. For instance, if the user types day = 7, month = 11, year = 1990, the program will output *7/11/1990*.
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **GramOunceConverter** that converts from grams to ounces. The program will ask the user to enter a weight in grams (an integer number), and then it will show the corresponding weight in ounces (a real number), taking into account that 1 ounce = 28.3495 grams.
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Create a program called **NumbersStrings**. This program must ask the user to enter 4 numbers, that will be stored in 4 `String` variables. Then, the program will join the first pair of numbers into a single integer value, and the second pair of numbers into another integer value, and then add these values. For instance, if the user types the numbers 23, 11, 45 and 112, then the program will create a first integer value of 2311 and a second integer value of 45112. Then, it will add these two values and get a final result of 47423.
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 4
+
+Create a program called **CircleArea** that defines a float constant called `PI` with the value `3.14159`. Then, the program will ask the user to enter the radius of a circle, and it will output the area of the circle (`PI` * radius * radius). This area will be printed with two decimal digits.
+
+</script>
+</section> 
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

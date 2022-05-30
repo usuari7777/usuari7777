@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Introducción a los lenguajes de marcas | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Introducción a los lenguajes de marcas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/01a.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a los lenguajes de marcas" />
+<script type="application/ld+json">
+{"headline":"Introducción a los lenguajes de marcas","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/01a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="introducción-a-los-lenguajes-de-marcas">Introducción a los lenguajes de marcas</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-ordenadores-y-almacenamiento-de-la-información">1. Ordenadores y almacenamiento de la información</h2>
+
+<p>¿Cómo hace un ordenador para almacenar la información? La respuesta a esta pregunta depende sobre todo del tipo de información que se quiere almacenar. Si queremos almacenar unos apuntes o contenido como el que estamos leyendo, nos puede bastar con un simple archivo de texto, y en ese caso lo que almacenamos es información textual, es decir, información que se almacena guardando una tras otra las diferentes letras y símbolos del documento en cuestión. Pero si pretendemos almacenar una canción, o una fotografía, el modo en que se almacenan los distintos sonidos, o colores de la imagen, puede variar. Los primeros se denominan <strong>archivos de texto</strong>, y los segundos (archivos de sonido, imágenes, etc) se denominan <strong>archivos binarios</strong>.</p>
+
+<h3 id="11-sistemas-de-codificación">1.1. Sistemas de codificación</h3>
+
+<p>Con los archivos de texto existe un problema de inicio: el idioma o región origen del documento. Un texto escrito en castellano lleva letras acentuadas y eñes, por ejemplo, mientras que un texto escrito en ruso contiene letras del alfabeto cirílico, inexistentes en el alfabeto castellano. ¿Cómo hacer que un archivo de texto almacenado en un idioma concreto pueda abrirse y leerse en una región o sistema con otro idioma asociado? Para solventar este problema se idearon distintos <strong>sistemas de codificación</strong>.</p>
+
+<p>A finales de los años 70 se ideó un sistema de codificación llamado <strong>ASCII</strong> (<em>American Standard Code for Information Interchange</em>). Inicialmente los símbolos se codificaban utilizando 7 bits, lo que permitía codificar 128 símbolos. En esta primera aproximación se incluyeron únicamente los símbolos del alfabeto inglés (letras mayúsculas y minúsculas sin acentuar, dígitos del 0 al 9), y algunos símbolos adicionales (signos de puntuación, etc.). Sin embargo, no era suficiente para almacenar otros símbolos existentes en otros alfabetos, como los acentos latinos. Se ideó entonces el sistema <strong>ASCII extendido</strong>, que añadía 1 bit más (1 byte en total) para poder así codificar 128 + 128 = 256 símbolos diferentes. Esto dio cabida a las vocales acentuadas, eñes y otros elementos con diéresis, etc. Podéis consultar <a href="https://www.ascii-code.com/">aquí</a> un listado completo del sistema ASCII extendido, con el código numérico asociado a cada símbolo.</p>
+
+<p>Aún así, con el sistema ASCII extendido seguían quedando fuera numerosos símbolos, correspondientes a alfabetos más dispares, como el cirílico o el japonés. Era necesario establecer sistemas de codificación más globales. La <strong>ISO</strong> (<em>International Organization for Standardization</em>) ideó un sistema para normalizar estas tablas de códigos mediante diferentes normas. Por ejemplo:</p>
+
+<ul>
+  <li>La norma <strong>ISO-8859-1</strong> abarca los caracteres propios de Europa Occidental, incluyendo vocales acentuadas, y símbolos como la eñe.</li>
+  <li>La norma <strong>ISO-8859-2</strong> comprende los caracteres propios de Europa Central y Oriental, incluyendo símbolos propios de lenguas eslavas como č.</li>
+  <li>… etc.</li>
+</ul>
+
+<p>El problema de estas agrupaciones es que, a la hora de editar un documento de texto, debemos especificar en cuál de estos sistemas de codificación está escrito, para que el programa que lo abra sepa interpretarlo. El paso final a este proceso se ha dado con los sistemas <strong>Unicode</strong>. Estos sistemas han conseguido recopilar los caracteres de todas las lenguas del planeta, pero para ello se necesita más de un byte para representar cada símbolo. Los 128 primeros elementos corresponden al sistema ASCII original, para mantener la compatibilidad, y los 128 siguientes corresponden al sistema europeo ISO-8859-1. A partir de ahí, se añade un segundo byte para lenguas cirílicas, griegas, etc, o un tercer byte para chino o japonés, o un cuarto byte para símbolos adicionales (matemáticos, lenguas muertas…). Por lo tanto, la codificación Unicode puede llegar a ocupar hasta 4 bytes, dependiendo del alfabeto que se quiera utilizar. A partir de aquí, existen distintas versiones del sistema Unicode <strong>UTF</strong> (<em>Unicode Transformation Format</em>):</p>
+
+<ul>
+  <li><strong>UTF-8</strong>: utiliza 8 bits (1 byte) para ASCII e ISO-8859-1, 2 bytes para cirílico, griego, etc, 3 bytes para chino o japonés y 4 bytes para símbolos especiales, tal y como se ha explicado antes.</li>
+  <li><strong>UTF-16</strong>: utiliza 2 bytes para los dos primeros grupos anteriores (ASCII, ISO-8859-1, cirílico, griego, etc), 3 bytes para chino o japonés y 4 para el resto</li>
+  <li><strong>UTF-32</strong>: utiliza 4 bytes para todos los sistemas. Es más sencillo de gestionar, aunque ocupa más espacio, por lo que apenas se utiliza.</li>
+</ul>
+
+<h3 id="12-incompatibilidades">1.2. Incompatibilidades</h3>
+
+<p>En los <strong>archivos binarios</strong> la información se almacena en una secuencia de bits (ceros y unos) agrupados en grupos de 8, llamados <em>bytes</em>. Esta es la forma en que un ordenador puede entender la información almacenada para, después, poder reproducir un archivo de audio o mostrar una imagen. Sin embargo, si el programa que utilizamos para abrir o reproducir ese archivo es distinto al programa que se utilizó para generarlo, puede haber un problema de incompatibilidad. Es el gran inconveniente que presentan los archivos binarios: que son dependientes del software y el sistema que se utilizó para generarlos.</p>
+
+<p>Sin embargo, los archivos de texto en principio no presentan estos problemas. Una carta guardada con el bloc de notas de Windows, por ejemplo, la podemos abrir después en un editor de texto de Mac, o de Linux, con el mismo formato o apariencia. Pero comenzamos a tener problemas cuando queremos añadir “algo más” a estos archivos, como por ejemplo información de formato: tipos de letras, tamaños, colores. Esto no se puede representar con un texto, y en este caso, hasta hace no mucho, obligaba a que los archivos de texto se tuvieran que guardar también en formato binario para poder almacenar, junto con el texto, la información del formato. Esto traía consigo los comentados problemas de compatibilidad, y es ahí donde los lenguajes de marcas juegan un papel importante.</p>
+
+<h2 id="2-qué-son-los-lenguajes-de-marcas">2. ¿Qué son los lenguajes de marcas?</h2>
+
+<p>Cuando queremos almacenar algún tipo de información, como un documento de trabajo, un manual de usuario, un listado de libros o un artículo, podemos hacerlo de distintas formas. Por ejemplo, podemos emplear un editor de textos avanzado como Microsoft Office Word, o LibreOffice, aunque en este caso tendríamos el inconveniente de que no podríamos consultar el documento sin tener el software instalado, y al intentar abrirlo con otro software diferente se perdería la compatibilidad y se vería diferente, o directamente no podríamos abrir el documento. También podríamos utilizar un archivo de texto plano y una herramienta sencilla como el bloc de notas, pero entonces nos costaría más identificar o localizar las partes del documento.</p>
+
+<p>Los <strong>lenguajes de marcas</strong> nos permiten, por un lado, poder añadir anotaciones en un documento de texto que hagan referencia a cuestiones como el formato del documento (tipos de letra, tamaños, colores), y por otra parte, estructurar la información de un documento añadiendo una serie de marcas, o etiquetas, que indican qué tipo de información estamos almacenando en cada parte.</p>
+
+<h3 id="21-ejemplos-iniciales-tex-y-json">2.1. Ejemplos iniciales: TeX y JSON</h3>
+
+<p>El formato de etiquetado <strong>TeX</strong> fue ideado en la década de los 70 para producir documentos científicos que, almacenándose en modo textual, fueran compatibles en distintos tipos de sistemas, incluyendo toda la nomenclatura que estos textos pueden contener (fórmulas matemáticas, expresiones, etc.). Para ello, a la información textual se le añadieron ciertas marcas que la complementaban, e informaban al programa encargado de abrir el documento de cómo tenía que mostrarse la información. Aquí vemos un ejemplo breve de este tipo de documentos.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\documentclass[12pt]{article}
+\usepackage{amsmath}
+\title{\Ejemplo}
+\begin{document}
+Este es el texto ejemplo de \LaTeX{}
+Con datos en \emph{cursiva} o \textbf{negrita}.
+Ejemplo de f\'ormula
+\begin{align}
+E &amp;= mc^2
+\end{align}
+\end{document}
+</code></pre></div></div>
+
+<p>Como podemos ver, se especifican mediante marcas cosas como el tamaño de letra, encabezados o títulos, acentos, cursivas…</p>
+
+<p>Por otra parte, el formato <strong>JSON</strong> (<em>JavaScript Object Notation</em>) fue una derivación del lenguaje de programación JavaScript para idear una forma textual de representar objetos de una aplicación. Supongamos que queremos almacenar información de una lista de contactos, tales como nombres, direcciones y teléfonos. En formato JSON, podríamos almacenarlo así:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Juan Pérez"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"direccion:"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C/Ávila, 12"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"telefono"</span><span class="p">:</span><span class="w"> </span><span class="s2">"611223344"</span><span class="w">
+    </span><span class="p">},</span><span class="w"> 
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Elena García"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"direccion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Avda. de las Naciones, 25"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"telefono"</span><span class="p">:</span><span class="w"> </span><span class="s2">"600998877"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Como podemos intuir, esta información se puede trasladar cualquier sistema, y leer fácilmente desde distintos programas.</p>
+
+<h3 id="22-origen-y-evolución-de-html-el-lenguaje-sgml-y-derivados">2.2. Origen y evolución de HTML. El lenguaje SGML y derivados</h3>
+
+<p>Ya en los años 60 del siglo pasado las empresas que se dedicaban a publicar o gestionar documentación electrónica se encontraban con el inconveniente de la falta de compatibilidad: documentos creados con una aplicación no podían ser abiertos o editados con otra aplicación diferente. Esto dificultaba que se pudieran compartir documentos.</p>
+
+<p>Ante esta problemática, la empresa IBM desarrolló un lenguaje de marcas primitivo llamado <strong>GML</strong> (<em>Generalized Markup Language</em>), que empleaba marcas precedidas del símbolo del doble punto (:) para estructurar el documento de forma genérica: listas, tablas y párrafos. Posteriormente, a mediados de los 80, ISO utilizó esta base para definir <strong>SGML</strong> (<em>Standard Generalized Markup Language</em>), que básicamente es un estándar para definir lenguajes de marcado para documentos. Todos los lenguajes de marcas actuales descienden de él.</p>
+
+<p>Ya en los 90, se define el <strong>HTML</strong> (<em>HyperText Markup Language</em>) a partir de la sintaxis de SGML. El <strong>Consorcio World Wide Web</strong> (<em>W3C</em>) regula las recomendaciones y versiones normalizadas de este lenguaje, aceptado como norma ISO desde el año 2000.</p>
+
+<p>HTML fue diseñado originalmente para intercambiar información en entornos académicos, sus etiquetas están eminentemente pensadas para la organización lógica del contenido (titulo, párrafo, etc.) y no tanto para su presentación. Por eso, el W3C tuvo que idear las denominadas hojas de estilo (<em>Style Sheets</em>).</p>
+
+<p>En el 2000, aparece el <strong>XML</strong> (<em>Extensible Markup Language</em>) como complemento al HTML. XML y HTML son lenguajes muy diferentes. Su función principal es ayudarnos a organizar contenidos y eso hace que los documentos XML sean portables hacia diferentes tipos de aplicaciones. Aunque ambos se basan en el SGML, cada uno ha sido diseñado para cumplir distintas funciones: el XML sirve para estructurar información de cualquier tipo mientras que el HTML sirve para estructurar el contenido de texto de un documento web y su metainformación y presentarla a través de un navegador.</p>
+
+<p>Posteriormente surge <strong>XHTML</strong> (<em>eXtensible HyperText Markup Language</em>), diseñado para extender HTML y permitir la compatibilidad con nuevos formatos de datos como videos, imágenes o lenguajes de scripting. A finales de 2009 se interrumpe el trabajo sobre la versión 2.0 porque el <em>Grupo de Trabajo de Tecnología de Aplicación de Hipertexto Web</em> (WHATWG) estaba trabajando en <strong>HTML5</strong> al mismo tiempo, y este último fue el estándar que al final prevaleció. Sin embargo, HTML 5 ya no es una aplicación de SGML, sino un lenguaje generalizado compatible con las versiones anteriores.</p>
+
+<h3 id="23-cómo-idear-un-lenguaje-de-marcas">2.3. Cómo idear un lenguaje de marcas</h3>
+
+<p>Todo lenguaje de marcas debe tener dos componentes principales:</p>
+
+<ul>
+  <li>Un <strong>vocabulario</strong> o conjunto de elementos a utilizar</li>
+  <li>Unas <strong>reglas gramaticales</strong> que indiquen cómo colocar estos elementos</li>
+</ul>
+
+<p>Supongamos que queremos almacenar la información de los libros que tenemos en casa. Para cada libro queremos almacenar su título, su autor y su número de páginas. Podríamos definir un documento con las etiquetas <code class="language-plaintext highlighter-rouge">libro</code>, <code class="language-plaintext highlighter-rouge">titulo</code>, <code class="language-plaintext highlighter-rouge">autor</code> y <code class="language-plaintext highlighter-rouge">paginas</code> como vocabulario, además de la etiqueta <code class="language-plaintext highlighter-rouge">biblioteca</code> para englobarlo todo. Adicionalmente, de los autores nos puede interesar saber su año de nacimiento, si lo conocemos. Gramaticalmente, la biblioteca se compone de libros, y cada libro de sus atributos básicos (título, autor y número de páginas), con lo que podríamos conformar un documento así:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;biblioteca&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>El juego de Ender<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor&gt;</span>Orson Scott Card<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>325<span class="nt">&lt;/paginas&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>La tabla de Flandes<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor</span> <span class="na">nacimiento=</span><span class="s">"1951"</span><span class="nt">&gt;</span>Arturo Pérez Reverte<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>384<span class="nt">&lt;/paginas&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+<span class="nt">&lt;/biblioteca&gt;</span>
+</code></pre></div></div>
+
+<p>En este primer ejemplo, podemos observar varias cosas:</p>
+
+<ul>
+  <li>Los elementos que componen el vocabulario de nuestro documento (etiquetas <code class="language-plaintext highlighter-rouge">libro</code>, <code class="language-plaintext highlighter-rouge">titulo</code>, etc), llamados en este caso <strong>etiquetas</strong>.</li>
+  <li>Que cada etiqueta puede tener un elemento de apertura y uno de cierre, que delimita el contenido afectado por esa etiqueta</li>
+  <li>Que algunas etiquetas pueden contener <strong>atributos</strong>, como es el caso del año de nacimiento del autor, para especificar información adicional.</li>
+  <li>Las reglas gramaticales indican qué etiquetas se pueden colocar en cada ámbito. Por ejemplo, no deberíamos poder poner un título si no es dentro de un libro.</li>
+</ul>
+
+<h2 id="3-características-y-tipos-de-lenguajes-de-marcas">3. Características y tipos de lenguajes de marcas</h2>
+
+<p>Veamos ahora qué características generales debe cumplir cualquier lenguaje de marcas que definamos o utilicemos.</p>
+
+<ul>
+  <li>Deben definir la información en archivos de <strong>texto plano</strong>, de forma que sean fácilmente exportables o utilizables entre distintas plataformas o sistemas.</li>
+  <li>Deben mostrar la información de la forma más <strong>compacta</strong> posible, intercalando las etiquetas o palabras del vocabulario con la información que se quiere almacenar.</li>
+  <li>Los lenguajes de marcas a menudo deben coexistir con otros lenguajes en un documento. Es lo que ocurre, por ejemplo, con el lenguaje HTML, que a menudo convive con fragmentos de código en lenguaje JavaScript, o PHP, entre otros.</li>
+  <li>Los lenguajes de marcas <strong>no son lenguajes de programación</strong>, ya que carecen de las estructuras básicas de estos lenguajes, como el uso de variables, bucles, funciones, etc. Son lenguajes para etiquetar y estructurar la información de documentos, sin más.</li>
+</ul>
+
+<h3 id="31-tipos-de-lenguajes-de-marcas">3.1. Tipos de lenguajes de marcas</h3>
+
+<p>Existen diferentes tipos de lenguajes de marcas. Veamos aquí las principales categorías:</p>
+
+<ul>
+  <li><strong>Lenguajes de presentación</strong>: permiten definir el formato con que se ve la información (tipo de letra, tamaño, color, etc.), sin entrar en detalles sobre su estructura. Un ejemplo de lenguaje en esta categoría sería <strong>RTF</strong>.</li>
+  <li><strong>Lenguajes descriptivos, estructurales o semánticos</strong>: permiten definir las partes en que se estructura un documento, sin especificar cómo deben mostrarse, ni en qué orden. El ejemplo más representativo de esta categoría es <strong>XML</strong>, incluyendo todos los tipos que derivan de él. También otros lenguajes, como <strong>YAML</strong> o <strong>JSON</strong>, empleados para definir ficheros de configuración en algunas aplicaciones, corresponden a esta categoría.</li>
+  <li><strong>Lenguajes híbridos</strong>: lenguajes que encajan en las dos categorías anteriores: permiten definir la estructura de un documento y también, de forma total o parcial, su formato de presentación. El ejemplo más representativo de esta categoría es el lenguaje <strong>HTML</strong>, incluyendo algunas de sus variantes como <strong>xHTML</strong>.</li>
+</ul>
+
+<p>Según su <strong>funcionalidad</strong> también podemos clasificar los lenguajes de marcas en distintas categorías:</p>
+
+<ul>
+  <li>Lenguajes para generar documentación electrónica: RTF, TeX, DocBook…</li>
+  <li>Lenguajes para tecnologías de Internet: HTML o xHTML para definir páginas web con su contenido, RSS para sindicar noticias, SOAP para definir la información proporcionada por servicios web…</li>
+  <li>Lenguajes de propósito específico para ciertos tipos de aplicaciones: SVG para definir imágenes vectoriales, FXML para definir interfaces gráficas en Java utilizando JavaFX, XSLT para transformar documentos XML, etc.</li>
+</ul>
+
+<p>El origen de todos estos lenguajes es, como hemos visto, el lenguaje SGML. A partir de él se crearon lenguajes como HTML o XML, entre otros, y a partir de éstos, se derivaron otros.</p>
+
+<h2 id="4-herramientas">4. Herramientas</h2>
+
+<p>A la hora de trabajar con un determinado lenguaje de marcas (o con un conjunto de ellos) podemos valernos de ciertas herramientas software que nos faciliten el proceso. Veremos a continuación algunas de ellas, y explicaremos cuál es la que vamos a utilizar a lo largo de este curso.</p>
+
+<h3 id="41-notepad">4.1. Notepad++</h3>
+
+<p>Notepad++ es una herramienta sencilla y gratuita, que permite editar archivos de texto plano en diferentes lenguajes (tanto de marcas como de programación). Podemos descargarlo desde su <a href="https://notepad-plus-plus.org/">web oficial</a>, pero su uso está restringido a sistemas Windows.</p>
+
+<h3 id="42-visual-studio-code">4.2. Visual Studio Code</h3>
+
+<p><img src="../../img/01_VSCode_logo.png" alt="Logo VSCode" width="15%" style="float:left;margin-right:8px;" /></p>
+
+<p>Visual Studio Code es un editor ligero y potente, disponible para Windows, MacOSX y Linux. Tiene soporte nativo para lenguajes de programación derivados de JavaScript (JavaScript, TypeScript, Node.js…), pero también dispone de una gran variedad de <em>plugins</em> o extensiones para poder trabajar con otros muchos lenguajes. Será el editor que utilizaremos en este curso.</p>
+
+<p>Podemos descargarlo de su <a href="https://code.visualstudio.com">web oficial</a>. En el caso de Windows o Mac OSX descargamos un asistente de instalación que nos guía paso a paso en el proceso. En el caso de Linux, por ejemplo para usuarios Debian, Ubuntu o derivados, descargaremos un archivo <em>.deb</em> que deberemos instalar manualmente. Para ello, iremos a la carpeta donde lo hayamos descargado y escribiremos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dpkg -i &lt;nombre_archivo.deb&gt;
+</code></pre></div></div>
+
+<h4 id="421-entorno-de-trabajo">4.2.1. Entorno de trabajo</h4>
+
+<p>Una vez instalado, podemos ver una pantalla de bienvenida con ciertas opciones básicas:</p>
+
+<div align="center">
+    <img src="../../img/01_VSCodeWelcome_en.png" alt="Pantalla de inicio de Visual Studio Code" />
+</div>
+
+<p>Si creamos o abrimos un archivo, podremos ver el entorno de trabajo habitual, dividido en varias secciones:</p>
+
+<div align="center">
+    <img src="../../img/01_VSCodeUI.png" alt="Principales secciones de VS Code" />
+</div>
+
+<ul>
+  <li><strong>Editor</strong> (C): Sección de edición principal, donde tendremos abiertos nuestros archivos para editarlos. Podemos tener abiertos tantos como queramos, cada uno en una pestaña diferente.</li>
+  <li><strong>Barra de margen</strong> (B): Contiene cierta información relevante sobre el explorador de archivos, errores en el texto, advertencias, etc.</li>
+  <li><strong>Barra de estado</strong> (E): Muestra información sobre el proyecto actualmente abierto, y los archivos que estamos editando (línea actual, codificación del archivo, etc.).</li>
+  <li><strong>Barra de actividades</strong> (A): Dispone de ciertos iconos o herramientas principales. Al pulsarlos, se abrirá/ocultará, alternativamente, la opción correspondiente de este panel.
+    <ul>
+      <li><strong>Explorador</strong>: para gestionar los archivos y carpetas de nuestro proyecto (o la carpeta que tengamos abierta actualmente)</li>
+      <li><strong>Búsqueda</strong>: para buscar palabras o expresiones en los archivos abiertos.</li>
+      <li><strong>Control de versiones</strong>: para poder comunicar y subir los archivos a un repositorio remoto tipo GitHub o similar.</li>
+      <li><strong>Depurador</strong>: para depurar los programas y detectar posibles fallos</li>
+      <li><strong>Gestor de extensiones</strong>: desde aquí podremos instalar funcionalidades adicionales sobre VS Code, y adaptarlo a los lenguajes con los que vayamos a trabajar.</li>
+    </ul>
+  </li>
+  <li><strong>Paneles</strong> (D): Bajo el editor tenemos diferentes paneles, identificados por pestañas. Por ejemplo, tenemos un panel para ver los errores o advertencias sobre el código o texto que estamos editando, o un terminal para poder ejecutar comandos desde la carpeta donde estamos trabajando.</li>
+</ul>
+
+<p>Cada vez que abramos VS Code, veremos los archivos y el estado en que lo dejamos la última vez que lo utilizamos.</p>
+
+<h4 id="422-cambiar-el-tema">4.2.2. Cambiar el tema</h4>
+
+<p>Si queremos cambiar el tema por defecto con que se instala Visual Studio Code, debemos ir al menú <em>File/Preferences</em> (o <em>Code/Preferences</em> si estamos en Mac OSX) y elegir la opción <em>Color Theme</em>. Ahí podremos elegir entre diferentes estilos, aunque los más habituales o populares son los temas <em>Dark</em> y <em>Light</em>.</p>
+
+<h4 id="423-instalando-extensiones">4.2.3. Instalando extensiones</h4>
+
+<p>Una de las características más destacables e importantes de Visual Studio Code es la posibilidad de mejorar su funcionamiento y usabilidad instalando extensiones adicionales. Muchas de estas extensiones aluden a un lenguaje en concreto, facilitando su uso a través de auto completados, comprobaciones de sintaxis, etc.</p>
+
+<p>Para instalar extensiones, debemos ir al icono de extensiones en el panel izquierdo, y buscar la que queramos.</p>
+
+<div align="center">
+    <img src="../../img/01_VSCodeExtensiones.png" alt="Extensiones Visual Studio Code" />
+</div>
+
+<p>Por ejemplo, podemos instalar una extensión llamada <em>open in browser</em>, desarrollada por <em>TechER</em>, que permite abrir documentos HTML directamente en el navegador, para previsualizarlos. Simplemente elegimos la extensión, y pulsamos el botón de <em>Install</em>.</p>
+
+<p>Para poderla utilizar, cuando estemos editando un archivo HTML podemos hacer clic derecho sobre el código y elegir la opción <em>Open in Default Browser</em>.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea un archivo llamado <code class="language-plaintext highlighter-rouge">prueba.html</code>. Ábrelo con VS Code y edítalo con este contenido:</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Bienvenido/a a la página de prueba<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Cuando lo tengas listo, haz clic derecho en el código fuente y muestra la previsualización en tu navegador predeterminado, usando la extensión anterior.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea un archivo llamado <code class="language-plaintext highlighter-rouge">biblioteca.xml</code>. Ábrelo con VS Code y edítalo con este contenido:</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;biblioteca&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>El juego de Ender<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor&gt;</span>Orson Scott Card<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>325<span class="nt">&lt;/paginas&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>La tabla de Flandes<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor</span> <span class="na">nacimiento=</span><span class="s">"1951"</span><span class="nt">&gt;</span>Arturo Pérez Reverte<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>384<span class="nt">&lt;/paginas&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+<span class="nt">&lt;/biblioteca&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Cuando lo tengas listo, ábrelo en el navegador y observa cómo se muestra la información en este caso.</p>
+</blockquote>
+
+<h3 id="43-otras-alternativas">4.3. Otras alternativas</h3>
+
+<p>Además de Visual Studio Code, existen otras alternativas más o menos similares que podemos emplear en distintas plataformas. Muchas de estas herramientas siguen una filosofía similar a VS Code, en cuanto a que podemos gestionar proyectos basados en carpetas (abrir una carpeta y gestionar todos los archivos que contiene desde el editor), e instalar plugins adicionales para adaptar la herramienta al lenguaje o lenguajes con que trabajemos.</p>
+
+<p>Algunos de los ejemplos más representativos de estas herramientas son los editores <strong>Sublime Text</strong> (<a href="https://www.sublimetext.com/">web oficial</a>) o <strong>Atom</strong> (<a href="https://atom.io/">web oficial</a>).</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

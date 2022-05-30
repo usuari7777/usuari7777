@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Class relationships</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Object oriented programming
+### Class relationships
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Class relationships
+
+- Class are not isolated elements in a program, they need to interact or be combined with other classes
+- Main class relationships
+   - Associations
+   - Inheritance
+   - Dependency
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Class associations
+
+- Relationship between two classes, in which one of them is part of the elements of the other one
+- An object or array of one of the classes is an attribute or instance variable of the other class
+- Defined as a *Has-A* relationship
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class associations
+
+A *Book* has an *Author*
+
+```java
+class Author 
+{
+    private String name;
+    private int yearBirth;
+
+    public Author(String name, int yearBirth) 
+    {
+        this.name = name;
+        this.yearBirth = yearBirth;
+    }
+
+    public String getName() 
+    {
+        return name;
+    }
+
+    public void setName(String name) 
+    {
+        this.name = name;
+    }
+
+    public int getYearBirth() {
+        return yearBirth;
+    }
+
+    public void setYearBirth(int yearBirth) {
+        this.yearBirth = yearBirth;
+    }
+}
+
+class Book 
+{    
+    private String title;
+    private int numPages;
+    private double price;
+    private Author author;
+
+    public Book(String title, int numPages, double price, Author author) 
+    {
+        this.title = title;
+        this.numPages = numPages;
+        this.price = price;
+        this.author = author;
+    }
+
+    ...
+
+    public Author getAuthor() 
+    {
+        return author;
+    }
+
+    public void setAuthor(Author author) 
+    {
+        this.author = author;
+    }
+}
+
+public class BookExample 
+{    
+    public static void main(String[] args) 
+    {
+        Author a = new Author("J.R.R. Tolkien", 1892);
+
+        // The lord of the Rings, 850 pages, 13.50 eur, Tolkien
+        Book b = new Book("The lord of the Rings", 850, 13.50, a);
+
+        // Print book title and author's name
+        System.out.println(b.getTitle());
+        System.out.println(b.getAuthor().getName());
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class associations
+
+If we want to associate the same author to many books, we must use the same object
+
+```java
+Author a1 = new Author("J.R.R. Tolkien", 1892);
+Author a2 = new Author("J.R.R. Tolkien", 1892);  
+// a2 is not the same than a1 (different objects in memory)
+
+Book b1 = new Book("The lord of the Rings", 850, 13.50, a1);
+Book b2 = new Book("The hobbit", 345, 8.76, a2);  // Different author
+Book b3 = new Book("The hobbit", 345, 8.76, a1);  // Same author
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Improve exercise *TeamsExample.java* from previous document in another source file called **TeamsExample2.java**. Now every team will have an array of 5 players. Add a new class called `Player` to the source file. For each player, we need to define his/her name, age and back number. Add the corresponding constructor and getters/setters. Then, modify `Team` class to store 5 *Player* objects, and adapt your main function to create a team with all the players inside it. Print the information of the team, including the players that belong to it.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Improve exercise *VideoGameList.java* from previous document in another source file called **VideoGameList2.java**. Now, every video game has a *Company* that created it. For every company, we need to store its name and the foundation year. Associate a company to each video game, so that some video games can share the same company object. Then, modify the main application to specify the company information for every videogame (besides video game initial data). Make sure that you share the same *Company* object among all the video games belonging to the same company.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Association navigability
+
+- Associations are (or can be) bi-directional
+- A Book has one author, and an author can have many books
+
+<div align="center">
+    <img src="../../../img/05_book_author_association.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Association navigability
+
+- If we want an association to be unidirectional, we need to define an arrow pointing to the direction of the association
+- Example: we can get the author from a book object, but not the opposite
+
+<div align="center">
+    <img src="../../../img/05_book_author_association_uni.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example of a bi-directional association
+
+- A *House* has one *LivingRoom* and a *LivingRoom* belongs to a *House*
+
+<div align="center">
+    <img src="../../../img/05_one_one_association.png" />
+</div>
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Example of a bi-directional association (first try)
+
+```java
+class House
+{
+    private String address;
+    private int rooms;
+    private LivingRoom livingRoom;
+
+    public House(String address, int rooms, LivingRoom livingRoom)
+    {
+        this.address = address;
+        this.rooms = rooms;
+        this.livingRoom = livingRoom;
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public int getRooms()
+    {
+        return rooms;
+    }
+
+    public void setRooms(int rooms)
+    {
+        this.rooms = rooms;
+    }
+
+    public LivingRoom getLivingRoom()
+    {
+        return livingRoom;
+    }
+
+    public void setLivingRoom(LivingRoom livingRoom)
+    {
+        this.livingRoom = livingRoom;
+    }
+}
+
+class LivingRoom
+{
+    private int area;
+    private House house;
+
+    public LivingRoom(int area, House house)
+    {
+        this.area = area;
+        this.house = house;
+    }
+
+    public int getArea()
+    {
+        return area;
+    }
+
+    public void setArea(int area)
+    {
+        this.area = area;
+    }
+
+    public House getHouse()
+    {
+        return house;
+    }
+
+    public void setHouse(House house)
+    {
+        this.house = house;
+    }
+}
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        LivingRoom lr = new LivingRoom(40, ???);    // Where's the house??
+        House h = new House("Java Street", 3, lr);  // LivingRoom is OK        
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example of a bi-directional association (second try)
+
+One of the constructors can't refer to the other class, and the other constructor completes the task
+
+```java
+class LivingRoom
+{
+    private int area;
+    private House house;
+
+    // We make a living room without assigning a house here
+    public LivingRoom(int area)
+    {
+        this.area = area;
+        // House remains unassigned
+    }
+
+    public int getArea()
+    {
+        return area;
+    }
+
+    public void setArea(int area)
+    {
+        this.area = area;
+    }
+
+    public House getHouse()
+    {
+        return house;
+    }
+
+    public void setHouse(House house)
+    {
+        this.house = house;
+    }
+}
+
+class House
+{
+    private String address;
+    private int rooms;
+    private LivingRoom livingRoom;
+
+    public House(String address, int rooms, LivingRoom livingRoom)
+    {
+        this.address = address;
+        this.rooms = rooms;
+        this.livingRoom = livingRoom;
+        // Assign the livingRoom to this house
+        this.livingRoom.setHouse(this);
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public int getRooms()
+    {
+        return rooms;
+    }
+
+    public void setRooms(int rooms)
+    {
+        this.rooms = rooms;
+    }
+
+    public LivingRoom getLivingRoom()
+    {
+        return livingRoom;
+    }
+
+    public void setLivingRoom(LivingRoom livingRoom)
+    {
+        this.livingRoom = livingRoom;
+    }
+}
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        LivingRoom lr = new LivingRoom(40);
+        House h = new House("Java Street", 3, lr);
+        // At this point, association is already bi-directional
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Create a source file called **BookAssociation.java**. Add the `Book` and `Author` class that we have already implemented in previous example, and try to make this association bi-directional. In this case, you need to add a `Book` array as an attribute in `Author` class, and add the corresponding code to add books to each author's array.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aggregations and compositions
+
+- Special type of associations in which one of the classes is considered as a whole thing, and the other one is a part of this whole thing
+- **Composition**: the part can't exist without the whole thing. Example: a `Room` is part of a `House` (and only of that house)
+- **Aggregation**: the part can exist without the whole thing. Example: a `Player` who is part of a `Team`
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Composition in practice
+
+- We need to make sure that the part can't be extracted from the whole thing
+- It needs to be private, and it needs to be constructed from withing the whole thing
+- No getters should be provided to access this part
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Composition in practice
+
+```Java
+class Car 
+{
+    private final Engine engine;
+
+    public Car(EngineParams params) 
+    {
+        engine = new Engine(params);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Aggregation in practice
+
+- We implement aggregations as normal associations
+- Compositions are commonly implemented this way as well (so they are not compositions in practice)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aggregation in practice
+
+```Java
+class Car 
+{
+    private Engine engine;
+
+    public Car(Engine engine) 
+    {
+        this.engine = engine;
+    }
+
+    public Engine getEngine()
+    {
+        return engine;
+    }
+
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class inheritance
+
+- We use **inheritance** when we want to create a new class that takes all the features of another one, adding its particular ones
+- Example: a *Dog* class that inherits from an *Animal* class
+- Defined as an *Is-A* relationship
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class inheritance: example
+
+Comic inherits from Book
+
+```java
+class Comic extends Book
+{
+    private boolean color;
+    private int volumeNumber;
+
+    public Comic(String title, int numPages, double price,
+        boolean color, int volumeNumber)
+    {
+        this.title = title;
+        this.numPages = numPages;
+        this.price = price;
+        this.color = color;
+        this.volumeNumber = volumeNumber;
+    }
+
+    public boolean getColor()
+    {
+        return color;
+    }
+
+    public void setColor(boolean color)
+    {
+        this.color = color;
+    }
+
+    public int getVolumeNumber()
+    {
+        return volumeNumber;
+    }
+
+    public void setVolumeNumber(int volumeNumber)
+    {
+        this.volumeNumber = volumeNumber;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Class inheritance: terms
+
+- The new class that inherits from the general one is called *subclass* or *child class*
+   - *Comic* class in our example
+- The class that is being inherited is called *superclass* or *parent class*
+   - *Book* class in our example
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Visibility and inheritance
+
+- We need to use **protected** visibility in the elements of a parent class that need to be accessed from within a child class
+- This is an intermediate level of visibility, between *public* and *private*, suitable for inheritance
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Visibility and inheritance
+
+```java
+class Book
+{
+    protected String title;
+    protected int numPages;
+    protected double price;
+
+    // The rest of code does not change
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Visibility summary (higher to lower)
+
+- **public**: elements can be accessed from any other part of the code
+- **protected**: elements can only be accessed from any subclass of current class, or any class from the same package than current class
+- *package* (default): elements are only accessible from the same package.
+- **private** elements can only be accessed from current class
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Overriding parent methods
+
+- We can modify (*override*) the behavior of parent methods in child class
+- We re-type the method again with **@Override** annotation, and make any changes in the code
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Overriding parent methods
+
+```java
+class Book
+{
+    ...
+    public void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+    }
+}
+
+class Comic extends Book
+{
+    ...
+
+    @Override
+    public void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+        System.out.println("Color/Grayscale: " + 
+            (color?"Color":"Grayscale"));
+        System.out.println("Volume: " + volumeNumber);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Using *super*
+
+- The word *super* lets us access any part of parent code, so we can reuse it in child class
+- Can be used in:
+   - Constructors (to rely on parent constructor). Needs to be the first instruction in child constructor
+   - Methods (to reuse code of the methods)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Using *super*
+
+```java
+class Comic extends Book
+{
+    public Comic(String title, int numPages, double price,
+    boolean color, int volumeNumber)
+    {
+        super(title, numPages, price);
+        this.color = color;
+        this.volumeNumber = volumeNumber;
+    }
+    
+    ...
+
+    @Override
+    public void printInformation()
+    {
+        super.printInformation();
+        System.out.println("Color/Grayscale: " + 
+            (color?"Color":"Grayscale"));
+        System.out.println("Volume: " + volumeNumber);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Extending Object class
+
+- Every class in Java inherits from a global, parent class called `Object`, unless we specify another inheritance
+- We can use or override methods from this class, such as `equals` or `toString`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## toString method
+
+Defines a string representation of an object, so we can easily print them on the screen
+
+```Java
+public class Person 
+{
+    private String name;
+    private int age;
+
+    public Person(String n, int a) 
+    {
+        name = n;
+        age = a;
+    }
+
+    @Override
+    public String toString() 
+    {
+        return name + " (" + age + " years)";
+    }
+}
+
+// Main
+Person p = new Person("Nacho", 40);
+System.out.println(p); // Prints "Nacho (40 years)"
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## equals method
+
+Defines a comparison criteria to determine if two objects of the class are the same
+
+```Java
+public class Person 
+{
+    private String name;
+    private int age;
+
+    public Person(String n, int a) 
+    {
+        name = n;
+        age = a;
+    }
+
+    @Override
+    public String toString() 
+    {
+        return name + " (" + age + " years)";
+    }
+
+    @Override
+    public boolean equals(Object p) 
+    {
+        Person p2 = (Person) p;
+        return this.name.equals(p.name) && this.age == p.age;
+    }
+}
+
+// Main
+Person p1 = new Person("Nacho", 40);
+Person p2 = new Person("Nacho", 39);
+
+if (p1.equals(p2)) 
+{
+    System.out.println("They are equal!");
+} else {
+    System.out.println("They are different");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Polymorphism
+
+- Ability of an element to have multiple shapes or appearances
+   - A class can have many methods with the same name and different number or types of parameters
+   - An object of any class can behave like any of its subclasses
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Polymorphism: example
+
+- A *Car* and a *Motorcycle* are subtypes of *Vehicle*
+- We can instantiate a *Vehicle* using a *Car* or *Motorcycle* object
+
+```Java
+Vehicle myCar = new Car(...);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Polymorphism: example
+
+- A *Car* and a *Motorcycle* are subtypes of *Vehicle*
+- We can use a *Car* or *Motorcycle* object as a parameter in a function that expects a *Vehicle*
+
+```Java
+public void aMethod(Vehicle v) 
+{
+    ...
+}
+
+...
+Car anotherCar = new Car(...);
+aMethod(anotherCar);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Polymorphism: example
+
+- A *Car* and a *Motorcycle* are subtypes of *Vehicle*
+- We can fill an array of *Vehicle* objects with *Car* and/or *Motorcycle* objects
+
+```Java
+Vehicle[] vehicles = new Vehicle[10];
+
+vehicles[0] = new Vehicle(...);
+vehicles[1] = new Car(...);
+vehicles[2] = new Motorcycle(...);
+...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Polymorphism restrictions
+
+- Polimorphic variable can only access elements of parent class (even though it is a subclass object)
+- If we create a `Car` object and store it in a `Vehicle` variable, then we will only be able to call methods or public elements from `Vehicle` class (not from `Car` class)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Polymorphism: detecting subtype
+
+We can check if a polymorphic variable is of a concrete subtype with **instanceof** operator, so we can typecast it and use its methods
+
+```java
+Vehicle[] vehicles = new Vehicle[10];
+... // Fill the array with many vehicle types
+for (int i = 0; i < vehicles.length; i++)
+{
+    if (vehicles[i] instanceof Car)
+    {
+        System.out.println(((Car)vehicles[i]).getNumberOfDoors());
+    } else if (vehicles[i] instanceOf Van) {
+        ...
+    } ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercises 
+
+Do **Exercises 4 and 5** of the contents associated to these slides, in order to practice with polymorphism
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exceptions and inheritance
+
+- Every exception in Java inherits from parent **Exception** class, unless it inherits from any other subtype
+- We can define our own exception types that inherit from this parent class (or any other exception)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exceptions and inheritance
+
+```java
+public class CustomException extends Exception 
+{
+    public CustomException(String msg) 
+    {
+        super(msg);
+    }
+}
+
+public class Store 
+{
+    public void welcome() throws CustomException 
+    {
+        throw new CustomException("Error, nobody can pass!");
+    }
+}
+
+public static void main(String[] args) 
+{
+    Store store = new Store();
+    try 
+    {
+        // This method can throw a CustomException
+        store.welcome(); 
+    } catch (CustomException e) {
+        System.err.println(e.getMessage());
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do the **Exercise 6** to deal with custom exceptions
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class dependency
+
+- Establishes a connection between two classes when one of them uses an object of the other one in some part of its code, BUT there's no association between them
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema04-ejemplo_dependencia_en.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class dependency
+
+```java
+class Application
+{
+    ...
+
+    public void aMethod(Window w)
+    {
+        ...
+    }
+
+    public void anotherMethod()
+    {
+        Window w = new Window(...);
+        ...
+    }
+}
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

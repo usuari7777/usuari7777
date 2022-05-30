@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Módulos del núcleo de Node.js | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Módulos del núcleo de Node.js" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/02a.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Módulos del núcleo de Node.js" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Módulos del núcleo de Node.js","url":"http://nachoiborraies.github.io/nodejs/md/es/02a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="módulos-del-núcleo-de-nodejs">Módulos del núcleo de Node.js</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/02a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="02a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Node.js es un framework muy modularizado, es decir, está subdividido en numerosos módulos, librerías o paquetes (a lo largo de estos apuntes utilizaremos estos tres términos indistintamente para referirnos al mismo concepto). De esta forma, sólo añadimos a nuestros proyectos aquellos módulos que necesitemos.</p>
+
+<h2 id="1-ejemplos-de-módulos">1. Ejemplos de módulos</h2>
+
+<p>El propio núcleo de Node.js ya incorpora algunas librerías de uso habitual. Por ejemplo:</p>
+
+<ul>
+  <li><strong>http</strong> y <strong>https</strong>, para hacer que nuestra aplicación se comporte como un servidor web, o como un servidor web seguro o cifrado, respectivamente.</li>
+  <li><strong>fs</strong> para acceder al sistema de archivos</li>
+  <li><strong>utils</strong>, con algunas funciones de utilidad, tales como formato de cadenas de texto.</li>
+  <li>… etc. Para una lista detallada de módulos, podemos acceder <a href="https://nodejs.org/api/">aquí</a>. Es una API de todos los módulos incorporados en el núcleo de Node.js, con documentación sobre todos los métodos disponibles en cada uno. Por ejemplo, aquí podemos ver la documentación sobre el método <code class="language-plaintext highlighter-rouge">readdirSync</code> del módulo <code class="language-plaintext highlighter-rouge">fs</code>, que utilizaremos en un ejemplo a continuación:</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_fs.png" width="90%" />
+</div>
+
+<h2 id="2-utilizar-módulos-del-núcleo-de-node">2. Utilizar módulos del núcleo de Node</h2>
+
+<p>En primer lugar, vamos a aprender cómo incluir en nuestros proyectos módulos o librerías que ya vienen incorporadas en el núcleo de Node.js, y por tanto, ya tenemos disponibles tras instalarlo.</p>
+
+<p>Para utilizar cualquier módulo (propio de Node o hecho por terceras partes) en una aplicación es necesario incluirlo en nuestro código con la instrucción <code class="language-plaintext highlighter-rouge">require</code>. Recibe como parámetro el nombre del módulo a añadir, como una cadena de texto.</p>
+
+<h3 id="21-ejemplo-sencillo-listar-ficheros-con-fs">2.1. Ejemplo sencillo: listar ficheros con <em>fs</em></h3>
+
+<p>Por ejemplo, vamos a crear un archivo llamado <code class="language-plaintext highlighter-rouge">listado.js</code> en nuestro proyecto de “<em>ProyectosNode/Pruebas/PruebasSimples</em>”. En él vamos a hacer un pequeño programa que utilice el módulo <code class="language-plaintext highlighter-rouge">fs</code> incorporado en el núcleo de Node para obtener un listado de todos los archivos y subcarpetas de una carpeta determinada. El código de este archivo puede ser más o menos así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">ruta</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">/Users/nacho</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">ruta</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">fichero</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fichero</span><span class="p">);});</span>
+</code></pre></div></div>
+
+<p>Si ejecutamos este programa en el terminal (recordemos que podemos usar el terminal integrado de Visual Studio Code), obtendremos el listado de la carpeta indicada. Antes de ejecutarlo, recuerda cambiar el valor de la constante <code class="language-plaintext highlighter-rouge">ruta</code> en el código por el de una carpeta válida en tu sistema.</p>
+
+<p>Notar que en el código hemos declarado dos constantes (<code class="language-plaintext highlighter-rouge">const</code>), en lugar de variables (<code class="language-plaintext highlighter-rouge">var</code>/<code class="language-plaintext highlighter-rouge">let</code>), ya que no necesitamos manipular o modificar el código que se almacenará en ellas una vez cargadas (no vamos a cambiar la ruta, ni el contenido del módulo <code class="language-plaintext highlighter-rouge">fs</code> en nuestro código). En ejemplos que podáis encontrar en Internet es habitual, no obstante, el uso de <code class="language-plaintext highlighter-rouge">var</code> o <code class="language-plaintext highlighter-rouge">let</code> en estos casos.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: Además de la instrucción <code class="language-plaintext highlighter-rouge">require</code> para incorporar módulos en aplicaciones Node.js, es muy habitual utilizar la sintaxis <code class="language-plaintext highlighter-rouge">import</code> en aplicaciones JavaScript en general (especialmente cuando se emplean frameworks cliente, como Angular o React). A lo largo de este curso optaremos por la primera opción, pero dejamos aquí indicado cómo se importarían los módulos con <code class="language-plaintext highlighter-rouge">import</code> (aunque su uso comporta algunas diferencias con respecto a <code class="language-plaintext highlighter-rouge">require</code>):</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">fs</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">;</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(...);</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

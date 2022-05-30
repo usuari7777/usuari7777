@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Arrays, errores y otros conceptos | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Arrays, errores y otros conceptos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/01d.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Arrays, errores y otros conceptos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Arrays, errores y otros conceptos","url":"http://nachoiborraies.github.io/php/md/es/01d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="arrays-errores-y-otros-conceptos">Arrays, errores y otros conceptos</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>En este documento veremos algunos aspectos adicionales y básicos del uso de PHP, como la gestión de arrays y errores.</p>
+
+<h2 id="1-uso-de-arrays-en-php">1. Uso de arrays en PHP</h2>
+
+<p>Las tablas o arrays nos permiten almacenar varios datos en una sola variable, de forma que podemos acceder a esos datos utilizando distintos tipos de índices. En PHP existen tres tipos de arrays:</p>
+
+<ul>
+  <li><strong>Numéricos</strong>: la posición que ocupa cada elemento en el array la indica un número, y podemos acceder a esa posición indicando ese número entre corchetes. Las posiciones empiezan a numerarse desde la 0.</li>
+  <li><strong>Asociativos</strong>: la posición que ocupa cada elemento en la lista viene dada por un nombre, y podemos localizar cada elemento a través del nombre que le hemos dado, llamado <em>clave</em></li>
+  <li><strong>Mixtos</strong>: son arrays de varias dimensiones, donde en algunas se utilizan índices numéricos y en otras índices asociativos.</li>
+</ul>
+
+<h3 id="11-arrays-numéricos">1.1. Arrays numéricos</h3>
+
+<p>Estos arrays podemos crearlos de tres formas posibles:</p>
+
+<ul>
+  <li>Indicando entre paréntesis sus elementos, y anteponiendo la palabra <code class="language-plaintext highlighter-rouge">array</code></li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$tabla</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'Uno'</span><span class="p">,</span> <span class="s1">'Dos'</span><span class="p">,</span> <span class="s1">'Tres'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Indicando a mano el índice que queremos rellenar, y el valor que va a tener (los índices intermedios que queden sin valor se quedarán como huecos vacíos)</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$tabla</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Uno'</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Dos'</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Tres'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Indicando el nombre del array con corchetes vacíos cada vez que queramos añadir un elemento. Así, se añade al final de los que ya existen:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$tabla</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'Uno'</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'Dos'</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'Tres'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Después, para sacar por pantalla algún valor, o usarlo en alguna expresión, pondremos el nombre del array y, entre corchetes, la posición que queremos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="nv">$tabla</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>		<span class="c1">// Sacaría 'Dos' en los casos anteriores</span>
+</code></pre></div></div>
+
+<h3 id="12-arrays-asociativos">1.2. Arrays asociativos</h3>
+
+<p>En este caso, al crear el array debemos indicar, además de cada valor, la clave que le vamos a asociar, y por la que lo podemos encontrar, separados por el símbolo “=&gt;”. Por ejemplo, este array guarda para cada nombre de alumno su nota:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$notas</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'Manuel García'</span><span class="o">=&gt;</span><span class="mf">8.5</span><span class="p">,</span> <span class="s1">'Ana López'</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span> <span class="s1">'Juan Solís'</span><span class="o">=&gt;</span><span class="mi">9</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>También podemos rellenarlo, como en el caso anterior, indicando entre corchetes cada clave, y luego su valor:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$notas</span><span class="p">[</span><span class="s1">'Manuel García'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">8.5</span><span class="p">;</span>
+<span class="nv">$notas</span><span class="p">[</span><span class="s1">'Ana López'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="mf">...</span>
+</code></pre></div></div>
+
+<p>Después, si queremos sacar la nota del alumno Manuel García, por ejemplo, pondremos algo como:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="nv">$notas</span><span class="p">[</span><span class="s1">'Manuel García'</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>En este tipo de arrays no podremos usar índices numéricos, porque no hay posiciones numéricas.</p>
+
+<h3 id="13-arrays-multidimensionales">1.3. Arrays multidimensionales</h3>
+
+<p>Los arrays creados anteriormente son unidimensionales (sólo hay una lista o fila de elementos). Pero podemos tener tantas dimensiones como queramos. Es habitual encontrarnos con arrays bidimensionales (tablas), para almacenar información. En este caso, tendremos un corchete para cada dimensión. Por ejemplo, para crear una tabla como la siguiente…</p>
+
+<div align="center">
+    <img src="../../img/01_tabla_php.png" />
+</div>
+
+<p>… necesitaremos un código como este:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$tabla</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">34.1</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">141</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">36.4</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">150</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">33.5</span><span class="p">;</span>
+<span class="nv">$tabla</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">155</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>También podemos tener arrays multidimensionales de tipo asociativo, o array mixtos (donde algunas dimensiones son numéricas y otras asociativas). Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$tabla2</span> <span class="o">=</span> 
+<span class="k">array</span><span class="p">(</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s1">'Juan García'</span><span class="p">,</span>
+        <span class="s1">'dni'</span><span class="o">=&gt;</span> <span class="s1">'11111111A'</span><span class="p">,</span>
+        <span class="s1">'idiomas'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'inglés'</span><span class="p">,</span> <span class="s1">'valenciano'</span><span class="p">,</span> <span class="s1">'español'</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s1">'Elisa Rodríguez'</span><span class="p">,</span>
+        <span class="s1">'dni'</span> <span class="o">=&gt;</span> <span class="s1">'22222222B'</span><span class="p">,</span>
+        <span class="s1">'idiomas'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'francés'</span><span class="p">,</span> <span class="s1">'español'</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>Podríamos mostrar el segundo idioma hablado por la segunda persona con:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="nv">$tabla2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">'idiomas'</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Podemos crear igualmente estos arrays usando corchetes, definiendo lo que queremos en cada dimensión:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$tabla2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'nombre'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Juan García'</span><span class="p">;</span>
+<span class="nv">$tabla2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'dni'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'11111111A'</span><span class="p">;</span>
+<span class="nv">$tabla2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'idiomas'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'inglés'</span><span class="p">;</span>
+<span class="nv">$tabla2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'idiomas'</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'valenciano'</span><span class="p">;</span>
+<span class="mf">...</span>
+</code></pre></div></div>
+
+<h3 id="14-recorrido-de-arrays">1.4. Recorrido de arrays</h3>
+
+<p>Para recorrer arrays unidimensionales podemos utilizar la expresión <code class="language-plaintext highlighter-rouge">foreach</code>, que nos devuelve el valor de cada posición, independiente de si es un array numérico o asociativo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$notas</span> <span class="k">as</span> <span class="nv">$nota</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$nota</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>También podemos usar una estructura <code class="language-plaintext highlighter-rouge">for</code> que cuente hasta el tamaño del array (función <em>count</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$notas</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$notas</span><span class="p">[</span><span class="nv">$i</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para arrays asociativos, también podemos usar esta instrucción <em>foreach</em>, indicando en la parte derecha del <em>as</em> dos variables (una para la clave y otra para el valor):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$notas</span> <span class="k">as</span> <span class="nv">$alumno</span><span class="o">=&gt;</span><span class="nv">$nota</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"El alumno </span><span class="nv">$alumno</span><span class="s2"> tiene un </span><span class="nv">$nota</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En el caso de arrays bidimensionales numéricos, para recorrer todos los elementos de un array como el de la tabla numérica anterior, necesitaremos un doble bucle (también llamado bucle anidado): uno que recorra las filas, y otro las columnas:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Filas</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$tabla</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Columnas</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nv">$j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$j</span> <span class="o">&lt;</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$tabla</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="nv">$j</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$tabla</span><span class="p">[</span><span class="nv">$i</span><span class="p">][</span><span class="nv">$j</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="15-funciones-para-arrays">1.5. Funciones para arrays</h3>
+
+<p>PHP dispone de varias funciones útiles a la hora de manipular arrays. Algunas de las más habituales son:</p>
+
+<ul>
+  <li><strong>count(array)</strong> nos indica cuántos elementos tiene el array. Es útil para utilizarlo en bucles y saber cuántas repeticiones podemos hacer sobre el array.</li>
+  <li><strong>sort(array)</strong> y <strong>rsort(array)</strong> ordenan y reindexan un array numérico (la segunda en orden decreciente)</li>
+  <li><strong>asort(array)</strong> y <strong>arsort(array)</strong> ordenan y reindexan un array asociativo (la segunda en orden decreciente), por sus valores.</li>
+  <li><strong>ksort(array)</strong> y <strong>krsort(array)</strong> ordenan un array asociativo por sus claves (la segunda en orden decreciente).</li>
+  <li><strong>usort(array, funcion)</strong> ordena un array según la función que defina el usuario como segundo parámetro.</li>
+  <li><strong>array_filter(array, funcion_filtrado)</strong> devuelve un array con los elementos del array original (pasado como parámetro) que pasan la función de filtrado indicada.</li>
+  <li>Podemos, además, usar la función <strong>print_r</strong> para sacar la información del array de forma legible</li>
+</ul>
+
+<p>Veamos algunos ejemplos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numeros</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">];</span>
+<span class="c1">// Ordenamos un array de enteros de mayor a menor</span>
+<span class="nb">rsort</span><span class="p">(</span><span class="nv">$numeros</span><span class="p">);</span>  <span class="c1">// [9, 6, 5, 3, 2]</span>
+
+<span class="nv">$notas</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'Manuel García'</span><span class="o">=&gt;</span><span class="mf">8.5</span><span class="p">,</span> <span class="s1">'Ana López'</span><span class="o">=&gt;</span><span class="mi">7</span><span class="p">,</span> <span class="s1">'Juan Solís'</span><span class="o">=&gt;</span><span class="mi">9</span><span class="p">);</span>
+<span class="c1">// Ordenamos un array de alumnos y notas de menor a mayor nota</span>
+<span class="nb">asort</span><span class="p">(</span><span class="nv">$notas</span><span class="p">);</span>  <span class="c1">// Ana López = 7, Manuel García = 8.5, Juan Solís = 9</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$notas</span><span class="p">);</span>
+<span class="c1">// Ordenamos un array de alumnos por nombre de menor a mayor</span>
+<span class="nb">ksort</span><span class="p">(</span><span class="nv">$notas</span><span class="p">);</span>  <span class="c1">// Ana López = 7, Juan Solís = 9, Manuel García = 8.5</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$notas</span><span class="p">);</span>
+
+<span class="nv">$numeros</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+<span class="c1">// Filtramos los múltiplos de 5 del array </span>
+<span class="nv">$multiplos5</span> <span class="o">=</span> <span class="nb">array_filter</span><span class="p">(</span><span class="nv">$numeros</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$n</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="c1">// $multiplos5 = [5, 10, 95]</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$multiplos5</span><span class="p">);</span>
+
+<span class="nv">$alimentos</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Arroz"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mf">1.95</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Carne picada"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mf">3.45</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Tomate frito"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mf">2.15</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="c1">// Ordenamos array por precio de menor a mayor</span>
+<span class="nb">usort</span><span class="p">(</span><span class="nv">$alimentos</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$item1</span><span class="p">,</span> <span class="nv">$item2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$item1</span><span class="p">[</span><span class="s2">"precio"</span><span class="p">]</span> <span class="o">&lt;=&gt;</span> <span class="nv">$item2</span><span class="p">[</span><span class="s2">"precio"</span><span class="p">];</span>
+<span class="p">});</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$alimentos</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>ejercicios3</strong> donde colocar los ejercicios de esta sección. Define dentro una página llamada <strong>tabla_multiplicar.php</strong> en tu carpeta de ejercicios. Crea en ella un array numérico bidimensional donde en cada fila almacenes la tabla de multiplicar de un número del 0 al 9; debería quedarte un array como éste (sin sacar nada por pantalla):</p>
+</blockquote>
+
+<table border="1" width="100%">
+<tr>
+    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+    <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>0</td><td>1</td><td>2</td><td>3</td><td>4</td>
+    <td>5</td><td>6</td><td>7</td><td>8</td><td>9</td>
+    <td>10</td>
+</tr>
+<tr>
+    <td>0</td><td>2</td><td>4</td><td>6</td><td>8</td>
+    <td>10</td><td>12</td><td>14</td><td>16</td><td>18</td>
+    <td>20</td>
+</tr>
+<tr>
+    <td colspan="11">...</td>
+</tr>
+</table>
+
+<blockquote>
+  <p>Después, recorre la tabla mostrando en la página la tabla de multiplicar de cada número, de forma que te quede algo así:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tabla del 0:
+0 x 1 = 0
+0 x 2 = 0
+...
+Tabla del 1:
+1 x 0 = 0
+...
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página llamada <strong>coches.php</strong>. Define dentro un array bidimensional mixto donde:</p>
+
+  <ul>
+    <li>La primera dimensión sea asociativa. Aquí pondremos matrículas de coches</li>
+    <li>La segunda dimensión será numérica. En cada casilla guardaremos la marca, modelo y número de puertas del coche en cuestión. Por ejemplo, el coche con matrícula “111BCD” puede ser un “Ford” (casilla 0), modelo “Focus” (casilla 1) de 5 puertas (casilla 2).</li>
+  </ul>
+
+  <p>Rellena el array con al menos 3 o 4 coches, y después utiliza las estructuras adecuadas para recorrerlo mostrando los datos de los coches ordenados por matrícula.</p>
+</blockquote>
+
+<h2 id="2-gestión-de-errores">2. Gestión de errores</h2>
+
+<p>En ocasiones podemos hacer operaciones o utilizar funciones que pueden provocar un error grave en la aplicación. Por ejemplo, una división por cero, o una lectura de un fichero que no existe. Si no controlamos esos errores, se puede “disparar” un mensaje de error en el programa que muestre su mal funcionamiento, o lo que es peor, que revele algún dato privado, como la ubicación de un fichero en el servidor, o algún nombre de usuario o contraseña. Para evitar que ciertas operaciones que puedan causar errores alteren de esa forma el funcionamiento de la aplicación web, existen varias alternativas.</p>
+
+<h3 id="21-uso-del-operador-">2.1. Uso del operador @</h3>
+
+<p>El operador <code class="language-plaintext highlighter-rouge">@</code> se pone delante de una operación que puede provocar error, de manera que, si lo provoca, el programa no diga nada, no se muestre ningún mensaje. Por ejemplo, si vamos a dividir dos variables sin tener en cuenta que el divisor pueda ser cero, podríamos ponerlo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$división</span> <span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="nv">$num1</span><span class="o">/</span><span class="nv">$num2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="22-modificación-del-archivo-phpini">2.2. Modificación del archivo php.ini</h3>
+
+<p>Para no mostrar los mensajes de error por pantalla, podemos editar el archivo de configuración de PHP (php.ini), y modificar el parámetro de configuración <code class="language-plaintext highlighter-rouge">display_errors</code>. Deberemos ponerlo <em>false</em>, <em>off</em> o “0” (dependiendo de la versión de PHP que tengamos), para desactivar los mensajes de error. Pero deberemos tener en cuenta que, si hacemos esto, se desactivarán para todas las aplicaciones PHP que tengamos en el servidor, por lo que no suele ser una práctica demasiado recomendable.</p>
+
+<h3 id="23-uso-de-la-instrucción-die">2.3. Uso de la instrucción <em>die</em></h3>
+
+<p>Una tercera forma de controlar los errores que se producen en una página PHP es utilizar una instrucción <code class="language-plaintext highlighter-rouge">die</code> o <code class="language-plaintext highlighter-rouge">exit</code> en el caso de que se produzca un error en una instrucción. Por ejemplo, el siguiente código intenta ver si un fichero existe, y si no, muestra el mensaje de error indicado en la instrucción <code class="language-plaintext highlighter-rouge">die</code>/<code class="language-plaintext highlighter-rouge">exit</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">file_exists</span><span class="p">(</span><span class="s2">"fichero.txt"</span><span class="p">)</span> <span class="k">or</span> <span class="k">die</span> <span class="p">(</span><span class="s2">"No se encuentra el fichero"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Además, con la función <code class="language-plaintext highlighter-rouge">die</code> o <code class="language-plaintext highlighter-rouge">exit</code> deja de ejecutarse el resto de la página, con lo que termina ahí su carga. Se utiliza para instrucciones que sean de vital importancia para el funcionamiento del resto del código, y normalmente al principio de la página para no dejarla con la mitad de contenido. De lo contrario, es mejor utilizar el operador <code class="language-plaintext highlighter-rouge">@</code> para ocultar errores menos importantes.</p>
+
+<h3 id="24-uso-de-excepciones">2.4. Uso de excepciones</h3>
+
+<p>Las excepciones son un mecanismo que podemos emplear para, en el momento en que se produzca un error en alguna parte del código, se capture automáticamente y se pueda tratar en un bloque de código aparte.</p>
+
+<p>Para trabajar con excepciones, debemos colocar todo el código que puede provocar error en un bloque llamado <code class="language-plaintext highlighter-rouge">try</code>. Si algo falla, automáticamente se salta a un bloque contiguo llamado <code class="language-plaintext highlighter-rouge">catch</code>, donde podremos tratar el error y sacar el mensaje oportuno. El siguiente ejemplo trata de abrir un fichero, leerlo y guardar el contenido en un array.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+<span class="p">{</span>
+    <span class="nv">$contenido</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s2">"fich1.txt"</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nc">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'Se ha producido un error: '</span> <span class="mf">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si se produce cualquier tipo de error (por ejemplo, que no exista el fichero de lectura, o no tengamos permisos para acceder a él), se provoca un error y se va directamente al bloque <em>catch</em>, mostrando el mensaje de error. Podemos utilizar la variable de tipo <code class="language-plaintext highlighter-rouge">Exception</code> que tiene el <em>catch</em> como parámetro, y su método <code class="language-plaintext highlighter-rouge">getMessage()</code> para mostrar el error concreto que se ha producido.</p>
+
+<p>También podemos usar la instrucción <code class="language-plaintext highlighter-rouge">throw new Exception($mensaje)</code> para provocar una excepción en el caso de que alguna comprobación que hagamos nos dé un resultado incorrecto. Así provocamos un salto al <em>catch</em>, o un mensaje de error en la web si no lo hacemos dentro de un try. Se utiliza también para algunas funciones que no provocan excepciones por sí mismas (como por ejemplo, <em>file_get_contents</em>), para provocar el error nosotros de antemano con alguna comprobación previa.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="s2">"fich1.txt"</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nc">Exception</span><span class="p">(</span><span class="s2">"El fichero de entrada no existe"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nv">$contenido</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s2">"fich1.txt"</span><span class="p">);</span>
+    <span class="nb">file_put_contents</span><span class="p">(</span><span class="s2">"fich2.txt"</span><span class="p">,</span> <span class="nv">$contenido</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nc">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">'Se ha producido un error: '</span> <span class="mf">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Haz tres copias del <em>Ejercicio 9</em> de <a href="01c">este documento</a>, llamadas <strong>copia_seguridad_arroba.php</strong>, <strong>copia_seguridad_die.php</strong> y <strong>copia_seguridad_excepciones.php</strong>. En todas ellas, cambia el nombre del fichero <em>datos.txt</em> por uno que no exista en la carpeta (por ejemplo, <em>aa.txt</em>), y controla el error que puede producirse en cada caso usando una arroba, la instrucción <code class="language-plaintext highlighter-rouge">die</code> o las excepciones, para ver cómo se controla en cada caso el error y qué hace la página.</p>
+</blockquote>
+
+<h2 id="3-más-sobre-variables">3. Más sobre variables</h2>
+
+<p>Existen algunas cuestiones algo más avanzadas sobre el uso de variables en PHP que debemos conocer.</p>
+
+<h3 id="31-variables-globales-y-locales">3.1. Variables globales y locales</h3>
+
+<p>Veremos más adelante que existen unas variables predefinidas en PHP para ciertas tareas. Por ejemplo, la variable $_REQUEST nos permitirá acceder a los datos que el usuario nos envía desde un formulario.</p>
+
+<p>Otras variables que podamos crear nosotros, tendrán su ámbito según la zona donde las creemos. Por ejemplo, si creamos una variable dentro de una función, esa variable no existirá fuera de la misma, y no podremos utilizarla. Sin embargo, si creamos una variable fuera de una función, e intentamos acceder a ella dentro, podría parecer que sí es una variable global o externa a la función, pero no es así. Veamos este ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="k">function</span> <span class="n">incrementaNumero</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="nv">$numero</span> <span class="o">=</span> <span class="nv">$numero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">echo</span> <span class="nv">$numero</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+<span class="nf">incrementaNumero</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Si ejecutamos un código como este, el comando <code class="language-plaintext highlighter-rouge">echo $numero</code> nos dirá que <em>numero</em> vale 1, cuando todo parece indicar que debería valer 11. La razón es que la variable externa <code class="language-plaintext highlighter-rouge">$numero</code> no es la misma que la variable interna <code class="language-plaintext highlighter-rouge">$numero</code> de la función. Esta última, al no tener un valor inicial asignado, empieza por 0, y al incrementarse vale 1, pero la variable <code class="language-plaintext highlighter-rouge">$numero</code> externa sigue valiendo 10, nadie la ha modificado.</p>
+
+<p>Si queremos poder acceder a una variable externa a una función desde dentro de una función, deberemos definir en la función que esa variable es global, de la siguiente forma:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="k">function</span> <span class="n">incrementaNumero</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">global</span> <span class="nv">$numero</span><span class="p">;</span>
+    <span class="nv">$numero</span> <span class="o">=</span> <span class="nv">$numero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$numero</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+<span class="nf">incrementaNumero</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Ahora, si ejecutamos el código, sí obtendremos lo esperado: que <code class="language-plaintext highlighter-rouge">$numero</code> vale 11.</p>
+
+<h3 id="32-closures">3.2. Closures</h3>
+
+<p>Los <em>closures</em> son un mecanismo vinculado a las funciones anónimas, mediante el cual éstas pueden utilizar elementos externos, tales como variables. Para hacer eso, se emplea la cláusula <code class="language-plaintext highlighter-rouge">use</code> seguida de la variable (o variables) que se quieren emplear.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$numero</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="nv">$incrementaNumero</span> <span class="o">=</span> <span class="k">function</span> <span class="p">()</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$numero</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$numero</span> <span class="o">=</span> <span class="nv">$numero</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$numero</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nv">$incrementaNumero</span><span class="p">();</span>    <span class="c1">// 11</span>
+</code></pre></div></div>
+
+<h3 id="33-variables-variables">3.3. Variables variables</h3>
+
+<p>Una funcionalidad muy característica de PHP y que no todos los lenguajes tienen es la posibilidad de definir variables cuyo nombre es a su vez variable. Así, una variable puede tomar su nombre según el valor de otra variable. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$var1</span> <span class="o">=</span> <span class="s2">"uno"</span><span class="p">;</span>
+<span class="nv">$$var1</span> <span class="o">=</span> <span class="s2">"otro uno"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>La variable <code class="language-plaintext highlighter-rouge">$var1</code> es una variable normal, y guarda el valor “uno”. Sin embargo, la variable <code class="language-plaintext highlighter-rouge">$$var1</code> tomará su nombre según lo que valga <code class="language-plaintext highlighter-rouge">$var1</code> (en este caso, se llamaría <code class="language-plaintext highlighter-rouge">$uno</code>). Para utilizar estas variables en instrucciones tipo <em>echo</em>, dentro de comillas dobles, se pone el nombre dinámico (empezando por el segundo dólar) entre llaves:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="s2">"La segunda variable vale ${$var1}"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>¿Qué utilidades puede tener esto? Puede parecer que es un mecanismo un tanto enrevesado sin demasiada utilidad pero, por ejemplo, puede ser bastante útil para hacer páginas multi-idioma. Así, nos guardaremos en diferentes variables el texto a mostrar en cada idioma, y haremos que se imprima una de ellas en función de algún parámetro adicional o variable.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+    <span class="nv">$texto_es</span> <span class="o">=</span> <span class="s2">"Bienvenido"</span><span class="p">;</span>
+    <span class="nv">$texto_en</span> <span class="o">=</span> <span class="s2">"Welcome"</span><span class="p">;</span>
+    <span class="nv">$idioma</span> <span class="o">=</span> <span class="s2">"es"</span><span class="p">;</span>
+    <span class="nv">$texto</span> <span class="o">=</span> <span class="s2">"texto_"</span> <span class="mf">.</span> <span class="nv">$idioma</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$$texto</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Crea una página en la carpeta de ejercicios llamada <strong>curriculum.php</strong> donde, utilizando variables variables, muestres parte de tu currículum (por ejemplo, un párrafo con tus estudios y otro con los idiomas que hablas), tanto en español como en otro idioma que elijas.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

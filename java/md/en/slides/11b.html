@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Functional programming</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Functional programming
+### Using lambda expressions
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Functional interfaces
+
+- Interfaces with just one method to be implemented
+- Most of them are tagged with **@FunctionalInterface** in the API
+- Examples: *Comparator*, *Predicate* ...
+- Lambda expressions let us implement them easily
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: FileFilter
+
+Method **accept** to define a filter criteria for files
+
+```java
+public interface FileFilter {
+    boolean accept(File file);
+}
+```
+
+Let's implement a filter for *.java* files
+</script>
+</section>
+    
+<section>
+    <h2>Implementation before Java 7</h2>
+    <p>Define a class that implements interface and instantiate it</p>
+    <pre><code data-trim data-noescape>    
+public class JavaFileFilter implements FileFilter 
+{
+    @Override
+    public boolean accept(File file) 
+    {
+        return file.getName().endsWith(".java");
+    }
+}
+
+// Main
+File dir = new File("/home/arturo");
+File[] javaFiles = dir.listFiles(new JavaFileFilter());
+    </code></pre>
+</section>
+
+<section>
+    <h2>Implementation in Java 7</h2>
+    <p>Define an anonymous class when we need this object</p>
+    <pre><code data-trim data-noescape>    
+File dir = new File("/home/arturo");
+File[] javaFiles = dir.listFiles(new FileFilter() 
+{
+    @Override
+    public boolean accept(File file) 
+    {
+        return file.getName().endsWith(".java");
+    }
+});
+    </code></pre>
+</section>
+
+<section>
+    <h2>Implementation since Java 8</h2>
+    <p>Implement interface through a lambda expression</p>
+    <pre><code data-trim data-noescape>    
+File dir = new File("/home/arturo");
+File[] javaFiles = dir.listFiles(file -> file.getName().endsWith(".java"));
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: Comparator
+
+Method **compare** to define a comparison criteria
+
+```java
+public interface Comparator<T> {
+    int compare(T o1, T o2);
+}
+```
+
+Let's compare a list of strings by their length
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Implementation before Java 7
+
+Define a class that implements the interface and instantiate it
+
+```java
+public class MyStringComparator implements Comparator<String> 
+{    
+    @Override
+    public int compare(String s1, String s2) {
+        return Integer.compare(s1.length(), s2.length());
+    }   
+}
+
+// Main
+List<String> list = Arrays.asList("Hello", "Hi", "Goodbye", "Farewell", "Bye");
+MyStringComparator msc = new MyStringComparator();
+...
+Collections.sort(list, msc);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Implementation in Java 7
+
+Define an anonymous class when we need it
+
+```java
+List<String> list = Arrays.asList("Hello", "Hi", "Goodbye", "Farewell", "Bye");
+Comparator<String> comp = new Comparator<String>() 
+{
+    @Override
+    public int compare(String s1, String s2) {
+        return Integer.compare(s1.length(), s2.length());
+    }
+};
+Collections.sort(list, comp);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Implementation since Java 8
+
+Implement interface through a lambda expression
+
+```java
+List<String> list = Arrays.asList("Hello", "Hi", "Goodbye", "Farewell", "Bye");
+Collections.sort(list, (s1,s2) -> Integer.compare(s1.length(), s2.length()));    
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: Runnable
+
+Method **run** to be executed by threads in an application
+
+```java
+public interface Runnable {
+    void run();
+}
+```
+
+</script>
+</section>
+
+<section>
+    <h2>Implementation before Java 7</h2>
+    <p>Define a class that implements interface and instantiate it</p>
+    <pre><code data-trim data-noescape>    
+public class MyRunnable implements Runnable 
+{
+    @Override
+    public void run() 
+    {
+        for(int i = 0; i < 3; i++) 
+        {
+            System.out.println("This is thread: " + 
+                Thread.currentThread().getName());
+        }
+    }
+}
+
+// MAIN
+Runnable run = new MyRunnable()
+Thread t = new Thread(run);
+t.start();
+    </code></pre>
+</section>
+
+<section>
+    <h2>Implementation in Java 7</h2>
+    <p>Define an anonymous class when we need this object</p>
+    <pre><code data-trim data-noescape>    
+Runnable run = new Runnable() 
+{            
+    @Override
+    public void run() 
+    {
+        for(int i = 0; i < 3; i++) 
+        {
+            System.out.println("This is thread: " + 
+                Thread.currentThread().getName());
+        }
+    }
+};
+Thread t = new Thread(run);
+t.start();
+    </code></pre>
+</section>
+
+<section>
+    <h2>Implementation since Java 8</h2>
+    <p>Implement interface through a lambda expression</p>
+    <pre><code data-trim data-noescape>    
+Thread t = new Thread(() -> {
+    for(int i = 0; i < 3; i++) 
+    {
+        System.out.println("This is thread: " + 
+            Thread.currentThread().getName());
+    }
+});
+t.start();
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conclusions
+
+In order to define a lambda expression, we must focus on:
+
+- Input parameters needed for the method
+- Method code and value returned (if any)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conclusions
+
+Steps to implement the lambda expression:
+
+1. Place the parameter names between parentheses, separated by commas (unless there's only 1)
+2. Place the arrow `->`
+3. Place the code of the method. If it's just a *return*, you don't need the curly braces nor *return* word
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Shortening a lambda expression
+
+When it contains a method call that takes the same parameters as the lambda expression, we can just reference this method with `::`
+
+```java
+// Normal version
+Comparator<Integer> comp = (i1, i2) -> Integer.compare(i1, i2);
+// Shorter version
+Comparator<Integer> comp2 = Integer::compare;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 1** of the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 2** of the document associated to these slides
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Ejercicios propuestos - Parte 5 | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 5" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/05ejercicios.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 5" />
+<script type="application/ld+json">
+{"headline":"Ejercicios propuestos - Parte 5","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/05ejercicios.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-5">Ejercicios propuestos - Parte 5</h1>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> de la sesión anterior, vamos a añadir estos cambios:</p>
+
+<ul>
+  <li>Crea un formulario para dar de alta nuevos posts, en la vista <code class="language-plaintext highlighter-rouge">resources/views/posts/create.blade.php</code>. Añade un par de campos (un texto corto y un texto largo) para rellenar el título y el contenido, y como autor o usuario del post de momento deja uno predefinido; por ejemplo, el autor con id = 1, o el primer usuario que encuentres en la base de datos (<code class="language-plaintext highlighter-rouge">Usuario::get()-&gt;first()</code>). Más adelante ya lo haremos dependiente del usuario que se haya autenticado. Recuerda definir el método <code class="language-plaintext highlighter-rouge">store</code> en el controlador de posts para dar de alta el post, y redirigir después al listado principal de posts. Para cargar el formulario, añade una nueva opción en el menú principal de navegación.</li>
+  <li>En la ficha de un post, añade un botón con un formulario para borrar el post. Deberás definir el código del método <code class="language-plaintext highlighter-rouge">destroy</code> para eliminar el post y redirigir de nuevo al listado. En el caso de que hayas hecho el ejercicio opcional de la sesión anterior para añadir comentarios a los posts, deberás previamente eliminar todos los comentarios asociados a ese post, y después borrar el post. Para filtrar los comentarios de un post y borrarlos, utiliza la cláusula <code class="language-plaintext highlighter-rouge">where</code> que se explicó en la sesión 4:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Comentario</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'post_id'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+<span class="c1">// Aquí ya borramos el post</span>
+</code></pre></div></div>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Continuamos con el proyecto <strong>blog</strong> anterior. Ahora añadiremos el formulario de edición de un post, también desde la vista de la ficha del post. El formulario deberá mostrar los datos ya rellenos del post. Dicho formulario se carga a partir del método <code class="language-plaintext highlighter-rouge">edit</code> (que deberá renderizar la vista con el formulario de edición, <code class="language-plaintext highlighter-rouge">resources/views/posts/edit.blade.php</code>), y el formulario se enviará al método <code class="language-plaintext highlighter-rouge">update</code> del controlador, pasándole como parámetro el <em>id</em> del post a modificar.</p>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p>Continuamos con el proyecto <strong>blog</strong> anterior. Crea un <em>form request</em> llamado <code class="language-plaintext highlighter-rouge">PostRequest</code>, que valide los datos del post. En concreto, deben cumplirse estos requisitos:</p>
+
+<ul>
+  <li>El título del post debe ser obligatorio, y de al menos 5 caracteres de longitud</li>
+  <li>El contenido del post debe ser obligatorio, y de al menos 50 caracteres de longitud</li>
+</ul>
+
+<p>Define mensajes de error personalizados para cada posible error de validación, y muéstralos junto a cada campo afectado, como en el ejemplo de la biblioteca. Además, utiliza la función <code class="language-plaintext highlighter-rouge">old</code> para recordar el valor antiguo correcto, en el caso de que un campo pase la validación pero otro(s) no.</p>
+
+<p><strong>¿Qué entregar?</strong></p>
+
+<p>Como entrega de esta sesión deberás comprimir el proyecto <strong>blog</strong> con todos los cambios incorporados, y eliminando las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code> como se explicó en las sesiones anteriores. Renombra el archivo comprimido a <code class="language-plaintext highlighter-rouge">blog_06.zip</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Curiosidades: el módulo turtle | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Curiosidades: el módulo turtle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="turtle.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/turtle.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Curiosidades: el módulo turtle" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Curiosidades: el módulo turtle","url":"http://nachoiborraies.github.io/python/md/es/turtle.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="curiosidades-el-módulo-turtle">Curiosidades: el módulo <em>turtle</em></h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/turtle.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="turtle.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>El módulo <strong>turtle</strong> que podemos incorporar a nuestros programas Python nos deja utilizar el lenguaje para dibujar figuras en una pantalla gráfica, al estilo de un antiguo lenguaje de programación llamado Logo.</p>
+
+<h2 id="1-primeros-pasos-con-turtle">1. Primeros pasos con <em>turtle</em></h2>
+
+<p>Lo primero que debemos hacer para poder utilizar este módulo es importarlo (<code class="language-plaintext highlighter-rouge">import</code>) en un programa Python:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">turtle</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: es importante que el archivo fuente que creemos no se llame <em>turtle</em>, ya que de lo contrario Python lo confunde con la librería original y no importa bien esta última.</p>
+</blockquote>
+
+<p>A partir de aquí, debemos crear una variable de tipo <em>tortuga</em>, invocando a la instrucción <code class="language-plaintext highlighter-rouge">Turtle()</code> del módulo que hemos importado:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tortuga</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Turtle</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="2-instrucciones-básicas-de-manejo">2. Instrucciones básicas de manejo</h2>
+
+<p>Una vez tenemos disponible nuestra variable <em>tortuga</em>, podemos invocar una serie de instrucciones básicas desde esa variable:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">forward(distancia)</code> / <code class="language-plaintext highlighter-rouge">fd(distancia)</code>: hace que la tortuga avance la distancia indicada</li>
+  <li><code class="language-plaintext highlighter-rouge">backward(distancia)</code> / <code class="language-plaintext highlighter-rouge">bk(distancia)</code>: hace que la tortuga retroceda la distancia indicada</li>
+  <li><code class="language-plaintext highlighter-rouge">right(angulo)</code> / <code class="language-plaintext highlighter-rouge">rt(angulo)</code>: hace que la tortuga gire a la derecha el ángulo indicado (en grados)</li>
+  <li><code class="language-plaintext highlighter-rouge">left(angulo)</code> / <code class="language-plaintext highlighter-rouge">lt(angulo)</code>: hace que la tortuga gire a la izquierda el ángulo indicado (en grados)</li>
+  <li><code class="language-plaintext highlighter-rouge">penup()</code> / <code class="language-plaintext highlighter-rouge">pu()</code> / <code class="language-plaintext highlighter-rouge">up()</code>: hace que la tortuga se “levante” de la pantalla, con lo que no dejará trazo al moverse</li>
+  <li><code class="language-plaintext highlighter-rouge">pendown()</code> / <code class="language-plaintext highlighter-rouge">pd()</code> / <code class="language-plaintext highlighter-rouge">down()</code>: hace que la tortuga baje, dejando trazo al moverse</li>
+  <li><code class="language-plaintext highlighter-rouge">color(nombre)</code>: cambia el color de trazo al indicado</li>
+  <li><code class="language-plaintext highlighter-rouge">fillcolor(nombre)</code>: cambia el color de relleno al indicado</li>
+  <li><code class="language-plaintext highlighter-rouge">clear()</code>: limpia el lienzo y deja la tortuga en su última ubicación</li>
+</ul>
+
+<p>Por ejemplo, este fragmento dibuja un cuadrado de lado 50 en la pantalla:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">turtle</span>
+<span class="n">tortuga</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Turtle</span><span class="p">()</span>
+ 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">tortuga</span><span class="p">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">tortuga</span><span class="p">.</span><span class="n">right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+     
+<span class="n">turtle</span><span class="p">.</span><span class="n">done</span><span class="p">()</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: la invocación de la instrucción <code class="language-plaintext highlighter-rouge">done()</code> del módulo <em>turtle</em> se produce al finalizar el programa.</p>
+</blockquote>
+
+<h3 id="21-sobre-los-colores-y-rellenos">2.1. Sobre los colores y rellenos</h3>
+
+<p>Algunas instrucciones, como <code class="language-plaintext highlighter-rouge">color</code> o <code class="language-plaintext highlighter-rouge">fillcolor</code> necesitan que especifiquemos un color (de trazo o relleno, respectivamente). Este color se puede especificar como un texto en inglés, como el color en hexadecimal, o indicando las componentes RGB del color, con valores de 0 a 1 separados por comas y entre paréntesis. Por ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tortuga</span><span class="p">.</span><span class="n">color</span><span class="p">(</span><span class="s">"red"</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">tortuga</span><span class="p">.</span><span class="n">color</span><span class="p">(</span><span class="s">"#32c18f"</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">tortuga</span><span class="p">.</span><span class="n">fillcolor</span><span class="p">((</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>En el caso del color de relleno, debemos usar las instrucciones <code class="language-plaintext highlighter-rouge">begin_fill()</code> y <code class="language-plaintext highlighter-rouge">end_fill()</code> antes y después de haber dibujado la figura que queramos rellenar. Junto con la instrucción <code class="language-plaintext highlighter-rouge">fillcolor()</code>, que establece el color de relleno.</p>
+
+<p>El siguiente ejemplo dibuja un rectángulo y lo rellena de rojo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">turtle</span>
+<span class="n">tortuga</span> <span class="o">=</span> <span class="n">turtle</span><span class="p">.</span><span class="n">Turtle</span><span class="p">()</span>
+
+<span class="n">tortuga</span><span class="p">.</span><span class="n">begin_fill</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">tortuga</span><span class="p">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">tortuga</span><span class="p">.</span><span class="n">right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="n">tortuga</span><span class="p">.</span><span class="n">fillcolor</span><span class="p">(</span><span class="s">"red"</span><span class="p">)</span>
+<span class="n">tortuga</span><span class="p">.</span><span class="n">end_fill</span><span class="p">()</span>
+
+<span class="n">turtle</span><span class="p">.</span><span class="n">done</span><span class="p">()</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea un archivo llamado <code class="language-plaintext highlighter-rouge">cuadrados.py</code> y utiliza <em>turtle</em> para dibujar una figura como esta:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/turtle_cuadrados.png" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea un archivo llamado <code class="language-plaintext highlighter-rouge">pentagono.py</code> y utiliza <em>turtle</em> para dibujar un pentágono relleno de azul como este:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/turtle_pentagonoRelleno.png" />
+</div>
+
+<blockquote>
+  <p><strong>AYUDA</strong>: si sumamos todos los ángulos internos de un pentágono, la suma es de 540 grados.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Dibuja las siguientes figuras en los archivos <code class="language-plaintext highlighter-rouge">peine.py</code>, <code class="language-plaintext highlighter-rouge">arriba_abajo.py</code>, <code class="language-plaintext highlighter-rouge">edificios.py</code> y <code class="language-plaintext highlighter-rouge">flor.py</code>, respectivamente</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/turtle_varios_bucles.png" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Dibuja las siguientes figuras en los archivos <code class="language-plaintext highlighter-rouge">espiral.py</code> y <code class="language-plaintext highlighter-rouge">circulos.py</code>:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/turtle_varios_bucles2.png" />
+</div>
+
+<blockquote>
+  <p><strong>AYUDA</strong>: para dibujar un círculo, debes repetir varias veces avanzar un poco y girar un poco. Por ejemplo, si repites 120 veces avanzar 1 y girar 3, completarás un círculo. Si repites 360 veces avanzar 1 y girar 1, completarás un círculo mayor que el anterior.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

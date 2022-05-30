@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Ejercicios propuestos - Parte 7 (I) | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 7 (I)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07ejercicios1.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/07ejercicios1.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 7 (I)" />
+<script type="application/ld+json">
+{"headline":"Ejercicios propuestos - Parte 7 (I)","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/07ejercicios1.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-7-i">Ejercicios propuestos - Parte 7 (I)</h1>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> de la sesión anterior, vamos a añadir estos cambios:</p>
+
+<ul>
+  <li>Modifica el archivo <code class="language-plaintext highlighter-rouge">config/auth.php</code> para que el <em>provider</em> acuda al modelo correcto de usuario.</li>
+  <li>Modifica el <em>factory</em> de usuarios para que los passwords se encripten con <em>bcrypt</em>. Para que sea fácil de recordar, haz que cada usuario tenga como password su mismo login encriptado. Ejecuta después <code class="language-plaintext highlighter-rouge">php artisan migrate:fresh --seed</code> para actualizar toda la base de datos.</li>
+  <li>Crea un formulario de login junto con un controlador asociado, y las rutas pertinentes para mostrar el formulario o autenticar, como hemos hecho en el ejemplo para la biblioteca. Recuerda llamar “login” a la ruta que muestra el formulario de login.</li>
+  <li>En el controlador de posts, protege todas las opciones menos las de <code class="language-plaintext highlighter-rouge">index</code> y <code class="language-plaintext highlighter-rouge">show</code>.</li>
+  <li>Añade una opción de <em>Login</em> en el menú de navegación superior, que sólo esté visible si el usuario no se ha autenticado aún</li>
+  <li>Haz que sólo se muestren los enlaces y botones de crear, editar o borrar posts cuando el usuario esté autenticado. En ese mismo caso, haz que también se muestre una opción de <em>logout</em> en el menú superior, que deberás implementar.</li>
+  <li>Finalmente, añade la funcionalidad de que el usuario autenticado sólo puede editar y borrar sus propios posts, pero no los de los demás usuarios.</li>
+</ul>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Crea un proyecto desde cero llamado <code class="language-plaintext highlighter-rouge">pruebaAuth</code> con mecanismos de autenticación ya pre-incorporados. Una vez creado, sigue los pasos a continuación:</p>
+
+<ul>
+  <li>Crea una base de datos llamada <code class="language-plaintext highlighter-rouge">pruebaAuth</code> en <em>phpMyAdmin</em>, y modifica el archivo <code class="language-plaintext highlighter-rouge">.env</code> del proyecto para que conecte con esa base de datos.</li>
+  <li>Lanza las migraciones predefinidas para crear las tablas necesarias para la gestión de usuarios (<code class="language-plaintext highlighter-rouge">php artisan migrate:fresh</code>)</li>
+  <li>Registra (empleando el formulario de registro) un par de usuarios con sus respectivas contraseñas.</li>
+  <li>Crea un controlador llamado <code class="language-plaintext highlighter-rouge">ProtegidoController</code>, sin métodos. Define luego un método interno llamado <code class="language-plaintext highlighter-rouge">protegido</code> que simplemente devuelva el mensaje “<em>Bienvenido/a a la zona protegida</em>. Define una ruta llamada <code class="language-plaintext highlighter-rouge">protegido</code> en <code class="language-plaintext highlighter-rouge">routes/web.php</code>, protegida con autenticación. Comprueba que sólo puedes acceder a la ruta estando validado.</li>
+</ul>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Continuamos con el proyecto <strong>blog</strong> anterior. Sigue estos pasos para definir una autenticación basada en roles:</p>
+
+<ul>
+  <li>Crea una nueva migración que modifique la tabla de <em>usuarios</em> para añadir un nuevo campo llamado <em>rol</em>, de tipo <em>string</em>. Asegúrate de que la migración sea de modificación, y no de creación de tabla. Después, ejecútala para crear el nuevo campo.</li>
+  <li>Haz que alguno de los usuarios de la tabla tenga un rol de <em>admin</em> (edítalo a mano desde <em>phpMyAdmin</em>), y el resto serán de tipo <em>editor</em>.</li>
+  <li>Crea un nuevo middleware llamado <code class="language-plaintext highlighter-rouge">RolCheck</code>, con una función que compruebe si el usuario tiene el rol indicado, como en el ejemplo visto antes en los apuntes. Regístralo adecuadamente en el archivo <code class="language-plaintext highlighter-rouge">App/Http/Kernel.php</code>, como se ha explicado.</li>
+  <li>Modifica las vistas necesarias para que, si el usuario es de tipo <em>admin</em> pueda ver los botones de edición y borrado de cualquier post, aunque no sean suyos.</li>
+  <li>Modifica los métodos <code class="language-plaintext highlighter-rouge">edit</code>, <code class="language-plaintext highlighter-rouge">update</code> y <code class="language-plaintext highlighter-rouge">destroy</code> de <code class="language-plaintext highlighter-rouge">PostController</code> para que redirijan a <code class="language-plaintext highlighter-rouge">posts.index</code> si el usuario no es administrador, o si no es el propietario del post a editar o borrar.</li>
+</ul>
+
+<p><strong>¿Qué entregar?</strong></p>
+
+<p>Como entrega de esta sesión deberás adjuntar lo siguiente:</p>
+
+<ul>
+  <li>Comprimir el proyecto <strong>blog</strong> con todos los cambios incorporados, y eliminando las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code> como se explicó en las sesiones anteriores. Renombra el archivo comprimido a <code class="language-plaintext highlighter-rouge">blog_07.zip</code>.</li>
+  <li>Comprimir el proyecto <strong>pruebaAuth</strong> (nuevamente sin las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code>) como <code class="language-plaintext highlighter-rouge">pruebaAuth.zip</code>.</li>
+</ul>
+
+<p>Entrega ambos archivos por separado en la tarea de la sesión, o bien comprimidos los dos en otro archivo ZIP llamado <code class="language-plaintext highlighter-rouge">sesion7.zip</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Collections | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Collections" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/06b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/06b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Collections" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Collections","url":"http://nachoiborraies.github.io/java/md/en/06b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="collections">Collections</h1>
+
+<h2 id="lists">Lists</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/06b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/06b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Lists are collections whose elements are indexed. In other words, elements in these collections can be accessed by an index 0, 1, 2, …., N, so that they can be sorted, and iterated. In Java, every type of list implements a global interface called <code class="language-plaintext highlighter-rouge">List</code>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">here</a> you can see the API of this interface.</p>
+
+<h3 id="1-list-management-in-java">1. List management in Java</h3>
+
+<p>If you take a look at <code class="language-plaintext highlighter-rouge">List</code> API, there are some methods that we can use in any list type, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">add(element)</code> or <code class="language-plaintext highlighter-rouge">add(index, element)</code>: to add an element, either at the end of the list, or at a given index.</li>
+  <li><code class="language-plaintext highlighter-rouge">clear()</code> to clear the list (remove all of its elements).</li>
+  <li><code class="language-plaintext highlighter-rouge">contains(element)</code>: to check if a given element already exists in the list (as long as the class overrides <code class="language-plaintext highlighter-rouge">equals</code> method to know how to check if two elements are equal or not).</li>
+  <li><code class="language-plaintext highlighter-rouge">get(index)</code>: to get the element at the specified index</li>
+  <li><code class="language-plaintext highlighter-rouge">indexOf(element)</code>: gets the index of the first occurrence of the given element (as long as the class implements <code class="language-plaintext highlighter-rouge">equals</code> method). If the element does not exist in the list, then -1 is returned.</li>
+  <li><code class="language-plaintext highlighter-rouge">remove(index)</code>: to remove the element at the specified index</li>
+  <li><code class="language-plaintext highlighter-rouge">remove(element)</code>: to remove the first occurrence of the specified element in the list (as long as the class overrides <code class="language-plaintext highlighter-rouge">equals</code> method)</li>
+  <li><code class="language-plaintext highlighter-rouge">size()</code> to get the total number of elements stored in the list</li>
+</ul>
+
+<p>The most popular list subtype that we can use in Java is <code class="language-plaintext highlighter-rouge">ArrayList</code> class (<a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html">API</a>). As it implements <code class="language-plaintext highlighter-rouge">List</code> interface, we can use all of the methods from that interface. Internally, an <em>ArrayList</em> element is just a list that treats the data as an internal array (although we don’t need to care about the size of this array).</p>
+
+<p>We can create an ArrayList by either defining an <code class="language-plaintext highlighter-rouge">ArrayList</code> variable or a <code class="language-plaintext highlighter-rouge">List</code> variable (using polymorphism):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span> <span class="n">myList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">();</span>
+<span class="nc">ArrayList</span> <span class="n">myOtherList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Then, we can add, get, remove… elements from that list. These elements can be of any type, so we must take care when getting elements from the list, and make sure that they are of the appropriate type.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+<span class="n">myList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">));</span>
+<span class="o">...</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">myList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">)</span> <span class="k">instanceof</span> <span class="nc">Person</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Person</span><span class="o">)(</span><span class="n">myList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="11-using-generics">1.1. Using generics</h4>
+
+<p>If we use lists as we have seen in previous example, we may have some troubles, since we can add any kind of object in the list, so we need to cast and check the object types before working with them. For instance, in previous example we have typecasted the elements extracted from the list in order to use them. Otherwise, Java treats them as <code class="language-plaintext highlighter-rouge">Object</code> instances:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Only Object methods can be called</span>
+<span class="nc">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="n">myList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+<span class="c1">// Every Person method can be called</span>
+<span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Person</span><span class="o">)(</span><span class="n">myList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>In order to avoid these checkings, we can use <strong>generics</strong>. Generics are a way to customize a given object or collection to work with a concrete data type. This data type is expressed between <code class="language-plaintext highlighter-rouge">&lt;</code> and <code class="language-plaintext highlighter-rouge">&gt;</code> symbols, after the collection type.</p>
+
+<p>For instance, if we want to work with a list of strings using generics, we initialize the list this way (either using a <code class="language-plaintext highlighter-rouge">List</code> or an <code class="language-plaintext highlighter-rouge">ArrayList</code>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">stringList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">anotherStringList</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+</code></pre></div></div>
+
+<p>From this point on, every element that we add to the collection needs to be a string, and whenever we get an element from the collection, we can be sure that it will be a string, so no typecast is needed.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stringList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+<span class="n">stringList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Goodbye"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stringList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">).</span><span class="na">toUpperCase</span><span class="o">());</span> <span class="c1">// GOODBYE</span>
+</code></pre></div></div>
+
+<p>Note that we can use <strong>polymorphism</strong> with generics, so that, if we create a list of <code class="language-plaintext highlighter-rouge">Animal</code> objects, for instance, there can be any type of animal in that list (dogs, ducks, and so on).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Animal</span><span class="o">&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">animals</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Dog</span><span class="o">(...));</span>
+<span class="n">animals</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Duck</span><span class="o">(...));</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<h4 id="12-list-subtypes">1.2. List subtypes</h4>
+
+<p>There are other list subtypes available in the Java API, although we are not going to work with them in this unit. Here you can have a quick overview:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Vector</code> class is something similar to <code class="language-plaintext highlighter-rouge">ArrayList</code>, but it is thread-safe (this is, it is suitable for working with multiple threads), so it is not as efficient as <em>ArrayList</em> is.</li>
+  <li><code class="language-plaintext highlighter-rouge">LinkedList</code> class is another list subtype in which every element is not only linked with the following one, but with previous one, so we can explore the list from any of its edges with the same efficiency</li>
+</ul>
+
+<p>There are some important differences regarding performance between <code class="language-plaintext highlighter-rouge">ArrayList</code> (or <code class="language-plaintext highlighter-rouge">Vector</code>) and <code class="language-plaintext highlighter-rouge">LinkedList</code>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ArrayList</code>: its main advantage is the complexity of accessing an index to get an element, which is <em>O(1)</em>, this is, a constant value, but it’s not the best implementation when we want to do many add and remove operations, that have a complexity of <em>O(n)</em>, this is, it depends on the list size.</li>
+  <li><code class="language-plaintext highlighter-rouge">LinkedList</code>: there is no internal array, so nothing has to be resized, elements are inserted and removed only by modifying references in the previous and next object. This is the main advantage of this type of list. The main disadvantage is accessing a random position because it has to travel through all items to get to the specified index (there’s no internal index to access a position directly)</li>
+</ul>
+
+<h4 id="13-lists-of-basic-data-types">1.3. Lists of basic data types</h4>
+
+<p>If we want to create a list of some basic data type (such as <em>integers</em> or <em>doubles</em>) we can’t specify this simple type in the generic:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+</code></pre></div></div>
+
+<p>Alternatively, we can make use of <strong>wrappers</strong>, special classes that are part of the Java API and can replace basic types in some situations. These classes are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Integer</code> (for <code class="language-plaintext highlighter-rouge">int</code> type)</li>
+  <li><code class="language-plaintext highlighter-rouge">Float</code> (for <code class="language-plaintext highlighter-rouge">float</code> type)</li>
+  <li><code class="language-plaintext highlighter-rouge">Double</code> (for <code class="language-plaintext highlighter-rouge">double</code> type)</li>
+  <li><code class="language-plaintext highlighter-rouge">Character</code> (for <code class="language-plaintext highlighter-rouge">character</code> type)</li>
+  <li>…</li>
+</ul>
+
+<blockquote>
+  <p><strong>NOTE</strong>: <code class="language-plaintext highlighter-rouge">String</code> is not a basic type, because it’s made of a sequence of <em>chars</em>, so there’s no wrapper for this class. We just use <code class="language-plaintext highlighter-rouge">String</code> class.</p>
+</blockquote>
+
+<p>Then, we can create a list (or any collection) of any of these types, and then add elements on it as basic types:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">8</span><span class="o">);</span>
+
+<span class="kt">int</span> <span class="n">aNumber</span> <span class="o">=</span> <span class="n">numbers</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="14-sorting-lists">1.4. Sorting lists</h4>
+
+<p>In the same way that we use <code class="language-plaintext highlighter-rouge">Comparator</code> or <code class="language-plaintext highlighter-rouge">Comparable</code> interfaces to determine how to sort complex objects in an array through <code class="language-plaintext highlighter-rouge">Arrays.sort</code> method, there is a <code class="language-plaintext highlighter-rouge">Collections.sort</code> method (in class <code class="language-plaintext highlighter-rouge">java.util.Collections</code>) that lets us sort a list using a comparator.</p>
+
+<p>All that we need is to define the comparing method (either in the own class to be sorted, or in another class through a <code class="language-plaintext highlighter-rouge">Comparator</code>), and then call this method to sort the collection. For instance, if we have a list or <code class="language-plaintext highlighter-rouge">Person</code> objects, we can sort it by age using this comparator:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">...</span> <span class="c1">// Fill list</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">people</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;()</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p1</span><span class="o">,</span> <span class="nc">Person</span> <span class="n">p2</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">p2</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>If the own class (<code class="language-plaintext highlighter-rouge">Person</code> in this example) has the comparing method in its code, then we can call <code class="language-plaintext highlighter-rouge">Collections.sort</code> with just one parameter (the collection to be sorted):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">people</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Go back to Exercise 1 of <a href="05c">this document</a>. Replace the video game array in <code class="language-plaintext highlighter-rouge">main</code> method with a generic <code class="language-plaintext highlighter-rouge">ArrayList</code>. Then, add some video games to the list (either <code class="language-plaintext highlighter-rouge">VideoGame</code> or <code class="language-plaintext highlighter-rouge">PCVideoGame</code> objects), explore and show the list with a <code class="language-plaintext highlighter-rouge">for</code> and ask the user to:</p>
+
+  <ul>
+    <li>Search video games by title: the user will type a title and then the program will show all the video games whose title contains the typed text (ignoring case).</li>
+    <li>Remove a video game from the list: the user will type the index of the video game to be removed, and if the index is valid, the video game in that index will be removed.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Sort the video game list in previous exercise by price in ascending order using <code class="language-plaintext highlighter-rouge">Collections.sort</code> and the appropriate comparing method. Do this step before printing the list in the screen.</p>
+</blockquote>
+
+<h3 id="2-stacks-and-queues">2. Stacks and queues</h3>
+
+<p>There are some specific types of lists which are more restrictive regarding how to use add/remove operations. In this section we are going to talk about stacks and queues.</p>
+
+<h4 id="21-stacks">2.1. Stacks</h4>
+
+<p>A stack is a collection (or list subtype) in which elements can only be added or removed by one of the edges called <em>top</em>. We call these structures LIFO structures, which stands for <em>Last In, First Out</em>. Only the element at the top of the stack can be modified (added or removed).</p>
+
+<p>In order to use stacks in Java we have <code class="language-plaintext highlighter-rouge">Stack</code> class. As you can see in the official <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html">API</a>, it’s a subtype of <code class="language-plaintext highlighter-rouge">Vector</code> class, so it’s a list. It just adds some specific methods to deal with the top:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">push(element)</code>: adds a new element onto the top of the stack</li>
+  <li><code class="language-plaintext highlighter-rouge">pop()</code>: removes the element at the top of the stack and returns it (or throws an exception if stack is empty)</li>
+  <li><code class="language-plaintext highlighter-rouge">peek()</code>: returns the element at the top of the stack without removing it (it also throws an exception if stack is empty).</li>
+  <li><code class="language-plaintext highlighter-rouge">empty()</code>: checks if stack is currently empty</li>
+</ul>
+
+<p>Here you can see an example of how to use it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stack</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">numberStack</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Stack</span><span class="o">&lt;&gt;();</span>
+<span class="n">numberStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+<span class="n">numberStack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">9</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="k">while</span> <span class="o">(!</span><span class="n">stack</span><span class="o">.</span><span class="na">empty</span><span class="o">())</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a project called <strong>ReversedFigure</strong> that asks the user to draw a bi-dimensional figure (line by line), and then prints the same figure inverted vertically. For instance, if user draws this:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   *
+  ***
+ *****
+*******
+</code></pre></div></div>
+
+<blockquote>
+  <p>then the program must output this:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*******
+ *****
+  ***
+   *
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: as you may notice, stacks are really useful when it comes to inverting orders.</p>
+</blockquote>
+
+<h4 id="22-queues">2.2. Queues</h4>
+
+<p>Queues are another special type of list in which elements are added by one of the edges and removed from the opposite edge. These structures are also called FIFO structures, which stands for <em>First In, First Out</em>. The main basic operations in queues are:</p>
+
+<ul>
+  <li>Adding elements (enqueue)</li>
+  <li>Extracting elements (dequeue)</li>
+</ul>
+
+<p>Java provides <code class="language-plaintext highlighter-rouge">Queue</code> interface in order to deal with queues. You can see in the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html">API</a> that there are some additional, useful methods:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">add(element):</code> adds a new element in the tail of the queue</li>
+  <li><code class="language-plaintext highlighter-rouge">remove()</code> or <code class="language-plaintext highlighter-rouge">poll()</code>: retrieve and remove the element at the head of the queue. There’s a difference between these two methods, depending on whether we want to return <em>null</em> if queue is empty or not.</li>
+  <li><code class="language-plaintext highlighter-rouge">peek()</code>: checks the element at the head of the queue (without removing it)</li>
+</ul>
+
+<p>There are some classes in Java API implementing this interface. One of them is <code class="language-plaintext highlighter-rouge">LinkedList</code> class, which we have mentioned before. Here you have an example of how to use it as a queue:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LinkedList</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
+
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+<span class="n">numbers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+
+<span class="k">while</span><span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"We are going to extract "</span> <span class="o">+</span> <span class="n">numbers</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">numbers</span><span class="o">.</span><span class="na">remove</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a project called <strong>ConcertAttendance</strong>. Define a class called <code class="language-plaintext highlighter-rouge">Person</code> to represent every person that wants to attend the concert, and store his/her name and age. Then, in the main program, add some <code class="language-plaintext highlighter-rouge">Person</code> objects to a queue (add them until user enters empty values). Then, filter from this queue only the adult people, and print the final result in the screen, in arrival order.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

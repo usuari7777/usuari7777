@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Selective structures</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Control structures
+### Selective structures
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selective structures
+
+They let us choose among different paths in our code depending on a given condition 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## *if* clause
+
+Runs a piece of code if a given condition is true:
+
+```Java
+if (age >= 18)
+{
+    System.out.println("You are old enough");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *if..else* clause
+
+Runs a piece of code or its opposite, depending on a given condition:
+
+```java
+if (age >= 18)
+{
+    System.out.println("You are old enough");
+}
+else
+{
+    System.out.println("You are not adult yet");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *if..else if..else* clause
+
+- Chooses among several paths depending on the condition relative to each one
+- Only one path will be chosen.
+
+```Java
+if (number > 0)
+{
+    System.out.println("It is positive");
+}
+else if (number < -10)
+{
+    System.out.println("It is under -10");
+}
+else
+{
+    System.out.println("It is between -10 and 0");
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Complex conditions
+
+We can specify complex conditions using logical operators
+
+```java
+if (age >= 18 && age <= 30)
+{
+    System.out.println("You are between 18 and 30");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *switch* clause
+
+- Lets us evaluate the value of a simple variable or expression
+- Each of the possible values of this expression can be represented with a `case` clause
+- A `default` optional case can represent any other possible value
+- A `break` instruction can be placed at the end of each *case* to exit the clause
+- Only simple values allowed (strings since Java 7)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## *switch* clause
+
+```Java
+switch(number)
+{
+    case 0:	System.out.println("It is 0"); break;
+    case 1: System.out.println("It is 1");
+    case 2: System.out.println("It is 2"); break;
+    default: System.out.println("Unknown number");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **MarkCheck** that asks the user to enter 3 marks. The program must print one of these messages, depending on the mark values:
+ 
+* *All marks are greater or equal than 4*
+* *Some marks are not greater or equal than 4*
+* *No mark is greater or equal than 4*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **GramOunceConverter2** that will be an improved version of a previous exercise. In this case, the user will type a weight (float), and a unit (`g` for grams, `o` for ounces). Then, depending on the unit chosen, the program will convert the weight to the opposite unit. For instance, if the user types a weight of 33 and chooses `o` as unit, then the program must convert 33 ounces to grams. You must solve this program using a `switch` structure. If the unit is other than `g` or `o`, then the program must output an error message: "Unexpected unit", with no final result.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

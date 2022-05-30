@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object oriented programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Object oriented programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="05c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/05c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object oriented programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Object oriented programming","url":"http://nachoiborraies.github.io/java/md/en/05c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="object-oriented-programming">Object oriented programming</h1>
+
+<h2 id="managing-complex-projects-in-intellij">Managing complex projects in IntelliJ</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Now that you have learnt what a class is and the main relationships that we can establish between classes, you may think that a real life project will usually consist of several classes, with their corresponding source files… and you are right.</p>
+
+<p>As soon as our Java application has more than one class, then simple IDEs such as Geany can have some problems to deal with all the classes: whenever we compile a class, we need to take into account the rest of the classes related with it, and this can be a tough job.</p>
+
+<p>Fortunately, advanced IDEs such as IntelliJ, Eclipse or NetBeans (among others) lets us handle complex projects easily. We just need to create a new project from those IDEs (typically a new Java project), and choose the project name.</p>
+
+<h3 id="1-project-management-in-intellij">1. Project management in IntelliJ</h3>
+
+<p>Regarding <strong>IntelliJ</strong>, <a href="https://nachoiborraies.github.io/entornos/md/en/02d">here</a> you can find a quick overview on how to install it and create your first projects. In this section we are going to go deeply into how to use this IDE to develop projects easily.</p>
+
+<h4 id="11-arranging-classes-in-packages">1.1. Arranging classes in packages</h4>
+
+<p>Packages are a way to arrange our classes in a project or library, so that each one (or a group of them) belongs to a given package. In other programming languages, such as C#, packages are called <em>namespaces</em>, but the purpose of these terms is equivalent.</p>
+
+<p>A package name consists of one or more words, separated by points. Each point establishes a new package sublevel. So, if we define the package <code class="language-plaintext highlighter-rouge">javatest</code>, then this is a first level package, but if we define a package called <code class="language-plaintext highlighter-rouge">mypackage.utils</code>, then there is a first level package called <code class="language-plaintext highlighter-rouge">mypackage</code>, and inside this package there is a second level package called <code class="language-plaintext highlighter-rouge">utils</code>.</p>
+
+<p>Whenever we create a package in Java, a new folder is physically created in the hard drive, with the same name than the package. If the package has more than one word (more than one level), then every subpackage will have its own subfolder. According to previous example, if we define <code class="language-plaintext highlighter-rouge">mypackage.utils</code> package, then a folder called <code class="language-plaintext highlighter-rouge">mypackage</code> will be created, and then a subfolder called <code class="language-plaintext highlighter-rouge">utils</code> inside <code class="language-plaintext highlighter-rouge">mypackage</code> will be created as well.</p>
+
+<p>We can add packages to our IntelliJ project by right clicking on the <code class="language-plaintext highlighter-rouge">src</code> folder, where all our source code will be placed. Then, we choose <em>New &gt; Package</em> context menu, and specify the package name:</p>
+
+<div align="center">
+	<img src="../../img/05_intellij_packages.png" alt="Adding packages in IntelliJ" />
+</div>
+
+<h4 id="12-adding-classes-and-elements">1.2. Adding classes and elements</h4>
+
+<p>We can <strong>add classes</strong> to a package by right clicking on the package name and choosing <em>New &gt; Java Class</em> context menu. Then, a dialog will be shown to specify the class name and type (by default, IntelliJ considers that it will be a class, but it can also be an interface, or a JavaFX application, among other options).</p>
+
+<div align="center">
+	<img src="../../img/05_intellij_add_classes.png" alt="Add classes in IntelliJ" />
+</div>
+
+<p>Finally the new class will be visible in the Project panel on the left, and we can edit it in the code editor:</p>
+
+<div align="center">
+	<img src="../../img/05_intellij_add_classes2.png" alt="Add classes in IntelliJ" width="70%" />
+</div>
+
+<p>It is important to always assign a class to a package. Otherwise, they will belong to a <em>default</em> package and it may be difficult to find it in order to compile it with the rest of classes.</p>
+
+<h3 id="2-code-generation">2. Code generation</h3>
+
+<p>If we use IDEs such as IntelliJ or other similar ones, they can help us add some code automatically to our classes. For instance, if we define the class name and its instance variables or attributes, we can auto-generate the constructor(s), or the getters and setters, or override some methods from parent class, if we want to. Regarding IntelliJ, we need to choose <em>Code &gt; Generate</em> option from the upper menu. Then, we can choose which piece of code we want to generate: a constructor, getters and setters… and then, we can even choose which attributes are involved in this constructor, getter/setter and so on.</p>
+
+<div align="center">
+	<img src="../../img/05_intellij_source_generation.png" alt="Source code generation with IntelliJ" width="30%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a new Java Project in IntelliJ called <em>VideoGames</em> and place the code of Exercise 5 of <a href="http://nachoiborraies.github.io/java/md/en/5b">previous document</a> in this project, separating each class in its own source file, and following these rules:</p>
+  <ul>
+    <li>Create a package called <code class="language-plaintext highlighter-rouge">videogames.main</code> for the main class</li>
+    <li>Create a package called <code class="language-plaintext highlighter-rouge">videogames.data</code> for <em>VideoGame</em>, <em>Company</em> and <em>PCVideoGame</em> classes</li>
+  </ul>
+</blockquote>
+
+<p>For the following exercises, you have to keep in mind the class diagrams proposed in the exercises of <a href="https://nachoiborraies.github.io/entornos/md/en/04e">this document</a>.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a new Java Project in IntelliJ called <em>Ships</em>, and write the code to represent the class diagram defined in the Exercise 1 of the specified document.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a new Java Project in IntelliJ called <em>VideoGameCharacters</em>, and write the code to represent the class diagram defined in the Exercise 2 of the specified document.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a new Java Project in IntelliJ called <em>Blog</em>, and write the code to represent the class diagram defined in the Exercise 3 of the specified document.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Create a new Java Project in IntelliJ called <em>CulturalOrganization</em>, and write the code to represent the class diagram defined in the Exercise 4 of the specified document.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

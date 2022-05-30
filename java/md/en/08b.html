@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Date and time | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Date and time" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="08b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/08b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Date and time" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Date and time","url":"http://nachoiborraies.github.io/java/md/en/08b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="date-and-time">Date and time</h1>
+
+<h2 id="new-classes-for-date-and-time-management">New classes for date and time management</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/08b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="08b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>From Java 8, we can use some additional classes to manage date and time. All these classes belong to <code class="language-plaintext highlighter-rouge">java.time</code> package. Depending on which part of the date we are interested in, Java provides three different classes to manage them all:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">LocalDate</code> class lets us deal with dates made of day, month and year</li>
+  <li><code class="language-plaintext highlighter-rouge">LocalTime</code> class lets us focus on the <em>time</em> part, including hour, minute, second and even nanosecond.</li>
+  <li><code class="language-plaintext highlighter-rouge">LocalDateTime</code> class puts it all together, and lets us use a complete date, including the <em>time</em> part.</li>
+</ul>
+
+<h3 id="1-creating-dates-and-times">1. Creating dates and times</h3>
+
+<p>We can create a date or time of the current instant with a static method called <code class="language-plaintext highlighter-rouge">now</code> in these classes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDate</span> <span class="n">dateNow</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<span class="nc">LocalTime</span> <span class="n">timeNow</span> <span class="o">=</span> <span class="nc">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<span class="nc">LocalDateTime</span> <span class="n">fullNow</span> <span class="o">=</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>We can also define a given date or time with a static method called <code class="language-plaintext highlighter-rouge">of</code>, specifying the date or time parts:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDate</span> <span class="n">myBirthday</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1978</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">7</span><span class="o">);</span>  <span class="c1">// Year, month, day</span>
+<span class="nc">LocalTime</span> <span class="n">myTime</span> <span class="o">=</span> <span class="nc">LocalTime</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">22</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>      <span class="c1">// Hour, minute, second</span>
+<span class="nc">LocalDateTime</span> <span class="n">fullDate</span> <span class="o">=</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1978</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Keep in mind that month numbers start with 1 in this case, not with 0 as we have seen in <em>Calendar</em> class.</p>
+
+<h3 id="2-getting-parts-of-the-date-or-time">2. Getting parts of the date or time</h3>
+
+<p>Once we have our date or time created, we have some available methods to get the separate parts of this date or time, depending on the object we are managing (either <em>LocalDate</em>, <em>LocalTime</em> or <em>LocalDateTime</em>). For instance, if we are working with dates (either in <em>LocalDate</em> or <em>LocalDateTime</em> objects), we have methods such as <code class="language-plaintext highlighter-rouge">getYear</code>, <code class="language-plaintext highlighter-rouge">getMonthValue</code> or <code class="language-plaintext highlighter-rouge">getDayOfMonth</code> to get the year, month number or day, respectively:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="n">myBirthday</span><span class="o">.</span><span class="na">getYear</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">month</span> <span class="o">=</span> <span class="n">myBirthday</span><span class="o">.</span><span class="na">getMonthValue</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>If we are managing times (either with <em>LocalTime</em> or <em>LocalDateTime</em>) we can use methods such as <code class="language-plaintext highlighter-rouge">getHour</code>, <code class="language-plaintext highlighter-rouge">getMinute</code> and <code class="language-plaintext highlighter-rouge">getSecond</code> to get these parts of the time:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">hour</span> <span class="o">=</span> <span class="n">myTime</span><span class="o">.</span><span class="na">getHour</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="n">myTime</span><span class="o">.</span><span class="na">getSecond</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="3-formatting-dates-and-times">3. Formatting dates and times</h3>
+
+<p>In order to format a date and show it with an appropriate format in the output, we can make use of <code class="language-plaintext highlighter-rouge">DateTimeFormatter</code> class, from <code class="language-plaintext highlighter-rouge">java.time.format</code> package. It has a static method called <code class="language-plaintext highlighter-rouge">ofPattern</code> that lets us specify the pattern of the date/time that we want to show. Then, we use an object of this type to call its <code class="language-plaintext highlighter-rouge">format</code> method, passing the date or time object as parameter. Let’s see an example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDate</span> <span class="n">myBirthday</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1978</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">7</span><span class="o">);</span>
+<span class="nc">DateTimeFormatter</span> <span class="n">formatter</span> <span class="o">=</span> <span class="nc">DateTimeFormatter</span><span class="o">.</span><span class="na">ofPattern</span><span class="o">(</span><span class="s">"dd - MMMM - yyyy"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">formatter</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">myBirthday</span><span class="o">));</span>
+<span class="c1">// Output: 07 - april - 1978</span>
+</code></pre></div></div>
+
+<p>You can learn more about <em>DateTimeFormatter</em> class and the symbols that you can use in the patterns checking its <a href="https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html">official API</a>.</p>
+
+<h3 id="4-parsing-dates-and-times-from-keyboard">4. Parsing dates and times from keyboard</h3>
+
+<p>If we want to read a date or time from the keyboard (or any text input, such as a text file or a text field in a JavaFX application) we can make use of <code class="language-plaintext highlighter-rouge">DateTimeFormatter</code> class to specify the pattern that we are expecting, along with <code class="language-plaintext highlighter-rouge">parse</code> method that lets us parse a string with the specified pattern. For instance, if we want the user to enter a date with the format <em>dd/MM/yyyy</em>, we can do it this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">DateTimeFormatter</span> <span class="n">formatter</span> <span class="o">=</span> <span class="nc">DateTimeFormatter</span><span class="o">.</span><span class="na">ofPattern</span><span class="o">(</span><span class="s">"dd/MM/yyyy"</span><span class="o">);</span>
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="nc">LocalDate</span> <span class="n">userDate</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">(),</span> <span class="n">formatter</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If user input does not match the specified pattern, then a <code class="language-plaintext highlighter-rouge">DateTimeParseException</code> is thrown. Note that we can also use this same structure when dealing with <em>LocalTime</em> or <em>LocalDateTime</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">DateTimeFormatter</span> <span class="n">formatter</span> <span class="o">=</span> <span class="nc">DateTimeFormatter</span><span class="o">.</span><span class="na">ofPattern</span><span class="o">(</span><span class="s">"dd/MM/yyyy - H:m:s"</span><span class="o">);</span>
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="nc">LocalDateTime</span> <span class="n">userDateTime</span> <span class="o">=</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">(),</span> <span class="n">formatter</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program called <strong>BirthdaySeason</strong> that asks the user to enter his/her birth date with the format <em>day-month-year</em> and tells him/her if he/she was born in winter, spring, summer or autumn.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program called <strong>PoliteGreeting</strong> that gets current time and tells <em>Good morning</em>, <em>Good afternoon</em>, <em>Good evening</em> or <em>Good night</em>. In order to detect which is the current day range, you can follow these rules:</p>
+
+  <ul>
+    <li><em>Good morning</em> if we are between 7 (included) and 12 (not included)</li>
+    <li><em>Good afternoon</em> if we are between 12 (included) and 18 (not included)</li>
+    <li><em>Good evening</em> if we are between 18 (included) and 21 (not included)</li>
+    <li><em>Good night</em> otherwise</li>
+  </ul>
+</blockquote>
+
+<h3 id="5-more-information">5. More information</h3>
+
+<p>You can read more information about the different methods and options available for each class in the official API:</p>
+
+<ul>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html">LocalDate</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalTime.html">LocalTime</a></li>
+  <li><a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html">LocalDateTime</a></li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

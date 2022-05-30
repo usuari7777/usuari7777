@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>File management | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="File management" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/07a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/07a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="File management" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"File management","url":"http://nachoiborraies.github.io/java/md/en/07a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="file-management">File management</h1>
+
+<h2 id="accessing-text-files">Accessing text files</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/07a.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/07a.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>One important aspect of every application is to store information somehow. Programs usually store the data they are managing, so that they can be retrieved later. An easy way of doing this is through text files.</p>
+
+<p>Java includes a wide variety of classes for reading and writing from/to files. We are not going to learn all of them, but the most useful ones. All of them inherit from two abstract, parent classes called <code class="language-plaintext highlighter-rouge">Reader</code> and <code class="language-plaintext highlighter-rouge">Writer</code>, that define some basic behavior to deal with these files, such as reading or writing small pieces of data. Every class that we are going to cover here belongs to <code class="language-plaintext highlighter-rouge">java.io</code> package.</p>
+
+<h3 id="1-compulsory-steps-when-dealing-with-text-files">1. Compulsory steps when dealing with text files</h3>
+
+<p>When we are managing text files (or files, in general), there are some issues that we must take into account. The first one is that there can be <strong>exceptions</strong> in this process, such as:</p>
+
+<ul>
+  <li>The file that we are trying to read does not exist. This throws a <code class="language-plaintext highlighter-rouge">FileNotFoundException</code>.</li>
+  <li>There’s an error trying to read or write the file, because of a hard drive damage or any other reason. In this case, an <code class="language-plaintext highlighter-rouge">IOException</code> is being thrown.</li>
+</ul>
+
+<p>Java will produce a compilation error if we don’t deal with these exceptions properly. As <code class="language-plaintext highlighter-rouge">FileNotFoundException</code> is a subclass of <code class="language-plaintext highlighter-rouge">IOException</code>, we can just catch or deal with this last exception in order to manage the possible errors, unless we want to show a specific, different error message for both situations.</p>
+
+<p>The second issue to which we must pay attention is that dealing with files also causes a memory usage: data being read or written is temporarily stored in memory. In order to free this memory when we finish processing the file, we must <strong>close</strong> the file. This is specially important when writing files, since some text (or all of it) may not have been written yet.</p>
+
+<h3 id="2-writing-in-text-files">2. Writing in text files</h3>
+
+<p>There are some files that we can use to write information into text files. All of them extend <code class="language-plaintext highlighter-rouge">Writer</code> class functionality, but some of them are more useful than the others.</p>
+
+<p>A text file can be used like a screen, so that we can write data on it line by line with an instruction. Using a <code class="language-plaintext highlighter-rouge">PrintWriter</code> object is one of the easiest ways for this, since it provides methods such as <code class="language-plaintext highlighter-rouge">print</code>, <code class="language-plaintext highlighter-rouge">println</code> or even <code class="language-plaintext highlighter-rouge">printf</code>, similar to the ones used when dealing with the system console. This is an introductory example that writes two lines in a file called “<em>example.txt</em>”.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.PrintWriter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintWriter0</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">PrintWriter</span> <span class="n">printWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span> <span class="o">(</span><span class="s">"example.txt"</span><span class="o">);</span>
+        <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Hello!"</span><span class="o">);</span>
+        <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Goodbye!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As we have said before, when dealing with files, we must manage the possible exceptions that can be produced, and also close the file at the end, so this example should be written this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintWriter1</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">PrintWriter</span> <span class="n">printWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span> <span class="o">(</span><span class="s">"example.txt"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Hello!"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Goodbye!"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">close</span> <span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error writing file: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There can also be a problem with this program: if there is an error, the file may remain open, so we would get a memory leak. To avoid this, we should close the file with a <em>“try-catch-finally”</em> block. Every piece of code placed in the <code class="language-plaintext highlighter-rouge">finally</code> block will be run anyway (whether the process works or fails).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintWriter2</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">PrintWriter</span> <span class="n">printWriter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="n">printWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span> <span class="o">(</span><span class="s">"example.txt"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Hello!"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Goodbye!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error writing file: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">finally</span> 
+        <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">printWriter</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+            <span class="o">{</span>
+                <span class="n">printWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="21-appending-text-at-the-end-of-the-file">2.1. Appending text at the end of the file</h4>
+
+<p>The constructor that we have used for <em>PrintWriter</em> in previous examples removes any existing contents of the file, if it exists. So, if we want to add new content to the existing one, we must use another constructor. It does not get the file path, but a <code class="language-plaintext highlighter-rouge">BufferedWriter</code> that relies on a <code class="language-plaintext highlighter-rouge">FileWriter</code> with a boolean as a second parameter. If this boolean is <em>true</em>, then new contents will be added to the end of the file (without erasing previous contents).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintWriter3</span> 
+<span class="o">{</span>    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">PrintWriter</span> <span class="n">printWriter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="n">printWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span><span class="o">(</span><span class="k">new</span> <span class="nc">BufferedWriter</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">FileWriter</span><span class="o">(</span><span class="s">"example.txt"</span><span class="o">,</span> <span class="kc">true</span><span class="o">)));</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Hello again!"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Goodbye!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error writing file: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">finally</span> 
+        <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">printWriter</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>  
+            <span class="o">{</span>
+                <span class="n">printWriter</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: we could have used <code class="language-plaintext highlighter-rouge">BufferedWriter</code> instead of <code class="language-plaintext highlighter-rouge">PrintWriter</code> in our examples, but it is a low level class, so the code is not as similar as the one that we use with the console, because there is no <em>println</em> method, but a <em>write</em> and <em>newLine</em> methods.</p>
+</blockquote>
+
+<h4 id="22-auto-closing-files">2.2. Auto closing files</h4>
+
+<p>From Java 7, <code class="language-plaintext highlighter-rouge">PrintWriter</code> and many other I/O classes implement an interface called <code class="language-plaintext highlighter-rouge">AutoCloseable</code>. Every class that implements this interface has the ability of auto-closing its own objects, if we follow some given pattern when we instantiate these objects.</p>
+
+<p>Regarding file management, files are automatically closed if we instantiate the variables in the <code class="language-plaintext highlighter-rouge">try</code> clause. This concept is also known as <strong>try-with-resources</strong>, since we are adding resources to the original <em>try</em> clause. This is how it works regarding <code class="language-plaintext highlighter-rouge">PrintWriter</code> objects:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintWriter4</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">PrintWriter</span> <span class="n">printWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span> <span class="o">(</span><span class="s">"example.txt"</span><span class="o">))</span>
+        <span class="o">{</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Hello!"</span><span class="o">);</span>
+            <span class="n">printWriter</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"Goodbye!"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error writing file: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that code is shorter and less error prone this way. As soon as <code class="language-plaintext highlighter-rouge">try</code> block finishes, file is automatically closed, even if there’s any exception, so we don’t have to care about it.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program that asks the user to enter two sentences and stores them in a file called “twoSentences.txt”.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program that asks the user to enter sentences until he types an empty string. It must store the sentences in a file called “sentences.txt”. Every time we run the program again, the file must be destroyed and replaced with a new one.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a new version of previous exercise in which the file will be called “annotations.txt” and will not be destroyed whenever we run the program. The new contents will be added at the end of the existing ones.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a program that asks the user to enter the days of a month, the month name and the number for the first day (1 for Monday, 7 for Sunday). Then, it will create a text file with the month name (for instance, “<em>March.txt</em>”), with an agenda for this month. For instance, if the month is “September”, which has 30 days and starts in day 4 (Thursday), the contents of file “<em>September.txt</em>” should be as follows:</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>September
+
+<span class="nt">-----------------------------------------------------------</span>
+Thursday 1:
+<span class="nt">-----------------------------------------------------------</span>
+Friday 2:
+<span class="nt">-----------------------------------------------------------</span>
+Saturday 3:
+<span class="nt">-----------------------------------------------------------</span>
+Sunday 4:
+<span class="nt">-----------------------------------------------------------</span>
+Monday 5:
+<span class="nt">-----------------------------------------------------------</span>
+<span class="o">(</span>...<span class="o">)</span>
+<span class="nt">-----------------------------------------------------------</span>
+Friday 30:
+<span class="nt">-----------------------------------------------------------</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Create a program that asks the user the same information than in previous exercise (the number of days of a month, the month name and the starting day) and creates a text file with the month name with suffix “calendar” (for instance, “<em>MarchCalendar.txt</em>”). The text file must contain the calendar for this month. Here you can see an example for September, starting on Thursday:</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>September
+
+mon tue wed thu fri sat sun
+
+              1   2   3   4
+  5   6   7   8   9  10  11
+ 12  13  14  15  16  17  18
+ 19  20  21  22  23  24  25
+ 26  27  28  29  30
+</code></pre></div></div>
+
+<h3 id="3-reading-from-text-files">3. Reading from text files</h3>
+
+<p>An easy way to read from a text file, if we can do it line by line, is to use a <code class="language-plaintext highlighter-rouge">BufferedReader</code> object, that relies on a <em>FileReader</em> instance, and includes a <code class="language-plaintext highlighter-rouge">readLine</code> method that returns every line (<em>String</em>) from the file. If the String is null, then the end of the file has been reached, so we usually use a <em>while</em> loop to detect this (or a <em>do-while</em>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">BufferedReader1</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">BufferedReader</span> <span class="n">inputFile</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="n">inputFile</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+                    <span class="k">new</span> <span class="nf">FileReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"example.txt"</span><span class="o">)));</span>
+
+            <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">inputFile</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">line</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+            <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">inputFile</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">fileError</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+                <span class="s">"Error reading file: "</span> <span class="o">+</span>
+                <span class="n">fileError</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span> <span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">finally</span>
+        <span class="o">{</span>
+            <span class="k">try</span>
+            <span class="o">{</span>
+                <span class="n">inputFile</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Reading finished."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can also join the reading and checking in the same order, so the code is more compact, but less readable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">line</span><span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">line</span><span class="o">=</span><span class="n">inputFile</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Besides, we can make use of the <code class="language-plaintext highlighter-rouge">AutoCloseable</code> interface and avoid the <code class="language-plaintext highlighter-rouge">finally</code> clause, just like we did with <em>PrintWriter</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">BufferedReader1</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">BufferedReader</span> <span class="n">inputFile</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+                <span class="k">new</span> <span class="nf">FileReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"example.txt"</span><span class="o">))))</span>
+        <span class="o">{</span>
+
+            <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">inputFile</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+            <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">fileError</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+                <span class="s">"Error reading file: "</span> <span class="o">+</span>
+                <span class="n">fileError</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span> <span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Reading finished."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="31-checking-if-file-exists">3.1. Checking if file exists</h4>
+
+<p>When we write data into a file we (usually) don’t need to care if file exists or not, because if it doesn’t exist, it will be created anyway. However, when reading a file, we often need to make sure that file exists before reading it (unless we want to delegate this issue in a <em>FileNotFoundException</em>). This piece of code before instantiating the <em>BufferedReader</em> object can help:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(!</span> <span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"example.txt"</span><span class="o">)).</span><span class="na">exists</span><span class="o">()</span> <span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"File example.txt not found"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="c1">// Read the file normally</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 6:</strong></p>
+
+  <p>Create a program that shows the first line of the file “twoSentences.txt” created in previous exercises.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 7:</strong></p>
+
+  <p>Create a program that shows all the contents of the file “annotations.txt” created in previous exercises.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 8:</strong></p>
+
+  <p>Create a program that shows the contents of the file “annotations.txt” page by page: after every 23 lines there will be a pause until the user types Enter.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 9:</strong></p>
+
+  <p>Create a program that asks the user to enter a file name and a word to look for. The program must show every line in the text file that contains the given word.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 10:</strong></p>
+
+  <p>Create a program that asks the user to enter a file name. The contents of the file will be stored in an <em>ArrayList</em> (line by line), and then the program will continuously ask the user to enter a word, and show all the lines in the array list that contain the specified word. If the word is not found in the array list, then the program must show “Not found”. This process must be repeated until the user types an empty string.</p>
+</blockquote>
+
+<h4 id="32-reading-char-by-char">3.2. Reading char by char</h4>
+
+<p>Instead of reading a text file line by line, we may need to read it char by char. In this case we can use <code class="language-plaintext highlighter-rouge">FileReader</code> class, which provides some methods to read the chars of the file, such as <code class="language-plaintext highlighter-rouge">read</code> method. This method returns an integer with the code of the char, or -1 if the end of file has been reached (that’s why the function uses <code class="language-plaintext highlighter-rouge">int</code> instead of <code class="language-plaintext highlighter-rouge">char</code>, to return -1 in this last case).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">charRead</span><span class="o">;</span>
+
+<span class="k">try</span><span class="o">(</span><span class="nc">FileReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"example.txt"</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="k">do</span>
+    <span class="o">{</span>
+        <span class="n">charRead</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">charRead</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">((</span><span class="kt">char</span><span class="o">)</span><span class="n">charRead</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">while</span><span class="o">(</span><span class="n">charRead</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error readig file: "</span> <span class="o">+</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="33-extending-performance">3.3. Extending performance</h4>
+
+<p>It’s possible to write your own implementation of one of these <em>java.io</em> classes using inheritance and add some new methods or modify some functionality. For instance, this class inherits from <code class="language-plaintext highlighter-rouge">BufferedReader</code> class to return every line in upper case:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UpperCaseReader</span> <span class="kd">extends</span> <span class="nc">BufferedReader</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">UpperCaseReader</span><span class="o">(</span><span class="nc">Reader</span> <span class="n">reader</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">reader</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">readLine</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">IOException</span> 
+    <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">line</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">?</span><span class="n">line</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">():</span><span class="kc">null</span><span class="o">;</span><span class="err">    </span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We would use this custom class in a main program this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">UpperCaseReader</span> <span class="n">buffer</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nf">UpperCaseReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">)))</span> 
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">line</span><span class="o">;</span>
+    <span class="k">while</span><span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">buffer</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

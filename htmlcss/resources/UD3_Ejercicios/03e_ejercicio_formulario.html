@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de registro</title>
+</head>
+<body>
+    <h1>Formulario de registro</h1>
+    <form action="http://nachoiborraies.github.io/htmlcss/resources/UD3_Ejercicios/registro.php" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Escribe tu nombre">
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" id="email" placeholder="Escribe tu e-mail">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Al menos 8 caracteres entre letras y dígitos">
+        <label for="provincia">Provincia:</label>
+        <select name="provincia" id="provincia">
+            <option value="Alicante">Alicante</option>
+            <option value="Valencia">Valencia</option>
+            <option value="Castellón">Castellón</option>
+        </select>
+        <input type="checkbox" name="suscripcion" id="suscripcion">
+        <label for="suscripcion">Deseo suscribirme al boletín de noticias</label>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

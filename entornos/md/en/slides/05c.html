@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Version control tools</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Version control tools
+### Using Git commands
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Git
+
+- Some version control servers such as GitHub, BitBucket or GitLab use Git
+- We need to install Git locally if we want to interact with these servers from our local machines
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git installation
+
+- Linux: `sudo apt-get install git`
+- Windows and Mac: download from [web site](https://git-scm.com/downloads)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Git setup
+
+Set up some variables before going on
+
+- git config --global user.name "John Doe"
+- git config --global user.email yourEmail@server.com
+- git config --global core.editor notepad
+- (Windows): git config --global credential.helper wincred
+- (Linux): git config --global credential.helper cache
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Checking installation
+
+- git config --list
+- git version
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Basic local commands
+
+- Create/Initialize local repository
+- Add files to repository (*stage*)
+- Save changes in database (*commit*)
+- See changes between versions of the repository
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Initialize a repository
+
+- Create repository folder
+- Type `git init` command from within this folder
+   - A hidden subfolder `.git` will be created to hold the database
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+- Create a folder called **GitExercises**
+- Create a subfolder called **MyFirstLocalRepo** on it
+- Go into this folder and run `git init` command
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Making changes in the repo
+
+- Every time we add, edit or remove files in the repo, Git will notice these changes
+- With `git status` command we can check if there's something new or changed
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema05-08-GitCommands_status.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Adding changes to the repo
+
+- `git add` command lets us add the new changes to the repo
+   - **git add filename** to add just one file
+   - **git add .** to add all the changes
+- `git rm` command to unstage a given file
+   - **git rm --cached filename**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Adding changes to the repo
+
+After adding changes, this is the result of `git status`
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema05-08-GitCommands_status2.png" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Saving or committing changes
+
+- **git commit -m "Message"** saves changes in the database
+   - Including every *add* operation pending to be committed
+- **git commit -a -m "Message"** adds the last changes and then makes the commit
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Remember git states and sections
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-05-SectionsGit.png" alt="Git project states" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## See commit history
+
+Through **git log** command
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema05-08-GitCommands_log.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Show changes in commits
+
+- **git show`: shows the changes made in the last commit
+- **git show cb1fd6f8**: shows the changes made in the comit labeled with label starting with *cb1fd6f8*.
+- **git diff**: shows the changes made in the last version that have not been committed yet.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Make these changes to your *MyFirstLocalRepo* repository
+
+- Create new file `file.txt` with the text "My first text file"
+- Run `git add .` command to stage this file
+- Run `git commit` with the message "My first commit"
+- Edit `file.txt` and add a second line with your name
+- Run `git commit -a -m` to stage and commit the changes with the message "My second commit".
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise solution
+
+If you run `git log` command, you should see something like this:
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema05-08-GitCommands_log2.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise solution
+
+If you run `git show` command, you should see something like this:
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema05-08-GitCommands_show.png" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Labeling commits
+
+- **git tag v1.0`**: assigns the label *v1.0* to las commit made
+- **git tag v1.0 cb1fd6f8**: assigns label *v1.0* to the commit with label starting with *cb1fd6f8*
+- This way, we can refer to a commit with this new label instead of remembering or looking for default, complex label
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Undoing commits
+
+- **git reset --hard cb1fd6f8**: sets commit starting with *cb1fd6f8* as our new active state (discarding any later commig that we may have done).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## The *.gitignore* file
+
+- **.gitignore** file contains a list of files and folders that we don't want to include in our *commits*
+   - Example: *.exe* files, folders that can be auto-generated...
+
+```
+node_modules/
+*.exe
+*.tmp
+```   
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Working with remote repositories
+
+- We need to have a remote repository created (on GitHub)
+- Then, we can connect to it to download/upload changes
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cloning remote repositories
+
+First, get the URL to clone
+
+<div align="center">
+	<img src="../../../img/ED_b1_tema05-06-CreateRepositoryGitHub3.png" alt="Repository main page" width="50%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cloning remote repositories
+
+- Then, go to the folder in which you want to download the project
+- The following command will create a subfolder with the name of the repository cloned
+
+```
+git clone url_of_your_remote_repository
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Updating remote changes in local
+
+- Whenever someone else makes any change in the remote repository, update your local one with this command
+- Also useful if you are working in the same repository from different computers
+
+```
+git pull
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Updating local changes in remote
+
+1. Make changes to the desired file(s)
+2. Tag them as staged through the **git add .** command that we have seen before
+3. Commit your changes locally through the **git commit** command that we have also seen before
+4. Upload this commit (or last commits, if there's more than one) with **git push** command.
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Exercise (1/2)
+
+Clone the GitHub repository *MyFirstRepo* that you should have created in previous document. Clone it inside the same main folder in which you are creating the rest of local repositories in this document, so you will see a new folder called *MyFirstRepo* containing all the elements of your remote repository. Then, apply these changes...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise (2/2)
+
+1. Add a new file called *shopping_list.txt* with a list of items that you want to buy.
+2. Upload this file to the remote repository (*add* - *commit* - *push*)
+3. Go to GitHub and check that the new file has been uploaded successfully
+4. Go to another different folder of your computer and clone a new copy of the same repository.
+5. From this second folder, add a new file called *to_do.txt* and add some tasks that you have pending for these next weeks. 
+6. Upload the changes to the remote repository
+7. Go back to your original *MyFirstRepo* folder and do a `git pull` command. Check if *to_do.txt* has been downloaded.
+
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

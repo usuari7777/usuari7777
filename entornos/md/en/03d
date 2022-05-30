@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software methodologies | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software methodologies" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/03d.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software methodologies" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software methodologies","url":"http://nachoiborraies.github.io/entornos/md/en/03d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-methodologies">Software methodologies</h1>
+
+<h2 id="using-jira">Using JIRA</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>JIRA is one of the most popular team management tools for agile development. It can be used online through its own <a href="https://www.atlassian.com/software/jira">website</a>. It has a free version for teams up to 10 members, with 2GB of storage and some other options that you can check <a href="https://www.atlassian.com/software/jira/pricing">here</a>.</p>
+
+<p>We can sign up and log in with a Google account, for instance. Then, we can create projects, and for each project, we can choose if we want to manage it using Scrum or Kanban methodology.</p>
+
+<p>For the project chosen, we need to set up some initial settings, such as project management (team or company), and the project name along with a project key (which consists in the project initials, by default).</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_scrum.png" alt="JIRA Scrum project" width="40%" />
+</div>
+
+<p>Then, the main panel of the project will be shown. From the left menu, we can:</p>
+
+<ul>
+  <li>Define the <strong>Roadmap</strong> of the project. We can define tasks (and also subtasks inside each task) and assign a period of time for each task to be done, and a responsible for the task (among the team members)</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_roadmap.png" alt="JIRA Scrum roadmap" width="90%" />
+</div>
+
+<ul>
+  <li>If project is a Scrum project, we can add user stories to the <strong>Backlog</strong> and also assign stories to team members.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_backlog.png" alt="JIRA backlog" width="90%" />
+</div>
+
+<ul>
+  <li>From this <em>Backlog</em> section we can also create <strong>sprints</strong>, and drag inside each sprints the user stories that the team decides. When we decide to start the sprint, we can establish the starting and ending dates as well.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_sprint.png" alt="JIRA sprint" width="90%" />
+</div>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_sprint2.png" alt="JIRA sprint start" width="40%" />
+</div>
+
+<ul>
+  <li>When (at least) a sprint is started, we can manage the user stories involved through the <strong>Board</strong>. If project is a Kanban project, then this board is automatically available, without having to start any sprint. We can drag and drop stories or issues along the board, and also create new columns from the default board structure.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_board.png" alt="JIRA board" width="70%" />
+</div>
+
+<p>There are many other features available in JIRA, but we will not see them in this unit. To finish with this quick overview, you can also invite teammates to your project, and also create teams, through the <em>People</em> section in the upper menu.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-08-jira_teams.png" alt="JIRA teams" width="50%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Sign up in JIRA and create a Kanban project called <em>First Trimester</em>. Define some issues in the <em>Board</em> section that represent your different tasks for all the modules in this first trimester. Move each issue or task to the appropriate column in the board. Also, define your <em>Roadmap</em> with all the tasks and their estimated dates (start and end).</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-09-jira_kanban_example.png" alt="JIRA example" width="50%" />
+</div>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-09-jira_kanban_example2.png" alt="JIRA example" width="70%" />
+</div>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Diseño web adaptativo | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Diseño web adaptativo" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/03d.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Diseño web adaptativo" />
+<script type="application/ld+json">
+{"headline":"Diseño web adaptativo","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/03d.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="diseño-web-adaptativo">Diseño web adaptativo</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>En este documento abordaremos el tema del diseño web adaptativo o <em>responsive</em>, aunque en breve veremos que estos dos conceptos no son exactamente iguales. Básicamente, la temática a abordar es cómo diseñar una web para que se vea adecuadamente en diferentes tipos de dispositivos o resoluciones, tales como <em>smartphones</em>, tablets o monitores de alta resolución.</p>
+
+<h2 id="1-introducción-al-diseño-adaptativo">1. Introducción al diseño adaptativo</h2>
+
+<p>Como acabamos de comentar, abordaremos la problemática de cómo diseñar una web para distintos tipos de dispositivos. Esta afirmación en sí plantea dos preguntas:</p>
+
+<ul>
+  <li>¿Qué tipos principales de dispositivos podemos o debemos considerar?</li>
+  <li>¿Qué estrategias hay para abordar el diseño web para esos tipos de dispositivos?</li>
+</ul>
+
+<h3 id="11-tipos-de-resoluciones">1.1. Tipos de resoluciones</h3>
+
+<p>Tratemos de responder a la primera pregunta: <em>¿qué tipos principales de dispositivos podemos o debemos considerar?</em>. Realmente no es ésa la pregunta adecuada, sino más bien a cuántos tipos de resoluciones diferentes podemos o debemos adaptar nuestra web. Y para responder a esta pregunta, podemos hacer un análisis rápido de los distintos tipos de pantalla en los que habitualmente podemos consultar una página web:</p>
+
+<ul>
+  <li>Por un lado, tenemos <em>smartphones</em> de baja resolución o resolución <em>extra-pequeña</em> (normalmente abreviada <em>xs</em>, <em>extra small</em>). La resolución máxima típica en esta categoría no llega a unos <strong>576px</strong>.</li>
+  <li>El siguiente escalón estaría formado por dispositivos pequeños (normalmente <em>smartphones</em> también) de mayor resolución. Conformarían una resolución <em>pequeña</em> (a menudo abreviada como <em>sm</em> de <em>small</em>), con valores máximos de hasta unos <strong>768px</strong>.</li>
+  <li>A continuación están las pantallas de pequeño tamaño, como las de las tablets, que formarían una resolución media (normalmente abreviada como <em>md</em>), con valores máximos de hasta unos <strong>992px</strong>.</li>
+  <li>Después vendrían pantallas más grandes (abreviadas <em>lg</em>), como los monitores de gama media, con resoluciones de hasta unos <strong>1200px</strong>.</li>
+  <li>Le siguen las pantallas aún más grandes (abreviadas <em>xl</em>), con resoluciones de hasta unos <strong>1400px</strong>.</li>
+  <li>Finalmente, podríamos hablar de pantallas todavía más grandes (abreviadas <em>xxl</em>), para resoluciones mayores que la anterior.</li>
+</ul>
+
+<h3 id="12-estrategias-de-diseño-responsive-vs-adaptativo">1.2. Estrategias de diseño. <em>Responsive</em> vs <em>adaptativo</em></h3>
+
+<p>Vayamos ahora con la segunda pregunta formulada anteriormente: a la hora de abordar el diseño de una web para dar respuesta a todos los tipos de resoluciones posibles (o un grupo de ellos), tenemos dos estrategias:</p>
+
+<ul>
+  <li>La estrategia <strong>responsive</strong> consiste en definir un único diseño que automáticamente se va adaptando a las distintas resoluciones que indiquemos, y re-posicionando sus elementos conforme a esas resoluciones. Para abordar esta estrategia podemos hacer uso de elementos como <em>flexbox</em>, que veremos a continuación, y también de frameworks específicos de diseño web, como Bootstrap.</li>
+  <li>La estrategia <strong>adaptativa</strong> consiste en definir un diseño para cada una de las posibles resoluciones que queremos tratar, de forma que se activa o carga uno u otro en función de la resolución. Esta estrategia se aborda mediante el uso de <em>media queries</em>, que también trataremos a continuación.</li>
+</ul>
+
+<h3 id="13-gestionando-el-viewport">1.3. Gestionando el <em>viewport</em></h3>
+
+<p>Una de las etiquetas <em>meta</em> que comentamos en las primeras sesiones de este curso es la etiqueta <em>viewport</em>. Esta etiqueta permite a los diseñadores web controlar el área visible de una web. En general, la etiqueta que se recomienda utilizar tiene este aspecto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>El parámetro <code class="language-plaintext highlighter-rouge">width=device-width</code> hace que la anchura de la página se iguale a la anchura de la pantalla del dispositivo. Por otra parte, el parámetro <code class="language-plaintext highlighter-rouge">initial-scale=1.0</code> establece el nivel de zoom inicial en 1, es decir, en el zoom del 100%, cuando la página se carga por primera vez.</p>
+
+<h2 id="2-diseño-adaptativo-uso-de-media-queries">2. Diseño adaptativo. Uso de <em>media queries</em></h2>
+
+<p>Las <em>media queries</em> (en español, <em>consulta sobre medios</em>) son una técnica proporcionada por CSS3 que permite adaptar la visualización del contenido de una página a las características del dispositivo en que se va a mostrar. Estas características incluyen, sobre todo, la resolución de la pantalla, pero también podemos hablar de otras, como el tipo de medio. Así, por ejemplo, podemos definir un estilo diferente para una web que se vaya a imprimir en papel y eliminar el color de fondo, entre otras cosas.</p>
+
+<h3 id="21-estructura-general-de-una-media-query">2.1. Estructura general de una <em>media query</em></h3>
+
+<p>Las <em>media queries</em> se definen en el propio documento CSS, a través de la expresión <code class="language-plaintext highlighter-rouge">@media</code> seguida de las condiciones que debe cumplir el dispositivo para aplicar los estilos incluidos en ella. En concreto, su sintaxis general es:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@media</span> <span class="n">not</span><span class="err">|</span><span class="n">only</span> <span class="n">tipo_medio</span> <span class="n">and</span> <span class="p">(</span><span class="n">expresiones</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nt">estilos</span> <span class="nt">CSS</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>donde:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">tipo_medio</code> alude al tipo de medio donde se va a mostrar el contenido. Típicamente es <em>screen</em> (pantalla), pero puede valer también <em>print</em> (impreso en papel), <em>speech</em> (hablado) u <em>all</em>.</li>
+  <li>Las <em>expresiones</em> consisten en una serie de condiciones que debe cumplir el dispositivo. Típicamente se alude a su anchura mínima o máxima (<code class="language-plaintext highlighter-rouge">min-width</code> / <code class="language-plaintext highlighter-rouge">max-width</code>).</li>
+</ul>
+
+<p>Por ejemplo, esta <em>media query</em> se aplicaría únicamente a pantallas con una resolución mínima de 768px:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@media</span> <span class="n">only</span> <span class="n">screen</span> <span class="n">and</span><span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">768px</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para el uso que vamos a hacer aquí de las <em>media queries</em> nos bastará con especificar una anchura mínima o máxima, por lo que podemos dejarlas con este formato:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@media</span> <span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">768px</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="22-estrategia-de-uso-de-las-media-queries">2.2. Estrategia de uso de las <em>media queries</em></h3>
+
+<p>A la hora de aplicar <em>media queries</em> a nuestra web para definir diferentes disposiciones y diseños de elementos acordes a distintas resoluciones de pantalla, una estrategia general es:</p>
+
+<ol>
+  <li>Fuera de las <em>media queries</em> (por ejemplo, al inicio del documento CSS) definimos los estilos generales que no van a cambiar entre resoluciones (colores de fondo, tipos de letra, etc) y también la disposición de los elementos para la resolución más baja (o más alta) que queramos tratar.</li>
+  <li>Definimos una <em>media query</em> por cada resolución superior (o inferior) que queramos contemplar, y dentro, redefinimos únicamente los estilos que queramos adaptar a esa resolución. Por ejemplo, la anchura o tamaño de ciertas cajas, etc.</li>
+</ol>
+
+<p>Por ejemplo, supongamos el siguiente contenido HTML:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Ejemplo media queries<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"estilos.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"contenedor"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"caja1"</span><span class="nt">&gt;</span>Caja 1<span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"caja2"</span><span class="nt">&gt;</span>Caja 2<span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Vamos a definir dos tipos de resoluciones: para pantallas de hasta 768px de ancho, mostraremos una caja debajo de la otra. En cambio, para pantallas de mayor anchura, las mostraremos en paralelo, usando para ello un <em>grid</em> de dos columnas. Nuestro CSS quedaría así:</p>
+
+<ol>
+  <li>Primero definimos los estilos generales y la disposición de las cajas para baja resolución:</li>
+</ol>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span>
+<span class="p">{</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span> <span class="m">5%</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja1</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span><span class="no">lightcoral</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja2</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span><span class="no">lightskyblue</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">margin-bottom</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Después, definimos la <em>media query</em> para resoluciones mayores, y definimos la disposición en rejilla de las dos cajas en este caso:</li>
+</ol>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@media</span><span class="p">(</span><span class="n">min-width</span><span class="p">:</span> <span class="m">768px</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nt">body</span>
+    <span class="p">{</span>
+        <span class="nl">margin</span><span class="p">:</span> <span class="m">100px</span> <span class="m">20%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nf">#contenedor</span>
+    <span class="p">{</span>
+        <span class="nl">display</span><span class="p">:</span> <span class="n">grid</span><span class="p">;</span>
+        <span class="py">grid-template-columns</span><span class="p">:</span> <span class="m">1</span><span class="n">fr</span> <span class="m">1</span><span class="n">fr</span><span class="p">;</span>
+        <span class="py">grid-template-rows</span><span class="p">:</span> <span class="nb">auto</span><span class="p">;</span>
+        <span class="py">gap</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y obtendríamos un resultado como este (baja resolución / alta resolución):</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_media_queries.png" width="80%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Descarga <a href="../../resources/UD3_Ejercicios/03d_ejercicio_responsive.html">este ejemplo</a> y define un documento CSS donde, ayudándote de <em>media queries</em>, definamos tres posibles disposiciones:</p>
+
+  <ul>
+    <li>Para resoluciones bajas (hasta 768px), mostraremos las cajas una debajo de otra</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_media_queries1.png" width="60%" />
+</div>
+
+<blockquote>
+  <ul>
+    <li>Para resoluciones intermedias (hasta 992px), mostraremos la caja 1 arriba, la caja 4 abajo, y las dos intermedias en paralelo. Además, cambiaremos el color de las cajas 1 y 4 a gris (ver imagen resultado)</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_media_queries2.png" width="70%" />
+</div>
+
+<blockquote>
+  <ul>
+    <li>Para resoluciones mayores, mostraremos las 4 cajas en paralelo con sus colores originales</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_media_queries3.png" width="80%" />
+</div>
+
+<h2 id="3-diseño-responsive-uso-de-flexbox">3. Diseño <em>responsive</em>. Uso de <em>flexbox</em></h2>
+
+<p>Flexbox (<em>flexible boxes</em>) es un mecanismo de diseño web <em>responsive</em> facilitado por CSS3, que permite especificar una serie de propiedades en las cajas para que se adapten automáticamente al tamaño de pantalla existente, dependiendo de si van a tener suficiente espacio para mostrarse de un modo u otro.</p>
+
+<p>Del mismo modo que ocurre con el <em>grid</em> de CSS, es necesario que las cajas involucradas en el proceso <em>responsive</em> estén contenidas en otra, de forma que podemos especificar las propiedades generales de <em>flexbox</em> en la caja contenedora, y luego definir, adicionalmente, cómo queremos disponer las cajas en ese contenedor.</p>
+
+<h3 id="31-configurando-la-caja-contenedora">3.1. Configurando la caja contenedora</h3>
+
+<p>Entre las propiedades que podemos definir en la caja contenedora, podemos destacar las siguientes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">display</code>: en este caso, la propiedad <em>display</em> deberá tener el valor de <strong><em>flex</em></strong> para habilitar el contenedor como un contenedor de elementos flexibles. Alternativamente, también se le puede dar el valor <em>inline-flex</em> si queremos que los elementos de dentro se comporten como elementos en línea (no en bloque).</li>
+  <li><code class="language-plaintext highlighter-rouge">flex-direction</code>: indica cómo se van a disponer las cajas dentro del contenedor. El valor por defecto es <em>row</em>, que hace que se dispongan de izquierda a derecha, pero también podemos utilizar <em>row-reverse</em> (horizontal pero invertido), <em>column</em> (de arriba a abajo) y <em>column-reverse</em> (vertical pero invertido). Podemos intuir, por tanto, que con Flexbox vamos a poder disponer los elementos en una dirección (bien horizontal, bien vertical) de forma flexible.</li>
+  <li><code class="language-plaintext highlighter-rouge">justify-content</code>:  indica cómo se va a rellenar el espacio entre cajas, si lo hay. Puede tomar los valores <em>flex-start</em> (se agrupan las cajas al inicio del espacio disponible), <em>flex-end</em> (al final), <em>center</em> (centradas en medio del espacio disponible), <em>space-between</em> (justificadas con espacio entre ellas) o <em>space-around</em> (justificadas con espacio también a los lados).</li>
+  <li><code class="language-plaintext highlighter-rouge">flex-wrap</code>: indica cómo vamos a adaptar las cajas en caso de que no quepan todas en una misma fila (o columna). Su valor por defecto es <em>nowrap</em>, lo que indica que no hay ningún ajuste: las cajas se disponen según lo indicado en las propiedades anteriores, y si no caben se siguen disponiendo en esa dirección. Pero si lo establecemos a <em>wrap</em>, entonces se redistribuirán si no hay espacio suficiente. Es el valor más habitual si queremos establecer un diseño <em>responsive</em>.</li>
+  <li>…</li>
+</ul>
+
+<p>Existen algunas webs como <a href="https://the-echoplex.net/flexyboxes/">esta</a> donde podemos probar el comportamiento de estas y otras propiedades, y ver cómo funciona cada una en realidad.</p>
+
+<h3 id="32-configurando-las-cajas-internas">3.2. Configurando las cajas internas</h3>
+
+<p>Para cada caja contenida en el elemento contenedor, podemos configurar sus propiedades <em>flexbox</em> para indicar dónde se va a ubicar y cuánto espacio va a ocupar. Algunas de estas propiedades son:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">order</code>: indica el orden de la caja dentro de la secuencia de cajas contenidas. Si no indicamos nada, cada caja se coloca a continuación de la anterior, siguiendo la disposición indicada en la caja contenedora. Pero podemos alterar ese orden natural reubicando las cajas. Se trata simplemente de un número; cuanto mayor sea, la caja se colocará más hacia el final de la secuencia.</li>
+  <li><code class="language-plaintext highlighter-rouge">flex</code>: indica el tamaño de la caja respecto al resto. Son tamaños relativos, igual que ocurre con las unidades <em>fr</em> en la rejilla <em>grid</em> CSS. Si todas las cajas tienen un tamaño <em>flex</em> de 1, todas ocuparán lo mismo. Si a alguna le asignamos un tamaño de 2, ocupará el doble que el resto. Alternativamente, también podemos utilizar esta propiedad para dar un tamaño fijo en píxeles (por ejemplo, <em>flex:200px</em>) o en porcentaje (<em>flex: 40%</em>). Esta última opción es útil si queremos controlar mejor cuántas columnas queremos que haya en cada fila.</li>
+  <li><code class="language-plaintext highlighter-rouge">min-width</code>: indica la anchura mínima que debe tener la caja para mostrar su contenido. Si esta anchura no se cumple y tenemos habilitada la opción <code class="language-plaintext highlighter-rouge">flex-wrap: wrap</code> en el contenedor, entonces hará que vaya a la siguiente fila/columna disponible para mostrarse.</li>
+</ul>
+
+<p>Echemos un vistazo a este ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Ejemplo flexbox<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"estilos.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"contenedor"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"caja1"</span><span class="nt">&gt;</span>Caja 1<span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"caja2"</span><span class="nt">&gt;</span>Caja 2<span class="nt">&lt;/section&gt;</span>
+        <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"caja3"</span><span class="nt">&gt;</span>Caja 3<span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Imaginemos que queremos poner las tres cajas en horizontal, con la caja 2 ocupando el doble de espacio, y que todas tengan una anchura mínima de 250px. Si eso no puede cumplirse, queremos que las cajas se redistribuyan para cumplir con esa anchura mínima (normalmente una debajo de otra).</p>
+
+<p>En primer lugar, definimos las características del elemento contenedor:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#contenedor</span>
+<span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+    <span class="nl">flex-direction</span><span class="p">:</span> <span class="n">row</span><span class="p">;</span>
+    <span class="nl">justify-content</span><span class="p">:</span> <span class="n">space-between</span><span class="p">;</span>
+    <span class="nl">flex-wrap</span><span class="p">:</span> <span class="n">wrap</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Después, establecemos las propiedades de las cajas contenidas. Además de sus características particulares (color de fondo, <em>padding</em>, etc), indicamos sus propiedades <em>flexbox</em>: anchura (propiedad <em>flex</em>) y anchura mínima.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#caja1</span><span class="o">,</span> <span class="nf">#caja3</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span><span class="no">lightcoral</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>    
+    <span class="nl">flex</span><span class="p">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="nl">min-width</span><span class="p">:</span> <span class="m">250px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nf">#caja2</span>
+<span class="p">{</span>    
+    <span class="nl">background-color</span><span class="p">:</span><span class="no">lightskyblue</span><span class="p">;</span>
+    <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="nl">flex</span><span class="p">:</span> <span class="m">2</span><span class="p">;</span>
+    <span class="nl">min-width</span><span class="p">:</span> <span class="m">250px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si vamos variando el tamaño de la ventana del navegador, podemos comprobar cómo las propias cajas se van ajustando a distintos tamaños y posiciones para cumplir con lo establecido. Aquí vemos la evolución desde pantallas grandes a pequeñas:</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_flexbox.png" width="80%" />
+</div>
+
+<p>Notar que, si eliminamos la propiedad <code class="language-plaintext highlighter-rouge">flex-wrap: wrap</code> del elemento contenedor, las cajas ya no se redistribuyen. Se quedan ocupando su espacio original, y si encogemos demasiado la pantalla nos tocará hacer scroll para verlas.</p>
+
+<p>Notar también que, utilizando <em>flexbox</em>, podemos reajustar las cajas automáticamente en cuanto el tamaño de la pantalla “choque” con los requisitos de cada caja, pero no podemos controlar del todo dónde va a parar cada caja. En el ejemplo anterior, llega un punto en que la caja 3 baja a la segunda fila, quedando la caja 1 y la 2 en primera fila… pero quizá preferiríamos otra distribución para esa situación intermedia.</p>
+
+<p>Puedes leer más información sobre Flexbox en otras webs interesantes, como por ejemplo <a href="https://platzi.com/blog/flexbox-explicado-con-manzanitas">esta</a>.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Descarga <a href="../../resources/UD3_Ejercicios/03d_ejercicio_responsive.html">este ejemplo</a> que ya hemos utilizado en el ejercicio previo. Ahora vamos a configurarlo mediante <em>flexbox</em> para que:</p>
+
+  <ul>
+    <li>Las dos cajas centrales ocupen el doble de tamaño que las laterales. Las laterales van a tener un color de fondo gris y las centrales amarillo-naranja.</li>
+    <li>Las cajas laterales tengan una anchura mínima de 200px, y las centrales de 300px. Cuando esto no sea posible, se redistribuirán</li>
+  </ul>
+</blockquote>
+
+<p>Aquí tienes un ejemplo de cómo puede quedar, a algunas de las resoluciones posibles:</p>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_flexbox1.png" width="80%" />
+</div>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_flexbox2.png" width="60%" />
+</div>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_flexbox3.png" width="40%" />
+</div>
+
+<h2 id="4-conclusiones-flexbox-vs-media-queries">4. Conclusiones. <em>Flexbox</em> vs <em>media queries</em></h2>
+
+<p>En general, <em>flexbox</em> es una buena opción para una distribución flexible <em>unidimensional</em> (es decir, colocar componentes en una misma fila o columna y que se auto-distribuyan dependiendo del tamaño disponible). Pero para disposiciones bidimensionales (tablas), <em>flexbox</em> se queda corto por sí mismo, si queremos controlar la distribución concreta de los elementos. Una alternativa a esto podría ser utilizar <em>grid</em> y <em>media-queries</em> para diferentes posibles tamaños.</p>
+
+<p>Con lo visto hasta ahora, podemos optar por un diseño <em>adaptativo</em> (<em>media queries</em> + <em>grid</em>) si queremos controlar mejor la disposición bidimensional de los elementos de la web, o por un diseño <em>responsive</em> (<em>flexbox</em>) si sólo queremos controlar la disposición unidimensional (fila a fila, o columna a columna). El inconveniente de lo primero es que nos “obliga” a plantear distintos diseños complementarios para elegir automáticamente cuál de ellos cargar. Una alternativa a esto es utilizar algún framework de diseño web, como Bootstrap, que simplifica bastante esta tarea.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

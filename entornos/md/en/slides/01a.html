@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Programs, languages and compilers</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programs, languages and compilers
+### Initial concepts
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software
+
+Set of **programs**, **documentation** and **data** closely related in order to make up a computer application
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software components
+
+- **Programs**: sets of instructions that provide the desired functionality
+- **Data**: information managed by the program. Usually extracted from databases
+- **Documentation**: explain how to use software, which elements are part of it and how they are interconnected
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software types
+
+- **Application software**: bring some kind of service to the customer (*text processors*, *spreadsheets*, *drawing*...)
+- **System software**: manage a computer system and support/help other software (*operating systems*, *compilers*...)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Programming languages
+
+- Programs are written using a given programming language
+- We create text files called **source code**
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Language types
+
+- **High level**: close to human language (hard for computers)
+    - Java, Python, C, C++, PHP, JavaScript...
+- **Low level**: close to computer language (hard for humans)
+    - Assembly language
+</script>
+</section>
+
+<section>
+    <h2>Example: program in Java</h2>
+    <pre><code data-trim data-noescape>    
+public class Test
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Hello");
+    }
+}
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: program in C
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello");
+    return 0;
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Language processors
+
+- They translate a programming language into a language that computers can understand
+- This language is **machine code**, composed by zeros and ones (bits)
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Language processors: Compilers
+
+- They translate from a programming language into machine code, generating an executable file
+- Examples of compiled languages: C, C++
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Language processors: Compilers
+
+- PROS: 
+   - Faster
+   - Source code not needed to run the application
+- CONS: 
+   - Platform dependent
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Language processors: Interpreters
+
+- They translate from a programming language into machine code *on the fly*, without generating any additional file
+- Examples of interpreted languages: Python, PHP, JavaScript
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Language processors: Interpreters
+
+- PROS: 
+   - Platform independent
+- CONS: 
+   - Less efficient
+   - Source code is needed to run the application
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Language processors: Virtual machines
+
+- They translate from a programming language into an intermediate code, which is run on a virtual machine
+- Examples: Java (*JVM*), C# (*.NET* platform)
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Language processors: Virtual machines
+
+- PROS: 
+    - Platform independent (as long as VM is installed)
+    - Source code not needed to run the application
+- CONS: 
+    - Not as efficient as compiled languages
+</script>
+</section>    
+     
+<section data-markdown>
+<script type="text/template">
+## Popular languages
+    
+* [TIOBE index](https://www.tiobe.com/tiobe-index/)
+* [RedMonk ranking](https://redmonk.com/sogrady/2021/03/01/language-rankings-1-21/)
+* [Some YouTube experts](https://www.youtube.com/watch?v=Bi3MHIQVgdo)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+    
+- Use an online editor like [Ideone](https://ideone.com/) to write a program that prints a "Hello" message using different languages, such as:
+   - Java
+   - C
+   - Python
+   - JavaScript
+   - PHP
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

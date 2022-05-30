@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 1 | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/01ejercicios.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 1","url":"http://nachoiborraies.github.io/nodejs/md/es/01ejercicios.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-1">Ejercicios propuestos - Parte 1</h1>
+
+<p>Para los ejercicios de esta sesión, crea una subcarpeta llamada “<strong>Sesion1</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro ir creando un proyecto para cada ejercicio.</p>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Instala Node.js en la máquina virtual proporcionada si no está ya instalado (o en tu propio sistema operativo, si lo prefieres), siguiendo los pasos indicados en estos apuntes. Tras la instalación, ejecuta el comando <code class="language-plaintext highlighter-rouge">node -v</code> para que muestre la versión que tienes instalada. Adjunta una captura de pantalla del terminal con el comando y el resultado, en una imagen llamada <code class="language-plaintext highlighter-rouge">prueba_node</code> con la extensión que quieras (JPG, PNG…).</p>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_1_2</strong>” en la carpeta “<em>ProyectosNode/Ejercicios/Sesion1</em>”, ábrela con Visual Studio Code y crea un archivo llamado <code class="language-plaintext highlighter-rouge">depuracion.js</code>. Dentro, introduce este código y guarda el archivo:</p>
+
+<div>
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_ejercicio2.png" width="60%" />
+</div>
+
+<p>Utiliza el depurador de cualquiera de las formas explicadas (a través de Visual Studio Code, o con Google Chrome) para averiguar el valor de la variable <code class="language-plaintext highlighter-rouge">n</code> tras ejecutarse la línea 6 de código (pon un <em>breakpoint</em> en la línea 7, por ejemplo). Haz una captura de pantalla mostrando lo que haces para averiguar el valor, y el resultado que te muestra. Adjunta dicha captura con el nombre <code class="language-plaintext highlighter-rouge">depuracion</code>, y la extensión que prefieras (JPG, PNG…).</p>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_1_3</strong>” en tu espacio de trabajo, en la carpeta de “<em>Ejercicios/Sesion1</em>”. Crea un archivo fuente dentro llamado <code class="language-plaintext highlighter-rouge">arrow_functions.js</code> con el siguiente código:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">966112233</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">41</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Ana</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">911223344</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">36</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">611998877</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">633663366</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">17</span><span class="p">}</span>
+<span class="p">];</span>
+
+<span class="nx">nuevaPersona</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Juan</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span><span class="dl">"</span><span class="s2">965661564</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">60</span><span class="p">});</span>
+<span class="nx">nuevaPersona</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Rodolfo</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span><span class="dl">"</span><span class="s2">910011001</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">20</span><span class="p">});</span>
+<span class="nx">borrarPersona</span><span class="p">(</span><span class="dl">"</span><span class="s2">910011001</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">datos</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Hemos definido un vector con datos de personas, y un programa principal que llama dos veces a una función <code class="language-plaintext highlighter-rouge">nuevaPersona</code>, pasándole como parámetros los objetos con los datos de las personas a añadir. Después, llamamos a una función <code class="language-plaintext highlighter-rouge">borrarPersona</code>, pasándole como parámetro un número de teléfono, y mostramos el vector de personas con los datos que haya.</p>
+
+<p>Debes implementar las funciones <code class="language-plaintext highlighter-rouge">nuevaPersona</code> y <code class="language-plaintext highlighter-rouge">borrarPersona</code> para que hagan su cometido. La primera recibirá la persona como parámetro y, si el teléfono no existe en el vector de personas, la añadirá. Para ello, puedes utilizar el método <code class="language-plaintext highlighter-rouge">push</code> del vector:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">datos</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">persona</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En cuanto a <code class="language-plaintext highlighter-rouge">borrarPersona</code>, eliminará del vector a la persona que tenga dicho teléfono, en caso de que exista. Para eliminar a la persona del vector, puedes simplemente filtrar las personas cuyo teléfono no sea el indicado, y asignar el resultado al propio vector de personas:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">datos</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">persona</span> <span class="o">=&gt;</span> <span class="nx">persona</span><span class="p">.</span><span class="nx">telefono</span> <span class="o">!=</span> <span class="nx">telefonoABuscar</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="ejercicio-4">Ejercicio 4</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_1_4</strong>” en tu espacio de trabajo, en la carpeta de “<em>Ejercicios/Sesion1</em>”. Crea dentro un archivo fuente llamado <code class="language-plaintext highlighter-rouge">promesas.js</code>, que sea una copia del archivo fuente <code class="language-plaintext highlighter-rouge">arrow_functions.js</code> del ejercicio anterior.</p>
+
+<p>Lo que vas a hacer en este ejercicio es adaptar las dos funciones <code class="language-plaintext highlighter-rouge">nuevaPersona</code> y <code class="language-plaintext highlighter-rouge">borrarPersona</code> para que devuelvan una promesa.</p>
+
+<p>En el caso de <code class="language-plaintext highlighter-rouge">nuevaPersona</code>, se devolverá con <code class="language-plaintext highlighter-rouge">resolve</code> el objeto persona insertado, si la inserción fue satisfactoria, o con <code class="language-plaintext highlighter-rouge">reject</code> el mensaje “Error: el teléfono ya existe” si no se pudo insertar la persona porque ya existía su teléfono en el vector</p>
+
+<p>En el caso de <code class="language-plaintext highlighter-rouge">borrarPersona</code>, se devolverá con <code class="language-plaintext highlighter-rouge">resolve</code> el objeto persona eliminado, si el borrado fue satisfactorio, o con <code class="language-plaintext highlighter-rouge">reject</code> un mensaje “Error: no se encontraron coincidencias” si no existía ninguna persona con ese teléfono en el vector.</p>
+
+<p>Modifica el código del programa principal para que intente añadir una persona correcta y otra equivocada (teléfono ya existente en el vector), y borrar una persona correcta y otra equivocada (teléfono no existente en el vector). Comprueba que el resultado al ejecutar es el que esperabas.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

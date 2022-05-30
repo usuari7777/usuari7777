@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object oriented programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Object oriented programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/05d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/05d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object oriented programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Object oriented programming","url":"http://nachoiborraies.github.io/java/md/en/05d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="object-oriented-programming">Object oriented programming</h1>
+
+<h2 id="using-static-and-final">Using <em>static</em> and <em>final</em></h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/05d.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/05d.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Along previous sections, we’ve been using <em>static</em> and <em>final</em> words in some parts of our code. It’s now time to explain what they exactly mean.</p>
+
+<h3 id="1-static-elements">1. Static elements</h3>
+
+<p><strong>static</strong> modifier defines elements that belong to the class itself, and not to any specific object of the class. For instance, if we define a static attribute:</p>
+
+<pre><code class="language-Java">public class MyClass 
+{
+    static int count = 0;
+}
+</code></pre>
+
+<p>Then every object that we create of that class will share this attribute with the rest of the objects of that class. So a static attribute is something like a <em>shared variable</em>.</p>
+
+<p>Regarding methods, a static method is a method that can be called without creating any object of the class:</p>
+
+<pre><code class="language-Java">public class MyClass 
+{
+    ...
+    public static void myMethod() 
+    {
+        ...
+    }
+
+    public void myOtherMethod() 
+    {
+        ...
+    }
+}
+...
+MyClass.myMethod();         // OK
+MyClass.myOtherMethod();    // ERROR
+
+MyClass mc = new MyClass();
+mc.myMethod();              // OK (but not necessary)
+mc.myOtherMethod();         // OK
+</code></pre>
+
+<p>Keep in mind that in a static method you can only use other static elements (attributes or methods), but not any non-static method existing outside of the method. For instance, this could not be done, since <code class="language-plaintext highlighter-rouge">myOtherMethod</code> is not static:</p>
+
+<pre><code class="language-Java">public static void myMethod() 
+{
+    myOtherMethod();
+}
+
+public void myOtherMethod() 
+{
+    ...
+}
+</code></pre>
+
+<p>If we want to use this method, then we need to instantiate a <code class="language-plaintext highlighter-rouge">MyClass</code> object inside the static method, and then call this other method:</p>
+
+<pre><code class="language-Java">public static void myMethod() 
+{
+    MyClass mc = new MyClass();
+    mc.myOtherMethod();
+}
+
+public void myOtherMethod() 
+{
+    ...
+}
+</code></pre>
+
+<p>You can use many other static methods existing in Java. For instance, <code class="language-plaintext highlighter-rouge">Math</code> class has a lot of them, such as <code class="language-plaintext highlighter-rouge">Math.pow(...)</code>, or <code class="language-plaintext highlighter-rouge">Math.sqrt(...)</code>.</p>
+
+<h4 id="11-instance-elements-vs-class-elements">1.1. Instance elements vs class elements</h4>
+
+<p>At the beginning of this unit we’ve talked about <em>instance variables</em> referring to attributes. We can talk about <em>instance elements</em> to refer to any element in a class (either an attribute or a method) that belongs to a given object, this is, we need to instantiate an object to use or access this element.</p>
+
+<p>On the other hand, we have <em>class elements</em> (either class attributes or methods), this is, elements that don’t belong to a particular object, so we don’t need to instantiate any object to use them. This is what we get when we use <em>static</em> in our classes.</p>
+
+<h3 id="2-final-elements">2. Final elements</h3>
+
+<p><strong>final</strong> modifier lets us define elements that can’t be modified. If we apply this modifier to an attribute or variable, we are defining a constant: the element can’t be re-assigned to any other value:</p>
+
+<pre><code class="language-Java">final int number = 3;
+
+// ERROR
+number = 6;
+</code></pre>
+
+<p>We can also apply this modifier to methods, or even classes. If we apply the modifier to a method, we are indicating that this method can’t be overriden by any possible child class. Regarding classes, a final class can’t be inherited.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

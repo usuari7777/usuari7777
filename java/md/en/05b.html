@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object oriented programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Object oriented programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="05b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/05b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object oriented programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Object oriented programming","url":"http://nachoiborraies.github.io/java/md/en/05b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="object-oriented-programming">Object oriented programming</h1>
+
+<h2 id="class-relatioships">Class relatioships</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Classes are not isolated elements in a program, usually. Objects of a class need to interact with objects of another class in many different ways, and that’s how relationship between classes are formalized. In this document we are going to see the main relationships that we can establish between classes: association, inheritance and dependency.</p>
+
+<h3 id="1-class-associations">1. Class associations</h3>
+
+<p><strong>Association</strong> is a relationship between two classes, in which one of them is part of the elements of the other one, this is, an object of one of the classes is an attribute or instance variable of the other class. It is usually represented in the code with a reference to the contained object or a collection or array of those objects. If we take back our example of a bookshop, we could say that a book has an author. Then, we can define a new class called <code class="language-plaintext highlighter-rouge">Author</code> with some attributes, such as the name and year of birth:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Author</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">yearBirth</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Author</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">yearBirth</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">yearBirth</span> <span class="o">=</span> <span class="n">yearBirth</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getYearBirth</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">yearBirth</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setYearBirth</span><span class="o">(</span><span class="kt">int</span> <span class="n">yearBirth</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">yearBirth</span> <span class="o">=</span> <span class="n">yearBirth</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can establish a <strong>Has-A</strong> relationship between these two classes (a book <em>has an</em> author), so we define an association between them. To do this, our <code class="language-plaintext highlighter-rouge">Book</code> class will have an additional attribute to store the author of this book (we assume that every book has one, and only one, author). We need to add a new parameter to set the author from the constructor, and the corresponding getter and setter for this new attribute.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span> 
+<span class="o">{</span>    
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Author</span> <span class="n">author</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">,</span> <span class="nc">Author</span> <span class="n">author</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="n">numPages</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="nc">Author</span> <span class="nf">getAuthor</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuthor</span><span class="o">(</span><span class="nc">Author</span> <span class="n">author</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Regarding our main program, we can define an <code class="language-plaintext highlighter-rouge">Author</code> object and associate it to a given book. Then, we can print the typical information of the book… but also author’s information, such as author’s name:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookExample</span> 
+<span class="o">{</span>    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">Author</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Author</span><span class="o">(</span><span class="s">"J.R.R. Tolkien"</span><span class="o">,</span> <span class="mi">1892</span><span class="o">);</span>
+
+        <span class="c1">// The lord of the Rings, 850 pages, 13.50 eur, Tolkien</span>
+        <span class="nc">Book</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"The lord of the Rings"</span><span class="o">,</span> <span class="mi">850</span><span class="o">,</span> <span class="mf">13.50</span><span class="o">,</span> <span class="n">a</span><span class="o">);</span>
+
+        <span class="c1">// Print book title and author's name</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">getAuthor</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that, if we want to associate the same author to more than one book, we just need to use <strong>the same object</strong>, instead of creating/repeating the object again for every new book.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Author</span> <span class="n">a1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Author</span><span class="o">(</span><span class="s">"J.R.R. Tolkien"</span><span class="o">,</span> <span class="mi">1892</span><span class="o">);</span>
+<span class="nc">Author</span> <span class="n">a2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Author</span><span class="o">(</span><span class="s">"J.R.R. Tolkien"</span><span class="o">,</span> <span class="mi">1892</span><span class="o">);</span>  
+<span class="c1">// a2 is not the same than a1 (different objects in memory)</span>
+
+<span class="nc">Book</span> <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"The lord of the Rings"</span><span class="o">,</span> <span class="mi">850</span><span class="o">,</span> <span class="mf">13.50</span><span class="o">,</span> <span class="n">a1</span><span class="o">);</span>
+<span class="nc">Book</span> <span class="n">b2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"The hobbit"</span><span class="o">,</span> <span class="mi">345</span><span class="o">,</span> <span class="mf">8.76</span><span class="o">,</span> <span class="n">a2</span><span class="o">);</span>  <span class="c1">// Different author</span>
+<span class="nc">Book</span> <span class="n">b3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"The hobbit"</span><span class="o">,</span> <span class="mi">345</span><span class="o">,</span> <span class="mf">8.76</span><span class="o">,</span> <span class="n">a1</span><span class="o">);</span>  <span class="c1">// Same author</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Improve exercise <em>TeamsExample.java</em> from previous document in another source file called <strong>TeamsExample2.java</strong>. Now every team will have an array of 5 players. Add a new class called <code class="language-plaintext highlighter-rouge">Player</code> to the source file. For each player, we need to define his/her name, age and back number. Add the corresponding constructor and getters/setters. Then, modify <code class="language-plaintext highlighter-rouge">Team</code> class to store 5 <em>Player</em> objects, and adapt your main function to create a team with all the players inside it. Print the information of the team, including the players that belong to it.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Improve exercise <em>VideoGameList.java</em> from previous document in another source file called <strong>VideoGameList2.java</strong>. Now, every video game has a <em>Company</em> that created it. For every company, we need to store its name and the foundation year. Associate a company to each video game, so that some video games can share the same company object. Then, modify the main application to specify the company information for every videogame (besides video game initial data). Make sure that you share the same <em>Company</em> object among all the video games belonging to the same company.</p>
+</blockquote>
+
+<h4 id="11-association-navigability">1.1. Association navigability</h4>
+
+<p>Associations are (or can be) bi-directional. In a class diagram, they are represented by a continuous line joining both clases involved, including the cardinality of each one in the relationship. In our case, a Book has one author, and an author can have many books. This can be represented like this:</p>
+
+<div align="center">
+    <img src="../../img/05_book_author_association.png" />
+</div>
+
+<p>However, if we don’t specify it, associations are (by default) bi-directional. This means that we can retrieve the author of a book from the book object (we can do this, already), but we can also retrieve the list of books of an author from the author object. This last part of the relationship is not implemented in our example, so, unless we want to implement it, we need to represent this association as unidirectional, by adding an arrow pointing to <code class="language-plaintext highlighter-rouge">Author</code> class. This means that we can get the author from a book object, but not the opposite. The arrow can be placed at either the line or the association name.</p>
+
+<div align="center">
+    <img src="../../img/05_book_author_association_uni.png" />
+</div>
+
+<p>The programmer can decide if an association needs to be bi-directional or not, so only one of the classes (or both) will be related with the other one.</p>
+
+<p>Let’s have a look at this example: we have a <code class="language-plaintext highlighter-rouge">House</code> class to represent houses. From each class, we want to know the address, and the total number of rooms. Each house has a living room, so we use a <code class="language-plaintext highlighter-rouge">LivingRoom</code> class to represent it. We store the total area of the living room. We can establish a one-to-one relationship between these classes (a house has one living room, and a living room belongs to one house):</p>
+
+<div align="center">
+    <img src="../../img/05_one_one_association.png" />
+</div>
+
+<p>Now, we are going to represent this bi-directional relationship in Java. First of all, we add a <code class="language-plaintext highlighter-rouge">LivingRoom</code> object as attribute in <code class="language-plaintext highlighter-rouge">House</code> class, and we assign it in the constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">House</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">address</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">rooms</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">LivingRoom</span> <span class="n">livingRoom</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">House</span><span class="o">(</span><span class="nc">String</span> <span class="n">address</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rooms</span><span class="o">,</span> <span class="nc">LivingRoom</span> <span class="n">livingRoom</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rooms</span> <span class="o">=</span> <span class="n">rooms</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">livingRoom</span> <span class="o">=</span> <span class="n">livingRoom</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getAddress</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">address</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAddress</span><span class="o">(</span><span class="nc">String</span> <span class="n">address</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getRooms</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">rooms</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRooms</span><span class="o">(</span><span class="kt">int</span> <span class="n">rooms</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rooms</span> <span class="o">=</span> <span class="n">rooms</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">LivingRoom</span> <span class="nf">getLivingRoom</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">livingRoom</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLivingRoom</span><span class="o">(</span><span class="nc">LivingRoom</span> <span class="n">livingRoom</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">livingRoom</span> <span class="o">=</span> <span class="n">livingRoom</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Next, we try to do the same with <code class="language-plaintext highlighter-rouge">LivingRoom</code> class (we add a <code class="language-plaintext highlighter-rouge">House</code> object and try to assign it in the constructor):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LivingRoom</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">area</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">House</span> <span class="n">house</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LivingRoom</span><span class="o">(</span><span class="kt">int</span> <span class="n">area</span><span class="o">,</span> <span class="nc">House</span> <span class="n">house</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">area</span> <span class="o">=</span> <span class="n">area</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">house</span> <span class="o">=</span> <span class="n">house</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getArea</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">area</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setArea</span><span class="o">(</span><span class="kt">int</span> <span class="n">area</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">area</span> <span class="o">=</span> <span class="n">area</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">House</span> <span class="nf">getHouse</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">house</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHouse</span><span class="o">(</span><span class="nc">House</span> <span class="n">house</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">house</span> <span class="o">=</span> <span class="n">house</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>But let’s try to create both objects from a <em>main</em> program:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LivingRoom</span> <span class="n">lr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LivingRoom</span><span class="o">(</span><span class="mi">40</span><span class="o">,</span> <span class="o">???);</span>    <span class="c1">// Where's the house??</span>
+<span class="nc">House</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">House</span><span class="o">(</span><span class="s">"Java Street"</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="n">lr</span><span class="o">);</span>  <span class="c1">// LivingRoom is OK</span>
+</code></pre></div></div>
+
+<p>As you can see, one of the constructors is missing some information. When we want to establish a bi-directional association between two classes, one of them can be set in the constructor, but the other one (the first object that we create) must wait. So the constructor of <code class="language-plaintext highlighter-rouge">LivingRoom</code> class does not need a <code class="language-plaintext highlighter-rouge">House</code> parameter:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">LivingRoom</span><span class="o">(</span><span class="kt">int</span> <span class="n">area</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">area</span> <span class="o">=</span> <span class="n">area</span><span class="o">;</span>
+    <span class="c1">// House remains unassigned</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, we have two options to assign the house to a living room:</p>
+
+<ul>
+  <li>We call the setter from <code class="language-plaintext highlighter-rouge">LivingRoom</code> once the house has been created:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LivingRoom</span> <span class="n">lr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LivingRoom</span><span class="o">(</span><span class="mi">40</span><span class="o">);</span>
+<span class="nc">House</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">House</span><span class="o">(</span><span class="s">"Java Street"</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="n">lr</span><span class="o">);</span>
+<span class="n">lr</span><span class="o">.</span><span class="na">setHouse</span><span class="o">(</span><span class="n">h</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>We can do this automatically in the house constructor, as soon as we assign the living room to it:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">House</span><span class="o">(</span><span class="nc">String</span> <span class="n">address</span><span class="o">,</span> <span class="kt">int</span> <span class="n">rooms</span><span class="o">,</span> <span class="nc">LivingRoom</span> <span class="n">livingRoom</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">rooms</span> <span class="o">=</span> <span class="n">rooms</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">livingRoom</span> <span class="o">=</span> <span class="n">livingRoom</span><span class="o">;</span>
+    <span class="c1">// Assign the livingRoom to this house</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">livingRoom</span><span class="o">.</span><span class="na">setHouse</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we use this last way, we don’t need any additional outer code. As soon as we instantiate both objects, they are automatically associated:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LivingRoom</span> <span class="n">lr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LivingRoom</span><span class="o">(</span><span class="mi">40</span><span class="o">);</span>
+<span class="nc">House</span> <span class="n">h</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">House</span><span class="o">(</span><span class="s">"Java Street"</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="n">lr</span><span class="o">);</span>
+<span class="c1">// At this point, association is already bi-directional</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a source file called <strong>BookAssociation.java</strong>. Add the <code class="language-plaintext highlighter-rouge">Book</code> and <code class="language-plaintext highlighter-rouge">Author</code> class that we have already implemented in previous example, and try to make this association bi-directional. In this case, you need to add a <code class="language-plaintext highlighter-rouge">Book</code> array as an attribute in <code class="language-plaintext highlighter-rouge">Author</code> class, and add the corresponding code to add books to each author’s array.</p>
+</blockquote>
+
+<h4 id="12-aggregations-and-compositions">1.2. Aggregations and compositions</h4>
+
+<p>There are two special types of associations: compositions and aggregations. In both, one of the classes is considered as a whole thing, and the other one is a part of this whole thing. But… how to distinguish between composition and aggregation? Let’s see it with some simple examples:</p>
+
+<ul>
+  <li><strong>Composition</strong>: we use it when an object is an indivisible part of another object. For example, a <code class="language-plaintext highlighter-rouge">Room</code> is part of a <code class="language-plaintext highlighter-rouge">House</code> (and only of that house), a <code class="language-plaintext highlighter-rouge">Square</code> is part of a <code class="language-plaintext highlighter-rouge">Chessboard</code>, and so on. The main characteristic of this type of relationship is that when we destroy the main object (the <em>whole thing</em>), all objects that are part of it are also destroyed.</li>
+  <li><strong>Aggregation</strong>: we use it when an object is part of another object (or maybe part of two or more objects) and it can exist without the object that contains it. An example of this would be a <code class="language-plaintext highlighter-rouge">Player</code>, who is part of a <code class="language-plaintext highlighter-rouge">Team</code> (or maybe more), or a <code class="language-plaintext highlighter-rouge">Student</code>, who belongs to a <code class="language-plaintext highlighter-rouge">Classrom</code> (or more). In these cases when the <code class="language-plaintext highlighter-rouge">Team</code> or the <code class="language-plaintext highlighter-rouge">Classroom</code> no longer exists, players and students continue to exist, and they can join other team/classroom.</li>
+</ul>
+
+<p><strong>Composition and aggregation in practice</strong></p>
+
+<p>In practice, the way we define the aggregation or composition depends on the programming language that we are using. But, in general, if the internal attribute or instance variable that makes the composition or aggregation can’t be accessed from out of the containing class, then we have a composition. Otherwise, we have an aggregation. Let’s see this with the following example: we define a <code class="language-plaintext highlighter-rouge">Car</code> class that has an object of type <code class="language-plaintext highlighter-rouge">Engine</code>. If we want to define a composition between these classes, we would do it this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Engine</span> <span class="n">engine</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">(</span><span class="nc">EngineParams</span> <span class="n">params</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">engine</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Engine</span><span class="o">(</span><span class="n">params</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that we create the <code class="language-plaintext highlighter-rouge">Engine</code> object inside the <code class="language-plaintext highlighter-rouge">Car</code> class, by using some parameters specified in the <code class="language-plaintext highlighter-rouge">EngineParams</code> object. This object may contain some simple data about the engine, such as power, or fuel consumption. In this case, if the <code class="language-plaintext highlighter-rouge">Car</code> object is destroyed, then the <code class="language-plaintext highlighter-rouge">Engine</code> object will be destroyed as well. There’s no way to access the engine beyond this class. So, this is a composition.</p>
+
+<p>However, if we need to define an aggregation between <code class="language-plaintext highlighter-rouge">Car</code> class and <code class="language-plaintext highlighter-rouge">Engine</code> class, then we do it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">Engine</span> <span class="n">engine</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Car</span><span class="o">(</span><span class="nc">Engine</span> <span class="n">engine</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">engine</span> <span class="o">=</span> <span class="n">engine</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Engine</span> <span class="nf">getEngine</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">engine</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this case, we are using an external object of type <code class="language-plaintext highlighter-rouge">Engine</code> to create the internal <code class="language-plaintext highlighter-rouge">Engine</code> object of the car (we pass this external object as a parameter to the constructor), so the engine can exist without the car: if we destroy the car, the external engine that we used in the constructor will keep on existing. This can be useful if we want to use the engine in another car, once the old one is destroyed.</p>
+
+<p>Note that aggregations and simple associations are implemented in the same way in Java programs. Compositions are more tricky and, unless we have a good reason to implement them, they can also act as aggregations.</p>
+
+<h3 id="2-class-inheritance">2. Class inheritance</h3>
+
+<p>We use <strong>inheritance</strong> when we want to create a new class that takes all the features of another one, adding its particular ones. For instance, if we have an <code class="language-plaintext highlighter-rouge">Animal</code> class with a set of attributes (name, weight…) and methods, we can inherit from it to create a new class called <code class="language-plaintext highlighter-rouge">Dog</code> that will also have all these features, and we can add some additional ones, such as a <code class="language-plaintext highlighter-rouge">bark()</code> method.</p>
+
+<p>We have seen in previous sections of this document how to identify an association, by finding a <em>Has-A</em> relationship between the classes involved. When talking about inheritance, we identify it with an <strong>Is-A</strong> relationship, so that one class is a subtype of another class. In other words, it shares the features of the ancestor and introduces some new ones. One example of this is a <code class="language-plaintext highlighter-rouge">Car</code>, which is a subtype of <code class="language-plaintext highlighter-rouge">Vehicle</code>. Another could be a <code class="language-plaintext highlighter-rouge">ComputerClassroom</code>, which is a subtype of <code class="language-plaintext highlighter-rouge">Classroom</code> that also has computers in it.</p>
+
+<p>When we want a class to inherit the features from another class in Java we use the reserved word <code class="language-plaintext highlighter-rouge">extends</code> in the new class (also called child class or <em>subclass</em>), referring to the class from which we want to extend (also called parent class or <em>superclass</em>).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Car</span> <span class="kd">extends</span> <span class="nc">Vehicle</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s go back to our bookshop example. What if we want to add information for a specific type of book, such as comics? We can add, for instance, if they are in color or not (grayscale), and also the volume number for a comic series. We could create a brand new class with all the information, like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Comic</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">color</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">volumeNumber</span><span class="o">;</span>
+
+    <span class="c1">// Constructors, getters, setters and so on...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>But, as a comic <em>is a</em> subtype of book, we can inherit from <code class="language-plaintext highlighter-rouge">Book</code> class and automatically include all the elements of this class (this is, the title, number of pages, price, getters, setters…). Then, we only need to care about the new, specific information for comic elements:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Comic</span> <span class="kd">extends</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">color</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">volumeNumber</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Comic</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">,</span>
+        <span class="kt">boolean</span> <span class="n">color</span><span class="o">,</span> <span class="kt">int</span> <span class="n">volumeNumber</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="n">numPages</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">volumeNumber</span> <span class="o">=</span> <span class="n">volumeNumber</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">getColor</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">color</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getVolumeNumber</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">volumeNumber</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setVolumeNumber</span><span class="o">(</span><span class="kt">int</span> <span class="n">volumeNumber</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">volumeNumber</span> <span class="o">=</span> <span class="n">volumeNumber</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="21-visibility-and-inheritance">2.1. Visibility and inheritance</h4>
+
+<p>Note that, in the constructor, we need to specify EVERY attribute for the object that we are creating. As comic extends book functionality, we need to provide the title, number of pages and price, along with the color and volume number. However, there’s a problem if we try to compile and run previous code: title, number of pages and price are <em>private</em> members of <code class="language-plaintext highlighter-rouge">Book</code> class, so they can’t be accessed from outer classes. We should not declare them public, since it’s not recommended. Fortunately, there’s an additional, intermediate access level that we can use, which is <strong>protected</strong>.</p>
+
+<p>We use the <code class="language-plaintext highlighter-rouge">protected</code> access modifier to let child classes access parent information. It’s generally used in attributes of a parent class, such as our <code class="language-plaintext highlighter-rouge">Book</code> class. We change the visibility this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="kt">double</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="c1">// The rest of code does not change</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, to sum up, now that we have learnt what inheritance means, there are four different visibility levels in Java. Here you can see them from higher to lower:</p>
+
+<ul>
+  <li><strong>public</strong> elements can be accessed from any other part of the code (including other classes and packages)</li>
+  <li><strong>protected</strong> elements can only be accessed from any subclass of current class, or any class from the same package than current class</li>
+  <li><em>package</em> (default): elements are only accessible from the same package.</li>
+  <li><strong>private</strong> elements can only be accessed from current class</li>
+</ul>
+
+<p>Let’s see all these modifiers in an example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="c1">// Accessible everywhere</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+    <span class="c1">// Accessible from subclasses or same package</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="c1">// Only accessible from this class</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">average</span><span class="o">;</span>
+    <span class="c1">// Package level, accessible from same package</span>
+    <span class="kt">char</span> <span class="n">symbol</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="22-overriding-parents-behavior-using-super">2.2. Overriding parent’s behavior. Using <em>super</em></h4>
+
+<p>When we define a class that is a subtype of another class using inheritance, we can modify or <strong>override</strong> the behavior of parent methods in child class. For instance, <code class="language-plaintext highlighter-rouge">printInformation</code> method in <code class="language-plaintext highlighter-rouge">Book</code> class just prints the basic information (title, pages and price):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>But, in this new class, we need to add specific information about the comic. So we can write again this method in <code class="language-plaintext highlighter-rouge">Comic</code> class, and add an annotation called <code class="language-plaintext highlighter-rouge">@Override</code> to specify that this method belongs to parent class, but we are changing its behavior in child class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Comic</span> <span class="kd">extends</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Book information:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Pages: "</span> <span class="o">+</span> <span class="n">numPages</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Price: "</span> <span class="o">+</span> <span class="n">price</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Color/Grayscale: "</span> <span class="o">+</span> 
+            <span class="o">(</span><span class="n">color</span><span class="o">?</span><span class="s">"Color"</span><span class="o">:</span><span class="s">"Grayscale"</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Volume: "</span> <span class="o">+</span> <span class="n">volumeNumber</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Moreover, we can make use of a specific reserved word called <code class="language-plaintext highlighter-rouge">super</code> to get to a parent’s element. In this case, we are repeating the same code of parent’s <code class="language-plaintext highlighter-rouge">printInformation</code> method, so we can just call this parent’s method using <code class="language-plaintext highlighter-rouge">super</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Comic</span> <span class="kd">extends</span> <span class="nc">Book</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printInformation</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">printInformation</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Color/Grayscale: "</span> <span class="o">+</span> 
+            <span class="o">(</span><span class="n">color</span><span class="o">?</span><span class="s">"Color"</span><span class="o">:</span><span class="s">"Grayscale"</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Volume: "</span> <span class="o">+</span> <span class="n">volumeNumber</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: <code class="language-plaintext highlighter-rouge">@Override</code> annotation is NOT compulsory for the program to compile, but you should use it in terms of code cleanliness, since you are specifying that this method does not belong to current class, it’s just another version of an existing method in parent class.</p>
+</blockquote>
+
+<p><strong>Constructors and inheritance</strong></p>
+
+<p>Let’s take a look again at <code class="language-plaintext highlighter-rouge">Comic</code> constructor in previous example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Comic</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">,</span>
+    <span class="kt">boolean</span> <span class="n">color</span><span class="o">,</span> <span class="kt">int</span> <span class="n">volumeNumber</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">numPages</span> <span class="o">=</span> <span class="n">numPages</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">volumeNumber</span> <span class="o">=</span> <span class="n">volumeNumber</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Whenever we call a constructor from a subclass, the default constructor (i.e. the one with no parameters) of the superclass is automatically called (unless we use <code class="language-plaintext highlighter-rouge">super</code> to choose another constructor). So the code above will work as long as <code class="language-plaintext highlighter-rouge">Book</code> has a default constructor. Otherwise, we should:</p>
+
+<ul>
+  <li>Define a default (even empty) constructor in <code class="language-plaintext highlighter-rouge">Book</code> class</li>
+  <li>Choose with <code class="language-plaintext highlighter-rouge">super</code> another different parent constructor from <code class="language-plaintext highlighter-rouge">Comic</code> class. In this case, we can make use of the parameterized constructor of <code class="language-plaintext highlighter-rouge">Book</code> class and avoid assigning book’s attributes from child class:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Comic</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numPages</span><span class="o">,</span> <span class="kt">double</span> <span class="n">price</span><span class="o">,</span>
+    <span class="kt">boolean</span> <span class="n">color</span><span class="o">,</span> <span class="kt">int</span> <span class="n">volumeNumber</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">title</span><span class="o">,</span> <span class="n">numPages</span><span class="o">,</span> <span class="n">price</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">volumeNumber</span> <span class="o">=</span> <span class="n">volumeNumber</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: if you use <code class="language-plaintext highlighter-rouge">super</code> instruction in a child constructor to invoke a specific constructor from parent class, this instruction MUST be the first in child constructor.</p>
+</blockquote>
+
+<h4 id="23-extending-object-class">2.3. Extending <em>Object</em> class</h4>
+
+<p>We must take into account that, unless we specify another inheritance, every class in Java inherits from a global, parent class called <code class="language-plaintext highlighter-rouge">Object</code>. So, if our class does not inherit from any other class, it will automatically be a child of <code class="language-plaintext highlighter-rouge">Object</code> class, and thus, it can use or override methods from this class, such as <code class="language-plaintext highlighter-rouge">equals</code> or <code class="language-plaintext highlighter-rouge">toString</code>.</p>
+
+<p>If we override <code class="language-plaintext highlighter-rouge">toString</code> method, we can then convert our objects to strings, and then print them easily. Let’s suppose that we override this method in a <code class="language-plaintext highlighter-rouge">Person</code> class, so that we return a string with the person’s name and age between parentheses:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">a</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" ("</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">" years)"</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, we can easily print any <code class="language-plaintext highlighter-rouge">Person</code> object by simply calling <code class="language-plaintext highlighter-rouge">System.out.println</code> sentence:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">);</span> <span class="c1">// Prints "Nacho (40 years)"</span>
+</code></pre></div></div>
+
+<p>In the same way, we can also override <code class="language-plaintext highlighter-rouge">equals</code> method to determine if two <code class="language-plaintext highlighter-rouge">Person</code> objects are equal or not. In this example, we say that they are equal if they have the same name and age:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">a</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">n</span><span class="o">;</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" ("</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">" years)"</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">p</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p2</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Person</span><span class="o">)</span> <span class="n">p</span><span class="o">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">name</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">==</span> <span class="n">p</span><span class="o">.</span><span class="na">age</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, we can compare two <code class="language-plaintext highlighter-rouge">Person</code> objects and determine if they are equal or not:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Person</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+<span class="nc">Person</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">39</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">p2</span><span class="o">))</span> 
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"They are equal!"</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"They are different"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="24-polymorphism">2.4. Polymorphism</h4>
+
+<p>The term <strong>polymorphism</strong> refers to the ability of an element to have multiple shapes or appearances. For instance, a class can have many methods with the same name and different number or types of parameters. This is a kind of polymorphism which is also called <em>method overload</em>. We can call any of these method versions depending on our needs.</p>
+
+<p>Regarding object oriented programming, <strong>polymorphism</strong> is the ability of an object to behave like another object. This term is commonly used in inheritance to show that an object of any class can behave like any of its subclasses. For instance, a <code class="language-plaintext highlighter-rouge">Vehicle</code> object of previous examples could behave like a <code class="language-plaintext highlighter-rouge">Car</code> object, so we can, for instance:</p>
+
+<ul>
+  <li>Instantiate a <code class="language-plaintext highlighter-rouge">Car</code> object from a <code class="language-plaintext highlighter-rouge">Vehicle</code> variable:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Vehicle</span> <span class="n">myCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(...);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Use a <code class="language-plaintext highlighter-rouge">Car</code> object as a parameter to a method which gets a <code class="language-plaintext highlighter-rouge">Vehicle</code> object.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">aMethod</span><span class="o">(</span><span class="nc">Vehicle</span> <span class="n">v</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+<span class="nc">Car</span> <span class="n">anotherCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(...);</span>
+<span class="n">aMethod</span><span class="o">(</span><span class="n">anotherCar</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Fill an array of <code class="language-plaintext highlighter-rouge">Vehicle</code> objects with any subtype of <code class="language-plaintext highlighter-rouge">Vehicle</code> in each position:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Vehicle</span><span class="o">[]</span> <span class="n">vehicles</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vehicle</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+
+<span class="n">vehicles</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vehicle</span><span class="o">(...);</span>
+<span class="n">vehicles</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(...);</span>
+<span class="n">vehicles</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Van</span><span class="o">(...);</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>However, we must take into account that, when using polymorphism, the polymorphic variable can only access the methods of the type to which it belongs. In other words, if we create a <code class="language-plaintext highlighter-rouge">Car</code> object and store it in a <code class="language-plaintext highlighter-rouge">Vehicle</code> variable, then we will only be able to call methods or public elements from <code class="language-plaintext highlighter-rouge">Vehicle</code> class (not from <code class="language-plaintext highlighter-rouge">Car</code> class).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Vehicle</span> <span class="n">myCar</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Car</span><span class="o">(...);</span>
+<span class="n">myCar</span><span class="o">.</span><span class="na">vehicleData</span><span class="o">();</span>                          <span class="c1">// OK</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myCar</span><span class="o">.</span><span class="na">getNumberOfDoors</span><span class="o">());</span> <span class="c1">// ERROR</span>
+</code></pre></div></div>
+
+<p>If we want to detect the concrete type of an object in order to access its own methods (and not only those inherited from parent class), then we can use <code class="language-plaintext highlighter-rouge">instanceof</code> operator, and then make a typecast to the concrete type:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Vehicle</span><span class="o">[]</span> <span class="n">vehicles</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Vehicle</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+<span class="o">...</span> <span class="c1">// Fill the array with many vehicle types</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">vehicles</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">vehicles</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="k">instanceof</span> <span class="nc">Car</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(((</span><span class="nc">Car</span><span class="o">)</span><span class="n">vehicles</span><span class="o">[</span><span class="n">i</span><span class="o">]).</span><span class="na">getNumberOfDoors</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">vehicles</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="k">instanceof</span> <span class="nc">Van</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span> <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Improve previous exercise <em>TeamsExample2.java</em> in another source file called <strong>TeamsExample3.java</strong>. Add a new class called <code class="language-plaintext highlighter-rouge">Captain</code> which inherits from <code class="language-plaintext highlighter-rouge">Player</code> class. It will have an additional attribute specifying the years of experience of the captain. Define the corresponding constructor (using <code class="language-plaintext highlighter-rouge">super</code> to fill parent’s data) and modify the main function to include a <em>Captain</em> object in the team.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Improve previous exercise <em>VideoGameList2.java</em> in another source file called <strong>VideoGameList3.java</strong>. Add a new class called <code class="language-plaintext highlighter-rouge">PCVideoGame</code> which inherits from <code class="language-plaintext highlighter-rouge">VideoGame</code> class. It will have two new attributes called <em>minimumRAM</em> and <em>minimumHD</em> to store the minimum amount of RAM memory and hard disk space required to play the game (both integers). Define the corresponding constructor to set these values (and use <code class="language-plaintext highlighter-rouge">super</code> to call parent’s constructor to set the inherited values). Then, add some PC video games to the array and repeat the same steps than in previous exercise.</p>
+
+  <p>Also override <code class="language-plaintext highlighter-rouge">toString</code> method in <em>VideoGame</em> class so that we can print a video game in the screen with its information by symply calling <code class="language-plaintext highlighter-rouge">System.out.println</code>.</p>
+</blockquote>
+
+<h4 id="25-exceptions-and-inheritance">2.5. Exceptions and inheritance</h4>
+
+<p>We can create our own exceptions by creating classes that inherit from <code class="language-plaintext highlighter-rouge">Exception</code> class. We can then throw a custom exception whenever we want and manage it in the method that throws it or send it up to the method it will return to.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomException</span> <span class="kd">extends</span> <span class="nc">Exception</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CustomException</span><span class="o">(</span><span class="nc">String</span> <span class="n">msg</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Store</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">welcome</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">CustomException</span> 
+    <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">CustomException</span><span class="o">(</span><span class="s">"Error, nobody can pass!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Store</span> <span class="n">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Store</span><span class="o">();</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="c1">// This method can throw a CustomException</span>
+        <span class="n">store</span><span class="o">.</span><span class="na">welcome</span><span class="o">();</span> 
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">CustomException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 6:</strong></p>
+
+  <p>Create a new source file called <strong>CustomException.java</strong>. In this source file you’re going to implement:</p>
+
+  <ul>
+    <li>A class called <code class="language-plaintext highlighter-rouge">NegativeSubtractException</code>. This class will inherit from <code class="language-plaintext highlighter-rouge">Exception</code> and will be created when a subtraction result is negative. The constructor will receive 2 parameters (the two numbers that caused a negative subtraction result in order). The message generated will be: “<em>NegativeSubstractException: ‘N1 - N2’ result is negative</em>”.</li>
+    <li>In the main class create a static function that throws this type of custom exception. This method will be called <code class="language-plaintext highlighter-rouge">static int positiveSubtract(int n1, int n2)</code>, and will generate and throw this kind of exception if the result is negative. Within the main method call this method with parameters that would give a negative result and catch the corresponding exception, showing its message on console.</li>
+  </ul>
+</blockquote>
+
+<h3 id="3-class-dependency">3. Class dependency</h3>
+
+<p>Dependency relationship establishes a connection between two classes when one of them uses an object of the other one in some part of its code, BUT there’s no association between them (this is, there’s no attribute of one class in the other class).</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema04-ejemplo_dependencia_en.png" />
+</div>
+
+<p>If we take a look at this example, there’s a dependency between <code class="language-plaintext highlighter-rouge">Application</code> and <code class="language-plaintext highlighter-rouge">Window</code> class. This can be due to a method in <code class="language-plaintext highlighter-rouge">Application</code> class that receives a <code class="language-plaintext highlighter-rouge">Window</code> parameter, for instance. But there’s no <code class="language-plaintext highlighter-rouge">Window</code> attribute in <code class="language-plaintext highlighter-rouge">Application</code> class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Application</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">aMethod</span><span class="o">(</span><span class="nc">Window</span> <span class="n">w</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Also, there could be a piece of code inside a method that instantiates a Window object. In this case, there would also be a dependency relationship between these classes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Application</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">aMethod</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">Window</span> <span class="n">w</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Window</span><span class="o">(...);</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

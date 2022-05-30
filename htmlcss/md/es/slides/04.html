@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>El lenguaje XML</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## El lenguaje XML
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## XML
+
+- *eXtended Markup Language*
+- Ampliación del lenguaje SGML
+- Utilizado para estructurar información agrupándola en etiquetas personalizadas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## XML
+
+- A través de XML podemos definir nuestro propio conjunto de etiquetas, atributos y normas de uso
+- Es un estándar para intercambiar información entre plataformas o sistemas
+   - Ejemplos: imágenes SVG, ficheros de configuración JavaFX o Visual Studio...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura de un documento XML
+
+- Encabezado con versión y codificación
+- Etiqueta raíz
+- Subetiquetas y atributos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura de un documento XML
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<biblioteca>
+    <libro>
+        <titulo>El juego de Ender</titulo>
+        <autor>Orson Scott Card</autor>
+        <paginas>325</paginas>
+        <fechaPublicacion anyo="1985" />
+    </libro>
+    <libro>
+        <titulo>La tabla de Flandes</titulo>
+        <autor nacimiento="1951">Arturo Pérez Reverte</autor>
+        <paginas>384</paginas>
+        <fechaPublicacion anyo="1990" />
+    </libro>
+</biblioteca>
+```
+
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea un archivo llamado **DAM.xml** con este contenido:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ciclo codigo="DAM">
+    <modulo curso="1">
+        <nombre>Programacion</nombre>
+        <horas valor="256" />
+    </modulo>
+    <modulo curso="1">
+        <nombre>Bases de Datos</nombre>
+        <horas valor="160" />
+    </modulo>
+    <modulo curso="1">
+        <nombre>Lenguajes de Marcas</nombre>
+        <horas valor="96" />
+    </modulo>
+    <modulo curso="2">
+        <nombre>Acceso a Datos</nombre>
+        <horas valor="120" />
+    </modulo>
+</ciclo>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Espacios de nombres o *namespaces*
+
+- Definen un vocabulario o conjunto de etiquetas predefinido que utilizar
+- Se utiliza en ciertos subconjuntos de XML, como XSLT
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+ version="1.0">
+
+    <xsl:template match="/">
+        <xsl:apply-templates/>
+    </xsl:template>
+    ...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Validación de documentos XML
+
+- Podemos verificar que la estructura del documento es sintácticamente correcta
+   - Schemas
+   - DTD (*Document Type Definition*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sintaxis de las DTD
+
+- Reglas **ELEMENT** para comprobar que las etiquetas tienen los nombres correctos y el orden adecuado
+- Reglas **ATTLIST** para comprobar que los atributos tienen los valores adecuados
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sintaxis de las DTD: ELEMENT
+
+- ELEMENT + nombre de etiqueta
+- Si tiene subetiquetas, se especifican entre paréntesis separadas por comas (si pueden estar todas) o por barras verticales (si son excluyentes)
+   - Símbolos `+`, `*`, `?` para multiplicidad de cada subetiqueta
+- Si no contiene subetiquetas sino sólo información, se indica con *(#PCDATA)*
+- Si no tiene contenido, se indica con *EMPTY*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sintaxis de las DTD: ELEMENT
+
+```xml
+<!ELEMENT biblioteca (libro*)>
+<!ELEMENT libro (titulo, autor, paginas, fechaPublicacion)>
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT autor (#PCDATA)>
+<!ELEMENT paginas (#PCDATA)>
+<!ELEMENT fechaPublicacion EMPTY>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sintaxis de las DTD: ATTLIST
+
+- ATTLIST + nombre de etiqueta + nombre de atributo + tipo dato
+   - *CDATA* para texto en general (lo más habitual)
+   - Valores limitados separados por barras verticales y entre paréntesis
+   - *ID* si el valor del atributo no puede estar repetido
+   - *IDREF* si el valor hace referencia a otro atributo de tipo *ID*
+   - *IDREFS* si tiene más de un valor que referencia a otros *ID* (separados por espacios)
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sintaxis de las DTD: ATTLIST
+
+- Al final de la regla ATTLIST se puede dar información sobre el tipo de atributo
+    - *#REQUIRED* si es obligatorio ponerlo
+    - *#IMPLIED* si no es obligatorio
+    - *#FIXED* para indicar valor por defecto (no modificable)
+    - También podemos dar un valor por defecto para cuando no se le asigne ninguno
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sintaxis de las DTD: ATTLIST
+
+```xml
+<!ATTLIST fechaPublicacion anyo CDATA #REQUIRED>
+<!ATTLIST autor nacimiento CDATA "No especificado">
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ubicación de las reglas DTD
+
+- Opción 1: embebidas en el XML, en una etiqueta *DOCTYPE*
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE biblioteca[
+    <!ELEMENT biblioteca (libro*)>
+    <!ELEMENT libro (titulo, autor, paginas, fechaPublicacion)>
+    <!ELEMENT titulo (#PCDATA)>
+    <!ELEMENT autor (#PCDATA)>
+    <!ELEMENT paginas (#PCDATA)>
+    <!ELEMENT fechaPublicacion EMPTY>
+    <!ATTLIST fechaPublicacion anyo CDATA #REQUIRED>
+    <!ATTLIST autor nacimiento CDATA "No especificado">
+]>
+
+<biblioteca>
+    <libro>
+        <titulo>El juego de Ender</titulo>
+        <autor>Orson Scott Card</autor>
+        <paginas>325</paginas>
+        <fechaPublicacion anyo="1985" />
+    </libro>
+    ...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ubicación de las reglas DTD
+
+- Opción 2: en un archivo aparte referenciado al inicio
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE biblioteca SYSTEM "fichero.dtd">
+
+<biblioteca>
+    <libro>
+    ...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Validación de documentos
+
+- Instalación de herramientas locales como *xmllint*, o *XML Toolkit*
+- Extensiones de VS Code como [ésta](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml)
+- Uso de herramientas online como [ésta](https://www.xmlvalidation.com/)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Define unas reglas DTD sobre el fichero anterior `DAM.xml`.
+
+* Comprobar que cada etiqueta contenga las subetiquetas permitidas con los valores indicados en el ejemplo. 
+* El atributo `codigo` de la etiqueta `ciclo` es opcional. Si no se pone, se asume el valor de "DAM"
+* El atributo `curso` de la etiqueta `modulo` es obligatorio, y sólo puede valer 1 o 2.
+* El atributo `valor` de la etiqueta `horas` es obligatorio.
+ 
+Valida el XML para ver que todo es correcto
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3 (1/2)
+
+Dado el siguiente documento XML:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<informacion>
+    <software codigo="N1" tipo="gratuito">
+        <nombre>Notepad++</nombre>
+        <fechaPubli ano="2015" mes="marzo"/>
+    </software>
+    <software codigo="X1">
+        <nombre>XML Copy Editor</nombre>
+        <fechaPubli ano="2012" mes="mayo"/>
+    </software>
+    <software codigo="M1" tipo="comercial">
+        <nombre>Microsoft Word</nombre>
+    </software>
+    <software codigo="P1">
+        <nombre>PacketTracer</nombre>
+        <fechaPubli ano="2016" mes="enero"/>
+    </software>
+    <modulo usa="N1 X1">
+        <titulo>Lenguajes de Marcas</titulo>
+    </modulo>
+    <modulo usa="P1">
+        <titulo>Redes</titulo>
+    </modulo>
+    <modulo>
+        <titulo>FOL</titulo>
+    </modulo>
+</informacion>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3 (2/2)
+
+Crea un DTD que lo valide teniendo en cuenta lo siguiente:
+
+* Siempre existirán elementos `software` y `modulo`
+* El elemento `informacion` tendrá un atributo llamado `curso` que siempre tendrá el valor 1
+* El `codigo` será único y el `tipo` podrá tomar los valores *gratuito* y *comercial*
+* La fecha de publicación tendrá por defecto el año 2015, y siempre indicará el mes
+* Debemos validar que los módulos usen el software existente en el documento XML
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Transformación de XML con XSLT
+
+- Otra ventaja de XML es que podemos exportar la información a varios formatos: HTML, RTF, PDF...
+- Hacemos uso de XSLT (*eXtensible Stylesheet Language Transformations*), que define una serie de reglas para transformar el contenido del XML en otro formato
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura básica de XSLT
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+ version="1.0">
+
+</xsl:stylesheet>
+``` 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Etiquetas principales XSLT
+
+**template** aplica la transformación a la etiqueta que coincida con su atributo `match`
+
+```xml
+<xsl:template match="/">
+    ...
+</xsl:template>
+
+<xsl:template match="libro">
+    ...
+</xsl:template>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Etiquetas principales XSLT
+
+**value-of** obtiene el valor de una subetiqueta o atributo perteneciente a la etiqueta en la que estamos
+
+```xml
+<!-- Valor de la subetiqueta "titulo" de la etiqueta "libro" -->
+<xsl:template match="libro">
+    <xsl:value-of select="titulo" />
+</xsl:template>
+
+<!-- Valor del atributo "anyo" de la etiqueta "fechaPublicacion"-->
+<xsl:template match="fechaPublicacion">
+    <xsl:value-of select="@anyo" />
+</xsl:template>
+
+<!-- Valor de la etiqueta actual "titulo" -->
+<xsl:template match="titulo">
+    <xsl:value-of select="." />
+</xsl:template>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Etiquetas principales XSLT
+
+**apply-templates** para cuando dentro de una etiqueta hay otras subetiquetas que queremos seguir procesando automáticamente
+
+```xml
+<xsl:template match="libro">
+    <xsl:apply-templates />
+</xsl:template>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo XSLT
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    version="1.0">
+
+    <xsl:template match="/">
+        <html>
+            <body>
+                <h1>Listado de libros</h1>
+                <table>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Páginas</th>
+                        <th>Año</th>
+                    </tr>
+
+                    <xsl:apply-templates />
+
+                </table>
+            </body>
+        </html>
+    </xsl:template>
+
+    <xsl:template match="libro">
+        <tr>
+            <td><xsl:value-of select="titulo" /></td>
+            <td><xsl:value-of select="autor" /></td>
+            <td><xsl:value-of select="paginas" /></td>
+            <xsl:apply-templates />
+        </tr>
+    </xsl:template>
+
+    <xsl:template match="titulo"></xsl:template>
+    <xsl:template match="autor"></xsl:template>
+    <xsl:template match="paginas"></xsl:template>
+
+    <xsl:template match="fechaPublicacion">
+        <td><xsl:value-of select="@anyo" /></td>
+    </xsl:template>
+
+</xsl:stylesheet>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo XSLT (opción 2)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    version="1.0">
+
+    <xsl:template match="/">
+        <html>
+            <body>
+                <h1>Listado de libros</h1>
+                <table>
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Páginas</th>
+                        <th>Año</th>
+                    </tr>
+
+                    <xsl:apply-templates />
+
+                </table>
+            </body>
+        </html>
+    </xsl:template>
+
+    <xsl:template match="libro">
+        <tr>
+            <xsl:apply-templates />
+        </tr>
+    </xsl:template>
+
+    <xsl:template match="titulo">
+        <td><xsl:value-of select="." /></td>    
+    </xsl:template>
+
+    <xsl:template match="autor">
+        <td><xsl:value-of select="." /></td>
+    </xsl:template>
+
+    <xsl:template match="paginas">
+        <td><xsl:value-of select="." /></td>
+    </xsl:template>
+
+    <xsl:template match="fechaPublicacion">
+        <td><xsl:value-of select="@anyo" /></td>
+    </xsl:template>
+
+</xsl:stylesheet>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Probar las transformaciones XSLT
+
+- Necesitamos pasar ambos ficheros (XML y XSLT) a una herramienta de transformación 
+- Por ejemplo, [esta](https://www.freeformatter.com/xsl-transformer.html) online
+- Podemos usar [esta extensión](https://marketplace.visualstudio.com/items?itemName=SvenAGN.xslt-transform) de VSCode e instalar la librería Saxon de Java (descargar [aquí](../../../resources/UD4_Ejercicios/saxon.zip)). En la configuración de la extensión cambiar la propiedad *Xslt: processor* para apuntar al JAR en cuestión.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Define una hoja **ciclos.xslt** que permita obtener una lista no ordenada con los módulos del archivo *DAM.xml* creado anteriormente. En cada *item* de la lista, mostraremos el nombre del módulo y, entre paréntesis, las horas que lo componen. Quedará algo así:
+    
+* Programación (256 horas)
+* Bases de Datos (160 horas)
+* Lenguajes de Marcas (96 horas)
+* Acceso a Datos (120 horas)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otras etiquetas XSLT
+
+**attribute** genera un atributo con el nombre indicado en el contenido de salida
+
+```xml
+<etiqueta>
+    <xsl:attribute name="numero">1</xsl:attribute>
+</etiqueta>
+```
+
+```xml
+<etiqueta numero="1"></etiqueta>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otras etiquetas XSLT
+
+**variable** almacena temporalmente un dato en una variable
+
+```xml
+<xsl:variable name="var1" select="@attr1" />
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otras etiquetas XSLT
+
+**if** ejecuta su contenido si se cumple la condición de su atributo *test*
+
+```xml
+<xsl:if test="@atributo">
+    <!-- El atributo tiene valor -->
+</xsl:if>
+
+<xsl:if test="@atributo='es'">
+    <!-- El atributo tiene valor 'es' -->
+</xsl:if>
+
+<xsl:if test="@atributo &gt; 1">
+    <!-- El atributo tiene valor mayor que 1 -->
+</xsl:if>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otras etiquetas XSLT
+
+**choose/when/otherwise** ejecuta el contenido de *when* si se cumple la condición de su *test*. De lo contrario, ejecuta *otherwise*
+
+```xml
+<xsl:choose>
+    <xsl:when test="@atributo='es'">
+        <!-- El atributo vale 'es' -->
+    </xsl:when>
+    <xsl:otherwise>
+        <!-- El atributo vale otra cosa -->
+    </xsl:otherwise>
+</xsl:choose>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otras etiquetas XSLT
+
+**for-each** itera sobre un conjunto de valores o etiquetas
+
+```xml
+<xsl:for-each test="prueba">
+    <!-- Aquí podemos acceder a atributos de la etiqueta, por ejemplo -->
+</xsl:for-each>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones XSLT
+
+La función **count** permite contar elementos que cumplan una determinada condición. Por ejemplo, pasajeros que sean adultos:
+
+```xml
+<xsl:value-of select="count(pasajero[@adulto='si'])" />
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5 (1/2)
+
+Dado el documento XML `rusia2018.xml` con algunos de los equipos y partidos de fútbol jugados en el mundial de Rusia 2018... 
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rusia2018>
+    <equipos>
+        <equipo grupo="B" nombre="ESP">España</equipo>
+        <equipo grupo="A" nombre="ASA">Arabia Saudí</equipo>
+        <equipo grupo="B" nombre="POR">Portugal</equipo>
+        <equipo grupo="A" nombre="RUS">Rusia</equipo>
+    </equipos>
+    <partidos jornada="1">
+        <partido equi1="RUS" equi2="ASA">
+            <gol nombre="Golovin" equipo="RUS">94</gol>
+            <amarilla nombre="Al-Jassim" equipo="ASA">93</amarilla>
+            <gol nombre="Cheryshev" equipo="RUS">91</gol>
+            <gol nombre="Dzyuba" equipo="RUS">71</gol>
+            <gol nombre="Cheryshev" equipo="RUS">43</gol>
+            <gol nombre="Gazinsky" equipo="RUS">12</gol>
+        </partido>
+        <partido equi1="POR" equi2="ESP">
+            <gol nombre="Ronaldo" equipo="POR">4</gol>
+            <amarilla nombre="Busquets" equipo="ESP">17</amarilla>
+            <gol nombre="Costa" equipo="ESP">24</gol>
+            <amarilla nombre="Fernandes" equipo="POR">28</amarilla>
+            <gol nombre="Ronaldo" equipo="POR">44</gol>
+            <gol nombre="Costa" equipo="ESP">55</gol>
+            <gol nombre="Nacho" equipo="ESP">58</gol>
+            <gol nombre="Ronaldo" equipo="POR">8</gol>
+        </partido>
+    </partidos>
+</rusia2018>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5 (2/2)
+
+... se solicita la escritura del documento `Rusia.xsl` que realice la transformación del mismo documento en otro XML `resultados.xml` donde se puedan ver los resultados de los partidos tal y como se muestra a continuación:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<resultados>
+    <jornada numero="1">
+        <partido>
+            <selecciones>RUS-ASA</selecciones>
+            <resultado>5-0</resultado>
+        </partido>
+        <partido>
+            <selecciones>POR-ESP</selecciones>
+            <resultado>3-3</resultado>
+        </partido>
+    </jornada>
+</resultados>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Usos de XML
+
+- Almacenar información estructurada. Ejemplo real: archivos SVG
+- Configuración de aplicaciones. Ejemplo real: archivos FXML para aplicaciones JavaFX
+- Serialización de objetos. Ejemplo: formato SOAP para servicios web
+
+</script>
+</section>
+
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

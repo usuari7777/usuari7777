@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Writing clean code</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Basic elements of a Java program
+### Writing clean code
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Questions when writing source code
+
+* What if I have to take this project back in two years? Will I understand the code?
+* What if anyone else has to take this project in the future? Will he/she understand the code?
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## What is clean code?
+
+Extracted from *Clean Code* book (Robert C. Martin)
+
+* Code must be elegant and easy to read, simple and direct. *Clean code reads like well-written prose* (Grady Booch).
+* Logic should be straightforward to make it hard for bugs to hide.
+* Performance should be close to optimal so as not to tempt people to make further changes.
+* Keep in mind the Boy Scout rule: *Leave the campground cleaner than you found it*
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## The importance of practice
+
+- You don't learn how to ride a bike just reading how to do it
+- You must put into practice clean code rules continuously
+- You must do it **at the beginning** of the process (it can be harder later)
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Why bad code exists?
+
+* Too tight schedules
+* Unexperienced project managers
+* Programmer's docility (he/she doesn't want to get fired)
+* Boredom (always doing the same kind of projects)
+* ...
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Variable names
+
+They must be meaningful
+
+ERROR
+```java
+int a;			// Age average
+```
+
+OK
+```java
+int ageAverage;
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Variable names
+
+- Don't use very similar names for different variables (hard to distinguish if we are using the correct one)
+- Add meaningful context (*bankAccount* is better than just *account*)
+- Choose one word per concept (always call *user* the user login, for instance)
+- Don't use short names (hard to find in the code)
+- Use pronounceable names
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Upper or lower case?
+
+- **Camel case** (Java, C): first letter in lower case, each word starts with upper case
+   - `int ageAverage;`
+- **Pascal case** (public elements in C#): each word starts with upper case
+   - `public string PersonName`
+- **Snake case** (PHP): words separated by underscores
+   - `$person_name = "Nacho";`
+- **Kebab case** (Lisp, Clojure): words separated by hyphens
+   - `(def person-name "Nacho")`
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Using comments
+
+- Some programmers think that comments are failures
+- They are hard to maintain (sometimes code changes and comments are not updated)
+- We tend to use them to explain dirty code, instead of cleaning the code itself
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Good comments
+
+- Introduction and legal comments at the beginning of classes or source files
+- TODO comments
+- API documentation
+- Explanation of intent (code that does not follow the pattern of the code around it)
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Bad comments
+
+- Information or redundant comments (not necessary if code is properly written)
+- Journal or registry comments
+- Block comments (after curly braces, for instance)
+- Position markers / Code dividers
+- Warnings (should be TODO comments)
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+This program asks the user to introduce three numbers and gets the average of them. Discuss in class which parts of the code are not clean or could be improved, regarding variable names and comments.
+
+```java
+import java.util.Scanner;
+
+public class AverageNumbers
+{
+    public static void main(String[] args)
+    {
+        // Variables to store the three numbers and the average
+        int n1, n2, n3;
+        int Result;
+        Scanner sc = new Scanner(System.in);
+
+        // We ask the user to enter three numbers
+        System.out.println("Introduce three numbers:");
+        n1 = sc.nextInt();
+        n2 = sc.nextInt();
+        n3 = sc.nextInt();
+        // The result is the average of these numbers
+        /* We could have used a float number instead, 
+            but we decided to keep this program as 
+            simple as we could */
+        Result = (n1+n2+n3)/3;
+        System.out.println("The average is " + Result);
+    }
+}
+```
+
+</script>
+</section> 
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

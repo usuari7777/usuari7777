@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software necesario | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Software necesario" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/01b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software necesario" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software necesario","url":"http://nachoiborraies.github.io/nodejs/md/es/01b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="software-necesario">Software necesario</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/01b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="01b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Para trabajar con Node.js, es necesario disponer de una serie de elementos software instalados. En este documento haremos un repaso del software necesario, y daremos las pautas para instalarlo en distintos sistemas.</p>
+
+<p>En concreto, los elementos que vamos a instalar a lo largo de este documento son:</p>
+
+<ul>
+  <li>Un editor de código (IDE) con el que desarrollar las aplicaciones. En nuestro caso, emplearemos <strong>Visual Studio Code</strong>.</li>
+  <li>El propio framework <strong>Node.js</strong></li>
+  <li>Un servidor de bases de datos relacional (<strong>MySQL</strong>, por ejemplo) y otro No-SQL (<strong>MongoDB</strong>)</li>
+</ul>
+
+<p>También se facilitará <a href="01b#6-recursos-adicionales">al final</a> de este documento un enlace a una máquina virtual donde poder instalar todo el software, así como otra máquina virtual con el software ya preinstalado y listo para utilizarse, usando las versiones que se indican a lo largo del documento.</p>
+
+<h2 id="1-visual-studio-code">1. Visual Studio Code</h2>
+
+<p>Como IDE para desarrollar nuestras aplicaciones emplearemos <strong>Visual Studio Code</strong>, que es uno de los IDEs más versátiles que existen hoy en día para desarrollo web.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: ninguna en particular, sirve con la última versión disponible.</p>
+</blockquote>
+
+<p>Desde la <a href="https://code.visualstudio.com/">web oficial</a> de Visual Studio Code podemos descargarlo para la plataforma deseada.</p>
+
+<p><strong>Linux (Debian)</strong></p>
+
+<p>En el caso de nuestra máquina virtual o una distribución similar, descargaremos un archivo <em>.deb</em>. Una vez descargado, accedemos por terminal a la carpeta donde esté y ejecutamos este comando para instalarlo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dpkg -i nombre_del_archivo.deb
+</code></pre></div></div>
+
+<p>Se creará automáticamente un acceso directo en el menú de inicio, dentro de la sección de <em>Programación</em> en el caso de Lubuntu.</p>
+
+<p><strong>Windows</strong></p>
+
+<p>Para Windows descargamos el instalador y seguimos los pasos. No hay mucho que configurar; en todo caso, podemos dejar marcada la casilla para añadir el menú contextual “<em>Abrir con Code</em>” para poder abrir archivos y carpetas con VS Code desde el explorador de archivos directamente, con un clic derecho.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_windows.png" />
+</div>
+
+<p><strong>Mac OSX</strong></p>
+
+<p>Para <strong>Mac OSX</strong>, descargamos la aplicación y la podemos ejecutar directamente. También podemos moverla a la carpeta de <em>Aplicaciones</em> para tenerla localizada.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_mac.png" />
+</div>
+
+<h2 id="2-nodejs">2. Node.js</h2>
+
+<p>Vamos ahora a instalar la piedra angular de este curso: Node.js. Esta instalación dependerá de nuestro sistema operativo, así que vamos a ver las opciones disponibles.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: recomendable tener instalada la actual versión LTS (<em>Long Term Support</em>), que es la que más soporte a largo plazo va a tener. <a href="https://nodejs.org">Esta</a> es la web oficial de Node.js, donde podemos encontrar información sobre la versión actual, y el calendario de implantación de las sucesivas versiones LTS, que serán las que principalmente nos interesen.</p>
+</blockquote>
+
+<h3 id="21-instalación-en-linux-y-mac-el-gestor-nvm">2.1. Instalación en Linux y Mac: el gestor <strong><em>nvm</em></strong></h3>
+
+<p>A la hora de instalar Node.js en Linux o Mac, podemos emplear el gestor de versiones <strong>NVM</strong> (<em>Node Version Manager</em>), una herramienta que nos permite automatizar la instalación de Node, e incluso tener distintas versiones instaladas y elegir cuál activar en cualquier momento. Podemos consultar información en su <a href="https://github.com/nvm-sh/nvm">web oficial en GitHub</a>.</p>
+
+<p>Para instalar NVM, debemos descargarlo con el comando <code class="language-plaintext highlighter-rouge">curl</code> o <code class="language-plaintext highlighter-rouge">wget</code>, según se explica en la propia web de GitHub. Si optamos por <code class="language-plaintext highlighter-rouge">wget</code>, el comando es como sigue (en una sola línea):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</code></pre></div></div>
+
+<p>En el caso de no disponer del comando <code class="language-plaintext highlighter-rouge">wget</code> instalado, podemos o bien instalarlo, o bien emplear este otro comando equivalente, con la orden <code class="language-plaintext highlighter-rouge">curl</code> (también en una sola línea):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: el número de versión <code class="language-plaintext highlighter-rouge">v0.39.1</code> puede variar. Es preferible consultar la web de GitHub para obtener el comando actualizado.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTA</strong>: después de ejecutar el comando anterior, será necesario cerrar el terminal y volverlo a abrir para poder utilizar el comando <code class="language-plaintext highlighter-rouge">nvm</code>.</p>
+</blockquote>
+
+<p>Ya tenemos <code class="language-plaintext highlighter-rouge">nvm</code> instalado en el sistema. Aquí mostramos algunas de las opciones más interesantes que podemos utilizar:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvm install node</code>: instala la última versión disponible de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm install --lts</code>: instala la última versión LTS disponible (opción recomendada para este curso)</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm install 12.16.0</code>: instala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm uninstall 12.16.0</code>: desinstala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm ls-remote</code>: muestra todas las versiones disponibles para instalar</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm list</code>: muestra todas las versiones instaladas localmente</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm current</code>: muestra la versión actualmente activa</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm use 12.16.0</code>: marca la versión indicada como actualmente activa</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm use --lts</code>: marca como activa la última versión LTS instalada</li>
+</ul>
+
+<p>En nuestro caso, vamos a instalar la última versión LTS disponible, por lo que ejecutaremos el comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvm install --lts
+</code></pre></div></div>
+
+<p>Podemos ejecutar ahora <code class="language-plaintext highlighter-rouge">node -v</code> en el terminal y comprobar que nos muestra el número de versión adecuado.</p>
+
+<h3 id="22-instalación-en-windows">2.2. Instalación en Windows</h3>
+
+<p>Para instalar Node.js en Windows, no disponemos del mismo gestor <em>nvm</em> que en Linux o Mac. Como alternativa, existe alguna implementación paralela de <em>nvm</em> que podemos hacer servir, como <a href="https://github.com/coreybutler/nvm-windows">esta</a>. Podemos descargar un instalador (<em>nvm-setup.zip</em>) y ejecutarlo para instalar este gestor. Después, desde línea de comandos tendremos disponibles, entre otras, estas opciones:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvm install 16.13.2</code>: instala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm uninstall 16.13.2</code>: desinstala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm list</code>: muestra todas las versiones instaladas localmente</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm list available</code>: muestra todas las versiones disponibles para instalar con esta adaptación de NVM.</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm use 16.13.2</code>: marca como activa la versión de Node especificada (previamente instalada).</li>
+</ul>
+
+<p>También desde la propia <a href="https://nodejs.org">web de Node</a> tenemos disponible un instalador para Windows, que permite instalar el framework, aunque sin la posibilidad de tener distintas versiones coexistiendo, como ocurre con NVM.</p>
+
+<h2 id="3-mariadbmysql">3. MariaDB/MySQL</h2>
+
+<p>Para poder tener un sistema MariaDB/MySQL funcionando y poderlo gestionar cómodamente, vamos a instalar el servidor MySQL como servicio en nuestro sistema.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: ninguna en particular, podemos instalar la última que tenga el gestor de paquetes que utilicemos, o la última que descarguemos de la web oficial, según el caso.</p>
+</blockquote>
+
+<h3 id="31-instalación-en-linux">3.1. Instalación en Linux</h3>
+
+<p>Para instalar el servidor en nuestra máquina virtual Lubuntu o un sistema similar, podemos seguir estos pasos desde el terminal:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install mysql-server
+</code></pre></div></div>
+
+<p>Esto instalará el servidor básico en el sistema y lo dejará iniciado como servicio. Con esto tenemos suficiente para desarrollar las actividades del curso. Podemos comprobar que el servidor está en marcha con el comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl status mysql.service
+</code></pre></div></div>
+
+<p>Y podemos parar, iniciar o reiniciar el servicio con estos comandos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl stop mysql.service
+sudo systemctl start mysql.service
+sudo systemctl restart mysql.service
+</code></pre></div></div>
+
+<p><strong>Instalación segura</strong></p>
+
+<p>El siguiente paso (opcional) es ejecutar este comando para configurar una instalación segura:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mysql_secure_installation
+</code></pre></div></div>
+
+<p>Con esto se iniciará un asistente que nos guiará a través de una serie de pasos para establecer el nivel de seguridad de la contraseña. Si elegimos que sí queremos establecerlo, deberemos elegir el nivel de seguridad de 0 (<em>LOW</em>) a 2 (<em>STRONG</em>), y dependiendo de ello, tendremos que elegir una contraseña con más o menos requisitos.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Securing the MySQL server deployment.
+
+Connecting to MySQL using a blank password.
+
+VALIDATE PASSWORD COMPONENT can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+Press y|Y for Yes, any other key for No: Y
+
+There are three levels of password validation policy:
+
+LOW    Length &gt;= 8
+MEDIUM Length &gt;= 8, numeric, mixed case, and special characters
+STRONG Length &gt;= 8, numeric, mixed case, special characters and dictionary file
+
+Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG:
+0
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en la máquina virtual que se os proporciona hemos configurado un usuario llamado <strong>alumno</strong> con contraseña <strong>alumno1234</strong>, que será el que podréis utilizar para conectar a las bases de datos.</p>
+</blockquote>
+
+<h3 id="32-instalación-en-otros-sistemas-windows-y-mac">3.2. Instalación en otros sistemas (Windows y Mac)</h3>
+
+<p>La instalación de MySQL en otros sistemas no forma parte de los contenidos importantes del curso, ya que es recomendable que utilicéis la máquina virtual proporcionada. No obstante, si queréis realizar esta instalación, aquí se os facilitan algunos recursos externos que podéis consultar para hacerlo.</p>
+
+<ul>
+  <li>Si queremos instalar MySQL en Windows, podemos seguir <a href="https://www.adslzone.net/esenciales/windows-10/instalar-mysql/">esta guía</a>.</li>
+  <li>Para instalarlo en MacOSX, podemos seguir <a href="https://abrirarchivos.info/blog/como-instalar-mysql-en-macos/">esta otra guía</a>.</li>
+  <li>También tenéis disponible la información para ambos sistemas en la <a href="https://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-installing">documentación oficial</a> del sitio.</li>
+</ul>
+
+<h2 id="4-mongodb">4. MongoDB</h2>
+
+<p>MongoDB es, a día de hoy, el servidor de bases de datos No-SQL más popular que existe. Veremos más adelantes algunas nociones sobre bases de datos No-SQL, pero de momento vamos a dejar instalado el servidor, de forma similar a como hemos hecho antes con MySQL.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: ninguna en particular, podemos instalar la última que tenga el gestor de paquetes que utilicemos, o la última que descarguemos de la web oficial, según el caso.</p>
+</blockquote>
+
+<h3 id="41-instalación-en-linux">4.1. Instalación en Linux</h3>
+
+<p>Para dejar instalado MongoDB en nuestra máquina virtual o distribuciones similares, ejecutamos estos comandos desde terminal. Podéis consultar en la <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/">web oficial</a> de MongoDB los comandos actualizados a otra versión si lo preferís. En este caso se muestran los pasos para instalar la versión 5.0 en Ubuntu 20.04 (cada línea separada se debe escribir de forma continua aunque aquí se muestre dividida en varias partes):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu 
+focal/mongodb-org/5.0 multiverse" | 
+sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+
+sudo apt update
+
+sudo apt install mongodb-org
+</code></pre></div></div>
+
+<p>Igual que ocurre con el servidor MySQL, podemos utilizar estos comandos para conocer el estado actual del servidor, pararlo, iniciarlo o reiniciarlo, respectivamente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl status mongod
+sudo systemctl stop mongod
+sudo systemctl start mongod
+sudo systemctl restart mongod
+</code></pre></div></div>
+
+<p>Para permitir que MongoDB se inicie automáticamente en cada reinicio del sistema, ejecutamos este comando (ya lo hemos dejado ejecutado en la máquina virtual con todo instalado):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl enable mongod
+</code></pre></div></div>
+
+<h3 id="42-instalación-en-otros-sistemas">4.2. Instalación en otros sistemas</h3>
+
+<p>Nuevamente, si preferís instalar MongoDB en otros sistemas, aquí os dejamos algunas guías para hacerlo, ya que estos contenidos no forman parte del curso en sí:</p>
+
+<ul>
+  <li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/">Windows</a></li>
+  <li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/">MacOSX</a></li>
+</ul>
+
+<h2 id="5-extensiones-de-visual-studio-code">5. Extensiones de Visual Studio Code</h2>
+
+<p>En pasos anteriores hemos instalado el IDE Visual Studio Code, que será el que utilizaremos en el curso para desarrollar nuestros proyectos. Entre sus muchas ventajas, incluye el hecho de poder instalar ciertos <em>plugins</em> adicionales que facilitan el trabajo con determinadas herramientas o lenguajes. Estos plugins o <strong>extensiones</strong> son muy variados.</p>
+
+<p>En nuestro caso, vamos a instalar dos extensiones (vamos al panel <em>Extensiones</em> en la barra izquierda de Visual Studio Code y las buscamos).</p>
+
+<h3 id="mysql-desarrollado-por-cweijan"><em>MySQL</em> (desarrollado por <em>cweijan</em>)</h3>
+
+<p>Esta extensión nos va a permitir conectar y gestionar bases de datos MySQL y MongoDB desde el propio IDE.</p>
+
+<div align="center">
+    <img src="../../img/01_extension_mysql.png" />
+</div>
+
+<p>Una vez la tengamos instalada, veremos que en la barra izquierda aparecen dos iconos nuevos, para gestionar bases de datos relacionales y No-SQL, respectivamente:</p>
+
+<div align="center">
+    <img src="../../img/01_extension_mysql_2.png" />
+</div>
+
+<p>Tenemos que hacer clic en cada una de ellas y crear la conexión a cada base de datos (icono de <em>+</em> en la parte superior). Nos rellenará ya los campos con los parámetros por defecto, y sólo tenemos que poner un nombre a cada conexión. Así podría quedar la de MySQL (usamos el usuario <em>alumno</em> con la contraseña <em>alumno1234</em> que hemos dicho antes, en el caso de nuestra máquina virtual con todo el software instalado):</p>
+
+<div align="center">
+    <img src="../../img/01_extension_mysql_3.png" width="90%" />
+</div>
+
+<p>Tras conectar, podremos ver en el panel izquierdo las bases de datos existentes:</p>
+
+<div align="center">
+    <img src="../../img/01_extension_mysql_3b.png" />
+</div>
+
+<p>Así configuraremos la conexión de MongoDB (sin usuario ni contraseña):</p>
+
+<div align="center">
+    <img src="../../img/01_extension_mysql_4.png" width="90%" />
+</div>
+
+<p>Y nuevamente, podremos ver a la izquierda las bases de datos existentes:</p>
+
+<div align="center">
+    <img src="../../img/01_extension_mysql_4b.png" />
+</div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en la máquina virtual con todo el software instalado ya se os dejan configuradas ambas conexiones (a MySQL y a MongoDB) desde esta extensión de Visual Studio Code.</p>
+</blockquote>
+
+<h3 id="thunderclient">ThunderClient</h3>
+
+<p>Esta herramienta nos servirá para simular peticiones a servidores web, y recoger y analizar la respuesta. La emplearemos para probar los servicios REST que desarrollaremos en algunas sesiones. La buscamos en el panel de extensiones y la instalamos:</p>
+
+<div align="center">
+    <img src="../../img/01_extension_thunderclient.png" />
+</div>
+
+<p>Nos aparecerá un icono en el panel izquierdo desde el que gestionaremos las conexiones y peticiones (aprenderemos a utilizarlo más adelante):</p>
+
+<div align="center">
+    <img src="../../img/01_extension_thunderclient_2.png" />
+</div>
+
+<h3 id="alternativas">Alternativas</h3>
+
+<p>Como alternativas a estas extensiones también se pueden usar, respectivamente, estos tres programas (aunque no se proporcionan instalados en la máquina virtual):</p>
+
+<ul>
+  <li><strong>MySQL Workbench</strong>: para gestionar bases de datos MySQL (<a href="https://dev.mysql.com/doc/workbench/en/wb-installing.html">web oficial</a>)</li>
+  <li><strong>Robo3T</strong>: para gestionar bases de datos MongoDB (<a href="https://robomongo.org/">web oficial</a>)</li>
+  <li><strong>Postman</strong>: para simular peticiones a servidores (<a href="https://www.postman.com/downloads/">web oficial</a>)</li>
+</ul>
+
+<h2 id="6-recursos-adicionales">6. Recursos adicionales</h2>
+
+<p>Para facilitar la labor de instalar y/o trabajar con el software propuesto, se proporcionan dos máquinas virtuales basadas en sistemas Lubuntu (versión 20). En ambos casos, se cuenta con un usuario <em>alumno</em> con password <em>alumno</em>.</p>
+
+<ul>
+  <li><a href="https://1drv.ms/u/s!As6iclFnE7BAgUAG8pcmWX0wHq05?e=iyV164">Máquina virtual base</a></li>
+  <li><a href="https://1drv.ms/u/s!As6iclFnE7BAgUIS6fOWVhMqXQop?e=NtkQPU">Máquina virtual con software instalado</a></li>
+</ul>
+
+<p>Es necesario utilizar el programa <a href="https://www.virtualbox.org/">VirtualBox</a> para ejecutar estas máquinas virtuales. También se puede cambiar la configuración por defecto de dichas máquinas virtuales, para darles más memoria RAM o núcleos de procesador, si se cree conveniente.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

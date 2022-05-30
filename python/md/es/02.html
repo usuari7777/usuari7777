@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Elementos básicos del lenguaje | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Elementos básicos del lenguaje" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/02.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Elementos básicos del lenguaje" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Elementos básicos del lenguaje","url":"http://nachoiborraies.github.io/python/md/es/02.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="elementos-básicos-del-lenguaje">Elementos básicos del lenguaje</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/02.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="02.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Veamos en este documento algunos elementos básicos del lenguaje para empezar a hacer nuestros primeros programas. Veremos qué tipos de datos maneja Python, cómo declarar variables para almacenar información, y cómo hacer algunas operaciones aritméticas básicas. También veremos cómo mostrar información por pantalla y pedírsela al usuario por teclado.</p>
+
+<h2 id="1-comentarios">1. Comentarios</h2>
+
+<p>Los comentarios en Python pueden ser de una sola línea o de varias, como en otros lenguajes. Para los comentarios de una sola línea, debemos comenzarlos con el símbolo de la almohadilla <code class="language-plaintext highlighter-rouge">#</code>. Por ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Mostramos un mensaje
+</span><span class="k">print</span> <span class="p">(</span><span class="s">"Hola mundo"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>También podemos definir comentarios de múltiples líneas. En este caso, comienzan y terminan por una triple comilla simple <code class="language-plaintext highlighter-rouge">'''</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">'''
+Esto es un comentario de varias líneas
+Segunda línea del comentario
+'''</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">"Hola mundo"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="2-tipos-de-datos-básicos-y-variables">2. Tipos de datos básicos y variables</h2>
+
+<p>Existen tres tipos de datos básicos en Python:</p>
+
+<ul>
+  <li><strong>Números</strong>: pueden ser enteros (3), reales (4.33) o incluso complejos (5 + 3j)</li>
+  <li><strong>Textos</strong>: Python no dispone del tipo carácter (<em>char</em>) que sí existe en otros lenguajes, así que para los textos podemos emplear indistintamente comillas dobles (<code class="language-plaintext highlighter-rouge">"Hola mundo"</code>) o simples (<code class="language-plaintext highlighter-rouge">'Hola mundo'</code>). También podemos emplear secuencias de escape habituales en otros lenguajes de programación, como el salto de línea <code class="language-plaintext highlighter-rouge">\n</code> o la tabulación <code class="language-plaintext highlighter-rouge">\t</code> (<code class="language-plaintext highlighter-rouge">"Hola\tmundo"</code>)</li>
+  <li><strong>Booleanos</strong>: pueden ser <code class="language-plaintext highlighter-rouge">True</code> o <code class="language-plaintext highlighter-rouge">False</code></li>
+</ul>
+
+<h3 id="21-declaración-e-inicialización-de-variables">2.1. Declaración e inicialización de variables</h3>
+
+<p>Debido a que Python es un lenguaje débilmente tipado (es decir, no es necesario definir el tipo de dato que vamos a almacenar en una variable), simplemente declaramos las variables y les asignamos un valor. Dependiendo del valor asignado, la variable toma el tipo de dato adecuado. Por ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">edad</span> <span class="o">=</span> <span class="mi">23</span>
+<span class="n">mensaje</span> <span class="o">=</span> <span class="s">"Hola mundo"</span>
+</code></pre></div></div>
+
+<p>Python es un lenguaje que ofrece particularidades que no muchos lenguajes tienen. Por ejemplo, si queremos intercambiar el valor de dos variables, en la mayoría de lenguajes necesitaríamos una tercera variable auxiliar que almacene temporalmente uno de los dos datos a intercambiar. Así nos quedaría el código en Java, por ejemplo, para intercambiar los valores de <em>n1</em> y <em>n2</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n1</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">8</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kt">int</span> <span class="n">aux</span> <span class="o">=</span> <span class="n">n1</span><span class="o">;</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">n2</span><span class="o">;</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">aux</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Sin embargo, en Python es tan sencillo como hacer esto:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n1</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">n2</span><span class="p">,</span> <span class="n">n1</span>
+</code></pre></div></div>
+
+<h3 id="22-conversión-de-datos">2.2. Conversión de datos</h3>
+
+<p>Si queremos convertir de un tipo básico a otro, podemos emplear estas instrucciones útiles:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">int(valor)</code> convierte a entero el valor indicado, que puede ser un número real o un texto, por ejemplo</li>
+  <li><code class="language-plaintext highlighter-rouge">float(valor)</code> funciona como <code class="language-plaintext highlighter-rouge">int</code>, pero convierte a número real el valor indicado.</li>
+  <li><code class="language-plaintext highlighter-rouge">str(valor)</code> obtiene una representación textual del valor indicado</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"23"</span>
+<span class="n">numero</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span> <span class="c1"># 23
+</span></code></pre></div></div>
+
+<h2 id="3-operadores">3. Operadores</h2>
+
+<p>Veremos a continuación de forma resumida los principales operadores que ofrece el lenguaje Python</p>
+
+<h3 id="31-operadores-aritméticos">3.1. Operadores aritméticos</h3>
+
+<p>Tenemos estos operadores aritméticos disponibles en Python:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Operador</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Suma</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">-</code></td>
+      <td>Resta</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Multiplicación</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">**</code></td>
+      <td>Potencia</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>División</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">//</code></td>
+      <td>División entera</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>Resto o módulo</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="32-operadores-relacionales">3.2. Operadores relacionales</h3>
+
+<p>A la hora de comparar dos elementos tenemos los típicos operadores de cualquier lenguaje: <code class="language-plaintext highlighter-rouge">==</code>, <code class="language-plaintext highlighter-rouge">!=</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&lt;=</code>, <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&gt;=</code></p>
+
+<h3 id="33-operadores-lógicos">3.3. Operadores lógicos</h3>
+
+<p>Los operadores lógicos que ofrece Python para poder enlazar comprobaciones simples y formar otras más complejas son:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">and</code> (Y lógica, que en muchos lenguajes se representa con <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">or</code> (O lógica, que en muchos lenguajes se representa con doble barra vertical <code class="language-plaintext highlighter-rouge">||</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">not</code> (negación lógica, que en muchos lenguajes se representa con <code class="language-plaintext highlighter-rouge">!</code>)</li>
+</ul>
+
+<p>Por ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="mi">5</span> <span class="o">&gt;</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<h2 id="4-entradasalida-básica">4. Entrada/Salida básica</h2>
+
+<p>Veamos ahora qué mecanismos ofrece Python para sacar información por pantalla y pedirle datos al usuario</p>
+
+<h3 id="41-salida-con-print">4.1. Salida con <em>print</em></h3>
+
+<p>Hemos visto que la instrucción <code class="language-plaintext highlighter-rouge">print</code> puede utilizarse para mostrar mensajes por pantalla. Podemos mostrar un mensaje simple…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"Hola mundo"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>… o combinar varias partes de un mensaje, separadas por comas (Python añade un espacio entre cada parte):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"La suma de"</span><span class="p">,</span> <span class="n">num1</span><span class="p">,</span> <span class="s">"y"</span><span class="p">,</span> <span class="n">num2</span><span class="p">,</span> <span class="s">"es"</span><span class="p">,</span> <span class="n">resultado</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>También podemos proporcionar algún formato de salida, de forma similar a como funciona la instrucción <em>printf</em> en lenguajes como C o Java. Por ejemplo, de este modo definimos un hueco o espacio horizontal para un número (3 espacios de hueco)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"Mi nombre es Nacho y tengo %3d años"</span> <span class="o">%</span> <span class="p">(</span><span class="n">edad</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>O podemos especificar cuántos dígitos enteros y decimales mostrar en una expresión o variable real. En el siguiente ejemplo mostramos el número con 3 dígitos enteros (si no hay se rellenan con espacios) y 2 decimales (si no hay se rellenan con ceros).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"El resultado final es %3.2f"</span> <span class="o">%</span> <span class="p">(</span><span class="n">resultado</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Si necesitamos mostrar más de un dato, podemos especificarlo entre paréntesis, separados por comas:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"La suma de %d y %d es %5d"</span> <span class="o">%</span> <span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">,</span> <span class="n">resultado</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Como ocurre con C o Java, podemos emplear los símbolos especiales <code class="language-plaintext highlighter-rouge">%d</code>, <code class="language-plaintext highlighter-rouge">%f</code> or <code class="language-plaintext highlighter-rouge">%s</code> para representar datos enteros, reales o textos en la expresión a mostrar con <em>print</em>, respectivamente.</p>
+
+<p>Debemos tener en cuenta, no obstante, que por defecto <code class="language-plaintext highlighter-rouge">print</code> salta a la siguiente línea después de mostrar la información. Si no queremos que sea así, necesitamos añadir un parámetro llamado <code class="language-plaintext highlighter-rouge">end</code> en la instrucción, indicando con qué carácter queremos terminar. Por ejemplo, de este modo finalizamos con una cadena vacía, para no pasar a la siguiente línea:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"Hola"</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">"Adiós"</span><span class="p">)</span>
+<span class="c1">#Muestra "HolaAdiós"
+</span></code></pre></div></div>
+
+<h3 id="42-obtener-la-entrada-del-usuario">4.2. Obtener la entrada del usuario</h3>
+
+<p>Para obtener la entrada del usuario por teclado, empleamos la instrucción <code class="language-plaintext highlighter-rouge">input</code>. Esta instrucción recoge todo lo que escribe el usuario hasta que pulse <em>Intro</em> o <em>Enter</em>, y lo obtiene como información textual. Si le hemos pedido un número entero o real, por ejemplo, deberemos convertirlo al dato correspondiente usando las instrucciones <code class="language-plaintext highlighter-rouge">int</code> o <code class="language-plaintext highlighter-rouge">float</code> vistas antes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Escribe un número entero:"</span><span class="p">)</span>
+<span class="n">numero</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>Alternativamente, la propia instrucción <code class="language-plaintext highlighter-rouge">input</code> también admite entre paréntesis el texto que le queremos mostrar al usuario para explicarle lo que tiene que hacer. Así, el código anterior puede abreviarse de este modo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numero</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">"Escribe un número entero:"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea un programa llamado <code class="language-plaintext highlighter-rouge">Porcentajes.py</code> que le pregunte al usuario cuántos chicos y chicas hay en su clase, y calcule el porcentaje de chicos y chicas. Aquí tienes un ejemplo de cómo debería funcionar:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Escribe el número de chicos:
+12
+Escribe el número de chicas:
+8
+Hay un 60% de chicos y un 40% de chicas
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>PISTA:</strong> para sacar el símbolo del porcentaje en un texto, debemos duplicarlo <code class="language-plaintext highlighter-rouge">%%</code>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea un programa llamado <code class="language-plaintext highlighter-rouge">Saludo.py</code> que le pregunte al usuario su nombre y edad, y muestre un mensaje de saludo personalizado, de este modo:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hola Nacho, tienes 43 años
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea un programa llamado <code class="language-plaintext highlighter-rouge">Media.py</code> que le pida al usuario 4 números enteros y calcule su media (real). La media debe mostrarse en pantalla con 3 cifras decimales.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

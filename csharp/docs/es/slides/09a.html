@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Windows Forms</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Windows Forms
+#### Aplicaciones con Windows Forms
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Windows Forms
+
+- Librería para crear GUI (*Graphical User Interfaces*) con Visual Studio y C#
+- Aplicaciones basadas en formularios, o ventanas que contienen un conjunto de controles
+   - Menús, botones, cuadros de texto, etc.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Creación del proyecto
+
+Elegimos *Aplicación de Windows Forms (.NET Framework)*
+
+<div align="center">
+    <img src="../../../img/09_proyecto_wforms.png" width="60%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura inicial
+
+- Programa principal (*Program.cs*)
+- Formulario principal (*Form1.cs*)
+   - Podemos renombrarlo con clic derecho sobre el archivo
+- Podemos editar el formulario desde la zona principal
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura inicial
+
+<div align="center">
+    <img src="../../../img/09_proyecto_estructura_inicial.png" width="60%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Propiedades
+
+- Haciendo clic sobre el formulario o cualquiera de los elementos que añadamos dentro podemos ver las propiedades del elemento seleccionado
+- Panel inferior derecho *Propiedades*
+- Se puede mostrar/ocultar con el menú *Ver > Ventana Propiedades*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Propiedades
+
+<div align="center">
+    <img src="../../../img/09_propiedades.png" width="60%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Algunas propiedades útiles
+
+* **Text**: título superior de la ventana
+* **BackColor**: color de fondo
+* **BackgroundImage**: imagen de fondo (si hay)
+* **ForeColor**: color de texto
+* **MaximumSize** / **MinimumSize**: tamaño máximo y mínimo permitido
+* **Size**: tamaño inicial (debe estar entre los límites anteriores)
+* **StartPosition**: posición inicial de la ventana en pantalla
+* **WindowState**: estado inicial (minimizado, maximizado, normal)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sobre el tamaño de la ventana
+
+* *MaximumSize*, *MinimumSize* y *Size* pueden tener valores incompatibles en un momento dado
+   * Conviene especificarlos en este orden, si es el caso
+* La propiedad **FormBorderStyle** tiene algunos valores que limitan el redimensionado
+   * *FixedSingle*: no se puede redimensionar (sí maximizar/minimizar)
+   * *None*: quita la barra superior
+* Las propiedades **MaximizeBox** y **MinimizeBox** se pueden deshabilitar para quitar los botones de maximizar/minimizar
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cuadro de herramientas
+
+- Permite seleccionar componentes y añadirlos al formulario
+- Visible en el margen izquierdo como una pestaña
+  - Puede mostrarse/ocultarse con *Ver > Cuadro de herramientas*
+- Podemos elegir elementos y arrastrarlos al formulario para colocarlos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cuadro de herramientas
+
+<div align="center">
+    <img src="../../../img/09_herramientas.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Controles comunes
+
+* **Button**: botones de acción (*Aceptar*, *Cancelar*...)
+* **Label**: etiquetas explicativas
+* **Checkbox**: casillas de verificación
+* **ComboBox**: listas desplegales
+* **ListBox**: listas fijas
+* **PictureBox**: imágenes
+* **RadioButton**: botones de radio
+* **TextBox**: textos cortos y multilínea
+* ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Propiedades de los controles
+
+Además de las que hemos visto antes para el formulario:
+
+* **Visible**: permite mostrar/ocultar el control
+* **Enabled**: permite habilitar/deshabilitar el control
+* **(Name)**: nombre de la variable que usaremos para acceder al control desde el código
+   * Podemos usar prefijos como *btnXXXX*, *lblXXXXX* en los nombres para especificar el tipo de control
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Contenedores
+
+Permiten agrupar controles
+
+* **FlowLayoutPanel**: los controles se colocan de izquierda a derecha y de arriba a abajo.
+* **GroupBox**: para agrupar controles y colocarles un borde y/o título.
+* **Panel**: panel simple que agrupa controles y se puede mover como una unidad.
+* **SplitContainer**: se crean dos zonas dentro del contenedor
+* **TabControl**: para crear un conjunto de pestañas.
+* ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colocar controles y contenedores
+
+- La propiedad **Dock** especifica en qué parte de la ventana se añade el control o contenedor
+   - Permite fijar el elemento en esa zona aunque se redimensione la ventana
+- La propiedad **Anchor** fija puntos de anclaje para el control o contenedor
+   - Se mantendrá la misma distancia con los puntos de anclaje cuando se redimensione la ventana
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Propiedad *Dock*
+
+<div align="center">
+    <img src="../../../img/09_dock.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Propiedad *Anchor*
+
+<div align="center">
+    <img src="../../../img/09_anchor.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+
+Creamos proyecto Windows Forms llamado **Calculator**
+ 
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+    
+Tamaño de la ventana
+
+* Tamaño por defecto (inicial): 400 x 300
+* Tamaño mínimo: 300 x 200 
+* Tamaño máximo: 500 x 500
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+
+- Añadimos:
+    - 2 cuadros de texto (*TextBox*)
+    - 1 lista desplegable (*ComboBox*)
+    - 1 botón (*Button*)
+    - 1 etiqueta (*Label*)
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+  
+<div align="center">
+    <img src="../../../img/09_calculator.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+   
+Propiedades
+
+* Título del formulario: *Calculator*
+* Color de fondo: *DarkGray*
+* Texto del botón: *Go*
+* Texto de la etiqueta: *Result* (ampliar fuente y cambiar color)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+    
+Propiedad *Items* del *combobox*
+
+<div align="center">
+    <img src="../../../img/09_calculator_combo_items.png" width="60%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+    
+Nombres de los controles
+
+* Cuadro de texto izquierdo: *txtNumber1*
+* Cuadro de texto derecho: *txtNumber2*
+* Desplegable: *cmbOperator*
+* Botón: *btnGo*
+* Etiqueta: *lblResult*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte I)
+    
+Anclajes (*Anchor*)
+
+* Texto izquierdo: arriba e izquierda
+* Texto derecho: arriba y derecha
+* Desplegable: arriba, izquierda y derecha
+* Etiqueta: abajo, izquierda y derecha
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Eventos
+    
+- Sucesos que ocurren en una aplicación:
+   - Hacer clic en un botón, pasar el ratón sobre una etiqueta, redimensionar la ventana...
+- Podemos responder a esos eventos ejecutando unos métodos asociados llamados *event handlers*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Gestión de eventos
+    
+Pestaña correspondiente del panel de *Propiedades*
+
+<div align="center">
+    <img src="../../../img/09_eventos.png" width="60%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Gestión de eventos
+    
+Podremos ver eventos disponibles para el control seleccionado:
+
+* *Click* / *MouseClick*: al hacer clic con el ratón
+* *KeyPress*: al pulsar una tecla
+* *TextChanged*: al modificar el valor de un campo de texto
+* ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Gestión de eventos
+    
+Haciendo doble clic sobre un evento podemos rellenar su código
+
+<div align="center">
+    <img src="../../../img/09_eventos2.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Vista diseño/código
+    
+- Podemos alternar entre ellas con clic derecho sobre el archivo del formulario
+- Por cada evento que añadamos al formulario, se añade una línea en el archivo *.Designer.cs* del formulario
+   - Deberemos editarlo y quitarla si decidimos quitar el evento
+
+```cs
+this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Vista diseño/código
+    
+<div align="center">
+    <img src="../../../img/09_vista_diseno_codigo.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte II)
+    
+Evento *Click* sobre el botón *Go*:
+
+* Almacenamos los valores de los dos cuadros de texto en dos variables.
+* Revisamos el valor seleccionado en la lista desplegable
+* En función del valor seleccionado, realizamos la operación matemática correspondiente y mostramos el resultado en la etiqueta.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo sencillo: calculadora (parte II)
+    
+Evento *Click* sobre el botón *Go*:
+
+```csharp
+private void btnGo_Click(object sender, EventArgs e)
+{
+    int number1 = Convert.ToInt32(txtNumber1.Text);
+    int number2 = Convert.ToInt32(txtNumber2.Text);
+    string selOperator = (string)(cmbOperator.SelectedItem);
+    switch (selOperator)
+    {
+        case "+":
+            lblResult.Text = "" + (number1 + number2);
+            break;
+        case "-":
+            lblResult.Text = "" + (number1 - number2);
+            break;
+        case "*":
+            lblResult.Text = "" + (number1 * number2);
+            break;
+        case "/":
+            lblResult.Text = "" + (number1 / number2);
+            break;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Mostrar mensajes de error
+    
+Método **MessageBox.Show** (más información [aquí](https://docs.microsoft.com/es-es/dotnet/api/system.windows.forms.messagebox.show))
+
+```cs
+MessageBox.Show("No operator is selected");
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (1/3)
+    
+Crearemos una aplicación de Windows Forms llamada *Contactos*, con el siguiente aspecto:
+
+<div align="center">
+    <img src="../../../img/09_contacts.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (2/3)
+    
+La aplicación debe tener:
+
+* Tres etiquetas y cuadros de texto en la sección superior.
+* Un botón *Añadir* debajo de ellos
+* Una lista (*ListBox*) debajo del botón *Añadir*
+* Un botón *Borrar* debajo de la lista 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (3/3)
+    
+* Cargar en la lista la información de un fichero de texto llamado "contactos.txt" al inicio (constructor del formulario)
+   * Redefinir método *ToString* en clase *Contacto* para mostrar información en lista
+* Si los 3 textos están rellenos, al pulsar *Añadir* añadiremos el nuevo contacto a la lista y guardaremos los cambios en fichero
+* Si hacemos clic en *Borrar* eliminaremos el contacto seleccionado de la lista y guardaremos cambios
+* Si hay campos vacíos al añadir, o no hay contacto seleccionado al borrar, mostraremos mensaje de error
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Aplicaciones multiventana
+
+* En ocasiones puede resultar más cómodo cargar otras ventanas con controles adicionales, en lugar de ubicarlos todos en una misma ventana
+* Debemos agregar un nuevo formulario (*Proyecto > Agregar Formulario*)
+   * Diseñamos el nuevo formulario con los controles que queramos
+   * Comunicamos ambos formularios para pasarse información de uno a otro
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Abrir una ventana desde otra
+
+* Necesitamos una instancia de la otra ventana
+* Podemos usar el método **Show** (abre la ventana de forma independiente) o **ShowDialog** (abre la ventana de forma modal, con lo que hasta que no la cerremos no podemos volver a la anterior)
+* Podemos usar el método **Hide** para ocultar la ventana actual mientras tanto, o **Close** para cerrarla
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Abrir una ventana desde otra
+
+Ejemplos
+
+```cs
+// Abre Form2 como ventana normal desde Form1 y oculta la actual (Form1)
+Form2 formulario2 = new Form2();
+formulario2.Show();
+Hide();
+
+// Abre Form2 como ventana modal y no podemos volver a la actual hasta cerrar Form2
+Form2 formulario2 = new Form2();
+formulario2.ShowDialog();
+
+// Abre Form2 como ventana normal y cierra la actual
+// NO recomendable desde ventana principal (terminaría el programa)
+Form2 formulario2 = new Form2();
+formulario2.Show();
+Close();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso de información entre formularios
+
+* Para cargar un formulario desde otro, necesitamos que dicho formulario tenga como atributo una variable del tipo del otro formulario
+* Para enviar información de un formulario a otro, podemos valernos de atributos internos en cada formulario y de los correspondientes *get/set*
+   * Por ejemplo, guardar en una de las clases un objeto como atributo, actualizar sus datos y poderlo leer desde la otra
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso de información entre formularios
+
+Ejemplo: pasar el texto de un TextBox de un formulario secundario al principal (a su propiedad *Valor*)
+
+```cs
+// Formulario secundario
+public partial class Form2 : Form
+{
+    private Form1 formPrincipal;
+
+    public Form1 FormPrincipal
+    {
+        get { return formPrincipal; }
+        set { formPrincipal = value; }
+    }
+
+    ...
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        FormPrincipal.Valor = textbox1.Text;
+        FormPrincipal.Show();
+        Hide();
+    }
+
+    private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        FormPrincipal.Show();
+    }
+}
+
+// Formulario principal
+public partial class Form1 : Form
+{
+    private string valor;
+
+    public string Valor
+    {
+        set
+        {
+            valor = value;
+        }
+    }
+
+    ...
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+        var form2 = new Form2();
+        form2.FormPrincipal = this;
+        form2.Show();
+        Hide();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+* Haz una nueva versión del proyecto anterior en una carpeta *Contactos_v2*
+* El formulario para dar de alta un nuevo contacto será ahora una nueva ventana que se abrirá de forma modal (*ShowDialog*) al pulsar un botón en la principal
+* Al *Aceptar* los cambios en esa ventana se comprobará si los datos son correctos, y si lo son, se dará de alta el contacto en la lista
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Diálogos para ficheros
+    
+* La clase **OpenFileDialog** permite abrir un diálogo para elegir qué fichero abrir
+* La clase **SaveFileDialog** abre el diálogo para elegir qué fichero guardar
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Diálogos para ficheros
+
+Ejemplo de lectura
+
+```cs
+OpenFileDialog dialogo = new OpenFileDialog();
+dialogo.InitialDirectory = "c:\\";
+dialogo.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
+
+if (dialogo.ShowDialog() == DialogResult.OK)
+{
+    string rutaFichero = dialogo.FileName;
+
+    using (StreamReader fichero = new StreamReader(rutaFichero))
+    {
+        ...
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Diálogos para ficheros
+
+Ejemplo de escritura
+
+```cs
+SaveFileDialog dialogo = new SaveFileDialog(); 
+dialogo.Filter = "Archivos de texto (*.txt)|*.txt|Todos los archivos (*.*)|*.*";
+ 
+if(dialogo.ShowDialog() == DialogResult.OK)
+{
+    string rutaFichero = dialogo.FileName;
+    using (StreamWriter fichero = new StreamWriter)
+    {
+        ...
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Menús
+
+* Para añadir menús a nuestras aplicaciones, usaremos el control **MenuStrip** (sección *Menús y barras de herramientas*), haciendo doble clic
+* Podemos editar cada uno de los menús, indicando el nombre del menú principal y los de los submenús que lo componen.
+
+<div align="center">
+    <img src="../../../img/09_menus.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Menús
+
+Al rellenar cada opción, podemos elegir si queremos que sea algún tipo especial, como por ejemplo una línea de separación
+
+<div align="center">
+    <img src="../../../img/09_menus2.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Menús
+
+- Podemos hacer clic en cada opción del menú y darle un nombre *(Name)* como al resto de controles, para poder interactuar desde el código con ese menú
+- También podemos definir eventos sobre los menús (típicamente el evento *Click*) para elegir qué hacer al accionar dichos menús
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+* Haz una nueva versión del proyecto anterior en una carpeta *Contactos_v3*
+* Define un menú *Archivo* con las opciones:
+   * **Nuevo**: se abrirá el formulario para crear un nuevo contacto
+   * **Abrir**: usaremos un *OpenFileDialog* para que el usuario elija qué archivo de contactos quiere cargar
+   * **Guardar**: usaremos un *SaveFileDialog* para que el usuario elija en qué archivo guardar los contactos
+   * Línea de separación
+   * **Salir**: para cerrar la aplicación
+* Al principio no se cargarán contactos de ningún fichero, hasta que el usuario no elija algo desde el menú. Tampoco se guardará nada hasta que el usuario elija la opción de *Guardar*
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Cookies y sesiones | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Cookies y sesiones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/02c.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Cookies y sesiones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Cookies y sesiones","url":"http://nachoiborraies.github.io/php/md/es/02c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="cookies-y-sesiones">Cookies y sesiones</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Veremos ahora dos mecanismos para intercambiar variables entre cliente y servidor: las cookies y las sesiones.</p>
+
+<h2 id="1-cookies">1. Cookies</h2>
+
+<p>Las cookies son básicamente un texto que se intercambian navegador y servidor entre distintas peticiones, con información acerca de las mismas y de lo que se ha estado haciendo. Al cerrar el navegador o la conexión, éste se guarda en ficheros locales dicha información, para poder seguir compartiéndola en futuras visitas. Sin embargo, las cookies tienen una fecha de caducidad preestablecida (dependiendo de la cookie), y pasado ese tiempo (salvo que se renueve con una nueva visita a la página), caducan y desaparecen.</p>
+
+<p>La principal utilidad de las cookies es recordar a los usuarios que acceden a una web, y las cosas que hacen, pero esta capacidad también sirve para que otros rastreen esa actividad y puedan interceptar información delicada (como usuarios y contraseñas). Por ello, actualmente los navegadores permiten desactivar y/o borrar las cookies, y los sitios web que las utilizan están obligados a avisar a los usuarios de ello. Como programadores web, las cookies deben usarse para almacenar información no relevante del usuario (preferencias del sitio, lugares favoritos o, como mucho, el login para que no lo tenga que volver a escribir, pero no el password).</p>
+
+<p>Hay que tener en cuenta, además, ciertos aspectos relacionados con las cookies:</p>
+
+<ul>
+  <li>Son independientes para cada servidor, es decir, el navegador almacena y gestiona de forma separada las cookies de cada sitio web que visitamos, y unas no tienen nada que ver con otras.</li>
+  <li>No se pueden transmitir virus, ni acceder al disco duro, desde las cookies. Es el navegador quien controla sus propios ficheros de cookies y quien los gestiona.</li>
+</ul>
+
+<p>Ahora que ya sabemos un poco más sobre las cookies, veamos cómo crearlas y mantenerlas en PHP. Para crear una cookie se empleará la función <code class="language-plaintext highlighter-rouge">setcookie</code>, a la que le pasaremos como parámetros el nombre de la cookie, su valor, y el tiempo en que expirará, desde ahora. Este último dato suele utilizar la función time() para contar el tiempo desde ahora, y añadirle los segundos que queramos. Si ponemos 0 o no ponemos nada, durará hasta que el usuario termine su sesión (cierre sesión, o cierre el navegador). Si ponemos un valor negativo o pasado, la cookie se borrará. Esto se usa para borrar a mano las cookies y no esperar a que lo haga el navegador.</p>
+
+<p>Veamos un ejemplo donde creamos una cookie llamada <em>colorFavorito</em> con un color hexadecimal que luego podríamos usar, por ejemplo, para establecer ese color de fondo para el usuario. Asignaremos a la cookie una vida de 1 hora (3600 segundos):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">setcookie</span><span class="p">(</span><span class="s2">"colorFavorito"</span><span class="p">,</span> <span class="s2">"#432FA1"</span><span class="p">,</span> <span class="nb">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Si más adelante queremos consultar esta cookie (para extraer el color y poderlo poner como estilo, por ejemplo), usaremos el array predefinido <code class="language-plaintext highlighter-rouge">$_COOKIE</code>, pasándole entre corchetes el nombre de la cookie, y obtendremos el valor asociado a la misma.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$color</span> <span class="o">=</span> <span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">"colorFavorito"</span><span class="p">];</span>
+<span class="k">echo</span> <span class="s2">"&lt;style&gt;body { background-color: "</span> <span class="mf">.</span> <span class="nv">$color</span> <span class="mf">.</span> <span class="s2">"; }&lt;/style&gt;"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta <strong>ejercicios6</strong> para los ejercicios de esta sesión, y dentro una subcarpeta <strong>preferencias</strong> con las siguientes páginas PHP:</p>
+
+  <ul>
+    <li><strong>preferencias.php</strong> con un formulario que le pida al usuario su nombre y su color favorito (a elegir de una lista desplegable, o con el control input type=”color” de HTML5). El formulario deberá enviarse a <em>guarda_prefs.php</em>.</li>
+    <li><strong>guarda_prefs.php</strong> que recogerá los datos del formulario anterior, y los guardará en dos cookies llamadas <em>nombreusu</em> y <em>colorusu</em>, con 5 minutos de duración. Esta página redirigirá (con <em>header</em>) a la página <em>index.php</em> una vez almacenadas las cookies.</li>
+    <li><strong>index.php</strong> que, si hay cookies guardadas del usuario, mostrará una página con el color de fondo preferido y un mensaje personalizado de bienvenida (por ejemplo, “Bienvenido, Nacho”). Si no hay cookies guardadas, mostrará una página con fondo blanco y el mensaje “Página de inicio”. En cualquiera de los dos casos, habrá un enlace para ir al formulario preferencias.php.</li>
+    <li>Opcionalmente, añade una página <strong>borrar_prefs.php</strong> que elimine las preferencias (cookies) del usuario actual, y redirija a <em>index.php</em>. Pon un enlace “Borrar preferencias” en el <em>index.php</em> que llame a esta página, pero que se muestre sólo cuando el usuario actual tenga preferencias guardadas.</li>
+  </ul>
+</blockquote>
+
+<h2 id="2-sesiones">2. Sesiones</h2>
+
+<p>Las sesiones son otro mecanismo de intercambio de información entre navegador y servidor, cuyo tiempo de vida es igual a toda la visita de un usuario a una web (en cuanto el usuario cierra sesión, desconecta o cierra el navegador, se pierde la información). Al igual que ocurre con las cookies, las sesiones que tengamos en dos sitios web diferentes son independientes entre sí, al igual que las sesiones que tengan dos usuarios diferentes en un mismo sitio web.</p>
+
+<p>Las principales diferencias entre las sesiones y las cookies son que las sesiones no se almacenan en ficheros en el disco, sino que se guarda un registro de ellas en el servidor. Cada cliente accede a su propia sesión a través de un identificador único, una clave alfanumérica que se pasan cliente y servidor en las peticiones. Además, podemos almacenar en sesión cualquier información (no sólo textos), y no se pueden desactivar desde el navegador.</p>
+
+<p>Para manejar datos en una sesión, primero deberemos crearla con la función <code class="language-plaintext highlighter-rouge">session_start()</code>. Esta función crea la sesión si no estaba creada, y en caso de que ya exista, utiliza esa sesión. Es aconsejable poner esta función al principio de todas las páginas que necesiten sesiones.</p>
+
+<p>Después, utilizaremos el array <code class="language-plaintext highlighter-rouge">$_SESSION</code> para guardar y recuperar datos de la sesión. Por ejemplo, si queremos guardar el login del usuario que nos ha enviado por un formulario, pondríamos algo como:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"loginUsuario"</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"login"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>Si queremos eliminar algún dato de la sesión, usaremos la función <code class="language-plaintext highlighter-rouge">unset</code> con dicho dato del array:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">"loginUsuario"</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Si queremos cerrar la sesión entera (y perder todo lo que haya en el array <code class="language-plaintext highlighter-rouge">$_SESSION</code>), usamos la función <code class="language-plaintext highlighter-rouge">session_destroy()</code>. Es aconsejable borrar antes a mano todas las variables que hayamos creado en la sesión, para que no se queden ocupando memoria. Para ello, en lugar de hacer <em>unset</em> con cada variable, también podemos hacer:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$_SESSION</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nb">session_destroy</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="21-ejemplo">2.1. Ejemplo</h3>
+
+<p>Veamos un ejemplo un poco más completo de todo esto. Imaginemos que queremos guardarnos en sesión el e-mail de un usuario que nos llega a través de un formulario. En la página donde recogemos los datos de ese formulario haríamos algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Esto nos permitirá acceder al array $_SESSION</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="c1">// Comprobamos si llega un e-mail en la petición</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]))</span>
+<span class="p">{</span>
+    <span class="c1">// Almacenamos el e-mail en una casilla del array $_SESSION,</span>
+    <span class="c1">// con el nombre que queramos (por ejemplo, 'emailUsuario')</span>
+    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'emailUsuario'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'email'</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// ... Resto del código de la página</span>
+</code></pre></div></div>
+
+<p>En las páginas donde queramos acceder a esta variable (para mostrarla en pantalla, o para enviar un e-mail a ese usuario, por ejemplo), basta con que volvamos a inicializar la sesión y consultemos el valor:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">session_start</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'emailUsuario'</span><span class="p">]))</span>
+<span class="p">{</span>
+    <span class="c1">// Hacer lo que queramos con $_SESSION['emailUsuario']</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="c1">// Si no existe, podemos redirigir a otra página, por ejemplo</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:otraPagina.php"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finalmente, cuando queramos eliminar estos datos de sesión del usuario, podemos llamar a <code class="language-plaintext highlighter-rouge">session_destroy</code>. Es conveniente también eliminar una a una las variables, o limpiar el array de sesión para liberar la memoria:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">session_start</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'emailUsuario'</span><span class="p">]))</span>
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">'emailUsuario'</span><span class="p">]);</span>
+<span class="c1">// También serviría esto:</span>
+<span class="c1">// $_SESSION = array();</span>
+<span class="nb">session_destroy</span><span class="p">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>carro</strong> con una página llamada <strong>carro.php</strong> con una lista de enlaces de diferentes artículos y su precio. Por ejemplo:</p>
+
+  <ul>
+    <li>Zapatillas Nike (60 euros)</li>
+    <li>Sudadera Domyos (15 euros)</li>
+    <li>Pala de pádel Vairo (50 euros)</li>
+    <li>Pelota de baloncesto Molten (20 euros)</li>
+  </ul>
+
+  <p>Puedes alimentar la lista desde un array de artículos previamente definido en PHP, como este:</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$articulos</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Zapatillas Nike"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mi">60</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Sudadera Domyos"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Pala de pádel Vairo"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span><span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Pelota de baloncesto Molten"</span><span class="p">,</span> <span class="s2">"precio"</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Cada vez que el usuario haga clic en un artículo, se enviará a la propia página, recogerá el código o <em>id</em> del artículo (que se le enviará como parámetro) y con ello buscará el artículo en el catálogo y acumulará en sesión el total de lo que ha ido comprando, junto con un listado de los artículos que ha seleccionado, para mostrarlo todo por pantalla. Por ejemplo:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Zapatillas Nike (60 euros)
+- Pala de pádel Vairo (50 euros)
+Total comprado: 110 euros
+</code></pre></div></div>
+
+<blockquote>
+  <p>Añade un enlace a la página que sea “Vaciar carro” que limpie el carro y deje así el total a 0.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea una carpeta <strong>login</strong> en la carpeta de ejercicios. Dentro vamos a crear un pequeño sistema de login y uso de sesiones. Crea los siguientes archivos:</p>
+
+  <ul>
+    <li><strong>usuarios.txt</strong> donde vamos a guardar varios logins y passwords de prueba, separados por “:”, uno por fila, como en este ejemplo:</li>
+  </ul>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>usu1:pass1
+usu2:pass2
+prueba:passprueba
+</code></pre></div></div>
+
+<blockquote>
+  <ul>
+    <li><strong>cabecera.inc</strong> que hará lo siguiente:
+      <ul>
+        <li>Comprobará si existe en sesión un atributo llamado <em>loginusu</em>. Si no existe, redirigirá a la página <em>login.php</em> que haremos después. Si existe, sacará un menú de enlaces a las páginas <em>pag1.php</em> y <em>pag2.php</em></li>
+        <li>Crea las páginas <strong>index.php</strong>, <strong>pag1.php</strong> y <strong>pag2.php</strong> que incluyan la cabecera anterior (con <em>require</em>), y como contenido, ponles simplemente un mensaje de bienvenida diferente para cada página (para identificarlas).</li>
+        <li>Finalmente, la página de <strong>login.php</strong> tendrá un formulario para pedirle al usuario su login y password, y se llamará a sí misma. Los datos que reciba del formulario, los comparará con los del fichero <em>usuarios.txt</em> para ver si coincide con alguno. Si coincide, creará un atributo <em>loginusu</em> en sesión con el login del usuario y redirigirá a <em>index.php</em>. Si no coincide con ninguno, se volverá a cargar el propio formulario, con un mensaje de error en rojo indicando que el login o la contraseña son incorrectos.</li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+
+<h2 id="3-cuándo-usar-cookies-o-sesiones">3. Cuándo usar cookies o sesiones</h2>
+
+<p>Ya hemos visto estos dos mecanismos de compartir y actualizar información entre cliente y servidor, pero… ¿cuándo es conveniente utilizar cookies y cuándo sesiones? Básicamente debemos regirnos por estas sencillas reglas:</p>
+
+<ul>
+  <li>Usaremos cookies para almacenar información simple (texto) y no relevante para el funcionamiento de la web (porque los navegadores pueden desactivar las cookies). Por ejemplo, las últimas búsquedas que ha hecho un usuario en una web, o el login del usuario para recordárselo en el formulario la próxima vez que intente loguearse (aunque el login también deberemos almacenarlo en sesiones para recordar quién ha entrado hasta que cierre sesión).</li>
+  <li>Usaremos sesiones cuando queramos almacenar datos complejos, o cruciales para el funcionamiento de la web, ya que no pueden ser desactivadas por el navegador. Por ejemplo, el login del usuario (no el password) es útil almacenarlo en sesiones, para tener la certeza de poder identificarlo en cada página que visita (si estuviera en cookies, podrían desactivarse y perder quién ha entrado). Los elementos de un carro de la compra que tengamos añadidos de una tienda virtual, también se deberían almacenar en sesiones, pues son (o pueden ser) datos complejos, no simple texto.</li>
+  <li>No usaremos ni una ni otra para almacenar información privada del usuario, como por ejemplo contraseña, número de tarjeta de crédito, etc.</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

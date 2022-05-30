@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Acceso a MySQL | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Acceso a MySQL" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/03a.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Acceso a MySQL" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Acceso a MySQL","url":"http://nachoiborraies.github.io/nodejs/md/es/03a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="acceso-a-mysql">Acceso a MySQL</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/03a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/03a.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>En esta sesión trataremos cómo conectar con un sistema SQL tradicional, como MariaDB/MySQL. En primer lugar, daremos unas nociones básicas sobre cómo acceder a la base de datos a través de alguna herramienta que nos facilite su gestión, y después veremos qué librería(s) utilizar en Node.js para acceder a estos sistemas de bases de datos.</p>
+
+<h2 id="1-gestión-de-bases-de-datos-mariadbmysql">1. Gestión de bases de datos MariaDB/MySQL</h2>
+
+<p>Para trabajar con bases de datos MariaDB y poderlas gestionar cómodamente, vamos a utilizar una extensión del IDE Visual Studio Code que ya hemos instalado en sesiones previas, llamada <em>MySQL</em>.</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql.png" />
+</div>
+
+<p>Nos va a permitir conectar tanto a sistemas MySQL como a otros sistemas de otras bases de datos, tanto relacionales como No-SQL.</p>
+
+<h3 id="11-configuración-de-la-extensión-mysql">1.1. Configuración de la extensión <em>MySQL</em></h3>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en la máquina virtual completa que se proporciona para este curso ya está la extensión instalada y configurada. Y si has seguido los pasos dados en el documento de <a href="http://nachoiborraies.github.io/nodejs/md/es/01b">instalación</a> para hacerlo tú mismo, también la tendrás lista. Puedes ir directamente al apartado siguiente para ver cómo utilizarla.</p>
+</blockquote>
+
+<p>Antes de poder gestionar cualquier base de datos, debemos establecer una conexión con el servidor. Haremos clic en el icono de <em>Databases</em> de la barra izquierda:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql_2.png" />
+</div>
+
+<p>Después, debemos crear la conexión (si no la tenemos hecha ya), haciendo clic en el botón “+” de la parte superior izquierda.</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql_3.png" width="90%" />
+</div>
+
+<p>Tras conectar, podremos ver en el panel izquierdo las bases de datos existentes:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql_3b.png" />
+</div>
+
+<h3 id="12-uso-básico-de-la-extensión-mysql">1.2. Uso básico de la extensión <em>MySQL</em></h3>
+
+<p>Desde la extensión <em>MySQL</em> podemos hacer las tareas habituales de gestión de una base de datos, tales como:</p>
+
+<ul>
+  <li>Crear bases de datos</li>
+  <li>Importar/Exportar bases de datos desde/a scripts de <em>backup</em></li>
+  <li>Crear tablas con sus campos</li>
+  <li>… etc.</li>
+</ul>
+
+<p>Para crear una base de datos, hacemos clic derecho sobre la conexión (panel izquierdo) y elegimos la opción correspondiente:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_mysql_menu_contextual.png" width="30%" />
+</div>
+
+<p>En la instrucción SQL que aparece en el panel derecho, completamos el nombre de la base de datos y pulsamos en el icono de <em>play</em> en la parte superior derecha para ejecutar la instrucción y crear la base de datos.</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_mysql_crear_base_datos.png" width="40%" />
+</div>
+
+<p>Para rellenar el contenido de la base de datos creada, podemos importar las instrucciones de algún <em>script</em> SQL. Para ello hacemos clic derecho sobre la base de datos y elegimos la opción de importar del menú contextual:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_mysql_menu_contextual2.png" width="30%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en ocasiones el propio <em>script</em> SQL ya tiene la instrucción <em>CREATE DATABASE</em>, con lo que no es necesario crearla antes de importar. Pero puede ser una buena práctica para evitar que dé error. A fin de cuentas, si la base de datos ya existe, esta instrucción no la creará de nuevo.</p>
+</blockquote>
+
+<p>Una vez tengamos la base de datos importada, haciendo doble clic en cada tabla podemos ver su contenido en el panel derecho:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_mysql_ver_tablas.png" width="70%" />
+</div>
+
+<p>En ocasiones también nos puede interesar crear una base de datos vacía y definir sus tablas desde cero. En ese caso, desplegamos la base de datos en el panel izquierdo, vamos al apartado de <em>Tables</em> y hacemos clic en el botón <em>+</em>. En la parte derecha completamos el <em>script</em> de creación de la tabla con los campos, tipos y restricciones que queramos. Finalmente, pulsamos el botón <em>play</em> de la esquina superior derecha.</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_mysql_crear_tabla.png" width="70%" />
+</div>
+
+<p>Finalmente, si queremos guardar los datos en un archivo <em>script</em> de <em>backup</em>, hacemos clic derecho sobre la base de datos, y elegimos la opción <em>Export Data</em> (si queremos guardar las tablas con sus datos) o <em>Export Struct</em> (si sólo nos interesa la estructura de las tablas, sin la información que contienen).</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_mysql_menu_contextual3.png" width="30%" />
+</div>
+
+<h2 id="2-la-librería-mysql2">2. La librería <em>mysql2</em></h2>
+
+<p>Conviene tener presente que la combinación de Node.js y MySQL no es demasiado habitual. Es bastante más frecuente el uso de bases de datos MongoDB empleando este framework, ya que la información que se maneja, en formato BSON, es muy fácilmente exportable entre los dos extremos.</p>
+
+<p>Sin embargo, también existen herramientas para poder trabajar con MySQL desde Node.js. Una de las más populares es la librería <code class="language-plaintext highlighter-rouge">mysql2</code>, disponible en el repositorio NPM.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: existe una versión anterior de la librería, llamada <em>mysql</em>. Sin embargo, el mecanismo de autenticación de las últimas versiones de MySQL Server no es compatible con esta librería, por lo que es más recomendable emplear esta última versión.</p>
+</blockquote>
+
+<p>Para ver cómo utilizarla, comenzaremos por crear un proyecto llamado “<em>PruebaContactosMySQL</em>” en nuestra carpeta de “<em>ProyectosNode/Pruebas</em>”. Crea dentro un archivo <code class="language-plaintext highlighter-rouge">index.js</code>, y ejecuta el comando <code class="language-plaintext highlighter-rouge">npm init</code> para inicializar el archivo <code class="language-plaintext highlighter-rouge">package.json</code>. Después, instalamos la librería con el correspondiente comando <code class="language-plaintext highlighter-rouge">npm install</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install mysql2
+</code></pre></div></div>
+
+<h3 id="21-conexión-a-la-base-de-datos">2.1. Conexión a la base de datos</h3>
+
+<p>Una vez instalado el módulo, en nuestro archivo <code class="language-plaintext highlighter-rouge">index.js</code> lo importamos (con <code class="language-plaintext highlighter-rouge">require</code>), y ejecutamos el método <code class="language-plaintext highlighter-rouge">createConnection</code> para establecer una conexión con la base de datos, de acuerdo a los parámetros de conexión que facilitaremos en el propio método:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">host</code>: nombre del servidor (normalmente <code class="language-plaintext highlighter-rouge">localhost</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">user</code>: nombre del usuario para conectar</li>
+  <li><code class="language-plaintext highlighter-rouge">password</code>: password del usuario para conectar</li>
+  <li><code class="language-plaintext highlighter-rouge">database</code>: nombre de la base de datos a la que acceder, de entre las que haya disponibles en el servidor al que conectamos.</li>
+  <li><code class="language-plaintext highlighter-rouge">port</code>: un parámetro opcional, a especificar si el servidor de bases de datos está escuchando por un puerto que no es el puerto por defecto</li>
+  <li><code class="language-plaintext highlighter-rouge">charset</code>: también opcional, para indicar un juego de codificación de caracteres determinado (por ejemplo, “utf8”).</li>
+</ul>
+
+<p>En el caso de la máquina virtual del curso, disponemos del usuario <em>alumno</em> con contraseña <em>alumno1234</em>. Si utilizáis otro sistema diferente, como XAMPP, normalmente el usuario predefinido es <em>root</em> con la contraseña vacía.</p>
+
+<p>Para las pruebas que haremos en este proyecto de prueba, utilizaremos una base de datos llamada “<em>contactos</em>” que puedes descargar, descomprimir e importar desde <a href="http://nachoiborraies.github.io/nodejs/recursos/03/contactos.zip">aquí</a>. Teniendo en cuenta todo lo anterior, podemos dejar los parámetros de conexión así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">mysql</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mysql2</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">conexion</span> <span class="o">=</span> <span class="nx">mysql</span><span class="p">.</span><span class="nx">createConnection</span><span class="p">({</span>
+    <span class="na">host</span><span class="p">:</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">user</span><span class="p">:</span> <span class="dl">"</span><span class="s2">alumno</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">password</span><span class="p">:</span> <span class="dl">"</span><span class="s2">alumno1234</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">database</span><span class="p">:</span> <span class="dl">"</span><span class="s2">contactos</span><span class="dl">"</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Después, podemos establecer la conexión con:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">connect</span><span class="p">((</span><span class="nx">error</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error al conectar con la BD:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Conexión satisfactoria</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En el caso de que se produzca algún error de conexión, lo identificaremos en el parámetro <code class="language-plaintext highlighter-rouge">error</code> y podremos actuar en consecuencia. En este caso se muestra un simple mensaje por la consola, pero también podemos almacenarlo en algún <em>flag</em> booleano o algo similar para impedir que se hagan operaciones contra la base de datos, o se redirija a otra página.</p>
+
+<h3 id="22-consultas">2.2. Consultas</h3>
+
+<p>La base de datos “contactos” tiene una tabla del mismo nombre, con los atributos <em>id</em>, <em>nombre</em> y <em>telefono</em>.</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/03_bd_contactos_mysql.png" width="30%" />
+</div>
+
+<p>Vamos a definir una consulta para obtener resultados y recorrerlos. Por ejemplo, mostrar todos los contactos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">"</span><span class="s2">SELECT * FROM contactos</span><span class="dl">"</span><span class="p">,</span> 
+<span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">,</span> <span class="nx">campos</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error al procesar la consulta</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">else</span> 
+    <span class="p">{</span>
+        <span class="nx">resultado</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">contacto</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contacto</span><span class="p">.</span><span class="nx">nombre</span><span class="p">,</span> <span class="dl">"</span><span class="s2">:</span><span class="dl">"</span><span class="p">,</span>
+                <span class="nx">contacto</span><span class="p">.</span><span class="nx">telefono</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Notar que el método <code class="language-plaintext highlighter-rouge">query</code> tiene dos parámetros: la consulta a realizar, y un <em>callback</em> que recibe otros tres parámetros: el error producido (si lo hay), el conjunto de resultados (que se puede procesar como un vector de objetos), e información adicional sobre los campos de la consulta.</p>
+
+<p>Notar también que el propio método <code class="language-plaintext highlighter-rouge">query</code> nos sirve para conectar (dispone de su propio control de error), por lo que no sería necesario el paso previo del método <code class="language-plaintext highlighter-rouge">connect</code>. En cualquier caso, podemos hacerlo si queremos asegurarnos de que hay conexión, pero cada <em>query</em> que hagamos también lo puede verificar.</p>
+
+<p>Existen otras formas de hacer consultas:</p>
+
+<ul>
+  <li>Utilizando marcadores (<em>placeholders</em>) en la propia consulta. Estos marcadores se representan con el símbolo <code class="language-plaintext highlighter-rouge">?</code>, y se sustituyen después por el elemento correspondiente de un vector de parámetros que se coloca en segunda posición. Por ejemplo:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">"</span><span class="s2">SELECT * FROM contactos WHERE id = ?</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">,</span> <span class="nx">campos</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="p">...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Utilizando como parámetro del método <code class="language-plaintext highlighter-rouge">query</code> un objeto con diferentes propiedades de la consulta: la instrucción SQL en sí, los parámetros embebidos mediante <em>placeholders</em>… de forma que podemos proporcionar información adicional como <em>timeout</em>, conversión de tipos, etc.</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span>
+    <span class="na">sql</span><span class="p">:</span> <span class="dl">"</span><span class="s2">SELECT * FROM contactos WHERE id = ?</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">values</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="na">timeout</span><span class="p">:</span> <span class="mi">4000</span>
+<span class="p">},</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">,</span> <span class="nx">campos</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<h3 id="23-actualizaciones-inserciones-borrados-modificaciones">2.3. Actualizaciones (inserciones, borrados, modificaciones)</h3>
+
+<p>Si lo que queremos es realizar alguna modificación sobre los contenidos de la base de datos (INSERT, UPDATE o DELETE), estas operaciones se realizan desde el mismo método <code class="language-plaintext highlighter-rouge">query</code> visto antes. La diferencia está en que en el parámetro <code class="language-plaintext highlighter-rouge">resultado</code> del callback ya no están los registros de la consulta, sino datos como el número de filas afectadas (en el atributo <code class="language-plaintext highlighter-rouge">affectedRows</code>), o el <em>id</em> del nuevo elemento insertado (atributo <code class="language-plaintext highlighter-rouge">insertId</code>), en el caso de inserciones con id autonumérico.</p>
+
+<p>Por ejemplo, si queremos insertar un nuevo contacto en la agenda y obtener el <em>id</em> que se le ha asignado, lo podemos hacer así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">"</span><span class="s2">INSERT INTO contactos</span><span class="dl">"</span> <span class="o">+</span> 
+<span class="dl">"</span><span class="s2">(nombre, telefono) VALUES </span><span class="dl">"</span> <span class="o">+</span>
+<span class="dl">"</span><span class="s2">('Fernando', '966566556')</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">,</span> <span class="nx">campos</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error al procesar la inserción</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nuevo id = </span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">.</span><span class="nx">insertId</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>También podemos pasar un objeto JavaScript como dato a la consulta, y automáticamente se asigna cada campo del objeto al campo correspondiente de la base de datos (siempre que los nombres de los campos coincidan). Esto puede emplearse tanto en inserciones como en modificaciones:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">"</span><span class="s2">INSERT INTO contactos SET ?</span><span class="dl">"</span><span class="p">,</span> 
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho C.</span><span class="dl">'</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">'</span><span class="s1">965771111</span><span class="dl">'</span><span class="p">},</span> 
+    <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">,</span> <span class="nx">campos</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si hacemos un borrado o actualización, podemos obtener el número de filas afectadas, de esta forma:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">conexion</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="dl">"</span><span class="s2">DELETE FROM contactos WHERE id &gt; 10</span><span class="dl">"</span><span class="p">,</span> 
+    <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">,</span> <span class="nx">campos</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error al realizar el borrado</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">else</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">.</span><span class="nx">affectedRows</span><span class="p">,</span> 
+                <span class="dl">"</span><span class="s2">filas afectadas</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

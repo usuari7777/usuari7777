@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Recogida de datos de formularios | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Recogida de datos de formularios" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/02a.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recogida de datos de formularios" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Recogida de datos de formularios","url":"http://nachoiborraies.github.io/php/md/es/02a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="recogida-de-datos-de-formularios">Recogida de datos de formularios</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>El medio principal que tiene el cliente (navegador) para poder enviar información al servidor son los formularios, o mediante enlaces que indican la carga de una determinada página. De cualquiera de las dos formas, se genera una petición al servidor, utilizando el protocolo HTTP, en la que se envían los llamados <strong>datos de formulario</strong>, información adicional que normalmente son los datos que se rellenan en el formulario, de ahí su nombre).</p>
+
+<h2 id="1-las-variables-_get-_post-y-_request">1. Las variables $_GET, $_POST y $_REQUEST</h2>
+
+<p>Para recoger los datos que envían los clientes, tenemos predefinidas diferentes variables en PHP. Por ejemplo, si los datos se envían por método GET (cuando vienen de un enlace, o de un formulario con <code class="language-plaintext highlighter-rouge">method="get"</code>), podemos recogerlos en una variable llamada <code class="language-plaintext highlighter-rouge">$_GET</code>. Por el contrario, si se envían por método POST (para formularios con <code class="language-plaintext highlighter-rouge">method="post"</code>), podremos obtenerlos con la variable <code class="language-plaintext highlighter-rouge">$_POST</code>. Y tenemos una tercera variable, llamada <code class="language-plaintext highlighter-rouge">$_REQUEST</code>, que nos servirá para tomar los datos de cualquiera de estos dos métodos (y de otros más que no veremos aquí). Así, lo más habitual será utilizar esta tercera variable, a no ser que queramos restringir la recepción de ciertos datos sólo a métodos GET o POST.</p>
+
+<p>Cualquiera de estas tres variables es un array asociativo, es decir, un conjunto de datos enviados a los que se accede por el nombre de cada campo. Para acceder a un dato concreto de ese conjunto, en general, usaremos los corchetes y dentro, entre comillas, el mismo nombre que hayamos puesto en el atributo <em>name</em> del formulario que lo envió. Por ejemplo, si tenemos un formulario como este:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"login"</span><span class="nt">&gt;</span>Login:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"login"</span> <span class="na">id=</span><span class="s">"login"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"email"</span><span class="nt">&gt;</span>E-mail:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"50"</span><span class="nt">&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Al enviarlo, en la página <em>mipagina.php</em> podríamos acceder al login que haya puesto el usuario cliente mediante:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$loginUsuario</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s2">"login"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>o también así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$loginUsuario</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s2">"login"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<p>También podemos, antes de acceder a algún dato y dar por supuesto que se ha enviado, comprobar con <code class="language-plaintext highlighter-rouge">isset</code> si realmente ese dato existe dentro de la variable <code class="language-plaintext highlighter-rouge">$_REQUEST</code> (si no existe es porque no se ha enviado dicho dato):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'login'</span><span class="p">]))</span>
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<p>Este mecanismo de obtener datos nos servirá para casi todos los campos de formularios, salvo aquellos que puedan devolver múltiples valores, como las listas con selección múltiple, caso que veremos a continuación.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>ejercicios4</strong> donde colocar los ejercicios de esta sesión. Dentro, crea una subcarpeta llamada <strong>libros</strong> con dos páginas PHP:</p>
+
+  <ul>
+    <li><strong>form_libros.php</strong> con un formulario como el que se muestra a continuación. En la lista desplegable deben aparecer los géneros <em>Narrativa</em>, <em>Libros de texto</em> y <em>Guías y mapas</em>.</li>
+    <li>El formulario debe enviarse a una página llamada <strong>result_libros.php</strong> que muestre un resumen de lo que se ha enviado por el formulario, y tenga un enlace para volver al formulario anterior</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_formulario_libros.png" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una subcarpeta llamada <strong>departamentos</strong> en tu carpeta de ejercicios. Dentro, crea estas dos páginas PHP:</p>
+
+  <ul>
+    <li><strong>form_dep.php</strong> con un formulario que mostrará una lista desplegable con 4 nombres de departamento: INFORMÁTICA, LENGUA, MATEMÁTICAS e INGLÉS.</li>
+    <li>El formulario se enviará a la página <strong>presupuesto.php</strong> que deberá recoger el departamento indicado por el usuario y le indicará el presupuesto asignado: INFORMÁTICA = 500 euros, LENGUA = 300 euros, MATEMÁTICAS = 300 euros,  INGLÉS: 400 euros</li>
+  </ul>
+</blockquote>
+
+<h2 id="2-algunos-envíos-especiales">2. Algunos envíos especiales</h2>
+
+<p>En esta sección veremos cómo recoger datos que se envían de algún modo especial, como campos múltiples, ficheros, o datos a través de enlaces.</p>
+
+<h3 id="21-recogida-de-campos-múltiples">2.1 Recogida de campos múltiples</h3>
+
+<p>En el caso de campos con múltiples valores enviados (por ejemplo, una lista de selección múltiple), el campo del formulario tendrá este aspecto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form...&gt;</span>
+    ...
+    <span class="nt">&lt;select</span> <span class="na">multiple</span> <span class="na">name=</span><span class="s">"personas[]"</span> <span class="na">size=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Juan Rodríguez"</span><span class="nt">&gt;</span>Juan Rodríguez<span class="nt">&lt;/option&gt;</span>
+        ...
+    <span class="nt">&lt;/select&gt;</span>
+...	
+</code></pre></div></div>
+
+<p>Al enviarse, recogeremos los elementos enviados en una variable que podremos recorrer con un foreach o una estructura similar:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$personas</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'personas'</span><span class="p">];</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$personas</span> <span class="k">as</span> <span class="nv">$persona</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+</code></pre></div></div>
+
+<h3 id="22-envío-de-datos-mediante-enlaces">2.2. Envío de datos mediante enlaces</h3>
+
+<p>Hemos dicho que a través de los enlaces también podemos enviar datos al servidor. Normalmente, los enlaces no envían nada más que la página o recurso que queremos ver (por ejemplo, http://www.google.es). Pero también podemos añadir, al final de la URL, nombres de parámetros y sus respectivos valores, separados por el símbolo &amp;, como si los enviáramos desde un formulario. Así, si quisiéramos “simular” el envío del formulario anterior para un usuario con login “usu1” y e-mail “usu1@gmail.com”, pondríamos un enlace así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"mipagina.php?login=usu1&amp;email=usu1@gmail.com"</span><span class="nt">&gt;</span>
+    Enviar datos
+<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Estos datos podremos recogerlos a través de las variables <code class="language-plaintext highlighter-rouge">$_GET</code> o <code class="language-plaintext highlighter-rouge">$_REQUEST</code> (el método <em>POST</em> no se emplea en los enlaces):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$mailUsuario</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s2">"email"</span><span class="p">];</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Modifica el ejercicio anterior, creando una página más llamada <strong>form_dep2.php</strong> que, en lugar de un formulario con la lista desplegable, muestre al usuario 4 enlaces con los 4 nombres de departamento. Los enlaces deben enviar (todos) a la página presupuesto.php, indicando cuál es el departamento seleccionado, para que obtengamos el mismo resultado que con el formulario anterior.</p>
+</blockquote>
+
+<h3 id="23-envíos-a-la-propia-página">2.3. Envíos a la propia página</h3>
+
+<p>Es habitual también encontrarnos con formularios cuyo <em>action</em> apunta a la misma página del formulario. Después, con código PHP (con instrucciones if..else), podemos distinguir si queremos cargar una página normal, o si hemos recibido datos del formulario y hay que procesarlos.</p>
+
+<p>En cualquier caso, para poder hacer que un formulario se envíe a su propia página, podemos directamente poner el nombre de la misma página en el action (por ejemplo, <code class="language-plaintext highlighter-rouge">action="mipagina.php"</code>), pero si más adelante decidimos cambiar el nombre del archivo, corremos el riesgo de olvidarnos cambiar el formulario también. Para evitar este problema, contamos en PHP con una variable llamada <code class="language-plaintext highlighter-rouge">$_SERVER['PHP_SELF']</code>, con lo que bastaría con poner esa variable en el action del formulario :</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'PHP_SELF'</span><span class="p">];</span> <span class="cp">?&gt;</span><span class="s">"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>En el ejercicio anterior, crea una página llamada <strong>presupuesto2.php</strong> que tenga el formulario con la lista desplegable de departamentos, y se llame a sí misma para calcular el presupuesto según lo que se envíe por su propio formulario.</p>
+</blockquote>
+
+<h3 id="24-subir-ficheros-al-servidor">2.4. Subir ficheros al servidor</h3>
+
+<p>Otra forma de comunicación entre cliente y servidor es la subida de archivos del cliente al servidor como parte de un formulario. Para ello, añadimos al formulario un campo <em>input</em> de tipo <em>file</em>. Además, debemos añadir a la etiqueta <em>form</em> el atributo <code class="language-plaintext highlighter-rouge">enctype</code>, con el valor <code class="language-plaintext highlighter-rouge">multipart/form-data</code> para hacer saber al navegador y al servidor que en ese formulario se van a enviar los datos de un archivo.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"file"</span> <span class="na">name=</span><span class="s">"fichero"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>El tamaño máximo permitido del fichero a subir se puede establecer en el archivo <em>php.ini</em> (propiedad <code class="language-plaintext highlighter-rouge">upload_max_filesize</code>), o añadiendo un campo oculto (<code class="language-plaintext highlighter-rouge">type="hidden"</code>) en el formulario, con nombre <code class="language-plaintext highlighter-rouge">MAX_FILE_SIZE</code> y el máximo tamaño permitido, en bytes.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"MAX_FILE_SIZE"</span> <span class="na">value=</span><span class="s">"20000"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"file"</span> <span class="na">name=</span><span class="s">"fichero"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Una vez recibido el formulario por el servidor, el fichero se almacena en una carpeta temporal, y debemos moverlo a su ubicación definitiva con la función <code class="language-plaintext highlighter-rouge">move_uploaded_file</code>. La variable global <code class="language-plaintext highlighter-rouge">$_FILES</code> contiene toda la información de los archivos que se han subido con el formulario. Un típico código de subida podría ser:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nb">is_uploaded_file</span> <span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'fichero'</span><span class="p">][</span><span class="s1">'tmp_name'</span><span class="p">]))</span> 
+<span class="p">{</span>
+   <span class="nv">$nombreDirectorio</span> <span class="o">=</span> <span class="s2">"ficheros/"</span><span class="p">;</span>
+   <span class="nv">$idUnico</span> <span class="o">=</span> <span class="nb">time</span><span class="p">();</span>   
+   <span class="nv">$nombreFichero</span> <span class="o">=</span> <span class="nv">$idUnico</span> <span class="mf">.</span> <span class="s2">"-"</span> <span class="mf">.</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'fichero'</span><span class="p">][</span><span class="s1">'name'</span><span class="p">];</span> 
+   <span class="nb">move_uploaded_file</span> <span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'fichero'</span><span class="p">][</span><span class="s1">'tmp_name'</span><span class="p">],</span> <span class="nv">$nombreDirectorio</span> <span class="mf">.</span> 
+                       <span class="nv">$nombreFichero</span><span class="p">);</span> 
+<span class="p">}</span> <span class="k">else</span>
+   <span class="k">print</span> <span class="p">(</span><span class="s2">"No se ha podido subir el fichero</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Además de la clave <em>name</em>, la variable <code class="language-plaintext highlighter-rouge">$_FILES</code> también permite localizar otra información del fichero subido, como el tipo de archivo (clave <code class="language-plaintext highlighter-rouge">type</code>), o el tamaño (clave <code class="language-plaintext highlighter-rouge">size</code>). En el código, la variable <code class="language-plaintext highlighter-rouge">$idUnico</code> se utiliza para no sobreescribir archivos con el mismo nombre, sino ponerles una marca temporal como prefijo para almacenar un histórico. Pero podría evitarse la variable y sobreescribir archivos que se llamen igual:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nb">is_uploaded_file</span> <span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'fichero'</span><span class="p">][</span><span class="s1">'tmp_name'</span><span class="p">]))</span> 
+<span class="p">{</span>   	
+   <span class="nv">$nombreDirectorio</span> <span class="o">=</span> <span class="s2">"ficheros/"</span><span class="p">;</span>   	
+   <span class="nb">move_uploaded_file</span> <span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'fichero'</span><span class="p">][</span><span class="s1">'tmp_name'</span><span class="p">],</span> <span class="nv">$nombreDirectorio</span> <span class="mf">.</span> 
+                       <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">'fichero'</span><span class="p">][</span><span class="s1">'name'</span><span class="p">]);</span> 
+<span class="p">}</span> <span class="k">else</span>
+   <span class="k">print</span> <span class="p">(</span><span class="s2">"No se ha podido subir el fichero</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 5:</strong></p>
+
+  <p>Crea en tu carpeta de ejercicios una subcarpeta llamada <strong>ficheros</strong>. Dentro, crea un formulario llamado <strong>form_imagen.php</strong> que permita seleccionar un archivo y subirlo a una página llamada <strong>subir_imagen.php</strong>. Además del campo para la imagen, añadiremos un campo de texto para indicar el título de la imagen. En la página <em>subir_imagen.php</em> comprobaremos que el fichero subido es una imagen, y si lo es, lo copiaremos a una subcarpeta <em>imgs</em> y mostraremos la imagen subida en la misma página <em>subir_imagen.php</em>, junto con su título.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

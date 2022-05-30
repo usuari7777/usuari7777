@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Otros estilos CSS</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Otros estilos CSS
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estilos para enlaces
+
+- Por defecto se muestran de color azul, y pasan a morado cuando los visitamos alguna vez
+- Un enlace puede estar en 5 estados distintos
+   - Enlace normal (*link*)
+   - Enlace visitado (*visited*)
+   - Enlace con el foco encima (*focus*)
+   - Enlace con el ratón encima (*hover*)
+   - Enlace activado (*active*)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estilos para enlaces
+
+- Podemos definir un selector para cada uno de estos estados usando **pseudo-clases**
+- Deben definirse en un orden concreto (se acumulan)
+
+```css
+a:link { color: white; }
+a:visited { color: white; }
+a:focus { color: white; }
+a:hover { color: white; text-decoration: none; }
+a:active { color: white; }
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+- Retoma el ejercicio **harrypotter.html** que hemos hecho en sesiones previas y aplícale estos estilos
+   - Todo el documento tendrá letra Arial color de fondo azul claro
+   - Los enlaces del índice tendrán color blanco, sin subrayado, y al pasar el ratón por encima hacer clic en el enlace, la letra cambie a color naranja y subrayado.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Iconos a enlaces
+
+```css
+a 
+{
+  background: url('imagenes/icono.png') no-repeat 100% 0;
+  background-size: 2rem;
+  padding-right: 2.5rem;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enlaces con apariencia de botones
+
+```css
+nav
+{
+    background-color: darkgrey;
+}
+
+nav ul.navegacion
+{
+    list-style-type: none;
+    text-align: center;
+}
+
+nav ul.navegacion li
+{
+    display: inline;
+    margin: 20px;
+}
+
+nav ul li a 
+{
+  text-decoration: none;
+  display: inline-block;
+  padding: 1rem;
+  color: black;
+}
+
+nav ul li a:hover 
+{
+  background: lightgrey;
+}
+
+nav ul li a:active 
+{
+  background: white;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Enlaces con apariencia de botones
+
+<div align="center">
+    <img src="../../../img/03_enlaces_listas.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Descarga [esta plantilla](../../../resources/UD3_Ejercicios/03c_enlaces_iconos_plantilla.zip) de ejercicio. Verás una página *index.html* con una lista de enlaces (vacíos), y una carpeta con 3 iconos. Se pide que añadas un documento **estilos.css** enlazado desde la página anterior para mostrar una apariencia como la que se indica a continuación...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_enlaces_iconos.png">
+</div>
+
+El fondo cambiará de color al pasar el ratón por encima (caso de Twitter en la imagen)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estilos para tablas
+
+Algunas propiedades, como los bordes o la anchura, es mejor definirlas por CSS
+
+```css
+table, th, td
+{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table
+{
+    width: 60%;
+}
+
+td.primera
+{
+    width: 50%;
+}
+
+td.segunda
+{
+    width: 30%;
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Selectores avanzados
+
+- **Selector de hijos**: similar al descendente, pero aplica el estilo sólo a etiquetas que cuelguen directamente de la contenedora
+
+```css
+/* Negritas directamente contenidas en párrafos */
+p > strong { ... }
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selectores avanzados
+
+- **Selector adyacente**: elementos que sean hermanos adyacentes de otros
+
+```css
+/* Cursivas a continuación de negritas */
+strong + em { ... }
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Selectores avanzados
+
+- **Selector de hermanos**: como el anterior, pero sin necesidad de que sean adyacentes (basta con que sean hermanos)
+
+```css
+/* Párrafos posteriores a un h1 */
+h1 ~ p { ... }
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Selectores avanzados
+
+- **Selector de atributo**: elementos cuyo atributo tenga el valor indicado
+
+```css
+/* Enlaces a la Universidad de Alicante */
+a[href="https://www.ua.es"] { ... }
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Selectores avanzados
+
+- **Pseudo-clases**: definen un estado o situación particular de un elemento
+   - *first-child*: primer elemento de una serie
+   - *first-of-type*: primer elemento de un tipo en una serie
+   - *last-child* / *last-of-type*: similares a los anteriores, pero para últimos elementos
+   - *nth-child(n)*: elemento que cumpla la condición indicada en *n*
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Selectores avanzados
+
+Ejemplos de pseudo-clases
+
+```css
+/* Párrafos que sean los primeros hijos de un div */
+div > p:first-child { ... }
+
+/* Primer párrafo en un div (aunque haya otras cosas antes) */
+div > p:first-of-type { ... }
+
+/* Último item de una lista */
+li:last-child { ... }
+
+/* Items pares de una lista */
+li:nth-child(even) { ... }
+
+/* Cada 4 items en una lista */
+li:nth-child(4n) { ... }
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3 (1/2)
+
+Dado el siguiente HTML: 
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba</title>
+</head>
+<body>
+    <section id="inicio">
+        <h2>Inicio</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, aliquam!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+    </section>
+    <section id="contenido">
+        <h2>Contenido</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, aliquam!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+    </section>
+    <section id="fin">
+        <h2>Fin</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, aliquam!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+    </section>
+    <section id="tabla">
+        <table>
+            <tr>
+                <td>Lorem, ipsum dolor.</td>
+                <td>Ab, deserunt officia!</td>
+                <td>Amet, temporibus molestiae.</td>
+                <td>Facere, corrupti praesentium?</td>
+            </tr>
+            <tr>
+                <td>Lorem, ipsum dolor.</td>
+                <td>Similique, voluptates suscipit!</td>
+                <td>Commodi, asperiores sunt?</td>
+                <td>Veniam, voluptatibus unde.</td>
+            </tr>
+            <tr>
+                <td>Lorem, ipsum dolor.</td>
+                <td>Soluta, perferendis fuga.</td>
+                <td>At, similique sunt?</td>
+                <td>Asperiores, unde atque?</td>
+            </tr>
+            <tr>
+                <td>Lorem, ipsum dolor.</td>
+                <td>Corrupti, saepe quo.</td>
+                <td>Voluptates, tempore eius!</td>
+                <td>Consequatur, laboriosam vero?</td>
+            </tr>
+            <tr>
+                <td>Lorem, ipsum dolor.</td>
+                <td>Officiis, illum dolorem.</td>
+                <td>Obcaecati, alias qui!</td>
+                <td>Necessitatibus, sunt deserunt.</td>
+            </tr>
+        </table>
+    </section>
+</body>
+</html>
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3 (2/2)
+
+Queremos que las filas pares de la tabla se muestren con un fondo gris, y que el primer párrafo de cada sección tenga letra cursiva. Además, queremos que la tabla ocupe el 100% del ancho disponible, con un borde negro de 1 píxel de grosor y colapsado. Indica qué reglas CSS deberíamos aplicar para conseguirlo.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: transparencia
+
+- A través de la función *rgba* (indicando la transparencia entre 0 (transparente) y 1 (opaco))
+- A través de la propiedad *opacity* (se aplicaría también a los elementos incluidos en el afectado)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: transparencia
+
+```css
+/* Color de fondo semitransparente */
+h1
+{ 
+    background-color: rgba(12, 116, 52, 0.5); 
+}
+
+/* El contenido del párrafo (incluyendo el texto) es semitransparente */
+p 
+{ 
+    background-color: rgb(12, 116, 52); 
+    opacity: 0.5; 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: degradado lineal
+
+- Función *linear-gradient*
+   - Dirección de degradado (*to top*, *to left*, *top left*, *bottom right*, *90deg*...)
+   - Dos o más colores separados por comas (opcionalmente junto al porcentaje de recorrido donde se cambia)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: degradado lineal
+
+Degradado hacia la derecha. Parte del blanco. A medio camino cambia a rojo y al final a negro
+
+```css
+div 
+{ 
+    background-image: linear-gradient(90deg, #FFFFFF, #FF0000 50%, #000000); 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: degradado lineal
+
+<div style="background-image: linear-gradient(90deg, #FFFFFF, #FF0000 50%, #000000);width:100%;height:50px;"></div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: degradado radial
+
+Degradado radial de forma circular hasta el lado más cercano, y pasa del negro al blanco
+
+```css
+div 
+{ 
+    background-image: radial-gradient(circle closest-side, black, white);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colores avanzados: degradado radial
+
+<div style="background-image:radial-gradient(circle closest-side, black, white);width:100%;height:100px;"></div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Transformaciones
+
+- La propiedad *transform* permite hacer transformaciones de varios tipos:
+   - Desplazamientos
+   - Escalados
+   - Rotaciones
+   - Inclinaciones
+- No usar espacios entre la función de transformación y sus paréntesis
+- Ejemplo [aquí](../../../resources/UD3_Ejercicios/03c_ejemplo_transform.zip)
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Transformaciones: desplazamientos
+
+Función *translate* / *translatex* / *translatey*, desde la posición inicial del elemento
+
+```css
+/* Desplaza una caja 100 píxeles a la derecha y 20 píxeles hacia abajo */
+div 
+{ 
+    transform: translate(100px, 20px); 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Transformaciones: escalados
+
+Función *scale* / *scalex* / *scaley*
+
+```css
+/* Escalado a la mitad del tamaño original */
+img 
+{ 
+    transform: scale(0.5, 0.5); 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Transformaciones: rotaciones
+
+Función *rotate* desde un punto de referencia (normalmente el centro del elemento)
+
+```css
+/* Rotación 45 grados a la derecha */
+div 
+{ 
+    transform: rotate(45deg); 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Transformaciones: inclinaciones
+
+Función *skew*, indicando inclinación para cada eje X e Y (dando perspectiva)
+
+```css
+div 
+{ 
+    transform: skew(20deg, 5deg); 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Transformaciones múltiples
+
+Se indican separadas por espacios
+
+```css
+div 
+{ 
+    transform: translatex(50px) scale(1.5, 0.25); 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Transiciones
+
+- Se pasa de un estado inicial a uno final en un período de tiempo (segundos o milisegundos)
+- Propiedad **transition**:
+   - Propiedad que queremos cambiar (anchura, color de fondo, etc)
+   - Duración de la transición en *s* o *ms*
+   - Velocidad o función de transición: *linear* (constante), *ease-in* (inicio lento), *ease-out* (fin lento), etc.
+   - Retraso (opcional) al inicio de la transición, en *s* o *ms*
+</script>
+</section>
+
+
+<section data-markdown>
+<script type="text/template">
+## Transiciones
+
+Cambiamos la posición (X) y el color de una caja cuando pasamos el ratón por encima, en una animación de 2 segundos para la posición y 1 segundo para el color, con final lento
+
+```css
+/* En el estado inicial definimos la transición */
+#caja1 
+{
+    position:relative;
+    left: 0px;
+    background-color: red;
+    transition: background-color 1s ease-out, left 2s ease-out; 
+}
+
+/* Al activarse este estado se inicia la transición */
+#caja1:hover 
+{
+    background-color: blue;
+    left: 100px;
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Transiciones
+
+Mismo caso anterior, pero la transición de inicia al mover el ratón en la página (en lugar de *#caja1:hover*)
+
+```css
+#caja1 
+{
+    position:relative;
+    left: 0px;
+    background-color: red;
+    transition: background-color 1s ease-out, left 2s ease-out; 
+}
+
+html:hover #caja1 
+{
+    background-color: blue;
+    left: 100px;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4 (1/3)
+
+Crea una página **efectos.html** y añádele tres cajas identificadas como *caja1*, *caja2* y *caja3*
+ 
+* *caja1*: anchura y altura de 200px, fondo degradado de blanco a naranja, de izquierda a derecha.
+* *caja2*: anchura de 200px y altura de 400px, color rojo claro de fondo.
+* *caja3*: anchura de 300px y altura de 100px. Sombra de 10px por la derecha y por abajo, de color negro, sin propagación.
+* Todas las cajas deben tener 10px de margen a cada lado, y posicionarse unas junto a otras (con *float* o usando *grid*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4 (2/3)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_css_avanzado.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4 (3/3)
+
+- Añade una transición a la caja 2 para que, al pasar el ratón por encima, cambie su color del rojo claro al azul claro, en 2 segundos. 
+- Añade otra transición a la caja 3 para que, al pasar el ratón por encima, se desplace 20 píxeles hacia abajo, en 1 segundo. 
+- Haz que la caja 1 baje 200 píxeles en cuanto pongamos el ratón dentro de la página.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

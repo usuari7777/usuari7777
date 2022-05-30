@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Carga de contenido estático | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Carga de contenido estático" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/06b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Carga de contenido estático" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Carga de contenido estático","url":"http://nachoiborraies.github.io/nodejs/md/es/06b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="carga-de-contenido-estático">Carga de contenido estático</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/06b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/06b.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>En sesiones anteriores hemos visto cómo estructurar una aplicación express para desarrollar un proveedor de servicios REST. Hemos almacenado los esquemas y modelos de datos en una carpeta <code class="language-plaintext highlighter-rouge">models</code>, y los enrutadores que dan respuesta a las distintas URLS en una carpeta <code class="language-plaintext highlighter-rouge">routes</code>, dejando la aplicación principal en la raíz del proyecto.</p>
+
+<p>Esta estructura es la que normalmente se sigue para desarrollar una API REST (recuerda, Express es un framework <em>unopinionated</em>, lo que significa que podemos elegir cualquier otra estructura que nos parezca adecuada). Sin embargo, en este puzzle faltan algunas piezas para poder desarrollar aplicaciones web más completas, que permitan servir contenido HTML, más allá de los simples datos JSON. Para empezar, veremos en este documento cómo incorporar contenido estático (páginas HTML, estilos CSS y archivos JavaScript), y cómo estructurarlos en nuestra aplicación Express.</p>
+
+<p>Veremos que con Express la gestión del contenido estático es muy sencilla, a través del correspondiente <em>middleware</em> que incorporaremos a nuestros proyectos que lo requieran. Para ello, haremos una prueba en un proyecto llamado “<em>PruebaExpressEstatico</em>” en nuestra carpeta de “<em>ProyectosNode/Pruebas</em>”.</p>
+
+<h2 id="1-ubicación-del-contenido-estático">1. Ubicación del contenido estático</h2>
+
+<p>A la hora de ubicar el contenido estático de nuestra aplicación, es habitual dejarlo todo en una única subcarpeta, que típicamente se suele llamar “public”. Imaginemos que esta subcarpeta tiene esta estructura:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/06_carpeta_public.png" width="30%" />
+</div>
+
+<p>La imagen “logo_node.png” puede ser cualquiera que queráis. En este ejemplo usaremos un logo de Node buscado en Internet:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/06_imagen_logo.png" width="30%" />
+</div>
+
+<p>La hoja de estilos tiene algunos estilos básicos (tipo de letra y color de fondo):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span><span class="nb">rgb</span><span class="p">(</span><span class="m">245</span><span class="p">,</span> <span class="m">244</span><span class="p">,</span> <span class="m">201</span><span class="p">);</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La página <code class="language-plaintext highlighter-rouge">index.html</code> es muy simple, incorporando la hoja de estilos, la imagen, un encabezado de primer nivel y un enlace a la otra página:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"css/estilos.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">align=</span><span class="s">"center"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"imgs/logo_node.png"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Bienvenido a Node.js<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">"noticias.html"</span><span class="nt">&gt;</span>Noticias de node<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>La página de <code class="language-plaintext highlighter-rouge">noticias.html</code> es similar a la anterior, mostrando un enlace a la página principal y un listado de ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"css/estilos.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">align=</span><span class="s">"center"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"imgs/logo_node.png"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Bienvenido a Node.js<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">"index.html"</span><span class="nt">&gt;</span>Página de inicio<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Concurso Javascript para adictos a Node.js<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>LinkedIn migra desde Rails hacia Node<span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span>Conferencia Node.js en Italia<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h2 id="2-procesamiento-del-contenido-estático">2. Procesamiento del contenido estático</h2>
+
+<p>Si queremos que se sirvan automáticamente estos contenidos al acceder a una URI concreta (que puede ser la propia uri “/public” u otra), empleamos el <em>middleware</em> <strong>static</strong>, integrado en Express. Como primer parámetro del comando <code class="language-plaintext highlighter-rouge">use</code> indicamos qué URI queremos utilizar para servir contenido estático (la que nosotros queramos), y en segundo lugar, cargamos el <em>middleware</em> <code class="language-plaintext highlighter-rouge">static</code> indicando en qué carpeta están realmente dichos contenidos (carpeta <code class="language-plaintext highlighter-rouge">/public</code> en nuestro caso):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/public</span><span class="dl">'</span><span class="p">,</span> <span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/public</span><span class="dl">'</span><span class="p">));</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Opcionalmente, también podemos definir una ruta que redirija a la página de inicio (“index.html”) si se intenta acceder a la raíz de la aplicación:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="dl">'</span><span class="s1">/public/index.html</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Esta forma de servir contenido estático, como podemos deducir, se queda muy corta. No hay casi ninguna web que ofrezca un contenido sin cierto dinamismo; el propio listado de noticias podría extraerse de una base de datos y volcarse en la página… pero para eso necesitamos hacer uso de plantillas, que veremos en documentos posteriores.</p>
+
+<h2 id="3-incluir-estilos-predefinidos-bootstrap">3. Incluir estilos predefinidos: Bootstrap</h2>
+
+<p>Es posible también incluir los estilos de frameworks de diseño web, como por ejemplo <em>Bootstrap</em>, directamente en nuestra aplicación Express, siguiendo estos sencillos pasos:</p>
+
+<ol>
+  <li>En primer lugar, descargamos Bootstrap como un módulo más de nuestro proyecto:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install bootstrap
+</code></pre></div></div>
+
+<ol>
+  <li>Después, aplicamos el <em>middleware</em> de contenido estático para que cargue por defecto los contenidos de la carpeta <code class="language-plaintext highlighter-rouge">dist</code> de instalación de Bootstrap, donde se encuentran, entre otras cosas, los estilos.</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/node_modules/bootstrap/dist</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>En este caso, los contenidos de Bootstrap se cargarán asociados a la ruta raíz del proyecto (no hemos indicado ningún prefijo como primer parámetro, cosa que sí hemos hecho en el ejemplo anterior <code class="language-plaintext highlighter-rouge">/public</code>). Por lo tanto, si queremos incluir estilos Bootstrap en cualquier página HTML o vista de nuestro proyecto, podemos hacerlo así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/css/bootstrap.min.css"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Y si queremos cargar estilos propios de nuestra carpeta <code class="language-plaintext highlighter-rouge">public/css</code>, lo haremos de este otro modo, y así no interferirán (cada ruta estática tiene un prefijo diferente):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/public/css/estilos.css"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

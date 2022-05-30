@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software documentation | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software documentation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/09a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/09a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software documentation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Software documentation","url":"http://nachoiborraies.github.io/java/md/en/09a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="software-documentation">Software documentation</h1>
+
+<h2 id="documentation-in-java-projects">Documentation in Java projects</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/09a.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/09a.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>It doesn’t matter how good software is… if documentation is not good enough, people will not use it. And, if it has to be used, unless the documentation is good, it will not be used properly.</p>
+
+<p>In order to have a good documentation, we have to take into account the following types of documentation, so that we can choose the most appropriate one according to its final purpose.</p>
+
+<h3 id="1-documentation-types">1. Documentation types</h3>
+
+<p>According to how we are going to use the documentation, it can be:</p>
+
+<ul>
+  <li><strong>Tutorials</strong>
+    <ul>
+      <li>Learning-oriented</li>
+      <li>They let people get started</li>
+      <li>It’s a lesson</li>
+      <li>Analogy: teach a child to cook</li>
+    </ul>
+  </li>
+  <li><strong>How-to guides</strong>
+    <ul>
+      <li>Results-oriented</li>
+      <li>They show how to solve a problem or a concrete need</li>
+      <li>It’s a list of steps or stages</li>
+      <li>Analogy: recipe of a cooking book</li>
+    </ul>
+  </li>
+  <li><strong>Explanations</strong>
+    <ul>
+      <li>Understanding-oriented</li>
+      <li>They explain something</li>
+      <li>They offer some context</li>
+      <li>Analogy: an article about culinary social history</li>
+    </ul>
+  </li>
+  <li><strong>Reference</strong>
+    <ul>
+      <li>Information-oriented</li>
+      <li>It describes how something has been built</li>
+      <li>It’s exact and complete</li>
+      <li>Analogy: an entry in an encyclopedia</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Regarding software products, the most usual types of documentations are:</p>
+
+<ul>
+  <li>User manuals, in order to teach the final user how to use the application</li>
+  <li>Software process, a document containing every diagram and report from the analysis and design stages for the application, so that we can see how this application has been conceived</li>
+  <li>Reference APIs (<em>Application Programming Interface</em>), a complete reference with all the components included in the application, specially classes and their public methods and elements. This last type of documentation is particularly useful for the development team, in order to ease future maintenances or product updates.</li>
+</ul>
+
+<p>In order to create a user manual, we can just use any text editor available, and write a complete document including how to use each component of the application. Alternatively, we can also create an online user manual, so that users can connect to the web site and look for the contents they are interested in.</p>
+
+<p>We are not going to cover how to write these user manuals or analysis/design documentation in this unit. We are going to focus on how to define the reference API of a Java project.</p>
+
+<h3 id="2-how-to-create-a-reference-for-java-with-javadoc">2. How to create a Reference for Java with JavaDoc</h3>
+
+<p>Documenting a software project is essential for its future maintenance. When we are coding a class, we must generate detailed documentation about it so that other programmers can use it properly without checking its internal implementation. The same happens whenever we use the Java API in our applications, we don’t need to check the internal code of the classes to understand what they do.</p>
+
+<p><em>Javadoc</em> is a tool to generate API documentation in HTML format from Java source files. It is the standard for documenting Java classes, and most of the IDEs use it to automatically generate this documentation.</p>
+
+<p>In order to generate <em>javadoc</em> documentation, we just need to add some comments with a particular syntax in the code. This way, Javadoc generates a reference similar to the Java official one. Now, let’s have a look at what we need to comment in order to generate an appropriate <em>javadoc</em> documentation, and how these comments must be.</p>
+
+<h4 id="21-required-data">2.1. Required data</h4>
+
+<p>The required information to document a class is:</p>
+
+<ul>
+  <li>The class name, including a general description of the class and, optionally, version number and author(s). We can also specify version number and from which version of the program is this class available.</li>
+  <li>Documentation of every constructor or method (specially the public ones), including the constructor or method name, general description, return type and description of this return value, and finally, name, type and description of every parameter.</li>
+</ul>
+
+<h4 id="22-javadoc-comments">2.2. Javadoc comments</h4>
+
+<p>Javadoc documentation must be included in comments starting with <code class="language-plaintext highlighter-rouge">/**</code> and finishing with <code class="language-plaintext highlighter-rouge">*/</code>. Depending on where we are placing the comment, Javadoc considers it a class, method or constructor comment. Many popular IDEs auto-complete this kind of comments with some default structure, so that we just need to fill the fields.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.time.LocalDate</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Class to define people information
+ * @author mariaconsuelorubiosanchez
+ * @version 2.1
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="kd">implements</span> <span class="nc">Comparable</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the code above we have defined a class comment. It includes the general definition of the class, along with some special annotations that Javadoc interprets to generate the documentation. We can see an <code class="language-plaintext highlighter-rouge">@author</code> and <code class="language-plaintext highlighter-rouge">@version</code> annotations, that define the author and version of the class file, respectively. We can also add some other annotations, such as <code class="language-plaintext highlighter-rouge">@see</code> to link with other related classes or methods, or <code class="language-plaintext highlighter-rouge">@since</code> to establish the version from which this class is available.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Class to define people information
+ * @author mariaconsuelorubiosanchez
+ * @version 2.1
+ * @see MyOtherClass
+ * @since 1.5
+ */</span>
+</code></pre></div></div>
+
+<p>After this general comment, we can also comment the methods of the class. In these other comments we will use the following annotations:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@return</code> to specify the description of the return type</li>
+  <li><code class="language-plaintext highlighter-rouge">@param</code> to specify the name and description of every parameter</li>
+  <li>Also some of previous annotations, such as <code class="language-plaintext highlighter-rouge">@see</code>, <code class="language-plaintext highlighter-rouge">@version</code> or <code class="language-plaintext highlighter-rouge">@since</code>, to specify these values for the concrete method we are documenting.</li>
+</ul>
+
+<p>Let’s see some examples. This is how we can document a constructor:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* Constructor with parameters
+* @param name A String with the person name
+* @param idCard A String with the person's id card
+* @param address A String with the person's address
+* @param phoneNumber A String with the person's phone number
+* @param birthDate A String with the person's birth date 
+with format dd/mm/yyyy
+*/</span>
+<span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span><span class="nc">String</span> <span class="n">idCard</span><span class="o">,</span><span class="nc">String</span> <span class="n">address</span><span class="o">,</span>
+              <span class="nc">String</span> <span class="n">phoneNumber</span><span class="o">,</span><span class="nc">String</span> <span class="n">birthDate</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This is the documentation for getters and setters:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* Returns the person's name
+* @return Person's name
+*/</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+* Establishes the person's name
+* @param name Person's name
+*/</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And this is how we would document other method types:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* Method that calculates the age of a person from his/her
+* birth date and current date
+* @param currentDate Current date to calculate the age
+* @return An integer with the age in years of this person currently
+*/</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">calculateAge</span><span class="o">(</span><span class="nc">LocalDate</span> <span class="n">currentDate</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Once we have generated all the comments, we can generate the Javadoc documentation. Then, we will get an HTML page for each documented class. We can also add HTML tags in our comments. For instance</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * &lt;h1&gt;Person class&lt;h1&gt;
+ * &lt;p&gt;Class to define people and their ages&lt;/p&gt;
+ * @author mariaconsuelorubiosanchez
+ * @version 2.1
+ */</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Document the classes of the <em>Animals</em> project (Exercise 1 of <a href="05e">this document</a>)</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Document the classes of the <em>CulturalOrganization</em> (Exercise 2 of <a href="05e">this document</a>).</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

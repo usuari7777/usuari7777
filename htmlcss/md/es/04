@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>El lenguaje XML | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="El lenguaje XML" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="04.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/04.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="El lenguaje XML" />
+<script type="application/ld+json">
+{"headline":"El lenguaje XML","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/04.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="el-lenguaje-xml">El lenguaje XML</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/04.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="04.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-qué-es-xml">1. ¿Qué es XML?</h2>
+
+<p>XML son las siglas de <em>eXtended Markup Language</em>, o <em>lenguaje de marcado extendido</em>. Se concibió inicialmente como una extensión o ampliación del lenguaje originario SGML, y se emplea para estructurar la información utilizando un conjunto de etiquetas personalizable por el usuario.</p>
+
+<p>Podríamos concebir XML también como un <em>metalenguaje</em>, es decir, un lenguaje que permite definir otros lenguajes, ya que a través de su sintaxis y sus normas, podemos definir el vocabulario y el conjunto de reglas sintácticas que necesitemos para nuestros usos particulares.</p>
+
+<p>XML se propone como un estándar para intercambiar información estructurada entre distintas plataformas o sistemas. De este modo, podemos generar un fichero XML a partir de una aplicación de edición de imágenes, para luego importarlo en una página web, por ejemplo.</p>
+
+<h2 id="2-estructura-de-un-documento-xml">2. Estructura de un documento XML</h2>
+
+<p>La estructura básica de un documento XML comienza con una etiqueta que indica que, efectivamente, estamos utilizando dicho lenguaje, junto con su versión (típicamente la 1.0), y el formato de codificación del archivo, como por ejemplo, UTF-8.</p>
+
+<p>Después suele haber una etiqueta principal que engloba todo el contenido del documento, y que se suele denominar etiqueta <em>raíz</em>. Dentro se tiene el resto de etiquetas, atributos e información que queramos almacenar. Aquí vemos un posible ejemplo de documento XML, basado en un fragmento de ejemplo previo.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="nt">&lt;biblioteca&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>El juego de Ender<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor&gt;</span>Orson Scott Card<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>325<span class="nt">&lt;/paginas&gt;</span>
+        <span class="nt">&lt;fechaPublicacion</span> <span class="na">anyo=</span><span class="s">"1985"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>La tabla de Flandes<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor</span> <span class="na">nacimiento=</span><span class="s">"1951"</span><span class="nt">&gt;</span>Arturo Pérez Reverte<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>384<span class="nt">&lt;/paginas&gt;</span>
+        <span class="nt">&lt;fechaPublicacion</span> <span class="na">anyo=</span><span class="s">"1990"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+<span class="nt">&lt;/biblioteca&gt;</span>
+</code></pre></div></div>
+
+<p>En este caso, la etiqueta <code class="language-plaintext highlighter-rouge">biblioteca</code> es la etiqueta raíz que contiene al resto de elementos. Internamente, la información se divide en distintos bloques <code class="language-plaintext highlighter-rouge">libro</code>, con información relativa a diferentes libros. Notar que puede haber etiquetas de apertura y cierre (caso de <code class="language-plaintext highlighter-rouge">libro</code>, <code class="language-plaintext highlighter-rouge">titulo</code>, etc.) y también etiquetas sin contenido, y por tanto, sin etiqueta de cierre, como es el caso de <code class="language-plaintext highlighter-rouge">fechaPublicacion</code>. En este último caso, la información asociada a esa etiqueta únicamente puede establecerse por los atributos de la misma (atributo <code class="language-plaintext highlighter-rouge">anyo</code> en este caso).</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong></p>
+
+  <p>Define un archivo llamado <code class="language-plaintext highlighter-rouge">DAM.xml</code>. Copia dentro el siguiente contenido, que contiene información sobre los módulos del ciclo formativo de Desarrollo de Aplicaciones Multiplataforma.</p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="nt">&lt;ciclo</span> <span class="na">codigo=</span><span class="s">"DAM"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;modulo</span> <span class="na">curso=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>Programacion<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;horas</span> <span class="na">valor=</span><span class="s">"256"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+    <span class="nt">&lt;modulo</span> <span class="na">curso=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>Bases de Datos<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;horas</span> <span class="na">valor=</span><span class="s">"160"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+    <span class="nt">&lt;modulo</span> <span class="na">curso=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>Lenguajes de Marcas<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;horas</span> <span class="na">valor=</span><span class="s">"96"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+    <span class="nt">&lt;modulo</span> <span class="na">curso=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>Acceso a Datos<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;horas</span> <span class="na">valor=</span><span class="s">"120"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+<span class="nt">&lt;/ciclo&gt;</span>
+</code></pre></div></div>
+
+<h3 id="21-los-espacios-de-nombres-o-namespaces">2.1. Los espacios de nombres o <em>namespaces</em></h3>
+
+<p>En ocasiones nos puede interesar utilizar un conjunto de etiquetas externo, creado por terceras partes. Normalmente este conjunto de etiquetas conforma lo que se denomina un <strong>espacio de nombres</strong>, es decir, un grupo de nombres válidos, y debemos indicar en el propio documento qué espacio de nombres vamos a utilizar, y dónde encontrar su especificación.</p>
+
+<p>Por ejemplo, más adelante utilizaremos un formato de XML específico llamado XSLT, para hacer transformaciones de documentos XML. Para poder utilizar las etiquetas específicas de XSLT, debemos indicar en el documento que vamos a utilizar ese espacio de nombres, de este modo:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;xsl:stylesheet</span> <span class="na">xmlns:xsl=</span><span class="s">"http://www.w3.org/1999/XSL/Transform"</span> 
+ <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"/"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;xsl:apply-templates/&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+    ...
+</code></pre></div></div>
+
+<p>Como vemos, para poder utilizar un espacio de nombres determinado debemos indicar un prefijo (en este caso se indica el prefijo <code class="language-plaintext highlighter-rouge">xsl</code>) asociado al espacio de nombres deseado (<code class="language-plaintext highlighter-rouge">xmlns</code>), dado por una URL. En concreto, vamos a utilizar las etiquetas del espacio de nombres <em>http://www.w3.org/1999/XSL/Transform</em>. Esto nos habilitará para después poder utilizar etiquetas como <code class="language-plaintext highlighter-rouge">xsl:template</code> o <code class="language-plaintext highlighter-rouge">xsl:apply-templates</code>, entre otras, correspondientes a ese espacio de nombres.</p>
+
+<h2 id="3-validación-de-documentos-xml">3. Validación de documentos XML</h2>
+
+<p>Una de las principales ventajas que aporta el uso del lenguaje XML para estructurar el contenido de nuestros documentos es que podemos verificar que la estructura del documento es sintácticamente correcta, y no hemos omitido ningún elemento necesario, ni ubicado ninguna etiqueta en un lugar que no le corresponde.</p>
+
+<p>Existen distintos mecanismos que nos permiten verificar si un documento XML es válido. Principalmente, podemos hacer uso de las DTD (<em>Document Type Definition</em>, definición de tipo de documento) o a través de esquemas (<em>schemas</em>). Trataremos la primera de las opciones, por ser más simple.</p>
+
+<h3 id="31-sintaxis-de-las-dtd">3.1. Sintaxis de las DTD</h3>
+
+<p>Las DTD definen una serie de reglas que debe cumplir un documento XML para considerarse válido. Básicamente, mediante estas reglas comprobamos que las etiquetas o elementos que contiene el documento son correctas, están en un orden adecuado y almacenan información apropiada (a través de reglas <code class="language-plaintext highlighter-rouge">ELEMENT</code>) y que los atributos de las etiquetas también son correctos (a través de reglas <code class="language-plaintext highlighter-rouge">ATTLIST</code>).</p>
+
+<p><strong>Reglas de elementos (ELEMENT)</strong></p>
+
+<p>Comienzan con la palabra <code class="language-plaintext highlighter-rouge">ELEMENT</code> seguida del nombre de la etiqueta a la que hacemos referencia. Después, añadimos la siguiente información:</p>
+
+<ul>
+  <li>Si contiene subetiquetas internas, se especifican entre paréntesis y separadas por comas (si pueden coexistir todas) o por barras verticales <code class="language-plaintext highlighter-rouge">|</code> (si son excluyentes). Para cada subetiqueta que especifiquemos, podemos emplear los siguientes comodines:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">*</code> para indicar que la subetiqueta puede aparecer 0 o más veces</li>
+      <li><code class="language-plaintext highlighter-rouge">+</code> para indicar que la subetiqueta puede aparecer 1 o más veces</li>
+      <li><code class="language-plaintext highlighter-rouge">?</code> para indicar que la subetiqueta puede aparecer 0 o 1 veces</li>
+    </ul>
+  </li>
+  <li>Si no contiene subetiquetas, sino directamente información, lo indicamos con <code class="language-plaintext highlighter-rouge">#PCDATA</code>.</li>
+  <li>Si es una etiqueta sin contenido, lo indicamos con <code class="language-plaintext highlighter-rouge">EMPTY</code>.</li>
+</ul>
+
+<p>Por ejemplo, estas serían las reglas <code class="language-plaintext highlighter-rouge">ELEMENT</code> para el ejemplo de biblioteca anterior:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!ELEMENT biblioteca (libro*)&gt;</span>
+<span class="cp">&lt;!ELEMENT libro (titulo, autor, paginas, fechaPublicacion)&gt;</span>
+<span class="cp">&lt;!ELEMENT titulo (#PCDATA)&gt;</span>
+<span class="cp">&lt;!ELEMENT autor (#PCDATA)&gt;</span>
+<span class="cp">&lt;!ELEMENT paginas (#PCDATA)&gt;</span>
+<span class="cp">&lt;!ELEMENT fechaPublicacion EMPTY&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Reglas de atributos (ATTLIST)</strong></p>
+
+<p>Las reglas de atributos normalmente se colocan a continuación de las reglas de elemento (aunque el orden puede ser otro), y definen las características que deben cumplir los atributos de las etiquetas que definimos. Para cada regla <code class="language-plaintext highlighter-rouge">ATTLIST</code>, indicaremos primero el nombre de la etiqueta a la que hacemos referencia, seguido del nombre del atributo que queremos definir, y el tipo de dato que admite. Este último elemento puede ser:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">CDATA</code> si admite texto en general (el valor más habitual)</li>
+  <li>Un conjunto de valores limitado, separados por barras verticales <code class="language-plaintext highlighter-rouge">|</code> y entre paréntesis</li>
+  <li><code class="language-plaintext highlighter-rouge">ID</code> si el valor del atributo es único (no repetido en otros elementos del documento para el mismo atributo).</li>
+  <li><code class="language-plaintext highlighter-rouge">IDREF</code> si el valor del atributo hace referencia a otro atributo de tipo ID</li>
+  <li><code class="language-plaintext highlighter-rouge">IDREFS</code> si el valor del atributo es un conjunto de valores que hacen referencia a otro atributo de tipo ID. En este caso, el conjunto de valores se dan separados por espacios.</li>
+</ul>
+
+<p>Además, la regla <code class="language-plaintext highlighter-rouge">ATTLIST</code> puede tener una serie de indicadores al final que dan información adicional sobre el atributo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">#REQUIRED</code> indica que es obligatorio indicar el atributo y darle un valor.</li>
+  <li><code class="language-plaintext highlighter-rouge">#IMPLIED</code> indica que no es obligatorio indicar el atributo</li>
+  <li><code class="language-plaintext highlighter-rouge">#FIXED</code> para indicar un valor prefijado por defecto (y sin posibilidad de cambiarlo).</li>
+  <li>También podemos darle un valor por defecto en caso de que no se le asigne ninguno.</li>
+</ul>
+
+<p>Por ejemplo, para el atributo <code class="language-plaintext highlighter-rouge">anyo</code> de la etiqueta <code class="language-plaintext highlighter-rouge">fechaPublicacion</code> en el ejemplo anterior, podemos indicar que es obligatorio indicarlo de este modo:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!ATTLIST fechaPublicacion anyo CDATA #REQUIRED&gt;</span>
+</code></pre></div></div>
+
+<p>El atributo <code class="language-plaintext highlighter-rouge">nacimiento</code> de la etiqueta <code class="language-plaintext highlighter-rouge">autor</code> es opcional, ya que algunos autores no lo tienen. Podemos indicarlo así, y además, podemos darle un valor por defecto en el caso de que no se especifique</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!ATTLIST autor nacimiento CDATA "No especificado"&gt;</span>
+</code></pre></div></div>
+
+<h3 id="32-ubicación-de-las-reglas-dtd">3.2. Ubicación de las reglas DTD</h3>
+
+<p>Podemos definir este conjunto de reglas de la DTD tanto embebidas en el propio documento XML, como en un fichero aparte referenciado desde el XML. Si optamos por la primera opción, basta con que añadamos las reglas dentro de una etiqueta <code class="language-plaintext highlighter-rouge">DOCTYPE</code>, antes del contenido del documento. Por ejemplo:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="cp">&lt;!DOCTYPE biblioteca[
+    &lt;!ELEMENT biblioteca (libro*)&gt;</span>
+    <span class="cp">&lt;!ELEMENT libro (titulo, autor, paginas, fechaPublicacion)&gt;</span>
+    <span class="cp">&lt;!ELEMENT titulo (#PCDATA)&gt;</span>
+    <span class="cp">&lt;!ELEMENT autor (#PCDATA)&gt;</span>
+    <span class="cp">&lt;!ELEMENT paginas (#PCDATA)&gt;</span>
+    <span class="cp">&lt;!ELEMENT fechaPublicacion EMPTY&gt;</span>
+    <span class="cp">&lt;!ATTLIST fechaPublicacion anyo CDATA #REQUIRED&gt;</span>
+    <span class="cp">&lt;!ATTLIST autor nacimiento CDATA "No especificado"&gt;</span>
+]&gt;
+
+<span class="nt">&lt;biblioteca&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>El juego de Ender<span class="nt">&lt;/titulo&gt;</span>
+        <span class="nt">&lt;autor&gt;</span>Orson Scott Card<span class="nt">&lt;/autor&gt;</span>
+        <span class="nt">&lt;paginas&gt;</span>325<span class="nt">&lt;/paginas&gt;</span>
+        <span class="nt">&lt;fechaPublicacion</span> <span class="na">anyo=</span><span class="s">"1985"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/libro&gt;</span>
+    ...
+</code></pre></div></div>
+
+<p>Si queremos dejar las reglas en un fichero aparte (algo que puede resultar útil para validar con ellas diferentes documentos con la misma sintaxis), entonces dejamos las reglas tal cual en un archivo (típicamente con extensión <em>.dtd</em>), y referenciamos el archivo desde el documento XML:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="cp">&lt;!DOCTYPE biblioteca SYSTEM "fichero.dtd"&gt;</span>
+
+<span class="nt">&lt;biblioteca&gt;</span>
+    <span class="nt">&lt;libro&gt;</span>
+    ...
+</code></pre></div></div>
+
+<h3 id="33-validación-de-documentos">3.3. Validación de documentos</h3>
+
+<p>Existen algunas herramientas que se pueden instalar de forma offline para validar documentos XML, tales como <em>xmllint</em>, o <em>XML Toolkit</em>, y alguna extensión para Visual Studio Code como <a href="https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml">XML de RedHat</a>. Sin embargo, para usos más esporádicos puede resultar útil acudir a algún validador online como <a href="https://www.xmlvalidation.com/">éste</a>. Simplemente copiamos y pegamos, o adjuntamos el archivo con el DTD incorporado, y nos indicará el resultado de la validación.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong></p>
+
+  <p>Define unas reglas DTD sobre el fichero anterior <code class="language-plaintext highlighter-rouge">DAM.xml</code> para comprobar que sea válido. En concreto, debes comprobar que cada etiqueta contenga las subetiquetas permitidas con los valores indicados en el ejemplo. En cuanto a los atributos, configúralos de este modo:</p>
+
+  <ul>
+    <li>El atributo <code class="language-plaintext highlighter-rouge">codigo</code> de la etiqueta <code class="language-plaintext highlighter-rouge">ciclo</code> es opcional. Si no se pone, se asume el valor de “DAM”</li>
+    <li>El atributo <code class="language-plaintext highlighter-rouge">curso</code> de la etiqueta <code class="language-plaintext highlighter-rouge">modulo</code> es obligatorio, y sólo puede valer 1 o 2.</li>
+    <li>El atributo <code class="language-plaintext highlighter-rouge">valor</code> de la etiqueta <code class="language-plaintext highlighter-rouge">horas</code> es obligatorio.</li>
+  </ul>
+
+  <p>Una vez tengas las reglas DTD definidas en el propio archivo XML, comprueba desde la herramienta online explicada antes que todo es correcto.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 3</strong></p>
+
+  <p>Dado el siguiente documento XML:</p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;informacion&gt;</span>
+    <span class="nt">&lt;software</span> <span class="na">codigo=</span><span class="s">"N1"</span> <span class="na">tipo=</span><span class="s">"gratuito"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>Notepad++<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;fechaPubli</span> <span class="na">ano=</span><span class="s">"2015"</span> <span class="na">mes=</span><span class="s">"marzo"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/software&gt;</span>
+    <span class="nt">&lt;software</span> <span class="na">codigo=</span><span class="s">"X1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>XML Copy Editor<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;fechaPubli</span> <span class="na">ano=</span><span class="s">"2012"</span> <span class="na">mes=</span><span class="s">"mayo"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/software&gt;</span>
+    <span class="nt">&lt;software</span> <span class="na">codigo=</span><span class="s">"M1"</span> <span class="na">tipo=</span><span class="s">"comercial"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>Microsoft Word<span class="nt">&lt;/nombre&gt;</span>
+    <span class="nt">&lt;/software&gt;</span>
+    <span class="nt">&lt;software</span> <span class="na">codigo=</span><span class="s">"P1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;nombre&gt;</span>PacketTracer<span class="nt">&lt;/nombre&gt;</span>
+        <span class="nt">&lt;fechaPubli</span> <span class="na">ano=</span><span class="s">"2016"</span> <span class="na">mes=</span><span class="s">"enero"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/software&gt;</span>
+    <span class="nt">&lt;modulo</span> <span class="na">usa=</span><span class="s">"N1 X1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>Lenguajes de Marcas<span class="nt">&lt;/titulo&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+    <span class="nt">&lt;modulo</span> <span class="na">usa=</span><span class="s">"P1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>Redes<span class="nt">&lt;/titulo&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+    <span class="nt">&lt;modulo&gt;</span>
+        <span class="nt">&lt;titulo&gt;</span>FOL<span class="nt">&lt;/titulo&gt;</span>
+    <span class="nt">&lt;/modulo&gt;</span>
+<span class="nt">&lt;/informacion&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Crea un DTD que lo valide teniendo en cuenta lo siguiente:</p>
+
+  <ul>
+    <li>Siempre existirán elementos <code class="language-plaintext highlighter-rouge">software</code> y <code class="language-plaintext highlighter-rouge">modulo</code></li>
+    <li>El elemento <code class="language-plaintext highlighter-rouge">informacion</code> tendrá un atributo llamado <code class="language-plaintext highlighter-rouge">curso</code> que siempre tendrá el valor 1</li>
+    <li>El <code class="language-plaintext highlighter-rouge">codigo</code> será único y el <code class="language-plaintext highlighter-rouge">tipo</code> podrá tomar los valores <em>gratuito</em> y <em>comercial</em></li>
+    <li>La fecha de publicación tendrá por defecto el año 2015, y siempre indicará el mes</li>
+    <li>Debemos validar que los módulos usen el software existente en el documento XML</li>
+  </ul>
+</blockquote>
+
+<h2 id="4-transformación-de-documentos-xml-con-xslt">4. Transformación de documentos XML con XSLT</h2>
+
+<p>Otra de las ventajas que ofrece el trabajar con documentos XML es que podemos adaptar la información que contiene y exportarla a distintos formatos. Por ejemplo, podemos generar una página web HTML o xHTML con la información contenida en el documento, y también generar un archivo PDF, todo desde los mismos datos de origen. Para ello haremos uso del lenguaje XSLT.</p>
+
+<p>XSLT son las siglas de <em>eXtensible Stylesheet Language Transformations</em>, y permite definir una serie de reglas para transformar el contenido de un documento XML a un formato determinado. Para ello, haremos uso de las etiquetas propias de dicho lenguaje, que incorporaremos a partir de su espacio de nombres (<em>xmlns</em>).</p>
+
+<h3 id="41-estructura-básica-de-los-archivos-xslt">4.1. Estructura básica de los archivos XSLT</h3>
+
+<p>Los archivos XSL se suelen almacenar como ficheros de texto con extensión <em>.xslt</em>. Dentro, definimos el archivo como un archivo XML (misma cabecera que los archivos XML normales) y acto seguido incorporamos el espacio de nombres de XSLT. Esta etiqueta que incorpora el espacio de nombres es la que hace de raíz del documento XLST. El resto de reglas de transformación las colocaremos dentro de esta etiqueta:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;xsl:stylesheet</span> <span class="na">xmlns:xsl=</span><span class="s">"http://www.w3.org/1999/XSL/Transform"</span> 
+ <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/xsl:stylesheet&gt;</span>
+</code></pre></div></div>
+
+<p>Dentro de este elemento contenedor, vamos a ir definiendo reglas que van a permitir procesar cada una de las etiquetas del documento XML y saber qué hacer con ellas. Para ello haremos uso de las etiquetas que veremos a continuación.</p>
+
+<h3 id="42-primeras-etiquetas-básicas-template-value-of-y-apply-templates">4.2. Primeras etiquetas básicas: <em>template</em>, <em>value-of</em> y <em>apply-templates</em></h3>
+
+<p><strong>template</strong></p>
+
+<p>Esta etiqueta permite aplicar la transformación a la etiqueta que coincida con la que pongamos en su atributo <code class="language-plaintext highlighter-rouge">match</code>. Si queremos hacer referencia a la etiqueta raíz, podemos referenciarla por su nombre, o directamente por <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"/"</span><span class="nt">&gt;</span>
+    ...
+<span class="nt">&lt;/xsl:template&gt;</span>
+
+<span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"libro"</span><span class="nt">&gt;</span>
+    ...
+<span class="nt">&lt;/xsl:template&gt;</span>
+</code></pre></div></div>
+
+<p>Internamente, podemos directamente generar el contenido en el formato que indiquemos (por ejemplo, definir etiquetas HTML) o hacer uso de otras etiquetas XSLT para seguir procesando información del documento XML. Veremos después algunos ejemplos.</p>
+
+<p>El proceso debe comenzar siempre por la etiqueta principal o raíz. Indicaremos dentro de la correspondiente etiqueta <em>xsl:template</em> qué queremos hacer con ella, y progresivamente podemos hacer que vaya profundizando y analizando el resto de etiquetas, como veremos a continuación.</p>
+
+<p><strong>value-of</strong></p>
+
+<p>Esta etiqueta se emplea para obtener el valor de una subetiqueta o atributo perteneciente a la etiqueta en la que estamos. Si por ejemplo queremos sacar el título del libro en el que estamos, podemos hacer algo así:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"libro"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"titulo"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/xsl:template&gt;</span>
+</code></pre></div></div>
+
+<p>Si queremos sacar el año de publicación del libro, haríamos lo siguiente (desde la etiqueta <code class="language-plaintext highlighter-rouge">fechaPublicacion</code>):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"fechaPublicacion"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"@anyo"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/xsl:template&gt;</span>
+</code></pre></div></div>
+
+<p>También podemos utilizarla para mostrar el valor de la etiqueta actual. Por ejemplo, el valor del título del libro en el que estamos (en el caso de que no lo queramos sacar desde la etiqueta contenedora <em>libro</em>):</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"titulo"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"."</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/xsl:template&gt;</span>
+</code></pre></div></div>
+
+<p>Notar que, en el caso de los atributos, se referencian precedidos de una arroba <code class="language-plaintext highlighter-rouge">@</code>.</p>
+
+<p><strong>apply-templates</strong></p>
+
+<p>Se emplea cuando dentro de una etiqueta hay otras subetiquetas que queremos seguir procesando automáticamente. Esta etiqueta hace que se “invoquen” las instrucciones <em>template</em> asociadas a las subetiquetas en cuestión. Por ejemplo si desde dentro de un libro queremos seguir procesando las subetiquetas que contiene, haríamos algo así:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"libro"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/xsl:template&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Ejemplo</strong></p>
+
+<p>El siguiente ejemplo muestra cómo podríamos generar un documento HTML con un listado de libros, utilizando la información del documento XML original visto anteriormente:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;xsl:stylesheet</span> <span class="na">xmlns:xsl=</span><span class="s">"http://www.w3.org/1999/XSL/Transform"</span> 
+ <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"/"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;html&gt;</span>
+            <span class="nt">&lt;body&gt;</span>
+                <span class="nt">&lt;h1&gt;</span>Listado de libros<span class="nt">&lt;/h1&gt;</span>
+                <span class="nt">&lt;table&gt;</span>
+                    <span class="nt">&lt;tr&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Título<span class="nt">&lt;/th&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Autor<span class="nt">&lt;/th&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Páginas<span class="nt">&lt;/th&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Año<span class="nt">&lt;/th&gt;</span>
+                    <span class="nt">&lt;/tr&gt;</span>
+
+                    <span class="nt">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+
+                <span class="nt">&lt;/table&gt;</span>
+            <span class="nt">&lt;/body&gt;</span>
+        <span class="nt">&lt;/html&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"libro"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"titulo"</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"autor"</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"paginas"</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"titulo"</span><span class="nt">&gt;&lt;/xsl:template&gt;</span>
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"autor"</span><span class="nt">&gt;&lt;/xsl:template&gt;</span>
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"paginas"</span><span class="nt">&gt;&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"fechaPublicacion"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"@anyo"</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+<span class="nt">&lt;/xsl:stylesheet&gt;</span>
+</code></pre></div></div>
+
+<p>Expliquemos los pasos que hemos seguido:</p>
+
+<ul>
+  <li>La primera etiqueta <code class="language-plaintext highlighter-rouge">template</code> hace referencia a la etiqueta raíz del documento XML. Cuando la encontremos, montaremos toda la estructura del documento HTML resultado: el <em>DOCTYPE</em>, el cuerpo del documento, y la estructura de la tabla que contendrá el listado de libros. Para rellenar las filas de la tabla, utilizamos la etiqueta <code class="language-plaintext highlighter-rouge">apply-templates</code> para que se procese cada libro y genere su propia información</li>
+  <li>Para el <em>template</em> de <em>libro</em>, construimos una fila de la tabla, mostrando con <code class="language-plaintext highlighter-rouge">value-of</code> el título, autor y número de páginas. Como el año de publicación no es un dato al que podamos acceder directamente desde el libro (porque es un atributo de la subetiqueta <code class="language-plaintext highlighter-rouge">fechaPublicacion</code>), aplicamos plantillas de nuevo con <code class="language-plaintext highlighter-rouge">apply-templates</code> para ir un nivel más hacia dentro</li>
+  <li>Hemos definido unas plantillas vacías para <code class="language-plaintext highlighter-rouge">titulo</code>, <code class="language-plaintext highlighter-rouge">autor</code> y <code class="language-plaintext highlighter-rouge">paginas</code>. De lo contrario, la llamada a <code class="language-plaintext highlighter-rouge">apply-templates</code> anterior volvería a mostrar la información de estas etiquetas, que ya hemos procesado con <code class="language-plaintext highlighter-rouge">value-of</code>.</li>
+  <li>Finalmente, definimos la plantilla para <code class="language-plaintext highlighter-rouge">fechaPublicacion</code> y mostramos en una columna el valor de su atributo <code class="language-plaintext highlighter-rouge">anyo</code>.</li>
+</ul>
+
+<p>Alternativamente, podríamos haber empleado esta otra hoja XSLT con el mismo resultado:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;xsl:stylesheet</span> <span class="na">xmlns:xsl=</span><span class="s">"http://www.w3.org/1999/XSL/Transform"</span> 
+ <span class="na">version=</span><span class="s">"1.0"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"/"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;html&gt;</span>
+            <span class="nt">&lt;body&gt;</span>
+                <span class="nt">&lt;h1&gt;</span>Listado de libros<span class="nt">&lt;/h1&gt;</span>
+                <span class="nt">&lt;table&gt;</span>
+                    <span class="nt">&lt;tr&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Título<span class="nt">&lt;/th&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Autor<span class="nt">&lt;/th&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Páginas<span class="nt">&lt;/th&gt;</span>
+                        <span class="nt">&lt;th&gt;</span>Año<span class="nt">&lt;/th&gt;</span>
+                    <span class="nt">&lt;/tr&gt;</span>
+
+                    <span class="nt">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+
+                <span class="nt">&lt;/table&gt;</span>
+            <span class="nt">&lt;/body&gt;</span>
+        <span class="nt">&lt;/html&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"libro"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"titulo"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"."</span> <span class="nt">/&gt;&lt;/td&gt;</span>    
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"autor"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"."</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"paginas"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"."</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+    <span class="nt">&lt;xsl:template</span> <span class="na">match=</span><span class="s">"fechaPublicacion"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"@anyo"</span> <span class="nt">/&gt;&lt;/td&gt;</span>
+    <span class="nt">&lt;/xsl:template&gt;</span>
+
+<span class="nt">&lt;/xsl:stylesheet&gt;</span>
+</code></pre></div></div>
+
+<p>En este caso, como antes, comenzamos con la etiqueta raíz que construye la estructura HTML general con la tabla. Después, para cada fila de la tabla llamamos a <code class="language-plaintext highlighter-rouge">apply-templates</code> para que genere su contenido. Esto va a procesar cada libro (template <em>libro</em>), que a su vez va a procesar cada subetiqueta de libro (<em>titulo</em>, <em>autor</em>, <em>paginas</em> y <em>fechaPublicacion</em>, a través de sus respectivas <em>templates</em>). Observad que en estas etiquetas finales simplemente se muestra la celda (<em>td</em>) con la informacion correspondiente de cada etiqueta.</p>
+
+<h3 id="43-prueba-de-la-transformación">4.3. Prueba de la transformación</h3>
+
+<p>Para probar la transformación de la hoja XSLT sobre el documento XML, necesitamos pasar ambos ficheros a una herramienta de transformación. Proponemos dos alternativas:</p>
+
+<ul>
+  <li>Utilizar la extensión <a href="https://marketplace.visualstudio.com/items?itemName=SvenAGN.xslt-transform">xslt-transform</a> de Visual Studio Code. Necesitaremos tener instalada la librería Saxon para Java (podéis descargar una versión <a href="../../resources/UD4_Ejercicios/saxon.zip">aquí</a>), y en los <em>Settings</em> de la extensión configurar la propiedad <em>Xslt:processor</em> para apuntar a la carpeta donde esté el archivo <em>.jar</em> con la librería. Por ejemplo, <em>C:\SaxonHE10-5J\saxon-he-10.5.jar</em>. Después, para aplicar la transformación debemos estar editando el archivo XML, y con <em>Ctrl+Mayus+P</em> abrir el panel de comandos y elegir <em>XSLT: Run Transformation</em>. Después, elegiremos el archivo XSL que queremos aplicar y generará un nuevo documento con la transformación aplicada, que podemos guardar donde queramos.</li>
+  <li>Como segunda alternativa, podemos utilizar herramientas online como <a href="https://www.freeformatter.com/xsl-transformer.html">esta</a>, a la que podemos o bien copiar y pegar el código de ambos ficheros (el XML y el XSLT) o bien subirlos directamente, y obtendremos en un cuadro de texto el resultado de la transformación.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Ejercicio 4</strong></p>
+
+  <p>Define una hoja <code class="language-plaintext highlighter-rouge">ciclos.xslt</code> que permita obtener una lista no ordenada con los módulos del archivo <code class="language-plaintext highlighter-rouge">DAM.xml</code> creado anteriormente. En cada <em>item</em> de la lista, mostraremos el nombre del módulo y, entre paréntesis, las horas que lo componen. Quedará algo así:</p>
+
+  <ul>
+    <li>Programación (256 horas)</li>
+    <li>Bases de Datos (160 horas)</li>
+    <li>Lenguajes de Marcas (96 horas)</li>
+    <li>Acceso a Datos (120 horas)</li>
+  </ul>
+</blockquote>
+
+<h3 id="44-otras-etiquetas-adicionales">4.4. Otras etiquetas adicionales</h3>
+
+<p>Veremos a continuación otras etiquetas que podemos aplicar para generar contenido algo más específico en algunos casos.</p>
+
+<p><strong>attribute</strong></p>
+
+<p>Esta etiqueta genera un atributo con el nombre indicado en el contenido de salida. Por ejemplo, esta expresión genera la etiqueta <code class="language-plaintext highlighter-rouge">&lt;etiqueta numero="1"&gt;</code></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;etiqueta&gt;</span>
+    <span class="nt">&lt;xsl:attribute</span> <span class="na">name=</span><span class="s">"numero"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/xsl:attribute&gt;</span>
+<span class="nt">&lt;/etiqueta&gt;</span>
+</code></pre></div></div>
+
+<p><strong>variable</strong></p>
+
+<p>Esta etiqueta permite definir variables que almacenen temporalmente valores de ciertas etiquetas o atributos. El siguiente ejemplo almacena el valor del atributo <em>attr1</em> de la etiqueta actual dentro de la variable <em>var1</em></p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:variable</span> <span class="na">name=</span><span class="s">"var1"</span> <span class="na">select=</span><span class="s">"@attr1"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p><strong>if</strong></p>
+
+<p>La etiqueta <em>if</em> permite ejecutar un conjunto de elementos si se cumple la condición indicada en su atributo <em>test</em>. Podemos, por ejemplo, comprobar si el valor de un atributo es igual a un cierto valor, o mayor que un valor, o directamente, si tiene valor:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:if</span> <span class="na">test=</span><span class="s">"@atributo"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- El atributo tiene valor --&gt;</span>
+<span class="nt">&lt;/xsl:if&gt;</span>
+
+<span class="nt">&lt;xsl:if</span> <span class="na">test=</span><span class="s">"@atributo='es'"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- El atributo tiene valor 'es' --&gt;</span>
+<span class="nt">&lt;/xsl:if&gt;</span>
+
+<span class="nt">&lt;xsl:if</span> <span class="na">test=</span><span class="s">"@atributo &amp;gt; 1"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- El atributo tiene valor mayor que 1 --&gt;</span>
+<span class="nt">&lt;/xsl:if&gt;</span>
+</code></pre></div></div>
+
+<p><strong>choose/when/otherwise</strong></p>
+
+<p>La combinación de estas etiquetas permiten hacer algo parecido a lo que sería un <em>if..else</em> en un lenguaje de programación. Si la condición indicada en el atributo <em>test</em> de la etiqueta <em>when</em> es cierta, se ejecuta el contenido de esa etiqueta. De lo contrario, se ejecuta el contenido de la etiqueta <em>otherwise</em>.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:choose&gt;</span>
+    <span class="nt">&lt;xsl:when</span> <span class="na">test=</span><span class="s">"@atributo='es'"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- El atributo vale 'es' --&gt;</span>
+    <span class="nt">&lt;/xsl:when&gt;</span>
+    <span class="nt">&lt;xsl:otherwise&gt;</span>
+        <span class="c">&lt;!-- El atributo vale otra cosa --&gt;</span>
+    <span class="nt">&lt;/xsl:otherwise&gt;</span>
+<span class="nt">&lt;/xsl:choose&gt;</span>
+</code></pre></div></div>
+
+<p><strong>for-each</strong></p>
+
+<p>Esta etiqueta permite iterar sobre un conjunto de etiquetas. Por ejemplo, este código itera sobre todas las etiquetas <em>prueba</em> de un archivo XML:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:for-each</span> <span class="na">test=</span><span class="s">"prueba"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Aquí podemos acceder a atributos de la etiqueta, por ejemplo --&gt;</span>
+<span class="nt">&lt;/xsl:for-each&gt;</span>
+</code></pre></div></div>
+
+<p>También podemos hacer uso de ciertas funciones predefinidas, como <code class="language-plaintext highlighter-rouge">count</code>, que nos permite contar cuántos elementos cumplen un determinado criterio. Por ejemplo, esta expresión nos podría servir para mostrar cuántos pasajeros de un archivo XML son adultos:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">"count(pasajero[@adulto='si'])"</span> <span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Existen otras muchas etiquetas y funciones disponibles, pero estas nos servirán para hacernos una idea de lo que se puede hacer.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 5</strong></p>
+
+  <p>Dado el documento XML <code class="language-plaintext highlighter-rouge">rusia2018.xml</code> con algunos de los equipos y partidos de fútbol jugados en el mundial de Rusia 2018…</p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;rusia2018&gt;</span>
+    <span class="nt">&lt;equipos&gt;</span>
+        <span class="nt">&lt;equipo</span> <span class="na">grupo=</span><span class="s">"B"</span> <span class="na">nombre=</span><span class="s">"ESP"</span><span class="nt">&gt;</span>España<span class="nt">&lt;/equipo&gt;</span>
+        <span class="nt">&lt;equipo</span> <span class="na">grupo=</span><span class="s">"A"</span> <span class="na">nombre=</span><span class="s">"ASA"</span><span class="nt">&gt;</span>Arabia Saudí<span class="nt">&lt;/equipo&gt;</span>
+        <span class="nt">&lt;equipo</span> <span class="na">grupo=</span><span class="s">"B"</span> <span class="na">nombre=</span><span class="s">"POR"</span><span class="nt">&gt;</span>Portugal<span class="nt">&lt;/equipo&gt;</span>
+        <span class="nt">&lt;equipo</span> <span class="na">grupo=</span><span class="s">"A"</span> <span class="na">nombre=</span><span class="s">"RUS"</span><span class="nt">&gt;</span>Rusia<span class="nt">&lt;/equipo&gt;</span>
+    <span class="nt">&lt;/equipos&gt;</span>
+    <span class="nt">&lt;partidos</span> <span class="na">jornada=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;partido</span> <span class="na">equi1=</span><span class="s">"RUS"</span> <span class="na">equi2=</span><span class="s">"ASA"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Golovin"</span> <span class="na">equipo=</span><span class="s">"RUS"</span><span class="nt">&gt;</span>94<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;amarilla</span> <span class="na">nombre=</span><span class="s">"Al-Jassim"</span> <span class="na">equipo=</span><span class="s">"ASA"</span><span class="nt">&gt;</span>93<span class="nt">&lt;/amarilla&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Cheryshev"</span> <span class="na">equipo=</span><span class="s">"RUS"</span><span class="nt">&gt;</span>91<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Dzyuba"</span> <span class="na">equipo=</span><span class="s">"RUS"</span><span class="nt">&gt;</span>71<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Cheryshev"</span> <span class="na">equipo=</span><span class="s">"RUS"</span><span class="nt">&gt;</span>43<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Gazinsky"</span> <span class="na">equipo=</span><span class="s">"RUS"</span><span class="nt">&gt;</span>12<span class="nt">&lt;/gol&gt;</span>
+        <span class="nt">&lt;/partido&gt;</span>
+        <span class="nt">&lt;partido</span> <span class="na">equi1=</span><span class="s">"POR"</span> <span class="na">equi2=</span><span class="s">"ESP"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Ronaldo"</span> <span class="na">equipo=</span><span class="s">"POR"</span><span class="nt">&gt;</span>4<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;amarilla</span> <span class="na">nombre=</span><span class="s">"Busquets"</span> <span class="na">equipo=</span><span class="s">"ESP"</span><span class="nt">&gt;</span>17<span class="nt">&lt;/amarilla&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Costa"</span> <span class="na">equipo=</span><span class="s">"ESP"</span><span class="nt">&gt;</span>24<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;amarilla</span> <span class="na">nombre=</span><span class="s">"Fernandes"</span> <span class="na">equipo=</span><span class="s">"POR"</span><span class="nt">&gt;</span>28<span class="nt">&lt;/amarilla&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Ronaldo"</span> <span class="na">equipo=</span><span class="s">"POR"</span><span class="nt">&gt;</span>44<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Costa"</span> <span class="na">equipo=</span><span class="s">"ESP"</span><span class="nt">&gt;</span>55<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Nacho"</span> <span class="na">equipo=</span><span class="s">"ESP"</span><span class="nt">&gt;</span>58<span class="nt">&lt;/gol&gt;</span>
+            <span class="nt">&lt;gol</span> <span class="na">nombre=</span><span class="s">"Ronaldo"</span> <span class="na">equipo=</span><span class="s">"POR"</span><span class="nt">&gt;</span>8<span class="nt">&lt;/gol&gt;</span>
+        <span class="nt">&lt;/partido&gt;</span>
+    <span class="nt">&lt;/partidos&gt;</span>
+<span class="nt">&lt;/rusia2018&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>… se solicita la escritura del documento <code class="language-plaintext highlighter-rouge">Rusia.xsl</code> que realice la transformación del mismo documento en otro XML <code class="language-plaintext highlighter-rouge">resultados.xml</code> donde se puedan ver los resultados de los partidos tal y como se muestra a continuación:</p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;resultados&gt;</span>
+    <span class="nt">&lt;jornada</span> <span class="na">numero=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;partido&gt;</span>
+            <span class="nt">&lt;selecciones&gt;</span>RUS-ASA<span class="nt">&lt;/selecciones&gt;</span>
+            <span class="nt">&lt;resultado&gt;</span>5-0<span class="nt">&lt;/resultado&gt;</span>
+        <span class="nt">&lt;/partido&gt;</span>
+        <span class="nt">&lt;partido&gt;</span>
+            <span class="nt">&lt;selecciones&gt;</span>POR-ESP<span class="nt">&lt;/selecciones&gt;</span>
+            <span class="nt">&lt;resultado&gt;</span>3-3<span class="nt">&lt;/resultado&gt;</span>
+        <span class="nt">&lt;/partido&gt;</span>
+    <span class="nt">&lt;/jornada&gt;</span>
+<span class="nt">&lt;/resultados&gt;</span>
+</code></pre></div></div>
+
+<h2 id="5-usos-de-xml">5. Usos de XML</h2>
+
+<p>Entre los principales usos que se dan hoy en día de los documentos y el formato XML, podemos destacar los siguientes:</p>
+
+<ul>
+  <li><strong>Almacenamiento de información estructurada</strong>. Como hemos visto, XML proporciona una forma estructurada y formal de almacenar la información, definiendo una serie de etiquetas y atributos, y garantizando que éstas van a estar dispuestas en un cierto orden y cantidad. Esto, unido a ciertas aplicaciones y librerías específicas que son capaces de procesar el contenido de ficheros XML y extraer la información, convierten a los documentos XML en valiosas “bases de datos” sencillas, que podemos emplear en diferentes tipos de aplicaciones.</li>
+  <li><strong>Configuración de aplicaciones</strong>. Existen ciertos subtipos de formato XML que sirven para definir la configuración inicial de ciertos tipos de aplicaciones. Por ejemplo, el formato SVG, empleado para definir imágenes vectoriales, utiliza nomenclatura XML para definir los elementos de la imagen. El formato FXML, utilizado en aplicaciones JavaFX para definir los diferentes elementos gráficos que va a tener la aplicación, también es un subtipo de XML. Aquí podemos ver un fragmento de un archivo FXML de ejemplo:</li>
+</ul>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="cp">&lt;?import javafx.scene.control.*?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.layout.*?&gt;</span>
+
+<span class="nt">&lt;BorderPane</span> <span class="na">maxHeight=</span><span class="s">"-Infinity"</span> <span class="na">maxWidth=</span><span class="s">"-Infinity"</span>
+ <span class="na">minHeight=</span><span class="s">"-Infinity"</span> <span class="na">minWidth=</span><span class="s">"-Infinity"</span> <span class="na">prefHeight=</span><span class="s">"400.0"</span> 
+ <span class="na">prefWidth=</span><span class="s">"600.0"</span> <span class="na">xmlns=</span><span class="s">"http://javafx.com/javafx/11.0.1"</span> 
+ <span class="na">xmlns:fx=</span><span class="s">"http://javafx.com/fxml/1"</span> <span class="na">fx:controller=</span><span class="s">"sample.Controller"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;left&gt;</span>
+      <span class="nt">&lt;ListView</span> <span class="na">fx:id=</span><span class="s">"listGames"</span> <span class="na">onMouseClicked=</span><span class="s">"#updateForm"</span> 
+      <span class="na">prefHeight=</span><span class="s">"400.0"</span> <span class="na">prefWidth=</span><span class="s">"170.0"</span> <span class="na">BorderPane.alignment=</span><span class="s">"CENTER"</span> <span class="nt">/&gt;</span>
+   <span class="nt">&lt;/left&gt;</span>
+   <span class="nt">&lt;center&gt;</span>
+      <span class="nt">&lt;AnchorPane</span> <span class="na">prefHeight=</span><span class="s">"200.0"</span> <span class="na">prefWidth=</span><span class="s">"200.0"</span> <span class="err">BorderPane.</span>
+      <span class="na">alignment=</span><span class="s">"CENTER"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;children&gt;</span>
+            <span class="nt">&lt;Label</span> <span class="na">alignment=</span><span class="s">"CENTER"</span> <span class="na">layoutX=</span><span class="s">"162.0"</span> <span class="na">layoutY=</span><span class="s">"55.0"</span> 
+            <span class="na">prefHeight=</span><span class="s">"17.0"</span> <span class="na">prefWidth=</span><span class="s">"105.0"</span> <span class="na">text=</span><span class="s">"Title"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;Label</span> <span class="na">alignment=</span><span class="s">"CENTER"</span> <span class="na">layoutX=</span><span class="s">"162.0"</span> <span class="na">layoutY=</span><span class="s">"135.0"</span> 
+            <span class="na">prefHeight=</span><span class="s">"17.0"</span> <span class="na">prefWidth=</span><span class="s">"105.0"</span> <span class="na">text=</span><span class="s">"Price"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;TextField</span> <span class="na">fx:id=</span><span class="s">"txtTitle"</span> <span class="na">layoutX=</span><span class="s">"140.0"</span> <span class="na">layoutY=</span><span class="s">"90.0"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;TextField</span> <span class="na">fx:id=</span><span class="s">"txtPrice"</span> <span class="na">layoutX=</span><span class="s">"140.0"</span> <span class="na">layoutY=</span><span class="s">"165.0"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;Button</span> <span class="na">layoutX=</span><span class="s">"106.0"</span> <span class="na">layoutY=</span><span class="s">"221.0"</span> <span class="na">mnemonicParsing=</span><span class="s">"false"</span> 
+            <span class="na">onAction=</span><span class="s">"#addVideoGame"</span> <span class="na">prefHeight=</span><span class="s">"25.0"</span> <span class="na">prefWidth=</span><span class="s">"67.0"</span> 
+            <span class="na">text=</span><span class="s">"Add"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;Button</span> <span class="na">layoutX=</span><span class="s">"200.0"</span> <span class="na">layoutY=</span><span class="s">"221.0"</span> <span class="na">mnemonicParsing=</span><span class="s">"false"</span> 
+            <span class="na">onAction=</span><span class="s">"#deleteVideoGame"</span> <span class="na">text=</span><span class="s">"Delete"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;Button</span> <span class="na">layoutX=</span><span class="s">"281.0"</span> <span class="na">layoutY=</span><span class="s">"221.0"</span> <span class="na">mnemonicParsing=</span><span class="s">"false"</span> 
+            <span class="na">onAction=</span><span class="s">"#updateVideoGame"</span> <span class="na">text=</span><span class="s">"Update"</span> <span class="nt">/&gt;</span>
+         <span class="nt">&lt;/children&gt;</span>
+      <span class="nt">&lt;/AnchorPane&gt;</span>
+   <span class="nt">&lt;/center&gt;</span>
+<span class="nt">&lt;/BorderPane&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Serialización de datos</strong>. Podemos almacenar información en formato XML para ser enviada a través de algún canal de comunicación. Por ejemplo, el formato SOAP es muy utilizado en servicios web para enviar datos entre clientes y servidores, de forma remota.</li>
+  <li>etc.</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

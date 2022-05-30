@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Otros aspectos del lenguaje</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Otros aspectos del lenguaje
+#### Manejo de expresiones regulares
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Expresiones regulares
+
+- Permiten detectar si un texto cumple un determinado patrón
+- Usaremos la clase **Regex** del espacio **System.Text.RegularExpressions**
+   1. Construimos la expresión a comprobar
+   2. Usamos el método **IsMatch** de la expresión para ver si encaja en un texto determinado
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Expresiones regulares
+
+Ejemplo: ver si un texto es un número entero
+
+```cs
+using System.Text.RegularExpressions;
+
+...
+
+Regex expresion = new Regex("^[0-9]+$");
+if (expresion.IsMatch(Console.ReadLine()))
+{
+    Console.WriteLine("Es un número entero");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Símbolos básicos (1/2)
+
+|Símbolo|Significado|
+|----|----|
+|`x`|Carácter 'x'|
+|`[abc]`|Caracteres 'a', 'b' o 'c'|
+|`[^abc]`|Cualquier cosa menos los caracteres 'a', 'b' o 'c'|
+|`[a-zA-Z]`|Rango de 'a' a 'z' or de 'A' a 'Z'|
+|`.`|Cualquier carácter|
+|`^`|Inicio de expresión (no puede haber nada antes)|
+|`$`|Fin de expresión (no puede haber nada después)|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Símbolos básicos (2/2)
+
+|Símbolo|Significado|
+|----|----|
+|`\d`|Dígito de 0 a 9|
+|`\D`|Cualquier cosa menos un dígito|
+|`\s`|Espaciado (espacio, tabulación, nueva línea...)|
+|`\S`|Cualquier cosa menos espaciado|
+|`\w`|Alfanumérico (letra, número o subrayado)|
+|`\W`|Cualquier cosa menos alfanumérico|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cardinalidad
+
+|Símbolo|Significado|
+|----|----|
+|`x?`|x aparece 0 o 1 vez|
+|`x+`|x aparece 1 o más veces|
+|`x*`|x aparece 0 o más veces|
+|`x{n}`|x aparece *n* veces|
+|`x{n,}`|x aparece al menos *n* veces|
+|`x{n, m}`|x aparece entre *n* y *m* veces (inclusive)|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplos
+
+```cs
+// Texto compuesto de 4 dígitos
+Regex exp1 = new Regex("^\\d{4}$");
+
+// DNI compuesto por 8 dígitos y letra mayúscula
+Regex exp2 = new Regex("^\\d{8}[A-Z]$");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa **Ejercicio_10c_01** que valide matrículas de coche. Una matrícula de coche será válida si:
+
+* Está formada por 4 dígitos seguidos de 3 letras mayúsculas, o bien
+* Está formada por 1 o 2 letras mayúsculas, un espacio, 4 dígitos, otro espacio y dos letras mayúsculas
+
+Ejemplos de matrículas válidas: "0114CPK", "A 2134 BZ", "VL 2426 KB"
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa **Ejercicio_10c_02** que valide un e-mail. Dicho e-mail será válido si:
+
+* Contiene una arroba
+* Delante y detrás de la arroba, debe haber al menos un carácter alfanumérico. Puede haber puntos, pero si los hay, detrás tiene que haber al menos un carácter alfanumérico.
+   * Detrás de la arroba debe haber al menos un punto (seguido de al menos un carácter alfanumérico).
+   * Nota: para representar el punto deberás escaparlo con `\.`
+
+Ejemplos de e-mails válidos: "prueba@aa.com", "otra.prueba@aaa.bbb.com"
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

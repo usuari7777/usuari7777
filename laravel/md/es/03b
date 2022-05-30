@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Inyección de dependencias en Laravel | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Inyección de dependencias en Laravel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/03b.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Inyección de dependencias en Laravel" />
+<script type="application/ld+json">
+{"headline":"Inyección de dependencias en Laravel","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/03b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="inyección-de-dependencias-en-laravel">Inyección de dependencias en Laravel</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/03b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="03b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>El concepto de <em>inyección de dependencias</em> es muy habitual en el uso de frameworks. Consiste en un mecanismo que facilita recursos a los diferentes componentes de la aplicación, y es algo que ya hemos utilizado, sin saberlo, en los métodos que se han generado para los controladores.</p>
+
+<h2 id="1-inyectando-la-petición-del-usuario">1. Inyectando la petición del usuario</h2>
+
+<p>Cuando definimos un método en un controlador que necesita procesar una petición, se le pasa como parámetro un objeto de tipo <code class="language-plaintext highlighter-rouge">Request</code>. Automáticamente, Laravel procesa el tipo de dato y obtiene el objeto asociado (en este caso, la petición del cliente).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LibroController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="2-inyectando-la-respuesta-del-servidor">2. Inyectando la respuesta del servidor</h2>
+
+<p>Al igual que tenemos un objeto <code class="language-plaintext highlighter-rouge">Request</code> para obtener datos de la petición, también existe un <code class="language-plaintext highlighter-rouge">Response</code> para gestionar la respuesta. Laravel proporciona un método <code class="language-plaintext highlighter-rouge">response</code> al que le podemos pasar varios parámetros:</p>
+
+<ol>
+  <li>El contenido de la respuesta</li>
+  <li>El código de estado HTTP de respuesta (si no se especifica, por defecto es 200)</li>
+  <li>Un array con las cabeceras de respuesta (por defecto está vacío).</li>
+</ol>
+
+<p>Así, si por ejemplo queremos emitir una respuesta determinada con su código de estado desde un controlador, podemos hacer esto (por ejemplo, para un código 201):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">response</span><span class="p">(</span><span class="s2">"Mensaje de respuesta"</span><span class="p">,</span> <span class="mi">201</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Las cabeceras pueden especificarse como un array, o enlazando llamadas al método <code class="language-plaintext highlighter-rouge">header</code> (una para cada cabecera):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">response</span><span class="p">(</span><span class="s2">"Mensaje de respuesta"</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'Cabecera1'</span><span class="p">,</span> <span class="s1">'Valor1'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'Cabecera2'</span><span class="p">,</span> <span class="s1">'Valor2'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En el caso de querer devolver un objeto como respuesta, podemos emplear el método <code class="language-plaintext highlighter-rouge">json</code> de la respuesta (más adelante veremos que todos los objetos emitidos directamente al cliente se envían en formato JSON), y así podremos adjuntar un código de estado diferente de 200:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'datos'</span> <span class="o">=&gt;</span> <span class="n">datos</span><span class="p">],</span> <span class="mi">201</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nb">header</span><span class="p">(</span><span class="s1">'Cabecera1'</span><span class="p">,</span> <span class="s1">'Valor1'</span><span class="p">)</span>
+    <span class="mf">...</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="21-usar-la-respuesta-para-hacer-redirecciones">2.1. Usar la respuesta para hacer redirecciones</h3>
+
+<p>Existe también un método <code class="language-plaintext highlighter-rouge">redirect</code> que podemos emplear para redireccionar a una ruta desde otra, bien especificando la ruta como parámetro…</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>… o bien indicando una ruta con nombre:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Podemos pasar valores a la siguiente redirección, almacenándolos en sesión con el método <code class="language-plaintext highlighter-rouge">with</code>, aunque estos valores se perderán en la siguiente petición (no se quedan almacenados en sesión):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">)</span>
+    <span class="o">-&gt;</span><span class="nf">with</span><span class="p">(</span><span class="s1">'mensaje'</span><span class="p">,</span> <span class="s1">'Mensaje enviado correctamente'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Para acceder a este mensaje desde la vista afectada, debemos utilizar la función <code class="language-plaintext highlighter-rouge">session</code>:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">if</span><span class="p">(</span><span class="nf">session</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">has</span><span class="p">(</span><span class="s1">'mensaje'</span><span class="p">))</span>
+    <span class="p">{{</span> <span class="nf">session</span><span class="p">(</span><span class="s1">'mensaje'</span><span class="p">)</span> <span class="p">}}</span>
+<span class="o">@</span><span class="k">endif</span>
+</code></pre></div></div>
+<!---->
+
+<p>Por último, notar que si hacemos la redirección desde dentro de un método de un controlador (por ejemplo, para redigir a una ruta desde otra), deberemos <em>devolver</em> (<code class="language-plaintext highlighter-rouge">return</code>) el resultado de esa redirección para que surta efecto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LibroController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(...)</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+        <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="3-los-helpers">3. Los <em>helpers</em></h2>
+
+<p>Para terminar esta introducción a lo que supone la inyección de dependencias en frameworks de desarrollo, vamos a hacer uso de una herramienta que nos puede ser útil en algunas situaciones: los <em>helpers</em>.</p>
+
+<p>Un <strong>helper</strong> es básicamente una función de utilidad que podemos querer utilizar en diversos puntos de nuestra web, y que necesitamos tener localizada y compartida. Por ejemplo, imaginemos que queremos resaltar en nuestro menú de navegación la opción que tenemos actualmente visible.</p>
+
+<p>Para ello, podemos definir una clase CSS con el estilo que queramos para resaltar (esto lo haremos aparte, en los archivos CSS del proyecto), y después utilizar esa clase CSS en una condición para cada menú de navegación.</p>
+
+<p>Por ejemplo, supongamos que la clase CSS para identificar el menú activo se llama <code class="language-plaintext highlighter-rouge">activo</code>. En este caso, para un menú de varias opciones como éste, basta con utilizar el método <code class="language-plaintext highlighter-rouge">routeIs</code> de la petición (<code class="language-plaintext highlighter-rouge">request</code>) para comprobar si la ruta coincide con cada menú, y mostrarlo como activo o no, usando un operador ternario de comparación:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"{{ request()-&gt;routeIs('inicio') ? 'activo' : '' }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>Inicio<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"{{ request()-&gt;routeIs('contacto') ? 'activo' : '' }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/contacto"</span><span class="nt">&gt;</span>Contacto<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        ...
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Esta característica también funciona si las rutas tienen parámetros.</p>
+
+<p>Podemos, en cambio, sacar fuera de la vista la lógica de establecer un campo como activo o no. Para ello, creamos un archivo de utilidad o <em>helper</em>. Lo podemos llamar <code class="language-plaintext highlighter-rouge">helpers.php</code>, y ubicarlo en la misma carpeta <code class="language-plaintext highlighter-rouge">app</code>. Dentro, definimos la función que nos va a devolver si una ruta está activa o no, a partir de su nombre:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">setActivo</span><span class="p">(</span><span class="nv">$nombreRuta</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">routeIs</span><span class="p">(</span><span class="nv">$nombreRuta</span><span class="p">)</span> <span class="o">?</span> <span class="s1">'activo'</span> <span class="o">:</span> <span class="s1">''</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y de este modo, nuestra vista simplemente se dedica a llamar a esta función para cada elemento del menú:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"{{ setActivo('inicio') }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>Inicio<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"{{ setActivo('contacto') }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/contacto"</span><span class="nt">&gt;</span>Contacto<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+        ...
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>En el caso de querer mantener el enlace activo para cualquier subruta a partir de la original (por ejemplo, cuando estamos viendo la ficha de un registro a partir del listado general, podemos utilizar el <em>wildcard</em> de asterisco <code class="language-plaintext highlighter-rouge">*</code>):</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"{{ setActivo('peliculas.*') }}"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('peliculas') }}"</span><span class="nt">&gt;</span>Peliculas<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/li&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Sin embargo, para que Laravel cargue el archivo <code class="language-plaintext highlighter-rouge">helpers.php</code> que acabamos de crear, como no es una clase, debemos indicarlo explícitamente (Laravel carga automáticamente todas las clases de la carpeta <code class="language-plaintext highlighter-rouge">app</code>, pero no archivos sueltos que no sean clases). Para ello, debemos ir al archivo <code class="language-plaintext highlighter-rouge">composer.json</code> de la raíz de nuestro proyecto, a la sección <code class="language-plaintext highlighter-rouge">autoload</code> y añadir una sección <code class="language-plaintext highlighter-rouge">files</code> con un array con los archivos que queramos que se carguen también:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"autoload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"classmap"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"psr-4"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"app/helpers.php"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p>Tras efectuar el cambio, debemos decirle a <em>composer</em> que vuelva a compilar el auto cargador. Desde la carpeta del proyecto, ejecutamos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer dump-autoload
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

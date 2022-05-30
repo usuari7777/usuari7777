@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Acceso a los elementos de un documento | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Acceso a los elementos de un documento" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/02a.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Acceso a los elementos de un documento" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Acceso a los elementos de un documento","url":"http://nachoiborraies.github.io/javascript/md/es/02a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="acceso-a-los-elementos-de-un-documento">Acceso a los elementos de un documento</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-introducción-bom-y-dom">1. Introducción. BOM y DOM</h2>
+
+<p>JavaScript es un lenguaje que se ejecuta normalmente en un navegador, sobre una página web. Esta característica hace que JavaScript pueda acceder directamente a ciertas propiedades del navegador y de la propia página sobre la que se está ejecutando, lo que se conoce como BOM (<em>Browser Object Model</em>) y DOM (<em>Document Object Model</em>), respectivamente.</p>
+
+<p>En esta sección veremos algunas de las propiedades más relevantes que pueden ser accedidas y utilizadas desde JavaScript en uno y otro modelo. Por ejemplo, cambiar la URL actual del navegador, o acceder a un elemento concreto de un documento para comprobar su valor o para cambiarlo.</p>
+
+<h2 id="2-elementos-principales-del-bom">2. Elementos principales del BOM</h2>
+
+<p>Dentro del conjunto de elementos definidos por el navegador o BOM, el elemento principal que lo engloba todo es el elemento <code class="language-plaintext highlighter-rouge">window</code> (ventana). A partir de este elemento podemos hacer tareas como:</p>
+
+<ul>
+  <li>Obtener las dimensiones de la pantalla donde estamos</li>
+  <li>Mostrar mensajes (instrucciones <em>alert</em> o <em>prompt</em> que ya hemos utilizado antes)</li>
+  <li>Cambiar la URL de la página actual, para ir a otra página distinta</li>
+  <li>… etc.</li>
+</ul>
+
+<p>Desde el propio elemento <em>window</em> podemos acceder a otros subelementos para completar estas tareas. Por ejemplo:</p>
+
+<ul>
+  <li>La pantalla (elemento <code class="language-plaintext highlighter-rouge">screen</code>), a partir de la cual podemos acceder a ciertos datos como la anchura y altura, profundidad de color, etc.</li>
+  <li>El navegador en sí (elemento <code class="language-plaintext highlighter-rouge">navigator</code>), donde podemos acceder al nombre del navegador, plugins instalados…</li>
+  <li>El documento que tenemos abierto (elemento <code class="language-plaintext highlighter-rouge">document</code>), nos va a permitir acceder a la URL del documento, su título, enlaces…</li>
+  <li>La ubicación del documento actual (elemento <code class="language-plaintext highlighter-rouge">location</code>) nos permitirá centrarnos en la URL del documento actual, pudiéndola cambiar para cargar otras páginas.</li>
+  <li>El historial de navegación (elemento <code class="language-plaintext highlighter-rouge">history</code>) con el que podremos ir hacia adelante o atrás en el mismo.</li>
+</ul>
+
+<p>Veamos algunos ejemplos de uso básico de algunas de estas propiedades:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Sacamos por consola el ancho y alto de la pantalla:</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> x </span><span class="dl">"</span> <span class="o">+</span> <span class="nb">window</span><span class="p">.</span><span class="nx">screen</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+
+<span class="c1">// Cargamos otra página</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://iessanvicente.com</span><span class="dl">"</span><span class="p">;</span>
+<span class="c1">// También sirve</span>
+<span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">https://iessanvicente.com</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// Vamos a la página anterior del historial de navegación</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
+<span class="c1">// También sirve</span>
+<span class="nx">history</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="21-uso-de-timeouts-e-intervalos">2.1. Uso de <em>timeouts</em> e intervalos</h3>
+
+<p>Una de las aplicaciones más útiles que podemos extraer del uso del BOM es la posibilidad de definir <strong>timeouts</strong>, un tiempo pasado el cual queremos que se ejecute una instrucción o conjunto de instrucciones. Para ello usamos la función <code class="language-plaintext highlighter-rouge">timeout</code> indicándole qué función queremos ejecutar, y cuántos milisegundos queremos que pasen antes de ejecutarla. Por ejemplo, el siguiente código saca por consola la fecha actual pasados 3 segundos (usamos una <em>arrow function</em> para definir la función a ejecutar):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span> <span class="mi">3000</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Una opción un poco más elaborada consist en definir <strong>intervalos</strong>. La diferencia con lo anterior es que la función no sólo se ejecuta una vez, sino que se ejecuta periódicamente tras cada intervalo de tiempo definido. Este código muestra la fecha por consola cada 5 segundos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span> <span class="mi">5000</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Podemos también cancelar los intervalos que tengamos habilitados en cualquier momento. Para ello, debemos obtener el <em>id</em> del intervalo generado cuando lo creamos, y luego llamar a la función <code class="language-plaintext highlighter-rouge">clearInterval</code> con ese <em>id</em>. Por ejemplo, este código activa el intervalo anterior y, pasados 20 segundos, lo para.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">idIntervalo</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()),</span> <span class="mi">5000</span><span class="p">);</span>
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">idIntervalo</span><span class="p">),</span> <span class="mi">20000</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Tanto a <em>setTimeout</em> como a <em>setInterval</em> podemos pasarles una función ya existente, no es necesario definirla sobre la marcha con una <em>arrow function</em>. Si la función necesita parámetros adicionales, podemos pasárselos después del tiempo de espera. El siguiente <em>timeout</em> saluda al nombre que se le pasa como parámetro, pasados 5 segundos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">saludar</span><span class="p">(</span><span class="nx">nombre</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola, </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">nombre</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="nx">saludar</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="3-uso-del-dom">3. Uso del DOM</h2>
+
+<p>A través del modelo del documento o DOM podemos acceder a la estructura de información contenida en dicho documento: etiquetas, subetiquetas, atributos, etc. Esto nos puede servir para:</p>
+
+<ul>
+  <li>Consultar información de ciertos elementos de la página. Por ejemplo, validar si los datos de un formulario son correctos, o cuántos elementos de un tipo hay en una página</li>
+  <li>Modificar la información de ciertos elementos. Por ejemplo, cambiar sus propiedades CSS (color de fondo, visibilidad), o añadir/quitar elementos dinámicamente en la misma página.</li>
+</ul>
+
+<p>Para acceder o manipular la estructura del documento utilizaremos el objeto <code class="language-plaintext highlighter-rouge">document</code>. Es un objeto global que podemos utilizar directamente, o bien desde el objeto <code class="language-plaintext highlighter-rouge">window</code> que hemos visto antes (<em>window.document</em>, aunque es mucho más habitual utilizar <em>document</em> a secas).</p>
+
+<h3 id="31-instrucciones-para-explorar-el-dom">3.1. Instrucciones para explorar el DOM</h3>
+
+<p>Las siguientes instrucciones nos pueden resultar muy útiles para explorar la estructura del DOM:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">document.documentElement</code> obtiene el elemento raíz (<em>html</em>)</li>
+  <li><code class="language-plaintext highlighter-rouge">document.head</code> obtiene la cabecera (elemento <em>head</em>)</li>
+  <li><code class="language-plaintext highlighter-rouge">document.body</code> obtiene el cuerpo (elemento <em>body</em>)</li>
+  <li><code class="language-plaintext highlighter-rouge">document.getElementById("id")</code> obtiene el elemento cuyo <em>id</em> hemos indicado como parámetro</li>
+  <li><code class="language-plaintext highlighter-rouge">document.getElementsByClassName("clase")</code> obtiene el conjunto de elementos de la clase indicada.</li>
+  <li><code class="language-plaintext highlighter-rouge">document.getElementsByTagName("etiqueta")</code> obtiene el conjunto de etiquetas del tipo indicado.</li>
+  <li><code class="language-plaintext highlighter-rouge">element.children</code> obtiene todas las etiquetas que cuelgan del elemento actual</li>
+  <li><code class="language-plaintext highlighter-rouge">element.parentNode</code> obtiene la etiqueta padre de la actual</li>
+  <li><code class="language-plaintext highlighter-rouge">element.nextSibling</code> obtiene el siguiente hermano del elemento actual. También tenemos disponible <code class="language-plaintext highlighter-rouge">element.previousSibling</code>. Alternativamente, tenemos <code class="language-plaintext highlighter-rouge">nextElementSibling</code> o <code class="language-plaintext highlighter-rouge">previousElementSibling</code> si sólo queremos recorrer etiquetas, y no nodos de texto.</li>
+  <li><code class="language-plaintext highlighter-rouge">element.innerHTML</code> obtiene el contenido HTML del elemento actual. Alternativamente, podemos emplear la propiedad <code class="language-plaintext highlighter-rouge">textContent</code> o <code class="language-plaintext highlighter-rouge">innerText</code> para mostrar el contenido textual (sin subetiquetas, ya que las renderiza) que tenga el elemento.</li>
+</ul>
+
+<p>Podemos llamar a estas instrucciones (especialmente a las que buscan por <em>id</em>, clase o nombre de etiqueta) desde el documento en general (<em>document</em>) o desde un elemento en particular, con lo que buscará sólo en el interior de ese documento.</p>
+
+<p>Veamos cómo utilizar estas instrucciones con el siguiente ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Prueba DOM<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Ejemplo de prueba del DOM<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Párrafo de prueba<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"lista"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Uno<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Dos<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>Tres<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">id=</span><span class="s">"imagen1"</span>
+     <span class="na">src=</span><span class="s">"imagen.png"</span> <span class="na">title=</span><span class="s">"Imagen de prueba"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Sobre este ejemplo HTML, ejecutamos las siguientes instrucciones JavaScript. Deberemos ejecutarlas <em>al final</em> del documento, cuando ya se haya cargado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">lista</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">lista</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>    <span class="c1">// 3</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">items</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Uno, Dos, Tres, respectivamente    </span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">items</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">textContent</span><span class="p">);</span> 
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">imagen</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">imagen1</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// Ruta hasta imagen "imagen.png"</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">imagen</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span>  
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Crea un documento HTML llamado <strong>pruebaDOM.html</strong>, con este contenido (cópialo y pégalo):</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;title&gt;</span>Prueba con el DOM<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet, <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba"</span><span class="nt">&gt;</span>consectetuer 
+adipiscing elit<span class="nt">&lt;/a&gt;</span>. Sed mattis enim vitae orci. Phasellus libero. 
+Maecenas nisl arcu, consequat congue, commodo nec, commodo ultricies, 
+turpis. Quisque sapien nunc, posuere vitae, rutrum et, luctus at, 
+pede. Pellentesque massa ante, ornare id, aliquam vitae, ultrices 
+porttitor, pede. Nullam sit amet nisl elementum elit convallis 
+malesuada. Phasellus magna sem, semper quis, faucibus ut, rhoncus non, 
+mi. <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba2"</span><span class="nt">&gt;</span>Fusce porta<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Aenean at nisl. Maecenas egestas dapibus odio. Vestibulum ante ipsum 
+primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin 
+consequat auctor diam. <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba"</span><span class="nt">&gt;</span>Ut bibendum blandit est<span class="nt">&lt;/a&gt;</span>. 
+Curabitur vestibulum. Nunc malesuada porttitor sapien. Aenean a lacus et 
+metus venenatis porta. Suspendisse cursus, sem non dapibus tincidunt, 
+lorem magna porttitor felis, id sodales dolor dolor sed urna. Sed rutrum 
+nulla vitae tellus. Sed quis eros nec lectus tempor lacinia. Aliquam nec 
+lectus nec neque aliquet dictum. Etiam <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba3"</span><span class="nt">&gt;</span>consequat 
+sem quis massa<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">"p3"</span><span class="nt">&gt;</span>Vestibulum aliquet, nulla sit amet imperdiet suscipit, nunc 
+erat laoreet est, a <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba"</span><span class="nt">&gt;</span>aliquam leo odio sed sem<span class="nt">&lt;/a&gt;</span>. 
+Quisque eget eros vehicula diam euismod tristique. Proin 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba4"</span><span class="nt">&gt;</span>egestas<span class="nt">&lt;/a&gt;</span> adipiscing ligula. Duis iaculis 
+laoreet turpis. Mauris mollis est sit amet diam. Curabitur hendrerit, 
+eros quis malesuada tristique, ipsum odio euismod tortor, a vestibulum 
+nisl mi at odio. <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://prueba5"</span><span class="nt">&gt;</span>Sed non lectus non est 
+pellentesque<span class="nt">&lt;/a&gt;</span> auctor.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Después, añade un bloque de código JavaScript donde, utilizando los métodos de acceso al DOM vistos aquí, muestres con mensajes (alert) la siguiente información:</p>
+
+  <ul>
+    <li>Cuántos enlaces tiene la página en total</li>
+    <li>A qué dirección enlaza el primer enlace (deberás acceder a su propiedad <em>href</em>)</li>
+    <li>Cuántos enlaces hay en el tercer párrafo en total</li>
+  </ul>
+
+  <p>Observa también que, para que el código Javascript funcione en este ejemplo, deberemos añadirlo al final de la página, ya que de lo contrario aún no se habrán cargado los contenidos (sólo el bloque <em>head</em>), y no tendrá nada que examinar al ejecutarse.</p>
+</blockquote>
+
+<h3 id="32-uso-del-query-selector">3.2. Uso del <em>query selector</em></h3>
+
+<p>Con la aparición de la librería <em>jQuery</em> en el año 2006, algunas de las operaciones anteriores se pudieron expresar de forma más simple gracias a la sintaxis incorporada por el propio lenguaje. Así, acceder a un elemento por su <em>id</em> era tan sencillo como hacer <code class="language-plaintext highlighter-rouge">$("#id")</code>. Es por ello que, con el tiempo, el propio lenguaje JavaScript incorporó el uso de esta sintaxis, a través del método <code class="language-plaintext highlighter-rouge">querySelector</code> del documento. Veamos algunos ejemplos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">document.querySelector("a")</code> obtendría el primer enlace de la página</li>
+  <li><code class="language-plaintext highlighter-rouge">document.querySelector(".miClase")</code> obtendría el primer elemento de clase <em>miClase</em></li>
+  <li><code class="language-plaintext highlighter-rouge">document.querySelector("#miID")</code> obtendría el elemento con el id <em>miID</em></li>
+  <li><code class="language-plaintext highlighter-rouge">document.querySelector("h1, h2")</code> obtendría el primer encabezado <em>h1</em> o <em>h2</em></li>
+  <li><code class="language-plaintext highlighter-rouge">document.querySelector("div &gt; p")</code> obtendría el primer párrafo que fuera hijo inmediato de un <em>div</em></li>
+  <li>…</li>
+</ul>
+
+<p>Como alternativa al método <code class="language-plaintext highlighter-rouge">querySelector</code>, también disponemos de <code class="language-plaintext highlighter-rouge">querySelectorAll</code>, que obtiene una lista (array) con todos los elementos que cumplan el patrón indicado. Por ejemplo, <code class="language-plaintext highlighter-rouge">document.querySelectorAll("a")</code> obtendrá un array con todos los enlaces del documento. Así podríamos obtenerlos y mostrar sus títulos (atributo <em>title</em>):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">enlaces</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">enlaces</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">elem</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">title</span><span class="p">));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong>:</p>
+
+  <p>Crea un documento HTML llamado <strong>pruebaDOM2.html</strong>, con el mismo contenido que el anterior, y trata de resolverlo usando el <em>query selector</em> esta vez.</p>
+</blockquote>
+
+<h4 id="321-búsquedas-de-elementos-y-recorrido-en-bucles">3.2.1. Búsquedas de elementos y recorrido en bucles</h4>
+
+<p>A la hora de utilizar las instrucciones <em>getElementXXXX</em> o el <em>query selector</em> hay que tener en cuenta algunas diferencias importantes. Por ejemplo, el tipo de colección que se devuelve con uno u otro es distinto, y eso hace que no se pueda utilizar la instrucción <code class="language-plaintext highlighter-rouge">forEach</code> si empleamos las instrucciones <em>getElementXXXX</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">parrafos</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">parrafos</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">p</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>     <span class="c1">// ERROR</span>
+</code></pre></div></div>
+
+<p>En cambio, sí podemos recorrerlo con un <em>for</em> tradicional:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">parrafos</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p</span> <span class="k">of</span> <span class="nx">parrafos</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>     <span class="c1">// OK</span>
+</code></pre></div></div>
+
+<p>Si empleamos el <em>query selector</em>, podremos utilizar uno u otro tipo de recorrido indistintamente:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">parrafos</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">parrafos</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">p</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">...</span> <span class="p">});</span>     <span class="c1">// OK</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p</span> <span class="k">of</span> <span class="nx">parrafos</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>     <span class="c1">// OK</span>
+</code></pre></div></div>
+
+<h3 id="33-manipulación-del-dom">3.3. Manipulación del DOM</h3>
+
+<p>Una vez sabemos acceder a los elementos del documento, podemos modificar el contenido del mismo: añadir nuevos elementos, borrar elementos existentes o modificar el contenido de los que hay.</p>
+
+<h4 id="331-crear-contenidos">3.3.1. Crear contenidos</h4>
+
+<p>Para crear contenido, seguiremos estos pasos:</p>
+
+<ol>
+  <li>Crearemos un objeto del tipo que queramos añadir (párrafo, <em>h1</em>, <em>div</em>, etc.)</li>
+  <li>Crearemos el contenido de dicho objeto</li>
+  <li>Añadiremos el contenido al objeto</li>
+  <li>Añadiremos el objeto al documento, en la posición que queramos</li>
+</ol>
+
+<p>Por ejemplo, si queremos añadir un párrafo con el texto “Hola” al final del documento, el código JavaScript sería el siguiente:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. Creamos el párrafo</span>
+<span class="kd">let</span> <span class="nx">parrafo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>  
+<span class="c1">// 2. Creamos su contenido</span>
+<span class="kd">let</span> <span class="nx">contenido</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">);</span>    
+<span class="c1">// 3. Añadimos el contenido</span>
+<span class="nx">parrafo</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">contenido</span><span class="p">);</span>
+<span class="c1">// 4. Añadimos el párrafo</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">parrafo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En el caso de que quisiéramos añadir este mismo párrafo al final de un div con <em>id = div1</em>, primero localizaríamos este div, y luego le añadiríamos el párrafo a él, en lugar de al body:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 0. Buscamos el lugar</span>
+<span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// 1. Creamos el párrafo</span>
+<span class="kd">let</span> <span class="nx">parrafo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// 2. Creamos su contenido</span>
+<span class="kd">let</span> <span class="nx">contenido</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// 3. Añadimos el contenido</span>
+<span class="nx">parrafo</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">contenido</span><span class="p">);</span>
+<span class="c1">// 4. Añadimos el párrafo</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">parrafo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también podemos emplear la instrucción <code class="language-plaintext highlighter-rouge">insertBefore</code> para añadir un elemento antes de otro. Por ejemplo, este código añade un nuevo item en una lista, justo delante del tercer elemento. Además, cambia el contenido de ese elemento para indicar que ahora es el cuarto:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"lista"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Primero<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Segundo<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>Tercero<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="kd">let</span> <span class="nx">lista</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">lista</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">item3</span> <span class="o">=</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="kd">let</span> <span class="nx">nuevoItem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">nuevoItem</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nuevo tercero</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">lista</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">nuevoItem</span><span class="p">,</span> <span class="nx">item3</span><span class="p">);</span>
+    <span class="nx">item3</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nuevo cuarto</span><span class="dl">"</span><span class="p">;</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<h4 id="332-modificar-contenido-existente">3.3.2. Modificar contenido existente</h4>
+
+<p>Si queremos modificar el contenido de un elemento existente, podemos acudir a la propiedad <code class="language-plaintext highlighter-rouge">innerHTML</code> de dicho elemento (una vez encontrado), o también la propiedad <code class="language-plaintext highlighter-rouge">innerText</code> (si sólo queremos cambiar el texto, sin subetiquetas), y le cambiamos el valor al del nuevo contenido. Por ejemplo, si queremos cambiar el contenido del párrafo con <em>id=”miParrafo”</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">parrafo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">miParrafo</span><span class="dl">"</span><span class="p">);</span>	
+<span class="nx">parrafo</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nuevo &lt;strong&gt;contenido&lt;/strong&gt; del párrafo</span><span class="dl">"</span><span class="p">;</span>	
+</code></pre></div></div>
+
+<h4 id="333-borrar-contenido">3.3.3. Borrar contenido</h4>
+
+<p>Para borrar un contenido de la página, deberemos localizar el elemento (párrafo, h1, etc.) que queremos borrar, acceder a su padre, y decirle que borre a ese hijo. Por ejemplo, si queremos borrar un div cuyo id es <em>div1</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">div</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Modifica el ejercicio <em>pruebaDOM.html</em> en un archivo llamado <strong>pruebaDOM3.html</strong>, añadiendo las siguientes funcionalidades:</p>
+
+  <ul>
+    <li>Añadir un nuevo párrafo al final del documento que diga “Nuevo párrafo”.</li>
+    <li>Borrar el segundo párrafo del documento</li>
+  </ul>
+</blockquote>
+
+<h4 id="334-acceder-a-atributos-concretos">3.3.4. Acceder a atributos concretos</h4>
+
+<p>En ocasiones nos puede interesar acceder a un atributo concreto de un elemento para ver o modificar su valor. Por ejemplo, si queremos acceder al atributo <em>class</em> de un párrafo cuyo id es <em>p1</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">parrafo</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">p1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">claseParrafo</span> <span class="o">=</span> <span class="nx">parrafo</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En general, los nombres de atributos coinciden con los que hayamos puesto en el HTML (<em>style</em>, <em>href</em>…) salvo algunas excepciones como <em>className</em>. Algunos de ellos no dejan modificar su valor (sólo leerlo), pero otros sí.</p>
+
+<p><strong>Caso práctico: acceso a los estilos CSS</strong></p>
+
+<p>Una de las principales utilidades del acceso a los atributos es poder acceder y modificar algunos estilos de la página en tiempo real. Por ejemplo, cambiar la anchura del párrafo del ejemplo anterior (<em>width</em>), o la visibilidad (<em>display</em>), para mostrarlo u ocultarlo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">parrafo</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span><span class="o">=</span><span class="dl">"</span><span class="s2">50%</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">parrafo</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="o">=</span><span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Normalmente, para acceder a las propiedades CSS (como <em>width</em>, <em>display</em>…) se accede a la propiedad <code class="language-plaintext highlighter-rouge">style</code>, seguida del atributo o propiedad a modificar, que suele tener el mismo nombre que tienen en CSS; en el caso de que la propiedad tenga un nombre compuesto en CSS (<em>background-color</em>, <em>font-weight</em>…), se quita el guión y se pone la primera letra de la siguiente palabra en mayúsculas en la propiedad JavaScript (<em>backgroundColor</em>, <em>fontWeight</em>).</p>
+
+<p>Este ejemplo cambia el color de fondo del párrafo anterior, y lo establece en rojo (observa que el valor de la propiedad siempre va entre comillas):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">parrafo</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="o">=</span><span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4</strong>:</p>
+
+  <p>Crea otra versión del ejercicio <em>pruebaDOM.html</em> anterior en un archivo <strong>pruebaDOM4.html</strong>. Añade estos cambios sobre la versión inicial:</p>
+
+  <ul>
+    <li>Pon el color de fondo del primer párrafo en amarillo.</li>
+    <li>Oculta el segundo párrafo</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

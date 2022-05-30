@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Funciones | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Funciones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="07.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/07.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Funciones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Funciones","url":"http://nachoiborraies.github.io/python/md/es/07.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="funciones">Funciones</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/07.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="07.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Las funciones nos permiten agrupar el código en bloques reutilizables. De este modo, evitamos repetir innecesariamente el código, y además, podemos reutilizarlo en diferentes partes del programa.</p>
+
+<h2 id="1-definición-de-funciones">1. Definición de funciones</h2>
+
+<p>A la hora de definir una función en Python, comenzamos con la palabra <code class="language-plaintext highlighter-rouge">def</code> seguida del nombre de la función y los parámetros que tendrá, entre paréntesis. Para cada parámetro sólo debemos especificar su nombre (recuerda que en Python no se especifican los tipos de datos explícitamente).</p>
+
+<p>Igual que ocurre con otras estructuras como <em>if</em> o <em>while</em>, el código perteneciente a una función debe estar tabulado. Además, si queremos que la función devuelva algún valor, podemos emplear la cláusula <code class="language-plaintext highlighter-rouge">return</code> como en otros lenguajes, aunque no es obligatoria si no queremos devolver nada. También podemos definir un <em>return</em> vacío para indicar que no se devuelve nada.</p>
+
+<p>Veamos algunos ejemplos.</p>
+
+<ul>
+  <li>Esta función toma dos parámetros y devuelve el mayor de ellos</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maximo</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">num1</span> <span class="o">&gt;</span> <span class="n">num2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">num1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">num2</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Esta función toma un texto como parámetro y lo saca por pantalla:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">imprimeTexto</span><span class="p">(</span><span class="n">texto</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+    <span class="k">return</span> <span class="c1"># Esta línea se podría omitir
+</span></code></pre></div></div>
+
+<p>A la hora de llamar a estas funciones desde otras partes del código, se hace igual que en muchos otros lenguajes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span> <span class="p">(</span><span class="s">"Escribe dos números"</span><span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">"El máximo es"</span><span class="p">,</span> <span class="n">maximo</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">))</span>
+
+<span class="n">texto</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Escribe un texto:"</span><span class="p">)</span>
+<span class="n">imprimeTexto</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="2-sobre-los-parámetros">2. Sobre los parámetros</h2>
+
+<p>Veamos a continuación algunos aspectos relevantes sobre los parámetros que pasamos a las funciones.</p>
+
+<h3 id="21-paso-por-valor-y-por-referencia">2.1. Paso por valor y por referencia</h3>
+
+<p>En Python todos los parámetros simples (números, booleanos y textos) se pasan por valor, con lo que no podemos modificar el valor original del dato (se pasa una copia del mismo), y todos los tipos complejos (arrays, u objetos) se pasan por referencia. Esto último implica que, siempre que se mantenga la referencia original, podemos modificar el valor del parámetro de forma persistente (se aplica a la variable original utilizada como parámetro). Por ejemplo, si empleamos esta función:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">anyadirValores</span><span class="p">(</span><span class="n">lista</span><span class="p">):</span>
+    <span class="n">lista</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">"Valores en la función:"</span><span class="p">,</span> <span class="n">lista</span><span class="p">)</span>
+    <span class="k">return</span>
+</code></pre></div></div>
+
+<p>y llamamos a la función de este modo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lista1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="n">anyadirValores</span><span class="p">(</span><span class="n">lista1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">"Valores fuera de la función:"</span><span class="p">,</span> <span class="n">lista1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Entonces la variable <em>lista1</em> y el parámetro <em>lista</em> almacenan los mismos valores finales: <code class="language-plaintext highlighter-rouge">[10, 20, 30]</code>. Sin embargo, si usamos esta otra función:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">anyadirValores</span><span class="p">(</span><span class="n">lista</span><span class="p">):</span>
+    <span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">"Valores en la función:"</span><span class="p">,</span> <span class="n">lista</span><span class="p">)</span>
+    <span class="k">return</span>
+</code></pre></div></div>
+
+<p>y llamamos a la función del mismo modo que antes, entonces la variable original <em>lista1</em> tendrá los valores <code class="language-plaintext highlighter-rouge">[10, 20]</code> al finalizar, y el parámetro <em>lista</em> tendrá los valores <code class="language-plaintext highlighter-rouge">[30, 40]</code> dentro de la función, pero este cambio se pierde fuera de la misma, porque se ha modificado la referencia de la variable (la hemos reasignado entera en la función), y por tanto hemos creado una nueva referencia distinta a la original, que no modifica entonces su contenido.</p>
+
+<h3 id="22-tipos-de-parámetros">2.2. Tipos de parámetros</h3>
+
+<p>Los parámetros definidos en una función pueden ser:</p>
+
+<ul>
+  <li><strong>Obligatorios</strong>: es el modo normal. Si simplemente definimos el nombre de cada parámetro, entonces ese parámetro es obligatorio, y debemos darles valor al llamarles, en el mismo orden en que están definidos. Aquí podemos ver un ejemplo (el mismo visto anteriormente):</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maximo</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">num1</span> <span class="o">&gt;</span> <span class="n">num2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">num1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">num2</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Palabras clave</strong>: podemos utilizar el nombre original de los parámetros cuando llamamos a la función, y de este modo no tenemos por qué seguir el mismo orden que cuando se definió dicha función. Por ejemplo:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">imprimirDatos</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">edad</span><span class="p">):</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">"Tu nombre es"</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="s">"y tu edad es"</span><span class="p">,</span> <span class="n">edad</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">...</span>
+<span class="n">imprimirDatos</span><span class="p">(</span><span class="n">edad</span> <span class="o">=</span> <span class="mi">28</span><span class="p">,</span> <span class="n">nombre</span> <span class="o">=</span> <span class="s">"Juan"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Valores por defecto</strong>: cuando declaramos la función con sus parámetros, podemos asignar un valor por defecto a los parámetros que queramos. Así, si queremos llamar a la función, podemos omitir los parámetros que tengan un valor por defecto asignado, si queremos. Por ejemplo:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">imprimirDatos</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">edad</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">"Tu nombre es"</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="s">"y tu edad es"</span><span class="p">,</span> <span class="n">edad</span><span class="p">)</span>
+    <span class="k">return</span>
+    <span class="p">...</span>
+<span class="n">imprimirDatos</span><span class="p">(</span><span class="s">"Juan"</span><span class="p">)</span> <span class="c1"># Imprime "Tu nombre es Juan y tu edad es 0"
+</span></code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: es importante que los parámetros que tengan valores por defecto se coloquen todos al final de la lista de parámetros (tras los obligatorios), para que así no queden huecos si queremos llamar a la función omitiendo parámetros. También es importante que, cuando omitamos un parámetro, los que vayan detrás también se omitan para que no se desplace el orden y se asignen por error a otros parámetros.</p>
+</blockquote>
+
+<ul>
+  <li><strong>Longitud variable</strong>: podemos especificar como último parámetro de la función un tipo especial que permite pasar tantos parámetros como necesitemos. Por ejemplo:</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">imprimirTodo</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span> <span class="o">*</span><span class="n">numeros</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Primer número:"</span><span class="p">,</span> <span class="n">num1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numeros</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">num</span>
+    <span class="k">return</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Crea un programa llamado <code class="language-plaintext highlighter-rouge">Funciones.py</code> con las siguientes funciones:</p>
+
+  <ol>
+    <li>Una función llamada <code class="language-plaintext highlighter-rouge">fibonacci</code> que reciba un entero <em>n</em> como parámetro y devuelva el n-ésimo elemento de la serie de Fibonacci</li>
+    <li>Una función llamada <code class="language-plaintext highlighter-rouge">esPrimo</code> que reciba un número como parámetro y devuelva un booleano indicando si el número es primo o no</li>
+  </ol>
+
+  <p>Desde el programa principal, llama a la función <code class="language-plaintext highlighter-rouge">fibonacci</code> para mostrar el 5º y 10º números de la serie de Fibonacci, y usa la función <code class="language-plaintext highlighter-rouge">esPrimo</code> para sacar los números primos que haya del 1 al 50.</p>
+</blockquote>
+
+<h3 id="23-paso-de-parámetros-al-programa-principal">2.3. Paso de parámetros al programa principal</h3>
+
+<p>A pesar de que en Python no existe una función principal <code class="language-plaintext highlighter-rouge">main</code> como la que sí existe en otros lenguajes como C, Java, C#… sí es posible pasar parámetros al programa desde el terminal cuando lo ejecutamos. Para ello, importamos el elemento <code class="language-plaintext highlighter-rouge">sys</code>, que hace referencia al sistema sobre el que se ejecuta el programa. Dentro, disponemos de un array predefinido llamado <code class="language-plaintext highlighter-rouge">argv</code>, similar al que existe en C o C++, con los datos que le llegan al programa. El primero de ellos, igual que ocurre en C o C++ es el nombre del propio ejecutable, y el resto son los parámetros adicionales.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)):</span>
+	<span class="c1"># Recorremos los parámetros quitando el 0 (ejecutable)
+</span>	<span class="k">print</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

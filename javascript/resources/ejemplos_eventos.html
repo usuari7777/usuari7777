@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de uso de eventos</title>
+    <style>
+        body
+        {
+            font-family: Arial;
+            margin: 20px 20%;
+        }
+
+        div
+        {
+            margin-bottom: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            height: 100px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1" onmouseenter="this.style.backgroundColor='yellow'">
+        Evento con atributo XHTML
+    </div>
+    <div id="div2" onmouseenter="cambiarColor(this)">
+        Evento con atributo XHTML y función
+    </div>
+    <div id="div3">Evento con DOM</div>
+    <div id="div4">Evento con Listener</div>
+
+    <script>
+        function cambiarColor(elemento)
+        {
+            elemento.style.backgroundColor = "yellow";
+        }
+
+        let div3 = document.getElementById("div3");
+        div3.onmouseenter = function() {
+            this.style.backgroundColor = "yellow";
+        }
+
+        let div4 = document.getElementById("div4");
+        div4.addEventListener("mouseenter", function() {
+            this.style.backgroundColor = "yellow";
+        });
+    </script>
+</body>
+</html>

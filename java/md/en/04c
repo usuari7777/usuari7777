@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functions and error handling | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Functions and error handling" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/04c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/04c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functions and error handling" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Functions and error handling","url":"http://nachoiborraies.github.io/java/md/en/04c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="functions-and-error-handling">Functions and error handling</h1>
+
+<h2 id="exception-management">Exception management</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/04c.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/04c.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Along the development of a Java program we can find two types of errors: compilation errors and runtime errors. The first ones are detected by the compiler as we type the code, whereas runtime errors are difficult to predict (in general): network errors, dividing by zero, file not found… Most of these runtime errors can be handled by <strong>exceptions</strong>.</p>
+
+<h3 id="1-what-is-an-exception">1. What is an exception?</h3>
+
+<p>An exception is an event that happens during the execution of a program and makes it exit from its normal instruction flow. This way, we can deal with the error in a smart way, by separating the “normal” code from the error itself. Whenever an exception occurs, we say that it has been <strong>thrown</strong>, and we can choose among propagating it (throwing it again) or <strong>catching</strong> it and process the error. We will see these two options in a few minutes.</p>
+
+<h4 id="11-exception-types">1.1. Exception types</h4>
+
+<p>Runtime errors can be of two main types:</p>
+
+<ul>
+  <li><strong>Errors</strong>: in this case, we talk about <em>fatal</em> errors that happen during the execution of a program, such as hardware errors, memory errors… These errors can’t be managed from within a Java application.</li>
+  <li><strong>Exceptions</strong>: they are non-critical errors that can be managed (files not found, parsing errors…). Inside this type of errors, we can talk about:
+    <ul>
+      <li><strong>Runtime exceptions</strong>: they don’t need to be catched, and they are difficult to predict, in general. For instance, assigning null to a variable, or going beyond the boundaries of an array.</li>
+      <li><strong>Checked exceptions</strong>: these exceptions need to be catched, or declared to be thrown. In other words, if we use a function that can throw these type of exceptions, the compiler will complain if we don’t catch the exception or throw it again. For instance, whenever we call the <code class="language-plaintext highlighter-rouge">Thread.sleep</code> instruction, we need to catch or throw an <code class="language-plaintext highlighter-rouge">InterruptedException</code>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>However, every type of exception is a subtype of the <code class="language-plaintext highlighter-rouge">Exception</code> main type. This generic type stores the error message produced by the exception. There are some other subtypes that store more specific information. For instance, <code class="language-plaintext highlighter-rouge">ParseException</code> is a subtype of <code class="language-plaintext highlighter-rouge">Exception</code> that is thrown whenever data can’t be properly parsed. It stores the error message along with the position where the error was found.</p>
+
+<h4 id="12-types-of-exception-management">1.2. Types of exception management</h4>
+
+<p>Whenever an exception is caused in a program, we can decide how to treat it. Basically, we have two options in our code:</p>
+
+<ul>
+  <li><strong>Catch</strong> the exception. This means that exception is “destroyed” and we can show a controlled, customized error message instead.</li>
+  <li><strong>Throw</strong> the exception. In this case, we don’t want to care about the exception, and we delegate in another piece of code to treat it.</li>
+</ul>
+
+<p>In next sections of this document we will learn how to manage these two options.</p>
+
+<h3 id="2-catching-exceptions">2. Catching exceptions</h3>
+
+<p>Whenever a piece of code can throw an exception, we can catch it by using a <code class="language-plaintext highlighter-rouge">try..catch</code> block. We put inside the <code class="language-plaintext highlighter-rouge">try</code> clause the code of our program that may produce an exception, and we use the <code class="language-plaintext highlighter-rouge">catch</code> clause to respond to the specified error. We can just output an error message, or return a given value, among other possible options.</p>
+
+<p>This example tries to convert a string into an integer value. If the conversion can’t be done because the input is not valid, then a <code class="language-plaintext highlighter-rouge">NumberFormatException</code> will be thrown, and we can produce an appropriate error message in the <code class="language-plaintext highlighter-rouge">catch</code> clause.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+<span class="n">string</span> <span class="n">text</span> <span class="o">=</span> <span class="o">...</span> <span class="c1">// Whatever value</span>
+
+<span class="k">try</span>
+<span class="o">{</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error parsing text: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">getMessage</code> method gets the error message produced by the exception. See that we are using <code class="language-plaintext highlighter-rouge">System.err</code> instead of <code class="language-plaintext highlighter-rouge">System.in</code> because we are printing an error, and then we should use the default error output instead of the default “normal” output.</p>
+
+<p>We can also use <code class="language-plaintext highlighter-rouge">printStackTrace</code> method to print a complete stack trace of the error, so that we can see the call stack that have produced the error (this is, methods that have been called until the error was produced).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+<span class="n">string</span> <span class="n">text</span> <span class="o">=</span> <span class="o">...</span> <span class="c1">// Whatever value</span>
+
+<span class="k">try</span>
+<span class="o">{</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can add as many <code class="language-plaintext highlighter-rouge">catch</code> clauses as we need, and each one can represent a specific exception type:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+<span class="o">{</span>
+    <span class="c1">// Code that may fail</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NumberFormatException</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Error message for number format</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArithmeticException</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Error message for dividing by zero</span>
+<span class="o">...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">eN</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Error message for any other error</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, we must put these <code class="language-plaintext highlighter-rouge">catch</code> clauses in order, so that the most generic ones are placed at the end, because the program will enter at the first <code class="language-plaintext highlighter-rouge">catch</code> clause that matches the exception produced. In other words, if we put the <code class="language-plaintext highlighter-rouge">catch(Exception)</code> clause at the beginning, the rest of clauses will have no effect, since any of them are subtypes of <code class="language-plaintext highlighter-rouge">Exception</code> and thus, they will be catched by the first clause.</p>
+
+<p>There are some instructions that force us to deal with a specific type of exception. For instance, if we call <code class="language-plaintext highlighter-rouge">Thread.sleep</code> instruction, the compiler will ask us to deal with an <code class="language-plaintext highlighter-rouge">InterruptedException</code>. We can do it this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+<span class="o">{</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Interruption during sleep: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, we can also use a generic <code class="language-plaintext highlighter-rouge">Exception</code> element in the <code class="language-plaintext highlighter-rouge">catch</code> clause to deal with any type of exception. We only need to specify concrete types of exceptions if we want to manage different <code class="language-plaintext highlighter-rouge">catch</code> clauses, and then, produce different error messages depending on the exception produced.</p>
+
+<h3 id="3-throwing-exceptions">3. Throwing exceptions</h3>
+
+<p>The second way of managing an exception is throwing it. This way, we pass it to the next function in the stack call… until we reach the <em>main</em> function (in this function we should no longer throw exceptions, we must catch them).</p>
+
+<p>For instance, this function receives two numbers and returns the division n1 / n2. But if n2 is 0, we can’t divide them, so in this case we can throw a new exception to indicate that data is not correct:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">divide</span> <span class="o">(</span><span class="kt">int</span> <span class="n">n1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n2</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArithmeticException</span><span class="o">(</span><span class="s">"Can't divide by zero"</span><span class="o">);</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">n1</span> <span class="o">/</span> <span class="n">n2</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, if we try to use this method in our program, we must be aware that an exception can be thrown, and catch it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">anotherFunction</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">number1</span><span class="o">,</span> <span class="n">number2</span><span class="o">;</span>
+
+    <span class="c1">// ... Ask user to fill number1 and number2</span>
+
+    <span class="k">try</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">divide</span><span class="o">(</span><span class="n">number1</span><span class="o">,</span> <span class="n">number2</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span> <span class="o">(</span><span class="nc">ArithmeticException</span> <span class="n">e</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, let’s have a look at this example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span>
+<span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">InterruptedException</span> <span class="o">(</span><span class="s">"Exception in a"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span>
+<span class="o">{</span>
+    <span class="n">a</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">c</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span>
+<span class="o">{</span>
+    <span class="n">b</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">d</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span>
+<span class="o">{</span>
+    <span class="n">c</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">try</span>
+    <span class="o">{</span>
+        <span class="n">d</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Exception: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This example produces an <code class="language-plaintext highlighter-rouge">InterruptedException</code> in function <code class="language-plaintext highlighter-rouge">a</code> (we can produce exceptions by throwing new exception elements of any type). Then, as <code class="language-plaintext highlighter-rouge">b</code> function calls <code class="language-plaintext highlighter-rouge">a</code> function, it is asked to either catch the exception or throw it. By adding the <code class="language-plaintext highlighter-rouge">throws</code> clause in the function definition, we explicitly say that this function can throw <code class="language-plaintext highlighter-rouge">InterruptedException</code> exceptions. This chain goes on with functions <code class="language-plaintext highlighter-rouge">c</code> and <code class="language-plaintext highlighter-rouge">d</code>. Finally, main function calls function <code class="language-plaintext highlighter-rouge">d</code>, and as this function can throw InterruptedExceptions, we need to catch the possible exception in <em>main</em>.</p>
+
+<p>All this chain of exception throwing have been originated from <code class="language-plaintext highlighter-rouge">a</code> function, since it throws a <em>checked</em> exception that needs to be catched or thrown. If this function had thrown a runtime exception (such as <code class="language-plaintext highlighter-rouge">NullPointerException</code>), then none of the <code class="language-plaintext highlighter-rouge">throws</code> clauses would have been necessary, since it is a non checked exception. The example would have been like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">NullPointerException</span> <span class="o">(</span><span class="s">"Null pointer exception in a"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">a</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">c</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">b</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">d</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">c</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">d</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, if we try to run this last example, a <code class="language-plaintext highlighter-rouge">NullPointerException</code> exception will be produced in our console. As this is a non checked exception, we don’t need to catch it but, as soon as it is produced, we should, to avoid these huge error messages in the console as we run the program:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exception in thread "main" java.lang.NullPointerException: 
+Null pointer exception in a
+	at Pruebas.a(Pruebas.java:6)
+	at Pruebas.b(Pruebas.java:11)
+	at Pruebas.c(Pruebas.java:16)
+	at Pruebas.d(Pruebas.java:21)
+	at Pruebas.main(Pruebas.java:26)
+</code></pre></div></div>
+
+<p>We can even throw (or declare to be thrown) as many exception types as we want, separated by commas in the <code class="language-plaintext highlighter-rouge">throws</code> clause. Then, we will need to catch all of them sooner or later:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">multipleExceptionsFunction</span><span class="o">()</span>
+<span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">InterruptedException</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="o">(...)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IOException</span><span class="o">(</span><span class="s">"IOException produced"</span><span class="o">);</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="o">(...)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">InterruptedException</span><span class="o">(</span><span class="s">"Interrupted!!"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">anotherFunction</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">try</span>
+    <span class="o">{</span>
+        <span class="n">multipleExceptionsFunction</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(...);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(...);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>CalculateDensity</strong> that asks the user to type a weight (in grams) and a volume (in liters). Then, the program must output the density, which is calculated by dividing weight / volume. The program must catch every type of possible exception: <code class="language-plaintext highlighter-rouge">NumberFormatException</code> and <code class="language-plaintext highlighter-rouge">ArithmeticException</code> whenever they can be thrown. You can only use <code class="language-plaintext highlighter-rouge">Scanner.nextLine</code> method to get the user input in this exercise.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a program called <strong>WaitApp</strong> with a function called <em>waitSeconds</em> that will receive a number of seconds (integer) as a parameter. Internally, this function will call <code class="language-plaintext highlighter-rouge">Thread.sleep</code> method to pause the program the given number of seconds (this function works with milliseconds, so you must convert seconds to milliseconds when calling it). As the <code class="language-plaintext highlighter-rouge">sleep</code> method can throw an <code class="language-plaintext highlighter-rouge">InterruptedException</code> element, you will need to deal with it. In this case, you are asked to throw the exception from <em>waitSeconds</em> method, and catch it in the <em>main</em> method, that will call <em>waitSeconds</em> with the number of seconds specified as a <em>main</em> parameter (inside the <code class="language-plaintext highlighter-rouge">String[] args</code> parameter). After waiting the specified number of secods, the program will prompt a “Finish” message before exiting.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

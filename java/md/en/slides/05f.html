@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Refactoring and software patterns</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Object oriented programming
+### Refactoring and software patterns
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Refactoring
+
+- Code update that does not affect its behavior
+   - To make it clearer and/or more robust
+- Part of software maintenance that does not fix any bug nor add any new feature
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Why to refactor?
+
+* **Quality.** Good code is simple and well structured
+* **Efficiency.** Keeping a good design and a structured code is the most efficient way to develop a program. 
+* **Evolutive Design.** Sometimes new requirements appear that may affect initial project's architecture
+* **Avoid rewriting code.** Refactoring is better than rewriting from scratch
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## When to refactor?
+
+* **Ambiguous identifiers**. Rename them to clarify our code
+* **Duplicated code**. The main reason to refactor our code
+* **Long method**. The shorter a method is, the easier we can use it
+* **Large class**. When a single class tries to solve too many problems
+* **Long parameter list**. We should not pass too many parameters to our methods
+* **Feature envy**. When a method uses more elements of another class than from its own class. 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 1
+
+Non-refactored code
+
+```java
+public class NoRefactor
+{
+    public static void main(String[] args) 
+    {
+        int sum1 = 0, sum2 = 0, result = 0;
+        int array1[] = {1,2,3,4}, array2[] = {5,6,7,8};
+
+        for(int i = 0; i < array1.length; i++)
+        {
+            sum1 += array1[i];
+        }
+        result += sum1/array1.length;
+
+        for(int i = 0; i < array2.length; i++)
+        {
+            sum2 += array2[i];
+        }
+        result += sum2/array2.length;
+
+        System.out.println("The result is: " + result);
+    }
+}
+```
+
+</script>
+</section>
+
+
+<section data-markdown>
+<script type="text/template">
+## Example 1
+
+Refactored code
+
+```java
+public class Refactor 
+{
+    public static int calculateResult(int []array) 
+    {
+        int sum = 0;
+        for(int i = 0; i < array.length; i++) 
+        {
+            sum += array[i];
+        }
+        return sum/array.length;
+    }
+
+    public static void main(String args) 
+    {
+        int array1[] = {1,2,3,4}, array2[] = {5,6,7,8};
+        int result = 0;
+
+        result = calculateResult(array1);
+        result += calculateResult(array2);
+
+        System.out.println("The result is: " + result);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 2
+
+Non-refactored code
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class LongMethod 
+{
+    public static void main(String args[])
+    {
+        int array[] = new int[10];
+        BufferedReader input = new BufferedReader(
+            new InputStreamReader(System.in));
+        int result = 0;
+
+        // Array initialization
+        for(int i = 0; i < array.length; i++)
+        {
+            System.out.printf("Enter value for array[%d]", i);
+            try 
+            {
+                array[i] = Integer.valueOf(input.readLine());
+            } catch (IOException e) {
+                err.println("Error: " + e.getMessage());
+            }
+        }
+
+        // Sum of the array
+        System.out.println("Sum: ");
+        for(int i = 0; i < array.length; i++)
+        {
+            result = result + array[i];
+            System.out.print(array[i] + " " + 
+                (i==array.length-1?" ":"+ "));
+        }
+        System.out.println("= " + result);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2
+
+Refactored code
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class NoLongMethod 
+{
+    public static int[] initialize()
+    {
+        int array[] = new int[10];
+        
+        BufferedReader input = new BufferedReader(
+            new InputStreamReader(System.in));
+
+        for(int i = 0; i < array.length; i++)
+        {
+            System.out.printf("Enter value for array[%d]", i);
+            try 
+            {
+                array[i] = Integer.valueOf(input.readLine());
+            } catch (IOException e) {
+                err.println("Error: " + e.getMessage());
+            }
+        }
+
+        return array;
+    }
+
+    public static void sumArray(int[] array)
+    {
+        int result = 0;
+
+        System.out.println("Sum: ");
+
+        // Sum of the array
+        for(int i = 0; i < array.length; i++)
+        {
+            result = result + array[i];
+            System.out.print(array[i] + " " + 
+                (i==array.length-1?" ":"+ "));
+        }
+        System.out.println("= " + result);
+    }
+
+    public static void main(String args[])
+    {
+        int[] array = initialize();
+        sumArray(array);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Refactoring in IntelliJ
+
+* *Refactor > Rename*: Rename variables, classes, methods... and apply these changes to the whole code
+* *Refactor > Move*: Move classes/members from one package/class to another.
+* *Refactor > Introduce constant*: Convert a number or literal string into a constant.
+* *Refactor > Introduce field*: Transform a local variable into a private attribute of the class.
+* *Refactor > Extract interface*: Extract an interface from the methods of a class.
+* *Refactor > Extract superclass*: Extract a superclass with methods that will belong to this superclass.
+* ...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Design patterns
+
+- Useful techniques that we can apply when we need to refactor our code
+- They standardize how to resolve some given problems
+- They simplify the learning of good programming practices
+- They provide a common vocabulary among developers
+- They avoid reinventing the wheel
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Types of design patterns
+
+* **Creational patterns**: They encapsulate the logic of the object instantiation, hiding the concrete details of every object.
+* **Structural patterns**: They help us define how objects are composed.
+* **Behavioral patterns**: They help us define how objects interact between them.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern
+
+- Creational pattern that provides one of the best ways of creating objects
+- Lets us create objects without showing the logic of the creation to the user
+- We just use a common interface.
+- Really useful when there is a complex class hierarchy with a common instantiation pattern (similar parameters)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern: Example 1
+
+Introducing the problem: developers must know the name of every implementing class
+
+```java
+Shape myShape = new Circle(3);
+...
+Shape myShape2 = new Square(5);
+...
+myShape.draw();
+...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern: Example 1
+
+Creating the *factory* class to instantiate every object
+
+```java
+public enum ShapeType { CIRCLE, SQUARE, RECTANGLE }
+
+public class ShapeFactory 
+{
+    public static Shape getShape(ShapeType type, float param1, float param2)
+    {
+        if(type == ShapeType.CIRCLE){
+            return new Circle(param1);            
+        } else if(type == ShapeType.RECTANGLE){
+            return new Rectangle(param1,param2);
+        } else if(type == ShapeType.SQUARE){
+            return new Square(param1);
+        }
+
+        return null;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern: Example 1
+
+Instantiate objects using this factory
+
+```java
+Shape shape1 = ShapeFactory.getShape(ShapeType.CIRCLE,3, 0);
+shape1.draw();
+System.out.println(shape1.calculateArea());
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern: Example 2
+
+*We have a company that sells some products. We must apply the general VAT to some products, and a reduced VAT to some others. So we start by defining an abstract class called `Invoice` with two subclasses to represent these two types of VAT.*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern: Example 2
+
+Defining the class structure
+
+```java
+public abstract class Invoice 
+{
+    private int id;
+    private double amount;
+
+    public int getId() 
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public double getAmount() 
+    {
+        return amount;
+    }
+
+    public void setAmount(double amount) 	
+    {
+        this.amount = amount;
+    }
+
+    public abstract double getAmountVAT();
+}
+
+public class InvoiceVAT extends Invoice
+{
+    @Override
+    public double getAmountVAT() 
+    {
+        return getAmount()*1.21;
+    }
+}
+
+public class InvoiceVATReduced extends Invoice
+{
+    @Override
+    public double getAmountVAT()
+    {
+        return getAmount()*1.10;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Factory pattern: Example 2
+
+Defining the factory pattern
+
+```java
+public enum InvoiceType { NORMAL, REDUCED }
+
+public class InvoiceFactory 
+{
+    public static Invoice getInvoice(InvoiceType type)
+    {
+        if (type == InvoiceType.NORMAL)
+        {
+            return new InvoiceVAT();
+        } else if (type == InvoiceType.REDUCED) {
+            return new InvoiceVATReduced();
+        } else {
+            return null;
+        }
+    }
+}
+
+// Main
+```java
+Invoice myInvoice = FactoryInvoice.getInvoice(InvoiceType.NORMAL);
+Invoice myInvoiceRed = FactoryInvoice.getInvoice(InvoiceType.REDUCED);
+
+myInvoice.setId(1);
+myInvoice.setAmount(1000);
+
+myInvoiceRed.setId(2);
+myInvoiceRed.setAmount(500);
+
+System.out.println(myInvoice.getAmountVAT());
+System.out.println(myInvoiceRed.getAmountVAT());
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Implement the *Factory* pattern in the Exercise 6 of [this document](../05e) as we have shown in previous example and test it.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a new project called **Invoices** with the packages `invoices.types`  for the invoice types, and  `invoices.main` with the main class. Implement the classes of the invoices example above, and add a new type of invoice with a super-reduced VAT (4%).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Update the *Animals* project of Exercise 1 of [this document](../05e) and add an *animal factory* so that we no longer use the constructor of each animal type. 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Singleton pattern
+
+- Creational pattern that lets us manage just one single object of a given class
+- Commonly used in classes that store configuration parameters for a given application, so that there should only be one object of this type for the whole application
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Singleton pattern: Common structure
+
+- Define a static instance of the class itself, which will be returned every time we ask for a new instance
+- Original constructor of the class is set as private
+- We define a static method that invokes this constructor if needed, to instantiate a single instance of a class
+   - If instance already exists, then it is automatically returned
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Singleton pattern: Example
+
+Count the total number of invoices to assign an automatic ID to every new invoice
+
+```java
+public class InvoiceCounter
+{
+    private int counter;
+
+    // Static instance of the class
+    private static InvoiceCounter myCounter;
+
+    // Private constructor
+    private InvoiceCounter()
+    {
+        this.counter = 0;
+    }
+
+    // Static method to manage the single instance
+    public static InvoiceCounter getInvoiceCounter()
+    {
+        if(myCounter == null)
+        {
+            // Instance has not been create. Use private constructor
+            myCounter = new InvoiceCounter();
+        }
+        // Instance already exists. Return it
+        return myCounter;
+    }
+        
+    public void increaseCounter()
+    {
+        counter++;
+    }
+
+    public int getCounter()
+    {
+        return counter;
+    }
+}
+
+// Main
+public static void main(String[] args) 
+{
+    InvoiceCounter counter = InvoiceCounter.getCounter();
+    Invoice myInvoice = 
+        InvoiceFactory.getInvoice(InvoiceType.NORMAL);
+    Invoice myInvoiceRed = 
+        InvoiceFactory.getInvoice(InvoiceType.REDUCED);
+
+    counter.increaseCounter();
+    myInvoice.setId(counter.getCounter());
+    myInvoice.setAmount(1000);
+
+    counter.increaseCounter();
+    myInvoiceRed.setId(counter.getCounter());
+    myInvoiceRed.setAmount(500);
+
+    System.out.println(myInvoice.getAmountVAT());
+    System.out.println(myInvoiceRed.getAmountVAT());
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 4
+
+Add the `InvoiceCounter` class to the *Invoices* project started in previous exercises. Make the appropriate changes to automatically increase the invoice counter as soon as we instantiate a new invoice from `InvoiceFactory`, so we don't need to increase it manually from the *main* method, as we did in previous example.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

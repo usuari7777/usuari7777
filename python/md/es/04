@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Cadenas de texto | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Cadenas de texto" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="04.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/04.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Cadenas de texto" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Cadenas de texto","url":"http://nachoiborraies.github.io/python/md/es/04.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="cadenas-de-texto">Cadenas de texto</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/04.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="04.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Ya hemos comentado en documentos anteriores que Python permite manejar cadenas de texto utilizando indistintamente comillas simples o dobles. Podemos crearlas con un texto predefinido en el programa, o pedirlas al usuario a través de la instrucción <code class="language-plaintext highlighter-rouge">input</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola"</span>
+<span class="n">texto2</span> <span class="o">=</span> <span class="s">'Buenas'</span> 
+<span class="n">texto3</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Dime tu nombre: "</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="1-algunas-operaciones-básicas">1. Algunas operaciones básicas</h2>
+
+<p>Además, podemos hacer algunas operaciones básicas sobre las cadenas de texto, tales como concatenar con <code class="language-plaintext highlighter-rouge">+</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Tengo "</span> <span class="o">+</span> <span class="n">edad</span> <span class="o">+</span> <span class="s">" años"</span>
+</code></pre></div></div>
+
+<p>Podemos convertir también cualquier dato simple a cadena usando la instrucción <code class="language-plaintext highlighter-rouge">str</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Tengo "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">edad</span><span class="p">)</span> <span class="o">+</span> <span class="s">" años"</span>
+</code></pre></div></div>
+
+<p>Podemos repetir un texto un número determinado de veces, usando el operador <code class="language-plaintext highlighter-rouge">*</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola"</span> <span class="o">*</span> <span class="mi">3</span>      <span class="c1">#HolaHolaHola
+</span></code></pre></div></div>
+
+<p>Finalmente, podemos acceder a cada uno de los caracteres de la cadena usando los corchetes (desde la posición 0) y podemos determinar el tamaño de la cadena con la instrucción <code class="language-plaintext highlighter-rouge">len(cadena)</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola"</span><span class="p">;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">texto</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># H
+</span><span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">texto</span><span class="p">))</span>   <span class="c1"># 4
+</span></code></pre></div></div>
+
+<h2 id="2-otras-operaciones-sobre-cadenas">2. Otras operaciones sobre cadenas</h2>
+
+<p>Además de estas operaciones básicas, también podemos utilizar algunas opciones que también ofrecen otros lenguajes. Por ejemplo, tenemos la instrucción <code class="language-plaintext highlighter-rouge">split</code> que devuelve una lista con los elementos que ha podido <strong>extraer de una cadena</strong>, a partir de un delimitador especificado:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">partes</span> <span class="o">=</span> <span class="n">texto</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">","</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>El paso inverso, es decir, <strong>unir</strong> partes de un texto con un separador, se puede hacer a través de la instrucción <code class="language-plaintext highlighter-rouge">join</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">partes</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Uno"</span><span class="p">,</span> <span class="s">"Dos"</span><span class="p">,</span> <span class="s">"Tres"</span><span class="p">]</span>
+<span class="n">texto</span> <span class="o">=</span> <span class="s">','</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">partes</span><span class="p">)</span> <span class="c1"># Uno,Dos,Tres
+</span></code></pre></div></div>
+
+<p>La instrucción <code class="language-plaintext highlighter-rouge">replace</code> <strong>reemplaza</strong> todas las ocurrencias de un texto (primer dato) por otro texto (segundo dato), devolviendo una cadena con el resultado final:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Java es el mejor lenguaje"</span>
+<span class="n">texto2</span> <span class="o">=</span> <span class="n">texto</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"Java"</span><span class="p">,</span> <span class="s">"Python"</span><span class="p">)</span> <span class="c1"># Python es el mejor lenguaje
+</span></code></pre></div></div>
+
+<p>Las instrucciones <code class="language-plaintext highlighter-rouge">lower</code> y <code class="language-plaintext highlighter-rouge">upper</code> convierten todo el texto en <strong>minúsculas / mayúsculas</strong>, respectivamente, devolviendo una cadena con el resultado:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola, buenas"</span>
+<span class="n">textoMayus</span> <span class="o">=</span> <span class="n">texto</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span> <span class="c1"># HOLA, BUENAS
+</span></code></pre></div></div>
+
+<p>La instrucción <code class="language-plaintext highlighter-rouge">find</code> permite <strong>buscar</strong> si un texto está contenido dentro de otro, y en qué posición aparece por primera vez. Obtendrá un índice negativo si el texto no se encuentra. Alternativamente, podemos utilizar la expresión <code class="language-plaintext highlighter-rouge">in</code> para ver si un texto está dentro de otro, sin importar la posición.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola, buenas"</span>
+<span class="n">posicion</span> <span class="o">=</span> <span class="n">texto</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="s">"buenas"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">posicion</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Texto encontrado en posición"</span><span class="p">,</span> <span class="n">posicion</span><span class="p">)</span>
+<span class="k">if</span> <span class="s">"buenas"</span> <span class="ow">in</span> <span class="n">texto</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"El texto contiene </span><span class="se">\"</span><span class="s">buenas</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Si queremos <strong>extraer una subcadena</strong> a partir de una cadena principal, debemos indicar entre corchetes el índice a partir del cual queremos empezar a cortar (inclusive), y el índice donde queremos terminar de cortar (exclusive), separados por dos puntos.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola, buenas"</span>
+<span class="n">subcadena</span> <span class="o">=</span> <span class="n">texto</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>  <span class="c1"># buenas
+</span></code></pre></div></div>
+
+<p>Estos índices pueden tomarse desde el inicio de la cadena (valores positivos) o desde el final (valores negativos). Estas dos instrucciones son equivalentes para la cadena de entrada indicada:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto</span> <span class="o">=</span> <span class="s">"Hola, buenas tardes"</span>
+<span class="n">subcadena</span> <span class="o">=</span> <span class="n">texto</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>  <span class="c1"># buenas
+</span><span class="n">subcadena2</span> <span class="o">=</span> <span class="n">texto</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="c1"># buenas
+</span></code></pre></div></div>
+
+<p>A la hora de <strong>comparar</strong> cadenas para ver cuál es mayor o menor alfabéticamente, podemos emplear los operadores de comparación.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">texto1</span> <span class="o">=</span> <span class="s">"Hola"</span>
+<span class="n">texto2</span> <span class="o">=</span> <span class="s">"buenas"</span>
+<span class="k">if</span> <span class="n">texto1</span> <span class="o">&lt;</span> <span class="n">texto2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Es menor </span><span class="se">\"</span><span class="s">Hola</span><span class="se">\"</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1</strong>:</p>
+
+  <p>Crea un programa llamado <strong>SumaSecuencia.py</strong> que le pida al usuario una secuencia de números separados por espacios y calcule la suma total de esos números.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong>:
+Crea un programa llamado <strong>CuentaTexto.py</strong> que le pida al usuario un texto, y luego le diga cuántas veces aparece la palabra <em>Python</em> en ese texto.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

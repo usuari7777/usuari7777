@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Uso básico de la librería Mongoose | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Uso básico de la librería Mongoose" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/04b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Uso básico de la librería Mongoose" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Uso básico de la librería Mongoose","url":"http://nachoiborraies.github.io/nodejs/md/es/04b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="uso-básico-de-la-librería-mongoose">Uso básico de la librería Mongoose</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/04b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/04b.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>Existen varias librerías en el repositorio oficial de NPM para gestionar bases de datos MongoDB, pero la más popular es Mongoose. Permite acceder de forma fácil a las bases de datos y, además, definir esquemas, una estructura de validación que determina el tipo de dato y rango de valores adecuado para cada campo de los documentos de una colección. Así, podemos establecer si un campo es obligatorio o no, si debe tener un valor mínimo o máximo, etc. En la <a href="https://mongoosejs.com/">web oficial de Mongoose</a> podemos consultar algunos ejemplos de definición de esquemas y documentación adicional.</p>
+
+<h2 id="1-carga-de-la-librería-y-conexión-al-servidor">1. Carga de la librería y conexión al servidor</h2>
+
+<p>A lo largo de esta sesión vamos a hacer algunas pruebas con Mongoose en un proyecto que llamaremos “<em>PruebaContactosMongo</em>”. Podemos crearlo ya en nuestra carpeta “<em>ProyectosNode/Pruebas</em>”. Después, definiremos el archivo <code class="language-plaintext highlighter-rouge">package.json</code> con el comando <code class="language-plaintext highlighter-rouge">npm init</code>, y posteriormente instalaremos mongoose en el proyecto con el comando <code class="language-plaintext highlighter-rouge">npm install</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install mongoose
+</code></pre></div></div>
+
+<p>Una vez instalado, necesitamos incorporarlo al código del proyecto con la correspondiente instrucción <code class="language-plaintext highlighter-rouge">require</code>. Crea un archivo fuente <code class="language-plaintext highlighter-rouge">index.js</code> en este proyecto de pruebas, e incorpora la librería de este modo::</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Para conectar con el servidor Mongo (y suponiendo que lo tenemos iniciado, siguiendo los pasos indicados en el documento de instalación), necesitamos llamar a un método llamado <code class="language-plaintext highlighter-rouge">connect</code>, dentro del objeto <code class="language-plaintext highlighter-rouge">mongoose</code> que hemos incorporado. Le pasaremos la URL de la base de datos como primer parámetro y, de forma opcional, un segundo parámetro con un objeto con propiedades de conexión. Este segundo objeto es necesario incluirlo en ciertas versiones de Mongoose para especificar algunas opciones adicionales, y de hecho veremos un <em>warning</em> al ejecutar la aplicación advirtiéndonos, pero en términos generales podemos conectar directamente con la URL de conexión como primer y único parámetro:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Como decimos, es posible que en algunas versiones nos “obligue” a especificar algunos parámetros extra de conexión, como por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">{</span> <span class="na">useNewUrlParser</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">useUnifiedTopology</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Los parámetros que haya que incluir en este caso ya nos lo dirá el propio <em>warning</em> que se emita por consola al conectar, o la propia documentació oficial de Mongoose.</p>
+
+<p>En cuanto a la conexión en sí, no os preocupéis por que la base de datos no exista. Se creará automáticamente tan pronto como añadamos datos en ella.</p>
+
+<h2 id="2-modelos-y-esquemas">2. Modelos y esquemas</h2>
+
+<p>Como comentábamos antes, la librería Mongoose permite definir la estructura que van a tener los documentos de las distintas colecciones de la base de datos. Para ello, se definen esquemas (<em>schemas</em>) y se asocian a modelos (las colecciones correspondientes en la base de datos).</p>
+
+<h3 id="21-definir-los-esquemas">2.1. Definir los esquemas</h3>
+
+<p>Para definir un esquema, necesitamos crear una instancia de la clase <code class="language-plaintext highlighter-rouge">Schema</code> de Mongoose. Por lo tanto, crearemos este objeto, y en esa creación definiremos los atributos que va a tener la colección correspondiente, junto con el tipo de dato de cada atributo. Es también recomendable separar estas definiciones en archivos aparte. Podemos crear una subcarpeta <code class="language-plaintext highlighter-rouge">models</code> y almacenar en ella los esquemas y modelos de nuestra base de datos.</p>
+
+<p>En el caso de la base de datos de contactos propuesta para estas pruebas, podemos definir un esquema para almacenar los datos de cada contacto: nombre, número de teléfono y edad, por ejemplo. Esto lo haríamos de esta forma, en un archivo llamado <code class="language-plaintext highlighter-rouge">contacto.js</code> dentro de la subcarpeta <code class="language-plaintext highlighter-rouge">models</code> de nuestro proyecto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">contactoSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="nb">Number</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Los tipos de datos disponibles para definir el esquema son:</p>
+
+<ul>
+  <li>Textos (<code class="language-plaintext highlighter-rouge">String</code>)</li>
+  <li>Números (<code class="language-plaintext highlighter-rouge">Number</code>)</li>
+  <li>Fechas (<code class="language-plaintext highlighter-rouge">Date</code>)</li>
+  <li>Booleanos (<code class="language-plaintext highlighter-rouge">Boolean</code>)</li>
+  <li>Arrays (<code class="language-plaintext highlighter-rouge">Array</code>)</li>
+  <li>Otros (veremos algunos más adelante): <code class="language-plaintext highlighter-rouge">Buffer</code>, <code class="language-plaintext highlighter-rouge">Mixed</code>, <code class="language-plaintext highlighter-rouge">ObjectId</code></li>
+</ul>
+
+<h3 id="22-aplicar-el-esquema-a-un-modelo">2.2. Aplicar el esquema a un modelo</h3>
+
+<p>Una vez definido el esquema, necesitamos aplicarlo a un modelo para asociarlo así a una colección en la base de datos. Para ello, disponemos del método <code class="language-plaintext highlighter-rouge">model</code> en Mongoose. Como primer parámetro, indicaremos el nombre de la colección a la que asociar el esquema. Como segundo parámetro, indicaremos el esquema a aplicar (objeto de tipo <code class="language-plaintext highlighter-rouge">Schema</code> creado anteriormente). Añadiríamos estas líneas al final de nuestro archivo <code class="language-plaintext highlighter-rouge">models/contacto.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactoSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Contacto</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> si indicamos un nombre de modelo en singular, Mongoose automáticamente creará la colección con el nombre en plural. Este plural no siempre será correcto, ya que lo que hace es simplemente añadir una “s” al final del nombre del modelo, si no se la hemos añadido nosotros. Por este motivo, es recomendable que creemos los modelos con nombres de colecciones ya en plural.</p>
+</blockquote>
+
+<h3 id="23-restricciones-y-validaciones">2.3. Restricciones y validaciones</h3>
+
+<p>Si definimos un esquema sencillo como el ejemplo de contactos anterior, permitiremos que se añada cualquier tipo de valor a los campos de los documentos. Así, por ejemplo, podríamos tener contactos sin nombre, o con edades negativas. Pero con Mongoose podemos proporcionar mecanismos de validación que permitan descartar de forma automática los documentos que no cumplan las especificaciones.</p>
+
+<p>En la <a href="https://mongoosejs.com/docs/validation.html">documentación oficial</a> de Mongoose podemos encontrar una descripción detallada de los diferentes validadores que podemos aplicar. Aquí nos limitaremos a describir los más importantes o habituales:</p>
+
+<ul>
+  <li>El validador <code class="language-plaintext highlighter-rouge">required</code> permite definir que un determinado campo es obligatorio.</li>
+  <li>El validador <code class="language-plaintext highlighter-rouge">default</code> permite especificar un valor por defecto para el campo, en el caso de que no se especifique ninguno.</li>
+  <li>Los validadores <code class="language-plaintext highlighter-rouge">min</code> y <code class="language-plaintext highlighter-rouge">max</code> se utilizan para definir un rango de valores (mínimo y/o máximo) permitidos para datos de tipo numérico.</li>
+  <li>Los validadores <code class="language-plaintext highlighter-rouge">minlength</code> y <code class="language-plaintext highlighter-rouge">maxlength</code> se emplean para definir un tamaño mínimo o máximo de caracteres, en el caso de cadenas de texto.</li>
+  <li>El validador <code class="language-plaintext highlighter-rouge">unique</code> indica que el campo en cuestión no admite duplicados (sería una clave alternativa, en un sistema relacional). En la <a href="https://mongoosejs.com/docs/validation.html#the-unique-option-is-not-a-validator">documentación</a> de Mongoose se especifica que esto no es propiamente un validador, sino una ayuda para indexar, y que dependiendo de cuándo se indexe, es posible que no funcione adecuadamente.</li>
+  <li>El validador <code class="language-plaintext highlighter-rouge">match</code> se emplea para especificar una expresión regular que debe cumplir el campo (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">aquí</a> tenéis más información al respecto).</li>
+  <li>…</li>
+</ul>
+
+<p>Volvamos a nuestro esquema de contactos. Vamos a establecer que el nombre y el teléfono sean obligatorios, y sólo permitiremos edades entre 18 y 120 años (inclusive). Además, el nombre tendrá una longitud mínima de 1 carácter, y el teléfono estará compuesto por 9 dígitos, empleando una expresión regular, y será una clave única. Podemos emplear algún validador más, como por ejemplo <code class="language-plaintext highlighter-rouge">trim</code>, para limpiar los espacios en blanco al inicio y final de los datos de texto. Con todas estas restricciones, el esquema y modelo asociado quedan de esta forma:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">contactoSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">minlength</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">trim</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">unique</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">trim</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">match</span><span class="p">:</span> <span class="sr">/^</span><span class="se">\d{9}</span><span class="sr">$/</span>
+    <span class="p">},</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span>
+        <span class="na">min</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="na">max</span><span class="p">:</span> <span class="mi">120</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactoSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Contacto</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Ya tenemos establecida la conexión a la base de datos, y el esquema de los datos que vamos a utilizar. Ahora, podemos añadir el modelo a nuestro archivo principal <code class="language-plaintext highlighter-rouge">index.js</code>, y ya podremos empezar a realizar algunas operaciones básicas contra dicha base de datos.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">/models/contacto</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Aquí ya podremos realizar operaciones contra la BD</span>
+</code></pre></div></div>
+
+<h2 id="3-añadir-documentos">3. Añadir documentos</h2>
+
+<p>Si queremos insertar o añadir un documento en una colección, debemos crear un objeto del correspondiente modelo, y llamar a su método <code class="language-plaintext highlighter-rouge">save</code>. Este método devuelve una promesa, por lo que emplearemos:</p>
+
+<ul>
+  <li>Un bloque de código <code class="language-plaintext highlighter-rouge">then</code> para cuando la operación haya ido correctamente. En este bloque, recibiremos como resultado el objeto que se ha insertado, pudiendo examinar los datos del mismo si se quiere.</li>
+  <li>Un bloque de código <code class="language-plaintext highlighter-rouge">catch</code> para cuando la operación no haya podido completarse. Recibiremos como parámetro un objeto con el error producido, que podremos examinar para obtener más información sobre el mismo.</li>
+</ul>
+
+<p>Este mismo patrón <em>then-catch</em> lo emplearemos también con el resto de operaciones más adelante (búsquedas, borrados o modificaciones), aunque el resultado devuelto en cada caso variará.</p>
+
+<p>Así añadiríamos un nuevo contacto a nuestra colección de pruebas:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contacto1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">966112233</span><span class="dl">"</span><span class="p">,</span> 
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span>
+<span class="p">});</span>
+<span class="nx">contacto1</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto añadido:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR añadiendo contacto:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Añade este código al archivo <code class="language-plaintext highlighter-rouge">index.js</code> de nuestro proyecto “<em>PruebaContactosMongo</em>”, tras la conexión a la base de datos. Ejecuta la aplicación, y echa un vistazo al resultado que se devuelve cuando todo funciona correctamente. Será algo parecido a esto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> 
+  <span class="nl">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">telefono</span><span class="p">:</span> <span class="dl">'</span><span class="s1">966112233</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
+  <span class="nx">_id</span><span class="p">:</span> <span class="k">new</span> <span class="nx">ObjectId</span><span class="p">(</span><span class="dl">"</span><span class="s2">5a12a2e0e6219d68c00c6a00</span><span class="dl">"</span><span class="p">),</span>
+  <span class="nx">__v</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que obtenemos los mismos campos que definimos en el esquema (nombre, teléfono y edad), y dos campos adicionales que no hemos especificado:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">__v</code> hace referencia a la versión del documento. Inicialmente, todos los documentos parten de la versión 0 cuando se insertan, y luego esta versión puede modificarse cuando hagamos alguna actualización del documento, como veremos después.</li>
+  <li><code class="language-plaintext highlighter-rouge">_id</code> es un código autogenerado por Mongo, para cualquier documento de cualquier colección que se tenga. Analizaremos en qué consiste este id y su utilidad en breve.</li>
+</ul>
+
+<p>Vayamos ahora al plugin de Visual Studio Code y examinemos las bases de datos en el panel izquierdo. Si clicamos en la colección de “contactos”, veremos el nuevo contacto añadido en el panel derecho:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/04_mongo_insertar.png" width="80%" />
+</div>
+
+<p>Si intentamos insertar un contacto incorrecto, saltaremos al bloque <code class="language-plaintext highlighter-rouge">catch</code>. Por ejemplo, este contacto es demasiado viejo, según la definición del esquema:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contacto2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Matuzalem</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">965123456</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">200</span>
+<span class="p">});</span>
+<span class="nx">contacto2</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto añadido:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR añadiendo contacto:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si echamos un vistazo al error producido, veremos mucha información, pero entre toda esa información hay un mensaje <em>ValidationError</em> con la información del error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ValidationError: Path `edad` (200) is more than maximum allowed value (120)
+</code></pre></div></div>
+
+<h3 id="31-sobre-el-id-automático">3.1. Sobre el <em>id</em> automático</h3>
+
+<p>Como has podido ver en las pruebas de inserción anteriores, cada vez que se añade un documento a una colección se le asigna automáticamente una propiedad llamada <code class="language-plaintext highlighter-rouge">_id</code> con un código autogenerado. A diferencia de otros sistemas de gestión de bases de datos (como MariaDB/MySQL, por ejemplo), este código no es autonumérico, sino que es una cadena. De hecho, es un texto de 12 bytes que almacena información importante:</p>
+
+<ul>
+  <li>El tiempo de creación de documento (<em>timestamp</em>), con lo que podemos obtener el momento exacto (fecha y hora) de dicha creación</li>
+  <li>El ordenador que creó el documento. Esto es particularmente útil cuando queremos escalar la aplicación y tenemos distintos servidores Mongo accediendo a la misma base de datos. Podemos identificar cuál de todos los servidores fue el que creó el documento.</li>
+  <li>El proceso concreto del sistema que creó el documento</li>
+  <li>Un contador aleatorio, que se emplea para evitar cualquier tipo de duplicidad, en el caso de que los tres valores anteriores coincidan en el tiempo.</li>
+</ul>
+
+<p>Existen métodos específicos para extraer parte de esta información, en concreto el momento de creación, pero no los utilizaremos en este curso.</p>
+
+<p>A pesar de disponer de esta enorme ventaja con este id autogenerado, podemos optar por crear nuestros propios ids y no utilizar los de Mongo (aunque ésta no es una buena idea):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contactoX</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span><span class="na">_id</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="na">nombre</span><span class="p">:</span><span class="dl">"</span><span class="s2">Juan</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span><span class="dl">"</span><span class="s2">611885599</span><span class="dl">"</span><span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="4-buscar-documentos">4. Buscar documentos</h2>
+
+<p>Si queremos buscar cualquier documento, o conjunto de documentos, en una colección, podemos emplear diversos métodos.</p>
+
+<h3 id="41-búsqueda-genérica-con-find">4.1. Búsqueda genérica con <em>find</em></h3>
+
+<p>La forma más general de obtener documentos consiste en emplear el método estático <code class="language-plaintext highlighter-rouge">find</code> asociado al modelo en cuestión. Podemos emplearlo sin parámetros (con lo que obtendremos todos los documentos de la colección como resultado de la promesa):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="42-búsqueda-parametrizada-con-find">4.2. Búsqueda parametrizada con <em>find</em></h3>
+
+<p>Podemos también pasar como parámetro a <code class="language-plaintext highlighter-rouge">find</code> un conjunto de criterios de búsqueda. Por ejemplo, para buscar contactos cuyo nombre sea “Nacho” y la edad sea de 29 años, haríamos esto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">29</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> cualquier llamada a <code class="language-plaintext highlighter-rouge">find</code> devolverá un <strong>array de resultados</strong>, aunque sólo se haya encontrado uno, o ninguno. Es importante tenerlo en cuenta para luego saber cómo acceder a un elemento concreto de dicho resultado. El hecho de no obtener resultados no va a provocar un error (no se saltará al <code class="language-plaintext highlighter-rouge">catch</code> en ese caso).</p>
+</blockquote>
+
+<p>También podemos emplear algunos operadores de comparación en el caso de no buscar datos exactos. Por ejemplo, esta consulta obtiene todos los contactos cuyo nombre sea “Nacho” y las edades estén comprendidas entre 18 y 40 años:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span><span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="p">{</span><span class="na">$gte</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="na">$lte</span><span class="p">:</span> <span class="mi">40</span><span class="p">}})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Resultado de la búsqueda:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">ERROR:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><a href="https://docs.mongodb.com/manual/reference/operator/query/">Aquí</a> podéis encontrar un listado detallado de los operadores que podéis utilizar en las búsquedas.</p>
+
+<p>Además, la búsqueda parametrizada con <code class="language-plaintext highlighter-rouge">find</code> admite otras variantes de sintaxis, como el uso de métodos enlazados <code class="language-plaintext highlighter-rouge">where</code>, <code class="language-plaintext highlighter-rouge">limit</code>, <code class="language-plaintext highlighter-rouge">sort</code>… hasta obtener los resultados deseados en el orden y cantidad deseada. Por ejemplo, esta consulta muestra los 10 primeros contactos mayores de edad, ordenados de mayor a menor edad:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+<span class="p">.</span><span class="nx">where</span><span class="p">(</span><span class="dl">'</span><span class="s1">edad</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="dl">'</span><span class="s1">-edad</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<h3 id="43-otras-opciones-findone-o-findbyid">4.3. Otras opciones: <em>findOne</em> o <em>findById</em></h3>
+
+<p>Existen otras alternativas que podemos utilizar para buscar documentos concretos (y no un conjunto o lista de ellos). Se trata de los métodos <code class="language-plaintext highlighter-rouge">findOne</code> y <code class="language-plaintext highlighter-rouge">findById</code>. El primero se emplea de forma similar a <code class="language-plaintext highlighter-rouge">find</code>, con los mismos parámetros de filtrado, pero sólo devuelve un documento (arbitrario) que concuerde con esos criterios (no un array). Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span><span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Resultado de la búsqueda:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">ERROR:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>El método <code class="language-plaintext highlighter-rouge">findById</code> se emplea, como su nombre indica, para buscar un documento dado su <em>id</em> (recordemos, esa secuencia de 12 bytes autogenerada por Mongo). Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">5ab2dfb06cf5de1d626d5c09</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Resultado de la búsqueda por ID:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">ERROR:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En estos métodos, si la consulta no produce ningún resultado, obtendremos <code class="language-plaintext highlighter-rouge">null</code> como respuesta, pero tampoco se activará la cláusula <code class="language-plaintext highlighter-rouge">catch</code> por ello.</p>
+
+<h2 id="5-borrar-documentos">5. Borrar documentos</h2>
+
+<p>Para eliminar documentos de una colección, podemos emplear los métodos estáticos <code class="language-plaintext highlighter-rouge">remove</code>, <code class="language-plaintext highlighter-rouge">findOneAndRemove</code> y <code class="language-plaintext highlighter-rouge">findByIdAndRemove</code>.</p>
+
+<h3 id="51-el-método-remove">5.1. El método <em>remove</em></h3>
+
+<p>Este método elimina los documentos que cumplan los criterios indicados como parámetro. Estos criterios se especifican de la misma forma que hemos visto para el método <code class="language-plaintext highlighter-rouge">find</code>. Si no se especifican parámetros, se eliminan TODOS los documentos de la colección.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Eliminamos todos los contactos que se llamen Nacho</span>
+<span class="nx">Contacto</span><span class="p">.</span><span class="nx">remove</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>El resultado que se obtiene en este caso contiene múltiples propiedades. En la propiedad <code class="language-plaintext highlighter-rouge">result</code> podemos consultar el número de filas afectadas (<code class="language-plaintext highlighter-rouge">n</code>), y el resultado de la operación (<code class="language-plaintext highlighter-rouge">ok</code>).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">CommandResult</span> <span class="p">{</span>
+  <span class="nl">result</span><span class="p">:</span> <span class="p">{</span> <span class="na">n</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="na">ok</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+  <span class="nx">connection</span><span class="p">:</span>
+  <span class="p">...</span>
+</code></pre></div></div>
+
+<h3 id="52-los-métodos-findoneandremove-y-findbyidandremove">5.2. Los métodos <em>findOneAndRemove</em> y <em>findByIdAndRemove</em></h3>
+
+<p>El método <code class="language-plaintext highlighter-rouge">findOneAndRemove</code> busca el documento que cumpla el patrón especificado (o el primero que encuentre que lo cumpla) y lo elimina. Además, obtiene el documento eliminado en el resultado, con lo que podríamos deshacer la operación a posteriori, si quisiéramos, volviéndolo a añadir.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findOneAndRemove</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto eliminado:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Observad que, en este caso, el parámetro <code class="language-plaintext highlighter-rouge">resultado</code> es directamente el objeto eliminado.</p>
+
+<p>El método <code class="language-plaintext highlighter-rouge">findByIdAndRemove</code> busca el documento con el <em>id</em> indicado y lo elimina. También obtiene como resultado el objeto eliminado.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndRemove</span><span class="p">(</span><span class="dl">'</span><span class="s1">5a16fed09ed79f03e490a648</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto eliminado:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En el caso de estos dos últimos métodos, si no se ha encontrado ningún elemento que cumpla el criterio de filtrado, se devolverá <code class="language-plaintext highlighter-rouge">null</code> como resultado, es decir, no se activará la cláusula <code class="language-plaintext highlighter-rouge">catch</code> por este motivo. Sí se activaría dicha cláusula, por ejemplo, si indicamos un <em>id</em> con un formato no válido (que no tenga 12 bytes).</p>
+
+<h2 id="6-modificaciones-o-actualizaciones-de-documentos">6. Modificaciones o actualizaciones de documentos</h2>
+
+<p>Para realizar modificaciones de un documento en una colección, también podemos emplear distintos métodos estáticos.</p>
+
+<h3 id="61-el-método-findbyidandupdate">6.1. El método <em>findByIdAndUpdate</em></h3>
+
+<p>El método <code class="language-plaintext highlighter-rouge">findByIdAndUpdate</code> buscará el documento con el <em>id</em> indicado, y reemplazará los campos atendiendo a los criterios que indiquemos como segundo parámetro.</p>
+
+<p>En <a href="https://docs.mongodb.com/manual/reference/operator/update/">este enlace</a> podéis consultar los operadores de actualización que podemos emplear en el segundo parámetro de llamada a este método. El más habitual de todos es <code class="language-plaintext highlighter-rouge">$set</code>, que recibe un objeto con los pares clave-valor que queremos modificar en el documento original. Por ejemplo, así reemplazamos el nombre y la edad de un contacto con un determinado id, dejando el teléfono sin modificar:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndUpdate</span><span class="p">(</span><span class="dl">'</span><span class="s1">5a0e1991075e9407c4da8b0a</span><span class="dl">'</span><span class="p">,</span> 
+    <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span><span class="na">nombre</span><span class="p">:</span><span class="dl">'</span><span class="s1">Nacho Iborra</span><span class="dl">'</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">40</span><span class="p">}},</span> <span class="p">{</span><span class="na">new</span><span class="p">:</span><span class="kc">true</span><span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Modificado contacto:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">ERROR:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>El tercer parámetro que recibe <code class="language-plaintext highlighter-rouge">findByIdAndUpdate</code> es un conjunto de opciones adicionales. Por ejemplo, la opción <code class="language-plaintext highlighter-rouge">new</code> que se ha usado en este ejemplo indica si queremos obtener como resultado el nuevo objeto modificado (<code class="language-plaintext highlighter-rouge">true</code>) o el antiguo antes de modificarse (<code class="language-plaintext highlighter-rouge">false</code>, algo útil para operaciones de deshacer). Si no se especifica, por defecto se obtiene el viejo (<em>false</em>).</p>
+
+<h3 id="62-los-métodos-updateone-y-updatemany">6.2. Los métodos <em>updateOne</em> y <em>updateMany</em></h3>
+
+<p>Estos métodos se puede utilizar para actualizar los datos del primer documento que encaje con la condición de búsqueda, o con todos los que encajen con dicha condición, respectivamente. Por ejemplo, la siguiente instrucción pone a 20 los años del primer contacto que encuentre con nombre “Nacho”:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">updateOne</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">20</span> <span class="p">}})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<p>Esta otra alternativa actualiza los datos de todos los contactos con ese nombre:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">updateMany</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">20</span> <span class="p">}})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<p>Ambos métodos son útiles si queremos buscar documentos por campos que no sean su identificador principal. En caso contrario, es preferible usar <code class="language-plaintext highlighter-rouge">findByIdAndUpdate</code>.</p>
+
+<h3 id="63-actualizar-la-versión-del-documento">6.3. Actualizar la versión del documento</h3>
+
+<p>Hemos visto que, entre los atributos de un documento, además del <em>id</em> autogenerado por Mongo, se crea un número de versión en un atributo <code class="language-plaintext highlighter-rouge">__v</code>. Este número de versión alude a la versión del documento en sí, de forma que, si posteriormente se modifica (por ejemplo, con una llamada a <code class="language-plaintext highlighter-rouge">findByIdAndUpdate</code>), se pueda también indicar con un cambio de versión que ese documento ha sufrido cambios desde su versión original.
+Si quisiéramos hacer eso con el ejemplo anterior, bastaría con añadir el operador <code class="language-plaintext highlighter-rouge">$inc</code> (junto al <code class="language-plaintext highlighter-rouge">$set</code> utilizado antes) para indicar que incremente el número de versión, por ejemplo, en una unidad:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndUpdate</span><span class="p">(</span><span class="dl">'</span><span class="s1">5a0e1991075e9407c4da8b0a</span><span class="dl">'</span><span class="p">,</span> 
+    <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span><span class="na">nombre</span><span class="p">:</span><span class="dl">'</span><span class="s1">Nacho Iborra</span><span class="dl">'</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">40</span><span class="p">},</span> 
+    <span class="na">$inc</span><span class="p">:</span> <span class="p">{</span><span class="na">__v</span><span class="p">:</span> <span class="mi">1</span><span class="p">}},</span> <span class="p">{</span><span class="na">new</span><span class="p">:</span><span class="kc">true</span><span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<h2 id="7-mongoose-y-las-promesas">7. Mongoose y las promesas</h2>
+
+<p>Hemos indicado anteriormente que operaciones como <code class="language-plaintext highlighter-rouge">find</code>, <code class="language-plaintext highlighter-rouge">save</code> y el resto de métodos que hemos empleado con Mongoose devuelven una promesa, pero eso no es del todo cierto. Lo que devuelven estos métodos es un <em>thenable</em>, es decir, un objeto que se puede tratar con el correspondiente método <code class="language-plaintext highlighter-rouge">then</code>. Sin embargo, existen otras formas alternativas de llamar a estos métodos, y podemos emplear una u otra según nos convenga.</p>
+
+<h3 id="71-llamadas-como-simples-funciones-asíncronas">7.1. Llamadas como simples funciones asíncronas</h3>
+
+<p>Los métodos facilitados por Mongoose son simplemente tareas asíncronas, es decir, podemos llamarlas y definir un <em>callback</em> de respuesta que se ejecutará cuando la tarea finalice. Para ello, añadimos como parámetro adicional al método el <em>callback</em> en cuestión, con dos parámetros: el error que se producirá si el método no se ejecuta satisfactoriamente, y el resultado devuelto si el método se ejecuta sin contratiempos. Si, por ejemplo, queremos buscar un contacto a partir de su <em>id</em>, podemos hacer algo así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">35893ad987af7e87aa5b113c</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">contacto</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contacto</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Pensemos ahora en algo más complejo: buscamos el contacto por su <em>id</em>, una vez finalizado, incrementamos en un año su edad y guardamos los cambios. En este caso, el código puede quedar así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">35893ad987af7e87aa5b113c</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">contacto</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">contacto</span><span class="p">.</span><span class="nx">edad</span><span class="o">++</span><span class="p">;</span>
+        <span class="nx">contacto</span><span class="p">.</span><span class="nx">save</span><span class="p">((</span><span class="nx">error2</span><span class="p">,</span> <span class="nx">contacto2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">error2</span><span class="p">)</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error2</span><span class="p">);</span>
+            <span class="k">else</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contacto2</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Como podemos ver, al enlazar una llamada asíncrona (<code class="language-plaintext highlighter-rouge">findById</code>) con otra (<code class="language-plaintext highlighter-rouge">save</code>), lo que se produce es un anidamiento de <em>callbacks</em>, con sus correspondientes estructuras <code class="language-plaintext highlighter-rouge">if..else</code>. Este fenómeno se conoce como <em>callback hell</em> o <em>pyramid of doom</em>, porque produce en la parte izquierda del código una pirámide girada (cuyo pico apunta hacia la derecha), que será más grande cuantas más llamadas enlacemos entre sí. Dicho de otro modo, estaremos tabulando cada vez más el código para anidar llamadas dentro de llamadas, y esta gestión puede hacerse difícil de manejar.</p>
+
+<h3 id="72-llamadas-como-promesas">7.2. Llamadas como promesas</h3>
+
+<p>Volvamos ahora a lo que sabemos hacer. ¿Cómo enlazaríamos usando promesas las dos operaciones anteriores? Recordemos: buscar un contacto por su <em>id</em> e incrementarle su edad en un año.</p>
+
+<p>Podríamos también cometer un <em>callback hell</em> anidando cláusulas <code class="language-plaintext highlighter-rouge">then</code>, con algo así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">35893ad987af7e87aa5b113c</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">contacto</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">contacto</span><span class="p">.</span><span class="nx">edad</span><span class="o">++</span><span class="p">;</span>
+    <span class="nx">contacto</span><span class="p">.</span><span class="nx">save</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">contacto2</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contacto2</span><span class="p">);</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error2</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error2</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Sin embargo, las promesas permiten concatenar cláusulas <code class="language-plaintext highlighter-rouge">then</code> sin necesidad de anidarlas, dejando un único bloque <code class="language-plaintext highlighter-rouge">catch</code> al final para recoger el error que se produzca en cualquiera de ellas. Para ello, basta con que dentro de un <code class="language-plaintext highlighter-rouge">then</code> se devuelva (<code class="language-plaintext highlighter-rouge">return</code>) el resultado de la siguiente promesa. El código anterior podríamos reescribirlo así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">35893ad987af7e87aa5b113c</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">contacto</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">contacto</span><span class="p">.</span><span class="nx">edad</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">contacto</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">contacto</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contacto</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Esta forma es más limpia y clara cuando queremos hacer operaciones complejas. Sin embargo, puede simplificarse mucho más empleando <em>async/await</em>.</p>
+
+<h3 id="73-llamadas-con-asyncawait">7.3. Llamadas con <em>async/await</em></h3>
+
+<p>La especificación <em>async/await</em> permite llamar de forma síncrona a una serie de métodos asíncronos, y esperar a que finalicen para pasar a la siguiente tarea. El único requisito para poder hacer esto es que estas llamadas deben hacerse desde dentro de una función que sea asíncrona, declarada con la palabra reservada <code class="language-plaintext highlighter-rouge">async</code>.</p>
+
+<p>Para hacer el ejemplo anterior, debemos declarar una función asíncrona con el nombre que queramos (por ejemplo, <code class="language-plaintext highlighter-rouge">actualizarEdad</code>), y dentro llamar a cada función asíncrona precedida de la palabra <code class="language-plaintext highlighter-rouge">await</code>. Si la llamada va a devolver un resultado (en este caso, el resultado de la promesa), se puede asignar a una constante o variable. Con esto, el código lo podemos reescribir así, y simplemente llamar a la función <code class="language-plaintext highlighter-rouge">actualizarEdad</code> cuando queramos ejecutarlo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">actualizarEdad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">contacto</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">35893...</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">contacto</span><span class="p">.</span><span class="nx">edad</span><span class="o">++</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">contactoGuardado</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">contacto</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contactoGuardado</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">actualizarEdad</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Nos faltaría tratar el apartado de los errores: en los dos casos anteriores existía una cláusula <code class="language-plaintext highlighter-rouge">catch</code> o un parámetro <code class="language-plaintext highlighter-rouge">error</code> que consultar y mostrar el mensaje de error correspondiente. ¿Cómo lo gestionamos con <em>async/await</em>?. Al utilizar <code class="language-plaintext highlighter-rouge">await</code>, estamos convirtiendo un código asíncrono en otro síncrono, y por tanto, la gestión de errores es una simple gestión de excepciones con <code class="language-plaintext highlighter-rouge">try..catch</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">actualizarEdad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">contacto</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="dl">'</span><span class="s1">35893...</span><span class="dl">'</span><span class="p">);</span>
+        <span class="nx">contacto</span><span class="p">.</span><span class="nx">edad</span><span class="o">++</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">contactoGuardado</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">contacto</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contactoGuardado</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">actualizarEdad</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="74-cuál-elegir">7.4. ¿Cuál elegir?</h3>
+
+<p>Se puede emplear en cualquier situación cualquiera de estas tres opciones, según convenga. En este curso utilizaremos el tratamiento mediante promesas para tareas simples, ya que permiten separar de forma clara el código de ejecución correcto del incorrecto, y emplearemos la especificación <em>async/await</em> para tareas complejas o enlazadas, donde un método dependa del resultado del anterior para iniciarse.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

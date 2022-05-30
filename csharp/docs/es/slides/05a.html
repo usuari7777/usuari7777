@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Introducción a las funciones</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Funciones
+#### Introducción a las funciones
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Programación monolítica
+
+- Hasta ahora todos los programas que hemos hecho han constado de un único bloque principal *Main*
+- Cuando un programa se vuelve más complejo, este bloque *Main* puede hacerse cada vez más difícil de gestionar
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Programación modular
+
+- La programación modular permite dividir un problema en varios subproblemas que, unidos, ayudan a resolver el problema principal
+- Cada uno de esos subproblemas se resuelve mediante un *módulo* específico
+   - Estos módulos también se suelen llamar *funciones*, *procedimientos* o *subrutinas*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ventajas de la programación modular
+
+- Permite repartir una tarea compleja en varios pasos simples
+- Permite reutilizar el código: si queremos hacer una cosa varias veces, utilizamos varias veces el módulo que la hace
+- Los módulos que se generan son más cortos y fáciles de mantener
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Concepto de función
+
+- Cada uno de los módulos en que se puede dividir un programa
+- Consta de:
+   - Nombre para identificarla / invocarla
+   - Datos de entrada que necesita para trabajar (*parámetros*)
+   - Instrucciones que ejecuta
+   - Resultado que produce
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definición de funciones en C#
+
+- De momento definiremos las funciones como *static void*
+- Después indicamos el nombre de la función, con unos paréntesis
+   - El nombre suele contener algún verbo
+- Entre llaves, colocamos el código de la función
+- Podemos definir tantas como queramos dentro de una clase, en el orden que queramos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de función en C#
+
+Función que muestra un mensaje de saludo por pantalla
+
+```csharp
+static void Saludar()
+{
+    Console.WriteLine("Hola, buenas");
+    Console.WriteLine("Bienvenido/a")
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Invocación o llamada a funciones
+
+```csharp
+static void Saludar()
+{
+    Console.WriteLine("Hola, buenas");
+    Console.WriteLine("Bienvenido/a");
+}
+
+static void Main()
+{
+    Saludar();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_01.cs** que defina una función llamada *DibujarCuadrado* que dibuje en pantalla un cuadrado de tamaño 3 relleno de asteriscos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros
+
+- Datos que necesita la función para completar su tarea
+- Se indican dentro de los paréntesis, separados por comas, indicando de qué tipo es cada uno y su nombre (como si fueran variables)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Parámetros: ejemplos
+
+```csharp
+/* Función que saluda al nombre que se le indica como parámetro */
+static void Saludar(string nombre)
+{
+    Console.WriteLine("Hola {0}", nombre);
+}
+
+/* Función que muestra la suma de sus dos parámetros enteros */
+static void MostrarSuma(int n1, int n2)
+{
+    Console.WriteLine("{0} + {1} = {2}", n1, n2, n1+n2);
+}
+
+/* Invocación de funciones */
+static void Main()
+{
+    Saludar("Nacho");   // Hola Nacho
+    MostrarSuma(7, 3);  // 7 + 3 = 10
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_02.cs** que defina una función llamada *DibujarRectangulo* que tendrá dos parámetros enteros para indicar la base y altura de un rectángulo. La función debe dibujar en pantalla un rectángulo relleno de asteriscos de la base y altura que se indiquen como parámetros
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz una versión del programa anterior en el fichero **Ejercicio_05a_02b.cs** donde el usuario introduzca por teclado la base y altura del rectángulo antes de llamar a la función de dibujado
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_03.cs** con una función *RepetirTexto* que recibirá como primer parámetro un texto (*string*) y como segundo parámetro un entero (*int*), y mostrará por pantalla el texto repetido tantas veces como indique el entero. Pruébala desde el programa principal *Main*
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Tipo de retorno
+
+- La palabra *void* que usamos al definir funciones indica que la función no produce ningún resultado
+   - Habitual cuando las funciones se limitan a sacar datos por pantalla, por ejemplo
+- En caso de que la función produzca un resultado, reemplazamos *void* por el tipo de resultado producido
+   - Además, en este caso la función *devuelve* el resultado producido usando la instrucción **return**
+   - En estos casos es habitual asignar el resultado devuelto a una variable del mismo tipo, o usarlo en una expresión
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipo de retorno
+
+```csharp
+/* Esta función devuelve el cuadrado del número que recibe como parámetro */
+static int Cuadrado(int n)
+{
+    return n * n;
+}
+
+/* Esta función devuelve la suma de sus dos parámetros enteros */
+static int Sumar(int n1, int n2)
+{
+    return n1 + n2;
+}
+
+/* Llamada a funciones */
+static void Main()
+{
+    int cuad = Cuadrado(4);
+    Console.WriteLine(cuad);         // 16
+
+    int resultado = Sumar(7, 3);
+    Console.WriteLine(resultado);    // 10
+    Console.WriteLine(Sumar(4, 2));  // 6
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones con más de un return (1/2)
+
+Esta función devuelve el mayor de sus dos parámetros (no aconsejable si el código es complicado porque hace difícil ver dónde termina la función)
+
+```csharp
+static int Mayor(int n1, int n2)
+{
+    if (n1 > n2)
+        return n1;
+    else
+        return n2;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones con más de un return (2/2)
+
+Alternativa: guardar en una variable el resultado a devolver y hacer un único *return* al final
+
+```csharp
+static int Mayor(int n1, int n2)
+{
+    int mayor = n1;
+    if (n2 > n1)
+        mayor = n2;
+    return mayor;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_04.cs** con una función *Signo* que recibirá un número entero como parámetro y devolverá -1 si el número es negativo, 1 si es positivo o 0 si es cero
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_05.cs** con una función *Inicial* que recibirá un texto como parámetro y devolverá su primera letra
+
+</script>
+</section>    
+   
+<section data-markdown>
+<script type="text/template">
+## Variables locales y globales
+
+- Las variables declaradas dentro de un bloque sólo existen en ese bloque (variables **locales**)
+   - Una variable declarada dentro de un *if* sólo existe en ese *if*
+   - Una variable declarada en una función sólo existe en esa función
+- Las variables declaradas fuera de cualquier bloque (dentro de la clase) son **globales**
+   - Estas variables de momento tendrán que ser *static* en nuestros programas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Compartir información entre módulos
+
+- Podríamos pensar que una forma de hacerlo es usando variables globales
+   - Desaconsejado en general porque puede producir *efectos colaterales* entre módulos (que uno modifique una variable global inesperadamente)
+- Lo mejor es pasar información a través de los parámetros
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo variables locales y globales
+
+Las variables *temporal* e *i* son locales de la función *Potencia*, no existen fuera de la misma
+
+```csharp
+static int Potencia(int numBase, int numExponente)
+{
+    int temporal = 1;
+    for (int i = 1; i <= numExponente; i++)
+        temporal *= numBase;
+    return temporal;
+}
+
+static void Main()
+{
+    Console.WriteLine(Potencia(4, 3));  // 64
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_06.cs** con una función *PedirEntero* que recibirá un mensaje de texto y dos enteros *n1* y *n2*. La función mostrará por pantalla el mensaje al usuario y le pedirá que introduzca un número entero, que deberá estar comprendido entre *n1* y *n2* (inclusive). Si no lo está, volverá a pedírselo tantas veces como sea necesario hasta que sea válido. Finalmente, devolverá el valor introducido por el usuario. Pruébalo pidiéndole al usuario que introduzca un año entre 1800 y 2000.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_07.cs** con una función *EsPrimo* que recibirá un entero como parámetro y devolverá un booleano indicando si el número es primo o no
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_08.cs** con una función *ContarLetra* que recibirá una letra (carácter) y un texto (*string*) como parámetros, y devolverá cuántas veces aparece la letra en el texto. Por ejemplo, si la letra es la *a* y el texto es *Barcelona*, deberá devolver que aparece 2 veces.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Conflictos en nombres de variables
+
+Si una variable global se llama igual que otra local, prevalece la local
+
+```csharp
+class Prueba
+{
+    static int x = 20;
+
+    static void Main()
+    {
+        int x = 3;
+        Console.WriteLine(x);       // 3
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conflictos en nombres de variables
+
+Si una variable local a una función se llama igual que otra local a otra función, son variables independientes. Cada una existe en su función
+
+```csharp
+static void CambiaN()
+{
+    int n = 5;
+    n++;
+}
+
+static void Main()
+{
+    int n = 1;
+    Console.WriteLine(n);   // 1
+    CambiaN();
+    Console.WriteLine(n);   // 1
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros por valor
+
+- Los tipos simples (enteros, reales, cadenas, caracteres...) SIEMPRE se pasan por valor a una función
+- Esto significa que se pasa una COPIA del valor, con lo que no se puede modificar la variable original
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros por valor
+
+```csharp
+static void CambiarValor(int n)
+{
+    n++;
+}
+
+static void Main()
+{
+    int numero = 0;
+    CambiarValor(numero);
+    Console.WriteLine(numero);  // 0
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros por referencia
+
+- Los datos complejos (arrays, structs, objetos...) SIEMPRE se pasan por referencia
+- Podemos modificar el contenido de estos datos siempre que no modifiquemos su referencia (es decir, siempre que no los reasignemos enteros)
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros por referencia
+
+```csharp
+static void CambiarArray(int[] numeros)
+{
+    for (int i = 0; i < numeros.Length; i++)
+    {
+        numeros[i]++;
+    }
+}
+
+static void CambiarArray2(int[] numeros)
+{
+    numeros = new int[5] {0, 10, 20, 30, 40};
+}
+
+static void Main()
+{
+    int[] datos = {1, 2, 3, 4, 5};
+    CambiarArray(datos);            // datos = {2, 3, 4, 5, 6}
+    CambiarArray2(datos);           // datos = {2, 3, 4, 5, 6}
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso por referencia de tipos simples
+
+- Usamos la palabra **ref** en el parámetro (tanto en la definición como en la llamada)
+- Es necesario que la variable que pasamos como parámetro tenga un valor inicial
+    
+```csharp
+static void CambiarValor(ref int n)
+{
+    n++;
+}
+
+static void Main()
+{
+    int numero = 0;
+    CambiarValor(ref numero);
+    Console.WriteLine(numero);  // 1
+}
+```
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros de salida
+
+- Usamos la palabra **out** en el parámetro (tanto en la definición como en la llamada)
+- No es necesario que la variable tenga un valor inicial
+    
+```csharp
+static void Mayor(int n1, int n2, out int resultado)
+{
+    if (n1 > n2)
+        resultado = n1;
+    else
+        resultado = n2;
+}
+
+static void Main()
+{
+    int mayor;
+    Mayor(3, 7, out mayor);
+    Console.WriteLine(mayor);   // 7
+}
+```
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_09.cs** con una función *Intercambiar* que reciba por referencia dos parámetros enteros e intercambie sus valores
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_10.cs** con una función *DatosCirculo* que reciba como parámetro el radio de un círculo (*float*), y utilice dos parámetros *out* para devolver o almacenar el área y el perímetro del círculo cuyo radio se ha indicado
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05a_11.cs** con una función *MaxMinArray* que reciba como parámetro un array de enteros, y devuelva en dos parámetros *out* su valor máximo y mínimo.
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Adapta el *Ejercicio_04b_03* del tema anterior para descomponerlo en distintas funciones (básicamente una por cada opción del menú). Llama al nuevo programa **Ejercicio_05a_12.cs**.
+
+</script>
+</section>    
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

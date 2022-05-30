@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Date and time</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Date and time
+### Operations with dates and times
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operations with dates and times
+
+- Work with different time zones
+- Make some additional operations:
+   - Adding/Substracting parts of a date
+   - Comparing dates
+   - Getting periods between dates
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Time zones
+
+**ZoneId** class lets us get a particular time zone
+
+```java
+Set<String> zones = ZoneId.getAvailableZoneIds();
+for(String s: zones)
+    System.out.println(s);
+ZoneId madrid = ZoneId.of("Europe/Madrid");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Time zones
+
+**ZonedDateTime** class lets us convert a date of a given time zone into another, different time zone
+
+```java
+ZonedDateTime dateZone = 
+    ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Europe/Madrid"));
+ZonedDateTime anotherZone =
+    dateZone.withZoneSameInstant(ZoneId.of("Europe/Bucharest"));
+System.out.println("Now in Bucharest: " + anotherZone);
+``` 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program that asks the user to enter the zone and time where he/she was born, and transform this time into some other zone, such as Chicago ("America/Chicago") or Tokio ("Asia/Tokyo")
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Adding/Substracting parts of a date
+
+- We can use specific methods such as **plusDays**, **minusHours**, or general methods **plus** and **minus**, indicating the unit to be added or substracted
+- All these operations return an object of the same type of the original that we took to add or substract
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Adding/Substracting parts of a date
+
+```java
+LocalDate today = LocalDate.now();
+LocalDate future = today.plusDays(15);
+System.out.println("In 15 days it will be " + future);
+
+LocalDateTime now = LocalDateTime.now();
+LocalDateTime past = now.minus(3, ChronoUnit.HOURS);
+System.out.println("3 hours ago it was " + past);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comparing dates
+
+*LocalDate*, *LocalTime* and *LocalDateTime* implements *Comparable* interface
+
+```java
+LocalDate date1 = LocalDate.now();
+LocalDate date2 = LocalDate.of(2022, 6, 10);
+
+if (date1.compareTo(date2) < 0)
+    System.out.println("Today is not 2022-6-10 yet");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Getting periods (I)
+
+**Instant** and **Duration** classes let us determine the duration of a given task
+
+```java
+Instant start = Instant.now();
+
+// ... Task to be executed
+
+Instant end = Instant.now();
+Duration duration = Duration.between(start, end);
+System.out.println("Task completed in " + duration.toMillis() + "ms");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Getting periods (II)
+
+**Period** class gets the number of days, months, years... between two dates
+
+```java
+LocalDate date1 = ...
+LocalDate date2 = ...
+
+Period period = date1.until(date2);
+System.out.println(period.getYears());
+System.out.println(date1.until(date2, ChronoUnit.DAYS));
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **NextBirthday** that asks the user his/her birth date, and show how old he/she is, and how many days are left until his/her next birthday.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Algunas opciones avanzadas de Mongoose | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Algunas opciones avanzadas de Mongoose" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/04c.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Algunas opciones avanzadas de Mongoose" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Algunas opciones avanzadas de Mongoose","url":"http://nachoiborraies.github.io/nodejs/md/es/04c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="algunas-opciones-avanzadas-de-mongoose">Algunas opciones avanzadas de Mongoose</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/04c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/04c.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>En este documento vamos a analizar algunas operaciones algo más complejas que podemos hacer con bases de datos NoSQL, como la posibilidad de establecer conexiones entre diferentes colecciones, o definir subdocumentos dentro de un documento.</p>
+
+<h2 id="1-relaciones-entre-colecciones">1. Relaciones entre colecciones</h2>
+
+<p>Vamos a volver a nuestra base de datos de contactos que venimos utilizando en esta sesión. Es una base de datos muy simple, con una única colección llamada “contactos” cuyos documentos tienen tres campos: nombre, teléfono y edad. Vamos a añadirle más información, y para ello seguiremos trabajando sobre el proyecto “<em>PruebaContactosMongo</em>” de nuestra carpeta “<em>ProyectosNode/Pruebas</em>”. Sin embargo, para no mezclar los contenidos básicos que hemos estado viendo con otros más avanzados que trataremos a continuación, deja renombrada la carpeta anterior como <em>PruebaContactosMongo_v1</em>, y crea una copia llamada <em>PruebaContactosMongo_v2</em> para lo que haremos a continuación.</p>
+
+<h3 id="11-definir-una-relación-simple">1.1. Definir una relación simple</h3>
+
+<p>Supongamos que queremos añadir, para cada contacto, cuál es su restaurante favorito, de forma que varios contactos puedan tener el mismo. Del restaurante en cuestión nos interesa saber su nombre, dirección y teléfono. Para ello, podemos definir este esquema y modelo (en un fichero llamado <code class="language-plaintext highlighter-rouge">models/restaurante.js</code>):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">restauranteSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">minlength</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">trim</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="na">direccion</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">minlength</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">trim</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">unique</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">trim</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">match</span><span class="p">:</span> <span class="sr">/^</span><span class="se">\d{9}</span><span class="sr">$/</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">Restaurante</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">restaurantes</span><span class="dl">'</span><span class="p">,</span> <span class="nx">restauranteSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="k">export</span> <span class="o">=</span> <span class="nx">Restaurante</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Y lo asociamos al esquema de contactos con un nuevo campo (omitimos con puntos suspensivos datos ya existentes de ejemplos previos):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contactoSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">restauranteFavorito</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span><span class="p">,</span>
+        <span class="na">ref</span><span class="p">:</span> <span class="dl">'</span><span class="s1">restaurantes</span><span class="dl">'</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactoSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Contacto</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Observemos que el tipo de dato de este nuevo campo es <code class="language-plaintext highlighter-rouge">ObjectId</code>, lo que indica que hace referencia a un <em>id</em> de un documento de ésta u otra colección. En concreto, a través de la propiedad <code class="language-plaintext highlighter-rouge">ref</code> indicamos a qué modelo o colección hace referencia dicho <em>id</em> (al modelo <em>restaurantes</em>, que se traducirá a la colección <em>restaurantes</em> en MongoDB).</p>
+
+<h3 id="12-definir-una-relación-múltiple">1.2. Definir una relación múltiple</h3>
+
+<p>Vamos a dar un paso más, y a definir una relación que permita asociar a un elemento de una colección múltiples elementos de otra (o de esa misma colección). Por ejemplo, vamos a permitir que cada contacto tenga un conjunto de mascotas. Definimos un nuevo esquema para las mascotas, que almacene su nombre y tipo (perro, gato, etc.), en el archivo <code class="language-plaintext highlighter-rouge">models/mascota.js</code>.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">mascotaSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">minlength</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="na">trim</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="na">tipo</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="na">enum</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">perro</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">gato</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">otros</span><span class="dl">'</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">Mascota</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">mascotas</span><span class="dl">'</span><span class="p">,</span> <span class="nx">mascotaSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Mascota</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: como nota al margen, observad cómo se puede utilizar el validador <code class="language-plaintext highlighter-rouge">enum</code> en un esquema para forzar a que un determinado campo sólo admita ciertos valores.</p>
+</blockquote>
+
+<p>Para permitir que un contacto pueda tener múltiples mascotas, añadimos un nuevo campo en el esquema de contactos que será un array de <em>ids</em>, asociados al modelo de mascotas definido previamente:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contactoSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">restauranteFavorito</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">mascotas</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">.</span><span class="nx">Types</span><span class="p">.</span><span class="nx">ObjectId</span><span class="p">,</span>
+        <span class="na">ref</span><span class="p">:</span> <span class="dl">'</span><span class="s1">mascotas</span><span class="dl">'</span> 
+    <span class="p">}]</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactoSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Contacto</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En este caso, observad cómo la forma de definir la referencia a la colección de mascotas es la misma (se establece como tipo de dato un <code class="language-plaintext highlighter-rouge">ObjectId</code>, con referencia al modelo de <em>mascotas</em>), pero, además, el tipo de dato de este campo mascotas es un array (especificado por los corchetes al definirlo).</p>
+
+<h3 id="13-inserciones-de-elementos-relacionados">1.3. Inserciones de elementos relacionados</h3>
+
+<p>Si quisiéramos insertar un nuevo contacto y, a la vez, especificar su restaurante favorito y/o sus mascotas, deberíamos hacerlo por partes, como ocurriría en un sistema relacional:</p>
+
+<ul>
+  <li>Primero añadiríamos el restaurante favorito a la colección de restaurantes, y/o las mascotas a la colección de mascotas (salvo que exista previamente, en cuyo caso obtendríamos su <em>id</em>):</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">restaurante1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Restaurante</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">La Tagliatella</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">direccion</span><span class="p">:</span> <span class="dl">"</span><span class="s2">C.C. San Vicente s/n</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">965678912</span><span class="dl">"</span>
+<span class="p">});</span>
+<span class="nx">restaurante1</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(...</span>
+
+<span class="kd">let</span> <span class="nx">mascota1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Mascota</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Otto</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">tipo</span><span class="p">:</span> <span class="dl">"</span><span class="s2">perro</span><span class="dl">"</span>
+<span class="p">});</span>
+<span class="nx">mascota1</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Después, añadiríamos el nuevo contacto especificando el <em>id</em> de su restaurante favorito, añadido previamente, y/o los <em>ids</em> de sus mascotas en un array:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contacto1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="mi">677889900</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="na">restauranteFavorito</span><span class="p">:</span> <span class="dl">'</span><span class="s1">5acd3c051d694d04fa26dd8b</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">mascotas</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">5acd3c051d694d04fa26dd90</span><span class="dl">'</span><span class="p">,</span> 
+               <span class="dl">'</span><span class="s1">5acd3c051d694d04fa26dd91</span><span class="dl">'</span><span class="p">]</span>
+<span class="p">});</span>
+<span class="nx">contacto1</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<p>Evidentemente, en una operación “real” no tendremos que añadir a mano los <em>ids</em> de los documentos relacionados. Bastaría con elegirlos de algún tipo de desplegable para quedarnos con su <em>id</em>.</p>
+
+<h3 id="14-sobre-la-integridad-referencial">1.4. Sobre la integridad referencial</h3>
+
+<p>La integridad referencial es un concepto vinculado a bases de datos relacionales, mediante el cual se garantiza que los valores de una clave ajena siempre van a existir en la tabla a la que hace referencia. Aplicado a una base de datos Mongo, podríamos pensar que los <em>ids</em> de un campo vinculado a otra colección deberían existir en dicha colección, pero no tiene por qué ser así.</p>
+
+<p>Siguiendo con el ejemplo anterior, si intentamos insertar un contacto con un <em>id</em> de restaurante que no exista en la colección de restaurantes, nos dejará hacerlo, siempre que ese <em>id</em> sea válido (es decir, tenga una extensión de 12 bytes). Por lo tanto, corre por cuenta del programador asegurarse de que los <em>id</em> empleados en inserciones que impliquen una referencia a otra colección existan realmente. Para facilitar la tarea, existen algunas librerías en el repositorio NPM que podemos emplear, como por ejemplo <a href="https://www.npmjs.com/package/mongoose-id-validator">ésta</a>, aunque su uso va más allá de los contenidos de este curso, y no lo veremos aquí.</p>
+
+<p>En el caso del borrado, podemos encontrarnos con una situación similar: si, siguiendo con el caso de los contactos, queremos borrar un restaurante, deberemos tener cuidado con los contactos que lo tienen asignado como restaurante favorito, ya que el <em>id</em> dejará de existir en la colección de restaurantes. Así, sería conveniente elegir entre una de estas dos opciones, aunque las dos requieren un tratamiento manual por parte del programador:</p>
+
+<ul>
+  <li>Denegar la operación si existen contactos con el restaurante seleccionado</li>
+  <li>Reasignar (o poner a nulo) el restaurante favorito de esos contactos, antes de eliminar el restaurante seleccionado.</li>
+</ul>
+
+<h2 id="2-subdocumentos">2. Subdocumentos</h2>
+
+<p>Mongoose ofrece también la posibilidad de definir <strong>subdocumentos</strong>. Veamos un ejemplo concreto de ello, y para eso, vamos a hacer una versión alternativa de nuestro ejemplo de contactos. Copia la carpeta <em>PruebaContactosMongo_v2</em> que hemos venido completando hasta ahora, y llama a la nueva copia <em>PruebaContactosMongo_v3</em>.</p>
+
+<p>Sobre este nuevo proyecto, en nuestro archivo <code class="language-plaintext highlighter-rouge">index.js</code>, vamos a conectar con una nueva base de datos, que llamaremos <code class="language-plaintext highlighter-rouge">contactos_subdocumentos</code>, para no interferir con la base de datos anterior:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos_subdocumentos</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Y vamos a reagrupar los tres esquemas que hemos hecho hasta ahora (restaurantes, mascotas y contactos), para unirlos en el de contactos. Dejaremos, por tanto, un único archivo en la carpeta <code class="language-plaintext highlighter-rouge">models</code>, que será <code class="language-plaintext highlighter-rouge">contacto.js</code>, con este contenido (omitimos con puntos suspensivos parte del código que es el mismo del ejemplo anterior):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Restaurantes</span>
+<span class="kd">let</span> <span class="nx">restauranteSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="p">...</span> <span class="c1">// Código del esquema de restaurante</span>
+<span class="p">});</span>
+
+<span class="c1">// Mascotas</span>
+<span class="kd">let</span> <span class="nx">mascotaSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="p">...</span> <span class="c1">// Código del esquema de mascota</span>
+<span class="p">});</span>
+
+<span class="c1">// Contactos</span>
+<span class="kd">let</span> <span class="nx">contactoSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+    <span class="p">},</span>
+    <span class="na">restauranteFavorito</span><span class="p">:</span> <span class="nx">restauranteSchema</span><span class="p">,</span>
+    <span class="na">mascotas</span><span class="p">:</span> <span class="p">[</span><span class="nx">mascotaSchema</span><span class="p">]</span>
+<span class="p">});</span>
+<span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactoSchema</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Contacto</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Observad las líneas que se refieren a las propiedades <code class="language-plaintext highlighter-rouge">restauranteFavorito</code> y <code class="language-plaintext highlighter-rouge">mascotas</code>. Es la forma de asociar un esquema entero como tipo de dato de un campo de otro esquema. De este modo, convertimos el esquema en una parte del otro, creando así <strong>subdocumentos</strong> dentro del documento principal. Observad también que no se han definido modelos ni para los restaurantes ni para las mascotas, ya que ahora no van a tener una colección propia.</p>
+
+<p>Un subdocumento, a priori, puede parecer algo equivalente a definir una relación entre colecciones. Sin embargo, la principal diferencia entre un subdocumento y una relación entre documentos de colecciones diferentes es que el subdocumento queda embebido dentro del documento principal, y es diferente a cualquier otro objeto que pueda haber en otro documento, aunque sus campos sean iguales. Por el contrario, en la relación simple vista antes entre restaurantes y contactos, un restaurante favorito podía ser compartido por varios contactos, simplemente enlazando con el mismo <em>id</em> de restaurante. Pero, de este otro modo, creamos el restaurante para cada contacto, diferenciándolo de los otros restaurantes, aunque sean iguales. Lo mismo ocurriría con el array de mascotas: las mascotas serían diferentes para cada contacto, aunque quisiéramos que fueran la misma o pudieran compartirse.</p>
+
+<h3 id="21-inserción-de-documentos-con-subdocumentos">2.1. Inserción de documentos con subdocumentos</h3>
+
+<p>Si queremos crear y guardar un contacto que contiene como subdocumentos el restaurante favorito y sus mascotas, podemos crear todo el objeto completo, y hacer un único guardado (<code class="language-plaintext highlighter-rouge">save</code>).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">contacto1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Nacho</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="mi">966112233</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
+    <span class="na">restauranteFavorito</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="na">nombre</span><span class="p">:</span> <span class="dl">'</span><span class="s1">La Tagliatella</span><span class="dl">'</span><span class="p">,</span> 
+        <span class="na">direccion</span><span class="p">:</span> <span class="dl">'</span><span class="s1">C.C. San Vicente s/n</span><span class="dl">'</span><span class="p">,</span> 
+        <span class="na">telefono</span><span class="p">:</span> <span class="mi">961234567</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">contacto1</span><span class="p">.</span><span class="nx">mascotas</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span><span class="dl">'</span><span class="s1">Otto</span><span class="dl">'</span><span class="p">,</span> <span class="na">tipo</span><span class="p">:</span><span class="dl">'</span><span class="s1">perro</span><span class="dl">'</span><span class="p">});</span>
+<span class="nx">contacto1</span><span class="p">.</span><span class="nx">mascotas</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="na">nombre</span><span class="p">:</span><span class="dl">'</span><span class="s1">Piolín</span><span class="dl">'</span><span class="p">,</span> <span class="na">tipo</span><span class="p">:</span><span class="dl">'</span><span class="s1">otros</span><span class="dl">'</span><span class="p">});</span>
+<span class="nx">contacto1</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(...</span>
+</code></pre></div></div>
+
+<p>En este ejemplo se muestran dos formas posibles de rellenar los subdocumentos del documento principal: sobre la marcha cuando creamos dicho documento (caso del restaurante), o a posteriori, accediendo a los campos y dándoles valor (caso de las mascotas).</p>
+
+<p>En la base de datos que se crea, veremos que sólo existe una colección, <em>contactos</em>, y al examinar los elementos que insertemos veremos que contienen embebidos los subdocumentos que hemos definido:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/04_subdocumentos.png" width="80%" />
+</div>
+
+<h3 id="22-cuándo-definir-relaciones-y-cuándo-subdocumentos">2.2. ¿Cuándo definir relaciones y cuándo subdocumentos?</h3>
+
+<p>La respuesta a esta pregunta puede resultar compleja o evidente, dependiendo de cómo hayamos entendido los conceptos vistos hasta ahora, pero vamos a intentar dar unas normas básicas para distinguir cuándo usar cada concepto:</p>
+
+<ul>
+  <li>Emplearemos <strong>relaciones entre colecciones</strong> cuando queramos poder compartir un mismo documento de una colección por varios documentos de otra. Así, en el caso de los restaurantes favoritos, parece lógico utilizar una relación entre colecciones a partir del <em>id</em> del restaurante, y así permitir que varios contactos puedan compartir una misma instancia de un restaurante favorito.</li>
+  <li>Emplearemos <strong>subdocumentos</strong> cuando no importe dicha compartición de información, o cuando prime la simplicidad de definición de un objeto frente a la asociatividad entre colecciones. Dicho de otro modo, y aplicado al ejemplo de las mascotas, si queremos acceder de forma sencilla a las mascotas de un contacto, sin importar si otro contacto tiene las mismas mascotas, utilizaremos subdocumentos.</li>
+</ul>
+
+<p>En el caso de los subdocumentos queda, por tanto, una asignatura pendiente: la posible duplicidad de información. Si hay dos personas que tienen la misma mascota, deberemos crear dos objetos iguales para ambas personas, duplicando así los datos de la mascota. Sin embargo, esta duplicidad de datos nos va a facilitar el acceder a las mascotas de una persona, sin tener que recurrir a otras herramientas que veremos a continuación.</p>
+
+<h2 id="3-consultas-avanzadas">3. Consultas avanzadas</h2>
+
+<p>Ahora que ya sabemos definir distintos tipos de colecciones vinculadas entre sí, veamos cómo definir consultas que se aprovechen de estas vinculaciones para extraer la información que necesitamos. Volveremos a trabajar, en este caso, con el proyecto <em>PruebaContactosMongo_v2</em>.</p>
+
+<h3 id="31-las-poblaciones-populate">3.1. Las poblaciones (<em>populate</em>)</h3>
+
+<p>El hecho de relacionar documentos de una colección con documentos de otra a través de los <em>id</em> correspondientes, permite obtener en un solo listado la información de ambas colecciones, aunque para ello necesitamos de algún paso intermedio. Por ejemplo, si queremos obtener toda la información de nuestros contactos, relacionados con las colecciones de restaurantes y mascotas (archivo <code class="language-plaintext highlighter-rouge">index.js</code> de nuestro proyecto de “<em>PruebaContactosMongo</em>”), podemos hacer algo como esto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Sin embargo, esta instrucción se limita, obviamente, a mostrar el id de los restaurantes favoritos y de las mascotas, pero no los datos completos de las mismas. Para hacer esto, tenemos que echar mano de un método muy útil ofrecido por Mongoose, llamado <code class="language-plaintext highlighter-rouge">populate</code>. Este método permite incorporar la información asociada al modelo que se le indique. Por ejemplo, si queremos incorporar al listado anterior toda la información del restaurante favorito de cada contacto, haremos algo así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">populate</span><span class="p">(</span><span class="dl">'</span><span class="s1">restauranteFavorito</span><span class="dl">'</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si tuviéramos más campos relacionados, podríamos enlazar varias sentencias <code class="language-plaintext highlighter-rouge">populate</code>, una tras otra, para poblarlos. Por ejemplo, así poblaríamos tanto el restaurante como las mascotas:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+<span class="p">.</span><span class="nx">populate</span><span class="p">(</span><span class="dl">'</span><span class="s1">restauranteFavorito</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">populate</span><span class="p">(</span><span class="dl">'</span><span class="s1">mascotas</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Existen otras opciones para poblar los campos. Por ejemplo, podemos querer poblar sólo parte de la información, como el nombre del restaurante nada más. En ese caso, utilizamos una serie de parámetros adicionales en el método <code class="language-plaintext highlighter-rouge">populate</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">()</span>
+<span class="p">.</span><span class="nx">populate</span><span class="p">(</span><span class="dl">'</span><span class="s1">restauranteFavorito</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">nombre</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<h3 id="32-consultas-que-relacionan-varias-colecciones">3.2. Consultas que relacionan varias colecciones</h3>
+
+<p>Establecer una consulta general sobre una colección es sencillo, como hemos visto en sesiones anteriores. Podemos utilizar el método <code class="language-plaintext highlighter-rouge">find</code> para obtener documentos que cumplan determinados criterios, o alternativas como <code class="language-plaintext highlighter-rouge">findOne</code> o <code class="language-plaintext highlighter-rouge">findById</code> para obtener el documento que cumpla el filtrado.</p>
+
+<p>Las bases de datos No-SQL, como es el caso de MongoDB, no están preparadas para consultar información proveniente de varias colecciones, lo que en parte “invita” a utilizar colecciones independientes basadas en subdocumentos para agregarles información adicional.</p>
+
+<p>Supongamos que queremos, por ejemplo, obtener los datos de los restaurantes favoritos de aquellos contactos que sean mayores de 30 años. Si tuviéramos una base de datos SQL, podríamos resolver esto con una query como la siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT * FROM restaurantes 
+WHERE id IN 
+(SELECT restauranteFavorito FROM contactos 
+WHERE edad &gt; 30)
+</code></pre></div></div>
+
+<p>Sin embargo, esto no es posible en MongoDB, o al menos, no de forma tan inmediata. Haría falta dividir esta consulta en dos partes: primero obtener los <em>id</em> de los restaurantes de las personas mayores de 30 años, y a partir de ahí obtener con otra consulta los datos de esos restaurantes. Podría quedar más o menos así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">edad</span><span class="p">:</span> <span class="p">{</span><span class="na">$gt</span><span class="p">:</span> <span class="mi">30</span><span class="p">}}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultadoContactos</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">idsRestaurantes</span> <span class="o">=</span> 
+       <span class="nx">resultadoContactos</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">contacto</span> <span class="o">=&gt;</span> <span class="nx">contacto</span><span class="p">.</span><span class="nx">restauranteFavorito</span><span class="p">);</span>
+    <span class="nx">Restaurante</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span><span class="na">_id</span><span class="p">:</span> <span class="p">{</span><span class="na">$in</span><span class="p">:</span> <span class="nx">idsRestaurantes</span><span class="p">}})</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultadoFinal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultadoFinal</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Observad que la primera consulta obtiene todos los contactos mayores de 30 años. Una vez conseguidos, hacemos un mapeo (<code class="language-plaintext highlighter-rouge">map</code>) para quedarnos sólo con los <em>id</em> de los restaurantes favoritos, y ese listado de <em>ids</em> lo utilizamos en la segunda consulta, para quedarnos con los restaurantes cuyo <em>id</em> esté en ese listado.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

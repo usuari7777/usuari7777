@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Tablas, enlaces y multimedia | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Tablas, enlaces y multimedia" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/02d.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Tablas, enlaces y multimedia" />
+<script type="application/ld+json">
+{"headline":"Tablas, enlaces y multimedia","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/02d.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="tablas-enlaces-y-multimedia">Tablas, enlaces y multimedia</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>En este documento vamos a abarcar algunas etiquetas adicionales que nos van a permitir añadir más tipos de elementos en nuestras páginas. Veremos cómo estructurar la información en tablas, cómo definir enlaces para ir de un documento a otro, y cómo añadir diferentes tipos de contenido multimedia, como imágenes y recursos de audio y vídeo.</p>
+
+<h2 id="1-tablas">1. Tablas</h2>
+
+<p>Las tablas son un elemento muy útil en los procesadores de texto porque permiten estructurar la información en la página de diferentes formas, simulando columnas, o permitiendo textos a diferentes niveles o en diferentes orientaciones. Hasta hace no mucho, también se utilizaban con mucha frecuencia en las páginas web para estructurar de esta misma forma el contenido, pero la W3C las desaconseja o las considera obsoletas, porque hacen que el diseño de la página sea muy rígido (una tabla no va a cambiar su disposición para poderse ver mejor en un móvil, por ejemplo), y dificultan la lectura por los lectores de pantalla.</p>
+
+<p>En cualquier caso, veremos brevemente cómo se crean tablas en HTML, tanto por si nos es necesario crearlas en algún momento, como para saberlas identificar en cualquier página web que estemos manipulando.</p>
+
+<p>El contenido de una tabla va entre la pareja de etiquetas <code class="language-plaintext highlighter-rouge">table</code>. Dentro, distinguimos tres tipos de elementos:</p>
+
+<ul>
+  <li>Cada fila de la tabla, se marca con un par de etiquetas <code class="language-plaintext highlighter-rouge">tr</code>.</li>
+  <li>Cada celda dentro de esa fila se marca con un par de etiquetas <code class="language-plaintext highlighter-rouge">th</code> si es el encabezado de la tabla (normalmente primera fila y/o primera columna) y queremos darle un estilo diferente, o con etiquetas <code class="language-plaintext highlighter-rouge">td</code> si son celdas normales. El contenido de esa celda será lo que pongamos entre ese par de etiquetas, y puede ser cualquier cosa (texto llano, párrafos, listas, imágenes, otra tabla…).</li>
+</ul>
+
+<p>Veamos un ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table&gt;</span>
+	<span class="nt">&lt;tr&gt;</span>
+		<span class="nt">&lt;th&gt;</span>Columna 1<span class="nt">&lt;/th&gt;</span>
+		<span class="nt">&lt;th&gt;</span>Columna 2<span class="nt">&lt;/th&gt;</span>
+	<span class="nt">&lt;/tr&gt;</span>
+	<span class="nt">&lt;tr&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Fila 1, Columna 1<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Fila 1, Columna 2<span class="nt">&lt;/td&gt;</span>
+	<span class="nt">&lt;/tr&gt;</span>
+	<span class="nt">&lt;tr&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Fila 2, Columna 1<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Fila 2, Columna 2<span class="nt">&lt;/td&gt;</span>
+	<span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<p>Esto se vería más o menos así en el navegador:</p>
+
+<table>
+	<tr>
+		<th>Columna 1</th>
+		<th>Columna 2</th>
+	</tr>
+	<tr>
+		<td>Fila 1, Columna 1</td>
+		<td>Fila 1, Columna 2</td>
+	</tr>
+	<tr>
+		<td>Fila 2, Columna 1</td>
+		<td>Fila 2, Columna 2</td>
+	</tr>
+</table>
+
+<h3 id="11-atributos-de-las-tablas">1.1. Atributos de las tablas</h3>
+
+<p>Las etiquetas que usamos para construir tablas (<code class="language-plaintext highlighter-rouge">table</code>, <code class="language-plaintext highlighter-rouge">tr</code>, <code class="language-plaintext highlighter-rouge">td</code>…) admiten una serie de atributos para añadir algunas propiedades. Muchos de estos atributos también pueden especificarse a través de estilos CSS.</p>
+
+<p>Así, la etiqueta <code class="language-plaintext highlighter-rouge">table</code> admite los siguientes atributos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">border</code>: grosor del borde. Si no queremos tener borde, pondríamos <code class="language-plaintext highlighter-rouge">border="0"</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">width</code>: anchura de la tabla (en píxeles o en porcentaje sobre la anchura máxima)</li>
+  <li><code class="language-plaintext highlighter-rouge">cellspacing</code>: margen entre el interior del borde de cada casilla y el contenido</li>
+  <li><code class="language-plaintext highlighter-rouge">summary</code>: resumen del contenido de la tabla, útil para lectores de pantalla.</li>
+</ul>
+
+<p>Por su parte, los elementos <code class="language-plaintext highlighter-rouge">td</code> admiten estos atributos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">align</code>: alineación horizontal del texto. Puede valer <em>left</em>, <em>right</em> o <em>center</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">valign</code>: alineación vertical del texto. Puede valer <em>top</em>, <em>bottom</em> o <em>middle</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">rowspan</code>: expande la celda X filas más hacia abajo</li>
+  <li><code class="language-plaintext highlighter-rouge">colspan</code>: expande la celda X celdas más hacia la derecha</li>
+  <li><code class="language-plaintext highlighter-rouge">width</code>: para indicar la anchura específica de esa columna (en píxeles o porcentaje).</li>
+</ul>
+
+<p>Veamos todo esto en un ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;tr&gt;</span>
+		<span class="nt">&lt;td</span> <span class="na">rowspan=</span><span class="s">"2"</span> <span class="na">valign=</span><span class="s">"middle"</span> <span class="na">width=</span><span class="s">"50%"</span><span class="nt">&gt;</span>Uno<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Dos<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Tres<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Cuatro<span class="nt">&lt;/td&gt;</span>
+	<span class="nt">&lt;/tr&gt;</span>
+	<span class="nt">&lt;tr&gt;</span>
+		<span class="nt">&lt;td&gt;</span>Cinco<span class="nt">&lt;/td&gt;</span>
+		<span class="nt">&lt;td</span> <span class="na">colspan=</span><span class="s">"2"</span> <span class="na">align=</span><span class="s">"right"</span><span class="nt">&gt;</span>Seis<span class="nt">&lt;/td&gt;</span>
+	<span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<p>Esto se vería más o menos así en el navegador:</p>
+
+<table>
+	<tr>
+		<td rowspan="2" valign="middle" width="50%">Uno</td>
+		<td>Dos</td>
+		<td>Tres</td>
+		<td>Cuatro</td>
+	</tr>
+	<tr>
+		<td>Cinco</td>
+		<td colspan="2" align="right">Seis</td>
+	</tr>
+</table>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una página llamada <strong>tablas.html</strong>. En ella deberás crear dos tablas:</p>
+
+  <ul>
+    <li>Una sin bordes, con un encabezado de 4 columnas (<em>th</em>): Nombre y apellidos, E-mail, Dirección, Teléfono, y después 4 filas con esos datos rellenos para 4 personas que conozcas o te inventes.</li>
+    <li>Otra tabla con borde de grosor 1 y anchura del 50%, donde la primera fila tenga 3 columnas combinadas y el texto en negrita “Trilogías”. Después, habrá información sobre trilogías de cine. Para cada una, añadiremos una fila con las 3 columnas combinadas y el título de la trilogía (El Señor de los Anillos, El Hobbit, Matrix, etc), y después otra fila con los títulos de las 3 películas de la trilogía</li>
+  </ul>
+
+  <p>Aquí tienes un ejemplo de cómo puede quedar:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_tablas.png" width="90%" />
+</div>
+
+<h3 id="12-otras-etiquetas-para-tablas">1.2. Otras etiquetas para tablas</h3>
+
+<p>Las etiquetas que hemos visto hasta ahora (<code class="language-plaintext highlighter-rouge">table</code>, <code class="language-plaintext highlighter-rouge">tr</code>, <code class="language-plaintext highlighter-rouge">td</code> y <code class="language-plaintext highlighter-rouge">th</code>) son las más habituales cuando queremos definir tablas en nuestras páginas HTML. Pero hay otras etiquetas que también podemos emplear, aunque no son tan frecuentes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">caption</code> permite asignar una breve descripción a la tabla, útil para lectores de pantalla en el caso de usuarios con problemas de visión, para así poder hacerse una idea rápida de lo que ofrece la tabla. Se coloca justo después de la etiqueta <code class="language-plaintext highlighter-rouge">table</code></li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table&gt;</span>
+    <span class="nt">&lt;caption&gt;</span>Lenguajes de programación más populares<span class="nt">&lt;/caption&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+        ...
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">thead</code>, <code class="language-plaintext highlighter-rouge">tbody</code> y <code class="language-plaintext highlighter-rouge">tfoot</code> definen un encabezado, cuerpo y pie de la tabla, de forma similar al contenido de la página en general. Dentro de cada una de estas secciones podemos englobar una o varias filas.</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table&gt;</span>
+    <span class="nt">&lt;caption&gt;</span>Lenguajes de programación más populares<span class="nt">&lt;/caption&gt;</span>
+    <span class="nt">&lt;thead&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th</span> <span class="na">colspan=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+                Lenguajes más populares
+            <span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Lenguaje<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Tipo<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/thead&gt;</span>
+    <span class="nt">&lt;tbody&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>Java<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>Orientado a objetos<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>Python<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>Híbrido<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>JavaScript<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>Híbrido<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/tbody&gt;</span>
+    <span class="nt">&lt;tfoot&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">colspan=</span><span class="s">"2"</span><span class="nt">&gt;</span>Actualizado a Agosto de 2021<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/tfoot&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div>
+
+<table>
+    <caption>Lenguajes de programación más populares</caption>
+    <thead>
+        <tr>
+            <th colspan="2">
+                Lenguajes más populares
+            </th>
+        </tr>
+        <tr>
+            <th>Lenguaje</th>
+            <th>Tipo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Java</td>
+            <td>Orientado a objetos</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>Híbrido</td>
+        </tr>
+        <tr>
+            <td>JavaScript</td>
+            <td>Híbrido</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Actualizado a Agosto de 2021</td>
+        </tr>
+    </tfoot>
+</table>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página llamada <strong>horario.html</strong> con tu horario de clases de este curso. La primera fila contendrá los encabezados (<em>th</em>) con los días de la semana de Lunes a Viernes, y la primera columna otros encabezados con las franjas horarias. Deberás tener en cuenta que los recreos serán una sola casilla que ocupará todos los días de la semana (<em>colspan</em>) y que algunos módulos o asignaturas pueden extenderse más de una franja horaria (<em>rowspan</em>).</p>
+</blockquote>
+
+<h2 id="2-enlaces">2. Enlaces</h2>
+
+<p>Los enlaces (también llamados hipervínculos, hiperenlaces o <em>links</em>) son quizá el elemento más importante de las páginas web, ya que permiten “saltar” de una página a otra, haciendo clic en ellos. Es lo que se conoce como <em>hipertexto</em> (texto que permite acceder a otro texto), y es la razón de ser primitiva del lenguaje HTML (<em>lenguaje de marcado de hipertexto</em>), y del protocolo HTTP con el que nos comunicamos a través de los navegadores con los servidores web (<em>protocolo de transferencia de hipertexto</em>). Existen en casi cualquier página web; por ejemplo, si hacemos una búsqueda en Google, al hacer clic en alguno de los resultados que nos ofrece, estamos haciendo clic en un enlace.</p>
+
+<p>A la hora de colocar un enlace en una página, tenemos que distinguir dos elementos:</p>
+
+<ul>
+  <li>El <strong>texto</strong> (o imagen) sobre el que pinchamos en la página HTML, y que puede ser el que nosotros queramos.</li>
+  <li>La <strong>URL</strong> (dirección web) a la que queremos ir al pinchar en ese enlace. Esta URL puede llevarnos a otra página HTML, una imagen, un documento PDF o cualquier otro tipo de recurso digital.</li>
+</ul>
+
+<p>Para añadir enlaces en un documento HTML se utiliza la pareja de etiquetas <code class="language-plaintext highlighter-rouge">a</code>. Tienen un único atributo obligatorio, llamado <code class="language-plaintext highlighter-rouge">href</code>, que será la URL de la página a la que queremos ir. El texto (o la imagen) que queramos poner para hacer clic sobre él, deberá ir entre el par de etiquetas <code class="language-plaintext highlighter-rouge">a</code>. Veamos un ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>Ir a la <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.ua.es"</span><span class="nt">&gt;</span>web de la Universidad de Alicante<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>que se vería así:</p>
+
+<p>Ir a la <a href="http://www.ua.es">web de la Universidad de Alicante</a>.</p>
+
+<h3 id="21-otros-atributos-útiles">2.1. Otros atributos útiles</h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">a</code> admite, además de <code class="language-plaintext highlighter-rouge">href</code>, otros atributos que pueden sernos útiles. Vamos a destacar dos de ellos:</p>
+
+<ul>
+  <li>El atributo <code class="language-plaintext highlighter-rouge">title</code>, que sirve para que, cuando pasemos el ratón por encima del enlace (sin hacer clic en él), nos aparezca un recuadro explicativo sobre dónde vamos a ir con ese enlace. El texto del recuadro será el que pongamos en este atributo title.</li>
+  <li>El atributo <code class="language-plaintext highlighter-rouge">target</code>, que sirve para indicar dónde queremos abrir el enlace. Si no ponemos este atributo, el enlace se abrirá en la misma ventana de la página que tenemos actualmente, con lo que dejaremos de ver la página actual y pasamos a la nueva (en cualquier caso, podemos recuperar la página antigua pulsando el botón de <em>Atrás</em> del navegador). Pero podemos darle otros valores, como por ejemplo <em>_blank</em>, para que se abra en una ventana o pestaña nueva.</li>
+</ul>
+
+<p>El siguiente ejemplo modifica el enlace anterior, añadiéndole un title y haciendo que se abra en una ventana nueva:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>Ir a la 
+   <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.ua.es"</span> <span class="na">title=</span><span class="s">"Ir a la web de la UA"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
+   web de la Universidad de Alicante
+   <span class="nt">&lt;/a&gt;</span>.
+<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea un documento HTML llamado <strong>institutos.html</strong>. Dentro, genera una lista (no ordenada) con el nombre de al menos 4 o 5 institutos de Ciclos Formativos o Secundaria que conozcas, y pon un enlace en cada uno que vaya a su correspondiente página web, haciendo que se abran en una ventana nueva (distinta a la actual con el listado).</p>
+</blockquote>
+
+<h3 id="22-rutas-relativas-y-absolutas">2.2. Rutas relativas y absolutas</h3>
+
+<p>La URL del recurso o página al que queremos ir al pulsar en un enlace contiene la <strong>ruta</strong> hacia ese enlace. Cuando queremos ir a una URL de una web diferente a la nuestra, ponemos la dirección completa (como el caso del ejemplo anterior). Pero si queremos saltar a otra página de nuestra misma web, podemos indicar en el atributo <code class="language-plaintext highlighter-rouge">href</code> una ruta relativa o absoluta a la página donde estamos. Por ejemplo, si tenemos una aplicación web de varias páginas, repartidas en carpetas y subcarpetas, como en este ejemplo (indicamos las carpetas con los símbolos <code class="language-plaintext highlighter-rouge">&lt;..&gt;</code>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;MiWeb&gt;
+   pagina1.html
+   pagina2.html
+   &lt;otros&gt;
+      pagina3.html
+</code></pre></div></div>
+
+<p>Supongamos que estamos editando la <em>pagina1.html</em>. Si quisiéramos poner un enlace para ir a la <em>pagina2.html</em>, podríamos hacerlo de dos formas:</p>
+
+<ul>
+  <li>Como una ruta <strong>relativa</strong> desde la carpeta donde está la <em>pagina1</em> que estamos editando. En este caso, como ambas páginas están en la misma carpeta, el enlace sería algo así:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"pagina2.html"</span><span class="nt">&gt;</span>Ir a página 2<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Como una ruta <strong>absoluta</strong> a la raíz de la aplicación. Como la <em>pagina2</em> está en la carpeta raíz de la aplicación <em>MiWeb</em>, el enlace quedaría así:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/pagina2.html"</span><span class="nt">&gt;</span>Ir a página 2<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>En cambio, si desde <em>pagina1</em> quisiéramos poner un enlace a <em>pagina3.html</em>, los enlaces relativo y absoluto quedarían, respectivamente:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Relativo --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"otros/pagina3.html"</span><span class="nt">&gt;</span>Ir a página 3<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- Absoluto --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/otros/pagina3.html"</span><span class="nt">&gt;</span>Ir a página 3<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>En el caso contrario (un enlace en la <em>pagina3</em> para ir a <em>pagina1</em>), los enlaces relativo y absoluto, respectivamente, serían así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Relativo --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"../pagina1.html"</span><span class="nt">&gt;</span>Ir a página 1<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!-- Absoluto --&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/pagina1.html"</span><span class="nt">&gt;</span>Ir a página 1<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<p>Hacemos uso del símbolo <code class="language-plaintext highlighter-rouge">..</code> para salir a la carpeta anterior a la que estamos. Podemos enlazar esta expresión varias veces para salir varias carpetas atrás, como por ejemplo <code class="language-plaintext highlighter-rouge">../../..</code> para salir tres carpetas.</p>
+
+<p>En general, ambos tipos de rutas son equivalentes, aunque las rutas absolutas pueden darnos problemas en servidores de pruebas, ya que la raíz de la aplicación web no suele coincidir con la raíz del servidor y al poner la barra <code class="language-plaintext highlighter-rouge">/</code> en la ruta absoluta los servidores interpretan la raíz del servidor.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Descarga <a href="../../resources/UD2_Ejercicios/02d_ejercicio_enlaces_plantilla.zip">esta plantilla de ejemplo</a>. Dentro verás distintos archivos distribuidos en diferentes carpetas. Se pide que completes el atributo <code class="language-plaintext highlighter-rouge">href</code> de los enlaces que encontrarás en el archivo <code class="language-plaintext highlighter-rouge">index.html</code> de la carpeta principal y del archivo <code class="language-plaintext highlighter-rouge">index.html</code> de la subcarpeta <em>projects</em>, para que enlacen con el documento correcto.</p>
+</blockquote>
+
+<h3 id="23-puntos-de-anclaje-y-enlaces-internos">2.3. Puntos de anclaje y enlaces internos</h3>
+
+<p>Además de poder enlazar con otras páginas y otras webs, los enlaces también permiten saltar a otras zonas dentro de una misma página. Para ello, debemos seguir dos pasos:</p>
+
+<ol>
+  <li>Ir a la zona a la que queremos saltar, y definir un punto de anclaje (en inglés, anchor). Para ello, asignamos un atributo <code class="language-plaintext highlighter-rouge">id</code> con el nombre que queramos (siempre que no se repita) a la zona donde queremos ir. Por ejemplo, a un encabezado de nivel 1 o 2:</li>
+</ol>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   ...
+   <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">"introduccion"</span><span class="nt">&gt;</span>Introducción<span class="nt">&lt;/h1&gt;</span>
+   <span class="nt">&lt;p&gt;</span>blablablabla...<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Luego, vamos donde queramos poner el enlace, y utilizamos la misma etiqueta <code class="language-plaintext highlighter-rouge">a</code> de los enlaces. En el atributo <code class="language-plaintext highlighter-rouge">href</code> pondremos, en lugar de un nombre de archivo o una URL, el nombre del anclaje que hemos usado antes, precedido de una almohadilla “#”. Para el ejemplo anterior, podríamos ir al principio de la página y poner un enlace como este:</li>
+</ol>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#introduccion"</span><span class="nt">&gt;</span>Introducción<span class="nt">&lt;/a&gt;</span>
+   ...
+   <span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">"introduccion"</span><span class="nt">&gt;</span>Introducción<span class="nt">&lt;/h1&gt;</span>
+   ...
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 5:</strong></p>
+
+  <p>Crea una página llamada <strong>harrypotter.html</strong> con la siguiente estructura:</p>
+
+  <ul>
+    <li>Título (<em>title</em>): Harry Potter</li>
+    <li>Encabezado de nivel 1 que diga <em>Saga Harry Potter</em></li>
+    <li>Introducción (encabezado nivel 2)</li>
+    <li>Un pequeño párrafo o dos que digan de qué va la saga</li>
+    <li>Episodios (encabezado nivel 2)</li>
+    <li>Harry Potter y la piedra filosofal (nivel 3)</li>
+    <li>Harry Potter y la cámara secreta (nivel 3)</li>
+    <li>Harry Potter y el prisionero de Azkaban (nivel 3)</li>
+    <li>Harry Potter y el cáliz de fuego (nivel 3)</li>
+    <li>Harry Potter y la orden del Fénix (nivel 3)</li>
+    <li>Harry Potter y el misterio del Príncipe (nivel 3)</li>
+    <li>Harry Potter y las reliquias de la muerte (nivel 3)</li>
+    <li>Dentro de cada apartado de nivel 3, añade 1 o 2 párrafos que cuenten de qué va el episodio</li>
+    <li>Resumen de personajes (encabezado nivel 2). Dentro tendrá una lista no numerada con los nombres de 5 de los actores y, entre paréntesis, a qué personaje interpretan</li>
+    <li>Pon anclajes en cada encabezado (de nivel 2 y 3) y al principio de todo un índice de enlaces que permitan, pinchándolos, ir a cada apartado de la página. Al final, deberá quedarte algo como esto:</li>
+  </ul>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_harrypotter.png" width="80%" />
+</div>
+
+<h2 id="3-imágenes">3. Imágenes</h2>
+
+<p>En un procesador de textos al estilo de Word u OpenOffice, para colocar una imagen que nos guste, basta con copiarla y pegarla en el documento, si no la tenemos disponible en alguna carpeta de nuestro ordenador. Pero para añadir imágenes en documentos web, debemos tenerlas localizadas en la misma carpeta (o una subcarpeta) de nuestra web.</p>
+
+<p>Si son pocas imágenes, podemos tenerlo todo junto en una misma carpeta, pero si la aplicación web es grande, o hay varias imágenes, lo más normal es crear una carpeta llamada <em>imagenes</em> o <em>img</em>, y dejar dentro las imágenes que necesitemos.</p>
+
+<p>Una vez tengamos ya guardada la imagen que queremos poner, usaremos la etiqueta <code class="language-plaintext highlighter-rouge">img</code> para colocarla en la página HTML. Esta etiqueta tiene un único atributo obligatorio, llamado <code class="language-plaintext highlighter-rouge">src</code>, que funciona igual que el atributo <em>href</em> visto para los enlaces: debemos indicar la ruta (absoluta o relativa) hacia la imagen que queremos añadir. También podemos poner una URL hacia una imagen de otra web, pero corremos el riesgo de que la imagen deje de verse si la página cierra o está caída, o que tarde en cargar mientras conectamos con esa otra web.</p>
+
+<p>Por ejemplo, si queremos añadir la imagen <em>foto.png</em> que está dentro de la subcarpeta <em>imagenes</em>, podríamos añadirla con algo como:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"imagenes/foto.png"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Observa que la etiqueta <em>img</em> es una etiqueta vacía, que no tiene pareja. Ella sola se abre y cierra. Dentro, además del atributo src, podemos tener otros <strong>atributos</strong> opcionales:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">width</code>: especifica la anchura que queremos que tenga la imagen. Se la podemos dar en píxeles o en porcentaje. Conviene que el tamaño que le demos no difiera mucho del original, para que no se distorsione, y para que no ocupe demasiado espacio si luego la queremos ver mucho más pequeña. También podemos establecer esta y otras propiedades por CSS.</li>
+  <li><code class="language-plaintext highlighter-rouge">height</code>: especifica la altura que queremos que tenga la imagen (normalmente en píxeles). Si no ponemos nada, se redimensiona según la anchura que hayamos puesto.</li>
+  <li><code class="language-plaintext highlighter-rouge">alt</code>: es un texto alternativo que mostrar en el caso de que el navegador no pueda cargar la imagen, o ésta tarde en cargar. Para según qué versiones de HTML o XHTML, este atributo también es obligatorio (de lo contrario, la página no será correcta).</li>
+  <li><code class="language-plaintext highlighter-rouge">title</code>: hace referencia al título de la imagen, y funciona de forma similar al <em>title</em> de los enlaces: es el texto que se muestra cuando pasamos el ratón por encima de la imagen. En este caso no es recomendable utilizarla, porque muchos lectores de pantalla se comportan de forma imprevisible con ella, al tener un propósito parecido al del atributo <em>alt</em>.</li>
+</ul>
+
+<h3 id="31-imágenes-y-enlaces">3.1. Imágenes y enlaces</h3>
+
+<p>Como hemos comentado anteriormente, dentro del contenido de un enlace, además de texto, podemos colocar imágenes, de modo que al hacer clic sobre la imagen vayamos a la ruta indicada por el enlace. Aquí tenemos un ejemplo de ello:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://www.ua.es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"imagenes/logo_ua.png"</span> <span class="na">alt=</span><span class="s">"logo de la Universidad de Alicante"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+
+<h3 id="32-icono-de-la-aplicación-web">3.2. Icono de la aplicación web</h3>
+
+<p>De un tiempo a esta parte se ha puesto de moda que las aplicaciones (tanto en móviles como en ordenadores e incluso las aplicaciones web) tengan su propio icono que las identifique. De hecho, en muchas webs, cuando cargamos la página, aparece su icono en la barra de direcciones, o en la pestaña del navegador donde hemos abierto la web (dependiendo del navegador). ¿Cómo conseguimos esto?</p>
+
+<p>En primer lugar, como cualquier otra imagen, tendremos que tener el icono localizado en alguna carpeta o subcarpeta de nuestra web. Normalmente los iconos tienen extensión <em>.ico</em> o <em>.png</em>, y en el caso del icono de la web, se le suele llamar <em>favicon</em> (por lo que el archivo entero suele llamarse <code class="language-plaintext highlighter-rouge">favicon.ico</code> o <code class="language-plaintext highlighter-rouge">favicon.png</code>). El icono suele tener unas dimensiones de 16x16 o 32x32 píxeles. Una vez tengamos el icono localizado, deberemos añadir la siguiente línea en el <em>head</em> de la(s) página(s) web donde queramos añadirlo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"shortcut icon"</span> <span class="na">href=</span><span class="s">"favicon.ico"</span> <span class="na">type=</span><span class="s">"image/x-icon"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Existen algunas variantes. Por ejemplo, si el icono cumple los estándares de tamaño, podemos poner <code class="language-plaintext highlighter-rouge">rel="icon"</code> y <code class="language-plaintext highlighter-rouge">type="image/png"</code> (en el caso de que sea un archivo PNG). También para algunos navegadores es suficiente con dejar un archivo llamado <em>favicon.ico</em> en la raíz de nuestra aplicación web, y lo detectan automáticamente.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 6:</strong></p>
+
+  <p>Modifica el ejercicio de Harry Potter que hemos hecho al hablar de enlaces, y haz los siguientes cambios:</p>
+
+  <ul>
+    <li>Haz que aparezca la portada de cada película justo tras su título. Busca las portadas en Internet y cópialas en una subcarpeta <em>imgs</em> dentro del ejercicio.</li>
+    <li>Opcionalmente, añade también una foto de cada personaje de la lista del resumen de personajes, a tamaño 100x100, junto al nombre del personaje.</li>
+  </ul>
+</blockquote>
+
+<h3 id="33-imágenes-con-pie-de-foto-figure-y-figcaption">3.3. Imágenes con pie de foto. <em>figure</em> y <em>figcaption</em></h3>
+
+<p>En ocasiones nos puede interesar añadir un pie de foto a la imagen que incorporamos a una página. Para tratarlo como un todo (imagen más pie de foto) podemos emplear la etiqueta <code class="language-plaintext highlighter-rouge">figure</code> para que englobe todo el conjunto (imagen y pie) y la etiqueta <code class="language-plaintext highlighter-rouge">figcaption</code> para definir dicho pie de foto. Podría quedar algo así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;figure&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"imagenes/foto.png"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;figcaption&gt;</span>Imagen reciente de la Sagrada Familia<span class="nt">&lt;/figcaption&gt;</span>
+<span class="nt">&lt;/figure&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 7:</strong></p>
+
+  <p>Crea una página llamada <strong>biografia.html</strong>. Vas a crear en ella la biografía de un personaje famoso (el que quieras), de forma que te quede algo como esto:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_biografia.png" width="80%" />
+</div>
+
+<blockquote>
+  <p>Como ves, deberás crear una tabla, de borde 1, con una columna y dos filas. En la primera fila, centrada, deberá aparecer la imagen del personaje que hayas elegido, a tamaño 300 x 400. Opcionalmente, puedes añadir un pie de foto asociado a la imagen. En la segunda fila, deberán aparecer al menos un par de párrafos que cuenten algo de su vida.</p>
+
+  <p>Además, la página debe tener como título (title) el texto “Biografía de XXXXX”, siendo XXXXX el nombre del personaje que hayas elegido. Antes de la tabla, debe haber un encabezado de primer nivel (h1) con el nombre de ese personaje.</p>
+</blockquote>
+
+<h3 id="34-estructurando-nuestra-web">3.4. Estructurando nuestra web</h3>
+
+<p>Como hemos comentado, a medida que una web se hace algo más compleja, no es viable mantener todos los archivos (páginas HTML, CSS, imágenes, etc) en una misma carpeta, y conviene definir una estructura de carpetas más o menos “estándar” y fácil de gestionar. Por ejemplo, podríamos utilizar esta estructura:</p>
+
+<ul>
+  <li>Los archivos CSS que definamos (uno o varios) pueden ubicarse en una carpeta <code class="language-plaintext highlighter-rouge">css</code> de nuestra aplicación</li>
+  <li>Las imágenes podemos ubicarlas en una carpeta <code class="language-plaintext highlighter-rouge">img</code> o <code class="language-plaintext highlighter-rouge">imgs</code>. En el caso de que sean muchas, también podemos estructurarlas en subcarpetas dentro de esa carpeta inicial.</li>
+  <li>Las páginas pueden colocarse en la carpeta raíz del proyecto o, si son muchas, dejar en la carpeta raíz la página inicial o punto de entrada a la web (que típicamente suele llamarse <code class="language-plaintext highlighter-rouge">index.html</code>) y luego colocar en subcarpetas el resto de páginas, agrupadas por categorías según la web en cuestión. Por ejemplo, todos los formularios en una carpeta, o todas las páginas que tengan que ver con clientes, etc.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Ejercicio 8:</strong></p>
+
+  <p><a href="../../resources/UD2_Ejercicios/02d_web_programacion_ejemplo.zip">Aquí</a> tienes la estructura de archivos e imágenes de una web de prueba. Como podrás ver, está todo en una misma carpeta, y hay algunas cosas por hacer. En primer lugar, se pide que hagas los siguientes cambios:</p>
+
+  <ol>
+    <li>Mueve todas las imágenes a una subcarpeta llamada <strong>img</strong></li>
+    <li>Mueve los archivos <em>java.html</em> y <em>python.html</em> a una subcarpeta llamada <strong>lenguajes</strong></li>
+    <li>Te habrá quedado únicamente el archivo <em>index.html</em> en la carpeta raíz después de los pasos anteriores.</li>
+  </ol>
+
+  <p>Ahora, completa estos pasos:</p>
+
+  <ol>
+    <li>Añade dos enlaces en <em>index.html</em> en los lugares indicados para ir a las páginas <em>java.html</em> y <em>python.html</em></li>
+    <li>Añade un enlace en cada una de las otras dos páginas (<em>java.html</em> y <em>python.html</em>) para volver a <em>index.html</em>, en el lugar habilitado para ese enlace.</li>
+    <li>Corrige los atributos <em>src</em> de las imágenes que se usan en las tres páginas para cargar las imágenes correspondientes de la carpeta <em>img</em>.</li>
+  </ol>
+
+  <p>Prueba a abrir ahora <em>index.html</em> y comprueba que desde ella puedes navegar a las otras dos páginas y volver atrás, y que las imágenes se muestran correctamente.</p>
+</blockquote>
+
+<h2 id="4-audio-y-vídeo">4. Audio y vídeo</h2>
+
+<p>Desde HTML 5, se han añadido un par de etiquetas específicas para añadir contenido de audio y vídeo a nuestras páginas, y poderlos reproducir directamente sobre ellas. En algunos casos, será necesario acudir a una etiqueta auxiliar llamada <em>iframe</em> para poder visualizar el archivo de ciertas fuentes.</p>
+
+<h3 id="41-la-etiqueta-iframe">4.1. La etiqueta <em>iframe</em></h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">iframe</code> permite incrustar contenido externo en una web. Es la abreviatura de <em>inline frame</em>, o marco incorporado. Básicamente define una especie de ventana o marco interno con el que poder “asomarse” o visualizar contenido de otra web, como si estuviera en la nuestra.</p>
+
+<p>Entre sus aplicaciones podemos destacar la posibilidad de incrustar vídeos de YouTube o mapas de Google Maps en nuestras webs, como veremos a continuación. Para utilizarlo correctamente, debemos tener en cuenta los atributos que maneja:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">src</code>: URL del recurso incrustado</li>
+  <li><code class="language-plaintext highlighter-rouge">width</code> y <code class="language-plaintext highlighter-rouge">height</code>: anchura y altura del <em>iframe</em></li>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: nombre que le damos al <em>iframe</em> (opcional)</li>
+  <li><code class="language-plaintext highlighter-rouge">allowfullscreen</code>: si está presente, permitimos que el recurso mostrado se pueda ampliar a pantalla completa</li>
+  <li><code class="language-plaintext highlighter-rouge">frameborder</code>: borde del <em>iframe</em> (0 para ninguno)</li>
+  <li><code class="language-plaintext highlighter-rouge">allow</code>: conjunto de <em>plugins</em> o funcionalidades que se permiten sobre el <em>iframe</em>, tales como <em>autoplay</em> para reproducir automáticamente un vídeo, <em>gyroscope</em> para girar el vídeo, etc.</li>
+</ul>
+
+<p>Por ejemplo, así incrustaríamos un vídeo de YouTube en nuestra web para poderlo ver directamente (y no tener que ir a YouTube para verlo):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">width=</span><span class="s">"560"</span> <span class="na">height=</span><span class="s">"315"</span> <span class="na">src=</span><span class="s">"https://www.youtube.com/embed/QH2-TGUlwu4"</span> <span class="na">frameborder=</span><span class="s">"0"</span> <span class="na">allow=</span><span class="s">"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"</span> <span class="na">allowfullscreen</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div></div>
+
+<h3 id="42-añadir-vídeo">4.2. Añadir vídeo</h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">video</code> permite añadir vídeos a nuestras páginas. En general, se utiliza del mismo modo que la etiqueta <em>img</em> para imágenes, indicando en el atributo <code class="language-plaintext highlighter-rouge">src</code> la URL del vídeo a reproducir. Dicho vídeo, igual que ocurre con las imágenes, podrá estar alojado en alguna subcarpeta propia de la web, o en una web externa.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;video</span> <span class="na">src=</span><span class="s">"videos/prueba.mp4"</span> <span class="na">controls</span><span class="nt">&gt;&lt;/video&gt;</span>
+</code></pre></div></div>
+
+<p>El atributo <code class="language-plaintext highlighter-rouge">controls</code>, si está presente, muestra los controles para reproducir o pausar el vídeo. También podemos especificar una anchura (<code class="language-plaintext highlighter-rouge">width</code>) y/o altura (<code class="language-plaintext highlighter-rouge">height</code>), típicamente en píxels. A diferencia de las imágenes, el vídeo no se distorsiona si el tamaño de la zona de reproducción no coincide con las proporciones del vídeo. El espacio que quede sin llenar se dejará con un fondo negro.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;video</span> <span class="na">src=</span><span class="s">"videos/prueba.mp4"</span> <span class="na">width=</span><span class="s">"720"</span> <span class="na">controls</span><span class="nt">&gt;&lt;/video&gt;</span>
+</code></pre></div></div>
+
+<p>En ocasiones, puede que el navegador no disponga de los <em>codecs</em> necesarios para poder reproducir el vídeo. En este caso, podemos ofrecer diferentes alternativas con diferentes formatos, y que el navegador utilice la primera que pueda reproducir. Esto se consigue añadiendo distintos bloques <code class="language-plaintext highlighter-rouge">source</code> dentro del bloque <code class="language-plaintext highlighter-rouge">video</code> y que cada uno apunte a su propia URL de vídeo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;video</span> <span class="na">width=</span><span class="s">"720"</span> <span class="na">controls</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">"videos/prueba.mp4"</span> <span class="na">type=</span><span class="s">"video/mp4"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">"videos/prueba.webm"</span> <span class="na">type=</span><span class="s">"video/webm"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/video&gt;</span>
+</code></pre></div></div>
+
+<p>Recuerda que para ver vídeos existentes en ciertas webs, como por ejemplo YouTube, se deben emplear <em>iframes</em> en la página (ver ejemplo en subapartado anterior).</p>
+
+<h3 id="43-añadir-audio">4.3. Añadir audio</h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">audio</code> nos permite añadir archivos de audio a una página. Se emplea del mismo modo y con los mismos atributos y subetiquetas que <em>video</em> (<code class="language-plaintext highlighter-rouge">src</code>, <code class="language-plaintext highlighter-rouge">controls</code>, <code class="language-plaintext highlighter-rouge">source</code>, etc), salvo algunos elementos, como <em>width</em> o <em>height</em>, que aquí no tienen sentido al carecer un audio de dimensiones visuales.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;audio</span> <span class="na">controls</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">"canciones/cancion1.mp3"</span> <span class="na">type=</span><span class="s">"audio/mp3"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">"canciones/cancion1.wav"</span> <span class="na">type=</span><span class="s">"audio/wav"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/video&gt;</span>
+</code></pre></div></div>
+
+<h3 id="44-añadir-otros-elementos">4.4. Añadir otros elementos</h3>
+
+<p>Desde versiones anteriores de HTML 5, podemos emplear una etiqueta llamada <code class="language-plaintext highlighter-rouge">object</code> para hacer referencia distintos tipos de contenido multimedia. Por ejemplo, podemos emplearlo para cargar imágenes, como alternativa a <code class="language-plaintext highlighter-rouge">img</code> (aunque es preferible utilizar esta última):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;object</span> <span class="na">data=</span><span class="s">"img/logo.svg"</span> <span class="na">width=</span><span class="s">"100%"</span><span class="nt">&gt;&lt;/object&gt;</span>
+</code></pre></div></div>
+
+<p>Además, podemos incluir otros tipos más variados de elementos (como, por ejemplo, un mapa de Google Maps) a través de la etiqueta <code class="language-plaintext highlighter-rouge">iframe</code>. De este modo añadiríamos un mapa de Google con una ubicación predeterminada:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.
+6024620057733!2d-0.5317505844743932!3d38.4044398796498!2m3!1f0!2f0!3f0!
+3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6233fea3991575%3A0xf28fcef8c48c1513!2s
+IES%20San%20Vicente!5e0!3m2!1ses!2ses!4v1601811180214!5m2!1ses!2ses"</span> 
+<span class="na">width=</span><span class="s">"600"</span> <span class="na">height=</span><span class="s">"450"</span> <span class="na">frameborder=</span><span class="s">"0"</span> <span class="na">style=</span><span class="s">"border:0;"</span> 
+<span class="na">allowfullscreen=</span><span class="s">""</span> <span class="na">aria-hidden=</span><span class="s">"false"</span> <span class="na">tabindex=</span><span class="s">"0"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div></div>
+
+<p>En el caso de Google Maps, para obtener el código HTML que colocar en el <em>iframe</em>, una vez tengamos ya la ubicación deseada, pulsamos en el botón de Compartir, y elegimos <em>Insertar un mapa</em>. Después, podemos <em>Copiar HTML</em> para guardarlo en el portapapeles y poderlo pegar en la página que queramos:</p>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_mapa.png" width="60%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 9:</strong></p>
+
+  <p>Crea una página llamada <strong>estreno.html</strong>. Piensa en una película que te gustaría ver en el cine. Busca un trailer de la película, y la ubicación de un cine donde la vayan a poner, y añade en la página:</p>
+
+  <ul>
+    <li>Una etiqueta <em>video</em> para ver el trailer de la película</li>
+    <li>Una etiqueta <em>iframe</em> para ver la localización del cine</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

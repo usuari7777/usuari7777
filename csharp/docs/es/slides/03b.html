@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Tipos de datos básicos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Tipos de datos básicos
+#### Tipo real
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipo real
+
+- **Coma fija**: se establece de antemano cuántas cifras enteras y cuántas decimales pueden tener los números
+- **Coma flotante**: se establece un número general de cifras significativas (uniendo parte entera y decimal) y, dependiendo del número en cuestión, se le da más rango a una u otra parte
+   - Es lo habitual en los lenguajes de programación
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipos reales en C#
+
+|Tipo|Tamaño(bytes)|Significado|
+|---|---|---|
+|`float`|4|Simple precisión (7-8 cifras significativas)|
+|`double`|8|Doble precisión (15-16 cifras sign.)|
+|`decimal`|16|28-29 cifras sign.|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Declaración de variables reales
+
+- El separador decimal en el código es el punto `.`
+- Al introducir datos por teclado puede ser el punto o la coma, dependiendo del sistema en que estemos
+- Al definir un valor literal de tipo *float* se debe finalizar con una *f* para que el compilador lo reconozca como *float*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Declaración de variables reales
+
+```csharp
+float num1 = 3.1416f;
+double num2 = 3.141592654;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa en un fichero llamado **Ejercicio_03b_01.cs** que muestre el resultado de dividir 13 entre 6 de tres modos distintos:
+
+- Utilizando variables enteras (*int*)
+- Utilizando variables *float*
+- Utilizando variables *double*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pedir datos reales al usuario
+
+- **Convert.ToSingle** para tipo *float*
+- **Convert.ToDouble** para tipo *double*
+- **Convert.ToDecimal** para tipo *decimal*
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un programa en un fichero llamado **Ejercicio_03b_02.cs** que calcule el área de un círculo dado su radio (entero).
+- El área de un círculo se calcula como *pi* * radio<sup>2</sup>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa en un fichero llamado **Ejercicio_03b_03.cs** que le pida al usuario una distancia en Km (entera) y el tiempo necesario para recorrerla (dando por separado las horas, minutos y segundos) y calcule la velocidad en m/s a la que se ha ido
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un programa en un fichero llamado **Ejercicio_03b_04.cs** que halle las soluciones de una ecuación de segundo grado Ax<sup>2</sup> + Bx + C, dados por el usuario los valores de A, B y C
+- Puedes utilizar la instrucción **Math.Sqrt(numero)** para calcular la raíz cuadrada que se pide en la fórmula de la ecuación
+
+<div align="center">
+    <img src="../../../img/03_ecuacion_2grado.jpg" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un programa en un fichero llamado **Ejercicio_03b_05.cs** que muestre por pantalla los 10 primeros valores de la función y = (x - 5)<sup>2</sup>. Después, deberá dibujar la gráfica en pantalla, girada hacia la derecha.
+
+```
+                *
+         *
+    *
+ *
+*
+ *
+    *
+         *
+                *
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Typecast
+
+- Consiste en forzar la conversión de un tipo de dato a otro similar
+   - Entero a real o viceversa
+- Se pone entre paréntesis el tipo de dato al que se quiere convertir la variable o expresión
+- Aplicaciones: forzar una división real con datos enteros, quitar decimales en un número real...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Typecast
+
+```csharp
+int n1 = 4, n2 = 3;
+// Convertimos dividendo y/o divisor a real
+float resultado = (float)n1 / n2;
+``` 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un programa en un fichero llamado **Ejercicio_03b_06.cs** que calcule la raíz cuadrada del número que le indique el usuario, empleando la instrucción **Math.Sqrt**
+- Dicha función espera recibir un dato *double*, pero al usuario se le pedirá un dato *float*, y el resultado debe calcularse como *float*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Formatear números
+
+- Podemos elegir cómo presentar un número real por pantalla (cuántos dígitos en la parte entera y/o decimal)
+- Existen diferentes símbolos y nomenclaturas que podemos emplear al sacar la información
+- Empleamos la instrucción **ToString** del dato que queremos mostrar
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Símbolos de formato
+
+|Símbolo|Significado|
+|---|---|
+|0|Debe aparecer un dígito, o 0 en caso contrario|
+|#|Mostrar dígito si lo hay, o nada si no|
+|.|Separador parte entera y decimal|
+|N1|Mostrar 1 decimal|
+|N3|Mostrar 3 decimales|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos de formato
+
+```csharp
+double num = 12.34;
+
+Console.WriteLine(num.ToString("N1"));     // 12.3
+Console.WriteLine(num.ToString("N3"));     // 12.340
+Console.WriteLine(num.ToString("0.0"));    // 12.3
+Console.WriteLine(num.ToString("0.000"));  // 12.340
+Console.WriteLine(num.ToString("#.###"));  // 12.34
+Console.WriteLine(num.ToString("#.#"));    // 12.3
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa en un fichero llamado **Ejercicio_03b_07.cs** que calcule el perímetro, área y diagonal de un rectángulo una vez que el usuario introduzca la longitud de su base y su altura. Todos los datos deben mostrarse con 1 cifra decimal
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones matemáticas
+
+- **Math.Abs(x)**: valor absoluto de x
+- **Math.Sqrt(x)**: raíz cuadrada de x
+- **Math.Pow(x, y)**: x elevado a y (potencia)
+- **Math.Ceiling(x)**: redondeo por arriba de x
+- **Math.Floor(x)**: redondeo por debajo de x
+- **Math.PI**, **Math.E**: constantes matemáticas PI y E
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Crea un programa en un fichero llamado **Ejercicio_03b_08.cs** que calcule la distancia entre dos puntos (x1, y1), (x2, y2) introducidos por el usuario
+- La distancia se calcula como d = raíz((x1 - x2)<sup>2</sup> + (y1 - y2)<sup>2</sup>)
+- Se debe mostrar con 2 cifras decimales
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

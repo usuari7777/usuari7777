@@ -1,0 +1,73 @@
+body
+{
+    background-color: #F4E3C9;
+}
+
+.titulo
+{
+    margin-bottom: 20px;
+}
+
+h1
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.celda
+{
+    background-color: #EEC485;
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    height: 100%;
+}
+
+.celda a, .celda a:hover, .celda a:link, .celda a:visited
+{
+    display:block;
+    margin: 5px 10%;
+    background-color: #774903;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+}
+
+.celda a.ejercicios
+{
+    background-color: #857968;
+}
+
+span
+{
+    font-size: 2.5rem;
+}
+
+.pie 
+{
+    background-color: #774903;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    height: 30px;
+}
+  
+h1
+{
+    float: left;
+    width: 70%;
+}
+#idiomas
+{
+    padding-top: 20px;
+    text-align: right;
+    float: right;
+    width: 30%
+}
+#idiomas img
+{
+    width: 30px;
+}

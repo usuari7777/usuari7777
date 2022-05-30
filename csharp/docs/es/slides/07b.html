@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Gestión dinámica de memoria</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Gestión dinámica de memoria
+#### Diccionarios y conjuntos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Diccionarios
+
+- Estructuras dinámicas donde los datos no se asocian a una posición numérica, sino a una clave
+- Sabiendo la clave, se accede directamente al dato asociado, sin necesidad de recorrer toda la colección
+- Tipos en C#:
+   - Listas ordenadas (*Sorted list*)
+   - Tablas hash (*Hashtable* o *Dictionary*)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listas ordenadas (*SortedList*)
+
+- Accedemos a los elementos poniendo su clave entre corchetes
+- Los datos se ordenan automáticamente por su clave
+- **Add(clave, valor)** añade un nuevo valor a la lista, asociado a la clave indicada
+   - Si la clave existe, se produce una excepción
+- **Remove(clave)** elimina un valor de la lista a partir de su clave
+- **Contains(clave)** determina si existe la clave en el diccionario. **ContainsKey** en genéricos
+- **Count** determina el tamaño del diccionario
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas ordenadas (*SortedList*)
+
+Ejemplo: diccionario traductor
+
+```cs
+using System;
+using System.Collections;
+
+class EjemploSortedList
+{
+    static void Main()
+    {
+        SortedList terminos = new SortedList();
+        terminos["one"] = "uno";
+        terminos["two"] = "dos";
+        terminos["hello"] = "hola";
+
+        Console.WriteLine(terminos["two"]); // dos
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas ordenadas (*SortedList*)
+
+Ejemplo con genéricos
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class EjemploSortedList
+{
+    static void Main()
+    {
+        SortedList<string, string> terminos = new SortedList<string, string>();
+        terminos["one"] = "uno";
+        terminos["two"] = "dos";
+        terminos["hello"] = "hola";
+
+        Console.WriteLine(terminos["two"]); // dos
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recorrido de *SortedList*
+
+Hacemos un bucle *for* normal, y sacamos la clave y el valor de cada posición
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class EjemploSortedList
+{
+    static void Main()
+    {
+        SortedList<string, string> terminos = new SortedList<string, string>();
+        terminos["one"] = "uno";
+        terminos["two"] = "dos";
+        terminos["hello"] = "hola";
+
+        for (int i = 0; i < terminos.Count; i++)
+        {
+            Console.WriteLine(terminos.Keys[i] + " = " + terminos.Values[i]);
+            // Estos métodos se llaman GetKey(i) y GetByIndex(i) si no es genérica
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07b_01** que almacene en una *SortedList* los nombres de alumnos asociados a sus notas (la clave será el nombre y el valor su nota). Pide al usuario que lo rellene para 4 o 5 alumnos, y luego recorre y muestra los resultados.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tablas hash
+
+- Similares a las *sorted lists*, pero se accede más rápidamente a los elementos del diccionario
+- Esto se consigue automáticamente con una función de *hashing* que asocia a cada clave un número diferente, con el que localizar el dato en la colección
+   - No tenemos que preocuparnos de dicha función, en general
+- Usamos la clase *Hashtable* (no genérica) o *Dictionary* (genérica), con métodos similares a *SortedList*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tablas hash
+
+Ejemplo: libros identificados por su ISBN
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class Libro
+{
+    string isbn;
+    string titulo;
+    int paginas;
+
+    ...
+}
+
+class EjemploHash
+{
+    static void Main()
+    {
+        Dictionary<string, Libro> catalogo = new Dictionary<string, Libro>();
+        catalogo.Add("1234112", new Libro("1234112", "El juego de Ender", 323));
+        catalogo.Add("4425353", new Libro("4425353", "La tabla de Flandes", 356));
+
+        Console.WriteLine(catalogo["1234112"].GetTitulo());
+
+        foreach(KeyValuePair<string, Libro> dato in catalogo)
+        {
+            Console.WriteLine(dato.Key + " = " + dato.Value.GetTitulo());
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07b_02** que almacene en una tabla hash genérica datos de trabajadores a partir de su número de seguridad social. Crea para ello una clase *Trabajador* que almacene el número de seguridad social, nombre y teléfono, y pide al usuario que vaya dando de alta trabajadores en el diccionario hasta que escriba un número de seguridad social vacío. Después, recorre y muestra los datos de los trabajadores almacenados
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Enumeradores
+
+- Permiten recorrer distintos tipos de colecciones
+   - IEnumerator para listas, pilas, colas
+   - IDictionaryEnumerator para diccionarios
+   - Necesitamos *System.Collections*
+- Creamos el enumerador sobre la colección
+- Usamos métodos como *MoveNext()* o propiedades como *Current*, *Key* o *Value* para recorrer los datos y sacar la información
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enumeradores
+
+Ejemplo: recorrido de pila
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class PruebaPila
+{
+    static void Main()
+    {
+        Stack<string> pila = new Stack<string>();
+        pila.Push("Uno");
+        pila.Push("Dos");
+        pila.Push("Tres");
+
+        IEnumerator enumerador = pila.GetEnumerator();
+        while (enumerador.MoveNext())
+        {
+            Console.WriteLine(enumerador.Current);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enumeradores
+
+Ejemplo: recorrido de diccionario
+
+```cs
+class Libro
+{
+    string isbn;
+    string titulo;
+    int paginas;
+
+    ...
+}
+
+class EjemploHash
+{
+    static void Main()
+    {
+        Dictionary<string, Libro> catalogo = new Dictionary<string, Libro>();
+        catalogo.Add("1234112", new Libro("El juego de Ender", 323));
+        catalogo.Add("4425353", new Libro("La tabla de Flandes", 356));
+
+        IDictionaryEnumerator enumerador = catalogo.GetEnumerator();
+        while(enumerador.MoveNext())
+        {
+            Console.WriteLine(enumerador.Key + " = " + enumerador.Value);
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Repite el ejercicio anterior recorriendos los datos de los trabajadores con un enumerador
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Conjuntos
+
+- Colecciones dinámicas de datos que no admiten elementos repetidos
+- Alternativas:
+   - *SortedSet*: similar a *SortedList* en cuanto a que permite obtener los datos en orden
+   - *HashSet*: similar a *Hashtable* a la hora de acceder rápidamente a los valores
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Conjuntos
+
+Ejemplo
+
+```cs
+using System;
+using System.Collections.Generic;
+
+class PruebaConjuntos
+{
+    static void Main()
+    {
+        HashSet<string> datos = new HashSet<string>();
+        datos.Add("Uno");
+        datos.Add("Uno");   // No tiene efecto, no se añade
+        datos.Add("Dos");
+
+        foreach(string s in datos)
+        {
+            Console.WriteLine(s);
+        }    
+    }
+}
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07b_03** que le pida al usuario los nombres de los últimos 10 ganadores del torneo de Wimbledon y luego le diga cuántos jugadores diferentes lo han ganado en esta última década.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Conjuntos y datos complejos
+
+- Si creamos un conjunto de datos complejos (personas, libros, etc) C# no sabe cómo detectar duplicados
+- Debemos indicarle nosotros el criterio de igualdad implementando los métodos **Equals** y **GetHashCode**
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: conjunto de personas
+
+```cs
+class Persona
+{
+    private string nombre;
+    private int edad;
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return nombre + ", " + edad + " años";
+    }
+}
+
+...
+
+HashSet<Persona> personas = new HashSet<Persona>();
+personas.Add(new Persona("Nacho", 43));
+personas.Add(new Persona("Ana", 39));
+personas.Add(new Persona("Nacho", 43));
+personas.Add(new Persona("Pepe", 70));
+personas.Add(new Persona("Ana", 39));
+
+Console.WriteLine(personas.Count);      // Saca 5
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Equals y GetHashCode
+
+- *Equals* determina en base a qué atributos son iguales dos objetos
+- *GetHashCode* genera un código *hash* que será el mismo para los atributos que indiquemos
+   - Dos objetos que coincidan en esos atributos tendrán el mismo código y serán iguales a efectos prácticos
+- Son necesarios los dos: C# comprueba si el código hash es el mismo, y si los atributos son los mismos
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Equals y GetHashCode
+
+Los generamos con *Alt* + *Intro* bajo los atributos de la clase
+
+<div align="center">
+    <img src="../../../img/07_equals_hashcode.png">
+</div>
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Equals y GetHashCode
+
+Elegimos qué atributo(s) determinan si dos objetos son iguales
+
+<div align="center">
+    <img src="../../../img/07_equals_hashcode2.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Equals y GetHashCode
+
+```cs
+class Persona
+{
+    ...
+    public override bool Equals(object? obj)
+    {
+        return obj is Persona persona &&
+               nombre == persona.nombre &&
+               edad == persona.edad;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(nombre, edad);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_07b_04** que le pida al usuario una línea con distintas fechas de nacimiento (en formato *dia/mes/año*) separadas por espacios, y le diga si hay cumpleaños repetidos en la secuencia o no. Es decir, fechas que tienen el mismo día y mes de nacimiento, independientemente del año. Ejemplos
+
+```
+9/6/1961 22/10/1938 31/5/1961 20/4/1964 => NO hay repetidos
+9/6/1961 22/10/1938 31/5/1961 20/4/1964 9/6/1934 => SI hay repetidos
+```
+
+</script>
+</section>    
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

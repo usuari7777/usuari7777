@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introducción a los servicios REST | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Introducción a los servicios REST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/05a.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a los servicios REST" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Introducción a los servicios REST","url":"http://nachoiborraies.github.io/nodejs/md/es/05a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="introducción-a-los-servicios-rest">Introducción a los servicios REST</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/05a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/05a.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>Los servicios REST se han convertido en una arquitectura de aplicaciones muy popular a la hora de intercambiar información entre el lado cliente y servidor, por su versatilidad, ya que permiten que diferentes tipos de clientes (aplicaciones móviles, de escritorio o web) puedan solicitar información a un mismo servidor, y utilizarla de forma adaptada a cada aplicación. Veremos en este documento las bases sobre las que se sustenta.</p>
+
+<h2 id="1-el-protocolo-http-y-las-url">1. El protocolo HTTP y las URL</h2>
+
+<p>Para lo que vamos a ver a partir de esta sesión, conviene tener claros algunos conceptos de base. Para empezar, cualquier aplicación web se basa en una arquitectura cliente-servidor, donde un servidor queda a la espera de conexiones de clientes, y los clientes se conectan a los servidores para solicitar ciertos recursos.</p>
+
+<p>Estas comunicaciones se realizan mediante un protocolo llamado <strong>HTTP</strong> (o HTTPS, en el caso de comunicaciones seguras). En ambos casos, cliente y servidor se envían cierta información estándar, en cada mensaje:</p>
+
+<ul>
+  <li>En cuanto a los <strong>clientes</strong>, envían al servidor los datos del recurso que solicitan, junto con cierta información adicional, como por ejemplo las cabeceras de petición (información relativa al tipo de cliente o navegador, contenido que acepta, etc), y parámetros adicionales llamados normalmente <em>datos del formulario</em>.</li>
+  <li>Por lo que respecta a los <strong>servidores</strong>, aceptan estas peticiones, las procesan y envían de vuelta algunos datos relevantes, como un código de estado (indicando si la petición pudo ser atendida satisfactoriamente o no), cabeceras de respuesta (indicando el tipo de contenido enviado, tamaño, idioma, etc), y el recurso solicitado propiamente dicho, si todo ha ido correctamente.</li>
+</ul>
+
+<p>Para solicitar los recursos, los clientes se conectan o solicitan una determinada <strong>URL</strong> (siglas en inglés de “localización uniforme de recursos”, <em>Uniform Resource Location</em>). Esta URL consiste en una línea de texto con tres secciones diferenciadas:</p>
+
+<ul>
+  <li>El <strong>protocolo</strong> empleado (HTTP o HTTPS)</li>
+  <li>El <strong>nombre de dominio</strong>, que identifica al servidor y lo localiza en la red.</li>
+  <li>La <strong>ruta</strong> hacia el recurso solicitado, dentro del propio servidor. Esta última parte también suele denominarse <strong>URI</strong> (identificador uniforme de recurso, o en inglés, <em>Uniform Resource Identifier</em>). Esta URI identifica unívocamente el recurso buscado entre todos los demás recursos que pueda albergar el servidor.</li>
+</ul>
+
+<p>Por ejemplo, la siguiente podría ser una URL válida:</p>
+
+<p><em>http://miservidor.com/libros?id=123</em></p>
+
+<p>El protocolo empleado es <em>http</em>, y el nombre de dominio es <em>miservidor.com</em>. Finalmente, la ruta o URI es <em>libros?id=123</em>, y el texto tras el interrogante ‘?’ es la información adicional llamada <em>datos del formulario</em>. Esta información permite aportar algo más de información sobre el recurso solicitado. En este caso, podría hacer referencia al código del libro que estamos buscando. Dependiendo de cómo se haya implementado el servidor, también podríamos reescribir esta URL de este otro modo, con el mismo significado:</p>
+
+<p><em>http://miservidor.com/libros/123</em></p>
+
+<h2 id="2-los-servicios-rest">2. Los servicios REST</h2>
+
+<p>En esta sección del curso veremos cómo aplicar lo aprendido hasta ahora para desarrollar un servidor sencillo que proporcione una API REST a los clientes que se conecten. <strong>REST</strong> son las siglas de <em>REpresentational State Transfer</em>, y designa un estilo de arquitectura de aplicaciones distribuidas, como las aplicaciones web. En un sistema REST, identificamos cada recurso a solicitar con una URI (identificador uniforme de recurso), y definimos un conjunto delimitado de comandos o métodos a realizar, que típicamente son:</p>
+
+<ul>
+  <li><strong>GET</strong>: para obtener resultados de algún tipo (listados completos o filtrados por alguna condición)</li>
+  <li><strong>POST</strong>: para realizar inserciones o añadir elementos en un conjunto de datos</li>
+  <li><strong>PUT</strong>: para realizar modificaciones o actualizaciones del conjunto de datos</li>
+  <li><strong>DELETE</strong>: para realizar borrados del conjunto de datos</li>
+</ul>
+
+<p>Existen otros tipos de comandos o métodos, como por ejemplo PATCH (similar a PUT, pero para cambios parciales), HEAD (para consultar sólo el encabezado de la respuesta obtenida), etc. Nos centraremos, no obstante, en los cuatro métodos principales anteriores</p>
+
+<p>Por lo tanto, identificando el recurso a solicitar (URI) y el comando a aplicarle, el servidor que ofrece esta API REST proporciona una respuesta a esa petición. Esta respuesta típicamente viene dada por un mensaje en formato JSON o XML (aunque éste último cada vez está más en desuso).</p>
+
+<p>Veremos cómo podemos identificar los diferentes tipos de comandos de nuestra API, y las URIs de los recursos a solicitar, para luego dar una respuesta en formato JSON ante cada petición.</p>
+
+<p>Para simular peticiones de clientes, emplearemos una aplicación llamada Postman, que permite construir peticiones de diferentes tipos, empleando distintos tipos de comandos, cabeceras y contenidos, enviarlas al servidor que indiquemos y examinar la respuesta proporcionada por éste. En esta sesión veremos algunas nociones básicas sobre cómo utilizar Postman.</p>
+
+<h2 id="3-el-formato-json">3. El formato JSON</h2>
+
+<p><strong>JSON</strong> son las siglas de <em>JavaScript Object Notation</em>, una sintaxis propia de Javascript para poder representar objetos como cadenas de texto, y poder así serializar y enviar información de objetos a través de flujos de datos (archivos de texto, comunicaciones cliente-servidor, etc).</p>
+
+<p>Un objeto JavaScript se define mediante una serie de propiedades y valores. Por ejemplo, los datos de una persona (como nombre y edad) podríamos almacenarlos así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">persona</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Este mismo objeto, convertido a JSON, formaría una cadena de texto con este contenido:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nacho"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">39</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Del mismo modo, si tenemos una colección (vector) de objetos como ésta:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">personas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nora</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Transformada a JSON sigue la misma sintaxis, pero entre corchetes:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nacho"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">39</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Mario"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">4</span><span class="p">},</span><span class="w">  
+ </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Laura"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nora"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">10</span><span class="p">}]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>JavaScript ofrece un par de métodos útiles para convertir datos a formato JSON y viceversa. Estos métodos son <code class="language-plaintext highlighter-rouge">JSON.stringify</code> (para convertir un objeto o array JavaScript a JSON) y <code class="language-plaintext highlighter-rouge">JSON.parse</code> (para el proceso inverso, es decir, convertir una cadena JSON en un objeto JavaScript). Aquí vemos un ejemplo de cada uno:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">personas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nora</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+<span class="p">];</span>
+
+<span class="c1">// Convertir array a JSON</span>
+<span class="kd">let</span> <span class="nx">personasJSON</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">personas</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">personasJSON</span><span class="p">);</span>
+
+<span class="c1">// Convertir JSON a array</span>
+<span class="kd">let</span> <span class="nx">personas2</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">personasJSON</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">personas2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En los siguientes ejemplos vamos a realizar comunicaciones cliente-servidor donde el cliente va a solicitar al servidor una serie de servicios, y éste responderá devolviendo un contenido en formato JSON. Sin embargo, gracias al framework Express que utilizaremos, la conversión desde un formato a otro será automática, y no tendremos que preocuparnos de utilizar estos métodos de conversión.</p>
+
+<h3 id="31-json-y-servicios-rest">3.1. JSON y servicios REST</h3>
+
+<p>Como comentábamos antes, JSON es hoy en día el formato más utilizado para dar respuesta a peticiones de servicios REST. Su otro “competidor”, el formato XML, está cada vez más en desuso para estas tareas.</p>
+
+<p>A la hora de emitir una respuesta a un servicio utilizando formato JSON, es habitual que ésta tenga un formato determinado. En general, en las respuestas que emitamos a partir de ahora para servicios REST en el curso, utilizaremos una estructura general basada en:</p>
+
+<ul>
+  <li>Un dato booleano (podemos llamarlo <code class="language-plaintext highlighter-rouge">ok</code>, por ejemplo), que indique si la petición se ha podido atender satisfactoriamente o no.</li>
+  <li>Un mensaje de error (podemos llamarlo <code class="language-plaintext highlighter-rouge">error</code>, por ejemplo), que estará presente únicamente si el anterior dato booleano es falso, lo que indicaría que la petición no se ha podido resolver.</li>
+  <li>Los datos de respuesta, que estarán presentes sólo si el dato booleano es verdadero, lo que indica que la petición se ha podido atender satisfactoriamente. Notar que estos datos de respuesta pueden ser un texto, un objeto simple JavaScript, o un array de objetos.</li>
+</ul>
+
+<p>Adicionalmente, como veremos en los ejemplos a continuación, también es recomendable añadir a la respuesta un código de estado HTTP, que indique si se ha podido servir satisfactoriamente o ha habido algún error.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

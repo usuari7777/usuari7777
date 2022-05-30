@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Collections</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Collections in Java
+### Maps and sets
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Maps
+
+- Every element or value is referenced by a key
+- Also called *dictionaries* or *hash tables*
+- If we know the key we are looking for, we can "jump" to it
+- In Java, maps implement [Map](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html) interface
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Map methods
+
+* **clear()**: clears the map
+* **containsKey(key)**: checks if map contains a given key.
+* **get(key)**: gets the value associated to the given key.
+* **put(key, value)**: adds the specified key-value pair to the map
+* **remove(key)**: removes the key-value pair identified by the given key.
+* **size()** to get the total number of elements stored in the map
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## HashMap and Hashtable
+
+Map implementations
+
+```java
+Map<String, Person> myMap = new HashMap<>();
+myMap.put("11223344A", new Person("Nacho", 40));
+myMap.put("22334455B", new Person("Arturo", 35));
+...
+// Print the name of the Person with key = 11223344A
+System.out.println(myMap.get("11223344A").getName());
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exploring a map
+
+```java
+for(String key : myMap.keySet())
+{
+    System.out.println(myMap.get(key).getName());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Hash function
+
+- Function that converts the key into a numeric value, which represents an index in the map
+- This numeric value is unique for every key
+- That's why we can directly retrieve an element in the map if we know its key
+- We can override *hashCode* method to generate this value
+   - Along with *equals*, it lets us determine if two objects are equal
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a project called **Library**, with a main class called `Library` and another class called `Book`, in which we are going to store some information about each book: the *id* (a string), the title and the author's name. In the main application, define a map of books, whose keys will be their corresponding *ids*. Manually add some books to the map, and then explore it and show the books in the screen (override the `toString` method of `Book` class to properly show book info).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sets
+
+- Collection with no duplicate elements
+- Every set in Java implements [Set](https://docs.oracle.com/javase/8/docs/api/java/util/Set.html) interface
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Set methods
+
+* **add(element)**: adds element to the set if it does not exist
+* **clear()**: clears the set
+* **contains(element)**: checks if set contains the element
+* **iterator()**: gets an iterator to explore the set
+* **remove(element)**: removes element from the set
+* **size()**: gets number of elements
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## HashSet
+
+Set implementation
+
+```java
+Set<String> mySet = new HashSet<>();
+mySet.add("Hello");
+mySet.add("Hello"); // Will not work, "Hello" already exits
+mySet.add("Goobye");
+...
+mySet.remove("Goodbye");
+Iterator<String> it = mySet.iterator();
+while(it.hasNext())
+{
+    String s = it.next();
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2 (1/2)
+
+- Create a project called **FairyTaleSet** with a main program that stores a set of fairy tales. For each fairy tale, we are going to store its title and the number of pages, so define a `FairyTale` class with these two attributes, a constructor and the corresponding getters and setters.<br />
+- Also, override `equals` method to determine when two fairy tales will be considered the same: they will be the same whenever they have the same title.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2 (2/2)
+
+- Then, in the main application, define a set of `FairyTale` objects, and add some of them to the list. Try to add some fairy tales with the same title, to see how many of them are finally included in the set. Then, explore the set with an iterator and print the data in the screen (you can also override `toString` method for this).
+- **NOTE**: in order to determine if two fairy tales are the same by title, besides overriding `equals` method, you need to override `hashCode` method to generate a *hash code* with its title (not the number of pages), so that Java can compare two hash codes of two different fairy tales and determine that the titles are the same. `hashcode` method can be automatically generated by IntelliJ, as getters, setters and other common methods.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

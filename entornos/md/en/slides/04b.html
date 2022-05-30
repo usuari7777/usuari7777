@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software analysis and design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software analysis and design
+### Introduction to UML. Tools
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## UML
+
+- Unified Modeling Language
+- Provides a set of diagrams to graphically see what the application is going to be
+- Part of RUP methodology, can be used in other methodologies
+- Current version is 2.5 (2015)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Types of diagrams
+
+- **Structural**: show the static structure of the system and its components
+- **Behavioral**: show the dynamic behavior and interaction of the system components
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Types of diagrams
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema03-uml_diagrams_en.png" alt="UML diagram types" width="60%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class diagrams
+
+It represents the different classes that are part of an application and their relationships
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-02-classDiagram.jpg" alt="Example of a class diagram" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Object diagrams
+
+It shows the different objects of the given classes that can be present at a given moment in the application
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-06-objectDiagram.jpg" alt="Example of an object diagram" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Use case diagrams
+
+It shows the different functionalities of the application and the different roles that can activate them
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-14-useCaseDiagram.jpg" alt="Example of a use case diagram" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Activity diagrams
+
+It breaks down the different steps needed to complete a given action in the application
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-09-activityDiagram.jpg" alt="Example of an activity diagram" width="60%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sequence diagrams
+
+It shows the interaction among the elements of the system, and the order of these interactions
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-10-sequenceDiagram.jpg" alt="Example of a sequence diagram" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## UML tools
+
+- [Modelio](https://www.modelio.org/)
+- [Visual Paradigm Online](https://online.visual-paradigm.com/)
+- [Dia](http://dia-installer.de/)
+- [Draw IO](https://www.draw.io/)
+- [StarUML](http://staruml.io/)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modelio: Installation
+
+- Download the *.exe* or *.deb* file for Windows / Linux, respectively
+   - It has some problems in Mac if you don't have installed Java 8
+- In Linux, install additional dependencies (`libwebkitgtk-1.0.0` and `libwebkitgtk-3.0.0`), and then run `sudo dpkg -i deb_file_name`
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modelio: Welcome screen
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-37_modelio01.png" alt="Modelio welcome screen" width="60%"/>
+</div>
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modelio: Create new project
+
+*File* - *Create a project* to create a project to store our diagrams in
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-38_modelio02.png" alt="Modelio project name" width="30%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modelio: Create diagrams
+
+Right click on project's inner package and choose *Create diagram*
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-39_modelio03.png" alt="Modelio create new diagram" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modelio: Diagram list
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-40_modelio04.png" alt="Modelio UML diagrams" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modelio example: Use case diagram
+
+- Left click on the elements on the left and place it on the right
+- Right click on each element to change its properties
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-40_modelio05.png" alt="Modelio use case diagrams" width="60%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Modelio: Save changes
+
+Click on *Save diagram in a file* button on the upper bar
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-41_modelio06.png" alt="Modelio export diagram to image" width="60%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## VP Online
+
+- It has a desktop version which has a free community edition, and an online edition (recommended)
+- It lets us store our diagrams in the VP cloud, and export them in many formats (JPG, PDF...)
+- We can sign up with our Google or Facebook account
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## VP Online: diagrams
+
+We can search the diagram we need in the left list or in the search bar
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-43_vparadigm02.png" alt="Visual Paradigm diagram types" width="60%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## VP Online example: Use case diagram
+
+- Left click on the elements on the left and place it on the right
+- Double click on each element to change its text
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-43_vparadigm03.png" alt="Visual Paradigm use case diagram" width="60%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## VP Online example: Save or export changes
+
+- *File* - *Export* menu to export our diagram to a given format (PNG, JPG, PDF...)
+- *File* - *Save* menu to store our diagram, so that we can edit it later
+   - Store in the VP cloud
+   - Store in your Google Drive account
+   - Store in a local storage (hard disk, pendrive...)
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

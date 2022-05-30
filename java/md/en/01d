@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic elements of a Java program | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic elements of a Java program" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/01d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/01d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic elements of a Java program" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic elements of a Java program","url":"http://nachoiborraies.github.io/java/md/en/01d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="basic-elements-of-a-java-program">Basic elements of a Java program</h1>
+
+<h2 id="basic-input-and-output">Basic input and output</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/01d.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/01d.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this document we are going to learn how to interact with final user. First of all, we will see how to print values in the screen using different instructions, and then we will see how to gather information from the keyboard and convert it to the appropriate data type.</p>
+
+<h3 id="1-program-output">1. Program output</h3>
+
+<p>You can use the <code class="language-plaintext highlighter-rouge">System.out.print</code> or <code class="language-plaintext highlighter-rouge">System.out.println</code> instruction (depending on whether you want a new line at the end or not) to print messages to the screen. You can join multiple values by using the link operator (<code class="language-plaintext highlighter-rouge">+</code>):</p>
+
+<pre><code class="language-Java">int result = 12;
+System.out.println("The result is " + result);
+System.out.print("Have a nice day!");
+</code></pre>
+
+<h4 id="11-formatted-output">1.1. Formatted output</h4>
+
+<p>Apart from traditional <code class="language-plaintext highlighter-rouge">System.out.println</code> instruction to print data, we can use some other options if we want this data to have a given output format. To do this, we can use <code class="language-plaintext highlighter-rouge">System.out.printf</code> instruction instead of the previous one. This instruction behaves in a similar way than the original <code class="language-plaintext highlighter-rouge">printf</code> function from C language. It has a variable number of parameters, and the first of all is the string to be printed out. Then, this string can have some special characters inside it, which determine the data types that must replace these characters. For instance, if we use this instruction:</p>
+
+<pre><code class="language-Java">System.out.printf("The number is %d", number);
+</code></pre>
+
+<p>then the symbol <code class="language-plaintext highlighter-rouge">%d</code> will be replaced by the variable <code class="language-plaintext highlighter-rouge">number</code>, and this variable must be an integer (this is what <code class="language-plaintext highlighter-rouge">%d</code> means).</p>
+
+<p>There are some other symbols to represent different data types. Here are some of them:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">%d</code> for integer types (<code class="language-plaintext highlighter-rouge">long</code>, <code class="language-plaintext highlighter-rouge">int</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">%f</code> for real types (<code class="language-plaintext highlighter-rouge">float</code> and <code class="language-plaintext highlighter-rouge">double</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">%s</code> for strings</li>
+  <li><code class="language-plaintext highlighter-rouge">%c</code> for characters</li>
+  <li><code class="language-plaintext highlighter-rouge">%n</code> to represent a new line (similar to <code class="language-plaintext highlighter-rouge">\n</code>, but platform independent). In this case, we don’t need to add a parameter at the end of <code class="language-plaintext highlighter-rouge">printf</code>.</li>
+</ul>
+
+<p>We can place as many symbols as we want inside the output string, and then we will need to add the corresponding number of parameters at the end of the <code class="language-plaintext highlighter-rouge">printf</code> instruction. For instance:</p>
+
+<pre><code class="language-Java">System.out.printf("The average of %d and %d is %f", 
+    number1, number2, average);
+</code></pre>
+
+<p>Besides the primary symbols <code class="language-plaintext highlighter-rouge">%d</code> and <code class="language-plaintext highlighter-rouge">%f</code>, we can add some other information between the ‘%’ and the letter, that specify some format information.</p>
+
+<p><strong>Specifying integer digits</strong></p>
+
+<p>For instance, if we want to output an integer with a given number of digits, we can do it this way:</p>
+
+<pre><code class="language-Java">System.out.printf("The number is %05d", number);
+</code></pre>
+
+<p>where <code class="language-plaintext highlighter-rouge">05</code> means that the integer is going to have, at least, 5 digits, and if there are not enough digits in the number, then it will be filled with zeros. The output of this instruction if number is <code class="language-plaintext highlighter-rouge">33</code> would be <code class="language-plaintext highlighter-rouge">The number is 00033</code>. If we don’t put the <code class="language-plaintext highlighter-rouge">0</code>, then the number will be filled with whitespaces. So this instruction:</p>
+
+<pre><code class="language-Java">System.out.printf("The number is %10d", number);
+</code></pre>
+
+<p>if number is <code class="language-plaintext highlighter-rouge">33</code>, it would produce the following output: <code>The number is &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;33</code>.</p>
+
+<p><strong>Specifying fraction digits</strong></p>
+
+<p>In the same way that we format integer numbers, we can format real numbers. We can use the same pattern seen before to specify the total number of integer digits:</p>
+
+<pre><code class="language-Java">System.out.printf("The number is %3f", number);
+</code></pre>
+
+<p>But, besides, we can specify the total number of fraction digits by adding a point and the total number desired, this way:</p>
+
+<pre><code class="language-Java">System.out.printf("The number is %3.3f", number);
+</code></pre>
+
+<p>Then, if number is <code class="language-plaintext highlighter-rouge">3.14159</code>, the output would be  <code>The number is &nbsp;&nbsp;3.142</code>.</p>
+
+<h3 id="2-getting-user-input">2. Getting user input</h3>
+
+<p>In order to get the user input, the easiest way may be through the <code class="language-plaintext highlighter-rouge">Scanner</code> object. We need to import <code class="language-plaintext highlighter-rouge">java.util.Scanner</code> in order to use it, and then we create a <code class="language-plaintext highlighter-rouge">Scanner</code> element and call some of its methods to read data from the user. Some of them are <code class="language-plaintext highlighter-rouge">nextLine</code> (to read a whole line of text until the user presses Enter) and <code class="language-plaintext highlighter-rouge">nextInt</code> (to read an integer explicitly):</p>
+
+<pre><code class="language-Java">import java.util.Scanner;
+...
+public class ClassName
+{ 
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        int number = sc.nextInt();
+        String text = sc.nextLine();	
+        sc.close();
+    }
+</code></pre>
+
+<p>There are some other methods, such as <code class="language-plaintext highlighter-rouge">nextFloat</code>, <code class="language-plaintext highlighter-rouge">nextBoolean</code>… but they are very similar to <code class="language-plaintext highlighter-rouge">nextInt</code>, and they help us read specific data types from the input, instead of reading texts and then converting them into the corresponding type (as <code class="language-plaintext highlighter-rouge">Console.ReadLine</code> does in C#). You can introduce this data separated by whitespaces or new lines (<em>Intro</em>).</p>
+
+<pre><code class="language-Java">int number1, number2;
+number1 = sc.nextInt();
+number2 = sc.nextInt();
+</code></pre>
+
+<p><strong>Be careful when combining data types</strong></p>
+
+<p>Let’s suppose that you have to read this information from the input:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>23 43
+Hello world
+</code></pre></div></div>
+
+<p>You may think that you need to use <code class="language-plaintext highlighter-rouge">nextInt</code> method twice, and then <code class="language-plaintext highlighter-rouge">nextLine</code> method to read the last string, but this approach is NOT correct: when you use <code class="language-plaintext highlighter-rouge">nextInt</code> to read the integer values, you don’t read the end of line that exists beyond number 43, so, when you use <code class="language-plaintext highlighter-rouge">nextLine</code> method once, you just read this new line, but not the second line. The correct sequence would be this one:</p>
+
+<pre><code class="language-Java">int number1 = sc.nextInt();
+int number2 = sc.nextInt();
+sc.nextLine(); 
+String text = sc.nextLine();
+</code></pre>
+
+<p>Third line reads and discards the new line after number 43.</p>
+
+<h4 id="21-using-systemconsolereadline">2.1. Using System.console().readLine()</h4>
+
+<p>There’s an additional way of reading data from user input. It consists in using <code class="language-plaintext highlighter-rouge">System.console().readLine()</code> method, which is similar to Scanner’s <code class="language-plaintext highlighter-rouge">newLine</code> method: it reads the whole line until user presses <em>Intro</em>, so we ALWAYS read a string with this instruction, and we need to convert it to its corresponding data type later:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Write a number:"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">console</span><span class="o">().</span><span class="na">readLine</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>The main drawback of this instruction is that it doesn’t work well in the terminal of some IDEs, since the terminal of this IDE is not a <em>system</em> terminal, so you can’t rely on it in certain situations.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program called <strong>FormattedDate</strong> with a class with the same name inside. The program will ask the user to enter the day, month and year of birth (all values are integers). Then, it will print his birth date with the format <em>d/m/y</em>. For instance, if the user types day = 7, month = 11, year = 1990, the program will output <em>7/11/1990</em>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program called <strong>GramOunceConverter</strong> that converts from grams to ounces. The program will ask the user to enter a weight in grams (an integer number), and then it will show the corresponding weight in ounces (a real number), taking into account that 1 ounce = 28.3495 grams.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a program called <strong>NumbersStrings</strong>. This program must ask the user to enter 4 numbers, that will be stored in 4 <code class="language-plaintext highlighter-rouge">String</code> variables. Then, the program will join the first pair of numbers into a single integer value, and the second pair of numbers into another integer value, and then add these values. For instance, if the user types the numbers 23, 11, 45 and 112, then the program will create a first integer value of 2311 and a second integer value of 45112. Then, it will add these two values and get a final result of 47423.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a program called <strong>CircleArea</strong> that defines a float constant called <code class="language-plaintext highlighter-rouge">PI</code> with the value <code class="language-plaintext highlighter-rouge">3.14159</code>. Then, the program will ask the user to enter the radius of a circle, and it will output the area of the circle (<code class="language-plaintext highlighter-rouge">PI</code> * radius * radius). This area will be printed with two decimal digits.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

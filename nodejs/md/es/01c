@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Primeros pasos con Node.js | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Primeros pasos con Node.js" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/01c.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Primeros pasos con Node.js" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Primeros pasos con Node.js","url":"http://nachoiborraies.github.io/nodejs/md/es/01c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="primeros-pasos-con-nodejs">Primeros pasos con Node.js</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/nodejs/md/es/slides/01c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Antes de comenzar a dar nuestros primeros pasos con Node.js, es necesario tenerlo instalado. Si has descargado la máquina virtual con todo el software instalado, o si has seguido los pasos del documento de <a href="01b">instalación</a>, ya lo deberías tener listo para usarse.</p>
+
+<h2 id="1-comprobando-la-instalación">1. Comprobando la instalación</h2>
+
+<p>Una vez instalado Node.js, podemos comprobar la instalación y la versión instalada desde línea de comandos, con el comando <code class="language-plaintext highlighter-rouge">node</code>. Para ello, abrimos un terminal en el sistema en que estemos y escribimos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node -v
+</code></pre></div></div>
+
+<p>También podemos utilizar <code class="language-plaintext highlighter-rouge">node --version</code> en su lugar. En ambos casos, nos deberá aparecer la versión que hemos instalado, que en nuestro caso será algo parecido a esto (el número de versión puede variar):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>v16.14.0
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>IMPORTANTE:</strong> debemos asegurarnos de que podemos escribir este comando y obtener la salida esperada antes de continuar, ya que de lo contrario tampoco podremos ejecutar nuestros programas Node.</p>
+</blockquote>
+
+<h2 id="2-probando-nuestro-primer-programa">2. Probando nuestro primer programa</h2>
+
+<p>El comando <code class="language-plaintext highlighter-rouge">node</code> también se emplea para ejecutar desde el terminal un archivo fuente Node.js. Por ejemplo, podemos editar un programa llamado <code class="language-plaintext highlighter-rouge">prueba.js</code> con este contenido:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola mundo</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Y después ejecutarlo con este comando (desde la misma carpeta donde tengamos el archivo fuente):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node prueba.js
+</code></pre></div></div>
+
+<p>La salida en este caso será:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hola mundo
+</code></pre></div></div>
+
+<h2 id="3-integración-de-nodejs-y-visual-studio-code">3. Integración de Node.js y Visual Studio Code</h2>
+
+<p>Visual Studio Code es uno de los muchos editores que podemos emplear para desarrollar aplicaciones Node. Disponéis de una versión ya instalada en la máquina virtual que se os proporciona, y si lo queréis instalar en vuestro sistema, también tenéis los pasos explicados en el documento de <a href="01b">instalación</a>.</p>
+
+<p>Este IDE ofrece una integración muy interesante con Node.js, de manera que podemos editar, ejecutar y depurar nuestras aplicaciones desde el propio IDE. Veamos qué pasos seguir para ello.</p>
+
+<h3 id="31-preparar-el-espacio-de-trabajo">3.1. Preparar el espacio de trabajo</h3>
+
+<p>Cada proyecto Node que hagamos irá contenido en su propia carpeta y, por otra parte, Visual Studio Code y otros editores similares que podamos utilizar (como Atom o Sublime Text) trabajan por carpetas (es decir, les indicamos qué carpeta abrir y nos permiten gestionar todos los archivos de esa carpeta). Por lo tanto, y para centralizar de alguna forma todo el trabajo del curso, lo primero que haremos será crear una carpeta llamada “<strong>ProyectosNode</strong>” en nuestro espacio de trabajo (por ejemplo, en nuestra carpeta personal). Dentro de esta carpeta, podemos crear dos subcarpetas:</p>
+
+<ul>
+  <li><strong>Pruebas</strong>, donde guardaremos todos los proyectos de prueba y ejemplo que hagamos durante las sesiones.</li>
+  <li><strong>Ejercicios</strong>, donde almacenaremos los ejercicios propuestos de cada sesión para entregar.</li>
+</ul>
+
+<p>La estructura de carpetas quedará entonces como sigue:</p>
+
+<ul>
+  <li>ProyectosNode
+    <ul>
+      <li>Pruebas</li>
+      <li>Ejercicios</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="32-crear-y-editar-un-proyecto-básico">3.2. Crear y editar un proyecto básico</h3>
+
+<p>Dentro de la carpeta <em>ProyectosNode/Pruebas</em>, vamos a crear otra subcarpeta llamada “<em>PruebasSimples</em>” donde definiremos pequeños archivos para probar algunos conceptos básicos, especialmente en las primeras sesiones.</p>
+
+<p>Una vez creada la carpeta, abrimos Visual Studio Code y vamos al menú <em>Archivo &gt; Abrir carpeta</em> (o <em>Archivo &gt; Abrir…</em>, dependiendo de la versión de Visual Studio Code que tengamos). Elegimos la carpeta “<em>PruebasSimples</em>” dentro de <em>ProyectosNode/Pruebas</em> y se abrirá en el editor. También podemos abrir la carpeta arrastrándola desde algún explorador de carpetas hasta una instancia abierta de Visual Studio Code.</p>
+
+<p>De momento la carpeta está vacía, pero desde el panel izquierdo podemos crear nuevos archivos y carpetas. Para empezar, vamos a crear un archivo “prueba.js” como el de un ejemplo previo, con el código que se muestra a continuación:</p>
+
+<div align="center">
+    <img src="../../img/01_proyecto_vscode.png" width="90%" />
+</div>
+
+<h3 id="33-ejecutar-un-archivo-node-desde-visual-studio-code">3.3. Ejecutar un archivo Node desde Visual Studio Code</h3>
+
+<p>Si quisiéramos ejecutar el programa anterior con lo visto hasta ahora, deberíamos abrir un terminal, navegar hasta la carpeta del proyecto y ejecutar el comando <code class="language-plaintext highlighter-rouge">node prueba.js</code>, como hicimos en un ejemplo anterior.</p>
+
+<p>Sin embargo, Visual Studio Code cuenta con un terminal incorporado, que podemos activar yendo al menú <em>Ver &gt; Terminal</em>, o <em>Ver &gt; Terminal integrado</em>, según la versión instalada. Aparecerá en un panel en la zona inferior. Observemos cómo automáticamente dicho terminal se sitúa en la carpeta de nuestro proyecto actual, por lo que podemos directamente escribir <code class="language-plaintext highlighter-rouge">node prueba.js</code> en él y se ejecutará el archivo, mostrando el resultado en dicho terminal:</p>
+
+<div align="center">
+    <img src="../../img/01_proyecto_vscode2.png" width="90%" />
+</div>
+
+<h2 id="4-depuración-de-código">4. Depuración de código</h2>
+
+<p>Existen diferentes alternativas para depurar el código de nuestras aplicaciones Node.js. En esta sección veremos dos:</p>
+
+<ul>
+  <li>Utilizando nuestro propio IDE (Visual Studio Code)</li>
+  <li>Utilizando Google Chrome</li>
+</ul>
+
+<h3 id="41-depurar-desde-visual-studio-code">4.1. Depurar desde Visual Studio Code</h3>
+
+<p>Visual Studio Code ofrece un depurador para nuestras aplicaciones Node. Para entrar en modo depuración, hacemos clic en el icono de depuración del panel izquierdo (el que tiene forma de <em>bug</em> o chinche).</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_icono_depurar.png" />
+</div>
+
+<p>Podemos establecer <em>breakpoints</em> en nuestro código haciendo clic en la línea en cuestión, en el margen izquierdo (como en muchos otros editores de código). Después, podemos iniciar la depuración con <code class="language-plaintext highlighter-rouge">F5</code>, o bien con el menú <em>Ejecutar &gt; Iniciar depuración</em> o <em>Run &gt; Start Debugging</em>, o con el icono de la flecha verde de <em>play</em> de la barra superior. Al llegar a un breakpoint, podemos analizar en el panel izquierdo los valores de las variables y el estado de la aplicación.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_depuracion.png" width="90%" />
+</div>
+
+<p>También podemos continuar hasta el siguiente breakpoint (botón de flecha verde), o ejecutar paso a paso con el resto de botones de la barra de depuración. Para finalizar la depuración, hacemos clic en el icono del cuadrado rojo de stop (si no se ha detenido ya la aplicación), y volvemos al modo de edición haciendo clic en el botón de explorador del panel izquierdo.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_icono_explorador.png" />
+</div>
+
+<p>La “consola de depuración” que aparece en el terminal inferior realmente es un terminal REPL (<em>Read Eval Print Loop</em>), lo que significa que desde ella podemos acceder a los elementos de nuestro programa (variables, objetos, funciones) y obtener su valor o llamarlos. Por ejemplo, en el caso anterior, podríamos teclear “mensaje” en el terminal y ver cuánto vale esa variable:</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_depuracion2.png" width="70%" />
+</div>
+
+<h3 id="42-depurar-desde-google-chrome">4.2. Depurar desde Google Chrome</h3>
+
+<p>Si tenemos disponible Google Chrome, podemos valernos de las herramientas para desarrolladores que incorpora (<em>Developer Tools</em>) para utilizar el depurador. Para ello, desde un terminal ejecutaremos este comando para poner en marcha el archivo que queremos depurar (desde la carpeta donde esté dicho archivo):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node --inspect-brk archivo.js
+</code></pre></div></div>
+
+<p>Una vez hecho esto, la aplicación queda a la espera de ser depurada. Si abrimos Chrome y accedemos a la URL <code class="language-plaintext highlighter-rouge">chrome://inspect</code>, podemos acceder al depurador desde el enlace <em>Open dedicated DevTools for Node</em>.</p>
+
+<div align="center">
+    <img src="../../img/01_chrome_depuracion.png" width="90%" />
+</div>
+
+<p>Se abrirá una ventana con el depurador. Desde la pestaña <em>Sources</em> podemos examinar el código fuente del programa:</p>
+
+<div align="center">
+    <img src="../../img/01_chrome_depuracion2.png" width="90%" />
+</div>
+
+<p>Además, podemos establecer <em>breakpoints</em> de forma visual haciendo clic izquierdo sobre el número de línea (se marcará en azul, como en la imagen anterior), o anteponiendo la instrucción <code class="language-plaintext highlighter-rouge">debugger;</code> a la línea donde queramos fijar el <em>breakpoint</em>.</p>
+
+<pre><code class="language-JavaScript">debugger;
+// Línea donde queremos parar
+...
+</code></pre>
+
+<p>Después, podemos ejecutar la aplicación de forma continuada o paso a paso con los controles de la parte superior derecha. Finalmente, si abrimos la consola inferior de esta pestaña <em>Sources</em>, accedemos a un terminal REPL como el que tiene Visual Studio Code, para examinar el valor de variables, objetos, o llamar a funciones. Notar cómo examinamos la variable <code class="language-plaintext highlighter-rouge">mensaje</code> en el ejemplo anterior.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

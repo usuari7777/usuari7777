@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>File management | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="File management" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="07d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/07d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="File management" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"File management","url":"http://nachoiborraies.github.io/java/md/en/07d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="file-management">File management</h1>
+
+<h2 id="object-serialization">Object serialization</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/07d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="07d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Serialization is the process of converting an object into a sequence of bytes, so that we can easily store it or send it through some communication channel or stream. In this document we are going to learn how to serialize objects into binary files. This way, we can easily store them from our applications, and retrieve them whenever we want.</p>
+
+<h3 id="1-object-serialization-in-java">1. Object serialization in Java</h3>
+
+<p>In order to serialize the objects of a class, we firstly need to identify this class as <em>serializable</em>. This can be easily done by just implementing <code class="language-plaintext highlighter-rouge">Serializable</code> interface. This interface has no methods, so it just help us identify the affected class as serializable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Person</span> <span class="kd">implements</span> <span class="nc">Serializable</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In order for a class to be serializable, every internal attribute must also be serializable (or a simple data type). If there’s any attribute that we don’t want to serialize, we need to tag it as <code class="language-plaintext highlighter-rouge">transient</code>. In the following example, whenever we serialize <code class="language-plaintext highlighter-rouge">Person</code> objects, we are going to store person’s name, but not his/her age:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Person</span> <span class="kd">implements</span> <span class="nc">Serializable</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">transient</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-dealing-with-serialized-objects">2. Dealing with serialized objects</h3>
+
+<p>If we want to manage serialized objects in Java, we need to make use of two special classes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ObjectInputStream</code> class lets us read serialized objects from a file or input channel, through the <code class="language-plaintext highlighter-rouge">readObject</code> method</li>
+  <li><code class="language-plaintext highlighter-rouge">ObjectOutputStream</code> class lets us write serialized objects to a file or output channel, through the <code class="language-plaintext highlighter-rouge">writeObject</code> method</li>
+</ul>
+
+<p>This is an example of how we can write serialized objects to a file:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="nf">ObjectOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"people.dat"</span><span class="o">)))</span>
+<span class="o">{</span>
+    <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"John"</span><span class="o">,</span> <span class="mi">49</span><span class="o">));</span>
+    <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Susan"</span><span class="o">,</span> <span class="mi">45</span><span class="o">));</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error storing people"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This example reads information previously serialized:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="nf">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"people.dat"</span><span class="o">)))</span>
+<span class="o">{</span>
+    <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="o">(</span><span class="nc">Person</span><span class="o">)(</span><span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error storing people"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Regarding the object reader, there’s no way to detect the end of file. Instead of this, an <code class="language-plaintext highlighter-rouge">EOFException</code> (<em>End-Of-File Exception</em>) is produced. That’s why, if we want to read until the end of file, we actually implement and endless loop and wait until the exception is thrown.</p>
+
+<h4 id="21-serializing-collections">2.1. Serializing collections</h4>
+
+<p>We can also serialize arrays or collections of data, as long as the objects contained in this collection are also serializable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">people</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(...));</span>
+<span class="n">people</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(...));</span>
+<span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">people</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">people2</span> <span class="o">=</span> <span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;)(</span><span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h4 id="22-associations-and-serialization">2.2. Associations and serialization</h4>
+
+<p>If we have an association between two classes whose objects are being serialized, we don’t need to care about the association when we retrieve the data from the file. For instance, if we store a couple of books sharing the same author, this author will still be shared between these books when we read them from the file.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>TaskSerializer</strong>, with the following elements:</p>
+
+  <ul>
+    <li>A class called <code class="language-plaintext highlighter-rouge">Task</code> to represent tasks to be done. For each task we are going to store its description and the date to be finished (a string with the format <em>dd/mm/yyyy</em>).</li>
+    <li>The main program will try to read a list of tasks stored in a file called <em>tasks.dat</em> at the beginning, and print them in the screen. Then, it will ask the user if he/she wants to add a new task to the list. At the end, the new list will be written in the file before closing the program.</li>
+  </ul>
+</blockquote>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

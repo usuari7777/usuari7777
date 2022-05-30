@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Static data types | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Static data types" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="03c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/03c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Static data types" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Static data types","url":"http://nachoiborraies.github.io/java/md/en/03c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="static-data-types">Static data types</h1>
+
+<h2 id="strings">Strings</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>If we want to work with strings in Java, we have the <code class="language-plaintext highlighter-rouge">String</code> class, with some useful methods that we can use: convert to upper or lower case, get a substring, find a text… You can have a whole list of available methods in the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> official documentation. Let’s explore some of them.</p>
+
+<h3 id="1-basic-string-management">1. Basic string management</h3>
+
+<p>We can create a string in many different ways: with a constant value, asking the user to type something…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello world"</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>We can also concatenate strings with the <code class="language-plaintext highlighter-rouge">+</code> operator, or in some cases with <code class="language-plaintext highlighter-rouge">+=</code> operator (if we want to add a string at the end of another).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">text</span> <span class="o">=</span> <span class="n">text</span> <span class="o">+</span> <span class="s">", how are you?"</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can’t treat a string as a char array (as in C++ or C#), and get to each character with the corresponding index between square brackets. If we want to get the character at a given position, we need to use the <code class="language-plaintext highlighter-rouge">charAt</code> method. We can also get the length of a string with its <code class="language-plaintext highlighter-rouge">length()</code> method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">text</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>Regarding conversions, we can easily convert a non-string variable into a string just joining it with an empty string. Alternatively, we can also use <code class="language-plaintext highlighter-rouge">String.valueof</code> instruction for this purpose:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">23</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">""</span> <span class="o">+</span> <span class="n">number</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">text2</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="2-some-advanced-operations-with-strings">2. Some advanced operations with strings</h3>
+
+<p>In this section we are going to explore some more advanced features of strings, such as comparing strings, taking substrings in a string variable, splitting a string in parts and so on.</p>
+
+<h4 id="21-string-comparison">2.1. String comparison</h4>
+
+<p>We can compare two strings (alphabetically) in some different ways. If we want to know which is greater or lower, we can use the <code class="language-plaintext highlighter-rouge">compareTo</code> method. It returns a negative number if the string on the left is lower, 0 if both strings are equal, or a positive number if the string on the right is lower.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">text1</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">text2</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Second text is greater"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we want to check if two strings are equal, we use the <code class="language-plaintext highlighter-rouge">equals</code> method (remember, we must NOT use the <code class="language-plaintext highlighter-rouge">==</code> comparator for this purpose). We can also use <code class="language-plaintext highlighter-rouge">equalsIgnoreCase</code> method if we want to ignore if strings are in uppercase or lowercase.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">text1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">text2</span><span class="o">))</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Texts are equal"</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="s">"hello"</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">"HELLO"</span><span class="o">))</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Text are equal ignoring cases"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="22-finding-texts-in-strings">2.2. Finding texts in strings</h4>
+
+<p>We have a wide variety of instructions inside string elements to find texts. For instance, if we only want to know if a text contains a given subtext, we can use <code class="language-plaintext highlighter-rouge">contains</code> method, that returns a boolean:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"hello"</span><span class="o">))</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"There is a 'hello' in the text"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we want to know the index at which a given subtext appears, we can choose among <code class="language-plaintext highlighter-rouge">indexOf</code> (gets the first occurrence of the subtext, or -1 if it does not exist) or <code class="language-plaintext highlighter-rouge">lastIndexOf</code> (gets the last occurrence of the subtext, or -1 if it does not exist)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">)</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"There is a 'hello' at position"</span> <span class="o">+</span> <span class="n">pos</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we want to know if a text starts with a given prefix or ends with a given suffix, we use the <code class="language-plaintext highlighter-rouge">startsWith</code> or <code class="language-plaintext highlighter-rouge">endsWith</code> methods, which return a boolean</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">))</span>
+	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Text starts with 'Hello'"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="23-string-conversions">2.3. String conversions</h4>
+
+<p>We can convert the whole string to upper and lower case with <code class="language-plaintext highlighter-rouge">toUpperCase</code> and <code class="language-plaintext highlighter-rouge">toLowerCase</code> methods:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello world"</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">textUpper</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span> <span class="c1">// "HELLO WORLD"</span>
+</code></pre></div></div>
+
+<p>We can get a substring of a given string with the <code class="language-plaintext highlighter-rouge">substring</code> method. It has two parameters: the index from which we must start getting the substring (starting at 0), and the index at which we must stop getting the string (excluded). If this second parameter is omitted, it returns the resulting string from the initial index to the end of the string. For instance, <code class="language-plaintext highlighter-rouge">"Welcome".substring(3, 5)</code> returns “co” (indexes 3 and 4 of the string).</p>
+
+<p>We can replace a substring with another one with the <code class="language-plaintext highlighter-rouge">replace</code> method. It has two arguments: the old text and the new text, and it returns the resulting string. It replaces EVERY occurrence of the old string with the new string.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">,</span> <span class="s">"Good morning"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>There are some other options for this purpose, such as <code class="language-plaintext highlighter-rouge">replaceAll</code> method, which uses regular expressions to match the text to be replaced, or <code class="language-plaintext highlighter-rouge">replaceFirst</code>, which only replaces the first occurrence of the old text with the new one.</p>
+
+<p>We can split a string using a delimiter with the <code class="language-plaintext highlighter-rouge">split</code> method. It returns an array with the resulting parts.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello world"</span><span class="o">;</span>
+<span class="nc">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span> 
+<span class="c1">// Two parts, "Hello" and "world"</span>
+</code></pre></div></div>
+
+<p>Finally, we can also do the opposite operation, this is, joining parts of a string with a common delimiter, using <code class="language-plaintext highlighter-rouge">String.join</code> method. We need to specify the delimiter, and then the array or sequence of texts to be joined.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="o">{</span><span class="s">"One"</span><span class="o">,</span> <span class="s">"Two"</span><span class="o">,</span> <span class="s">"Three"</span><span class="o">};</span>
+<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">","</span><span class="o">,</span> <span class="n">parts</span><span class="o">);</span>   <span class="c1">// "One,Two,Three"</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>SortJoin</strong> that asks the user to enter a list of names separated by whitespaces. Then, the program must split the string, sort the names alphabetically and output them separated by commas. For instance, if the user types this name list: <code class="language-plaintext highlighter-rouge">Susan Kailey William John</code>, then the program must output <code class="language-plaintext highlighter-rouge">John, Kailey, Susan, William</code>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a program called <strong>CheckMessages</strong> that asks the user to type 10 strings. The program must store them in an array, and then replace the text “Eclipse” with “IntelliJ” in every string that contains “Eclipse”. The program must output the updated version of the strings stored in the array, once the replacement has been done.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3</strong>:</p>
+
+  <p>Create a program called <strong>LispChecker</strong>. LISP is a programming languages where every instruction is enclosed in parentheses. This could be a set of instructions in LISP:</p>
+</blockquote>
+
+<pre><code class="language-Lisp">(let ((new (x-point a y))))
+</code></pre>
+
+<blockquote>
+  <p>You must implement a program that takes a string with LISP instructions (just one string) and then check if the parentheses are correct (this is, the number of opening parentheses and closing parentheses are the same).</p>
+</blockquote>
+
+<h3 id="3-strings-and-static-data">3. Strings and static data</h3>
+
+<p>This section is about static data types. We have seen that these types don’t change their size along program execution. However, we can increase or decrease the size of a string by concatenating or removing pieces of text. So, how can we say that a string is a static data size?</p>
+
+<p>We need to take into account that Strings in Java are ALWAYS immutable, as in many other programming languages. So, every transformation that we need to do over a string needs to be assigned to a new (or old) variable. That’s why methods such as <code class="language-plaintext highlighter-rouge">toUppeCase</code> or <code class="language-plaintext highlighter-rouge">substring</code> always return a new string, they never affect the original string. However, we can always re-assign the old string with this new value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello world"</span><span class="o">;</span>
+
+<span class="c1">// This way we don't affect original text</span>
+<span class="nc">String</span> <span class="n">newText</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span>
+
+<span class="c1">// This way we modify original variable, and it points</span>
+<span class="c1">// to this new text (old text is lost in memory)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Due to this, joining these instructions over strings is not very efficient, since we need to create a new string in memory for every new operation. Instead of this, we can also use <em>StringBuilder</em> element instead.</p>
+
+<h4 id="31-using-stringbuilder">3.1. Using <em>StringBuilder</em></h4>
+
+<p>Through <code class="language-plaintext highlighter-rouge">SceneBuilder</code> element we can create editable strings. This increases the speed of certains operations, and decreases the use of memory. In order to create these elements, we just need to use <code class="language-plaintext highlighter-rouge">new</code> operator with the initial value of the string to be stored:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">StringBuilder</span> <span class="n">text</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Then, we have some methods available to perform some editing tasks:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">append</code> method lets us add new strings at the end of the existing one, just like <code class="language-plaintext highlighter-rouge">+</code> operator does with original strings</li>
+  <li><code class="language-plaintext highlighter-rouge">delete</code> method removes a fragment in the string, given the initial and final position to be removed.</li>
+  <li><code class="language-plaintext highlighter-rouge">insert</code> method adds a new string in the middle of the existing one (to be more precise, at the given starting index)</li>
+  <li><code class="language-plaintext highlighter-rouge">toString</code> method converts this <em>StringBuilder</em> element into a common <em>String</em></li>
+  <li>Besides, we have some other methods available, whose behavior is similar to the original methods in <em>String</em>: <code class="language-plaintext highlighter-rouge">charAt</code>, <code class="language-plaintext highlighter-rouge">length</code>, <code class="language-plaintext highlighter-rouge">indexOf</code>, <code class="language-plaintext highlighter-rouge">lastIndexOf</code>…</li>
+</ul>
+
+<p>Here you can find an example of usage:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">StringBuilder</span> <span class="n">text</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+<span class="n">text</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" world"</span><span class="o">);</span>                  <span class="c1">// text = "Hello world"</span>
+<span class="n">text</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">" my"</span><span class="o">);</span>                  <span class="c1">// text = "Hello my world"</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>    <span class="c1">// "Hello my world"</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">"my"</span><span class="o">));</span> <span class="c1">// 6</span>
+<span class="n">text</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">8</span><span class="o">);</span>                      <span class="c1">// text = "Hello world"</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

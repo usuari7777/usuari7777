@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Algunos conceptos avanzados de clases</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos
+#### Algunos conceptos avanzados de clases
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La palabra *static*
+
+- Delante de una variable, define una *variable de clase*
+- Delante de un método, define un *método de clase*
+- Comunes a todos los objetos de una clase, no es necesario crear ningún objeto para usarlos
+- Para usarlos, se antepone el nombre de la clase al del elemento estático
+   - No es necesario el nombre de la clase si se está en la propia clase
+
+</script>
+</section>
+     
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de método *static*
+
+```cs
+class Hardware 
+{     
+    public static void BorrarPantalla()     
+    {         
+        for (byte i = 0; i < 25; i ++)             
+            Console.WriteLine();     
+    }      
+    
+    public static void UnMetodo()
+    {         
+        Console.WriteLine("Pulsa Intro para borrar");         
+        Console.ReadLine();         
+        BorrarPantalla();   // Misma clase, no hace falta "Hardware."         
+        Console.WriteLine("Borrado!");    
+    } 
+} 
+
+class Principal
+{
+    static void Main()
+    {
+        Hardware.BorrarPantalla();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Restricciones de *static*
+
+- Desde un método estático no se puede llamar a métodos que no lo sean
+   - Salvo que se cree un objeto de esa clase y se use para llamar a los métodos
+- Por tanto, todo lo que utilice un método estático debe ser también estático, o ser algo local al método (parámetros u objetos definidos dentro del método)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Estaticos** con la clase *Hardware* del ejemplo anterior, y un programa principal que la pruebe. Añade a la clase *Hardware* un método estático llamado *EscribirCentrado*, que reciba como parámetro un texto y lo muestre centrado en consola. Define un segundo método que haga lo mismo, pero sin ser estático, y prueba a utilizar los dos desde el programa principal.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sobrecarga de operadores
+
+- C# permite sobrecargar operadores tradicionales, como los aritméticos, para extender su significado a otros ámbitos
+   - Por ejemplo, sumar objetos complejos que hayamos creado nosotros
+- Definimos un método estático llamado **operator**, seguido del operador a redefinir, y que devolverá un objeto del mismo tipo con el que estamos trabajando
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sobrecarga de operadores
+
+```cs
+class Vector2D 
+{     
+    private double x;     
+    private double y;      
+    
+    public Vector2D(double x, double y)     
+    {         
+        this.x = x;         
+        this.y = y;     
+    }      
+
+    ...
+    
+    public static Vector2D operator + (Vector2D v1, Vector2D v2)     
+    {         
+        Vector2D v3 = new Vector2D(v1.x + v2.x, v1.y + v2.y);         
+        return v3;     
+    } 
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Vector2D v1 = new Vector2D(0, 6);         
+        Vector2D v2 = new Vector2D(-1, 4.5);         
+        Vector2D v3 = v1 + v2;         
+        Console.WriteLine(v3);        
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Matrices**. Desarrolla  una  clase  *Matriz*,  que  represente  a  una  matriz  de  3x3,  con métodos  para  establecer  el  valor  que  hay  en  una  posición,  leer  el  valor  de  una posición, escribir la matriz en pantalla y sumar dos matrices. Prueba a rellenar dos matrices y sumarlas en el programa principal.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Fracciones**. Crea una clase "Fraccion", que represente a una fracción, formada por un numerador y un denominador (enteros). Crea un constructor que reciba ambos datos como parámetros. Crea un método *Escribir*, que escriba la fracción en la forma "3 / 2". Redefine los operadores "+", "-", "*" y "/" para que permitan realizar las operaciones habituales con fracciones.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Clases abstractas
+
+- Clases que no pueden ser instanciadas directamente, por considerarse incompletas
+- Pueden tener parte de su código sin implementar (*métodos abstractos*)
+   - NO es obligatorio
+- Utilidad: definir un código base que luego amplíen o completen las clases hija
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Clases abstractas
+
+```cs
+abstract class Animal 
+{     
+    protected string nombre;      
+    
+    public Animal(string nombre)     
+    {         
+        this.nombre = nombre;     
+    }      
+    
+    public abstract void Hablar(); 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Herencia de clases abstractas
+
+```cs
+class Perro : Animal 
+{     
+    public Perro(string nombre) : base(nombre)     
+    {             
+    }      
+    
+    public override void Hablar()     
+    {         
+        Console.WriteLine("Guau!");     
+    } 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Clases abstractas a partir de otras
+
+Podemos añadir más comportamiento abstracto
+
+```cs
+abstract class Ave : Animal 
+{     
+    public Ave(string nombre) : base (nombre)     
+    {        
+    }      
+    
+    public abstract void Volar(); 
+}
+
+class Pato : Ave 
+{     
+    public Pato(string nombre) : base (nombre)     
+    {     
+    } 
+
+    public override void Hablar()     
+    {         
+        Console.WriteLine("Cuac Cuac!");     
+    }      
+    
+    public override void Volar()     
+    {         
+        Console.WriteLine("Estoy volando");     
+    } 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Domotica**. Crea una clase abstracta llamada "ElementoDomotico" que represente cualquier elemento domótico de un hogar. Tendrá como atributo el nombre del elemento (por ejemplo, "Puerta del garaje"), un constructor que le dé valor, su *getter* y *setter* y un método *ToString* para sacar su información por pantalla cuando queramos.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Amplía el proyecto **Domotica** añadiendo dos tipos de elementos domóticos: uno será la clase *Puerta*, que añadirá el atributo de si está o no *bloqueada*, y otro será el *Horno*, que tendrá la temperatura y si está o no encendido. Define los constructores apropiados y los correspondientes *getters* y *setters*, y adapta el método *ToString* para mostrar la información de cada elemento. En el programa principal, crea un array de 3 elementos domóticos y rellénalo con algunas puertas y hornos.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Interfaces
+
+- Permite definir un conjunto de métodos por implementar
+- Útil para obligar a ciertas clases a que tengan disponibles esos métodos
+- Hace que las clases *se comporten como* un elemento del tipo de la interfaz
+- Se definen con la palabra *interface* en lugar de *class*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Interfaces
+
+- Imaginemos que queremos definir un conjunto de figuras geométricas (círculos cuadrados) para las que queremos calcular su área y perímetro
+- Podemos crear una clase padre (abstracta) *FiguraGeometrica* de la que herede el resto
+   - Quedaría una clase vacía con dos métodos abstractos por implementar
+- Podemos crear una interfaz que defina esos dos métodos (área y perímetro) y que cualquier cosa que quiera comportarse como una figura geométrica los implemente
+   - En C# sólo podemos heredar de una clase, pero implementar muchas interfaces
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Interfaces
+
+```cs
+interface IFiguraGeometrica 
+{     
+    double CalcularArea();     
+    double CalcularPerimetro(); 
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Interfaces
+
+```cs
+class Cuadrado : IFiguraGeometrica
+{     
+    private double lado;      
+    
+    public Cuadrado(double lado)     
+    {         
+        this.lado = lado;     
+    }      
+    
+    public double CalcularArea()     
+    {         
+        return lado * lado;     
+    }      
+    
+    public double CalcularPerimetro()     
+    {         
+        return 4 * lado;     
+    } 
+} 
+
+class Circulo : IFiguraGeometrica 
+{     
+    private double radio;      
+    
+    public Circulo(double radio)     
+    {         
+        this.radio = radio;     
+    }      
+    
+    public double CalcularArea()     
+    {         
+        return Math.PI * radio * radio;     
+    }      
+    
+    public double CalcularPerimetro()     
+    {         
+        return 2 * Math.PI * radio;     
+    } 
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Figuras**, y añade las interfaces y clases vistas en este ejemplo anterior. Añade una clase adicional llamada *Rectangulo* que también se comportará como una figura geométrica. Observa las similitudes entre los rectángulos y los cuadrados, ¿crees que se podría establecer alguna relación entre estas clases? Finalmente, crea un array de figuras en el programa principal con al menos una de cada tipo, recórrelo y muestras las áreas y perímetros de todas.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Implementar más de una interfaz
+
+```cs
+interface IDibujable 
+{     
+    void Dibujar();
+}
+
+class Cuadrado : IFiguraGeometrica, IDibujable
+{     
+    private double lado;      
+    
+    public Cuadrado(double lado)     
+    {         
+        this.lado = lado;     
+    }      
+    
+    public double CalcularArea()     
+    {         
+        return lado * lado;     
+    }      
+    
+    public double CalcularPerimetro()     
+    {         
+        return 4 * lado;     
+    } 
+
+    public void Dibujar()
+    {
+        // Dibujo de un cuadrado
+    }
+} 
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Heredar e implementar interfaces
+
+Primero se indica la clase de la que se hereda, y luego las interfaces que se implementan, todo separado por comas
+
+```cs
+class Cuadrado : ClaseAHeredar, IFiguraGeometrica, IDibujable
+{     
+    ...
+} 
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Amplía el proyecto *Domotica* añadiendo una interfaz llamada *IEncendible*, que tendrá dos métodos llamados *Encender* y *Apagar*. Haz ahora que la clase *Horno* implemente esta interfaz, y añade otra clase llamada *Luz*, que también será un elemento domótico que implemente la interfaz *IEncendible*. En el programa principal crea un array de elementos de distintos tipos, prueba a encender/apagar algún horno o luz y muestra el estado actual de todos por pantalla.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Interfaces y ordenación: IComparable
+
+- C# tiene una interfaz llamada IComparable que permite establecer criterios de comparación entre objetos de una clase
+- Permite utilizar *Array.Sort* con un criterio que ordene automáticamente un conjunto de objetos
+- Basta con hacer que la clase a ordenar implemente esa interfaz y redefina su método *CompareTo* definiendo el criterio de comparación
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Interfaces y ordenación: IComparable
+
+Ordenamos personas por su nombre. El método *CompareTo* se puede usar para comparar datos simples (enteros, reales), igual que cadenas
+
+```cs
+class Persona : IComparable<Persona>
+{
+    private string nombre;
+    private int edad;
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Edad
+    {
+        get { return edad; }
+        set { edad = value; }
+    }
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return nombre + " (" + edad + " años)";
+    }
+
+    public int CompareTo(Persona otra)
+    {
+        return this.nombre.CompareTo(otra.nombre);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Persona[] personas = new Personas[4];
+        personas[0] = new Persona("Nacho", 43);
+        personas[1] = new Persona("Ana", 39);
+        personas[2] = new Persona("Juan", 70);
+        personas[3] = new Persona("Mario", 8);
+
+        Array.Sort(personas);
+
+        foreach(Persona p in personas)
+            Console.WriteLine(p);
+    }
+}
+```
+
+</script>
+</section>    
+ 
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el proyecto *Domotica* para que el array de elementos domóticos del programa principal se muestre ordenado por el nombre de los elementos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Interfaces y ordenación: IComparer
+
+- Otra interfaz que permite establecer el criterio de ordenación entre los objetos de una clase
+- No se implementa en la clase a ordenar, sino en otra diferente
+   - Método *Compare*, que recibe dos objetos del tipo a comparar
+   - Necesitamos incluir *System.Collections.Generic*
+- Ventajas:
+   - No hace falta tocar el código de la clase afectada
+   - Podemos definir múltiples criterios de comparación
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Interfaces y ordenación: IComparer
+
+El ejemplo anterior quedaría así
+
+```cs
+// Nueva clase que implementa la interfaz
+class ComparadorPersonas: IComparer<Persona>
+{
+    public int Compare(Persona p1, Persona p2)
+    {
+        return p1.Nombre.CompareTo(p2.Nombre);
+    }
+}
+
+// Clase Persona (sin interfaz)
+class Persona
+{
+    private string nombre;
+    private int edad;
+
+    public string Nombre
+    {
+        get { return nombre; }
+        set { nombre = value; }
+    }
+
+    public int Edad
+    {
+        get { return edad; }
+        set { edad = value; }
+    }
+
+    public Persona(string nombre, int edad)
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public override string ToString()
+    {
+        return nombre + " (" + edad + " años)";
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Persona[] personas = new Persona[4];
+        personas[0] = new Persona("Nacho", 43);
+        personas[1] = new Persona("Ana", 39);
+        personas[2] = new Persona("Juan", 70);
+        personas[3] = new Persona("Mario", 8);
+
+        Array.Sort(personas, new ComparadorPersonas());
+
+        foreach(Persona p in personas)
+            Console.WriteLine(p);
+    }
+}
+```
+
+</script>
+</section>        
+
+<section data-markdown>
+<script type="text/template">
+## Clases selladas
+
+- Clase de la que no se puede heredar
+- Se definen con la palabra *sealed*
+
+```cs
+sealed class MiClase { ... }
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Clases selladas
+
+- *String* es una clase sellada
+- Ventajas: mejoran la velocidad de ejecución, al no tener que comprobar opciones polimórficas ni posibles conversiones a subtipos
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

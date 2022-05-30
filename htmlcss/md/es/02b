@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Principales etiquetas HTML | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Principales etiquetas HTML" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/02b.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Principales etiquetas HTML" />
+<script type="application/ld+json">
+{"headline":"Principales etiquetas HTML","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/02b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="principales-etiquetas-html">Principales etiquetas HTML</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-elementos-en-bloque-y-en-línea">1. Elementos en bloque y en línea</h2>
+
+<p>En HTML existen los <strong>elementos inline</strong> (<em>en línea</em>) y los <strong>elementos block</strong> (<em>en bloque</em>), y ambos hacen referencia a cómo se muestran en el navegador.</p>
+
+<h3 id="11-elementos-en-línea">1.1 Elementos en línea</h3>
+
+<p>Los elementos de tipo inline, como su propio nombre indica, son elementos cuyo contenido se encuentra en una misma línea, de forma que si colocamos dos o más elementos en línea sin indicar expresamente un salto de línea, estos se mostrarán uno seguido del otro en una misma línea.</p>
+
+<p>Algunos elementos de este tipo son: <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> (etiqueta para insertar enlaces), <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> (etiqueta para insertar imágenes), <code class="language-plaintext highlighter-rouge">&lt;code&gt;</code> (etiqueta para insertar fragmentos de código), etc.</p>
+
+<p><strong>Ejemplo de elementos en línea</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://iessanvicente.com/"</span><span class="nt">&gt;</span> Enlace al IES<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/img/logo_IES.png"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;code&gt;</span>
+            Fragmento de código
+        <span class="nt">&lt;/code&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>    
+</code></pre></div></div>
+
+<p>El código anterior se mostraría así en el navegador:</p>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_etiq_inline_logo_IES.png" alt="Ejemplo de elementos en línea" width="50%" />
+</div>
+
+<p>Como podemos observar, los elementos se encuentran en la misma linea, esto ocurre porque son elementos <em>inline</em>.</p>
+
+<h3 id="12-elementos-en-bloque">1.2 Elementos en bloque</h3>
+
+<p>Los elementos de tipo bloque son aquellos que se comportan como bloques, cada vez que se utiliza un elemento de este tipo se hace un salto de línea de manera predeterminada. Si colocamos varios elementos de tipo block seguidos, estos se mostrarán uno debajo del otro de forma automática.</p>
+
+<p>Algunos elementos de este tipos son: <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> (etiqueta para empezar un párrafo), <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> (etiqueta de encabezado), <code class="language-plaintext highlighter-rouge">&lt;li&gt;</code>(etiqueta que indica un elemento de una lista), etc.</p>
+
+<p><strong>Ejemplo de elementos de bloque</strong>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Título de la página <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span> Esto es un párrafo en el que se explica cómo funcionan 
+            los elementos de bloque en HTML. Se trata de elementos 
+            que incorporan un salto de línea de forma automática.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;h2&gt;</span> Subtítulo de la página <span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;ol&gt;</span> 
+            <span class="nt">&lt;li&gt;</span> etiqueta de párrafo <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> etiqueta de encabezado <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> ... <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>    
+</code></pre></div></div>
+
+<p>El código anterior se mostraría así en el navegador:</p>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_etiq_block.PNG" alt="Ejemplo de elementos en bloque" width="50%" />
+</div>
+
+<h2 id="2-etiquetas-básicas-de-texto">2. Etiquetas básicas de texto</h2>
+
+<p>Comenzaremos viendo un conjunto de etiquetas que suelen utilizarse mucho para definir el contenido de un documento HTML: párrafos, encabezados, negritas, cursivas y alguna que otra más.</p>
+
+<h3 id="21-encabezados-etiquetas-h1-a-h6">2.1. Encabezados: etiquetas <em>h1</em> a <em>h6</em></h3>
+
+<p>Se utilizan las etiquetas desde <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> a <code class="language-plaintext highlighter-rouge">&lt;h6&gt;</code>para definir encabezados de mayor a menor importancia: <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> define el encabezado más importante mientras que <code class="language-plaintext highlighter-rouge">&lt;h6&gt;</code> es el menos importante. Sólo se debe utilizar un <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> por página; éste representa el encabezado ó tema principal de toda la página. Además, no conviene omitir los niveles de encabezado: se comenzará con <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code>, luego <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>, y así sucesivamente.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: ejemplo de uso de los seis encabezados, desde el más importante (el más grande) hasta el de menor relevancia (el más pequeño)</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span> Encabezados <span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Encabezado 1 <span class="nt">&lt;/h1&gt;</span>        
+        <span class="nt">&lt;h2&gt;</span> Encabezado 2 <span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;h3&gt;</span> Encabezado 3 <span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;h4&gt;</span> Encabezado 4 <span class="nt">&lt;/h4&gt;</span>
+        <span class="nt">&lt;h5&gt;</span> Encabezado 5 <span class="nt">&lt;/h5&gt;</span>
+        <span class="nt">&lt;h6&gt;</span> Encabezado 6 <span class="nt">&lt;/h6&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="22-párrafos-la-etiqueta-p">2.2. Párrafos: la etiqueta <em>p</em></h3>
+
+<p>Esta etiqueta hace que el texto que está contenido entre su etiqueta de apertura y de cierre sea considerado un párrafo. Observa que al utilizar este elemento, se añade de forma automática un salto de línea.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: el siguiente ejemplo muestra el uso de un encabezado y varios párrafos.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Generación de texto automático con Lore Ipsum<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span> 
+            Cras laoreet, ipsum ut mattis maximus, nisl augue 
+            tristique est, ut fringilla dolor nisi quis
+            justo. Praesent at condimentum lorem, vitae auctor 
+            nulla. Duis vitae egestas elit, sed tincidunt
+            metus. Sed vestibulum ipsum a purus bibendum, vel 
+            rhoncus orci venenatis. In convallis blandit
+            magna in tempor. 
+        <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> 
+            Vestibulum ante ipsum primis in faucibus orci luctus 
+            et ultrices posuere cubilia curae; Integer
+            cursus tempor lacus. Proin tempor varius felis tempus 
+            ullamcorper. In lobortis massa eget odio
+            iaculis, sodales ullamcorper nisi varius. 
+        <span class="nt">&lt;/p&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_p.PNG" alt="Ejemplo de uso del elemento blockquote" width="60%" style="border: 2px solid black" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Modifica el siguiente <a href="../../resources/UD2_Ejercicios/02b_ejercicio_encabezados_codigo_base.html">código base</a> para que la página web tenga el mismo aspecto que la siguiente imagen; para eso utiliza las diferentes etiquetas de encabezado donde corresponda. Guárdalo como <strong>ejercicio_encabezados.html</strong>.</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_encabezados_resuelto.PNG" alt="Imagen que muestra el ejercicio resuelto" width="70%" />
+</div>
+
+<h3 id="23-resaltado-de-texto-negritas-y-cursivas">2.3. Resaltado de texto: negritas y cursivas</h3>
+
+<p>No debemos confundir el hecho de resaltar un texto con aplicar estilos a un documento, cosa que NO debe hacerse con HTML, sino con CSS. El resaltado del texto sirve para hacer énfasis en una parte de dicho texto, atrayendo la atención del lector.</p>
+
+<p>En HTML existen dos tipos principales de resaltado o enfatizado de texto: una consiste en aumentar el grosor (lo que popularmente se conoce como <em>tipo negrita</em>) y otra en modificar la inclinación del texto con respecto al que le rode (lo que se conoce como <em>tipo cursiva</em>).</p>
+
+<h4 id="231-negritas-etiquetas-strong-y-b">2.3.1. Negritas: etiquetas <em>strong</em> y <em>b</em></h4>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;b&gt;</code> pone en negrita el texto contenido en él, pero no aporta ningún significado especial, enfásis o importancia a su contenido; su uso está actualmente desaconsejado. En su lugar se recomienda usar el elemento <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code>, que también muestra el texto en negrita pero además sí implica que el texto es muy importante. Esta información resulta muy útil tanto para los navegadores de voz, que  lo leerán dándole el énfasis correspondiente, como para los motores de búsqueda, que realizan un análisis de la página y muestran al usuario resultados de páginas que contengan determinadas palabras clave resaltadas.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en línea</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: a continuación se muestra un ejemplo sencillo del uso del elemento <code class="language-plaintext highlighter-rouge">&lt;strong&gt;</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>strong<span class="nt">&lt;/code&gt;</span>) <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            El trasfondo tecnológico de la novela <span class="nt">&lt;strong&gt;</span>Criptonomicón<span class="nt">&lt;/strong&gt;</span> 
+            es la <span class="nt">&lt;strong&gt;</span> criptografía<span class="nt">&lt;/strong&gt;</span> y las 
+            <span class="nt">&lt;strong&gt;</span>matemáticas<span class="nt">&lt;/strong&gt;</span> y el uso que se hacen de ellas en las 
+            dos tramas que se van compaginando a lo largo de la novela y que se 
+            centran en el marco histórico de la Segunda Guerra Mundial y en un 
+            presente paralelo al que vivimos actualmente. La principal aplicación 
+            que se da en la trama histórica será la ruptura de los códigos 
+            utilizados por los alemanes y japoneses sin que estos se den cuenta, 
+            mientras que en el presente se intenta crear la Cripta, un paraíso 
+            informático de datos libres del poder de los gobiernos.
+        <span class="nt">&lt;/p&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_strong.PNG" alt="Ejemplo de uso del elemento strong" width="60%" style="border: 2px solid black" />
+</div>
+
+<h4 id="232-cursivas-etiquetas-em-e-i">2.3.2. Cursivas: etiquetas <em>em</em> e <em>i</em></h4>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;i&gt;</code> pone en cursiva el texto contenido en él, pero no aporta ningún contenido semántico extra; al igual que el elemento <code class="language-plaintext highlighter-rouge">&lt;b&gt;</code>, su uso está actualmente desaconsejado. En su lugar, se recomienda usar el elemento <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code> que también pone en cursiva el texto contenido en él y además permite a los lectores de pantalla pronunciar ese texto con mayor énfasis que el resto y, por tanto, hace más fácil interpretar su significado. Es importante que no utilices esta etiqueta solamente para establecer un estilo de letra cursiva. Para ello es mejor utilizar estilos CSS.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en línea</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: Ejemplo de uso del elemento <code class="language-plaintext highlighter-rouge">&lt;em&gt;</code>. Observa que la primera frase suena aliviada porque la persona no llega tarde. Por el contrario, la segunda suena sarcástica y un tanto pasivo-agresiva, expresa molestia porque la persona ha llegado algo tarde.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>em<span class="nt">&lt;/code&gt;&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span> 1. Me alegro de que no llegues tarde <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span> 2. Me <span class="nt">&lt;em&gt;</span>alegro<span class="nt">&lt;/em&gt;</span> de que no llegues <span class="nt">&lt;em&gt;</span>tarde<span class="nt">&lt;/em&gt;</span> <span class="nt">&lt;/p&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_em.PNG" alt="Ejemplo de uso del elemento em" width="25%" style="border: 2px solid black" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página web llamada <strong>curriculum.html</strong> que tenga lo siguiente:</p>
+
+  <ul>
+    <li>Como título de la página (etiqueta <em>title</em> dentro de <em>head</em>), ponle tu nombre</li>
+    <li>En el cuerpo (<em>body</em>), deberá tener:
+      <ul>
+        <li>Un encabezado principal (<em>h1</em>) con el texto “Mi curriculum”.</li>
+        <li>Un encabezado secundario (<em>h2</em>) llamado “Datos personales”, donde deberás indicar en uno o dos párrafos información sobre ti: nombre y apellidos, dirección y teléfono (te puedes inventar la dirección y el teléfono si quieres).</li>
+        <li>Otro encabezado secundario (<em>h2</em>) llamado “Formación”, que tendrá dentro dos subapartados (<em>h3</em>): uno llamado “Idiomas” donde deberás indicar los idiomas que puedes hablar o escribir correctamente (en uno o dos párrafos), y otro llamado “Estudios” donde también en uno dos párrafos indiques los estudios que has alcanzado hasta ahora, incluyendo tus estudios actuales (graduado de ESO, Bachillerato, Ciclos Formativos, etc.)</li>
+        <li>Utiliza negritas y/o cursivas para resaltar las partes del currículum que consideres como palabras clave.</li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+
+<h3 id="24-la-etiqueta-span">2.4. La etiqueta <em>span</em></h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">&lt;span&gt;</code> se usa cuando queremos marcar un texto pero consideramos que ninguna de las etiquetas existentes es una buena opción. Con <code class="language-plaintext highlighter-rouge">&lt;span&gt;</code> podemos aislar un fragmento de texto sin introducir cambios en la apariencia del texto marcado. La ventaja de esta etiqueta se aprecia al usarla junto con algunos atributos tales como <code class="language-plaintext highlighter-rouge">class</code> o <code class="language-plaintext highlighter-rouge">style</code>, combinados con algún código CSS. Trabajaremos en esto más adelante.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en línea</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: como hemos comentado, veremos más adelante CSS pero de momento vamos a ver un ejemplo donde se usa un elemento <code class="language-plaintext highlighter-rouge">&lt;span&gt;</code> para colorear solo una parte del texto dentro de un párrafo de color azul.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>span<span class="nt">&lt;/code&gt;</span> <span class="nt">&lt;/h1&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span>Mi madre tiene los ojos <span class="nt">&lt;span</span> <span class="na">style=</span><span class="s">"color:blue"</span><span class="nt">&gt;</span> azules <span class="nt">&lt;/span&gt;</span>.<span class="nt">&lt;/p&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_span.PNG" alt="Ejemplo de uso del elemento span" width="25%" style="border: 2px solid black" />
+</div>
+
+<h3 id="25-algunos-símbolos-especiales">2.5. Algunos símbolos especiales</h3>
+
+<p>¿Cómo podríamos representar en una página web el símbolo <code class="language-plaintext highlighter-rouge">&lt;</code>? Lo utilizamos para las etiquetas, y en el momento en que lo pongamos, el navegador va a creer que estamos empezando una etiqueta y no lo mostrará.
+Al igual que ese símbolo, o su contrario <code class="language-plaintext highlighter-rouge">&gt;</code>, existen ciertos símbolos que, cuando los escribimos directamente en el documento, no se representan bien (o directamente, no se representan) en la página, porque el navegador no los reconoce como símbolos imprimibles. En su lugar, debemos escribir un código alternativo.</p>
+
+<p>Aquí vemos un resumen de algunos símbolos útiles:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Símbolo</th>
+      <th>Código</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;lt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;gt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&amp;</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;amp;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;quot;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'</code></td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;apos;</code></td>
+    </tr>
+    <tr>
+      <td>(espacio)</td>
+      <td><code class="language-plaintext highlighter-rouge">&amp;nbsp;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Respecto a los espacios, aunque si ponemos un espacio entre palabra y palabra, se va a representar bien, en cuanto queramos utilizar el espacio como elemento indentador (por ejemplo, poner un texto cinco espacios hacia dentro) ya no va a ser posible. En estos casos tendremos que utilizar el código del espacio ( ) y repetirlo tantas veces como espacios queramos poner.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+<span class="ni">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>Texto separado 5 espacios del margen izquierdo.
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>En cuanto a los acentos y letras especiales (como la “ñ” en español), si utilizamos la codificación adecuada (indicada en las etiquetas meta), los podremos escribir tal cual. En caso contrario, también tienen su codificación particular:</p>
+
+<ul>
+  <li>Los <strong>acentos agudos</strong> (los normales en español), se representan con el símbolo <em>&amp;</em>, seguido de la letra que queramos acentuar (en mayúsculas o minúsculas, pero sin el acento), la palabra <em>acute</em>, y el punto y coma. Así, por ejemplo, la “a” minúscula acentuada (<em>á</em>), se representaría con <code class="language-plaintext highlighter-rouge">&amp;aacute;</code> y la “O” mayúscula acentuada (<em>Ó</em>), se representaría con <code class="language-plaintext highlighter-rouge">&amp;Oacute;</code>.</li>
+  <li>Los <strong>acentos graves</strong> (o abiertos, propios de idiomas como el catalán o el francés) se representan igual que los agudos, pero sustituyendo la palabra <em>acute</em> por <em>grave</em>. Así, la “a” minúscula con acento grave (<em>à</em>), se pondría <code class="language-plaintext highlighter-rouge">&amp;agrave;</code>.</li>
+  <li>La <strong>eñe</strong> se representa con el símbolo <em>&amp;</em> seguido de una n o N (según si queremos ñ o Ñ), y la palabra <em>tilde</em>, finalizado todo en punto y coma. Así, una eñe minúscula (<em>ñ</em>) se representaría <code class="language-plaintext highlighter-rouge">&amp;ntilde;</code>.</li>
+</ul>
+
+<h2 id="3-etiquetas-de-secciones">3. Etiquetas de secciones</h2>
+
+<p>Escribir un documento HTML utilizando las etiquetas anteriores puede ser suficiente si el contenido que queremos mostrar es relativamente simple. Pero a medida que la página puede hacerse compleja, y contar con distintos apartados o secciones, este conjunto de etiquetas que hemos visto es insuficiente. Necesitamos de algún mecanismo para agrupar el contenido en secciones fácilmente identificables.</p>
+
+<h3 id="31-un-poco-de-historia">3.1. Un poco de historia</h3>
+
+<p>Hasta la aparición de HTML 5, la principal forma existente de agrupar contenido HTML en apartados o secciones era utilizar una etiqueta llamada <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>, lo que provocaba que cualquier página de tamaño medio tuviera muchos de estos elementos. El código fuente resultaba difícil de entender y mantener.</p>
+
+<p>En HTML 5 se mejoró esta característica añadiendo varias etiquetas específicas para definir diferentes tipos de secciones: <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;footer&gt;</code> (y también la etiqueta <code class="language-plaintext highlighter-rouge">&lt;main&gt;</code>, aunque esta no se considere una etiqueta de sección sino de bloque). Al utilizar etiquetas específicas para tipos de contenido específico, se mejora la legibilidad y facilidad de reutilización tanto del código HTML como de las hojas de estilo.</p>
+
+<p>Echemos un vistazo a continuación a estas estiquetas.</p>
+
+<h3 id="32-el-elemento-div">3.2. El elemento <em>div</em></h3>
+
+<p>Como hemos comentado, la etiqueta <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> se usa para definir una sección o agrupación de contenido genérico, sin un significado semántico en particular y, por tanto, se puede poner cualquier tipo de contenido entre la etiqueta <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> y su correspondiente etiqueta de cierre <code class="language-plaintext highlighter-rouge">&lt;/div&gt;</code>. En principio, los navegadores no muestran nada especial cuando se crea una sección con <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>, salvo que se dé formato al elemento con una hoja de estilo CSS. La forma de distinguir una sección de otra se realiza utilizando los atributos <em>class</em> ó <em>id</em>, que se explicarán más adelante en el temario.</p>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>, como hemos comentado antes, se usa en HTML 4 y xHTML 1.0 para crear agrupaciones de contenidos pero este uso ha quedado obsoleto, y en su lugar se emplean unas nuevas etiquetas con significado semántico que se han introducido en HTML 5 (las estudiaremos en los siguientes apartados). No obstante, esta etiqueta se mantiene en HTML 5 pero queda reservada para agrupaciones no consideradas por las nuevas etiquetas.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: el siguiente ejemplo muestra una página típica HTML4 / xHTML 1.0, en la que se utilizan varias divisiones <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> para organizar las diferentes partes del documento.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    ... 
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"cabecera"</span><span class="nt">&gt;</span>
+            ...
+        <span class="nt">&lt;/div&gt;</span>            
+        
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+            ...
+        <span class="nt">&lt;/div&gt;</span>
+        
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"contenido"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"apartado"</span><span class="nt">&gt;</span>
+                ...
+            <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"apartado"</span><span class="nt">&gt;</span>
+                ...
+            <span class="nt">&lt;/div&gt;</span>            
+        <span class="nt">&lt;/div&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"pie"</span><span class="nt">&gt;</span>
+            ...
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Piensa en el diseño de una página personal cualquiera y en las diferentes secciones de las que constaría. Posteriormente, plasma ese diseño en un documento web. A modo de ejemplo, se describe a continuación las secciones que podría tener una página personal tradicional:</p>
+
+  <ul>
+    <li>Debe tener un título con el nombre de la persona, un menú de navegación con diferentes enlaces a otras secciones o páginas: cursos, idiomas, experiencia,… (no tienes que crear el enlace, solo el texto; veremos los enlaces más adelante), un contenido principal (con una presentación básica de la persona y/o de sus aficiones), un contenido secundario con recomendaciones de compañeros, y por último un pie de página en el que se nombren sus redes sociales.</li>
+  </ul>
+
+  <p>Crea con VScode un nuevo documento HTML que recoja la estructura anterior, y llámalo <strong>pagina_divs.html</strong>. Utiliza el elemendo <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> para las diferentes secciones y añade el atributo <code class="language-plaintext highlighter-rouge">id</code> si esa sección es única o el atributo <code class="language-plaintext highlighter-rouge">class</code> si puede haber varias de esas secciones, seguido del nombre de la sección. Dentro de cada sección incluye un contenido de ejemplo con párrafos o encabezados. Recuerda añadir el título y las metaetiquetas vistas hasta ahora.</p>
+
+  <p>Guarda la página y prueba a abrirla con un navegador para comprobar cómo se ve.</p>
+</blockquote>
+
+<h3 id="33-el-elemento-section">3.3. El elemento <em>section</em></h3>
+
+<p>Esta etiqueta se utiliza para distinguir diferentes áreas de funcionalidad o áreas temáticas. Es un elemento bastante genérico, pero aún así tiene más significado semántico que el elemento <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>. Normalmente las secciones empiezan con un título (<code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>, … ) que hace referencia al tema tratado en la sección. Un elemento <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code> puede contener a su vez otros elementos <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>. Las secciones interiores se entienden como subsecciones de la sección exterior. Además, un elemento <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>puede contener elementos <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> (los veremos a continuación) y viceversa.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento de bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: documento web con dos secciones temáticas bien diferenciadas.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Asociación astronómica de San Vicente del Raspeig<span class="nt">&lt;/h1&gt;</span>
+                
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Noticias de actualidad <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>
+
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Astrofotografía <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>    
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="34-el-elemento-article">3.4. El elemento <em>article</em></h3>
+
+<p>Este elemento se utiliza para incluir contenido independiente; debe tener sentido por sí mismo. Por ejemplo, una noticia, las entradas de un blog o un vídeo. No debemos confundir este elemento con <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>. Mientras que <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code> agrupa distintas secciones de contenido o funcionalidad, <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> contiene contenido independiente, con sentido para distribuirlo de forma independiente (en una fuente RSS, por ejemplo).</p>
+
+<p>Como hemos comentado en el apartado anterior, también es posible anidar secciones dentro de los artículos, siempre y cuando tenga sentido hacerlo. Por ejemplo, si cada una de las entradas del blog tiene una estructura coherente de secciones distintas (por ejemplo, una introduccion, un desarrollo y una conclusión), entonces se pueden poner secciones dentro de los artículos.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento de bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: supongamos que tenemos un blog; cada entrada del blog se puede distribuir como elemento en una fuente de noticias RSS y tendría sentido cuando se lee individualmente, por tanto, <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> es perfecto en este caso.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Blog de tecnología<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;article&gt;</span> 
+                <span class="c">&lt;!-- aquí va el contenido de la primera entrada del blog --&gt;</span>
+            <span class="nt">&lt;/article&gt;</span>
+
+            <span class="nt">&lt;article&gt;</span>
+                <span class="c">&lt;!-- aquí va el contenido de la segunda entrada del blog --&gt;</span>
+            <span class="nt">&lt;/article&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>
+        ...
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="35-el-elemento-aside">3.5. El elemento <em>aside</em></h3>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code> se usa para añadir contenido secundario, como por ejemplo un bloque de anuncios, un grupo de enlaces externos relacionados, una cita de texto, etc. Normalmente se suele mostrar en los laterales del documento.</p>
+
+<p>Este elemento puede estar incluido directamente en el <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code>, haciendo referencia a contenido secundario con respecto a la página en su conjunto, pero también se puede incluir en <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>, en cuyo caso se trata de contenido secundario con respecto al elemento que lo contiene.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: en este ejemplo vamos a añadir, en un lateral, un bloque de anuncios relacionados con la compraventa de productos de astronomía.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Asociación astronómica de San Vicente del Raspeig<span class="nt">&lt;/h1&gt;</span>            
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Noticias de actualidad <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>
+
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Astrofotografía <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>    
+
+        <span class="nt">&lt;aside&gt;</span>
+            <span class="c">&lt;!-- aquí podemos poner un bloque de anuncios de material astronómico --&gt;</span>
+        <span class="nt">&lt;/aside&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="36-el-elemento-header">3.6. El elemento <em>header</em></h3>
+
+<p>Este elemento se utiliza en bloques de contenidos que necesiten tener su propio encabezado; puede hacer referencia a contenido introductorio de todo el documento o de una sección concreta del mismo, por lo que puede haber varios elementos <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code> en un documento HTML. Sin embargo, no se puede colocar dentro de un <code class="language-plaintext highlighter-rouge">&lt;footer&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;address&gt;</code> u otro elemento <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code>.</p>
+
+<p>Suele contener elementos de encabezado (h1, h2, …), así como también un logo ó un formulario de búsqueda. NO confundir con el elemento <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code>. Mientras que el <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code>se emplea fuera del cuerpo del documento (<code class="language-plaintext highlighter-rouge">&lt;body&gt;</code>) para definir los metadatos del documento, <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code>contiene información introductoria o de navegación dentro del cuerpo del documento.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: se usa un elemento <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code> para agrupar un logo y un nombre de empresa; en este caso se trata de contenido introductorio que afecta a todo el documento.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;header&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/images/logo.png"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Asociación astronómica de San Vicente del Raspeig<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;/header&gt;</span>
+        ...
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="37-el-elemento-nav">3.7. El elemento <em>nav</em></h3>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code> se usa para agrupar los bloques de enlaces principales de navegación, bien enlaces a otras páginas o enlaces a los apartados de la propia página. Una página puede contener varios elementos <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code>.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: el siguiente ejemplo muestra una página con dos elementos <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code>. El <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code>del <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code>, con enlaces globales a otras páginas del sitio web y el <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code> del <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code>, con enlaces a las secciones de la página principal.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;header&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/images/logo.png"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Asociación astronómica de San Vicente del Raspeig<span class="nt">&lt;/h1&gt;</span>
+            <span class="nt">&lt;nav&gt;</span> 
+                <span class="c">&lt;!-- aquí van los enlaces a otras páginas del sitio web --&gt;</span>
+            <span class="nt">&lt;nav&gt;</span>
+        <span class="nt">&lt;/header&gt;</span>
+
+        <span class="nt">&lt;nav&gt;</span>
+            <span class="c">&lt;!-- aquí van los enlaces a las diferentes secciones 
+                 de la página principal --&gt;</span>
+        <span class="nt">&lt;/nav&gt;</span>
+
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Noticias de actualidad <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>
+
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Astrofotografía <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>    
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="38-el-elemento-footer">3.8. El elemento <em>footer</em></h3>
+
+<p>Este elemento se usa para añadir información general sobre la página: autor, dirección de contacto, licencia o condiciones de uso, etc. Se suele poner al final del documento. Puede estar incluido en <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> y entonces se entiende que es el pie de página de la página en su conjunto, pero también se puede incluir en <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code> y entonces se entiende que es el pie de página del elemento que lo contiene.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: se añade al ejemplo anterior un elemento <code class="language-plaintext highlighter-rouge">&lt;footer&gt;</code> con el autor de la página y su correo electrónico.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;header&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/images/logo.png"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Asociación astronómica de San Vicente del Raspeig<span class="nt">&lt;/h1&gt;</span>            
+        <span class="nt">&lt;/header&gt;</span>
+
+        <span class="nt">&lt;nav&gt;</span>
+            <span class="c">&lt;!-- aquí van los enlaces a las diferentes secciones 
+                 de la página principal --&gt;</span>
+        <span class="nt">&lt;/nav&gt;</span>
+
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Noticias de actualidad <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>
+
+        <span class="nt">&lt;section&gt;</span>
+            <span class="nt">&lt;h2&gt;</span> Astrofotografía <span class="nt">&lt;/h2&gt;</span>
+            ...
+        <span class="nt">&lt;/section&gt;</span>    
+
+        <span class="nt">&lt;aside&gt;</span>
+            <span class="c">&lt;!-- aquí podemos poner un bloque de anuncios de material astronómico --&gt;</span>
+        <span class="nt">&lt;/aside&gt;</span>
+
+        <span class="nt">&lt;footer&gt;</span>
+            <span class="nt">&lt;p&gt;</span>May Calle<span class="nt">&lt;/p&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"mailto:maycalle@iessanvicente.com"</span><span class="nt">&gt;</span>
+                maycalle@iessanvicente.com
+            <span class="nt">&lt;/a&gt;</span> 
+        <span class="nt">&lt;/footer&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="39-el-elemento-address">3.9. El elemento <em>address</em></h3>
+
+<p>Este es un elemento específico para añadir información de contacto del autor o propietario de la página ó artículo (dirección de correo, teléfono de contacto, redes sociales, etc.). Normalmente se incluye en el <code class="language-plaintext highlighter-rouge">&lt;footer&gt;</code> de <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> ó en el <code class="language-plaintext highlighter-rouge">&lt;footer&gt;</code> de un <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code>. Generalmente se muestra por defecto en cursiva.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: en este ejemplo se modifica el footer anterior y se añade la información de contacto con la etiqueta específica <code class="language-plaintext highlighter-rouge">&lt;address&gt;</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        ...
+        <span class="nt">&lt;footer&gt;</span>
+            <span class="nt">&lt;address&gt;</span>
+                Autor: May Calle
+                Correo: 
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"mailto:maycalle@iessanvicente.com"</span><span class="nt">&gt;</span>
+                    maycalle@iessanvicente.com
+                <span class="nt">&lt;/a&gt;</span> 
+            <span class="nt">&lt;/address&gt;</span>
+            <span class="nt">&lt;p&gt;</span> Última modificación: 1 de septiembre de 2021<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/footer&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="310-el-elemento-main">3.10. El elemento <em>main</em></h3>
+
+<p>El elemento <em>main</em> se usa para identificar el bloque de contenido principal. Este elemento resulta de especial interés en el caso de usar navegadores de voz. En ese caso, el navegador puede ir directamente al contenido principal, saltando toda la información previa menos relevante.</p>
+
+<p>Solo puede haber un elemento <code class="language-plaintext highlighter-rouge">&lt;main&gt;</code> en el documento, y solo puede estar contenido por <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>y <code class="language-plaintext highlighter-rouge">&lt;form&gt;</code> (etiqueta para definir formularios que veremos más adelante); no debe estar contenido en ningún <code class="language-plaintext highlighter-rouge">&lt;section&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;article&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;aside&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;footer&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;header&gt;</code> ó <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code>.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: en este ejemplo se muestra el uso del elemento <code class="language-plaintext highlighter-rouge">&lt;main&gt;</code>, en el que se incluyen las secciones principales del documento.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Asociación astronómica<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;header&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/images/logo.png"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Asociación astronómica de San Vicente del Raspeig<span class="nt">&lt;/h1&gt;</span>            
+        <span class="nt">&lt;/header&gt;</span>
+
+        <span class="nt">&lt;nav&gt;</span>
+            <span class="c">&lt;!-- aquí van los enlaces a las diferentes secciones 
+                 de la página principal --&gt;</span>
+        <span class="nt">&lt;/nav&gt;</span>
+
+        <span class="nt">&lt;main&gt;</span>
+            <span class="nt">&lt;section&gt;</span>
+                <span class="nt">&lt;h2&gt;</span> Noticias de actualidad <span class="nt">&lt;/h2&gt;</span>
+                ...
+            <span class="nt">&lt;/section&gt;</span>
+
+            <span class="nt">&lt;section&gt;</span>
+                <span class="nt">&lt;h2&gt;</span> Astrofotografía <span class="nt">&lt;/h2&gt;</span>
+                ...
+            <span class="nt">&lt;/section&gt;</span>                
+        <span class="nt">&lt;/main&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Modifica el <em>Ejercicio 3</em> anterior de forma que en lugar de utilizar el elemento <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code> se utilicen las etiquetas semánticas de estructura de HTML 5 vistas hasta ahora. Guarda el documento como <strong>pagina_divs_html5.html</strong>.</p>
+
+  <p>Como guía, se muestra a continuación cómo quedaría el ejemplo visto en el apartado 3.2 en HTML 5:</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+   ... 
+   <span class="nt">&lt;body&gt;</span>
+       <span class="nt">&lt;header&gt;</span>
+           ...
+       <span class="nt">&lt;/header&gt;</span>            
+       
+       <span class="nt">&lt;nav&gt;</span>
+           ...
+       <span class="nt">&lt;nav&gt;</span>
+       
+       <span class="nt">&lt;main&gt;</span>
+           <span class="nt">&lt;section&gt;</span>
+               ...
+           <span class="nt">&lt;/section&gt;</span>
+           <span class="nt">&lt;section&gt;</span>
+               ...
+           <span class="nt">&lt;/section&gt;</span>            
+       <span class="nt">&lt;/main&gt;</span>
+       
+       <span class="nt">&lt;footer&gt;</span>
+           ...
+       <span class="nt">&lt;/footer&gt;</span>
+   <span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+</code></pre></div></div>
+
+<h2 id="4-definición-de-listas">4. Definición de listas</h2>
+
+<p>En HTML existen tres tipos principales de listas:</p>
+
+<ul>
+  <li>Listas ordenadas, donde los elementos tienen un orden, que puede venir dado por números arábigos, letras, números romanos… dependiendo de cómo configuremos el estilo de la lista.</li>
+  <li>Listas no ordenadas, donde los elementos no muestran un orden particular, más allá del orden en que se enumeran. En este caso se emplean viñetas gráficas, tales como puntos, cuadrados, etc.</li>
+  <li>Listas de definición, en las que aparecen un término y su definición asociada, al estilo de las entradas de un diccionario.</li>
+</ul>
+
+<h3 id="41-listas-ordenadas-etiquetas-ol-y-li">4.1. Listas ordenadas: etiquetas <em>ol</em> y <em>li</em></h3>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;ol&gt;</code>se utiliza para definir listas ordenadas de items; puede ser una lista numérica o alfabética. Se utiliza el elemento <code class="language-plaintext highlighter-rouge">&lt;li&gt;</code> para definir cada elemento de la lista; <code class="language-plaintext highlighter-rouge">&lt;li&gt;</code> debe aparecer anidado al elemento <code class="language-plaintext highlighter-rouge">&lt;ol&gt;</code> (es decir, antes de la etiqueta de cierre <code class="language-plaintext highlighter-rouge">&lt;/ol&gt;</code>)</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p>Se puede personalizar la lista a través de los siguientes atributos:</p>
+
+<ul>
+  <li>
+    <p><strong><em>reversed</em></strong>: se trata de un atributo booleano (toma el valor de <em>verdadero</em> o <em>falso</em>); si está presente, indica que la lista es descendente (…, 3, 2, 1) mientras que si se omite, indica que la lista es ascendente (1, 2, 3, …).</p>
+  </li>
+  <li>
+    <p><strong><em>start</em></strong>: se utiliza para determinar el valor inicial de la lista; debe ser un número entero válido.</p>
+  </li>
+  <li>
+    <p><strong><em>type</em></strong>: indica el tipo de viñeta/marcador que se utilizará en la lista: <code class="language-plaintext highlighter-rouge">1</code> (enteros), <code class="language-plaintext highlighter-rouge">A</code> (letras mayúsculas), <code class="language-plaintext highlighter-rouge">a</code> (letras minúsculas), <code class="language-plaintext highlighter-rouge">I</code> (numeros romanos en mayúsculas), <code class="language-plaintext highlighter-rouge">i</code> (numeros romanos en minúscula), …</p>
+  </li>
+</ul>
+
+<p>Si no indicamos ningúno de los atributos anteriores, se crea una lista decimal ascendente cuyo valor inicial es 1. Veremos más adelante que también es posible usar CSS para personalizar las listas.</p>
+
+<p><strong>Ejemplo</strong>: en el siguiente ejemplo se muestran cuatro listas ordenadas; el primer ejemplo es una lista ordenada por defecto (con números enteros y ascendente), el segundo emplea el atributo <code class="language-plaintext highlighter-rouge">start</code> para empezar la lista con el número 5 en lugar del 1, el tercero emplea los números romanos para listar los items y en el último se crea una lista ordenada en orden descendente.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>              
+        <span class="nt">&lt;h1&gt;</span> Listas ordenadas <span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> Procedimiento para acceder a la BIOS: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ol&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Enciende el ordenador <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Pulsa la tecla DEL cuando se indique <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Introduce la contraseña <span class="nt">&lt;/li&gt;</span>            
+            <span class="nt">&lt;li&gt;</span> ... <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> Ahora continúa con las siguientes instrucciones: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ol</span> <span class="na">start=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Presiona la tecla F10 <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Confirma la salida <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span> ... presta especial atención al apartado III. <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ol</span> <span class="na">type=</span><span class="s">"I"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Introduccción a HTML <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Elementos básicos de HTML <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Otros elementos de HTML <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span> Estas son mis 3 películas favoritas (ordenadas de menos a más): <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ol</span> <span class="na">reversed</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;</span> First Man <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Contact <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Apollo 13 <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>
+
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_ol.PNG" alt="Ejemplo de uso del elemento ol" width="40%" style="border: 2px solid black" />
+</div>
+
+<h3 id="42-listas-no-ordenadas-etiquetas-ul-y-li">4.2. Listas no ordenadas: etiquetas <em>ul</em> y <em>li</em></h3>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;ul&gt;</code> representa una lista no ordenada de ítems. Al igual que en el caso de las listas ordenadas, cada elemento de la lista se indica con el elemento <code class="language-plaintext highlighter-rouge">&lt;li&gt;</code>, que debe aparecer antes de la etiqueta de cierre <code class="language-plaintext highlighter-rouge">&lt;/ul&gt;</code>. Por defecto, aparece un disco negro como viñeta, pero se puede modificar utilizando el atributo <code class="language-plaintext highlighter-rouge">type</code> y alguno de los siguiente valores: <code class="language-plaintext highlighter-rouge">disc</code> (circulo relleno), <code class="language-plaintext highlighter-rouge">circle</code> (círculo sin relleno) ó <code class="language-plaintext highlighter-rouge">square</code> (cuadrado relleno). Sin embargo, este atributo se ha vuelto obsoleto en HTML5 y se recomienda usar en su lugar CSS.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: a continuación se muestra un ejemplo con dos listas no ordenadas; en la primera no se utiliza el atributo <code class="language-plaintext highlighter-rouge">type</code> mientras que en la segunda sí, aunque su uso no está recomendado.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>              
+        <span class="nt">&lt;h1&gt;</span> Listas no ordenadas <span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> Ingredientes para creps: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+            <span class="nt">&lt;li&gt;</span> 1 vaso de harina de trigo <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> 2 vasos de leche <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> 3 huevos <span class="nt">&lt;/li&gt;</span>            
+            <span class="nt">&lt;li&gt;</span> Una pizca de sal <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> Ingredientes para creps: <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">type=</span><span class="s">"square"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;</span> 1 vaso de harina de trigo <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> 2 vasos de leche <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> 3 huevos <span class="nt">&lt;/li&gt;</span>            
+            <span class="nt">&lt;li&gt;</span> Una pizca de sal <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_ul.PNG" alt="Ejemplo de uso del elemento ul" width="30%" style="border: 2px solid black" />
+</div>
+
+<h3 id="43-listas-anidadas">4.3. Listas anidadas</h3>
+
+<p>Las listas se pueden anidar, es decir, podemos incluir una lista dentro de otra y cada una tendrá su propia numeración o viñeta. Para anidarlas, crearemos otra lista (con <code class="language-plaintext highlighter-rouge">&lt;ol&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;ul&gt;</code>) dentro de una etiqueta <code class="language-plaintext highlighter-rouge">&lt;li&gt;</code>, y cerraremos <code class="language-plaintext highlighter-rouge">&lt;/li&gt;</code> después de cerrar previamente la definición de la sublista.  Veamos un ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>              
+        <span class="nt">&lt;h1&gt;</span> Listas anidadas <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;ol&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Opción 1 <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Opción 2 <span class="c">&lt;!-- La etiqueta de cierre no va aquí --&gt;</span>
+                <span class="nt">&lt;ul&gt;</span>
+                    <span class="nt">&lt;li&gt;</span> Opción 2A <span class="nt">&lt;/li&gt;</span>
+                    <span class="nt">&lt;li&gt;</span> Opción 2B <span class="nt">&lt;/li&gt;</span>
+                    <span class="nt">&lt;li&gt;</span> Opción 2C <span class="nt">&lt;/li&gt;</span>
+                <span class="nt">&lt;/ul&gt;</span>
+            <span class="nt">&lt;/li&gt;</span> <span class="c">&lt;!-- Aquí está la etiqueta de cierre --&gt;</span>
+            <span class="nt">&lt;li&gt;</span> Opción 3 <span class="nt">&lt;/li&gt;</span>            
+            <span class="nt">&lt;li&gt;</span> Opción 4 <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ol&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_listas_anidadas.PNG" alt="Ejemplo de listas anidadas" width="20%" style="border: 2px solid black" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 5</strong>:</p>
+
+  <p>Crea una página llamada <strong>listas.html</strong> y trata de representar un contenido como éste:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_listas.png" alt="Ejercicio de listas" width="50%" style="border: 2px solid black" />
+</div>
+
+<h3 id="44-listas-de-descripción-etiquetas-dl-dt-y-dd">4.4. Listas de descripción: etiquetas <em>dl</em>, <em>dt</em> y <em>dd</em></h3>
+
+<p>Las listas de descripción son listas donde se asocian términos con descripciones o valores, por ejemplo, glosarios, listas de vocabulario, listas de metadatos ó listas de preguntas y respuestas; no es adecuado para representar diálogos.</p>
+
+<p>Para representar o definir estas listas utilizamos el elemento <code class="language-plaintext highlighter-rouge">&lt;dl&gt;</code>, donde cada término está envuelto en un elemento <code class="language-plaintext highlighter-rouge">&lt;dt&gt;</code> (término de descripción) y cada descripción está envuelta en un elemento <code class="language-plaintext highlighter-rouge">&lt;dd&gt;</code> (definición de descripción). Se puede asociar un término con múltiples descripciones y viceversa. El navegador muestra el texto contenido en <code class="language-plaintext highlighter-rouge">&lt;dd&gt;</code> con una sangría.</p>
+
+<p>Opcionalmente, un grupo compuesto por cualquier número de términos seguidos por cualquier número de descripciones puede estar contenido en un elemento <code class="language-plaintext highlighter-rouge">&lt;div&gt;</code>. Esto es útil para incorporar atributos o información de estilo común al grupo.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: en el siguiente ejemplo, se muestra cómo se define un glosario de términos y un ejemplo de preguntas y respuestas. Observa que en el glosario de términos la tercera definición está asociada a dos términos.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>              
+        <span class="nt">&lt;h1&gt;</span> Listas de descripción <span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> <span class="nt">&lt;strong&gt;</span> Glosario de términos informáticos <span class="nt">&lt;/strong&gt;</span> <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;dl&gt;</span>
+            <span class="nt">&lt;dt&gt;</span>HTML<span class="nt">&lt;/dt&gt;</span>
+            <span class="nt">&lt;dd&gt;</span>Lenguaje de marcado para la elaboración de páginas web<span class="nt">&lt;/dd&gt;</span>
+
+            <span class="nt">&lt;dt&gt;</span>Javascript<span class="nt">&lt;/dt&gt;</span>
+            <span class="nt">&lt;dd&gt;</span>Lenguaje de programación interpretado que se utiliza para el 
+                desarrollo de aplicaciones web tanto en la parte cliente como 
+                en la parte de servidor. <span class="nt">&lt;/dd&gt;</span>
+
+            <span class="nt">&lt;dt&gt;</span>Interfaz<span class="nt">&lt;/dt&gt;</span>
+            <span class="nt">&lt;dd&gt;</span>Dispositivo capaz de transformar las señales generadas por un 
+                aparato en señales comprensibles por otro.<span class="nt">&lt;dd&gt;</span>
+            <span class="nt">&lt;dd&gt;</span>En programación orientada a objetos, elemento que proporciona 
+                un esqueleto común de métodos a implementar por varias clases.<span class="nt">&lt;/dd&gt;</span>
+        <span class="nt">&lt;/dl&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> <span class="nt">&lt;strong&gt;</span> Entrevista a Chema Alonso <span class="nt">&lt;/strong&gt;</span> <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;dl&gt;</span>
+            <span class="nt">&lt;dt&gt;</span>¿Qué motivo te impulsó para comenzar con el mundo del hacking 
+                ético?<span class="nt">&lt;/dt&gt;</span>
+            <span class="nt">&lt;dd&gt;</span> Entrar en el mundo del hacking fue casi por casualidad. Con 12 
+                 años comencé con los ordenadores a programar en BASIC porque me 
+                 enamoré de la tecnología con la película de TRON, y luego juegos 
+                 de guerra, y muchas otras películas de los años 80.<span class="nt">&lt;/dd&gt;</span>
+            <span class="nt">&lt;dt&gt;</span>¿Qué tendencias a nivel de seguridad informática marcarán los 
+                próximos años?<span class="nt">&lt;dt&gt;</span>
+            <span class="nt">&lt;dd&gt;</span>Creo que desde el punto de vista tecnológico, la investigación más 
+                puntera será, sin duda, todo lo referido a la Inteligencia Artificial 
+                aplicada a la ciberseguridad.<span class="nt">&lt;/dd&gt;</span>            
+        <span class="nt">&lt;/dl&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_dt.PNG" alt="Ejemplo de uso del elemento dt" width="65%" style="border: 2px solid black" />
+</div>
+
+<h2 id="5-otras-etiquetas">5. Otras etiquetas</h2>
+
+<p>Para terminar este primer bloque introductorio de etiquetas, aquí incluimos algunas etiquetas más que pueden tener su utilidad en ciertos tipos de documentos.</p>
+
+<h3 id="51-citas-etiquetas-blockquote-y-q">5.1. Citas: etiquetas <em>blockquote</em> y <em>q</em></h3>
+
+<p>Estas dos etiquetas se utilizan para citar texto de otra fuente. La diferencia entre ellas radica en que mientras <code class="language-plaintext highlighter-rouge">&lt;blockquote&gt;</code> se utiliza para insertar citas largas formadas por uno ó varios párrafos ó un conjunto de otros muchos elementos incluyendo imágenes, tablas, etc., <code class="language-plaintext highlighter-rouge">&lt;q&gt;</code> se utiliza para citar breves líneas de texto. Otra diferencia es que, por defecto, los navegadores suelen aplicar una sangría a los elementos <code class="language-plaintext highlighter-rouge">&lt;blockquote&gt;</code> mientras que a los elementos <code class="language-plaintext highlighter-rouge">&lt;q&gt;</code> se les añaden comillas alrededor del contenido.</p>
+
+<p>Adicionalmente, el recurso o URL de donde se ha extraído la cita puede ser especificado en el atributo <code class="language-plaintext highlighter-rouge">cite</code>. No confundir con el <em>elemento</em> HTML <code class="language-plaintext highlighter-rouge">&lt;cite&gt;</code>, que se utiliza para indicar el título de una obra creativa (un libro, un poema, una canción, una película, una pintura, una escultura, …); el nombre de una persona no es el título de una obra.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: <code class="language-plaintext highlighter-rouge">&lt;blockquote&gt;</code> es un elemento en bloque; <code class="language-plaintext highlighter-rouge">&lt;q&gt;</code> es un elemento en línea.</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: a continuación se muestran un par de ejemplos de uso de los elementos <code class="language-plaintext highlighter-rouge">&lt;blockquote&gt;</code>y <code class="language-plaintext highlighter-rouge">&lt;q&gt;</code>, en los que se emplea el atributo <code class="language-plaintext highlighter-rouge">cite</code> para indicar la página web de donde se ha extraído la cita.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span> Para los fans de Star Wars...
+        <span class="nt">&lt;blockquote</span> 
+         <span class="na">cite=</span><span class="s">"https://starwars.fandom.com/es/wiki/Star_Wars_Wiki:Citas:Han_Solo"</span><span class="nt">&gt;</span> 
+            He recorrido esta galaxia de un extremo a otro, he visto cosas muy 
+            raras, pero nunca vi nada que me impulsara a creer que haya una única 
+            fuerza poderosa que lo controla todo. Ningún campo de energía mística 
+            controla mi destino. Todo eso no son más que leyendas y tonterías.
+        <span class="nt">&lt;/blockquote&gt;</span> - Han Solo
+        <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_blockquote.PNG" alt="Ejemplo de uso del elemento blockquote" width="60%" style="border: 2px solid black" />
+</div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span> Según Alan Turing: <span class="nt">&lt;q</span> <span class="na">cite=</span><span class="s">"https://agenciab12.com/noticia/
+        alan-turing-10-frases-celebres-padre-inteligencia-artificial"</span><span class="nt">&gt;</span> 
+        Un hombre provisto de papel, lápiz y goma, y con sujeción a una disciplina 
+        estricta, es, en efecto, una máquina de Turing universal.<span class="nt">&lt;/q&gt;</span> 
+        <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_q.PNG" alt="Ejemplo de uso del elemento q" width="60%" style="border: 2px solid black" />
+</div>
+
+<h3 id="52-texto-preformateado-etiquetas-pre-y-code">5.2. Texto preformateado: etiquetas <em>pre</em> y <em>code</em></h3>
+
+<p>Estas etiquetas se utilizan para mostrar un texto preformateado; el texto se mostrará exactamente como 
+está escrito en el código fuente HTML. Esto puede resultar útil en determinados casos ya que los navegadores, por defecto, no muestran los espacios en blanco o saltos de línea que introducimos en un documento, a menos que lo indiquemos explícitamente con <code class="language-plaintext highlighter-rouge">&amp;nbsp;</code> ó <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> respectivamente.</p>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code> se suele utilizar para mostrar fragmentos de código, texto plano o arte ASCII. En algunos casos, es acompañado por otros elementos como <code class="language-plaintext highlighter-rouge">&lt;code&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;samp&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;kbd&gt;</code>, los cuales no soportan etiquetas anidadas y, por tanto, si se usa de forma combinada con el elemento <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code> éstos deben aparecer anidados a este elemento y no al revés.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: a continuación se muestran un par de ejemplos; en el primero se muestra la diferencia entre usar <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code> y no usarlo, y en el segundo se utilizan <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;code&gt;</code> para mostrar un fragmento de código. Aparentemente <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code>y <code class="language-plaintext highlighter-rouge">&lt;code&gt;</code> pueden parecer iguales, pero a nivel semántico no lo son. Con <code class="language-plaintext highlighter-rouge">&lt;code&gt;</code>se indica de forma específica que el texto contenido en él es código en algún lenguaje de programación o marcado, y con <code class="language-plaintext highlighter-rouge">&lt;pre&gt;</code> se resalta que los espacios y saltos de línea son importantes.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Poema de Gloria Fuertes (sin usar <span class="nt">&lt;code&gt;</span>pre<span class="nt">&lt;/code&gt;</span>) <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            En las noches claras,
+            resuelvo el problema de la soledad del ser.
+            Invito a la luna y con mi sombra somos tres. 
+        <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;h1&gt;</span> Poema de Gloria Fuertes (usando <span class="nt">&lt;code&gt;</span>pre<span class="nt">&lt;/code&gt;</span>) <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;pre&gt;</span>
+            En las noches claras,
+            resuelvo el problema de la soledad del ser.
+            Invito a la luna y con mi sombra somos tres. 
+        <span class="nt">&lt;/pre&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_pre.PNG" alt="Ejemplo de uso del elemento pre" width="60%" style="border: 2px solid black" />
+</div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de programa en JAVA (usando <span class="nt">&lt;code&gt;</span>p<span class="nt">&lt;/code&gt;</span>) <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            public class HolaMundo {
+                public static void main (String[] args) {
+                    System.out.println("Hola mundo");
+                }
+            }
+        <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de programa en JAVA (usando <span class="nt">&lt;code&gt;</span>pre<span class="nt">&lt;/code&gt;</span>) <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;pre&gt;</span>
+            <span class="nt">&lt;code&gt;</span>
+                public class HolaMundo {
+                    public static void main (String[] args) {
+                        System.out.println("Hola mundo");
+                    }
+                }
+            <span class="nt">&lt;/code&gt;</span>
+        <span class="nt">&lt;/pre&gt;</span>
+
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de programa en JAVA (usando <span class="nt">&lt;code&gt;</span>code<span class="nt">&lt;/code&gt;</span>) <span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;code&gt;</span>
+            public class HolaMundo {
+                public static void main (String[] args) {
+                    System.out.println("Hola mundo");
+                }
+            }
+        <span class="nt">&lt;/code&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_pre_code.PNG" alt="Diferencias en el uso del elemento pre y code" width="60%" style="border: 2px solid black" />
+</div>
+
+<h3 id="53-subíndices-y-superíndices-etiquetas-sup-y-sub">5.3. Subíndices y superíndices: etiquetas <em>sup</em> y <em>sub</em></h3>
+
+<p>Los elementos <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code>y <code class="language-plaintext highlighter-rouge">&lt;sub&gt;</code> se utilizan para mostrar un superíndice o subíndice respectivamente. Se suele utilizar en fórmulas y ecuaciones matemáticas.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en línea</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: ejemplo de uso de los elementos <code class="language-plaintext highlighter-rouge">&lt;sup&gt;</code>y <code class="language-plaintext highlighter-rouge">&lt;sub</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>sup<span class="nt">&lt;/code&gt;</span> y <span class="nt">&lt;code&gt;</span>sub<span class="nt">&lt;/code&gt;&lt;/h1&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span> Una de mis moléculas favoritas es 
+            C<span class="nt">&lt;sub&gt;</span>8<span class="nt">&lt;/sub&gt;</span>H<span class="nt">&lt;sub&gt;</span>10<span class="nt">&lt;/sub&gt;</span>N<span class="nt">&lt;sub&gt;</span>4<span class="nt">&lt;/sub&gt;</span>O<span class="nt">&lt;sub&gt;</span>2<span class="nt">&lt;/sub&gt;</span>, 
+            también conocida como "cafeína". 
+        <span class="nt">&lt;/p&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span> El teorema de Pitágoras es: a<span class="nt">&lt;sup&gt;</span>2<span class="nt">&lt;/sup&gt;</span> + b<span class="nt">&lt;sup&gt;</span>2<span class="nt">&lt;/sup&gt;</span> = c<span class="nt">&lt;sup&gt;</span>2<span class="nt">&lt;/sup&gt;</span> <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_sup_sub.PNG" alt="Ejemplo de uso de los elementos sup y sub" width="50%" style="border: 2px solid black" />
+</div>
+
+<h3 id="54-marcado-de-texto-etiqueta-mark">5.4. Marcado de texto: etiqueta <em>mark</em></h3>
+
+<p>Esta etiqueta se utiliza para resaltar partes de un texto como referencia o anotación, debido a su relevancia o importancia en un contexto particular; en general, los navegadores muestran el texto en negro y un color de fondo amarillo.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en línea</li>
+</ul>
+
+<p><strong>Ejemplo</strong>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>mark<span class="nt">&lt;/code&gt;</span> <span class="nt">&lt;/h1&gt;</span>
+        
+        <span class="nt">&lt;h2&gt;</span> Récords de Super Mario <span class="nt">&lt;/h2&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> Mario Bros, el fontanero italiano, es el personaje de videojuegos 
+            más famoso del mundo. La primera vez que Mario apareció fue en 
+            <span class="nt">&lt;mark&gt;</span>1981<span class="nt">&lt;/mark&gt;</span> en el juego virtual <span class="nt">&lt;mark&gt;</span>Donkey Kong<span class="nt">&lt;/mark&gt;</span>, 
+            llamándose Jumpman (saltador, en español). <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> Dentro del universo de Mario Bros, el videojuego <span class="nt">&lt;mark&gt;</span>Super Mario 
+            Bros para NES<span class="nt">&lt;/mark&gt;</span> de 1985 es el más vendido con más de 
+            <span class="nt">&lt;mark&gt;</span>40,24 millones de copias vendidas<span class="nt">&lt;/mark&gt;</span> a principios
+            del 2019.<span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> En la categoría de speed-runners, los más rápidos en completar un 
+            videojuego, en octubre del 2018, el usuario <span class="nt">&lt;mark&gt;</span>“somewes”<span class="nt">&lt;/mark&gt;</span> 
+            consiguió el menor tiempo en completar Super Mario Bros,
+            fijando el récord en <span class="nt">&lt;mark&gt;</span>4 minutos y 55 segundos.<span class="nt">&lt;/mark&gt;&lt;/p&gt;</span>        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_mark.PNG" alt="Ejemplo de uso del elementos mark" width="60%" style="border: 2px solid black" />
+</div>
+
+<h3 id="55-borrados-e-inserciones-etiquetas-del-e-ins">5.5. Borrados e inserciones: etiquetas <em>del</em> e <em>ins</em></h3>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">&lt;del&gt;</code> se utiliza para definir un texto que se ha eliminado de un documento. Los motores de búsqueda a veces usan esta etiqueta para mostrar los cambios dentro de un sitio web, cuando se ha eliminado parte del texto después de que el desarrollador haya subido una nueva versión.</p>
+
+<p>Por otro lado, el elemento <code class="language-plaintext highlighter-rouge">&lt;ins&gt;</code> se utiliza para definir un texto que se ha insertado en un documento. Los motores de búsqueda a veces usan esta etiqueta para mostrar los cambios dentro de una página web, cuando se reemplaza algún texto después de que el desarrollador haya subido una nueva versión.</p>
+
+<p>Depende del navegador cómo mostrar el texto dentro de estos elementos, pero la mayoría de ellos marcarán una línea sobre el texto eliminado y subrayarán el texto insertado de forma predeterminada.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en línea</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: ejemplo que muestra varios párrafos donde anteriormente se dijeron algunas palabras o frases, pero ahora los autores han eliminado dicho texto o lo han ampliado y quieren que se vea claramente reflejado en el documento.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>del<span class="nt">&lt;/code&gt;</span> e <span class="nt">&lt;code&gt;</span>ins<span class="nt">&lt;/code&gt;</span> <span class="nt">&lt;/h1&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span> La Tierra es <span class="nt">&lt;del&gt;</span>plana<span class="nt">&lt;/del&gt;</span> <span class="nt">&lt;ins&gt;</span>redonda.<span class="nt">&lt;/ins&gt;&lt;/p&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> El 31 de diciembre de 2021 <span class="nt">&lt;del&gt;</span>se acabará el mundo<span class="nt">&lt;/del&gt;</span> 
+            <span class="nt">&lt;ins&gt;</span>no pasará nada<span class="nt">&lt;ins&gt;</span>. <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_del_ins.PNG" alt="Ejemplo de uso de los elementos del e ins" width="40%" style="border: 2px solid black" />
+</div>
+
+<h3 id="56-etiquetas-delimitadoras-br-y-hr">5.6. Etiquetas delimitadoras: <em>br</em> y <em>hr</em></h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> es un elemento vacío (no necesita de etiqueta de cierre) que produce un salto de línea en el texto; es útil para escribir un poema o una dirección, donde la división de las líneas es significativa. No se debe utilizar <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> para incrementar el espacio entre líneas o párrafos de texto; en su lugar puedes usar propiedades CSS o el elemento <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code>.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: el siguiente ejemplo muestra un uso correcto del elemento <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span> Ejemplo de <span class="nt">&lt;code&gt;</span>br<span class="nt">&lt;/code&gt;</span> <span class="nt">&lt;/h1&gt;</span>
+        
+        <span class="nt">&lt;p&gt;</span>P. Sherman<span class="nt">&lt;br&gt;</span>
+        42 Wallaby Way<span class="nt">&lt;br&gt;</span>
+        Sydney<span class="nt">&lt;/p&gt;</span>      
+        
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_br.PNG" alt="Ejemplo de uso del elemento br" width="20%" style="border: 2px solid black" />
+</div>
+
+<p>Por otra parte, la etiqueta <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> es otro elemento vacío que representa un salto temático en el contenido. No debe utilizarse para indicar el inicio o final de una sección, ya que este elemento ya implica un cambio temático por sí mismo. En general, los navegadores lo muestran como una línea horizontal en color gris.</p>
+
+<ul>
+  <li><strong>Tipo</strong>: elemento en bloque</li>
+</ul>
+
+<p><strong>Ejemplo</strong>: en el siguiente ejemplo, se muestran un par de párrafos separados por el elemento hr para enfatizar el contraste entre sus temáticas.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span> ... <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>              
+        <span class="nt">&lt;h1&gt;</span> Lenguajes Web <span class="nt">&lt;/h1&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> HTML es el lenguaje de marcado estándar para crear páginas web. 
+            HTML describe la estructura de una página web y consta de una 
+            serie de elementos. Los elementos HTML le dicen al navegador
+            cómo mostrar el contenido. <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> CSS es un lenguaje que describe cómo se mostrarán los elementos 
+            HTML en la pantalla del ordenador o en otros medios. CSS ahorra 
+            mucho trabajo porque puede controlar el diseño de varias páginas 
+            web a la vez. <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;hr&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span> JavaScript es el lenguaje de programación que permite cambiar el 
+            contenido HTML y los valores de los atributos. <span class="nt">&lt;/p&gt;</span>
+
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_hr.PNG" alt="Ejemplo de uso del elemento hr" width="60%" style="border: 2px solid black" />
+</div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

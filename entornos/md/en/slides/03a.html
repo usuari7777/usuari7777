@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software methodologies</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software methodologies
+### Software licefycles
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software engineering
+
+Branch of computer science that helps us develop software following a given approach or steps
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Stages in software development
+
+1. Requirements analysis
+   1. Requirements specification
+   2. Analysis
+2. Design
+3. Implementation
+4. Testing
+5. Maintenance
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software lifecycles
+
+- List of stages through which a system must go
+- There are some requirements to move from one stage to the next one
+- After each stage, *deliverables* can be produced
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Cascade lifecycle
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema03-01-modelo_cascada_en.png" alt="Cascade model" width="80%" />
+</div>
+
+</script>
+</section>
+
+<section>
+    <h2>Cascade lifecycle</h2>
+
+    <div class="fragment fade-up" style="width:45%;float:left;background-color:#C2DCA3;border-radius:10px">
+        <h3 style="text-align:center">PROS</h3>
+        <ul>
+            <li>Suitable for small and well known projects</li>
+            <li>Well structured</li>
+            <li>Easy to use</li>
+        </ul>
+    </div>
+
+    <div class="fragment fade-up" style="width:45%;float:right;background-color:#E5977C;border-radius:10px">
+        <h3 style="text-align:center">CONS</h3>
+        <ul>
+            <li>Requirements not perfectly known, usually</li>
+            <li>Stages not perfectly finished, usually</li>
+            <li>No results until the end</li>
+            <li>No failures detected until test stage</li>
+        </ul>
+    </div>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## V lifecycle
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema03-02-modelo_v_en.png" alt="V model" width="60%" />
+</div>
+
+</script>
+</section>
+    
+
+<section>
+    <h2>V lifecycle</h2>
+
+    <div class="fragment fade-up" style="width:45%;float:left;background-color:#C2DCA3;border-radius:10px">
+        <h3 style="text-align:center">PROS</h3>
+        <ul>
+            <li>Easy to use</li>
+            <li>Some deliverables in each stage</li>
+            <li>Test plans for each stage</li>
+            <li>Useful for small projects with well known requirements</li>
+        </ul>
+    </div>
+
+    <div class="fragment fade-up" style="width:45%;float:right;background-color:#E5977C;border-radius:10px">
+        <h3 style="text-align:center">CONS</h3>
+        <ul>
+            <li>Requirements not perfectly known, usually</li>
+            <li>Too rigid</li>
+            <li>No results until the end</li>
+            <li>Hard to find how to move from right to left branch</li>
+        </ul>
+    </div>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Iterative lifecycle
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema03-03-modelo_iterativo_en.png" alt="Iterative model" width="80%" />
+</div>
+
+</script>
+</section>
+
+<section>
+    <h2>Iterative lifecycle</h2>
+
+    <div class="fragment fade-up" style="width:45%;float:left;background-color:#C2DCA3;border-radius:10px">
+        <h3 style="text-align:center">PROS</h3>
+        <ul>
+            <li>Requirements don't need to be clear at the beginning</li>
+            <li>Prototypes after each iteration</li>
+        </ul>
+    </div>
+
+    <div class="fragment fade-up" style="width:45%;float:right;background-color:#E5977C;border-radius:10px">
+        <h3 style="text-align:center">CONS</h3>
+        <ul>
+            <li>Later requirements may affect the system architecture significantly</li>
+        </ul>
+    </div>
+
+    <p class="fragment fade-up" style="width:100%;float:left;margin-top:10px;"><strong>Incremental lifecycle</strong>: variation in which each prototype only has some few improvements from previous one (easier to test)</p>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Spiral lifecycle
+
+Stages are arranged in a spiral divided into four sections
+
+- **Targets**: set the final product to reach
+- **Risk evaluation**: possible risks and how to reduce them
+- **Implement and test** 
+- **Planning**: check result and decide about more iterations
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Spiral lifecycle
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema03-04-modelo_espiral_en.png" alt="Spiral model" width="60%" />
+</div>
+
+</script>
+</section>
+    
+<section>
+    <h2>Spiral lifecycle</h2>
+
+    <div class="fragment fade-up" style="width:45%;float:left;background-color:#C2DCA3;border-radius:10px">
+        <h3 style="text-align:center">PROS</h3>
+        <ul>
+            <li>Suitable for large and difficult projects</li>
+            <li>Risks are minimized</li>
+            <li>Implementation and maintenance are integrated</li>
+            <li>Prototypes after each iteration</li>
+        </ul>
+    </div>
+
+    <div class="fragment fade-up" style="width:45%;float:right;background-color:#E5977C;border-radius:10px">
+        <h3 style="text-align:center">CONS</h3>
+        <ul>
+            <li>Experience required for risk evaluation</li>
+            <li>It produces a lot of additional resources (reports, prototypes...)</li>
+            <li>Very costly</li>
+            <li>Not suitable for small projects</li>
+        </ul>
+    </div>
+
+</section>
+
+<section>
+    <h2>Exercise</h2>
+
+    <p>Fill this table with YES or NO according to each lifecycle</p>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>Cascade</th>
+            <th>V</th>
+            <th>Iterative</th>
+            <th>Spiral</th>
+        </tr>
+        <tr>
+            <td>It is simple and easy</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>It generates intermediate versions of the product</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Suitable for projects with uncertain requirements</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>It lets us evaluate the risks of the chosen solution</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Our team is going to develop an application to manage the accounting of a cinema company. The customer still doesn't know what he expects from the application, and we want to use a really new technology we don't control yet. According to this information, argue which lifecycle model(s) are the most suitable for our purpose, and which one(s) are NOT recommended
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+A teacher from the Higher Polytechnic School of the University of Alicante wants to develop a program to help him correct his students' exercises. As he is very busy, he has asked a group of old students to do it for him. We assume that, as he is a computer scientist, he knows perfectly what he wants from the very beginning. It is a small project that should not take a lot of time. According to this information, argue which lifecycle model(s) are the most suitable
+
+</script>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

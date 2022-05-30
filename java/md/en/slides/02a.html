@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Boolean type and operators</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Control structures
+### Boolean type and operators
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Boolean data type
+
+- Stores *true/false* values
+- Lets us evaluate some conditions and decide which instructions must be executed
+
+```java
+boolean b = true;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Relational operators
+
+Compare two values returning a *true/false* result
+
+|Operator|Meaning|
+|---|---|
+|`>`|Greater than|
+|`>=`|Greater or equal than|
+|`<`|Lower than|
+|`<=`|Lower or equal than|
+|`==`|Equal to|
+|`!=`|Not equal to|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Relational operators and strings
+
+They can't be applied to strings. We must use **equals** instruction to determine if two strings are the same
+
+```java
+String s1 = "Hello";
+
+boolean check1 = s1 == "Hello";      // Does not work as expected
+boolean check2 = s1.equals("Hello"); // OK
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Logical operators
+
+Joing two or more simple conditions
+
+|Operator|Meaning|
+|---|---|
+|```&&```|AND operator|
+|```||```|OR operator|
+|```!```|NOT operator|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Examples of logical operators
+
+```java
+int n = 10, m = 5;
+
+boolean c1 = n > 5 && m < 10;   // true && true = true
+boolean c2 = n > 5 && m > 10;   // true && false = false
+
+boolean c3 = n > 5 || m > 10;   // true || false = true
+boolean c4 = n < 5 || m > 10;   // false || false = false
+
+bool c5 = n > 5;    // true
+bool c6 = !c5;      // false
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operator precedence
+
+1. First of all, we evaluate every expression between **parentheses**
+2. Then, we evaluate **NOT** operators
+3. Next, we check **AND** operators
+4. Finally, we look for **OR** operators
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Short-circuit operators
+
+* Regarding **AND** operator, if the first expression is *false*, second expression is not checked (final result will be *false* anyway)
+* Regarding **OR** operator, if the first expression is *true*, second expression is not checked (final result will be *true* anyway).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Try to guess the final result of these expressions `e1`, `e2` and `e3`. You can then write a short program to check your answers:
+
+```java
+int a = 3, b = 5, c = 8;
+
+boolean e1 = a < 2 && b >= 5 || c == 8;
+boolean e2 = a < 2 && (b >= 5 || c == 8);
+boolean e3 = !(a < 2) && (b >= 5 || c == 8);
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

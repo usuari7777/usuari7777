@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functional programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Functional programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/11c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/11c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functional programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Functional programming","url":"http://nachoiborraies.github.io/java/md/en/11c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="functional-programming">Functional programming</h1>
+
+<h2 id="managing-collections-with-streams">Managing collections with streams</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/11c.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/11c.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this document we are going to introduce streams, a powerful tool that lets us manage Java collections from a functional point of view, so that our code will be shorter, less error prone and more efficient.</p>
+
+<h3 id="1-introduction-to-streams">1. Introduction to streams</h3>
+
+<p>A stream is a new concept designed to process large (or small) amounts of data using a new level of abstraction in combination with lambda expressions that can be easily parallelizable to take advantage of all available CPU cores without having to do it ourselves manually (split the computation and create new threads).</p>
+
+<p>A stream:</p>
+
+<ul>
+  <li>Is a special object on which we can define operations (using lambda expressions, usually)</li>
+  <li>It doesn’t hold any data (acts as an intermediary).</li>
+  <li>It doesn’t change the data it processes. The compiler allows you to do so but you shouldn’t, since you could get an unpredictable behaviour.</li>
+  <li>It processes all data of an operation and passes it to the next operation. It doesn’t do anything until you call a <em>final</em> or terminal operation (we’ll see what’s a final operation)</li>
+  <li>It behaves, in some ways, similar to SQL.</li>
+</ul>
+
+<p>Streams are a really powerful (and maybe hard to understand) concept of Java 8. They are useful when we want to filter and process a large list or amount of data.</p>
+
+<h4 id="11-stream-vs-collection">1.1. Stream vs Collection</h4>
+
+<p>First of all, for compatibility issues, the <em>Collection</em> framework hasn’t been transformed to work like streams do, so they are separate things. Most of the time, streams are generated from collections and several times they generate a new collection as a result, but they’re not the same.</p>
+
+<p>With a collection, the programmer has to iterate and operate with all its values manually, and if he wants to parallelize the operation, he has to create the necessary threads and divide the problem by himself. With a stream, you only have to define the operations that will be done with all data, and it will automatically iterate and apply the defined operations, and also divide the problem and generate threads when using parallel streams.</p>
+
+<h4 id="12-defining-a-stream">1.2. Defining a stream</h4>
+
+<p>In order to define a stream, we usually get it from a collection, through the <code class="language-plaintext highlighter-rouge">stream</code> method that was incorporated in Java 8:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">texts</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">texts</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>From this stream, there are two types of operations that can be done:</p>
+
+<ul>
+  <li><strong>Intermediary</strong> or <em>lazy</em> operations: they transform this stream into another</li>
+  <li><strong>Final</strong> operations: they close the stream and produce a final result. This result can be a collection, a numeric value, and so on.</li>
+</ul>
+
+<h3 id="2-intermediary-or-lazy-operations">2. Intermediary or lazy operations</h3>
+
+<p>These operations return another stream, so that we can chain as many of them as we want. The most typical intermediary operations are filters and mappings, but there are some other useful intermediary operations that we will see here.</p>
+
+<h4 id="21-filters">2.1. Filters</h4>
+
+<p>A filter operation takes a <code class="language-plaintext highlighter-rouge">Predicate</code> object as an argument, meaning that it will accept data that matches the condition given by this predicate and reject data that doesn’t. For instance, if we have a list of <code class="language-plaintext highlighter-rouge">Person</code> objects:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">people</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">16</span><span class="o">,</span> <span class="s">"Peter"</span><span class="o">));</span>
+<span class="n">people</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">22</span><span class="o">,</span> <span class="s">"Mary"</span><span class="o">));</span>
+<span class="n">people</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">43</span><span class="o">,</span> <span class="s">"John"</span><span class="o">));</span>
+<span class="n">people</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">70</span><span class="o">,</span> <span class="s">"Amy"</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>We can get a stream from that list, and filter those objects whose age is older than 18. Then, we can explore this stream and print the selected objects:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">();</span>
+<span class="c1">// Intermediary</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">stream2</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">);</span> 
+
+<span class="c1">// A shorter way to do exactly the same</span>
+<span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>The parameter that we use in the <code class="language-plaintext highlighter-rouge">filter</code> method is a <code class="language-plaintext highlighter-rouge">Predicate</code>, a functional interface provided by Java 8. It has a method called <code class="language-plaintext highlighter-rouge">test</code> that returns a boolean that tells if a given test is true or false. In our case, we use a lambda expression to implement this predicate, and the test that must be passed is that every selected person <code class="language-plaintext highlighter-rouge">p</code> must have at least 18 years (<code class="language-plaintext highlighter-rouge">p.getAge() &gt;= 18</code>).</p>
+
+<h4 id="22-mappings">2.2. Mappings</h4>
+
+<p>Mapping operations use a <code class="language-plaintext highlighter-rouge">Function</code> object (another functional interface brought by Java 8), taking an item (input) and returning a different output. We can use mappings to extract some specific information from complex objects, or to transform an element into another, different element. For example, we can use it to extract person ages in our previous example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">ages</span> <span class="o">=</span>
+<span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>Note that we can chain as many intermediary operations as we need. In this case, we are chaining a filtering operation with a mapping, and the result is always another stream.</p>
+
+<h4 id="23-another-intermediary-operations">2.3. Another intermediary operations</h4>
+
+<p>Apart from filters and maps, there are some other intermediary operations available in <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream</a> interface. For instance:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sorted</code> operation takes a <code class="language-plaintext highlighter-rouge">Comparator</code> as argument, so that it can sort the stream elements according to this comparator. This example sorts people by age in ascending order</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> 
+<span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">sorted</span><span class="o">((</span><span class="n">p1</span><span class="o">,</span> <span class="n">p2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">p2</span><span class="o">.</span><span class="na">getAge</span><span class="o">()));</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">limit</code> operation takes an integer N as argument, and returns the first N elements of the stream. This example returns a stream with the 3 youngest people of original <em>people</em> list:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> 
+<span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">sorted</span><span class="o">((</span><span class="n">p1</span><span class="o">,</span> <span class="n">p2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p1</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">p2</span><span class="o">.</span><span class="na">getAge</span><span class="o">()))</span>
+      <span class="o">.</span><span class="na">limit</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="3-final-operations">3. Final operations</h3>
+
+<p>Final operations close the stream and get some kind of object (for instance, a Collection) or final value (for instance, an average, or maximum), or they just process the stream data in a final way (for instance, they print the results in a text file or screen). An important thing to note is that a stream can only have one final operation. Once it has processed data, the stream can’t be reused, so you need to create another stream.</p>
+
+<h4 id="31-reduction-operations">3.1. Reduction operations</h4>
+
+<p>Reductions return one element that can be of any type. Sometimes, they won’t return anything (for example, the minimum element of an empty list), and that would be a problem if we assign that result to a variable. We can use the class <code class="language-plaintext highlighter-rouge">Optional</code> to manage those situations.</p>
+
+<p>Types of reductions:</p>
+
+<ul>
+  <li>Return <code class="language-plaintext highlighter-rouge">Optional</code>: <code class="language-plaintext highlighter-rouge">max</code>, <code class="language-plaintext highlighter-rouge">min</code>, <code class="language-plaintext highlighter-rouge">findAny</code>, <code class="language-plaintext highlighter-rouge">findFirst</code></li>
+  <li>Return long: <code class="language-plaintext highlighter-rouge">count</code></li>
+  <li>Return boolean: <code class="language-plaintext highlighter-rouge">allMatch</code>, <code class="language-plaintext highlighter-rouge">noneMatch</code>, <code class="language-plaintext highlighter-rouge">anyMatch</code></li>
+  <li>Other (the return value depends on the operation done): <code class="language-plaintext highlighter-rouge">reduce</code></li>
+</ul>
+
+<p>Let’s see an example: if we want to sum the ages of all the <code class="language-plaintext highlighter-rouge">Person</code> objects older than 18, we could use the <code class="language-plaintext highlighter-rouge">reduce</code> method like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">sumAges</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">reduce</code> method’s first argument is the base case, the value that will be taken if the list is empty. Then, for every age found in the filtered list, it is added to this base case.</p>
+
+<p>Other operations like <code class="language-plaintext highlighter-rouge">max</code>, doesn’t need to take a base value, so they will return an <code class="language-plaintext highlighter-rouge">Optional</code> (in case the list is empty there’s no result). Here we get the maximum age of all the filtered objects:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">maxAge</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">reduce</span><span class="o">(</span><span class="nl">Integer:</span><span class="o">:</span><span class="n">max</span><span class="o">);</span>
+
+<span class="c1">// Will print Optional[70]</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">maxAge</span><span class="o">);</span>
+<span class="c1">// Better</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">maxAge</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()?</span><span class="n">maxAge</span><span class="o">.</span><span class="na">get</span><span class="o">():</span><span class="s">"No max age"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>With <code class="language-plaintext highlighter-rouge">mapToInt()</code>, <code class="language-plaintext highlighter-rouge">mapToDouble()</code>, etc… values are casted into primitive types and you can do more and simpler operations. Like calculate the average of all ages (older than 18):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">OptionalDouble</span> <span class="n">avgAge</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">mapToInt</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()).</span><span class="na">average</span><span class="o">();</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+    <span class="n">avgAge</span><span class="o">.</span><span class="na">isPresent</span><span class="o">()?</span>
+        <span class="s">"Avg: "</span> <span class="o">+</span> <span class="n">avgAge</span><span class="o">.</span><span class="na">getAsDouble</span><span class="o">()</span>
+        <span class="o">:</span><span class="s">"No ages"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Let’s see another example: we ask if there is any <code class="language-plaintext highlighter-rouge">Person</code> object younger than 18:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="o">(</span><span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">anyMatch</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="o">))</span> 
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"There are children in the collection!"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="32-collecting-operations">3.2. Collecting operations</h4>
+
+<p>These kind of operations are also final. Instead of returning an object, a primitive value, or nothing, they usually return a Collection, or sometimes a String (joining operation). The method used for this operations is <code class="language-plaintext highlighter-rouge">.collect()</code>.</p>
+
+<p>The most basic usage is to pass one parameter, a <code class="language-plaintext highlighter-rouge">Collector</code> object, which we can create from the <code class="language-plaintext highlighter-rouge">Collectors</code> class. This example returns a string with all the person names joined by commas:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">names</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">joining</span><span class="o">(</span><span class="s">","</span><span class="o">,</span> <span class="s">"Adults: "</span><span class="o">,</span> <span class="s">""</span><span class="o">));</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">names</span><span class="o">);</span> <span class="c1">// Adults: Mary,John,Amy</span>
+</code></pre></div></div>
+
+<p>We can also generate new Lists:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">older</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>We can even return a <code class="language-plaintext highlighter-rouge">Map</code> using <code class="language-plaintext highlighter-rouge">Collectors.groupingBy(key, calculated value)</code>. For instance, in this example we get a map with all the ages, and the number of people having each age:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="n">ages</span> <span class="o">=</span> <span class="n">persons</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">groupingBy</span><span class="o">(</span>
+        <span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span>
+        <span class="nc">Collectors</span><span class="o">.</span><span class="na">counting</span><span class="o">()));</span>
+
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ages</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span> <span class="c1">// {70=1, 22=1, 43=1}</span>
+</code></pre></div></div>
+
+<h4 id="33-other-final-operations">3.3. Other final operations</h4>
+
+<p>There are other final operations that do not produce any particular result. For instance, we can use <code class="language-plaintext highlighter-rouge">forEach</code> operation, which takes a <code class="language-plaintext highlighter-rouge">Consumer</code> object. This is a functional interface that takes an object as a parameter and returns nothing. It is usually applied to printing data on a screen or file.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>Hotels</strong>. Define a class called <code class="language-plaintext highlighter-rouge">Hotel</code>, with three attributes: the hotel name (string), the hotel location (a city name) and the hotel rating (a floating point value between 0 and 5, both included). Define the constructor to set those values, and the corresponding getters or setters that you may need.</p>
+
+  <p>Then, in the main program, create a list of hotels (at least with 5 hotels) and do the following:</p>
+
+  <ul>
+    <li>Sort the hotels by rating in descending order using a lambda expression, and show the result in the console.</li>
+    <li>Get all the hotels whose rating is greater than 3. Store the result in a list and show it in the console.</li>
+    <li>Do the same operation, but now do not store the result in a list, just print it in the console.</li>
+    <li>Print in the screen the names of the hotels in Alicante, separated by commas.</li>
+    <li>Get the number of hotels whose rating is 5 and print the result in the screen</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Using the project <strong>ListFilter</strong> of previous document, we’re going to add some things:</p>
+
+  <ol>
+    <li>In the <code class="language-plaintext highlighter-rouge">Main</code> class, add another static method called <code class="language-plaintext highlighter-rouge">getOldestNames (List&lt;Student&gt; list)</code> that returns a <code class="language-plaintext highlighter-rouge">List&lt;String&gt;</code>. Inside, you’ll have to create a stream from the list received as parameter, and generate a list of the names of the three oldest people of the list. Try it and print the results to see if it works well.</li>
+    <li>Create another static method in the <code class="language-plaintext highlighter-rouge">Main</code> class called <code class="language-plaintext highlighter-rouge">getAllSubjects (List&lt;Student&gt; list)</code> that returns a <code class="language-plaintext highlighter-rouge">Set&lt;String&gt;</code>. In this method we’re going to create a stream out of the student’s list and generate a set that contains all subjects which appear at least in one student (or more) of the list, ordered alphabetically. Try it passing some list and printing the results.</li>
+  </ol>
+</blockquote>
+
+<h3 id="4-some-advanced-concepts-regarding-streams">4. Some advanced concepts regarding streams</h3>
+
+<p>In this last section of the document, we are going to learn some advanced concepts regarding stream management, such as how to chain some interface objects, or deal with files using streams.</p>
+
+<h4 id="41-chaining-functional-interfaces">4.1. Chaining functional interfaces</h4>
+
+<p>In some functional interfaces, such as <code class="language-plaintext highlighter-rouge">Consumer</code> or <code class="language-plaintext highlighter-rouge">Predicate</code>, we have some default, implemented methods that let us chain these objects somehow. For instance, we can check two predicates at once using <code class="language-plaintext highlighter-rouge">and</code> operation:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Predicate</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">;</span>
+<span class="nc">Predicate</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="o">;</span>
+<span class="nc">Predicate</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">p3</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="na">and</span><span class="o">(</span><span class="n">p2</span><span class="o">);</span> <span class="c1">// Applies both p1 and p2</span>
+</code></pre></div></div>
+
+<p>This example applies two <code class="language-plaintext highlighter-rouge">Consumer</code> objects sequentially. The first one prints the list items in the screen, and the second one adds the elements of another list to the first one.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">strings</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"one"</span><span class="o">,</span> <span class="s">"two"</span><span class="o">,</span> <span class="s">"three"</span><span class="o">,</span> <span class="s">"four"</span><span class="o">,</span> <span class="s">"five"</span><span class="o">);</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span> 
+<span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">cPrint</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">;</span>
+<span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">cAdd</span> <span class="o">=</span> <span class="nl">result:</span><span class="o">:</span><span class="n">add</span><span class="o">;</span>
+<span class="c1">// Will print and then add to the other list (chaining consumers)</span>
+<span class="n">strings</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">cPrint</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">cAdd</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Function</code> interface takes an object (or more) and returns another object. There are several types, such as:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Function</span><span class="o">&lt;</span><span class="no">T</span> <span class="o">,</span><span class="no">R</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="no">R</span> <span class="nf">apply</span><span class="o">(</span><span class="no">T</span> <span class="n">t</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@FunctionalInterface</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BiFunction</span><span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">U</span> <span class="o">,</span><span class="no">R</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="no">R</span> <span class="nf">apply</span><span class="o">(</span><span class="no">T</span> <span class="n">t</span><span class="o">,</span> <span class="no">U</span> <span class="n">u</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can combine two or more of these functions to make a more complex one. Let’s see an example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* This BiFunction takes a string s and an integer i and returns a 
+   substring of s containing the first i characters */</span>
+<span class="nc">BiFunction</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">biFunc</span> <span class="o">=</span> <span class="o">(</span><span class="n">s</span><span class="o">,</span><span class="n">i</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="c1">// This Function takes a string and converts it to uppercase</span>
+<span class="nc">Function</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">func</span> <span class="o">=</span> <span class="n">s</span> <span class="o">-&gt;</span> <span class="n">s</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">();</span>
+<span class="c1">// This BiFunction combines both previous functions in a third one</span>
+<span class="nc">BiFunction</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">biFunc2</span> <span class="o">=</span> <span class="n">biFunc</span><span class="o">.</span><span class="na">andThen</span><span class="o">(</span><span class="n">func</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Then, we can apply this complex function this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">test</span> <span class="o">=</span> <span class="s">"This is a test string"</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">7</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="n">biFunc2</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">test</span><span class="o">,</span> <span class="n">number</span><span class="o">);</span> <span class="c1">// "This is"</span>
+</code></pre></div></div>
+
+<h4 id="42-functional-programming-and-io">4.2. Functional programming and I/O</h4>
+
+<p>Let’s see some new features added to Java regarding functional programming and I/O tasks, such as file reading or writing.</p>
+
+<p><code class="language-plaintext highlighter-rouge">.lines()</code> method was added to <code class="language-plaintext highlighter-rouge">BufferedReader</code>. It returns a <code class="language-plaintext highlighter-rouge">Stream&lt;String&gt;</code> with all the lines of the file. This example prints in the screen of the lines of a file containing text “<em>Login:</em>”.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">BufferedReader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">FileReader</span><span class="o">(</span><span class="s">"/home/arturo/file.txt"</span><span class="o">)))</span> 
+<span class="o">{</span>
+    <span class="n">reader</span><span class="o">.</span><span class="na">lines</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">line</span> <span class="o">-&gt;</span> <span class="n">line</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Login:"</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Files.lines()</code> method even creates the Stream without having to create a <code class="language-plaintext highlighter-rouge">BufferedReader</code>, and it’s <code class="language-plaintext highlighter-rouge">AutoCloseable</code>, so you can create it inside a try:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">lines</span><span class="o">(</span>
+    <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/arturo"</span><span class="o">,</span> <span class="s">"file.txt"</span><span class="o">)))</span> 
+<span class="o">{</span>
+    <span class="n">stream</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">line</span> <span class="o">-&gt;</span> <span class="n">line</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Login:"</span><span class="o">))</span>
+          <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Files.list()</code> returns a <code class="language-plaintext highlighter-rouge">Stream&lt;Path&gt;</code> containing a list of all files and directories present in the current directory (passed as a parameter):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Path</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">list</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/arturo"</span><span class="o">)))</span> 
+<span class="o">{</span>
+    <span class="c1">// Prints subdirectories</span>
+    <span class="n">stream</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">path</span> <span class="o">-&gt;</span> <span class="n">path</span><span class="o">.</span><span class="na">toFile</span><span class="o">().</span><span class="na">isDirectory</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Files.walk()</code> is very similar but it also explores subdirectories. The second parameter is the maximum depth you want to go in the directory tree:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">Stream</span><span class="o">&lt;</span><span class="nc">Path</span><span class="o">&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">walk</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/arturo"</span><span class="o">),</span> <span class="mi">2</span><span class="o">))</span> <span class="o">{</span><span class="err"> </span>
+    <span class="c1">// Prints subdirectories</span>
+    <span class="n">stream</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">path</span> <span class="o">-&gt;</span> <span class="n">path</span><span class="o">.</span><span class="na">toFile</span><span class="o">().</span><span class="na">isDirectory</span><span class="o">())</span>
+          <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">...</span>
+</code></pre></div></div>
+
+<h4 id="43-more-collection-features">4.3. More collection features</h4>
+
+<p>Regarding collections, there are also some new features since Java 8. Let’s see some of them…</p>
+
+<p>There is a new method, <code class="language-plaintext highlighter-rouge">forEach()</code>, in Iterable collections:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="mi">6</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">9</span><span class="o">);</span>
+<span class="n">list</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">elem</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">elem</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">elem</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>We can also chain comparison criteria. Let’s see a comparator to order people by their last name, and if it’s equal, use the first name (Java 7 vs Java 8):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+<span class="c1">// JAVA 7</span>
+<span class="n">list</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="k">new</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p1</span><span class="o">,</span> <span class="nc">Person</span> <span class="n">p2</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">last</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="na">getLastName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getLastName</span><span class="o">());</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">last</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> 
+        <span class="o">{</span> 
+            <span class="c1">// Equal last name</span>
+            <span class="k">return</span> <span class="n">p1</span><span class="o">.</span><span class="na">getFirstName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getFirstName</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">last</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+
+<span class="c1">// JAVA 8</span>
+<span class="n">list</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Person:</span><span class="o">:</span><span class="n">getLastName</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">thenComparing</span><span class="o">(</span><span class="nl">Person:</span><span class="o">:</span><span class="n">getFirstName</span><span class="o">));</span>
+</code></pre></div></div>
+
+<p>There’s a <code class="language-plaintext highlighter-rouge">Map.forEach(BiConsumer)</code> method that works like <code class="language-plaintext highlighter-rouge">List.forEach</code> but with <code class="language-plaintext highlighter-rouge">BiConsumer (key,value)</code>, so that we can get the key and the value separately in each iteration.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Person</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="o">...</span>
+
+<span class="n">map</span><span class="o">.</span><span class="na">forEach</span><span class="o">((</span><span class="n">key</span><span class="o">,</span><span class="n">person</span><span class="o">)</span> <span class="o">-&gt;</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Key: "</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> 
+        <span class="s">". Person: "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getFullName</span><span class="o">()));</span>
+</code></pre></div></div>
+
+<p>Regarding maps, there are other useful methods, such as <code class="language-plaintext highlighter-rouge">getOrDefault(key, defaultValue)</code> that gets a default value if key doesn’t exist, or <code class="language-plaintext highlighter-rouge">putIfAbsent(key, value)</code> that puts the new value only if key is not present (old <code class="language-plaintext highlighter-rouge">put()</code> method overwrites previous value if key exists, without asking)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Person</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">map</span><span class="o">.</span><span class="na">putIfAbsent</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">person</span><span class="o">);</span> 
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>You will be provided with a <a href="https://nachoiborraies.github.io/java/resources/en/11_productStreams_sample.zip">sample file</a> with two source files: a <code class="language-plaintext highlighter-rouge">Product</code> class with some attributes, constructors, getters and setters, and a <code class="language-plaintext highlighter-rouge">Main</code> application that creates a list of <code class="language-plaintext highlighter-rouge">Product</code> objects. Place these files in a project and, from this point, we will define some streams, lambda expressions and functions to get results from this collection.</p>
+
+  <ul>
+    <li>Define a <code class="language-plaintext highlighter-rouge">Comparator</code> using a lambda expression to sort the product list by category and name (in this order). Sort the list using <code class="language-plaintext highlighter-rouge">Collections.sort</code> method and show it to check that the order is correct.</li>
+    <li>Create a stream that shows the products whose category is “Tablets”. The stream will return a list, and we’ll iterate over it to show the products information. How would you do this without generating any secondary list?</li>
+    <li>Create a stream that calculates the average of prices for a given category. Test this stream in the main application and show the results for “Videogames” category.</li>
+    <li>Create a <code class="language-plaintext highlighter-rouge">BiFunction</code> that takes two parameters: a list of <code class="language-plaintext highlighter-rouge">Product</code> objects and a price, and returns a String containing all the product names (separated by commas) whose price is higher than the one provided as a parameter. Use this function in the main application with a price of 100 and show the results.</li>
+    <li>Create a stream that counts how many products are there grouped by category. Explore the resulting map and show it in the console.</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

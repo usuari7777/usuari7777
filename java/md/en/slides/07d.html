@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>File management</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## File management
+### Object serialization
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serialization
+
+- Convert an object into a sequence of bytes
+- This way we can send/receive the object through a given stream or communication channel
+- It also lets us store/retrieve objects easily in files
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Serialization in Java
+
+- Make the class implement *Serializable* interface
+   - No methods to be implemented
+- Every internal attribute of the class must be simple or serializable
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Serialization in Java
+
+```java
+class Person implements Serializable
+{
+    private String name;
+    private int age;
+
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Transient elements
+
+We can tag some attributes as *transient* just not to serialize them
+
+```java
+class Person implements Serializable
+{
+    private String name;
+    // Age will not be serialized
+    private transient int age;
+
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Writing serialized objects
+
+We use **ObjectOutputStream** class with **writeObject** method
+
+```java
+try(ObjectOutputStream oos =
+    new ObjectOutputStream(new FileOutputStream("people.dat")))
+{
+    oos.writeObject(new Person("John", 49));
+    oos.writeObject(new Person("Susan", 45));
+}
+catch (IOException e)
+{
+    System.err.println("Error storing people");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Reading serialized objects
+
+We use **ObjectInputStream** class with **readObject** method
+
+```java
+try(ObjectInputStream ois =
+    new ObjectInputStream(new FileInputStream("people.dat")))
+{
+    // An exception is thrown when we get to the end of file
+    while(true)
+    {
+        Person p = (Person)(ois.readObject());
+        System.out.println(p);
+    }
+}
+catch (Exception e)
+{
+    System.err.println("Error storing people");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Serializing collections
+
+We can do it all at once, as long as the elements inside the collection are serializable
+
+```java
+List<Person> people = new ArrayList<>();
+people.add(new Person(...));
+people.add(new Person(...));
+oos.writeObject(people);
+...
+List<Person> people2 = (List<Person>)(ois.readObject());
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Associations and serialization
+
+- If we have an association between two classes whose objects are being serialized, we don't need to care about the association
+- For instance, if we store a couple of books sharing the same author, this author will still be shared between these books when we read them from the file.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Create a project called **TaskSerializer**, with the following elements:
+ 
+* A class called `Task` in which we are going to store its description and the date to be finished (a string with the format *dd/mm/yyyy*).
+* The main program will try to read a list of tasks stored in a file called *tasks.dat* at the beginning, and print them in the screen. Then, it will ask the user if he/she wants to add a new task to the list. At the end, the new list will be written in the file before closing the program.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

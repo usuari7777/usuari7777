@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Validación de formularios</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Validación de formularios
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mecanismos de validación
+
+- JavaScript (hasta la aparición de HTML5)
+- HTML5
+- JavaScript + HTML5
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Acceso a los datos del formulario
+
+- Si asignamos un *name* al formulario y a cada control, podemos acceder a estos elementos por dicho nombre
+- También podemos acceder asignándoles un *id* y usando *document.getElementById*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Acceso a los datos del formulario
+    
+```html
+<form name="miFormulario" action="http://nachoiborraies.github.io/javascript/md/es/slides/pagina.php" method="post">
+...
+	<input type="email" id="email" name="email" size="20">
+...
+</form>
+
+...
+let formulario = document.miFormulario;
+let email = document.miFormulario.email;
+let email2 = document.getElementById("email");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comprobación de valores
+    
+Los campos del formulario tienen una serie de propiedades:
+
+* **type**: tipo de elemento (*email*, *password*, *number*, *textarea*, *select-one*...)
+* **name**: nombre del elemento (su atributo *name*)
+* **value**: valor que tiene actualmente el elemento (modificable)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comprobación de valores
+    
+```js
+let mail = document.miFormulario.email;
+if (mail.value == "")
+{
+	mail.value="admin@empresa.com";
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comprobación de valores
+
+*Checkboxes*
+
+```js
+let casado = document.miFormulario.casado;
+if (casado.checked)
+{
+	alert("Has indicado que estás casado");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comprobación de valores
+
+Botones de radio: los recorremos buscando el marcado
+
+```html
+<form name="miFormulario" action="http://nachoiborraies.github.io/javascript/md/es/slides/pagina.php" method="post">
+    <input type="radio" name="idioma" value="ESP" />Español<br />
+    <input type="radio" name="idioma" value="ENG" />Inglés<br />
+    <input type="radio" name="idioma" value="FRA" />Francés<br />
+    ...
+</form>
+...
+let listaBotones = document.miFormulario.idioma;
+for (let indice in listaBotones)
+{
+    if (listaBotones[indice].checked)
+    {
+        alert ("Has seleccionado " + listaBotones[indice].value);
+    }
+}
+
+// También sirve:
+let idiomaSeleccionado = document.miFormulario.idioma.value;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comprobación de valores
+
+Listas: con *selectedIndex* vemos la posición seleccionada y con *options* recorremos las opciones
+
+```js
+let lista = document.getElementById("lista1");
+let indiceSeleccionado = lista.selectedIndex;
+let elementoSeleccionado = lista.options[indiceSeleccionado];
+alert ("Has seleccionado " + elementoSeleccionado.text);
+alert ("Su valor es " + elementoSeleccionado.value);
+
+// También sirve:
+let valorSeleccionado = lista.value;
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea un formulario en una página llamada **form1_js.html**. Este formulario tendrá por nombre *form1*, y dentro tendrá los siguientes campos:
+ 
+* Un campo de texto llamado *login*
+* Un campo numérico llamado *nhijos* (nº de hijos)
+* Una casilla checkbox "Deseo recibir información por e-mail"
+* Tres botones de radio *horario* con los textos *Mañana*, *Tarde* y *Noche*
+* Lista desplegable *operador* con los valores *Movil1*, *Taronje*, *Hablafone* y *Roigo*
+* Un botón (*button*) que, al hacer clic saque con mensajes cada una de las opciones que hayamos escrito en cada campo del formulario
+* Si el número de hijos está vacío, debe ponerse a 0
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Opciones de validación
+
+Comprobar campo vacío
+    
+```js
+let login = document.miFormulario.login;
+if (login.value == "")
+{
+	alert ("El campo login no puede estar vacío");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Opciones de validación
+
+Comprobar tipo de dato adecuado
+    
+```js
+let edad = document.miFormulario.edad;
+if (isNaN(edad.value))
+{
+	alert ("El dato introducido en el campo edad no es un número");
+} 
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Opciones de validación
+
+Comprobar selección en lista
+    
+```js
+let lista = document.miFormulario.lista;
+if (lista.selectedIndex == null || lista.selectedIndex == 0)
+{
+	alert ("Debes seleccionar algún elemento de la lista");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Opciones de validación
+
+Comprobar patrón en expresiones regulares
+    
+```js
+let dni = document.miFormulario.dni.value;
+if (/^\d{8}[A-Z]$/.test(dni) == false)
+{
+	alert ("El DNI es incorrecto");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Opciones de validación
+
+Más sobre expresiones regulares
+
+|Símbolo|Significado|
+|----|----|
+|`^`|Comienzo de un texto o línea|
+|`$`|Final de un texto o línea|
+|`*`|0 o más veces|
+|`+`|1 o más veces|
+|`{n}`|n veces|
+|`[abc]`|Cualquiera de los caracteres entre corchetes|
+
+Más información en los apuntes y [aquí](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Validar todo el formulario
+
+```js
+document.miFormulario.addEventListener("submit", validar);
+
+...
+function validar(evento)
+{
+    let formularioCorrecto = true;
+
+    // Código para comprobar cada campo
+    // Pondríamos "formularioCorrecto" a false si alguno falla
+
+    if (!formularioCorrecto)
+        evento.preventDefault();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea un formulario en un documento llamado **form2_js.html** con un formulario *form2* con los siguientes campos:
+ 
+* *login*, obligatorio
+* *edad*, numérico no obligatorio, pero si tiene valor debe estar entre 0 y 200
+* *nacimiento*, numérico de 4 dígitos (obligatorio)
+* desplegable *provincia*. La primera opción debe decir "-Seleccionar una provincia-", y tener *value=""*. Las otras tres opciones deben ser Alicante, Valencia y Castellón.
+* Un botón *submit*.
+
+Al intentar enviar el formulario, se activará la función *validarFormulario()* que deberemos implementar para comprobar lo anterior antes de enviar el formulario
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Validación HTML5
+
+* **required**: determina que un campo es obligatorio
+* **pattern**: obliga a que los datos de un campo tengan un patrón determinado
+* **min**, **max**: determina los límites inferior superior en campos con valores numéricos
+* Además, algunos tipos de campos (e-mail, URL...) tienen una auto-validación
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Limitaciones de la validación HTML5
+
+* No permite validar cierta información algo más específica o compleja. 
+   * Ejemplo: confirmar password en dos campos
+* Mensajes de error no configurables
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Validaciones personalizadas
+
+* Función **setCustomValidity** permite definir el mensaje de error sobre un campo que hayamos comprobado
+* El formulario no se envía si algún campo tiene un mensaje pendiente
+* Para deshacerlo debemos llamar de nuevo a la función con un mensaje vacío
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Validaciones personalizadas
+
+Ejemplo: confirmar password
+
+```html
+<form action="http://nachoiborraies.github.io/javascript/md/es/slides/pagina.php" name="form1" id="form1">
+    <label>
+        Login: 
+        <input type="text" name="login" id="login" required>
+    </label><br>
+    <label>
+        Password:
+        <input type="password" name="pass1" id="pass1" required>
+    </label><br>
+    <label>
+        Repetir password:
+        <input type="password" name="pass2" id="pass2" required>
+    </label><br>
+    <input type="submit" value="Enviar" id="enviar">
+</form>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Validaciones personalizadas
+
+Ejemplo: confirmar password
+
+```js
+let pass1 = document.getElementById("pass1");
+let pass2 = document.getElementById("pass2");
+pass1.addEventListener("input", validarPass);
+pass2.addEventListener("input", validarPass);
+
+function validarPass()
+{
+    if (pass1.value != pass2.value)
+        pass2.setCustomValidity("Los passwords no coinciden");
+    else
+        pass2.setCustomValidity("");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mensajes de error personalizados
+
+* Hacemos uso de **setCustomValidity** también para especificar el mensaje
+* Podemos emplear el evento **invalid** para actuar sobre un campo cuando sea inválido, y entonces especificar el mensaje de error que queramos que se muestre
+   * Importante volver a dejar el mensaje vacío cuando se esté corrigiendo el error
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mensajes de error personalizados
+
+Ejemplo
+
+```js
+let login = document.getElementById("login");
+login.addEventListener("invalid", function() {
+    this.setCustomValidity("El login es obligatorio");
+});
+login.addEventListener("input", function() {
+    this.setCustomValidity("");
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Propiedades de la validación
+
+* A través de la propiedad **validity** podemos detectar con más exactitud el estado de validez de cada campo:
+   * **valid**: *true* cuando el campo actual es válido
+   * **valueMissing**: *true* cuando es un campo obligatorio vacío
+   * **typeMismatch**: *true* cuando el tipo de información no se corresponde con lo que espera el campo (por ejemplo, e-mails no válidos)
+   * **patternMismatch**: *true* cuando la entrada no se corresponde con lo especificado en un atributo *pattern*
+   * ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Propiedades de la validación
+
+Ejemplo: personalizar mensaje de error según el motivo
+
+```js
+let email = document.getElementById("email");
+email.addEventListener("invalid", function() {
+    if (email.validity.valueMissing)
+        email.setCustomValidity("El e-mail no puede estar vacío");
+    else if (email.validity.typeMismatch)
+        email.setCustomValidity("El formato de email no es correcto");
+});
+email.addEventListener("input", function() {
+    email.setCustomValidity("");
+});
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## CSS y validación
+
+* Pseudo-clases relacionadas con la validación de campos
+    * **:required**: para campos obligatorios
+    * **:valid**: para campos válidos
+    * **:invalid**: para campos inválidos
+* Cuidado: se pueden solapar (no modificar la misma propiedad desde distintas pseudo-clases, o se aplicará la última)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## CSS y validación
+
+Campos requeridos con borde amarillo, campos válidos con fondo verde y campos inválidos con fondo rojo
+
+```css
+input:required
+{
+    border: 1px solid yellow;
+}
+input:valid
+{
+    background-color: green;
+}
+input:invalid
+{
+    background-color: red;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea un formulario en un documento llamado **form3_js.html**. El formulario deberá llamarse *form3*, y contendrá:
+ 
+* Un campo llamado *login*, obligatorio
+* Dos campos *password* para introducir el password. Obligatorios, deben coincidir y estar formados por al menos 8 caracteres, compuestos por letras (minúsculas o mayúsculas) y dígitos.
+* Un campo llamado *email*, obligatorio
+* Un botón de tipo submit y con valor *Enviar*.
+
+Mostrar mensajes de error en formato HTML5. Configurar mensajes de error personalizados para el password. Marcar con fondo rojo los controles no válidos.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

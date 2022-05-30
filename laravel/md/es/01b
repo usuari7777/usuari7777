@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Software necesario | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software necesario" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/01b.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software necesario" />
+<script type="application/ld+json">
+{"headline":"Software necesario","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/01b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="software-necesario">Software necesario</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/01b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="01b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>A la hora de trabajar con Laravel, necesitamos tener previamente instalados en nuestro sistema una serie de recursos software, como son:</p>
+
+<ol>
+  <li>Un IDE (entorno de desarrollo) con el que editar el código de nuestros proyectos. Emplearemos Visual Studio Code en estos apuntes, aunque existen otras alternativas similares, como PHPStorm, Sublime Text, Atom, etc.</li>
+  <li>Un servidor web que soporte PHP. En nuestro caso, utilizaremos Apache.</li>
+  <li>Un servidor de bases de datos en el que almacenar la información de nuestras aplicaciones. Emplearemos un servidor MariaDB/MySQL.</li>
+  <li>PHP actualizado a una versión compatible con la versión de Laravel que vayamos a utilizar. Por ejemplo, para Laravel versión 8 se necesita una versión de PHP 7.3.0 o posterior.</li>
+  <li>El propio framework Laravel. Se necesitará instalar la herramienta <code class="language-plaintext highlighter-rouge">composer</code> para, después, instalar Laravel. Aunque también se pueden crear proyectos Laravel desde la propia herramienta <em>composer</em>, como veremos más adelante.</li>
+  <li>Además, necesitaremos el gestor de paquetes <code class="language-plaintext highlighter-rouge">npm</code> para instalar dependencias del lado del cliente en proyectos Laravel. Este gestor se instala con el framework Node.js.</li>
+  <li>Otras herramientas adicionales que nos puedan venir bien, como por ejemplo la herramienta Postman para probar el acceso a los servicios REST que desarrollemos.</li>
+</ol>
+
+<p>Veremos a continuación los pasos necesarios para instalar todo el software que utilizaremos. Se darán las pautas de instalación en un sistema Linux basado en Debian, como por ejemplo Ubuntu, Lubuntu, Linux Mint, etc. También se facilitará en <a href="01b#6-recursos-adicionales">esta otra sección</a> de este documento un enlace a una máquina virtual donde poder instalar todo el software, así como otra máquina virtual con el software ya preinstalado y listo para utilizarse, usando las versiones que se indican a lo largo del documento.</p>
+
+<p>Para <strong>usuarios de otros sistemas</strong>, como Windows o Mac OSX, la mayoría de opciones que veremos aquí son igualmente válidas (cambiando la ruta y/o el modo de instalación de algunas herramientas). En cualquier caso, se puede hacer uso de otras herramientas alternativas, como por ejemplo:</p>
+
+<ul>
+  <li><a href="https://laragon.org/">Laragon</a> para Windows, un sistema que integra los componentes de los puntos 2 a 6 vistos antes (servidor web, de base de datos, PHP, Node, etc).</li>
+  <li><a href="https://laravel.com/docs/homestead">Laravel Homestead</a>, un ecosistema basado en máquinas virtuales que también integra distintos componentes necesarios para desarrollar aplicaciones Laravel, aunque más complejo de instalar y configurar que Laragon o los pasos que seguiremos aquí en la máquina virtual.</li>
+</ul>
+
+<p>En cualquier caso, no es el propósito de este curso aprender a instalar todo el software en todos los sistemas posibles, y es por ello que proporcionamos la máquina virtual indicada, para simplificar las opciones. Veremos algunas pinceladas de cómo instalar ciertas herramientas en varios sistemas, no obstante.</p>
+
+<h2 id="1-visual-studio-code">1. Visual Studio Code</h2>
+
+<p>Como IDE para desarrollar nuestras aplicaciones emplearemos <strong>Visual Studio Code</strong>, que es uno de los IDEs más versátiles que existen hoy en día para desarrollo web. Desde la <a href="https://code.visualstudio.com/">web oficial</a> de Visual Studio Code podemos descargarlo para la plataforma deseada.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: ninguna en particular, sirve con la última versión disponible.</p>
+</blockquote>
+
+<p><strong>Linux (Debian)</strong></p>
+
+<p>En el caso de nuestra máquina virtual o una distribución similar, descargaremos un archivo <em>.deb</em>. Una vez descargado, accedemos por terminal a la carpeta donde esté y ejecutamos este comando para instalarlo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dpkg -i nombre_del_archivo.deb
+</code></pre></div></div>
+
+<p>Se creará automáticamente un acceso directo en el menú de inicio, dentro de la sección de <em>Programación</em> en el caso de Lubuntu.</p>
+
+<p><strong>Windows</strong></p>
+
+<p>Para Windows descargamos el instalador y seguimos los pasos. No hay mucho que configurar; en todo caso, podemos dejar marcada la casilla para añadir el menú contextual “<em>Abrir con Code</em>” para poder abrir archivos y carpetas con VS Code desde el explorador de archivos directamente, con un clic derecho.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_windows.png" />
+</div>
+
+<p><strong>Mac OSX</strong></p>
+
+<p>Para <strong>Mac OSX</strong>, descargamos la aplicación y la podemos ejecutar directamente. También podemos moverla a la carpeta de <em>Aplicaciones</em> para tenerla localizada.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_mac.png" />
+</div>
+
+<h2 id="2-apache-php-y-mariadbmysql-con-xampp">2. Apache, PHP y MariaDB/MySQL con XAMPP</h2>
+
+<p>Para poder tener un sistema con Apache, PHP y un gestor de bases de datos (como MariaDB/MySQL), y poderlo gestionar cómodamente, trabajaremos con un sistema AMPP, paquetes que integran en una sola instalación todas estas cosas. El ejemplo más conocido de estos sistemas es <strong>XAMPP</strong>, aunque existen otros como WAMPP, para Windows. Una de las ventajas que ofrecen es que, además de instalar Apache, PHP y MySQL y dejarlo todo integrado, nos proporciona un cliente web llamado <strong>phpMyAdmin</strong> para poder administrar las bases de datos desde Apache. Esto nos vendrá bien para crear o importar las bases de datos de los distintos ejercicios.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: depende sobre todo de la versión de Laravel con la que vayamos a trabajar. En el caso por ejemplo de Laravel 8, es necesario tener al menos una versión de PHP 7.3, y para ello debemos contar con una versión de XAMPP 7.3.x. También es posible emplear PHP 8 con Laravel 8, aunque en este caso se necesitan algunos ajustes adicionales, como podemos consultar <a href="https://blog.laravel.com/laravel-php-8-support">aquí</a>. En nuestro caso, instalaremos XAMPP 7.3.x o cualquier subversión posterior 7.x.</p>
+</blockquote>
+
+<h3 id="21-instalación">2.1. Instalación</h3>
+
+<p>Para instalar XAMPP, basta con descargarlo de su <a href="https://www.apachefriends.org/es/index.html">web oficial</a> y seguir los pasos del asistente. Nos basta con tener instalado Apache, MySQL y PHP, así que podemos descartar otras opciones que nos ofrezca, si nos da a elegir.</p>
+
+<p><strong>Linux</strong></p>
+
+<p>En el caso de Linux, debemos dar permisos de ejecución y ejecutar el archivo <em>.run</em> que descarguemos desde algún terminal, con permisos de administrador (<em>sudo</em>). Suponiendo que el archivo se llame <em>xampp-linux-x64-7.4.5-installer.run</em>, por ejemplo, los pasos son los siguientes (desde la carpeta donde lo hemos descargado):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod +x xampp-linux-x64-7.4.5-installer.run
+sudo ./xampp-linux-x64-7.4.5-installer.run
+</code></pre></div></div>
+
+<p><strong>Windows y MacOSX</strong></p>
+
+<p>En el caso de <strong>Windows</strong> o <strong>Mac OSX</strong> simplemente hay que lanzar el instalador y seguir los pasos, eligiendo las opciones que nos interese instalar (al menos, Apache, MySQL y PHP), si nos dan a elegir. Así es como podemos dejarlo en el caso de Windows, por ejemplo:</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_windows.png" />
+</div>
+
+<h4 id="el-manager-de-xampp">El manager de XAMPP</h4>
+
+<p>XAMPP proporciona una herramienta <em>manager</em> o <em>panel de control</em> que nos permite gestionar en todo momento los servicios activos.</p>
+
+<p>En el caso de <strong>Linux</strong> se encuentra en <strong>/opt/lampp/manager-linux-x64.run</strong>. Podemos acceder a la carpeta desde el terminal para ejecutarlo (con permisos de superusuario), o bien crear algún acceso directo en otra ubicación que nos resulte más cómoda. Por ejemplo, podemos crear un acceso directo en el escritorio con el editor <em>nano</em> o con el propio editor Visual Studio Code que hemos instalado previamente. Suponiendo la carpeta <em>/home/alumno/Escritorio/</em> o <em>/home/alumno/Desktop/</em>, como la que tenemos en la máquina virtual, podemos primero crear el archivo vacío:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch /home/alumno/Desktop/XAMPP.desktop
+</code></pre></div></div>
+
+<p>Editamos el contenido del archivo y añadimos las líneas de configuración para el acceso directo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Desktop Entry]
+Encoding=UTF-8
+Name=Manager XAMPP
+Comment=Manager XAMPP
+Exec=sudo /opt/lampp/manager-linux-x64.run
+Icon=/opt/lampp/htdocs/favicon.ico
+Categories=Aplicaciones;Programación;Web
+Version=7.4.5
+Type=Application
+Terminal=1
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: la versión del programa (atributo <em>Version</em>) dependerá de la versión que hayamos instalado de XAMPP en el momento concreto. El atributo <em>Terminal</em> lo ponemos a 1 para poder especificar el password de superusuario al ejecutar, de lo contrario no funcionará.</p>
+</blockquote>
+
+<p>En el caso de <strong>Windows</strong>, dicho manager está en la carpeta de instalación (típicamente <em>C:\xampp</em>), en un archivo llamado <em>xampp-control.exe</em>, que podemos ejecutar. En el caso de <strong>Mac OSX</strong>, se habrá creado un acceso en la sección de <em>Aplicaciones</em> para poder poner en marcha este manager.</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_mac1.png" />
+</div>
+
+<p>El manager nos permitirá lanzar o detener cada servidor. Para las pruebas que haremos deberemos tener iniciados tanto Apache como MySQL. En Linux y Mac OS X tendrá una apariencia como ésta aproximadamente:</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_manager.png" width="70%" />
+</div>
+
+<p>En el caso de Windows la apariencia es algo diferente, aunque igualmente funcional:</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_manager_windows.jpg" width="70%" />
+</div>
+
+<p>Por defecto, Apache estará escuchando en el puerto 80 (o 443 para conexiones SSL), y MySQL en el 3306. Podemos modificar estos puertos en los respectivos archivos de configuración (“<em>httpd.conf</em>” y “<em>my.cnf</em>”), dentro de las carpetas de la instalación de XAMPP (la ubicación concreta de estos archivos varía entre versiones y entre sistemas operativos).</p>
+
+<h2 id="3-postman">3. Postman</h2>
+
+<p>Postman es una aplicación que permite probar aplicaciones cliente-servidor, simulando peticiones a un servidor y recogiendo la respuesta de éste.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: ninguna en particular, sirve con la última versión disponible.</p>
+</blockquote>
+
+<p>Para descargar e instalar Postman, debemos ir a su web oficial, a la <a href="https://www.postman.com/downloads/">sección de descargas</a>, y descargar la aplicación (versión gratuita).</p>
+
+<ul>
+  <li><strong>Linux</strong>: en el caso de Linux lo que descargamos es un archivo portable, que se descomprime y dentro está la aplicación lista para ejecutarse.</li>
+  <li><strong>Windows</strong>: descargamos un instalador. Al ejecutarlo la primera vez deja instalado Postman en su ubicación por defecto y lo pone en marcha. Después ya podemos borrar el archivo instalador, y tendremos Postman disponible en el menú de inicio.</li>
+  <li><strong>Mac OSX</strong>: descargamos la aplicación en sí. Podemos moverla a la carpeta de <em>Aplicaciones</em>, como hemos explicado antes para Visual Studio Code, y ejecutarla desde ahí, o desde donde queramos.</li>
+</ul>
+
+<p>La primera vez que la ejecutemos nos preguntará si queremos registrarnos, de forma que podamos compartir los proyectos que hagamos entre los distintos equipos en que estemos registrados, pero podemos saltar este paso haciendo clic en el enlace inferior de la ventana que aparecerá, y veremos la pantalla de inicio.</p>
+
+<div align="center">
+    <img src="../../img/01_postman.png" width="70%" />
+</div>
+
+<h2 id="4-laravel">4. Laravel</h2>
+
+<p>Para trabajar con Laravel, será necesario instalar el gestor de paquetes <strong>composer</strong> mediante el que podremos tanto crear proyectos Laravel como gestionar las dependencias de otros módulos en un proyecto.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: en la última actualización de estos apuntes, se dispone de la versión 2.1.x de la herramienta <strong>composer</strong> y de la versión 8.x de Laravel.</p>
+</blockquote>
+
+<h3 id="41-instalando-composer">4.1. Instalando <em>composer</em></h3>
+
+<p>Como hemos comentado, la instalación de Laravel se realiza a través del gestor de paquetes <strong>composer</strong>. Éste es una herramienta muy habitual en ecosistemas PHP, y su labor es similar a la que desempeña el gestor NPM para aplicaciones JavaScript: gestionar las dependencias de un determinado proyecto, descargando, actualizando o desinstalando los paquetes necesarios. En este caso, lo utilizaremos para descargar e instalar el propio framework Laravel.</p>
+
+<p>Composer puede instalarse localmente para cada proyecto web, o de forma global para todo el sistema. Esta última opción es la recomendable en el caso de querer gestionar varios proyectos en nuestro equipo, para no tener que instalarlo en todos ellos.</p>
+
+<p><strong>Linux y Mac OSX</strong></p>
+
+<p>Para instalar <em>composer</em> en Linux y Mac OSX, debemos descargar el archivo <code class="language-plaintext highlighter-rouge">composer.phar</code> de la <a href="https://getcomposer.org/download/">web oficial</a> y copiarlo renombrado a <code class="language-plaintext highlighter-rouge">composer</code> desde donde lo hayamos descargado a alguna carpeta que forme parte del PATH del sistema, y activarlo como ejecutable. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mv composer.phar composer
+sudo mv composer /usr/local/bin/composer
+sudo chmod +x /usr/local/bin/composer
+</code></pre></div></div>
+
+<p>Como último paso, y ya que Composer utiliza el ejecutable de PHP, necesitamos que dicho ejecutable esté también en el PATH del sistema.</p>
+
+<ul>
+  <li>Para Linux deberemos hacer lo siguiente:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=$PATH:/opt/lampp/bin" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre></div></div>
+
+<ul>
+  <li>Para Mac OSX, es posible que se tenga alguna versión previa de PHP instalada con alguna otra herramienta. Para superponer la nueva versión de XAMPP a esta otra, podemos hacer este cambio en el PATH:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=/Applications/XAMPP/xamppfiles/bin:$PATH" &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre></div></div>
+
+<p>Además, en el caso de Mac OSX quizá tengamos que editar el archivo de configuración de PHP (<em>/Applications/XAMPP/xamppfiles/etc/php.ini</em>) y añadir esta línea al final, para permitir que el comando PHP gestione la memoria:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pcre.jit=0
+</code></pre></div></div>
+
+<p><strong>Windows</strong></p>
+
+<p>Para instalar <em>composer</em> en Windows debemos hacerlo a través de un instalador que también podemos descargar desde la <a href="https://getcomposer.org/download/">web oficial</a>, en la sección <em>Windows Installer</em>. Seguimos los pasos del asistente, y deberemos indicar la ruta donde se encuentra el comando <em>php</em>, necesario para poder utilizar la herramienta. Añadimos este comando al PATH del sistema también:</p>
+
+<div align="center">
+    <img src="../../img/01_composer_windows.png" />
+</div>
+
+<p><strong>Comprobación de la instalación</strong></p>
+
+<p>Una vez instalado, podemos ejecutar el comando <code class="language-plaintext highlighter-rouge">composer</code> sin más en un terminal, y comprobar que muestra una salida con las opciones que ofrece:</p>
+
+<div align="center">
+    <img src="../../img/01_composer.png" width="70%" />
+</div>
+
+<h3 id="42-instalando-laravel">4.2. Instalando Laravel</h3>
+
+<p>A través de la herramienta <code class="language-plaintext highlighter-rouge">composer</code> se pueden crear directamente proyectos Laravel, como veremos en el curso. Sin embargo, la sintaxis del comando de creación es algo larga, si la comparamos con el instalador de Laravel, por lo que vamos a instalarlo también. Para hacerlo, usamos la propia herramienta <code class="language-plaintext highlighter-rouge">composer</code>, con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer global require laravel/installer
+</code></pre></div></div>
+
+<p>En el caso de <strong>Windows</strong>, este comando ya deja el instalador <code class="language-plaintext highlighter-rouge">laravel</code> listo para poderse ejecutar desde terminal. Para Linux y Mac OSX, deberemos añadirlo al PATH del sistema (en realidad, añadimos la carpeta con las utilidades que <em>composer</em> instala de forma global al sistema).</p>
+
+<p><strong>Linux:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=$PATH:$HOME/.config/composer/vendor/bin" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en algunos sistemas la carpeta que hay que incluir en el PATH es <code class="language-plaintext highlighter-rouge">$HOME/composer/vendor/bin</code> en lugar de la anterior.</p>
+</blockquote>
+
+<p><strong>Mac OSX:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=$PATH:$HOME/.composer/vendor/bin" &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre></div></div>
+
+<p>Con esto, se habrá instalado un comando llamado <code class="language-plaintext highlighter-rouge">laravel</code>, que podemos utilizar a partir de ahora para crear los proyectos. Podemos probar a ejecutarlo en un terminal para que nos muestre las opciones disponibles, lo que indicará que está correctamente instalado y localizado.</p>
+
+<h3 id="43-actualizando-laravel">4.3. Actualizando Laravel</h3>
+
+<p>En general, el comando <code class="language-plaintext highlighter-rouge">laravel</code> que se instala se encargará de crear proyectos empleando la última versión de Laravel que haya disponible. Así, si por ejemplo lo instalamos cuando aún existía la versión 7 de Laravel pero se publica la versión 8, automáticamente el comando <code class="language-plaintext highlighter-rouge">laravel</code> nos permitirá crear proyectos de la versión 8 desde ese punto. Sin embargo, es posible que con el tiempo se requiera actualizar el instalador para que los proyectos con nuevas versiones se sigan creando sin problemas.</p>
+
+<p>Para poder actualizar a la versión más reciente de Laravel, tenemos dos opciones, aunque es cierto que ninguna de ellas está recogida en la documentación oficial de Laravel, y lo que aquí se menciona se basa en recomendaciones de webs externas a Laravel.</p>
+
+<p>La primera forma de actualizar es utilizar el comando de actualización:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer global update laravel/installer
+</code></pre></div></div>
+
+<p>Sin embargo, esta opción puede no ser suficiente si el cambio es demasiado brusco (por ejemplo, pasar de Laravel 5 a Laravel 7), ya que algunas dependencias que también haya instaladas harían inviable el cambio. En este caso, podemos optar por quitar la versión instalada por completo, e instalar la reciente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer global remove laravel/installer
+composer global require laravel/installer
+</code></pre></div></div>
+
+<h2 id="5-nodejs">5. Node.js</h2>
+
+<p>A pesar de que podría parecer que <em>Node.js</em> es un ecosistema diferente a Laravel, lo cierto es que con la instalación de Node se incorpora una herramienta muy útil en cualquier aplicación web que utilice librerías JavaScript, como puedan ser Bootstrap o jQuery. Es la herramienta <strong>NPM</strong> (<em>Node Package Manager</em>), que permite instalar de forma sencilla estas librerías en cualquier proyecto.</p>
+
+<blockquote>
+  <p><strong>Versión requerida</strong>: es recomendable tener instalada la última versión LTS (<em>Long Term Support</em>). En la última versión de estos apuntes, dicha versión es la 14.x.</p>
+</blockquote>
+
+<p>Para instalar Node en cualquiera de los sistemas que estamos contemplando (Linux, Windows o Mac OSX) podemos optar por:</p>
+
+<ul>
+  <li>Instalarlo a través del <em>instalador</em> correspondiente</li>
+  <li>Utilizar la herramienta NVM (<em>Node Version Manager</em>). Esta herramienta nos va a permitir tener más de una versión de Node instalada, y poder elegir en todo momento cuál de ellas es la que queremos tener activa. En el caso de Windows, la herramienta NVM que podemos utilizar no es la “oficial”, pero sí existe una especie de clon alternativo funcional.</li>
+</ul>
+
+<h3 id="51-instalación-en-linux">5.1. Instalación en Linux</h3>
+
+<p>En el caso de distribuciones Linux, como es el caso de la máquina virtual proporcionada, podemos optar por ejecutar un instalador o por usar NVM. En la versión completa de la máquina virtual proporcionada se ha optado por esta última opción (NVM), pero damos aquí los pasos a seguir para ambas opciones.</p>
+
+<p><strong>Opción de instalador</strong></p>
+
+<p>Si optamos por instalar Node.js a través de un instalador, los pasos a seguir son:</p>
+
+<ol>
+  <li>En primer lugar, si no tenemos instalada la herramienta <code class="language-plaintext highlighter-rouge">curl</code>, la instalamos con:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install curl
+</code></pre></div></div>
+
+<ol>
+  <li>Después, utilizamos <code class="language-plaintext highlighter-rouge">curl</code> para recuperar la versión de Node que queramos (versión LTS actual, 14.x):</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+</code></pre></div></div>
+
+<ol>
+  <li>Finalmente, instalamos Node.js</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install -y nodejs
+</code></pre></div></div>
+
+<p>Si quisiéramos actualizar la versión de Node.js en un futuro, bastaría con repetir los dos últimos comandos, poniendo en el paso 2 la versión a obtener en este caso.</p>
+
+<p><strong>Opción de NVM</strong></p>
+
+<p>Podemos consultar información de esta herramienta en su <a href="https://github.com/nvm-sh/nvm">web oficial en GitHub</a>. Para instalarla, debemos descargarla con el comando <code class="language-plaintext highlighter-rouge">curl</code> o <code class="language-plaintext highlighter-rouge">wget</code>, según se explica en la propia web de GitHub. Si optamos por <code class="language-plaintext highlighter-rouge">wget</code>, el comando es como sigue (en una sola línea):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+</code></pre></div></div>
+
+<p>En el caso de no disponer del comando <code class="language-plaintext highlighter-rouge">wget</code> instalado, podemos o bien instalarlo, o bien emplear este otro comando equivalente, con la orden <code class="language-plaintext highlighter-rouge">curl</code> (también en una sola línea):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: el número de versión <code class="language-plaintext highlighter-rouge">v0.38.0</code> puede variar. Es preferible consultar la web de GitHub para obtener el comando actualizado.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTA</strong>: después de ejecutar el comando anterior, será necesario cerrar el terminal y volverlo a abrir para poder utilizar el comando <code class="language-plaintext highlighter-rouge">nvm</code>. Si sigue sin reconocer el comando, quizá debamos actualizar con <code class="language-plaintext highlighter-rouge">source ~/.bashrc</code></p>
+</blockquote>
+
+<h3 id="52-instalación-en-mac-osx">5.2. Instalación en Mac OSX</h3>
+
+<p>Para distribuciones Mac OSX, tenemos igualmente la opción de usar un instalador o la herramienta NVM.</p>
+
+<p><strong>Opción de instalador</strong></p>
+
+<p>El instalador de Node.js para Mac OSX es muy sencillo. Lo descargamos de la <a href="https://nodejs.org">web oficial de Node</a> y lo lanzamos. Si queremos actualizar versión en un futuro, basta con volver a descargar esa última versión y lanzar el instalador correspondiente para actualizarla.</p>
+
+<p><strong>Opción NVM</strong></p>
+
+<p>Para utilizar NVM en Mac OSX seguimos los mismos pasos que para Linux, comentados anteriormente, pero en este caso para actualizar el terminal ejecutaremos <code class="language-plaintext highlighter-rouge">source ~/.bash_profile</code>.</p>
+
+<h3 id="53-instalación-en-windows">5.3. Instalación en Windows</h3>
+
+<p><strong>Opción de instalador</strong></p>
+
+<p>El instalador de Node.js para Windows es igualmente muy sencillo. Lo descargamos de la <a href="https://nodejs.org">web oficial de Node</a> y lo lanzamos. Si queremos actualizar versión en un futuro, basta con volver a descargar esa última versión y lanzar el instalador correspondiente para actualizarla.</p>
+
+<p><strong>Opción NVM</strong></p>
+
+<p>Como comentábamos, la herramienta NVM oficial sólo está disponible para sistemas Unix, por lo que funciona en Linux y Mac OSX, pero no en Windows. Como alternativa, existe alguna implementación paralela de <em>nvm</em> que podemos hacer servir, como <a href="https://github.com/coreybutler/nvm-windows">esta</a>. Podemos descargar un instalador (<em>nvm-setup.zip</em>) y ejecutarlo para instalar este gestor. Después, desde línea de comandos tendremos disponibles una serie de comandos para gestionar las versiones de Node, como veremos a continuación.</p>
+
+<h3 id="54-utilizando-nvm">5.4. Utilizando NVM</h3>
+
+<p>Si hemos optado por instalar Node a través de <code class="language-plaintext highlighter-rouge">nvm</code>, tendremos disponibles una serie de comandos en el terminal para instalar y gestionar las versiones de Node. Aquí resumimos los más importantes.</p>
+
+<p><strong>Linux y Mac OSX</strong></p>
+
+<p>En el caso de estos sistemas, habremos instalado la versión oficial de NVM, y los comandos que podemos utilizar son estos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvm install node</code>: instala la última versión disponible de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm install --lts</code>: instala la última versión LTS disponible</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm install 12.16.0</code>: instala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm uninstall 12.16.0</code>: desinstala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm ls-remote</code>: muestra todas las versiones disponibles para instalar</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm list</code>: muestra todas las versiones instaladas localmente</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm current</code>: muestra la versión actualmente activa</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm use 12.16.0</code>: marca la versión indicada como actualmente activa</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm use --lts</code>: marca como activa la última versión LTS instalada</li>
+</ul>
+
+<p>En nuestro caso, vamos a instalar la última versión LTS disponible, ya que éstas son las versiones que tienen soporte a largo plazo. Por lo tanto, ejecutaremos los comandos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvm install --lts
+nvm use --lts
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: el comando <code class="language-plaintext highlighter-rouge">nvm use</code> normalmente no es necesario, ya que la instalación automáticamente deja como activa la versión que elegimos. Pero si el terminal no termina de reconocer el comando <code class="language-plaintext highlighter-rouge">node</code> puede ser necesario ejecutarla.</p>
+</blockquote>
+
+<p><strong>Windows</strong></p>
+
+<p>En el caso de Windows con la versión alternativa de NVM, los comandos son ligeramente diferentes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">nvm install 12.16.0</code>: instala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm uninstall 12.16.0</code>: desinstala la versión especificada de Node</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm list</code>: muestra todas las versiones instaladas localmente</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm list available</code>: muestra todas las versiones disponibles para instalar con esta adaptación de NVM.</li>
+  <li><code class="language-plaintext highlighter-rouge">nvm use 12.16.0</code>: marca como activa la versión de Node especificada (previamente instalada).</li>
+</ul>
+
+<p>Para instalar la versión LTS disponible, tendremos que ver su número en la <a href="https://nodejs.org">web oficial</a> de Node, y luego ejecutar el comando correspondiente. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvm install 14.17.5
+nvm use 14.17.5
+</code></pre></div></div>
+
+<h3 id="55-prueba-de-node">5.5. Prueba de Node</h3>
+
+<p>Podemos ejecutar ahora <code class="language-plaintext highlighter-rouge">node -v</code> en el terminal y comprobar que nos muestra el número de versión adecuado. También podemos ejecutar el comando <code class="language-plaintext highlighter-rouge">npm - v</code> para comprobar la versión que se ha instalado del gestor NPM (que no tiene por qué coincidir con la de Node).</p>
+
+<h2 id="6-recursos-adicionales">6. Recursos adicionales</h2>
+
+<p>Para facilitar la labor de instalar y/o trabajar con el software propuesto, se proporcionan dos máquinas virtuales basadas en sistemas Lubuntu (versión 20). En ambos casos, se cuenta con un usuario <em>alumno</em> con password <em>alumno</em>.</p>
+
+<ul>
+  <li><a href="https://1drv.ms/u/s!As6iclFnE7BAgUAG8pcmWX0wHq05?e=iyV164">Máquina virtual base</a></li>
+  <li><a href="https://1drv.ms/u/s!As6iclFnE7BAgUHh306rQDEyCg8d?e=ufdkhR">Máquina virtual con software instalado</a></li>
+</ul>
+
+<p>Es necesario utilizar el programa <a href="https://www.virtualbox.org/">VirtualBox</a> para ejecutar estas máquinas virtuales. También se puede cambiar la configuración por defecto de dichas máquinas virtuales, para darles más memoria RAM o núcleos de procesador, si se cree conveniente.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

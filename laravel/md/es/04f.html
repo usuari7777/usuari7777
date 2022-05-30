@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Query builder y uso de fechas | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Query builder y uso de fechas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04f.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04f.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Query builder y uso de fechas" />
+<script type="application/ld+json">
+{"headline":"Query builder y uso de fechas","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04f.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="query-builder-y-uso-de-fechas"><em>Query builder</em> y uso de fechas</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/04f.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="04f.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En este documento veremos un par de cuestiones secundarias que nos han quedado en el tintero. La primera es una forma alternativa de “atacar” la base de datos, sin emplear el ORM Eloquent: el <em>query builder</em>. La segunda es cómo trabajar cómodamente con fechas en aplicaciones Laravel.</p>
+
+<h2 id="1-el-query-builder">1. El <em>query builder</em></h2>
+
+<p>A la hora de obtener datos de la base de datos, en lugar de usar modelos de Eloquent, podemos emplear también el <em>query builder</em>, una herramienta incorporada con Laravel que permite realizar operaciones sobre la base de datos sin utilizar un modelo de objetos por detrás, y con una sintaxis diferente a SQL.</p>
+
+<h3 id="11-consultas">1.1. Consultas</h3>
+
+<p>Para utilizar estas consultas, utilizamos el elemento <code class="language-plaintext highlighter-rouge">DB</code>. Dicho elemento corresponde al espacio de nombres <code class="language-plaintext highlighter-rouge">Illuminate\Support\Facades\DB</code> que deberemos incluir. Internamente, tiene un método <code class="language-plaintext highlighter-rouge">table</code> para especificar la tabla sobre la que se quiere consultar. Una vez referenciada, con el método <code class="language-plaintext highlighter-rouge">get</code> obtenemos todos los registros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="no">Illuminate\Support\Facades\DB</span><span class="p">;</span>
+
+<span class="mf">...</span>
+
+<span class="nv">$personas</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'personas'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>A pesar de no estar trabajando con clases, lo que obtenemos aquí es un array de objetos, no un array asociativo.</p>
+
+<p>En el caso de buscar un registro concreto (por su <em>id</em>, por ejemplo), utilizamos el método <code class="language-plaintext highlighter-rouge">where</code>, pasándole como parámetros el nombre del campo a comparar, y el valor que debe tener. Después, enlazamos con el método <code class="language-plaintext highlighter-rouge">first</code> para obtener sólo el primer registro de la búsqueda (de lo contrario, obtendríamos un array con un resultado, si buscamos por <em>id</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$persona</span> <span class="o">=</span> <span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'personas'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="12-actualizaciones">1.2. Actualizaciones</h3>
+
+<p>Si lo que queremos hacer es una <strong>inserción</strong>, empleamos el método <code class="language-plaintext highlighter-rouge">insert</code> de la tabla. En este caso, le pasamos un array asociativo con los nombres de cada campo del nuevo registro, y sus valores:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'personas'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">([</span>
+    <span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s1">'Juan'</span><span class="p">,</span>
+    <span class="s1">'edad'</span> <span class="o">=&gt;</span> <span class="mi">56</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<p>En el caso de <strong>modificaciones</strong>, utilizamos el método <code class="language-plaintext highlighter-rouge">where</code> para filtrar el registro o registros a modificar, y empleamos el método <code class="language-plaintext highlighter-rouge">update</code> con el array de campos a modificar:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'personas'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">update</span><span class="p">([</span>
+    <span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s1">'Juan'</span><span class="p">,</span>
+    <span class="s1">'edad'</span> <span class="o">=&gt;</span> <span class="mi">56</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Para <strong>borrados</strong>, usamos una estructura similar a la anterior, reemplazando la llamada a <code class="language-plaintext highlighter-rouge">update</code> por <code class="language-plaintext highlighter-rouge">delete</code>, que no necesita parámetros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'personas'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="2-uso-de-fechas">2. Uso de fechas</h2>
+
+<p>En algunas tablas que hemos visto o creado, se ha usado un tipo <em>timestamp</em>, que básicamente genera un tipo fecha en la tabla correspondiente. Estos campos de tipo tabla son instancias de una librería PHP llamada <em>Carbon</em>, muy útil para trabajar con fechas. Así que, si tenemos un registro de tipo <code class="language-plaintext highlighter-rouge">Persona</code> con un campo <code class="language-plaintext highlighter-rouge">created_at</code> de tipo fecha, podemos trabajar con él como una fecha <em>Carbon</em>, y, por ejemplo, mostrarla en una vista con un formato específico:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>
+Fecha creación: 
+
+<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p>Además, para trabajar sobre los campos <code class="language-plaintext highlighter-rouge">created_at</code> y <code class="language-plaintext highlighter-rouge">updated_at</code> que por defecto se crean en una tabla desde una migración Laravel, podemos emplear esta librería <em>Carbon</em> para darles valor, aunque de esto ya se encarga Eloquent automáticamente, pero por si lo queremos hacer manualmente, aquí va un ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">DB</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'personas'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">insert</span><span class="p">([</span>
+    <span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s1">'Juan'</span><span class="p">,</span>
+    <span class="s1">'edad'</span> <span class="o">=&gt;</span> <span class="mi">56</span><span class="p">,</span>
+    <span class="s1">'created_at'</span> <span class="o">=&gt;</span> <span class="nc">Carbon</span><span class="o">::</span><span class="nf">now</span><span class="p">(),</span>
+    <span class="s1">'updated_at'</span> <span class="o">=&gt;</span> <span class="nc">Carbon</span><span class="o">::</span><span class="nf">now</span><span class="p">()</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Para poder emplear la clase <code class="language-plaintext highlighter-rouge">Carbon</code>, debemos importarla (<code class="language-plaintext highlighter-rouge">use Carbon\Carbon</code>), o bien anteponerle siempre el prefijo del <em>namespace</em> <code class="language-plaintext highlighter-rouge">Carbon\Carbon</code>, como en el ejemplo de <code class="language-plaintext highlighter-rouge">format</code> anterior.</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

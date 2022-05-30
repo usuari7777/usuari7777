@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Programación orientada a objetos con PHP | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Programación orientada a objetos con PHP" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/03a.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Programación orientada a objetos con PHP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Programación orientada a objetos con PHP","url":"http://nachoiborraies.github.io/php/md/es/03a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="programación-orientada-a-objetos-con-php">Programación orientada a objetos con PHP</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>La Programación Orientada a Objetos es una forma de programar relativamente reciente (en PHP existe desde su versión 5), si la comparamos con la forma convencional de programar que hemos visto hasta ahora en los apartados previos, llamada programación estructurada y modular, que utiliza simplemente estructuras de control de flujo (<em>if</em>, <em>while</em>, <em>for</em>) y funciones para estructurar y dividir el código de un programa.</p>
+
+<p>Mediante la Programación Orientada a Objetos, se pretende identificar cada uno de los tipos de objeto que componen un programa. A cada uno de esos tipos se le llama <strong>clase</strong>, y está compuesto por una serie de propiedades o <strong>atributos</strong>, y una serie de operaciones que puede realizar (<strong>métodos</strong>). Cada variable que creemos de ese tipo será un <strong>objeto</strong> de esa clase, con sus propios valores para sus propiedades o atributos.</p>
+
+<h2 id="1-ejemplo-sencillo">1. Ejemplo sencillo</h2>
+
+<p>Veámoslo con un ejemplo. Imaginemos que tenemos una base de datos donde queremos almacenar el software que tenemos en casa. De cada software queremos almacenar un código identificativo, su título y su versión. También queremos que, para cualquier software, podamos mostrar sus datos por pantalla.</p>
+
+<p>Para representar cualquier software que queramos gestionar, podemos crearnos una clase llamada <code class="language-plaintext highlighter-rouge">Software</code>, y definirle los atributos que va a tener (en este caso, su código, título y versión) y las operaciones que va a poder realizar, que definiremos en forma de funciones (por ejemplo, mostrar sus datos). Para hacer esto en PHP, usaremos la palabra <code class="language-plaintext highlighter-rouge">class</code> con el nombre de la clase que queramos (en este caso, <em>Software</em>), y dentro definimos sus atributos (con algún valor predeterminado, si queremos) y sus funciones o métodos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Software</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$codigo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$titulo</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$version</span> <span class="o">=</span> <span class="s2">"1"</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">MostrarDatos</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"&lt;p&gt;</span><span class="nv">$this-&gt;titulo</span><span class="s2"> (</span><span class="nv">$this-&gt;version</span><span class="s2">)&lt;/p&gt;"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Una diferencia importante entre los atributos de la clase y las variables normales es que, para poderlos referenciar en cualquier método de la clase, tenemos que anteponerle el objeto <code class="language-plaintext highlighter-rouge">$this</code>, seguido del operador flecha <code class="language-plaintext highlighter-rouge">-&gt;</code> y el nombre del atributo (sin el dólar). Esto es así para evitar problemas en el caso de que alguna otra variable en la función se llame igual que el atributo.</p>
+
+<p>A diferencia del resto de código PHP, no podemos interrumpir la definición de una clase para intercalar código HTML en medio, toda la clase debe estar comprendida entre el mismo par de etiquetas <code class="language-plaintext highlighter-rouge">&lt;?php</code> y <code class="language-plaintext highlighter-rouge">?&gt;</code>. Las palabras <code class="language-plaintext highlighter-rouge">private</code> y <code class="language-plaintext highlighter-rouge">public</code> las explicaremos más adelante.</p>
+
+<h2 id="2-creación-de-objetos">2. Creación de objetos</h2>
+
+<p>Ya tenemos la clase creada. ¿Cómo usamos variables de tipo <em>Software</em>? Para poder crear variables u objetos de cualquier clase, necesitamos definir una función especial llamada <strong>constructor</strong>. Estas funciones pueden recibir una serie de parámetros, que normalmente son los valores que queremos asignarles a los distintos atributos. Así, por ejemplo, para nuestra clase anterior, podemos definir un constructor que reciba tres parámetros (uno para el código, otro para el título y otro para la versión) y los asigne a los correspondientes atributos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Software</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$codigo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$titulo</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$version</span> <span class="o">=</span> <span class="s2">"1"</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$t</span><span class="p">,</span> <span class="nv">$v</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">codigo</span> <span class="o">=</span> <span class="nv">$c</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="nv">$t</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">=</span> <span class="nv">$v</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Con esto, ya podemos crear variables de este tipo, usando el operador <code class="language-plaintext highlighter-rouge">new</code> para crear cada objeto. Por ejemplo, así crearíamos dos variables de tipo Software, <code class="language-plaintext highlighter-rouge">$s1</code> y <code class="language-plaintext highlighter-rouge">$s2</code>, con diferentes datos cada una (desde fuera de la clase, si queremos):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Software</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"LibreOffice"</span><span class="p">,</span> <span class="s2">"6.0"</span><span class="p">);</span>
+<span class="nv">$s2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Software</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"GIMP"</span><span class="p">,</span> <span class="s2">"3.8"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Y para llamar a las funciones de la clase y poder, por ejemplo, mostrar los datos de cada software por pantalla, haríamos algo como esto.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="s2">"&lt;p&gt;Datos del primer programa:&lt;/p&gt;"</span><span class="p">;</span>
+<span class="nv">$s1</span><span class="o">-&gt;</span><span class="nf">MostrarDatos</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s2">"&lt;p&gt;Datos del segundo programa:&lt;/p&gt;"</span><span class="p">;</span>
+<span class="nv">$s2</span><span class="o">-&gt;</span><span class="nf">MostrarDatos</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Observa que usamos el operador <code class="language-plaintext highlighter-rouge">-&gt;</code> para llamar a la función de un objeto. Ya hemos visto algo parecido anteriormente para acceder al error de una excepción.</p>
+
+<h2 id="3-modificadores-de-acceso">3. Modificadores de acceso</h2>
+
+<p>Cuando hemos creado la clase <em>Software</em>, delante de los atributos o propiedades de la clase hemos puesto la palabra <em>private</em>, que es un modificador de acceso que quiere decir que no se puede acceder a esos atributos desde fuera de la clase (para preservar que su valor no se modifique sin control). En cambio, las funciones tienen el modificador <em>public</em>, para poderlas llamar desde fuera.</p>
+
+<p>En general, podemos utilizar tres modificadores diferentes en las clases:</p>
+
+<ul>
+  <li><strong>private</strong>: el elemento no puede ser visto desde fuera de la clase</li>
+  <li><strong>public</strong>: el elemento puede verse y utilizarse fuera de la clase. Es el modificador por defecto si no indicamos uno nosotros</li>
+  <li><strong>protected</strong>: para herencia, el elemento es visible desde la propia clase o las clases heredadas; veremos el tema de la herencia a continuación.</li>
+</ul>
+
+<h3 id="31-getters-y-setters">3.1. Getters y setters</h3>
+
+<p>Hemos dicho que los atributos de una clase normalmente son privados. Esto es así para no poder acceder a ellos directamente desde fuera, y cambiar su valor erróneamente. Por ejemplo, en el caso anterior, si los atributos fueran públicos, alguien podría intentar acceder al código de un programa y darle un valor negativo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Software</span><span class="p">(</span><span class="mf">...</span><span class="p">);</span>
+<span class="mf">...</span>
+<span class="nv">$s1</span><span class="o">-&gt;</span><span class="n">codigo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Para evitar esto, se suelen dejar privados, y para acceder a su valor o modificarlo, se añaden unas funciones o métodos especiales, llamadas comúnmente <strong>getters y setters</strong>. Los primeros (<em>getters</em>) se llaman así porque el nombre de la función suele empezar por <code class="language-plaintext highlighter-rouge">__get</code> y sirven para obtener el valor del atributo al que representan. Los segundos (<em>setters</em>) se llaman así porque la función suele empezar por <code class="language-plaintext highlighter-rouge">__set</code> y se emplean para modificar el valor del atributo. Dentro de esta segunda función, podemos hacer alguna comprobación previa antes de cambiar el valor del atributo (por ejemplo, en el caso del código, comprobar que no tenga un valor negativo).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Software</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$codigo</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$titulo</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$version</span><span class="p">;</span>
+    <span class="mf">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__get</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$nombre</span> <span class="o">==</span> <span class="s1">'Cod'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">codigo</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$nombre</span> <span class="o">==</span> <span class="s1">'Titulo'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">titulo</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$nombre</span> <span class="o">==</span> <span class="s1">'Version'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">version</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__set</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">,</span> <span class="nv">$valor</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$nombre</span> <span class="o">==</span> <span class="s1">'Cod'</span> <span class="o">&amp;&amp;</span> <span class="nv">$valor</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">codigo</span> <span class="o">=</span> <span class="nv">$valor</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$nombre</span> <span class="o">==</span> <span class="s1">'Titulo'</span><span class="p">)</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="nv">$valor</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$nombre</span> <span class="o">==</span> <span class="s1">'Version'</span><span class="p">)</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">=</span> <span class="nv">$valor</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que el método <code class="language-plaintext highlighter-rouge">__get</code> recibe como parámetro un nombre (el que queramos), y luego dentro de la función emparejamos cada nombre con el atributo al que queramos enlazarlo. Si ponemos <em>Cod</em>, lo asociaremos al atributo <code class="language-plaintext highlighter-rouge">$codigo</code>, y así sucesivamente.</p>
+
+<p>Con esto, si queremos cambiar el código del objeto anterior, podríamos hacerlo con su setter correspondiente, y asegurarnos de que se cambiará a un valor correcto.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$s1</span><span class="o">-&gt;</span><span class="nc">Cod</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// Esto no hará nada</span>
+<span class="nv">$s1</span><span class="o">-&gt;</span><span class="nc">Cod</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// Esto sí funcionará</span>
+</code></pre></div></div>
+
+<p>La llamada al <em>setter</em> o al <em>getter</em> no es como en el resto de funciones. Tenemos que poner el nombre del objeto, el operador <code class="language-plaintext highlighter-rouge">-&gt;</code> y un nombre (de entre los que vaya a aceptar el <em>getter</em> o <em>setter</em>), y en el caso de querer asignarle un valor, se lo asignamos como si fuera una variable normal. Ese nombre, como podemos apreciar, no tiene por qué coincidir con el nombre del atributo. Dentro de la función nos encargamos de emparejar cada nombre con el atributo, así que pueden ser diferentes, ya que la asociación la hacemos nosotros a mano.</p>
+
+<h2 id="4-herencia">4. Herencia</h2>
+
+<p>La herencia es una de las herramientas más potentes de la programación orientada a objetos. Consiste en definir una clase partiendo de otra, y suponiendo que la nueva clase es un subtipo de la anterior. Por ejemplo, si tuviéramos una clase <em>Animal</em> con una serie de atributos comunes de cualquier animal (por ejemplo, color y número de patas), podríamos definir una clase <em>Perro</em> que heredara de <em>Animal</em>, con lo que ya tendría implícitamente todo lo que tuviera <em>Animal</em> (en este caso, los atributos del color y número de patas), y además, podríamos añadir a esta nueva clase las características propias de un perro (por ejemplo, el tipo de ladrido).</p>
+
+<p>Volviendo a nuestro ejemplo del <em>Software</em>, imaginemos que, entre el software que tenemos en casa, tenemos varios videojuegos, y que de ellos nos interesa guardar, además del título y la versión, la plataforma para la que están hechos (PC, consola, etc.). En este caso, como los videojuegos son un subtipo de software, podemos aplicar herencia, y crear una nueva clase <code class="language-plaintext highlighter-rouge">Videojuego</code> que herede de <em>Software</em>, así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Videojuego</span> <span class="kd">extends</span> <span class="nc">Software</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$plataforma</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$t</span><span class="p">,</span> <span class="nv">$v</span><span class="p">,</span> <span class="nv">$p</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">codigo</span> <span class="o">=</span> <span class="nv">$c</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="nv">$t</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">=</span> <span class="nv">$v</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plataforma</span> <span class="o">=</span> <span class="nv">$p</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A la clase heredada (en este caso, <em>Software</em>), se le suele llamar clase base, superclase o clase padre. A la clase que hereda, se le llama subclase, clase derivada o clase hija.</p>
+
+<p>Así, la clase <em>Videojuego</em> heredará todo lo que tenemos hecho en <em>Software</em>. Recuerda que los modificadores <em>private</em> impiden que el elemento que lo tiene sea visible desde fuera. Eso quiere decir que, ahora mismo, en <em>Videojuego</em>, no podríamos acceder directamente a los atributos <code class="language-plaintext highlighter-rouge">$codigo</code>, <code class="language-plaintext highlighter-rouge">$titulo</code> o <code class="language-plaintext highlighter-rouge">$version</code>, pero sí podemos acceder a los <em>getters</em> y <em>setters</em> de <em>Software</em> para darles valor o consultarlo. De todas formas, si quisiéramos acceder directamente a esos atributos, sin pasar por los <em>getters</em> y <em>setters</em>, tendríamos que definirlos como <em>protected</em> en la clase <em>Software</em>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Software</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$codigo</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$titulo</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$version</span><span class="p">;</span>
+
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Así, el constructor que hemos definido antes en <em>Videojuego</em> sí funcionaría (antes no, porque los atributos eran private).</p>
+
+<h3 id="41-el-elemento-parent">4.1. El elemento parent</h3>
+
+<p>Hemos visto que el objeto <code class="language-plaintext highlighter-rouge">$this</code> nos sirve para referenciar a los atributos o elementos de una clase, y poderlos distinguir de otros externos que se llamen igual. Del mismo modo, podemos referenciar a los atributos o métodos de la clase padre mediante el objeto <code class="language-plaintext highlighter-rouge">parent</code>, con la sintaxis <code class="language-plaintext highlighter-rouge">parent::metodo(...)</code>. Así, por ejemplo, en el caso anterior, no sería necesario duplicar el código en el constructor de la clase hija para los atributos que asigna la clase padre. Podríamos poner:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$t</span><span class="p">,</span> <span class="nv">$v</span><span class="p">,</span> <span class="nv">$p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">parent</span><span class="o">::</span><span class="nf">__construct</span><span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$t</span><span class="p">,</span> <span class="nv">$v</span><span class="p">);</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">plataforma</span> <span class="o">=</span> <span class="nv">$p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta <strong>ejercicios7</strong> para los ejercicios de esta sesión. Dentro crea una página llamada <strong>clases.php</strong> con una clase llamada <strong>Persona</strong> que tenga como atributos un DNI, un nombre y un email. Crea un constructor que permita rellenar esos tres atributos, y los <em>getters</em> y <em>setters</em> correspondientes. Define también un método <em>Mostrar</em> para sacar por la página los datos de la persona (en un párrafo, separados por guiones). Define adecuadamente la visibilidad (pública o privada) de cada atributo o método.</p>
+
+  <p>Crea una segunda clase llamada <strong>Estudiante</strong> que herede de <em>Persona</em>, y añada un atributo llamado <em>numExpediente</em>. Crea su constructor, sus <em>getters</em> y <em>setters</em> y su correspondiente método <em>Mostrar</em>.</p>
+
+  <p>Fuera de las clases, entre el código HTML de la página, crea un objeto de cada tipo (una <em>Persona</em> y un <em>Estudiante</em>), con los valores que quieras, llama después a algún setter de cada una para cambiar el valor de algún atributo, y finalmente llama a sus métodos <em>Mostrar</em> para que saquen la información de cada uno.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

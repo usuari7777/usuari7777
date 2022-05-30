@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Object oriented programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Object oriented programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="05e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/05e.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Object oriented programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Object oriented programming","url":"http://nachoiborraies.github.io/java/md/en/05e.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="object-oriented-programming">Object oriented programming</h1>
+
+<h2 id="abstract-classes-and-interfaces">Abstract classes and interfaces</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this unit we are going to have an overview of two important concepts closely related with inheritance: abstract classes and interfaces, and some practical examples about how to apply them to real life problems.</p>
+
+<h3 id="1-abstract-classes">1. Abstract classes</h3>
+
+<p>An <strong>abstract class</strong> is a class that can’t be instantiated directly (this is, we can’t create objects of this class), because its code or functionality is not completely defined. For instance, let’s suppose that we have a class called <code class="language-plaintext highlighter-rouge">Animal</code>,  in which we specify some attributes of every animal (such as color, or number of legs). However, there are some other attributes or operations, such as <code class="language-plaintext highlighter-rouge">talk</code> that can’t be specified unless we know the concrete type of animal that we are talking about. In this case, we could (should) define <code class="language-plaintext highlighter-rouge">Animal</code> class as an abstract class.</p>
+
+<p>If we want to define an abstract class in Java, we just add the reserved word <code class="language-plaintext highlighter-rouge">abstract</code> before <code class="language-plaintext highlighter-rouge">class</code> element. We can specify its attributes, constructors and other methods if we want to:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span>
+<span class="o">{</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="kt">int</span> <span class="n">numberOfLegs</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Animal</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numberOfLegs</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">numberOfLegs</span> <span class="o">=</span> <span class="n">numberOfLegs</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getColor</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can also add as many <em>abstract</em> methods as we want to. An abstract method is a method that is not implemented, so we set it as <code class="language-plaintext highlighter-rouge">abstract</code> and with no code. For instance, we could add an abstract method to previous class called <code class="language-plaintext highlighter-rouge">talk</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Animal</span>
+<span class="o">{</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="kt">int</span> <span class="n">numberOfLegs</span><span class="o">;</span>
+
+    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">talk</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Keep in mind that <strong>an abstract class does NOT need to have abstract methods in order to be abstract</strong>, so we just add them if we need them. In this case, we can’t make an animal talk unless we know the concrete type of animal, but we want every animal to talk as soon as they are created, so let’s define this abstract method to be implemented later.</p>
+
+<h4 id="11-inheriting-from-an-abstract-class">1.1. Inheriting from an abstract class</h4>
+
+<p>In order to create subtypes of an abstract class, we just inherit from it. These subtypes can be:</p>
+
+<ul>
+  <li><strong>abstract</strong>, so that we keep on adding the <code class="language-plaintext highlighter-rouge">abstract</code> modifier to the class, and we can even add more abstract methods if we want to. For instance, we could define a subclass called <code class="language-plaintext highlighter-rouge">Bird</code> with an abstract method called <code class="language-plaintext highlighter-rouge">fly</code>:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Bird</span> <span class="kd">extends</span> <span class="nc">Animal</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>concrete</strong>, so that we MUST implement (<em>override</em>) every abstract method defined in parent class(es). In our case, we could define an <code class="language-plaintext highlighter-rouge">Animal</code> subclass called <code class="language-plaintext highlighter-rouge">Dog</code> that needs to implement <code class="language-plaintext highlighter-rouge">talk</code> method, or a <code class="language-plaintext highlighter-rouge">Duck</code> subclass that inherits from <code class="language-plaintext highlighter-rouge">Bird</code> and then needs to implement both abstract methods (<code class="language-plaintext highlighter-rouge">talk</code> and <code class="language-plaintext highlighter-rouge">fly</code>).</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Dog</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numberOfLegs</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">color</span><span class="o">,</span> <span class="n">numberOfLegs</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">talk</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Woof woof!!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Duck</span> <span class="kd">extends</span> <span class="nc">Bird</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Duck</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numberOfLegs</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">color</span><span class="o">,</span> <span class="n">numberOfLegs</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">talk</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Quack quack!!"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"I'm flying like a duck!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="12-abstract-classes-and-polymorphism">1.2. Abstract classes and polymorphism</h4>
+
+<p>We have just said that we can’t instantiate objects of an abstract class. However, we can define an object of an abstract class from any of its concrete subclasses. This way, we can assign a variable of an abstract type any object of a subtype. For instance, if we look at previous example, we can’t create an <code class="language-plaintext highlighter-rouge">Animal</code> object, since this class is abstract; but we can create a <code class="language-plaintext highlighter-rouge">Dog</code> object and assign it to an <code class="language-plaintext highlighter-rouge">Animal</code> variable, because of polymorphism.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Animal</span> <span class="n">a1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">(</span><span class="s">"red"</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>   <span class="c1">// Error!!</span>
+<span class="nc">Animal</span> <span class="n">a2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span> <span class="o">(</span><span class="s">"white"</span><span class="o">,</span> <span class="mi">4</span><span class="o">);</span>   <span class="c1">// OK</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>Animals</strong>, with a main class called <code class="language-plaintext highlighter-rouge">AnimalsMain</code> within a package called <code class="language-plaintext highlighter-rouge">animals.main</code>. Then, add the classes seen before in a package called <code class="language-plaintext highlighter-rouge">animals.types</code>. Define the abstract classes <code class="language-plaintext highlighter-rouge">Animal</code> and <code class="language-plaintext highlighter-rouge">Bird</code> with their corresponding subclasses <code class="language-plaintext highlighter-rouge">Dog</code> and <code class="language-plaintext highlighter-rouge">Duck</code> and any other class that you may want to add (such as <code class="language-plaintext highlighter-rouge">Cat</code> or <code class="language-plaintext highlighter-rouge">Lion</code>, for instance). Then, define an array of 5 animals (type <em>Animal</em>) and fill it with some information (you don’t need to ask it to the user if you don’t want to). Then, explore the array and make each animal talk.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Go back to Exercise 5 of <a href="05c">this document</a> and make these changes to it (create a backup of the original project before making these changes):</p>
+
+  <ul>
+    <li>Define <code class="language-plaintext highlighter-rouge">CulturalObject</code> class as abstract</li>
+    <li>In the main application, define an array of 6 <code class="language-plaintext highlighter-rouge">CulturalObject</code> objects and then add three books and three music discs to it. Then, print the whole array in the screen.</li>
+  </ul>
+</blockquote>
+
+<h3 id="2-interfaces">2. Interfaces</h3>
+
+<p>An interface can be considered as a special type of class with no code implemented (actually, we could add some code inside them, but this is not the aim of this section). So, they can’t be directly instantiated either. We use interfaces to define a bunch of methods that need to be implemented by any class that wants to “inherit” from that interface.</p>
+
+<p>For instance, let’s suppose that we have an interface called <code class="language-plaintext highlighter-rouge">Shape</code> to represent any type of shape, such as circles, squares and so on. We don’t want to store any specific information about a shape, but we want every shape to calculate its own area, and get drawn. So we can define an interface like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Shape</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">calculateArea</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, any class that wants to “inherit” from that interface must implement these two methods. Actually, we are not inheriting from the interface, but <strong>implementing</strong> it, so we don’t use <em>extends</em>, but <code class="language-plaintext highlighter-rouge">implements</code> reserved word.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">implements</span> <span class="nc">Shape</span>
+<span class="o">{</span>
+    <span class="kt">float</span> <span class="n">radius</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Circle</span><span class="o">(</span><span class="kt">float</span> <span class="n">radius</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">radius</span> <span class="o">=</span> <span class="n">radius</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">calculateArea</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">PI</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Drawing a circle!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="21-extending-vs-implementing">2.1. Extending vs implementing</h4>
+
+<p>We have just read about abstract classes and interfaces. None of them can be instantiated, and both can have some parts of unimplemented code. But… how to decide which one we must use in a given program?</p>
+
+<ul>
+  <li>Abstract classes are <strong>inherited</strong>, so whenever we are wondering if we should create an abstract class, we need to be sure that:
+    <ul>
+      <li>The subclasses that we will define later <strong>are subtypes</strong> of the abstract class</li>
+      <li>We don’t need to inherit from anything else (Java only lets us inherit from one class)</li>
+    </ul>
+  </li>
+  <li>Interfaces are <strong>implemented</strong>, and a class can implement as many interfaces as it needs, and also inherit from any other (single) class</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyShape</span> <span class="kd">extends</span> <span class="nc">AnotherClass</span> 
+                     <span class="kd">implements</span> <span class="nc">Shape</span><span class="o">,</span> <span class="nc">Comparable</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The only drawback that interfaces have is the (almost) total lack of code: we can’t define attributes, constructors or other methods. We can implement some static methods and other special code, and leave unimplemented a set of methods, so that any implementing class can fill them and <strong>act as</strong> the interface. In our previous example, a <em>Circle</em> is not considered a <em>Shape</em> (since it does not inherit from it), but we can say that a <em>Circle acts as a Shape</em>, because it implements the corresponding interface. Also, we can define an array of an interface object and fill it with concrete objects implementing this interface:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Shape</span><span class="o">[]</span> <span class="n">shapes</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Shape</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+<span class="n">shapes</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">(...);</span>
+<span class="n">shapes</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Square</span><span class="o">(...);</span>
+<span class="o">...</span>
+<span class="n">shapes</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">draw</span><span class="o">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a project called <strong>Shapes</strong>, with a main class called <code class="language-plaintext highlighter-rouge">ShapesMain</code> within a package called <code class="language-plaintext highlighter-rouge">shapes</code>. Then, add the <code class="language-plaintext highlighter-rouge">Shape</code> interface to that same package, and all the implementing classes (such as <code class="language-plaintext highlighter-rouge">Circle</code>, <code class="language-plaintext highlighter-rouge">Rectangle</code> or <code class="language-plaintext highlighter-rouge">Square</code>) in a subpackage called <code class="language-plaintext highlighter-rouge">shapes.types</code>. Implement both methods <code class="language-plaintext highlighter-rouge">calculateArea</code> and <code class="language-plaintext highlighter-rouge">draw</code> in all of them (just print a message in the <code class="language-plaintext highlighter-rouge">draw</code> method of each shape). Then, define an array of 5 shapes (type <code class="language-plaintext highlighter-rouge">Shape</code>) and fill it with some information (you don’t need to ask it to the user if you don’t want to). Finally, explore the array and calculate the area of each shape.</p>
+</blockquote>
+
+<h4 id="22-example-sorting-complex-objects">2.2. Example: sorting complex objects</h4>
+
+<p>You may be wondering how interfaces can be useful in your day to day work. Let’s suppose that you are managing a list or array of complex objects, such as <code class="language-plaintext highlighter-rouge">Person</code> objects with their names and ages:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Person</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Person</span><span class="o">[]</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">[</span><span class="mi">50</span><span class="o">];</span>
+
+    <span class="n">people</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+    <span class="n">people</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Juan"</span><span class="o">,</span> <span class="mi">70</span><span class="o">);</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What if we want to sort this array by people’s age, in descendant order? We may define a method to manually sort the array, by applying some of the well-known algorithms (such as <em>bubblesort</em> algorithm):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">people</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+<span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">people</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> 
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">people</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">people</span><span class="o">[</span><span class="n">j</span><span class="o">].</span><span class="na">getAge</span><span class="o">())</span> 
+        <span class="o">{</span>
+            <span class="nc">People</span> <span class="n">aux</span> <span class="o">=</span> <span class="n">people</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="n">people</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">people</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+            <span class="n">people</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">aux</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, there is a faster way (in terms of efficiency) to get this result, although we may type some more code than in previous example. There are a couple of interfaces available in the Java core that lets us sort any kind of object. These interfaces are <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">Comparator</a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">Comparable</a>. They both have one method to be implemented:</p>
+
+<ul>
+  <li>If we choose <code class="language-plaintext highlighter-rouge">Comparable</code> interface, we must implement a method called <code class="language-plaintext highlighter-rouge">compareTo</code>, which receives a single object as a parameter, and compares it with current object (<code class="language-plaintext highlighter-rouge">this</code>). It also returns an integer indicating which one will go first in the array: current object (negative number), the object received as a parameter (positive number), or zero if they are equal. As we are working with <code class="language-plaintext highlighter-rouge">this</code>, we will use this interface applied to the class whose objects need to be sorted.</li>
+  <li>Regarding <code class="language-plaintext highlighter-rouge">Comparator</code> interface, we need to implement a method called <code class="language-plaintext highlighter-rouge">compare</code>. It receives two objects as parameters, and returns an integer indicating which will go first in the array: the first one (negative number), the second one (positive number) or zero if both are equal. We usually define an additional class to implement this interface, and sort objects of another different class.</li>
+</ul>
+
+<p>Let’s see how to use them with our <code class="language-plaintext highlighter-rouge">Person</code> class. First of all, we need to implement the chosen interface for our class. If we choose <code class="language-plaintext highlighter-rouge">Comparable</code> interface, this class needs to be <code class="language-plaintext highlighter-rouge">Person</code> class, and in the code of <code class="language-plaintext highlighter-rouge">compareTo</code> method we just return a number depending on which age is greater: remember, we need to sort people by age in descendant order, so we need to return a negative number if <em>this</em> object is older than the parameter:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Person</span> <span class="kd">implements</span> <span class="nc">Comparable</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="o">...</span> <span class="c1">// Getters and setters</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareTo</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">&gt;</span> <span class="k">this</span><span class="o">.</span><span class="na">getAge</span><span class="o">())</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If you take a look at <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer API</a>, there’s an static method called <code class="language-plaintext highlighter-rouge">compare</code> that gets two integers as parameters and returns an integer determining which one is lower or greater (negative if the first one is lower, positive if the first one is greater). So, we can take advantage of this static method in order to sort persons by age. If we want to sort them in ascending order, we can do this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareTo</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>But, if we want to sort the array in descending order, we just swap the order of the parameters:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">compareTo</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="k">this</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There are similar methods in classes such as <code class="language-plaintext highlighter-rouge">Float</code>, <code class="language-plaintext highlighter-rouge">Character</code>, <code class="language-plaintext highlighter-rouge">Double</code>, etc, that let us compare primitive data types.</p>
+
+<p>Then, in our <em>main</em> method, we just need to call <code class="language-plaintext highlighter-rouge">Arrays.sort</code> method from <code class="language-plaintext highlighter-rouge">Arrays</code> class (we need to import <code class="language-plaintext highlighter-rouge">java.util.Arrays</code> class in our code), and then our array will be automatically sorted:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Person</span><span class="o">[]</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">[</span><span class="mi">50</span><span class="o">];</span>
+    <span class="o">...</span> <span class="c1">// Fill array</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">people</span><span class="o">);</span>
+    <span class="c1">// Here our array is already sorted by age (descending)</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we choose <code class="language-plaintext highlighter-rouge">Comparator</code> interface instead of previous one, we usually define an external class that implements it (other than <code class="language-plaintext highlighter-rouge">Person</code> class)…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonComparator</span> <span class="kd">implements</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p1</span><span class="o">,</span> <span class="nc">Person</span> <span class="n">p2</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">p1</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, we just need to call <code class="language-plaintext highlighter-rouge">Arrays.sort</code> method with two arguments: the array to be sorted (our <code class="language-plaintext highlighter-rouge">people</code> array), and a comparator object that we will use to sort it (an instance of <code class="language-plaintext highlighter-rouge">PersonComparator</code> class):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Person</span><span class="o">[]</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">[</span><span class="mi">50</span><span class="o">];</span>
+    <span class="o">...</span> <span class="c1">// Fill array</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">people</span><span class="o">,</span> <span class="k">new</span> <span class="nc">PersonComparator</span><span class="o">());</span>
+    <span class="c1">// Here our array is already sorted by age</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This way, we can leave the original class <code class="language-plaintext highlighter-rouge">Person</code> unchanged, and use another class to compare <code class="language-plaintext highlighter-rouge">Person</code> objects. This is particularly useful when we have no access to the code of the original class to modify it, or if we want to use an anonymous class, as we will see in next section.</p>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Go back to Exercise 1 of <a href="05c">this document</a>, and create a copy of it called <strong>SortedVideoGameList</strong>. Then, use either <code class="language-plaintext highlighter-rouge">Comparable</code> or <code class="language-plaintext highlighter-rouge">Comparator</code> interfaces to sort the video game array by price (in ascending order) and print the sorted array in the screen.</p>
+</blockquote>
+
+<h3 id="3-anonymous-classes">3. Anonymous classes</h3>
+
+<p>As abstract classes and interfaces can’t be instantiated, we always need to define a subclass that extends or implements the given abstract class or interface, and then instantiate this subclass. From Java 7, there is a shortcut to define these subclasses without having to define a new source file and/or a new <code class="language-plaintext highlighter-rouge">class</code> element. We are talking about anonymous classes.</p>
+
+<p>An <strong>anonymous class</strong> is a class without name that is created at the point where we need to implement a given interface, or extend from a given abstract class, so that we don’t need to define an additional class for it.</p>
+
+<p>Let’s see how anonymous classes work with a couple of examples. The first one creates a new instance of an <code class="language-plaintext highlighter-rouge">Animal</code>, to define a new type of animal that is not defined in previous classes (<code class="language-plaintext highlighter-rouge">Dog</code> or <code class="language-plaintext highlighter-rouge">Duck</code>, for instance).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Animal</span> <span class="n">strangeAnimal</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">(</span><span class="s">"yellow"</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">talk</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Vote for Quimby!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="n">strangeAnimal</span><span class="o">.</span><span class="na">talk</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Notice that we just define an instance of <code class="language-plaintext highlighter-rouge">Animal</code> class and, inside the curly braces, we need to override and implement every pending abstract method (<code class="language-plaintext highlighter-rouge">talk</code>, in this case). We can also define any additional attribute or method that we need:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Animal</span> <span class="n">strangeAnimal</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">(</span><span class="s">"yellow"</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"Joe Quimby"</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">talk</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">anotherMethod</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Vote for Quimby!"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">anotherMethod</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">"My name is "</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="n">strangeAnimal</span><span class="o">.</span><span class="na">talk</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>What we are defining, anyway, is an <strong>object</strong> which is a subtype of <code class="language-plaintext highlighter-rouge">Animal</code> in this case. So we can`t re-use this code to define another animal later (we would need to duplicate the code).</p>
+
+<p>Regarding interfaces, we can also instantiate them and implement its methods in an anonymous class. This example shows how to define a new subtype of shape with its own implemented methods (and any additional one that we may add):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Shape</span> <span class="n">irregularShape</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Shape</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">calculateArea</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="mf">0.5f</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Drawing this particular shape!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">};</span>
+
+<span class="n">irregularShape</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">irregularShape</span><span class="o">.</span><span class="na">calculateArea</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>We can use anonymous classes in many situations. For instance, we can define “on the fly” the sorting method for an array of <code class="language-plaintext highlighter-rouge">Person</code> objects like the one seen in previous examples:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Person</span><span class="o">[]</span> <span class="n">people</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">[</span><span class="mi">50</span><span class="o">];</span>
+    <span class="o">...</span> <span class="c1">// Fill array</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">people</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;()</span>
+    <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">Person</span> <span class="n">p1</span><span class="o">,</span> <span class="nc">Person</span> <span class="n">p2</span><span class="o">)</span>
+        <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">p2</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">p1</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+    <span class="c1">// Here our array is already sorted by age</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="31-when-can-we-use-anonymous-classes">3.1. When can we use anonymous classes?</h4>
+
+<p>Anonymous classes are particularly useful when we need to define a particular instance of an abstract class or interface at a given point of our code (and nowhere else). This way, we avoid defining a new class element with its associated code. However, if we are planning to use this class definition in more than one place, then a “normal” class is recommended, so that we don’t duplicate the code.</p>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Update Exercise 3 by adding a new shape through an anonymous class. This shape will act as a diamond and it will have two internal attributes: the short axis and the long axis. Calculate its area by applying the corresponding formula, and implement the <code class="language-plaintext highlighter-rouge">draw</code> method by printing in the screen the message “I’m a diamond!”. Then, add an object of this type to the shapes array to use its methods.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 6:</strong></p>
+
+  <p>Define a <code class="language-plaintext highlighter-rouge">Comparator</code> in previous exercise to compare shapes by their area, in descending order. You must use an anonymous class to implement the comparator. Then, sort the array with this comparator and print it in the screen.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Version control tools | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Version control tools" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/05d.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Version control tools" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Version control tools","url":"http://nachoiborraies.github.io/entornos/md/en/05d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="version-control-tools">Version control tools</h1>
+
+<h2 id="using-git-through-ides">Using Git through IDEs</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this section we are going to learn how to use Git through some of the most popular IDEs and version control tools, so that we don’t need to rely on the command line. But keep in mind that, in order to use all these applications, we MUST have Git installed in our system, following the steps provided in previous sections.</p>
+
+<h3 id="1-git-guis-gitkraken">1. Git GUIs: GitKraken</h3>
+
+<p>First of all, let’s talk about graphical user interfaces (GUI) that we can use to deal with Git commands. <strong>GitKraken</strong> is a free git tool that can be run under Windows, Linux or Mac OSX. It has also a commercial version, if we want to deal with private repositories, or we need some advanced features.</p>
+
+<p>It can be downloaded from its <a href="https://www.gitkraken.com/">official website</a>. After the installation, we can start the application. The first time that we launch it, it will ask us to register, either with our GitHub account (if we already have one), or by creating our own GitKraken account. We can follow this option if we don’t have any GitHub account, but if we sign up with GitHub, we can easily clone our GitHub repositories later. If we choose this option, then GitKraken will ask you to connect to GitHub from its main web site.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-22-GitKraken_Register.png" alt="GitKraken signup" width="50%" />
+</div>
+
+<p>After singing up, we can see the welcome screen:</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-23-GitKraken_Welcome.png" alt="GitKraken welcome screen" width="80%" />
+</div>
+
+<ul>
+  <li>From the left option (<em>Open a project</em>) we can connect to a remote repository (from GitHub or Bitbucket, for instance), and download it.</li>
+  <li>From the middle option (<em>Start a local project</em>) we can start a new, local project and create files on it. Then, we will be able to commit and upload the changes to a remote repository.</li>
+  <li>From the right option (<em>Start a hosted project</em>) we can create a remote repository in one of the allowed platforms (GitHub, Bitbucket and some other), so that it connects to this repository and downloads it as well.</li>
+</ul>
+
+<p>Let’s assume that we have already created a remote repository, so we choose first option (<em>Open a project</em>). Then, we must choose the git platform to connect with. In our case, we choose GitHub, so we must click on the corresponding button.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-24-GitKraken_Clone.png" alt="GitKraken clone remote repository" width="80%" />
+</div>
+
+<p>We must choose the repository to clone, and the folder where we want to download the project, in the right panel. Then, we can click on the <em>Clone the repo!</em> button in the bottom right corner.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-25-GitKraken_Clone2.png" alt="GitKraken clone remote repository" width="80%" />
+</div>
+
+<p>Once our repo is cloned, we can explore it from the <em>Open a project</em> option, or by clicking on the folder icon in the upper left corner of GitKraken window.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-26-GitKraken_OpenProject.png" alt="GitKraken open project" width="80%" />
+</div>
+
+<p>After choosing the project folder (or the project itself if we have opened it recently), we can see its contents:</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-27-GitKraken_ProjectContents.png" alt="GitKraken open project" width="80%" />
+</div>
+
+<p>In the right panel we can see the project contents (files and folders). We can see them as paths or as a tree, by clicking on the corresponding buttons of this right part. In the middle panel we have the history of operations over the repository (commits and so on.). Finally, in the left panel we have a list of available branches.</p>
+
+<h4 id="11-committing-new-changes">1.1. Committing new changes</h4>
+
+<p>If we add new content to the project (or edit/remove existing content), then all the changes will be shown in the right panel automatically. For instance, if we add a new source file, we can see it this way:</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-28-GitKraken_CommitChanges.png" alt="GitKraken commit changes" width="80%" />
+</div>
+
+<p>Then, we need to click on the <em>View Changes</em> button to see the file(s) that have changed. We can stage them individually (i.e. mark them to be committed in next commit operation), or stage all of them at once by clicking on the <em>Stage all changes</em> button.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-29-GitKraken_CommitChanges.png" alt="GitKraken commit changes" width="80%" />
+</div>
+
+<p>Next step consists in committing the changes. We must add a commit comment (explaining what’s new in this commit) and then click on <em>Commit changes</em> at the bottom.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-30-GitKraken_CommitChanges.png" alt="GitKraken commit changes" width="45%" />
+</div>
+
+<p>Finally, we need to push the changes to the remote repository. To do this, we go to the middle panel, choose the commit that we want to push and then click on the <em>Push</em> button in the upper toolbar.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-31-GitKraken_CommitChanges.png" alt="GitKraken commit changes" width="80%" />
+</div>
+
+<h4 id="12-pulling-new-contents-from-the-server">1.2. Pulling new contents from the server</h4>
+
+<p>If we are working in a team, or if we just want to update the changes to another computer, we may need to pull the contents from the repository. For instance, if someone has uploaded new files to the repository (or changed existing files), we can click on the <em>Pull</em> button from the upper toolbar. Then, we can choose the corresponding commit in the list (middle panel) and then view all the affected files in the right panel.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-32-GitKraken_PullChanges.png" alt="GitKraken pull changes" width="80%" />
+</div>
+
+<h4 id="13-alternatives-to-gitkraken">1.3. Alternatives to GitKraken</h4>
+
+<p>There are some other Git tools that we can use instead of GitKraken to deal with GitHub or BitBucket repositories with a graphical environment. Here you can see some of them:</p>
+
+<ul>
+  <li><a href="https://www.sourcetreeapp.com/">SourceTree</a></li>
+  <li><a href="https://desktop.github.com/">GitHub Desktop</a></li>
+</ul>
+
+<p>These tools are available for Windows and MacOSX, but we can’t use them under Linux systems. That’s why we have talked about GitKraken instead.</p>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a public repository called <strong>CppPrograms</strong> in your GitHub account. Clone it into a local folder using GitKraken. Then, copy the following program in a source file called <em>hello.cpp</em> inside that folder.</p>
+</blockquote>
+
+<pre><code class="language-Cpp">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main()
+{
+    cout &lt;&lt; "Hello world";
+    return 0;
+}
+</code></pre>
+
+<blockquote>
+  <p>Once you have finished copying the file, follow these steps:</p>
+
+  <ul>
+    <li>Commit and push the changes to the remote repository.</li>
+    <li>Make some changes to previous source file. For instance, change the text that is being printed in the <code class="language-plaintext highlighter-rouge">cout</code> line. Then, make a second <em>commit</em> and its corresponding <em>push</em> to update the changes.</li>
+    <li>Optionally, you can share your project with a classmate, and ask him/her to update some of the files. Then, update these files in your local repository through a <em>pull</em> operation.</li>
+  </ul>
+</blockquote>
+
+<h3 id="2-using-git-in-visual-studio-code">2. Using Git in Visual Studio Code</h3>
+
+<p>Most of current IDEs lets us use Git internally, so we can perform the main Git operations (commit, push, pull and so on) from the IDE itself. Let’s see how it works with Visual Studio Code.</p>
+
+<p>First of all, we must clone our remote repository. We open the command palette (<code class="language-plaintext highlighter-rouge">Control+Shift+P</code>, or <code class="language-plaintext highlighter-rouge">Cmd+Shift+P</code> in Mac systems) and we type “clone”. Then we will see the <code class="language-plaintext highlighter-rouge">git clone</code> command, we select it and then we will be asked to enter the remote URL of the repository. We must paste there the URL of our remote GitHub or BitBucket repository (we can see it by clicking on the <em>Clone</em> button).</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-19-VSCodeGit.png" alt="Clone repository" width="50%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: if <code class="language-plaintext highlighter-rouge">git clone</code> command is not recognized by VS Code, then you have not installed Git in your system properly (see previous sections of this course).</p>
+</blockquote>
+
+<p>Then, we will see the repository files under Visual Studio Code, and if we make any change to any file, it will be automatically marked with an ‘M’ next to the file name. This means that the file has been modified from the last version uploaded to the repository. Then we can stage the file by clicking on the <em>Source Control</em> icon (see next image). This way, we can see the changes made and the Git options.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-20-VSCodeGit2.png" alt="Commit" width="50%" />
+</div>
+
+<p>Regarding the options, we have <em>stage</em> (+), undo changes, <em>commit</em> (✓) and more general options in the upper menu.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-21-VSCodeGit3.png" alt="Commit" width="50%" />
+</div>
+
+<p>If we want to push or pull the changes to/from the repository, we must click in the <em>more options</em> button (<code class="language-plaintext highlighter-rouge">...</code>) in the upper left toolbar, and choose the appropriate option.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-21-VSCodeGit4.png" alt="Pull/Push options" width="50%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a new public repository called <strong>CppProgramsVSCode</strong> in your GitHub account, and then clone it from VS Code. Then, repeat the steps made in Exercise 1 inside this new repository.</p>
+</blockquote>
+
+<h3 id="3-using-git-in-intellij">3. Using Git in IntelliJ</h3>
+
+<p>The integration of <em>IntelliJ</em> with Git repositories is really easy:</p>
+
+<ul>
+  <li>
+    <p>If we want to <strong>clone or download a remote repository</strong> with an existing IntelliJ project to start working on it, we just go to <em>VCS &gt; Get from Version Control</em> menu. Then, we can login in our GitHub account through the <em>GitHub</em> option on the left, and choose among our available repositories.</p>
+  </li>
+  <li>
+    <p>If we want to <strong>create a new, remote repository</strong>, we must create the <em>IntelliJ</em> project first, and then choose <em>VCS &gt; Share project on GitHub</em>. Then, we will be asked to choose the project name (and whether it’s private or public) and the file(s) to be uploaded at the initial commit.</p>
+  </li>
+  <li>
+    <p>Whenever we want to <strong>commit</strong> new changes, we choose <em>Git &gt; Commit…</em> menu, and then choose which changes we want to commit, and the comment associated to this commit.</p>
+  </li>
+  <li>
+    <p>If we want to <strong>push</strong> a commit, or <strong>pull</strong> the changes from the remote repository, we can find these options inside <em>Git</em> menu.</p>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a new local Java project called <strong>IntelliJGit</strong>, and then share this project in your GitHub account. Then, add a new class called <code class="language-plaintext highlighter-rouge">Test</code>, and commit and push these changes.</p>
+</blockquote>
+
+<h3 id="4-using-git-in-visual-studio">4. Using Git in Visual Studio</h3>
+
+<p>Visual Studio has an option to deal with Git repositories. First of all, we may need to install GitHub extension for Visual Studio, from <em>Extensions &gt; Manage extensions</em> menu:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-42_VisualStudio_GitIntegration.png" alt="Visual Studio integration with Git" width="70%" />
+</div>
+
+<p>Then, if we want to communicate with a remote repository, we need to go to <em>Team &gt; Manage connections</em> menu. The first time we choose this option, we will need to log in to GitHub to give some permissions to Visual Studio. Then, we can either create a local Git repository, or clone a remote one.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-38_VisualStudio_GitIntegration.png" alt="Visual Studio integration with Git" width="40%" />
+</div>
+
+<p>If we choose the <em>Clone</em> option, we need to specify the remote URL to be cloned, and the local folder to download it. Then, we can add project(s) to this repository, and make changes. Everytime we want to upload these changes, we need to doubleclick on the repository:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-39_VisualStudio_GitIntegration.png" alt="Visual Studio integration with Git" width="40%" />
+</div>
+
+<p>Then, we can click on the <em>Changes</em> option to see all the changes that are pending to be uploaded. We can add a comment for all of them and confirm the commit:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-40_VisualStudio_GitIntegration.png" alt="Visual Studio integration with Git" width="40%" />
+    &nbsp;
+    <img src="../../img/ED_b1_tema05-41_VisualStudio_GitIntegration.png" alt="Visual Studio integration with Git" width="40%" />
+</div>
+
+<p>Finally we need to choose the <em>Synchronize</em> option to upload (<em>push</em>) the changes to the remote repository. We may be asked to enter our credentials to let us push the contents.</p>
+
+<p>We can also use this option at the beginning of our session, to download (<em>pull</em>) the updated contents from the remote repository, so that we can make our changes and upload them from a previously updated version.</p>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a new remote repository in your GitHub account called <strong>VisualStudioTest</strong>. Clone it in Visual Studio, add a new project on it and upload the changes from Visual Studio to the remote repository.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

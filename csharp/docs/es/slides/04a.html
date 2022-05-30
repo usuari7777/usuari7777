@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Arrays</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Arrays, estructuras y cadenas de texto
+#### Arrays
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Concepto de array
+
+- Conjunto de elementos del mismo tipo, agrupados bajo un único nombre
+- Se accede a cada elemento indicando su posición en el conjunto, empezando por la 0
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de array
+
+<div align="center">
+    <img src="../../../img/04_array.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Declaración de arrays en C#
+
+- Indicamos de qué tipo va a ser (*int*, *string*, etc), seguido de un par de corchetes y el nombre de la variable
+- Definimos su tamaño con **new** seguido del tipo de dato y, entre corchetes, el tamaño
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Declaración de arrays en C#
+
+```csharp
+/* Array de 10 enteros */
+int[] numeros = new int[10];
+
+/* Array de 5 strings */
+string[] textos;
+textos = new string[5];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Acceso a las posiciones del array
+
+Usamos el nombre del array y, entre corchetes, la posición a la que acceder (desde la 0)
+
+```csharp
+int[] numeros = new int[10];
+numeros[0] = 12;
+numeros[1] = 3;
+...
+Console.WriteLine(numeros[5]); 
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_01.cs** que le pida al usuario cuatro números reales (*float*), los almacene en un array y calcule la media de los 4.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Dar valores iniciales a un array
+
+Podemos asignarle los valores iniciales entre llaves, separados por comas
+
+```csharp
+// Array de 4 enteros
+int[] numeros = {1, 2, 3, 4};
+
+// Alternativa
+int[] numeros = new int[4] {1, 2, 3, 4};
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_02.cs** que almacene en un array de 12 posiciones enteras el número de días que tiene cada mes. Luego le pedirá al usuario que escriba un número de mes (del 1 al 12) y le dirá, consultando en el array, cuántos días tiene ese mes
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recorrer los elementos de un array (1/3)
+
+- Opción 1: bucle hasta el tamaño puesto a mano
+- Inconveniente: si cambiamos el tamaño, tocaría cambiarlo en varias partes del código
+
+```csharp
+int[] numeros = new int[10];
+// ... Rellenamos el array
+for (int i = 0; i < 10; i++)
+{
+    Console.WriteLine(numeros[i]);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recorrer los elementos de un array (2/3)
+
+- Opción 2: definir una constante con el tamaño
+
+```csharp
+const int TAM = 10;
+int[] numeros = new int[TAM];
+// ... Rellenamos el array
+for (int i = 0; i < TAM; i++)
+{
+    Console.WriteLine(numeros[i]);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrer los elementos de un array (3/3)
+
+- Opción 3: usar la propiedad **Length** del array
+
+```csharp
+int[] numeros = new int[10];
+// ... Rellenamos el array
+for (int i = 0; i < numeros.Length; i++)
+{
+    Console.WriteLine(numeros[i]);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_03.cs** que le pida al usuario 6 números enteros, los almacene en un array y los muestre en orden inverso a como se han introducido, separados por comas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_04.cs** que le pida al usuario cuántos números va a introducir. Después creará un array de ese tamaño (de reales) y le pedirá que escriba esos números. Finalmente, le mostrará la media de los números introducidos, y cuáles de esos números están por encima de la media
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_05.cs** que sea una variante del *Ejercicio_04a_02* donde el usuario, además de introducir el número de mes, introducirá el número de día dentro de ese mes. El programa debe indicarle cuántos días faltan hasta fin de año
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_06.cs** que le pida al usuario 5 nombres (*strings*), los memorice en un array, y luego repetidamente le pida al usuario que introduzca nombres, y le dirá si están o no en el array. El programa finalizará cuando el usuario escribe como nombre "fin"
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_07.cs** que reserve espacio para almacenar hasta 100 nombres (*strings*). El usuario comenzará a introducir nombres, hasta que pulse *Intro* sin escribir nada. En ese momento, el programa deberá decirle cuántos nombres ha almacenado, y los mostrará por pantalla.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Buscar en arrays
+
+- Para ver **si un dato existe**, debemos comprobar cada posición del array, una por una
+   - Puede que nos interese saber sólo si está o no: en cuanto lo encontremos, terminamos
+   - Puede que nos interese saber cuántas veces aparece: debemos recorrer todo el array
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Buscar en arrays
+
+Buscamos si existe el dato 15: primera alternativa
+
+```csharp
+bool encontrado = false;
+for(int i = 0; i < numeros.Length; i++)
+    if (numeros[i] == 15)
+        encontrado = true;
+```
+
+Correcta, pero ineficiente (recorre el resto del array aunque ya lo haya encontrado)
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Buscar en arrays
+
+Buscamos si existe el dato 15: segunda alternativa
+
+```csharp
+bool encontrado = false;
+for(int i = 0; i < numeros.Length; i++)
+    if (numeros[i] == 15)
+        encontrado = true;
+    else
+        encontrado = false;
+```
+
+ERROR!! Dirá si existe o no dependiendo sólo del último número
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Buscar en arrays
+
+Buscamos si existe el dato 15: tercera alternativa
+
+```csharp
+bool encontrado = false;
+int i = 0;
+while (!encontrado && i < numeros.Length)
+{
+    if (numeros[i] == 15)
+        encontrado = true;
+    else
+        i++;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_08.cs** que le pida al usuario 10 nombres (*strings*), los memorice en un array, y luego le pida al usuario un nombre para buscar. El programa le deberá decir si el nombre está en el array o no, y en qué posición
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Buscar máximos o mínimos
+
+- Podemos suponer que ese máximo o mínimo es el primer elemento del array, para evitar dar un valor arbitrario inicial
+- Después, recorremos el resto del array (desde la posición 1) y miramos si hay algún valor que sobrepase ese máximo o mínimo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Buscar máximos o mínimos
+
+```csharp
+int maximo = numeros[0];
+for (int i = 1; i < numeros.Length; i++)
+    if (numeros[i] > maximo)
+        maximo = numeros[i];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_09.cs** que le pida al usuario 10 números reales (*doubles*), los almacene en un array y luego le diga cuál es el menor de ellos, y en qué posición está
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados
+
+- Arrays definidos con más capacidad de la que realmente necesitan
+- Permiten dinámicamente ir añadiendo o quitando elementos del array durante la ejecución del programa
+- Usaremos una variable auxiliar (*cantidad*, por ejemplo), para almacenar cuántos valores hay actualmente almacenados en el array
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados
+
+```csharp
+string[] textos = new string[100];
+int cantidad = 0;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: añadir elementos al final
+
+- Colocamos el nuevo elemento en la posición *cantidad* e incrementamos dicha cantidad
+- Debemos verificar también que no nos pasamos de tamaño
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: añadir elementos al final
+
+<div align="center">
+    <img src="../../../img/04_array_insertar_final.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: añadir elementos al final
+
+```csharp
+if (cantidad < textos.Length)
+{
+    textos[cantidad] = "Nuevo texto";
+    cantidad++;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: añadir elementos en una posición
+
+- Buscamos la posición donde toca añadir (si aún hay huecos libres)
+- Desplazamos, desde el final hasta esa posición, todos los elementos a la derecha para hacer hueco
+- Colocamos el nuevo elemento en esa posición liberada e incrementamos el contador
+
+</script>
+</section>
+  
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: añadir elementos en una posición
+
+<div align="center">
+    <img src="../../../img/04_array_insertar_enmedio.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: añadir elementos en una posición
+
+Añadimos el texto "Hola" en la posición *posicion*
+
+```csharp
+if (cantidad < textos.Length)
+{
+    for (int i = cantidad; i >= posicion; i--)
+        textos[i] = textos[i-1];
+    textos[posicion] = "Hola";
+    cantidad++;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: borrar un elemento de una posición
+
+- Buscamos la posición donde toca borrar (si hay elementos)
+- Desplazamos, desde esa posición hasta el final, todos los elementos hacia la izquierda para tapar el hueco
+- Decrementamos el contador
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: borrar un elemento de una posición
+
+<div align="center">
+    <img src="../../../img/04_array_borrar.png" width="40%">
+</div>
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Arrays sobredimensionados: borrar un elemento de una posición
+
+Borramos el elemento de la posición *posicion*
+
+```csharp
+if (cantidad > 0 && posicion >= 0 && posicion < cantidad)
+{
+    for (int i = posicion; i < cantidad - 1; i++)
+        numeros[i] = numeros[i+1];
+    cantidad--;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_10a.cs** que reserve espacio para almacenar hasta 100 títulos de videojuegos (*strings*), deje ya añadidos unos pocos (3 o 4) y le pida al usuario un nuevo título que añadir al final. El programa deberá mostrar después el listado actual de videojuegos introducidos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el ejercicio anterior en un fichero **Ejercicio_04a_10b.cs** donde, después de lo anterior, le pida al usuario otro título y lo añada en la posición 3, mostrando de nuevo el resultado final
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el ejercicio anterior en un fichero **Ejercicio_04a_10c.cs** donde, después de lo anterior, le pida al usuario una posición (de 0 a la cantidad introducida), elimine el videojuego de esa posición y muestre el resultado final
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Modifica el ejercicio anterior en un fichero **Ejercicio_04a_10d.cs** donde el programa muestre repetidamente al usuario un menú con las siguientes opciones, y haga cada vez lo que diga el usuario (hasta que elija salir)
+
+1. Nuevo videojuego al final
+2. Nuevo videojuego en una posición
+3. Borrar videojuego
+0. Salir
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays bidimensionales
+
+- Permiten estructurar la información en filas (primera dimensión) y columnas para cada fila (segunda dimensión)
+- Alternativas:
+   - Arrays rectangulares (matrices o tablas)
+   - Arrays de arrays
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays rectangulares: definición
+
+- Definimos cuántas filas y columnas tiene el array, separadas por comas
+
+```csharp
+// Tabla de 5 filas y 10 columnas
+int[,] tabla = new int[5, 10];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays rectangulares: acceso
+
+- Accedemos a cada posición indicando su fila y columna, separadas por comas
+
+```csharp
+tabla[1, 3] = 12;
+Console.WriteLine(tabla[0, 4]);
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Arrays rectangulares: recorrido
+
+- Necesitamos un doble bucle anidado (el primero para las filas y el segundo para las columnas, o viceversa)
+- Usamos la instrucción **GetLength(n)** del array para obtener el tamaño de la dimensión *n*, y así saber cuándo parar
+   - **array.GetLength(0)** para las filas
+   - **array.GetLength(1)** para las columnas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays rectangulares: recorrido
+
+```csharp
+for (int i = 0; i < tabla.GetLength(0); i++)
+{
+    for (int j = 0; j < tabla.GetLength(1); j++)
+        Console.WriteLine(tabla[i, j] + " ");
+    Console.WriteLine();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_11.cs** que defina una tabla de 2 filas y 10 columnas de enteros, le pida al usuario que la rellene y luego le diga cuál es el valor mayor de cada fila
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Arrays de arrays: definición
+
+- Definimos cuántas filas vamos a crear en una pareja de corchetes
+- Para cada fila, indicamos qué tamaño va a tener en la segunda pareja de corchetes
+
+```csharp
+// Array de 3 filas de 2, 5 y 4 columnas respectivamente
+int[][] datos = new int[3][];
+datos[0] = new int[2];
+datos[1] = new int[5];
+datos[2] = new int[4];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays de arrays: definición
+
+<div align="center">
+    <img src="../../../img/04_array_arrays.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays de arrays: acceso
+
+- Colocamos en los primeros corchetes la fila que nos interesa, y en los segundos corchetes la columna dentro de esa fila
+
+```csharp
+datos[0][1] = 15;
+Console.WriteLine(datos[1][2]);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays de arrays: recorrido
+
+- Usamos un doble bucle anidado, y la propiedad **Length** para saber el tamaño de cada dimensión
+
+```csharp
+// datos.Length = número de filas
+for (int i = 0; i < datos.Length; i++)
+{
+    // datos[i].Length = columnas de la fila i
+    for (int j = 0; j < datos[i].Length; j++)
+        Console.Write(datos[i][j] + " ");
+    Console.WriteLine();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_04a_12.cs** que modifique el *Ejercicio_04a_11* para que el usuario indique el tamaño de cada una de las dos filas, y luego las rellene
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

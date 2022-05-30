@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software testing | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="10a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/10a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software testing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Software testing","url":"http://nachoiborraies.github.io/java/md/en/10a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="software-testing">Software testing</h1>
+
+<h2 id="unit-tests-in-java-using-junit">Unit tests in Java using JUnit</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/10a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="10a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Once the test cases have been designed, we start testing our application. In our case, we are going to use <strong>JUnit</strong>, a Java library for unit testing that also shows test reports that help us decide if we need to change the original code or not.</p>
+
+<h3 id="1-creating-the-test-folder">1. Creating the test folder</h3>
+
+<p>For instance, let’s create a new Java project called <code class="language-plaintext highlighter-rouge">PersonTest</code>. Then, create a new package called <code class="language-plaintext highlighter-rouge">person.types</code> and place this <code class="language-plaintext highlighter-rouge">Person</code> class in it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">person.types</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span>
+<span class="o">{</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="nc">String</span> <span class="n">idCard</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">name</span><span class="o">=</span><span class="s">""</span><span class="o">;</span>
+        <span class="n">idCard</span><span class="o">=</span><span class="s">""</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span><span class="nc">String</span> <span class="n">idCard</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">=</span><span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">idCard</span><span class="o">=</span><span class="n">idCard</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getIdCard</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">idCard</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setIdCard</span><span class="o">(</span><span class="nc">String</span> <span class="n">idCard</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">idCard</span> <span class="o">=</span> <span class="n">idCard</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="nc">Object</span> <span class="n">p</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">idCard</span><span class="o">.</span><span class="na">equals</span><span class="o">(((</span><span class="nc">Person</span><span class="o">)</span><span class="n">p</span><span class="o">).</span><span class="na">idCard</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">idCard</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, we are going to learn how to create a unit test associated to this class, and define some test cases. First of all, it is recommended to <strong>create an additional source folder to place all our tests in</strong>, so that we don’t mix them with the original source code. We can create a new directory called <code class="language-plaintext highlighter-rouge">tests</code> and right click on it, then we choose <em>Mark Directory as &gt; Test Sources Root</em>.</p>
+
+<div align="center">
+    <img src="../../img/10_IntelliJ_test_folder.png" alt="Create test folder in IntelliJ" width="70%" />
+</div>
+
+<p>From now on, every test that we create will be automatically placed inside this source folder, with the same package name than the class that is being tested.</p>
+
+<h3 id="2-creating-test-classes">2. Creating test classes</h3>
+
+<p>In order to create a new unit test over <code class="language-plaintext highlighter-rouge">Person</code> class, place the cursor in the class name to be tested (<code class="language-plaintext highlighter-rouge">Person</code>, in our case) and press <code class="language-plaintext highlighter-rouge">Alt</code> + <code class="language-plaintext highlighter-rouge">Enter</code>. In the context menu, choose <em>Create test</em>.</p>
+
+<div align="center">
+    <img src="../../img/10_JUnitIntelliJNew.png" alt="New JUnit test in IntelliJ" width="50%" />
+</div>
+
+<p>Then, a new dialog will appear to specify the contents of this unit test:</p>
+
+<div align="center">
+    <img src="../../img/10_JUnitIntelliJNew2.png" alt="New JUnit test in IntelliJ" width="50%" />
+</div>
+
+<p>In the dialog that will be shown, we can:</p>
+
+<ul>
+  <li>Specify JUnit version. We will use the last one, which is version 5, and it corresponds to <em>JUnit Jupiter</em>. If a message appears indicating that <em>JUnit 5 library not found in the module</em>, we can press the <em>Fix</em> button and automatically download and add the library to the project:</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/10_JUnit5Fix.png" alt="Fix JUnit 5 library problem in IntelliJ" width="50%" />
+</div>
+
+<ul>
+  <li>We can also change the test class name and/or package name for this test class (although it is not recommended, nor usual)</li>
+  <li>Finally, we can also choose which methods from the original class are going to be tested. We don’t need to check any method now if we don’t know which one(s) we need to test. We can add as many as we want later.</li>
+</ul>
+
+<p>So, for now, we leave the default options of this dialog and click on the <em>OK</em> button. A new class called <code class="language-plaintext highlighter-rouge">PersonTest</code> has been created in the <code class="language-plaintext highlighter-rouge">person.types</code> package inside the <code class="language-plaintext highlighter-rouge">tests</code> source folder.</p>
+
+<div align="center">
+    <img src="../../img/10_PersonTest.png" alt="New test class for Person" width="80%" />
+</div>
+
+<h3 id="3-adding-test-methods-to-the-test-class">3. Adding test methods to the test class</h3>
+
+<p>Now, let’s try to define a test method. For instance, let’s create a test method for the <code class="language-plaintext highlighter-rouge">getName</code> method of <code class="language-plaintext highlighter-rouge">Person</code> class. To do this, we go again to <code class="language-plaintext highlighter-rouge">Person</code> class name, press <code class="language-plaintext highlighter-rouge">Alt</code> + <code class="language-plaintext highlighter-rouge">Enter</code> keys, and then choose the method(s) that we want to add to the test:</p>
+
+<div align="center">
+    <img src="../../img/10_GenerateMissedTestMethods.png" alt="Generate missed test methods" width="50%" />
+</div>
+
+<p>IntelliJ will ask us to confirm that we want to update existing test class, then we can proceed. Any old content of this class will be preserved, and then new method(s) will be added.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">person.types</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">PersonTest</span> 
+<span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In order to test this method, we can, for instance, create a new <code class="language-plaintext highlighter-rouge">Person</code> object with a given name, and then check if this name is the one that we expect. For this checkings, we can use <code class="language-plaintext highlighter-rouge">assertXXXXX</code> methods that are available through static import of <code class="language-plaintext highlighter-rouge">org.junit.jupiter.api.Assertions</code> package:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">person.types</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">PersonTest</span>
+<span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"11223344A"</span><span class="o">);</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s explain this code more in depth:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Test</code> annotation indicates that the method above is a test. The method header has been automatically generated by JUnit.</li>
+  <li>In this test we create a <code class="language-plaintext highlighter-rouge">Person</code> object with the (second) constructor</li>
+  <li>Next, we check if <em>name</em> attribute is the one that we expect. We use <code class="language-plaintext highlighter-rouge">assertEquals</code> method with two arguments (expected result and actual result), to evaluate with the corresponding <em>getter</em> if the attribute has the expected value after creating the object. This method is in <code class="language-plaintext highlighter-rouge">org.junit.jupiter.api.Assertions</code> class in JUnit 5. There are also some other useful methods, such as <code class="language-plaintext highlighter-rouge">assertTrue</code>, <code class="language-plaintext highlighter-rouge">assertFalse</code> (we will see an example of these two methods later), <code class="language-plaintext highlighter-rouge">assertNull</code>, or <code class="language-plaintext highlighter-rouge">fail</code>, which can be used to automatically emit a failure according to some condition(s).</li>
+</ul>
+
+<p>We can add as many assertions as we want in a test method. For instance, we can also check if name is not null before checking if it is “James”:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"11223344A"</span><span class="o">);</span>
+        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="4-running-tests">4. Running tests</h3>
+
+<p>If we want to run this test class, we can right click on it in the left panel and choose <em>Run PersonTest</em>.</p>
+
+<div align="center">
+    <img src="../../img/10_IntelliJRunTest.png" alt="Run tests in IntelliJ" width="60%" />
+</div>
+
+<p>Then, we will see a JUnit panel with the results of every test contained in the test class:</p>
+
+<div align="center">
+    <img src="../../img/10_IntelliJRunTest2.png" alt="Run tests in IntelliJ" width="80%" />
+</div>
+
+<p>If every test has been successful, then we will get a green icon, otherwise we will see an error icon next to each test method that has failed.</p>
+
+<div align="center">
+    <img src="../../img/10_IntelliJRunTest3.png" alt="Run tests in IntelliJ" width="60%" />
+</div>
+
+<h3 id="5-initializations-and-closings">5. Initializations and closings.</h3>
+
+<p>If we need to have some previously initialized data before starting the tests, or some conditions previously established, we can use the annotation <code class="language-plaintext highlighter-rouge">@BeforeEach</code>. We can also use the annotation <code class="language-plaintext highlighter-rouge">@AfterEach</code> to close or free some resources after the tests have been performed.</p>
+
+<p>There is a method called <code class="language-plaintext highlighter-rouge">setUp</code> that is usually employed to initialize data for every test case before they are launched. So we can use the annotation <code class="language-plaintext highlighter-rouge">@BeforeEach</code> with this method to initialize some data. This method can be added from the test dialog in IntelliJ, when we add new test methods to the test class. For instance, we can initialize a shared <code class="language-plaintext highlighter-rouge">Person</code> object for all the test methods, and use it in every test method that we want. For instance, here we instantiate a <code class="language-plaintext highlighter-rouge">Person</code> object in the <code class="language-plaintext highlighter-rouge">setUp</code> method, and use it in the <code class="language-plaintext highlighter-rouge">getName</code> test method and also in the <code class="language-plaintext highlighter-rouge">equals</code> test method (we consider that two <code class="language-plaintext highlighter-rouge">Person</code> objects are the same if they have the same ID card):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PersonTest</span>
+<span class="o">{</span>
+    <span class="nc">Person</span> <span class="n">person</span><span class="o">;</span>
+
+    <span class="nd">@BeforeEach</span>
+    <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"11223344A"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">testEquals</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">testPerson</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Test2"</span><span class="o">,</span><span class="s">"1111112K"</span><span class="o">);</span>
+        <span class="n">testPerson</span><span class="o">.</span><span class="na">setIdCard</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">getIdCard</span><span class="o">());</span>
+        <span class="n">assertTrue</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">testPerson</span><span class="o">));</span>
+        <span class="n">testPerson</span><span class="o">.</span><span class="na">setIdCard</span><span class="o">(</span><span class="s">"222222"</span><span class="o">);</span>
+        <span class="n">assertFalse</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">testPerson</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There are also some other common methods that can be used, such as <code class="language-plaintext highlighter-rouge">tearDown</code> along with <code class="language-plaintext highlighter-rouge">@AfterEach</code> annotation to free resources for every test after their execution. Again, this method can be added from the test class dialog in IntelliJ.</p>
+
+<h3 id="6-checking-code-coverage">6. Checking code coverage</h3>
+
+<p>We have checked two methods so far, and we have added some different kinds of <em>asserts</em> in each one to determine if they work properly or not with different inputs. But IntelliJ can also show how much of the original code has been tested. This feature is called <strong>code coverage</strong>, and we can get to it by right clicking on the test source file and choosing <em>Run XXXXX with Coverage</em>, being XXXXX the class name.</p>
+
+<div align="center">
+    <img src="../../img/10_RunWithCoverage.png" alt="Run tests with coverage in IntelliJ" width="60%" />
+</div>
+
+<p>Then, a new panel with some stats will appear:</p>
+
+<div align="center">
+    <img src="../../img/10_RunWithCoverage2.png" alt="Run tests with coverage in IntelliJ" width="50%" />
+</div>
+
+<p>According to these stats, our test covers 62% of <code class="language-plaintext highlighter-rouge">Person</code> class. If we edit this class, we can see green, vertical bars in the left margin for lines of code that are being executed, and red, vertical bars for the lines of code that no test is exploring yet.</p>
+
+<div align="center">
+    <img src="../../img/10_RunWithCoverage3.png" alt="Run tests with coverage in IntelliJ" width="60%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Implement the tests for every method of Exercise 4 of <a href="https://nachoiborraies.github.io/entornos/md/en/06b">this document</a>. Use a project called <code class="language-plaintext highlighter-rouge">SalesList</code> for this purpose, with separate source folders for the original code and the classes.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a new project called <code class="language-plaintext highlighter-rouge">Access</code>. Implement a class called <em>Access</em> with a method called  <em>validUser(String user,String pass)</em> that returns <em>true</em> if user is valid and <em>false</em> if it is not. In order for a user to be valid, it must meet the following conditions:</p>
+
+  <ul>
+    <li><em>user</em> parameter must start with a letter.</li>
+    <li><em>user</em> parameter must have a length between 7 and 10 characters.</li>
+    <li>Password must have a minimum length of 10 characters, and it must have at least one letter and one number.</li>
+  </ul>
+
+  <p>Design the test cases using the technique of the equivalent partition, and then implement these test cases with JUnit.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Add a new method to the <em>Access</em> class: <em>boolean register(String user, String pass)</em> that will register the user. The registration will consist in adding the user to a map. There will be a maximum of 10 allowed users in the map, so that if we exceed this limit, the method will return <em>false</em>. If the registration is correct, it will return <em>true</em>. Also, if a user with the existing name already exists in the map, it will return <em>false</em>. You are also asked to implement the tests in JUnit.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

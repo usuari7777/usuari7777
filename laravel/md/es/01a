@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Frameworks PHP | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Frameworks PHP" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/01a.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Frameworks PHP" />
+<script type="application/ld+json">
+{"headline":"Frameworks PHP","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/01a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="frameworks-php">Frameworks PHP</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/01a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="01a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Un <strong>framework</strong> es una herramienta que proporciona una serie de módulos que ayudan a organizar y desarrollar un producto software. En el caso concreto de los frameworks PHP, la mayoría de ellos proporcionan una serie de comandos o herramientas para crear proyectos con una estructura determinada (normalmente, siguiendo el patrón MVC que veremos después), de forma que ya dan una base de trabajo hecha, y facilidades para poder crear el modelo de datos, la conexión a la base de datos, las rutas de las diferentes secciones de la aplicación, etc.</p>
+
+<h2 id="1-ejemplos-de-frameworks-php">1. Ejemplos de frameworks PHP</h2>
+
+<p>Actualmente existe una gran variedad de frameworks PHP que elegir para desarrollar nuestras aplicaciones. Algunos de los más populares son:</p>
+
+<ul>
+  <li><strong>Laravel</strong>, un framework relativamente reciente (fue creado en 2011), y que ha ganado bastante popularidad en los últimos años. Su filosofía es el poder desarrollar proyectos de forma elegante y simple. Cuenta con una amplia comunidad de soporte detrás, y se le augura un futuro bastante consolidado.</li>
+  <li><strong>Symfony</strong>, creado en 2005, cuenta con más camino hecho que Laravel, y una estructura más consolidada. En sus primeras versiones se presentaba como un framework más monolítico (se instalaban demasiados módulos que luego no necesitábamos), pero recientemente ha adaptado su estructura para hacerla más modular. De hecho, podríamos considerar Symfony como un <em>metaframework</em>, es decir, un framework que, a su vez, sirve para desarrollar otros frameworks. Prueba de ello es que, por ejemplo, Laravel utiliza Symfony como base para ampliar esas funcionalidades.</li>
+  <li><strong>CodeIgniter</strong>, un framework más ligero que los anteriores, pero también con un amplio grupo de seguidores y desarrolladores. Fue creado en 2006 y, aunque ha sufrido una etapa de abandono, ha vuelto a coger fuerza en los últimos años, quizá debido a su simplicidad de uso.</li>
+  <li><strong>CakePHP</strong>, creado en 2005, es otro framework similar a CodeIgniter en cuanto a simplicidad y facilidad de uso, aunque con menor popularidad.</li>
+  <li><strong>Zend</strong>, creado en 2006, es otro framework bastante popular, aunque quizá con menor visibilidad que los anteriores hoy en día, a la altura de CakePHP.</li>
+  <li><strong>Phalcon</strong>, otro framework de reciente creación (2012), con una potente capacidad de procesamiento de páginas PHP, y la posibilidad de trabajar como microframework (más ligero, para ofrecer funcionalidades muy específicas) o como framework completo. De hecho, muchos frameworks más antiguos también han incorporado recientemente la posibilidad de ejecutarlos como microframeworks.</li>
+  <li>… etc.</li>
+</ul>
+
+<p>Casi todos los frameworks PHP tienen una serie de características comunes, como son el uso del patrón MVC para desarrollar sus proyectos, la inyección de dependencias para gestionar recursos tales como conexiones a bases de datos, o elementos compartidos por toda la aplicación, la posibilidad de desarrollar tanto webs completas como servicios REST accesibles desde diversos clientes, etc.</p>
+
+<h2 id="2-cuál-elegir">2. ¿Cuál elegir?</h2>
+
+<p>A la hora de decantarnos por uno u otro framework, no nos deberíamos dejar engañar por la popularidad del mismo, en términos de cuota de mercado. En ese terreno, Symfony y Laravel probablemente sean los más beneficiados, pero la curva de aprendizaje en ellos puede que sea más pronunciada que en otros a priori más sencillos, como CodeIgniter o CakePHP.</p>
+
+<p>Cada framework puede estar mejor orientado que otro para determinados tipos de proyectos o necesidades. Si queremos aprender algo rápido para lanzar la aplicación cuanto antes mejor, quizá Symfony no sea la mejor opción. Si, por el contrario, preferimos empaparnos de un framework con una comunidad importante detrás que nos pueda dar soporte y nos garantice un tiempo de vida largo, entonces Symfony o Laravel pueden ser mejores candidatos.</p>
+
+<p>Llegados a este punto… ¿qué características debemos mirar a la hora de decantarnos por uno u otro framework? Quizá algunas de las más importantes (y no necesariamente excluyentes entre sí) son:</p>
+
+<p><strong>Popularidad</strong></p>
+
+<p>La popularidad la podemos medir en base a diferentes webs estadísticas. Por ejemplo, si comparamos las búsquedas en <em>Google Trends</em> de los principales frameworks PHP, podemos determinar cuáles son los más buscados a nivel mundial:</p>
+
+<div align="center">
+    <img src="../../img/01_google_trends.png" width="70%" />
+</div>
+
+<p><strong>Demanda laboral</strong></p>
+
+<p>Otro factor determinante para elegir un framework de desarrollo es la demanda laboral que tiene, las puertas que se nos pueden abrir al aprenderlo. Por ejemplo, si hacemos una búsqueda en el portal español de búsqueda de empleo <em>InfoJobs</em> de algunos frameworks PHP, a fecha de <em>Agosto de 2021</em>, obtenemos estos datos aproximados:</p>
+
+<div align="center">
+    <table width="50%">
+        <tr>
+            <th>Framework</th>
+            <th>Ofertas encontradas</th>
+        </tr>
+        <tr>
+            <td>Laravel</td>
+            <td align="center">90</td>
+        </tr>
+        <tr>
+            <td>Symfony</td>
+            <td align="center">80</td>
+        </tr>
+        <tr>
+            <td>CodeIgniter</td>
+            <td align="center">20</td>
+        </tr>
+        <tr>
+            <td>Zend</td>
+            <td align="center">15</td>
+        </tr>
+        <tr>
+            <td>CakePHP</td>
+            <td align="center">5</td>
+        </tr>
+    </table>
+</div>
+
+<p><strong>Facilidad de aprendizaje</strong></p>
+
+<p>Es otro factor importante a tener en cuenta, especialmente cuando el tiempo de que disponemos para realizar el proyecto es escaso. En este sentido, frameworks como Symfony o Laravel suelen ser más “pesados de digerir”, precisamente por su envergadura y la cantidad de opciones que ofrecen, mientras que otros más livianos como CodeIgniter o Zend son más fácilmente asimilables.</p>
+
+<p><strong>Soporte y documentación</strong></p>
+
+<p>Es importante analizar la documentación y la comunidad de desarrollo y soporte que hay detrás de cada framework, para saber si vamos a poder resolver dudas sobre su uso con facilidad. Por ejemplo, Laravel y Symfony, que son dos de los frameworks más difundidos, cuentan con una gran comunidad detrás (especialmente Laravel), y una documentación muy completa y actualizada.</p>
+
+<ul>
+  <li><a href="https://laravel.com/docs">Documentación de Laravel</a></li>
+  <li><a href="https://symfony.com/doc/current/index.html">Documentación de Symfony</a></li>
+</ul>
+
+<p><strong>Extensiones o <em>plug-ins</em></strong></p>
+
+<p>También puede resultar un dato relevante el conocer la capacidad de ampliación de un framework, qué otras funcionalidades adicionales se le pueden incluir en caso necesario. Muchos de los frameworks PHP pueden hacer uso de la herramienta <em>composer</em> que veremos en otras secciones para instalar dependencias o módulos externos, y enriquecer así la funcionalidad de la aplicación.</p>
+
+<p>En el caso de algunos frameworks, ya vienen con ciertas funcionalidades o extensiones incorporadas que suponen un valor añadido. Por ejemplo, Laravel incorpora un motor de plantillas llamado Blade para desarrollar fácilmente vistas HTML, así como un ORM llamado Eloquent para trabajar con bases de datos relacionales como si fueran objetos. Symfony también hace lo propio con el motor de plantillas Twig y el ORM Doctrine, respectivamente.</p>
+
+<p>En realidad, una vez se conoce uno de estos frameworks, es más sencillo asimilar el resto, llegado el momento. Así que cualquiera de ellos, con unos motivos que se ajusten a nuestras necesidades, puede ser un buen punto de partida.</p>
+
+<h2 id="3-el-patrón-mvc">3. El patrón MVC</h2>
+
+<p>Como hemos comentado anteriormente, la gran mayoría de frameworks PHP se apoyan en el patrón MVC. MVC son las siglas de <em>Modelo-Vista-Controlador</em> (o en inglés, <em>Model-View-Controller</em>), y es el patrón por excelencia ahora mismo en el mundo de las aplicaciones web, e incluso muchas aplicaciones de escritorio.</p>
+
+<p>Como su nombre indica, este patrón se basa en dividir el diseño de una aplicación web en tres componentes fundamentales:</p>
+
+<ul>
+  <li>El <strong>modelo</strong>, que podríamos resumir como el conjunto de todos los datos o información que maneja la aplicación. Típicamente serán variables u objetos extraídos de una base de datos o cualquier otro sistema de almacenamiento, por lo que el código del modelo normalmente estará formado por clases o elementos donde almacenar los datos que extraigamos o vayamos a almacenar en esa base de datos. Generalmente, el modelo no tendrá conocimiento del resto de componentes del sistema.</li>
+  <li>La <strong>vista</strong>, que es el intermediario entre la aplicación y el usuario, es decir, lo que el usuario ve en pantalla de la aplicación. Por lo tanto, la vista la compondrán las diferentes páginas, formularios, etc, que la aplicación mostrará al usuario para interactuar con él.</li>
+  <li>El <strong>controlador</strong> (o controladores), que son los fragmentos de código encargados de coordinar el funcionamiento general de la aplicación. Ante peticiones de los usuarios, las recogen, las identifican, y utilizan el modelo para actualizar o recuperar datos, y a su vez, deciden qué vista mostrarle al usuario a continuación de la acción que acaba de realizar.</li>
+</ul>
+
+<p>Es un patrón de diseño muy conciso y bien estructurado, lo que le ha valido la fama que tiene hoy en día. Entre sus muchas ventajas, permite aislar los tres elementos involucrados (vista, modelo y controlador), de forma que el trabajo es mucho más modular y divisible, pudiendo encargarse de las vistas, por ejemplo, un diseñador web que no tenga mucha idea de programación en el servidor, y del controlador un programador PHP que no tenga muchas nociones de HTML.</p>
+
+<p>En forma de esquema, podríamos representarlo así:</p>
+
+<div align="center">
+    <img src="../../img/01_mvc.png" alt="Modelo Vista Controlador" width="80%" />
+</div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

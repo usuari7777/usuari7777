@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Programs, languages and compilers | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Programs, languages and compilers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/01c.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Programs, languages and compilers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Programs, languages and compilers","url":"http://nachoiborraies.github.io/entornos/md/en/01c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="programs-languages-and-compilers">Programs, languages and compilers</h1>
+
+<h2 id="first-steps-with-c-and-c">First steps with C and C++</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-c-programming-language">1. C programming language</h3>
+
+<p>If we have to define in a few words what C language is, maybe the most suitable definition would be <em>the language</em>, because most of current languages are based on it. In fact, C language is an evolution of an older language, called B, but it was not so popular.</p>
+
+<p>Before C language arrived, programmers used some kind of physical devices to implement their programs, such as perforated cards, or in the best case, some assembly, low level language, hard to understand, write and maintain.</p>
+
+<p>Therefore, we can figure out that the arrival of C language in the beginning of the 70s was a complete success. Despite being a language with high level structures, it also has some low level features, such as direct memory control through pointers.</p>
+
+<p>Nowadays, C language is not very popular when building applications, but it is still used for developing operating systems, libraries and some tools such as compilers for other languages. It is very appreciated because of the efficiency of its code.</p>
+
+<h3 id="2-c-programming-language">2. C++ programming language</h3>
+
+<p>Next evolution step after C language was C++, at the end of the 70s. It extended C language to let us work with classes and objects. So C++ is a hybrid language (it lets us use either traditional, structured programming and object oriented programming).</p>
+
+<p>Currently, its main area of application is the video game world. We can develop either game engines, such as Unreal Engine, or video games with some libraries, such as Unreal, Cocos2D, SDL… As C++ is an extension of C language, it still lets us control some low level features (such as direct communication with graphical devices), and it has lots of available libraries to make the programmer’s task much more comfortable.</p>
+
+<h3 id="3-installing-c-and-c">3. Installing C and C++</h3>
+
+<p>C and C++ are compiled languages, so we need to install a compiler to work with them. Let’s try with a compiler called <em>gcc</em>. In case of Linux distributions, this compiler is installed by default, and in Mac OSX systems you can also have it by installing XCode. Regarding Windows, you can get it by installing <em>MinGW</em> package, that can be downloaded from <a href="https://sourceforge.net/projects/mingw/">this website</a>. In the installer, you must choose the C/C++ compiler (<em>mingw32-gcc-g++</em>) and the base (<em>mingw32-base</em>).</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema01-01-mingw.png" alt="MinGW installation" width="90%" />
+</div>
+
+<p>Once MinGW has been installed, we need to add the <code class="language-plaintext highlighter-rouge">bin</code> installation subfolder to the <code class="language-plaintext highlighter-rouge">PATH</code> environment variable, as we did before with JDK. In this case, we need to add <code class="language-plaintext highlighter-rouge">C:\MinGW\bin</code> folder to this variable, right as we did before for Java compiler.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema01-01-mingw_2.png" alt="MinGW installation" width="70%" />
+</div>
+
+<p>After doing this, if we type <code class="language-plaintext highlighter-rouge">gcc</code> command in the terminal, we should see something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc: fatal error: no input files
+</code></pre></div></div>
+
+<p>It is an error message that indicates that we haven’t specified any input file to the compiler, but the message itself shows that the compiler has been succesfully located.</p>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a source file called <code class="language-plaintext highlighter-rouge">test.c</code> in your working folder, and type this code for a program that prints “Hello” in the screen:</p>
+</blockquote>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Compile it using this instruction from the terminal:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gcc -o test test.c
+</code></pre></div></div>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">-o</code> parameter sets the name of the executable (<em>test</em> in this case). After this, a new executable called <em>test</em> (or <em>test.exe</em> in Windows) will have been created in our working folder. We can run just by typing <code class="language-plaintext highlighter-rouge">test</code> from our working folder. We should also see the “Hello” message in the terminal.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

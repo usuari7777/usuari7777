@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic elements of a Java program | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic elements of a Java program" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="01e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/01e.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic elements of a Java program" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic elements of a Java program","url":"http://nachoiborraies.github.io/java/md/en/01e.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="basic-elements-of-a-java-program">Basic elements of a Java program</h1>
+
+<h2 id="writing-clean-code">Writing clean code</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-introduction-to-clean-code">1. Introduction to clean code</h3>
+
+<p>When we are writing a program, we should not only think about what the program needs to do. We should also ask some other questions to ourselves, such as:</p>
+
+<ul>
+  <li>What if I have to take this project back in two years? Will I understand the code?</li>
+  <li>What if anyone else has to take this project in the future? Will he/she understand the code?</li>
+</ul>
+
+<p>After these questions, you should think of a way to write your code so that it will be easy to read and understand. This is where clean code rules come into play.</p>
+
+<h4 id="11-what-is-clean-code">1.1. What is clean code?</h4>
+
+<p>You can find many examples and good explanations to this question in the book <em>Clean Code</em>, by Robert C. Martin. Here we just summarize some of these ideas:</p>
+
+<ul>
+  <li>Code must be elegant and easy to read, simple and direct. <em>Clean code reads like well-written prose</em> (Grady Booch).</li>
+  <li>Logic should be straightforward to make it hard for bugs to hide.</li>
+  <li>Performance should be close to optimal so as not to tempt people to make further changes.</li>
+  <li>Keep in mind the Boy Scout rule: <em>Leave the campground cleaner than you found it</em></li>
+</ul>
+
+<h4 id="12-the-importance-of-practice">1.2. The importance of practice</h4>
+
+<p>Writing clean code not only consists in reading documents like this one to keep in mind some rules. It also consists in putting into practice these rules continuously. For instance, you can read how to ride a bike, but you won’t learn how to do it until you practice.</p>
+
+<p>Besides, if we don’t start writing clean code from the beginning of a project, there may be some terrible consequences later: projects can grow too much, and then it may be hard to apply clean code rules to the whole code: the time we spend fixing the code in the future may affect deadlines, maintenance, future versions…</p>
+
+<h4 id="13-why-bad-code-exists">1.3. Why bad code exists?</h4>
+
+<p>Although everyone should apply clean code rules in their programs, and we can easily see the benefits of working this way, there are many reasons why bad code exists:</p>
+
+<ul>
+  <li>Too tight schedules</li>
+  <li>Unexperienced project managers</li>
+  <li>Programmer’s docility (he/she doesn’t want to get fired)</li>
+  <li>Boredom (always doing the same kind of projects)</li>
+  <li>…</li>
+</ul>
+
+<h4 id="14-whats-coming-next">1.4. What’s coming next?</h4>
+
+<p>In this document we are going to focus on some basic aspects of clean code rules, such as how to assign variable names and how to place comments in our code.</p>
+
+<h3 id="2-dealing-with-variable-names">2. Dealing with variable names</h3>
+
+<p>Names are essential in programming, since we will assign a name to (almost) everything we include in our program. At this point you should already know what a variable is and its main purpose (store values that can be modified along the program execution). But you should not assign a variable name carelessly. You should use <strong>meaningful names</strong> for your variables.</p>
+
+<p>When reading the name of a variable (or any other element in the code), it must answer some basic questions, such as why it exists, what it does and how it is used. If a name requires a comment to explain its meaning, then it is not a suitable name. For instance, if we want to store in a variable the age average of a list of people, we should NOT do this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="o">;</span>			<span class="c1">// Age average</span>
+</code></pre></div></div>
+
+<p>We could do this instead:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">ageAverage</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Some other aspects that we should take into account when dealing with variable names:</p>
+
+<ul>
+  <li>Try not to use too similar names. Variables like <code class="language-plaintext highlighter-rouge">totalRegisteredUsers</code> and <code class="language-plaintext highlighter-rouge">totalUnregisteredUsers</code> only differ in two letters, and you could use the wrong one in a given piece of code. It’s better to call them <code class="language-plaintext highlighter-rouge">registered</code> and <code class="language-plaintext highlighter-rouge">anonymous</code>.</li>
+  <li>Add <strong>meaningful context</strong> when it’s necessary. For instance, if a variable is named <code class="language-plaintext highlighter-rouge">account</code>, what does it mean? A user account? a bank account? It’s better to be more specific, and call it <code class="language-plaintext highlighter-rouge">bankAccount</code>, for instance</li>
+  <li>Choose <strong>one word per concept</strong>: if you declare many variables in many parts of your code to refer to a user login, you should always call them in the same way: <code class="language-plaintext highlighter-rouge">user</code>, or <code class="language-plaintext highlighter-rouge">login</code>, for instance, but don’t change the name in each situation.</li>
+  <li>Don’t use short names, such as <code class="language-plaintext highlighter-rouge">n</code>, or <code class="language-plaintext highlighter-rouge">e</code>, because it will be difficult to find your variable among other similar words in the text.</li>
+  <li>Try to use readable names. It’s better to use a name like <code class="language-plaintext highlighter-rouge">birthDate</code> than <code class="language-plaintext highlighter-rouge">ddmmyyyy</code>, because you can pronounce this name in a conversation.</li>
+</ul>
+
+<h4 id="21-uppercase-or-lowercase">2.1. Uppercase or lowercase?</h4>
+
+<p>The use of uppercase and lowercase letters in names depend on the programming language itself. There are mainly four naming standards:</p>
+
+<ul>
+  <li><strong>Camel Case</strong>: it is used in languages such as Java or Javascript. Every word in the variable name starts with upper case, apart from the first word. For instance:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">personName</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>There is a subset of camel case standard, called <strong>Pascal Case</strong> in which the first word of the name also starts with uppercase. This subset is employed by C# to define public elements (private elements are named using camel case). For instance:</li>
+</ul>
+
+<pre><code class="language-CSharp">string personName;
+public int PersonAge;
+</code></pre>
+
+<ul>
+  <li><strong>Snake Case</strong>: it is used in languages such as PHP. Variable words are separated by underscores:</li>
+</ul>
+
+<pre><code class="language-PHP">$person_name = "Nacho";
+</code></pre>
+
+<ul>
+  <li><strong>Kebab Case</strong>: variable words are separated by hyphens. It is not very popular among programming languages, since many of them don’t allow the hyphen as part of the variable name (so as not to mix it up with the substraction operator). There are some few examples, such as Lisp or Clojure.</li>
+</ul>
+
+<pre><code class="language-Clojure">(def person-name "Nacho")
+</code></pre>
+
+<ul>
+  <li><strong>Upper case</strong>: it is used in many languages to define constants. The words of the name are usually separated by underscores, as in snake case standard:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MAXIMUM_SIZE</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h3 id="3-placing-comments">3. Placing comments</h3>
+
+<p>Well-placed comments help us understand the code around them, whereas misplaced comments can damage the understanding of the code. Some programmers think that comments are failures, and should be avoided as much as possible. One of the reasons argued is that they are hard to maintain. If we change the code after writing a comment, we may forget to update the comment, and thus it would talk about something that is no longer present in the code.</p>
+
+<p>Another reason to avoid comments is that they are tightly linked to bad code. When we write bad code, we often think that we can write some comments to make it understandable, instead of cleaning the code itself.</p>
+
+<p>In this section we will learn where to put comments. Firstly, we will see what type of comments are necessary (what we call <em>good comments</em>), and then we will see what comments are avoidable (<em>bad comments</em>).</p>
+
+<h4 id="31-good-comments">3.1. Good comments</h4>
+
+<p>The following comments are considered necessary:</p>
+
+<ul>
+  <li><strong>Legal comments</strong>, such as copyright or authorship, according to the company standards. This type of comments are normally placed at the beginning of each source file that belongs to the author or company.</li>
+  <li><strong>Introduction comments</strong>, a short comment at the beginning of each source file (typically classes) that explains the main purpose of this source file or class. This comment is usually placed along with a legal comment at the beginning of a source file:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ This class stores information about a user account
+ 
+ Created by Nacho Iborra
+ */</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Explanation of intent</strong>. These comments are used when:
+    <ul>
+      <li>We tried to get a better solution to the problem but we could not, and then we explain that a part of the code could be improvable.</li>
+      <li>There is a part of the code that does not follow the same pattern than the code around it (for instance, an integer variable among a bunch of floats), and we want to explain why we have used this instruction or data type.</li>
+    </ul>
+  </li>
+  <li><strong>TODO comments</strong>, which are placed in incomplete parts. They help us remember all the pending tasks. This type of comments have become so popular that a lot of IDEs automatically detect and highlight them.</li>
+  <li><strong>API documentation</strong>. Some programming languages, such as Java or C#, let us add some comments in some parts of the code so that these comments are exported to HTML or XML format, and become part of the documentation.</li>
+</ul>
+
+<h4 id="32-bad-comments">3.2. Bad comments</h4>
+
+<p>The following are examples of bad comments that we can avoid…</p>
+
+<p>Some type of <strong>information comments</strong> can be avoided by changing the name of the element that they are explaining. For instance, if we have this comment with this variable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Total number of customers</span>
+<span class="kt">int</span> <span class="n">total</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can avoid the comment by renaming the variable this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">totalCustomers</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p><strong>Redundant comments</strong>, i.e. comments that are longer to read than the code they are trying to explain, or they are just unnecessary, because the code is self-explanatory. For instance, the following comment is redundant, since the code it is explaining is quite understandable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* We ask the user two numbers and add them */</span>
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Enter two numbers"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">number1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">number2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number1</span> <span class="o">+</span> <span class="n">number2</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><strong>Comments without context</strong>, i.e. comments that are not followed by the corresponding code. For instance, the following comment is not completed with appropriate code. We say we are writing data into a file, but nothing is executed after that. Maybe there was some piece of code, but it was removed.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* We ask the user two numbers and add them */</span>
+<span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Enter two numbers"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">number1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">number2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number1</span> <span class="o">+</span> <span class="n">number2</span><span class="o">);</span>
+<span class="c1">// We print the result in a text file</span>
+
+</code></pre></div></div>
+
+<p>There should be no <strong>mandated comments</strong>. Some people think that every variable, for instance, must have a comment explaining its purpose. But that is not a good decision, since we can avoid most of these comments by using appropriate variable names.</p>
+
+<p>Also, there should be no <strong>journal comments</strong>: sometimes an edit registry is placed at the beginning of a source file. It contains all the changes made to the code, including the date and the reason of the change. But nowadays, we can use version control applications, such as GitHub, to keep this registry out of the code itself.</p>
+
+<p>Some time ago, some programmers used to place some <strong>position markers and/or code dividers</strong>,  to quickly find a place in the code, or to separate some code blocks that are quite long. Both types of comments are not recommended if code is properly formatted.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// =================== VARIABLES ====================</span>
+<span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="c1">// =================== MAIN =========================</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="c1">////// FINAL RESULT</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Closing brace comments</strong> are also not recommended. They are placed at every closing brace to explain which element is this brace closing. These comments can be avoided, since most of current IDEs highlight each pair of braces when we click on them, so that we can match each pair automatically.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span> <span class="c1">// end main</span>
+</code></pre></div></div>
+
+<p><strong>Warnings</strong> are used when we have some code that may cause problems in certain situations, because it needs to be reviewed. It is very usual to find some code blocks completely commented, and a warning message explaining the problem with it. These comments should be turned into “TODO” comments, in order to warn the programmer that this code needs to be reviewed in the future, instead of just removing the comments.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>This program asks the user to introduce three numbers and gets the average of them. Discuss in class which parts of the code are not clean or could be improved, regarding variable names and comments.</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AverageNumbers</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="c1">// Variables to store the three numbers and the average</span>
+        <span class="kt">int</span> <span class="n">n1</span><span class="o">,</span> <span class="n">n2</span><span class="o">,</span> <span class="n">n3</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="nc">Result</span><span class="o">;</span>
+        <span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+        <span class="c1">// We ask the user to enter three numbers</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Introduce three numbers:"</span><span class="o">);</span>
+        <span class="n">n1</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="n">n2</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="n">n3</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+        <span class="c1">// The result is the average of these numbers</span>
+        <span class="cm">/* We could have used a float number instead, 
+            but we decided to keep this program as 
+            simple as we could */</span>
+        <span class="nc">Result</span> <span class="o">=</span> <span class="o">(</span><span class="n">n1</span><span class="o">+</span><span class="n">n2</span><span class="o">+</span><span class="n">n3</span><span class="o">)/</span><span class="mi">3</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The average is "</span> <span class="o">+</span> <span class="nc">Result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

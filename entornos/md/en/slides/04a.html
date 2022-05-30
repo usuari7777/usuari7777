@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software analysis and design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software analysis and design
+### Requirements specification
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Origin of a software project
+
+- The company itself (internal development): the company becomes its own customer
+   - Viability may be hard to determine (is it really worth it?)
+- An external entity: the company acts as a software provider
+   - Viability can be easier to determine or adjust
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Project manager
+
+- Experienced person in charge of coordinating the development process
+- He/She should take part in the decision of starting the project or not
+- Tasks:
+   - Identify possible risk areas
+   - Set budgets, calendar and task assignments
+   - Support and provide communication among team members
+   - ...
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Gathering requirements
+
+- Communication with customer is an essential part of the decision-making process
+- Drawbacks:
+   - Developers don't know what customer exactly wants
+   - Customer doesn't know what type of information is relevant for developers
+- Solutions:
+   - Identify relevant sources of information
+   - Ask the appropriate questions
+   - Check answers with customer
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Techniques for gathering information
+
+- Interviews
+- Joint Application Development (JAD)
+- Observation of how company works
+- Documentation study (of the official documents of the company)
+- Questionnaires (useful to gather information from remote people)
+- Brainstorming
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Interviews
+
+- Not just asking questions, it needs to be structured/guided 
+- Stages:
+   - Preparation (get information about product and company)
+   - Introduction
+   - Development
+   - Ending
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Joint Application Development
+
+- Meetings or workshops of 2-4 days length between customer and development team 
+- Customer gets involved in the product development
+- Hard to fit with customer's schedule
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Determine if the following assertions are true or false
+
+- Interviews are the most suitable way of getting information for a software project, in general
+- JAD is a quick way of specifying the requirements of an application in projects where several departments of the customer company are involved
+- Questionnaires are useful when we try to gather information from the customer and the components are far from each other geographically
+- Only with the observation of the company or the study of its documentation we can get a SRS very accurate.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## System Requirements Specification (SRS)
+
+- Document that describes as much as possible what the software product is going to do
+- Made from the information gathered from previous techniques
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Requirement
+
+- A condition that the customer needs in order to solve a problem or reach a target
+- E.g: quickness in an investment application
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Requirement types
+
+- **System**: physical components and additional software needed 
+- **Functional**: what the system is expected to do (user log in, print reports...)
+- **Non-functional**: determine how well the system meets the functional requirements (security, efficiency, ease of use...)
+   - If they are not good, application still works as expected
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do exercises 2 to 4 of the contents of this section.
+
+</script>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

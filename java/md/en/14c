@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Concurrent programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Concurrent programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/14c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/14c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Concurrent programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Concurrent programming","url":"http://nachoiborraies.github.io/java/md/en/14c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="concurrent-programming">Concurrent programming</h1>
+
+<h2 id="basic-thread-management">Basic thread management</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/14c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/14c.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>When talking about Java, we must take into account that everything is a thread, even the main application, and everything generated from this application is a thread, so the most important element of concurrent programming in Java are <strong>threads</strong>. As we have seen in previous sections, a thread is some kind of subprocess or subtask whose context is shared partially with the rest of threads of the same application. To be more precise, every thread of the same application have the same memory space, so they all share the same data.</p>
+
+<p>We can do more or less the same type of operations with threads and processes: create them, synchronize them, destroy them… But you will notice in a few minutes that the “thread world” offers a wide range of possibilities that you can’t find for processes. That is because your Java main application is a thread already, and Java is therefore focused on threads.</p>
+
+<h3 id="1-thread-states">1. Thread states</h3>
+
+<p>Processes and threads go through the same states along their life period, as we have explained before <a href="14a">here</a>. But, in addition to those states, we could add a few more to that list, regarding Java threads:</p>
+
+<ul>
+  <li><strong>Asleep</strong>: the thread has fallen asleep due to a call to the <code class="language-plaintext highlighter-rouge">sleep</code> method that we will see later. As soon as the sleep time expires, it will come back to the <em>Ready</em> state.</li>
+  <li><strong>Waiting</strong>: the thread is waiting for other thread to reactivate it. It happens when threads are fighting for limited resources, and the one who gets them is in charge of notifying the others when it has finished. We will also see this feature in other documents in this unit.</li>
+</ul>
+
+<p>A thread can get to these states from a <em>Running</em> state (only when it is running it can be asked to sleep or wait), and when it wakes up, it goes to the <em>Ready</em> state until it runs again. So with these new states, our schema for Java thread states would be like this:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/14_statesChanges.png" width="70%" />
+</div>
+
+<p>There are some other states that have been deprecated, such as <em>suspended</em> (in earlier versions of Java we could pause and resume <em>Threads</em> from anywhere, and it was potentially dangerous to data and application integrity) or <em>stopped</em> (a way of forcing a thread to finish, that was also potentially dangerous).</p>
+
+<h3 id="2-basic-thread-handling-creating-and-launching-threads">2. Basic thread handling. Creating and launching threads</h3>
+
+<h4 id="21-defining-a-thread">2.1. Defining a thread</h4>
+
+<p>If we want to define a thread, we have some ways to do it:</p>
+
+<ul>
+  <li>Inheriting from <code class="language-plaintext highlighter-rouge">Thread</code> class</li>
+  <li>Implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface</li>
+</ul>
+
+<p><strong>Inheriting from <em>Thread</em> class</strong></p>
+
+<p>There is a class in Java called <code class="language-plaintext highlighter-rouge">Thread</code>, that can be used for creating threads by <em>inheriting</em> from it, and implement (override) its <code class="language-plaintext highlighter-rouge">run</code> method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="nc">Thread</span>
+<span class="o">{</span>
+    <span class="o">...</span> <span class="c1">// Attributes, constructors and methods of our class</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="c1">// Code to be executed by the thread</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Implementing <em>Runnable</em> interface</strong></p>
+
+<p>We can also create a class that implements <code class="language-plaintext highlighter-rouge">Runnable</code> interface and implements its run method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyOtherThread</span> <span class="kd">implements</span> <span class="nc">Runnable</span>
+<span class="o">{</span>
+    <span class="o">...</span> <span class="c1">// Attributes, constructors and methods of our class</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="c1">// Code to be executed by the thread</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this last case, we can also use an anonymous class or a lambda expression to define the <code class="language-plaintext highlighter-rouge">Runnable</code> object.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Runnable</span> <span class="n">lambdaRun</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="c1">// Code to be executed by the thread</span>
+<span class="o">};</span>
+</code></pre></div></div>
+
+<p>As you can see, in all of these cases, we need to define (override) a <code class="language-plaintext highlighter-rouge">run</code> method that we “inherit” either from <code class="language-plaintext highlighter-rouge">Thread</code> class or from <code class="language-plaintext highlighter-rouge">Runnable</code> interface. This will be the <em>main</em> method of our thread.</p>
+
+<h4 id="22-creating-and-launching-a-thread">2.2. Creating and launching a thread</h4>
+
+<p>To start running a thread (remember, your main application is also a thread running on the JVM), we do not have to call its <em>run</em> method directly: there would not be any multitask, since current thread (typically your main application) would execute run method, not the new thread itself. Instead of doing this, we have to call the <em>start</em> method that every thread has, and then the system loads the thread state in memory and calls the <em>run</em> method properly, so that we will be able to have as many threads as we need, running all together.</p>
+
+<p>If we defined the thread by extending <code class="language-plaintext highlighter-rouge">Thread</code> class, then we can create a thread object and run it with these instructions (according to previous <em>MyThread</em> class example):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>If we defined the thread by implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface, then we can create and run a thread by defining a new instance of <code class="language-plaintext highlighter-rouge">Thread</code> with a <code class="language-plaintext highlighter-rouge">Runnable</code> object as parameter. Let’s see both examples (normal class and lambda expression) created before:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Normal class that implements Runnable</span>
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nc">MyOtherThread</span><span class="o">());</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+<span class="c1">// Lambda expression</span>
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">lambdaRun</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>By doing this, the <code class="language-plaintext highlighter-rouge">Thread</code> object that we have just created knows where to find its <code class="language-plaintext highlighter-rouge">run</code> method: in the <code class="language-plaintext highlighter-rouge">Runnable</code> object that receives as a parameter.</p>
+
+<h4 id="23-extending-thread-or-implementing-runnable">2.3. Extending <em>Thread</em> or implementing <em>Runnable</em>?</h4>
+
+<p>As you will find in many other situations along your career as a programmer, there are different ways of doing the same thing. In this case, we can create and launch a thread in two flavours: by extending <code class="language-plaintext highlighter-rouge">Thread</code> class or by implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface. In the end, the behavior of the thread created will be the same, but there are some differences or reasons to choose one way and not the other:</p>
+
+<ul>
+  <li>If you extend <code class="language-plaintext highlighter-rouge">Thread</code> class, you will not be able to extend any other class. So use this way only when your thread class does not need to inherit from anything else. This option is usual in small, simple applications.</li>
+  <li>Otherwise, you have “option B”, this is, implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface (or using anonymous classes or lambda expressions). Remember, you can implement multiple interfaces, but you can only extend one class. That is why Java leaves this open door: in case you have already extended another class, you can still have your threads on it. This option is more usual in complex applications.</li>
+</ul>
+
+<h4 id="24-example">2.4. Example</h4>
+
+<p>Let’s type an example to see how a thread works. To start with something simple, we are going to create a thread that counts from 1 to 10. As we do not need to extend from any other class, we are going to create a <code class="language-plaintext highlighter-rouge">Thread</code> subclass. In later examples we will use <code class="language-plaintext highlighter-rouge">Runnable</code> interface, so that you will see how to work with both options.</p>
+
+<p>Our basic thread would be like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyCounterThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span> 
+    <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Counting "</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And our main program that creates and launches this thread looks like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyMainCounter</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">MyCounterThread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyCounterThread</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Try to copy these classes in a project and run the main program to see that it works properly. Now, let’s add some changes to main program to see how its initial behavior changes. If we put this line at the end of <code class="language-plaintext highlighter-rouge">main</code> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyMainCounter</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">MyCounterThread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyCounterThread</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What happens when we run the program again? If you run the program multiple times, you will find out that sometimes it counts to 10, sometimes it does not count anything… and sometimes it counts to somewhere between 1 and 10. This is because main program is finished unexpectedly with this <em>exit</em> method, and then all of its threads are killed as well. If the thread started running before its parent was killed, it will be able to count some numbers.</p>
+
+<p>Now change that instruction for this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyMainCounter</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">MyCounterThread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyCounterThread</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello!!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What happens now? Your thread counts to 10, and somewhere in the in between of this counting a “<em>Hello!!</em>” message appears. Maybe it will be shown before number 1, or after number 7… It depends on the moment when the main program reaches the processor to print its message.</p>
+
+<p>Finally, try to call the <code class="language-plaintext highlighter-rouge">start</code> method again after its first call:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyMainCounter</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">MyCounterThread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyCounterThread</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>You will see that an exception of type <code class="language-plaintext highlighter-rouge">IllegalThreadStateException</code> is thrown. We can’t call the <code class="language-plaintext highlighter-rouge">start</code> method <strong>more than once</strong>. We have to create a new Thread object.</p>
+
+<h4 id="25-conclusions">2.5. Conclusions</h4>
+
+<p>From this example, we can come to some conclusions:</p>
+
+<ul>
+  <li>When we launch a thread from our main application, it starts its independent, parallel running.</li>
+  <li>When our main application finishes correctly, our thread keeps on running its task until it finishes.</li>
+  <li>When our main application is forced to finish, our thread finishes as well unexpectedly. To be more precise, if any thread of our application calls the <code class="language-plaintext highlighter-rouge">System.exit</code> method, all the threads will finish their execution.</li>
+  <li>There is no way to know the exact order in which the main application and its threads will produce their results. It depends on the task planner. Anyway, we will learn how to give more CPU time to some threads at the expense of the others in brief, and also to synchronize or coordinate threads to produce results in a given order.</li>
+  <li>After launching a thread, we will not be able to call its start method again. But we will be able to call some other methods to get its state and some other features, as we will see later.</li>
+</ul>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>FibonacciThread</strong>. Define a thread subclass that shows Fibonacci numbers up to a given parameter N that will be passed to the constructor.</p>
+
+  <p><em>Remember that Fibonacci numbers are a sequence starting by 1 and 1, on which each new number is calculated by adding the two previous numbers of the sequence. So the sequence goes like this: 1, 1, 2, 3, 5, 8, 13, 21…</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>MultiplierThreads</strong>. Define a thread subclass that has a number as its attribute. Assign a value to this number through the constructor of the class. In the <code class="language-plaintext highlighter-rouge">run</code> method, the thread has to show the multiplication table of its attribute. Then, from main application, create 10 threads (each one with a different number) and launch them all at the same time. See how messages from one thread mix with other threads’ messages. For instance…</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 x 0 = 0
+1 x 1 = 1
+3 x 0 = 0
+4 x 0 = 0
+...
+</code></pre></div></div>
+
+<h3 id="3-basic-thread-information">3. Basic thread information</h3>
+
+<p>There are some useful methods and properties in <em>Thread</em> class to get and set some information about a thread. We are going to focus on three of them for now:</p>
+
+<ul>
+  <li>How to set and get the thread’s name</li>
+  <li>How to get the thread state</li>
+  <li>How to get thread’s identifier</li>
+</ul>
+
+<h4 id="31-setting-and-getting-the-threads-name">3.1. Setting and getting the thread’s name</h4>
+
+<p>If you want to give a name to your threads, you can simply add an attribute <code class="language-plaintext highlighter-rouge">name</code> to your class (either extending <code class="language-plaintext highlighter-rouge">Thread</code> or implementing <code class="language-plaintext highlighter-rouge">Runnable</code>). But there are some methods in <code class="language-plaintext highlighter-rouge">Thread</code> class that let us set and get this name without adding any extra information:  <code class="language-plaintext highlighter-rouge">setName</code> method sets our thread’s name, <code class="language-plaintext highlighter-rouge">getName</code> method will get this name.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyCounterThread</span><span class="o">();</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"MyThread A"</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread "</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">" has been launched."</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In this example, we have created a thread, set its name and then print it a few lines below. If we want to get/set thread’s name inside the thread itself (for instance, from run method of the thread), we can call <code class="language-plaintext highlighter-rouge">currentThread</code> method to get a <em>Thread</em> object that points to current thread, and then get/set its name.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">setName</span><span class="o">(</span><span class="s">"AAA"</span><span class="o">);</span>
+    <span class="o">...</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If you run a thread from a <code class="language-plaintext highlighter-rouge">Runnable</code> instance, you can set the name directly when creating the thread as the second parameter in the constructor.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Runnable</span> <span class="n">counterRun</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">" running"</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Counting "</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+<span class="o">};</span>
+<span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">counterRun</span><span class="o">,</span> <span class="s">"CounterThread"</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h4 id="32-getting-thread-state">3.2. Getting thread state</h4>
+
+<p>We can also get current thread state at any time. To manage these states, there is an inner enum called <code class="language-plaintext highlighter-rouge">Thread.State</code>, and a <code class="language-plaintext highlighter-rouge">getState</code> method in <code class="language-plaintext highlighter-rouge">Thread</code> class. The following example launches a thread and, a few lines below, checks its current state:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyCounterThread</span><span class="o">();</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+<span class="o">...</span>
+<span class="nc">Thread</span><span class="o">.</span><span class="na">State</span> <span class="n">st</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getState</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>What <code class="language-plaintext highlighter-rouge">getState</code> method returns can be one of the following states, that are represented by constants in <code class="language-plaintext highlighter-rouge">Thread.State</code> enum: <code class="language-plaintext highlighter-rouge">NEW</code>, <code class="language-plaintext highlighter-rouge">RUNNABLE</code>, <code class="language-plaintext highlighter-rouge">BLOCKED</code>, <code class="language-plaintext highlighter-rouge">WAITING</code>, <code class="language-plaintext highlighter-rouge">TIMED_WAITING</code> or <code class="language-plaintext highlighter-rouge">TERMINATED</code>. For instance, if we want to check if the thread has finished its task, we can do it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">st</span> <span class="o">==</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">State</span><span class="o">.</span><span class="na">TERMINATED</span><span class="o">)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread is terminated."</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>We can also check if a thread has finished its task with <code class="language-plaintext highlighter-rouge">isAlive</code> method (from <code class="language-plaintext highlighter-rouge">Thread</code> class):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(!</span><span class="n">t</span><span class="o">.</span><span class="na">isAlive</span><span class="o">())</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread is terminated."</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="33-getting-threads-identifier">3.3. Getting thread’s identifier</h4>
+
+<p>Java Virtual Machine assigns a unique identifier to every thread that is created. If we want to get it, we only have to call the <code class="language-plaintext highlighter-rouge">getId</code> method from <code class="language-plaintext highlighter-rouge">Thread</code> class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread #"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="4-the-sleep-and-yield-methods">4. The <em>sleep</em> and <em>yield</em> methods</h3>
+
+<p>In this section we are going to learn how to put threads to sleep, or ask them to leave the processor free.</p>
+
+<h4 id="41-the-sleep-method">4.1. The <em>sleep</em> method</h4>
+
+<p>When we call <code class="language-plaintext highlighter-rouge">sleep</code> method, the thread that is calling it automatically falls asleep (i.e. pauses its running), until the number of milliseconds indicated in the parameter expires. This is useful to let the processor free for other threads, if our current thread has nothing to do by now, or if we want to help improve the concurrency among our threads.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">sleep</code> method is a static method of <code class="language-plaintext highlighter-rouge">Thread</code> class, so to call it we only have to add this instruction in the position where we want the thread to sleep, with the desired sleeping time in milliseconds:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This example puts the thread that executes the instruction to sleep during 2 seconds (2000 milliseconds). In fact, we need to catch a possible exception that can be thrown when using this method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice that, even if we use a thread object to call this method…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+    <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">t</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The thread represented by object <code class="language-plaintext highlighter-rouge">t</code> will not sleep, but our main application will. Remember: the thread that calls the method is the one that sleeps.</p>
+
+<p>Regarding milliseconds, we can also use <code class="language-plaintext highlighter-rouge">TimeUnit</code> class (from <code class="language-plaintext highlighter-rouge">java.util.concurrent</code> package) and its properties to specify another time unit, that will be automatically converted to milliseconds. For instance, if we want our thread to sleep 5 seconds, we can also do it like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="k">try</span> 
+<span class="o">{</span>
+    <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>You can take a look at Java API to see more constants that you can use from <code class="language-plaintext highlighter-rouge">TimeUnit</code> class, such as <code class="language-plaintext highlighter-rouge">MINUTES</code>, <code class="language-plaintext highlighter-rouge">HOURS</code>, and so on. The calling to <code class="language-plaintext highlighter-rouge">TimeUnit.sleep</code> generates a call to <code class="language-plaintext highlighter-rouge">Thread.sleep</code> in fact, with the appropriate conversion to milliseconds.</p>
+
+<h4 id="42-the-yield-method">4.2. The <em>yield</em> method</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">yield</code> method is similar to sleep method, but it does not need a number of milliseconds as a parameter. It just leaves the processor free so that the task planner can assign it to another thread. If no other thread is waiting for the processor, then the thread that yielded gets it back.</p>
+
+<p>This method is also static, and it is also applied to the thread that calls it. It does not throw any exception when it is called, so we can use it simply like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>There is a potential problem when using <code class="language-plaintext highlighter-rouge">yield</code> method: the task planner of JVM may ignore this instruction, so we can’t be sure that a thread will yield when we ask it to.</p>
+
+<h4 id="43-example">4.3. Example</h4>
+
+<p>In this example, we are going to define a thread (implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface through a lambda expression) that counts from A to Z, sleeping 100ms after printing each letter. Main program will wait for this thread to finish, checking its state after each iteration.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">'A'</span><span class="o">;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">'Z'</span><span class="o">;</span> <span class="n">c</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+            <span class="k">try</span>
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error: Thread interrupted"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+
+    <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">do</span>
+    <span class="o">{</span>
+        <span class="k">try</span>
+        <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">isAlive</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread has finished, and so do I"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice that main program just sleeps a few milliseconds (they can be 50, 100, 200… it does not matter) on each iteration. It only has to wait for the thread to finish, it has nothing to do, so it better leave the processor free by sleeping or yielding.</p>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a project called <strong>ThreadRace</strong>. Define a subclass of <code class="language-plaintext highlighter-rouge">Thread</code> and create 3 objects of this subclass. Each one will have its own name A, B and C, and they will have to count from 1 to 1000. The main program will have to wait for all its threads to finish, and it will have to sleep 100 ms after each iteration, and write the current counting for each thread. For instance:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Thread A: 77  Thread B: 82   Thread C: 67
+Thread A: 121 Thread B: 124  Thread C: 117
+...
+</code></pre></div></div>
+
+<blockquote>
+  <p>You can also call the Java <em>garbage collector</em> in each iteration of <code class="language-plaintext highlighter-rouge">run</code> method if you consider that your threads are running too fast. Just add this line inside the loop of <code class="language-plaintext highlighter-rouge">run</code> method and the count will slow down:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="5-finishing-and-interrupting-threads">5. Finishing and interrupting threads</h3>
+
+<p>There are two ways of forcing a thread to finish its task: using boolean flags to tell the thread that it must stop when it checks those flags, or using interruptions to make it stop.</p>
+
+<h4 id="51-finishing-threads-with-boolean-flags">5.1. Finishing threads with boolean flags</h4>
+
+<p>Threads finish their task when they execute every instruction of their <code class="language-plaintext highlighter-rouge">run</code> method. There is no way we can stop a thread at a given moment (there was a <em>stop</em> and a <em>destroy</em> methods in earlier versions of Java, but now they are deprecated). Even if we put its variable to <em>null</em>, the thread resources will keep locked.</p>
+
+<p>But do not worry. We still have one method of asking a thread to finish, even though it will not finish at this precise moment. This method is applied to threads that have some kind of loop in their <code class="language-plaintext highlighter-rouge">run</code> method. If we implement this loop properly, we can use a <strong>boolean flag</strong> to tell the thread if it can go on or if he must finish.</p>
+
+<p>Let’s see this method with an example. If we define a thread subclass like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">KillableThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="kt">boolean</span> <span class="n">finish</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setFinish</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">finish</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">finish</span> <span class="o">=</span> <span class="n">finish</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">finish</span><span class="o">)</span> 
+        <span class="o">{</span>
+            <span class="o">...</span> <span class="c1">// Thread task</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then we can create and launch a thread from our main application, and ask the thread to finish with its <em>setFinish</em> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">KillableThread</span> <span class="n">kt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">KillableThread</span><span class="o">();</span>
+    <span class="n">kt</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">...</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">someCondition</span><span class="o">)</span>
+        <span class="n">kt</span><span class="o">.</span><span class="na">setFinish</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As soon as the thread goes to the beginning of the loop and checks that <code class="language-plaintext highlighter-rouge">finish</code> variable is true, it will finish its <code class="language-plaintext highlighter-rouge">run</code> method.</p>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a project called <strong>ThreadRaceKilled</strong> based on the project created in <em>Exercise 3</em>. Modify the main application so that, as soon as thread A gets to 700, it is asked to finish (with a boolean variable). Feel free to add all the code that you need to each class of the project.</p>
+</blockquote>
+
+<h4 id="52-finishing-threads-with-interruptions">5.2. Finishing threads with interruptions</h4>
+
+<p>There is a second way of finishing a thread. It consists in calling the <code class="language-plaintext highlighter-rouge">interrupt</code> method of this thread. Let’s see this in the following example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">isInterrupted</span><span class="o">())</span> 
+            <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Running"</span><span class="o">);</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Finished by an interruption"</span><span class="o">);</span>
+    <span class="o">});</span>
+
+    <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">try</span> 
+    <span class="o">{</span> 
+        <span class="c1">// Wait for a while...</span>
+        <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+
+    <span class="n">t</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this example, we create a thread that checks in every loop if it has been interrupted (with <code class="language-plaintext highlighter-rouge">isInterrupted</code> method, from <code class="language-plaintext highlighter-rouge">Thread</code> class). If not, it keeps on running (i.e., printing a message and sleeping 100ms). From the main thread, we wait some milliseconds and then interrupt the previously created thread with <em>interrupt</em> method. This method causes an <code class="language-plaintext highlighter-rouge">InterruptedException</code> that makes the thread go to the <code class="language-plaintext highlighter-rouge">catch</code> section and finish the <code class="language-plaintext highlighter-rouge">run</code> method.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">InterruptedException</code> is only thrown because of the <code class="language-plaintext highlighter-rouge">sleep</code> call in <code class="language-plaintext highlighter-rouge">Runnable</code>. If we do not call <code class="language-plaintext highlighter-rouge">sleep</code>, <code class="language-plaintext highlighter-rouge">wait</code>, <code class="language-plaintext highlighter-rouge">join</code> or any other method that may throw this exception, the <code class="language-plaintext highlighter-rouge">try...catch</code> structure would not be necessary, and this thread would finish by calling its <code class="language-plaintext highlighter-rouge">isInterrupted</code> method. Notice that a thread decides if it responds to the interruption or not, by using its <code class="language-plaintext highlighter-rouge">isInterrupted</code> method and/or by catching the possible exceptions that can be thrown.</p>
+
+<h3 id="6-thread-groups-and-daemons">6. Thread groups and daemons</h3>
+
+<h4 id="61-thread-groups">6.1. Thread groups</h4>
+
+<p>Java lets us put some threads into a group so that we can treat this group as a single unit. This way, we will be able to have some threads doing a task, and control them regardless of the total number of threads in the group.</p>
+
+<p>To manage groups, we have the <code class="language-plaintext highlighter-rouge">ThreadGroup</code> class. We can create a basic group with a given name, and even a group inside another group, with its own name:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ThreadGroup</span> <span class="n">g1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadGroup</span><span class="o">(</span><span class="s">"Main group"</span><span class="o">);</span>
+<span class="nc">ThreadGroup</span> <span class="n">g2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadGroup</span><span class="o">(</span><span class="n">g1</span><span class="o">,</span> <span class="s">"Additional group inside main group"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>To add threads to a group, we can use some of the constructors available in <code class="language-plaintext highlighter-rouge">Thread</code> class. For instance, if we create a thread by extending <code class="language-plaintext highlighter-rouge">Thread</code> class, we can add it to a group with this constructor (and some others, check the API for more details):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Thread</span><span class="o">(</span><span class="nc">ThreadGroup</span> <span class="n">group</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we created the thread by implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface, we can add it with these constructors (and some others, check the API for more details):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">Thread</span><span class="o">(</span><span class="nc">ThreadGroup</span> <span class="n">group</span><span class="o">,</span> <span class="nc">Runnable</span> <span class="n">target</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nf">Thread</span><span class="o">(</span><span class="nc">ThreadGroup</span> <span class="n">group</span><span class="o">,</span> <span class="nc">Runnable</span> <span class="n">target</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Once we have added the threads to a group, there are some useful methods inside <code class="language-plaintext highlighter-rouge">ThreadGroup</code> class, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">activeCount</code>: returns how many threads in this group (and its subgroups) are currently active (not finished)</li>
+  <li><code class="language-plaintext highlighter-rouge">enumerate(Thread[] array)</code>: copies into the specified array every active thread of the group (and its subgroups)</li>
+  <li><code class="language-plaintext highlighter-rouge">interrupt</code>: interrupts all threads in the group.</li>
+  <li><code class="language-plaintext highlighter-rouge">setMaxPriority / getMaxPriority</code>:  sets/gets the maximum priority of the threads in the group.</li>
+</ul>
+
+<p><strong>Example</strong></p>
+
+<p>The following example creates some threads from a class that implements <code class="language-plaintext highlighter-rouge">Runnable</code> interface. These threads are supposed to generate a random number between 1 and 10, sleep the number of seconds specified by this random number, and then print a message in the screen. But as soon as the first thread finishes its task, the whole group is interrupted.</p>
+
+<p>The code for the Runnable object is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRandomMessage</span> <span class="kd">implements</span> <span class="nc">Runnable</span>
+<span class="o">{</span>
+    <span class="nc">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">time</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="k">try</span>
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">time</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread waited "</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span> 
+                <span class="s">" seconds and finished."</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span> 
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, our main program would be like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">ThreadGroup</span> <span class="n">g</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadGroup</span><span class="o">(</span><span class="s">"Random messages"</span><span class="o">);</span>
+    <span class="nc">MyRandomMessage</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyRandomMessage</span><span class="o">();</span>
+    <span class="nc">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">g</span><span class="o">,</span> <span class="n">m</span><span class="o">);</span>
+    <span class="nc">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">g</span><span class="o">,</span> <span class="n">m</span><span class="o">);</span>
+    <span class="nc">Thread</span> <span class="n">t3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="n">g</span><span class="o">,</span> <span class="n">m</span><span class="o">);</span>
+    <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="n">t3</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">g</span><span class="o">.</span><span class="na">activeCount</span><span class="o">()</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">try</span>
+        <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="o">}</span>
+    <span class="n">g</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As soon as one thread finishes, <code class="language-plaintext highlighter-rouge">activeCount</code> method will return a number lower than 3, and main thread will finish its loop and interrupt all the threads. If the other threads are still waiting for its time to expire, they will be interrupted, an exception will be thrown and they will not print their finish message.</p>
+
+<h4 id="62-daemon-threads">6.2. Daemon threads</h4>
+
+<p>A daemon thread is a special type of thread that executes a periodic task from time to time. Their main properties are:</p>
+
+<ul>
+  <li>They have very low priority (i.e., they run when no other “normal” thread needs to run)</li>
+  <li>Main program does not wait for them to finish. This is, if every thread of the program has finished but a daemon thread is still running, it will be finished as well.</li>
+</ul>
+
+<p>Due to this reason, a daemon thread should not do any critical task, because it can be interrupted at any moment, and we do not know when it will be able to do that task. A good example of a daemon thread is the Java garbage collector.</p>
+
+<p>To create a daemon thread, we only have to call the <code class="language-plaintext highlighter-rouge">setDaemon</code> method from <code class="language-plaintext highlighter-rouge">Thread</code> class before starting the thread:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+<span class="n">t</span><span class="o">.</span><span class="na">setDaemon</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>We can also use the <code class="language-plaintext highlighter-rouge">isDaemon</code> method from <code class="language-plaintext highlighter-rouge">Thread</code> class to check if a given thread is a daemon or not.</p>
+
+<h3 id="7-threads-context-and-shared-data">7. Threads, context and shared data</h3>
+
+<p>Every thread created by the same application share a common context. What does this exactly mean? Let’s take a look at the following example (some lines are numbered to be explained later):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContextExample</span> <span class="kd">implements</span> <span class="nc">Runnable</span> 
+<span class="o">{</span>
+    <span class="c1">// Reference to current thread</span>
+    <span class="nc">Thread</span> <span class="n">t</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start2Threads</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="c1">// Create first thread</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">// Sleep for 5 seconds</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+
+        <span class="c1">// Create second thread</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Thread</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>                  <span class="c1">// Line #1</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">// Sleep for 5 seconds</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span> 
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+
+        <span class="c1">// Destroy thread</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>                              <span class="c1">// Line #2</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> 
+    <span class="o">{</span> 
+        <span class="c1">// Take initial time in milliseconds</span>
+        <span class="kt">long</span> <span class="n">ini</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">t</span> <span class="o">==</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">())</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Running thread ("</span> <span class="o">+</span> <span class="n">ini</span> <span class="o">+</span> <span class="s">") "</span><span class="o">);</span>
+            <span class="c1">// Sleep for 100 ms</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span> 
+        <span class="o">}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Finishing thread ("</span> <span class="o">+</span> <span class="n">ini</span> <span class="o">+</span> <span class="s">") "</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">ContextExample</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ContextExample</span><span class="o">();</span>
+        <span class="n">t</span><span class="o">.</span><span class="na">start2Threads</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Type or copy this code into a project. Test it and try to ask the following questions before reading their corresponding answers:</p>
+
+<ol>
+  <li>
+    <p>What does de <code class="language-plaintext highlighter-rouge">while</code> condition of <code class="language-plaintext highlighter-rouge">run</code> method do?</p>
+
+    <p>It keeps on looping while variable <code class="language-plaintext highlighter-rouge">t</code> points to the thread that is currently running. When this variable points to another thread (it happens in <em>Line #1</em>), then previous thread finishes its <code class="language-plaintext highlighter-rouge">while</code> loop.</p>
+  </li>
+  <li>
+    <p>Can there be two threads executing their <code class="language-plaintext highlighter-rouge">run</code> methods at the same time?</p>
+
+    <p>Yes. As soon as <em>Line #1</em> is executed, second thread is ready to start. It may happen that it starts before previous thread checks its <code class="language-plaintext highlighter-rouge">while</code> condition or finishes its <code class="language-plaintext highlighter-rouge">run</code> method. In this case, both threads would be executing their <code class="language-plaintext highlighter-rouge">run</code> methods.</p>
+  </li>
+  <li>
+    <p>If the answer to previous question is <em>yes</em>, could those threads come into conflict with variable <code class="language-plaintext highlighter-rouge">ini</code>, so that one thread overwrites the value previously written by the other?</p>
+
+    <p>No, <code class="language-plaintext highlighter-rouge">ini</code> variable is a local variable of <code class="language-plaintext highlighter-rouge">run</code> method, so each call to such method creates its own local <code class="language-plaintext highlighter-rouge">ini</code> variable. However, <code class="language-plaintext highlighter-rouge">t</code> attribute is shared for all the threads created. That is why, when it changes its value, previous thread finishes its task and new thread is associated to that variable (both threads share the same value for <code class="language-plaintext highlighter-rouge">t</code>).</p>
+  </li>
+  <li>
+    <p>How can we stop a thread in this example without creating a new one?</p>
+
+    <p>We only have to set <code class="language-plaintext highlighter-rouge">t</code> attribute to null, as in <em>Line #2</em>.</p>
+  </li>
+</ol>
+
+<h4 id="71-conclusions">7.1. Conclusions</h4>
+
+<p>After testing this example, we can come to some conclusions:</p>
+
+<ol>
+  <li>Every attribute of the same object is shared among all the threads of our application. That is why, when main program changes the value of t attribute in previous example, both threads see that change.</li>
+  <li>If we call a method multiple times (for instance, <code class="language-plaintext highlighter-rouge">run</code> method every time we create and start a thread), its local variables are different in each call (they are not shared). That is why each thread on previous example has its own ini value.</li>
+  <li>If we create a <code class="language-plaintext highlighter-rouge">Thread</code> subclass instead of implementing <code class="language-plaintext highlighter-rouge">Runnable</code> interface, each attribute of this subclass is not shared among threads, since we instantiate every thread and thus we create its own memory space, as we do with every instantiated object.</li>
+</ol>
+
+<p>For instance, if we define this class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">extends</span> <span class="nc">Thread</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyThread</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">num</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>then attribute <code class="language-plaintext highlighter-rouge">num</code> will be different for every instantiated thread. So if we type something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MyThread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="nc">MyThread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Then object <code class="language-plaintext highlighter-rouge">t1</code> will have its <code class="language-plaintext highlighter-rouge">num</code> attribute with value 10, and <code class="language-plaintext highlighter-rouge">t2</code> will have it with value 20.</p>
+
+<h4 id="72-threadlocal-variables">7.2. <em>ThreadLocal</em> variables</h4>
+
+<p>We have seen that, if we use the same object in different threads (a <code class="language-plaintext highlighter-rouge">Runnable</code> object or any other object), they all share this object’s data. But sometimes we will need to have an attribute that is not shared among threads. To do this, we can use the <code class="language-plaintext highlighter-rouge">ThreadLocal</code> class, that lets us specify a data type to create an attribute of this type, and create multiple values of this attribute, each one assigned to a different thread.</p>
+
+<p>For instance, if we want our threads to have their own creation date, we will do something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRunnableClass</span> <span class="kd">implements</span> <span class="nc">Runnable</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">LocalDate</span><span class="o">&gt;</span> <span class="n">creationDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">LocalDate</span><span class="o">&gt;()</span>
+    <span class="o">{</span>
+        <span class="kd">protected</span> <span class="nc">LocalDate</span> <span class="nf">initialValue</span><span class="o">()</span>
+        <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we want to get the value of this attribute for each thread, we will call its <code class="language-plaintext highlighter-rouge">get</code> method, and if we want to assign a new value, we will call its <code class="language-plaintext highlighter-rouge">set</code> method. The <code class="language-plaintext highlighter-rouge">initialValue</code> method in the code above is executed when the attribute has no value and the thread is trying to get it. There is also a <code class="language-plaintext highlighter-rouge">remove</code> method that we can use to remove the value of this attribute from current thread.</p>
+
+<p>Then, we can have a <code class="language-plaintext highlighter-rouge">run</code> method like this in our <code class="language-plaintext highlighter-rouge">MyRunnableClass</code> class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"This thread was created on "</span> <span class="o">+</span> <span class="n">creationDate</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Updating creation date..."</span><span class="o">);</span>
+    <span class="n">creationDate</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Now the creation date is "</span> <span class="o">+</span> <span class="n">creationDate</span><span class="o">.</span><span class="na">get</span><span class="o">());</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Removing value..."</span><span class="o">);</span>
+    <span class="n">creationDate</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Now the creation date is "</span> <span class="o">+</span> <span class="n">creationDate</span><span class="o">.</span><span class="na">get</span><span class="o">());</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The code above will show three different dates for the same thread, one for each call to get, since we set a new value between the first and the second call, and we remove the value after this second call.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

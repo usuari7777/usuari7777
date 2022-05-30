@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Estructuras de control</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Estructuras de control
+#### Introducción al control de errores
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## ¿Cómo controlar errores de un programa?
+
+- Forma clásica: mediante estructuras *if*-*else*
+   - El programa puede hacerse difícil de entender si hay muchas cosas que comprobar
+- Alternativa: uso de excepciones
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo con *if-else*
+
+Programa que trata de dividir dos números, si el segundo no es 0
+
+```csharp
+int dividendo, divisor;
+Console.WriteLine("Dime el dividendo:");
+dividendo = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Dime el divisor:");
+divisor = Convert.ToInt32(Console.ReadLine());
+
+if (divisor == 0)
+{
+    Console.WriteLine("Error: no se puede dividir por cero");
+}
+else
+{
+    Console.WriteLine("La división es: {0}", (dividendo / divisor));
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Las excepciones
+
+- Errores que pueden ocurrir en un programa
+   - División por cero
+   - Tratar de convertir a número algo que no lo es
+   - Tratar de leer un fichero que no existe
+   - ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de excepciones
+
+- Colocamos en bloques **try** el código que queremos intentar ejecutar
+- Capturamos los posibles errores y mostramos los correspondientes mensajes en bloques **catch**
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo con *try-catch*
+
+Programa que trata de dividir dos números, si el segundo no es 0
+
+```csharp
+int dividendo, divisor;
+
+try
+{
+    Console.WriteLine("Dime el dividendo:");
+    dividendo = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Dime el divisor:");
+    divisor = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("La división es: {0}", (dividendo / divisor));
+} 
+catch (Exception e)
+{
+    Console.WriteLine("Error: no se puede dividir por cero");
+    Console.WriteLine(e.Message);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo con *try-catch*
+
+Podemos tener un bloque *catch* específico para cada tipo de error que se puede producir, y así generar un mensaje personalizado en cada caso
+
+```csharp
+int dividendo, divisor;
+
+try
+{
+    Console.WriteLine("Dime el dividendo:");
+    dividendo = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Dime el divisor:");
+    divisor = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("La división es: {0}", (dividendo / divisor));
+} 
+catch (FormatException e)
+{
+    Console.WriteLine("Error al introducir los números");
+    Console.WriteLine(e.Message);
+}
+catch (DivideByZeroException e)
+{
+    Console.WriteLine("Error de división por cero");
+    Console.WriteLine(e.Message);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Identificar los posibles tipos de error
+
+- Buscar en la ayuda oficial de MSDN para las instrucciones en concreto
+   - Ejemplo: si buscamos la ayuda de [Convert.ToInt32](https://docs.microsoft.com/es-es/dotnet/api/system.convert.toint32?view=net-5.0) aparecerán los posibles errores que pueden producirse
+- "Probar" el programa y ver qué errores pueden producirse al ejecutarlo
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_02d_01.cs** que le pida al usuario su edad y año de nacimiento.
+- Debe mostrar un mensaje de error si alguno de los datos no es un número válido
+- Si el dato no válido es la edad, el programa debe finalizar y no pedir el año de nacimiento
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_02d_01b.cs** que le pida al usuario su edad y año de nacimiento.
+- Debe mostrar un mensaje de error si alguno de los datos no es un número válido
+- Debe pedir los dos datos, aunque uno de los dos no sea válido
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Depuración de programas
+    
+- **Depurador**: herramienta que permite ejecutar programas paso a paso y examinar el valor de las diferentes variables implicadas
+- Útil para detectar errores al ejecutar ciertos programas o fragmentos de programa
+- Para programas C#, podemos utilizar el depurador incorporado en Visual Studio
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso del depurador de Visual Studio
+    
+- Iniciamos desde el menú *Depurar* 
+- Con **F11** iniciamos la depuración paso a paso 
+   - Cada vez que pulsemos *F11* damos un paso más
+   - En la parte inferior consultamos los valores de las variables
+- Con **F9** podemos establecer *breakpoints* o puntos de interrupción. 
+   - En este caso iniciamos depuración con **F5** para llegar hasta ese punto, y luego podemos ir paso a paso con *F11*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso del depurador de Visual Studio
+    
+<div align="center">
+    <img src="../../../img/02_depurador_vs_1.png" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso del depurador de Visual Studio
+    
+<div align="center">
+    <img src="../../../img/02_depurador_vs_2.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Utiliza el depurador de Visual Studio para averiguar el valor de la variable *n* antes de llegar al comentario
+
+```csharp
+int n = 5, m = 133;
+n = n * 17;
+n = n * m - 1432;
+
+// Comprobamos si n es par
+if (n % 2 == 0)
+    Console.WriteLine("n es par");
+```
+
+</script>
+</section>
+    
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

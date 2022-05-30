@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Control structures | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Control structures" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/02d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/02d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Control structures" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Control structures","url":"http://nachoiborraies.github.io/java/md/en/02d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="control-structures">Control structures</h1>
+
+<h2 id="some-additional-concepts">Some additional concepts</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/02d.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/02d.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this document we are going to learn some additional concepts related with the control structures seen in this unit. We’ll see how to work with more complex loop structures, and some additional elements that we can add to these loops. Also, we will learn some basic rules to write clean code regarding these control structures.</p>
+
+<h3 id="1-nested-loops">1. Nested loops</h3>
+
+<p>The iterative structures that we have learnt in previous documents can be combined, so that we can place one of them inside another. This complex structure is also called <em>nested loop</em>. It can be a <em>do..while</em> inside a <em>for</em>, or a <em>for</em> inside another <em>for</em>, or any other combination.</p>
+
+<p>For instance, the following code prints a square filled with asterisks, whose size is determined by variable <em>size</em> (we assume that this variable has been previously declared and assigned):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">size</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"*"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Write a program called <strong>Triangle</strong> in which we ask a user to enter a height (integer) and then we write a reversed triangle like the following one (assuming a height of 5):</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*****
+ ****
+  ***
+   **
+    *
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a program called <strong>Counter</strong> that asks the user to write numbers between 1 and 100. The program must keep asking the number until it is a number in the valid range. For each valid number, it must count from this number to 1 in descending order.</p>
+</blockquote>
+
+<h3 id="2-using-break-and-continue">2. Using “break” and “continue”</h3>
+
+<p>There are some special instructions that can be used inside loops to alter its natural behavior. These instructions are <em>break</em> and <em>continue</em>.</p>
+
+<p>The <strong>break</strong> instruction exits the loop in which it is placed. For instance, this loop only counts from 1 to 5, because the <em>break</em> instruction exits before completing the whole count:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="o">)</span>
+        <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The <strong>continue</strong> instruction forces a new iteration of the loop, without running the instructions below it. For instance, this loop counts from 1 to 10, but it does not print number 5, because <em>continue</em> instruction goes back to the beginning of the loop when <em>i</em> is 5, without printing this value at the end of the loop:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="o">)</span>
+        <span class="k">continue</span><span class="o">;</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>These two instructions are <strong>NOT recommended</strong> in our programs, since they can be easily avoided in order to make our code more understandable. In the first case, if we just want to count from 1 to 5, we should just define a <em>for</em> loop from 1 to 5. In the second case, if we don’t want to print number 5 in the screen, we can specify this condition in the <em>if</em> clause:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">!=</span> <span class="mi">5</span><span class="o">)</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-writing-clean-code-spacing">3. Writing clean code. Spacing.</h3>
+
+<p>In <a href="01e">01e</a> previous documents we have seen some basic rules to write clean code, but now that we have learnt some additional concepts regarding control structures, our code can get a little bit more complex, and we need to apply some additional rules to keep it tidy.</p>
+
+<p>Appropriate code formatting and spacing tells the reader that the programmer has paid attention to every single detail of the program. However, when we find a bunch of lines of code incorrectly indented and/or spaced, we may think that the same inattention may be present in other aspects of the code.</p>
+
+<h4 id="31-vertical-spacing">3.1. Vertical spacing</h4>
+
+<p>Let’s see some simple rules to format and space your code vertically:</p>
+
+<ul>
+  <li>As each group of lines represents a task, these groups should be separated from each other with a blank line. In a Java program, for instance, we would have something like this (pay attention to where blank lines are added):</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Program</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">personAge</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">personName</span><span class="o">;</span>
+        <span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Tell me your name:"</span><span class="o">);</span>
+        <span class="n">personName</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Tell me your age:"</span><span class="o">);</span>
+        <span class="n">personAge</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">();</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">personAge</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="o">)</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You are an adult, "</span> <span class="o">+</span> <span class="n">personName</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Concepts that are tightly related should be placed together vertically. For instance, if we declare two variables to store the name and age of a person, then we should place these declarations one after another, with no separations. This means that we should not add any comment that breaks the union:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">personName</span><span class="o">;</span>
+<span class="cm">/* 
+ * This comment should not be written here!
+ */</span>
+<span class="kt">int</span> <span class="n">personAge</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Opening braces are put either at the end of the lines that need them (typical in programming languages such as Java or JavaScript) or at the beginning of the following line, with the same indentation than previous line (typical in programming languages such as C or C#). In this last case, they can act as blank lines of separation between blocks</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Java style (opening brace is NOT considered a blank line)</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">condition</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="c1">// C# style (opening brace can be considered a blank line)</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">Main</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">condition</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">...</span>
+</code></pre></div></div>
+
+<p>Regarding opening braces, you can decide which of these patterns you want to apply, but you must:</p>
+
+<ul>
+  <li>Apply always the same pattern</li>
+  <li>Use the same pattern than all the people in your team</li>
+</ul>
+
+<h4 id="32-horizontal-formatting">3.2. Horizontal formatting</h4>
+
+<p>Regarding horizontal spacing or formatting, there are also some simple rules that we can follow.</p>
+
+<ul>
+  <li>A line of code should be short (maybe 80 or 100 characters length, as much). Some IDEs show a vertical line (typically red) that sets the “ideal” limit for the length of each line. If it is going to be longer, we should cut it and divide the code in multiple lines. You can also apply other rules to determine the maximum line width: you should never have to scroll to the right to see your code, and it should be printable with the same appearance in a vertical page.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">((</span><span class="n">personAge</span> <span class="o">&gt;</span> <span class="mi">18</span> <span class="o">&amp;&amp;</span> <span class="n">personAge</span> <span class="o">&lt;=</span> <span class="mi">65</span><span class="o">)</span> <span class="o">||</span>
+    <span class="o">(</span><span class="n">personName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"John"</span><span class="o">))</span> <span class="o">||</span> <span class="o">(</span><span class="n">personName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"Mary"</span><span class="o">)))</span> 
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Horizontal spacing helps us associate things that are related, and disassociate things that are not. For instance, operators should be separated with a whitespace from the elements they are operating:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">average</span> <span class="o">=</span> <span class="o">(</span><span class="n">number1</span> <span class="o">+</span> <span class="n">number2</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Do not align the variable names vertically. It was very typical in old programming languages, such as assembly, but it makes no sense in modern programming languages, where there are lots of different data types. If you do this, you might tend to read the variable names without paying attention to their data types:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">StringBuilder</span> <span class="n">longText</span><span class="o">;</span>
+<span class="kt">int</span>           <span class="n">textSize</span><span class="o">;</span>
+<span class="nc">String</span>        <span class="n">textToFindAndReplace</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The indentation is important, since it establishes a hierarchy. There are elements that belong to the whole source file, and others that are part of a concrete block. Indentation help us determine the scope of a group of instructions. In this way:
+    <ul>
+      <li>Class name is not indented</li>
+      <li>Functions or other elements inside a class are indented one level</li>
+      <li>Implementation of these functions are indented two levels</li>
+      <li>Block implementations inside function code (code of <em>if</em> or <em>while</em> clauses, for instance) are indented three levels</li>
+      <li>… etc.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(...)</span> 
+        <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside an if"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

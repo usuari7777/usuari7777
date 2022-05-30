@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>File management | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="File management" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="07c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/07c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="File management" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"File management","url":"http://nachoiborraies.github.io/java/md/en/07c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="file-management">File management</h1>
+
+<h2 id="filesystem-management">Filesystem management</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="http://nachoiborraies.github.io/java/md/en/slides/07c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="07c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this document we are going to talk about the classes provided by Java to manage our file system. We will learn how to do some basic operations, such as:</p>
+
+<ul>
+  <li>Check if a file exists or not, or check if it’s a normal file or a directory</li>
+  <li>Copy/Move/Delete files</li>
+  <li>Move through the file system, from one folder to its parent folder, or list the complete list of files and folders of a given location.</li>
+</ul>
+
+<h3 id="1-file-class">1. File class</h3>
+
+<p><code class="language-plaintext highlighter-rouge">File</code> class is the most basic (and ancient) class to deal with our filesystem. It also belongs to <code class="language-plaintext highlighter-rouge">java.io</code> package, and has some methods to:</p>
+
+<ul>
+  <li>Create files</li>
+  <li>Delete files</li>
+  <li>List files/folders contained in a given folder</li>
+  <li>Get the file size in bytes</li>
+  <li>…</li>
+</ul>
+
+<p>For instance, this piece of code checks if a file exists in our system:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(!</span> <span class="o">(</span><span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"example.txt"</span><span class="o">)).</span><span class="na">exists</span><span class="o">()</span> <span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"File example.txt not found"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="c1">// File exists</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This other piece of code lists all the files and folders of a given folder in the system. For every subfolder, it marks it as <em>DIR</em>, and for every file, it prints its size in KB.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">location</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"D:"</span> <span class="o">+</span> <span class="nc">File</span><span class="o">.</span><span class="na">separatorChar</span> <span class="o">+</span> <span class="s">"Downloads"</span><span class="o">);</span>
+<span class="nc">File</span><span class="o">[]</span> <span class="n">contents</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="na">listFiles</span><span class="o">();</span>
+<span class="k">for</span><span class="o">(</span><span class="nc">File</span> <span class="nl">f:</span> <span class="n">contents</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">())</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">" (DIR)"</span><span class="o">);</span>
+    <span class="k">else</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span> <span class="o">(</span><span class="s">" "</span> <span class="o">+</span> <span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">)</span> <span class="o">+</span> <span class="s">"KB"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that we can use <code class="language-plaintext highlighter-rouge">File.separatorChar</code> property from <code class="language-plaintext highlighter-rouge">File</code> class to represent the separator char of current operating system. This will be <code class="language-plaintext highlighter-rouge">\</code> in Windows, or <code class="language-plaintext highlighter-rouge">/</code> in Linux (although you can also use <code class="language-plaintext highlighter-rouge">/</code> in Windows systems).</p>
+
+<h3 id="2-path-and-paths">2. Path and Paths</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Path</code> is an interface representing a path in the system (this is, a sequence of folders and subfolders pointing to a given location). It is a newer element in Java API, that belongs to <code class="language-plaintext highlighter-rouge">java.nio</code> package, and it provides some useful methods, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">startsWith</code> / <code class="language-plaintext highlighter-rouge">endsWith</code>: to check if current path starts or ends with a given subpath.</li>
+  <li><code class="language-plaintext highlighter-rouge">getParent</code>: to get parent folder of current path</li>
+  <li><code class="language-plaintext highlighter-rouge">getRoot</code>: to get initial, root folder of current path</li>
+  <li><code class="language-plaintext highlighter-rouge">iterator</code>: to explore every folder and subfolder of this path</li>
+  <li><code class="language-plaintext highlighter-rouge">toAbsolutePath</code>: to get the absolute path of current path (from the root point)</li>
+  <li>…</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">Paths</code> class contains some static methods to deal with paths. It also belongs to <code class="language-plaintext highlighter-rouge">java.nio</code> package, and lets us, for instance, get a <code class="language-plaintext highlighter-rouge">Path</code> object from a given route:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Path</span> <span class="n">location</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/user/myFolder"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Parent folder is "</span> <span class="o">+</span> <span class="n">location</span><span class="o">.</span><span class="na">getParent</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+</code></pre></div></div>
+
+<h3 id="3-files-class">3. Files class</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Files</code> class is also a newer class in the Java API (it belongs to <code class="language-plaintext highlighter-rouge">java.nio</code> package) with a list of static methods to deal with our filesystem:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">readAllLines(Path)</code> reads all the lines of the file and returns them in a <code class="language-plaintext highlighter-rouge">List</code></li>
+  <li><code class="language-plaintext highlighter-rouge">copy(Path, Path)</code> or <code class="language-plaintext highlighter-rouge">move(Path, Path)</code> copy a file specified in a <code class="language-plaintext highlighter-rouge">Path</code> object into a <code class="language-plaintext highlighter-rouge">Path</code> destination (they only copy or move files, not folders)</li>
+  <li><code class="language-plaintext highlighter-rouge">delete(Path)</code> deletes a file (not a folder)</li>
+  <li><code class="language-plaintext highlighter-rouge">createDirectory(Path)</code> creates a new directory specified by the given <code class="language-plaintext highlighter-rouge">Path</code></li>
+  <li><code class="language-plaintext highlighter-rouge">exists(Path)</code> checks if a given path exists (similar to File’s <code class="language-plaintext highlighter-rouge">exists</code> method, but without having to create an object for this).</li>
+  <li>…</li>
+</ul>
+
+<p>This piece of code reads the whole contents of a text file in one single line, and then we can just explore the <code class="language-plaintext highlighter-rouge">List</code> returned:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span>
+<span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">readAllLines</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"data/file.txt"</span><span class="o">));</span>
+    <span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="nl">line:</span> <span class="n">data</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

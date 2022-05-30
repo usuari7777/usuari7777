@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Collections | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Collections" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="06d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/06d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Collections" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Collections","url":"http://nachoiborraies.github.io/java/md/en/06d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="collections">Collections</h1>
+
+<h2 id="more-about-collections">More about collections</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="http://nachoiborraies.github.io/java/md/en/slides/06e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="06d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-the-collections-class">1. The <em>Collections</em> class</h3>
+
+<p>The Java <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html">Collections</a> class contains static methods designed to operate with, or generate new collections. Those methods include generating synchronized collections (for safe operation with multiple threads), order a List (with some kind of comparator), reverse a List, rotate a List, get the minimum element, maximum, …</p>
+
+<h3 id="2-using-generics-in-our-own-classes">2. Using generics in our own classes</h3>
+
+<p>When you look at Java’s <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html">ArrayList reference</a> web page, you’ll see that this class is defined as <code class="language-plaintext highlighter-rouge">ArrayList&lt;E&gt;</code>. The symbol <code class="language-plaintext highlighter-rouge">&lt;E&gt;</code> is a notation used to define a generic class, a class that the compiler doesn’t know until we instantiate an object. Another common notation is <code class="language-plaintext highlighter-rouge">&lt;T&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;S&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;U&gt;</code>, etc.. In general, a capital letter between <code class="language-plaintext highlighter-rouge">&lt;</code> and <code class="language-plaintext highlighter-rouge">&gt;</code>.</p>
+
+<p>If we create a generic, by default it can be any class, so the only properties and methods that the compiler will allow us to use are the ones inherited from <code class="language-plaintext highlighter-rouge">Object</code> class (all classes in Java inherit from <code class="language-plaintext highlighter-rouge">Object</code>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GenericExample</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="no">T</span> <span class="n">generic</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">GenericExample</span><span class="o">(</span><span class="no">T</span> <span class="n">generic</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">generic</span> <span class="o">=</span> <span class="n">generic</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">showType</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">generic</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+        <span class="c1">// We can't use for example .substring() </span>
+        <span class="c1">// since &lt;T&gt; can be anything.</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">getGeneric</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">generic</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We define the type of <code class="language-plaintext highlighter-rouge">&lt;T&gt;</code> when we instantiate an object of GenericExample:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">GenericExample</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">genEx</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GenericExample</span><span class="o">&lt;&gt;(</span><span class="s">"Hello world!"</span><span class="o">);</span>
+<span class="n">genEx</span><span class="o">.</span><span class="na">showType</span><span class="o">();</span>   <span class="c1">// java.lang.String</span>
+
+<span class="cm">/* Here we can use a String method with 
+the generic object because the compiler 
+knows that the generic is a string */</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">genEx</span><span class="o">.</span><span class="na">getGeneric</span><span class="o">().</span><span class="na">length</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>We can specify that the generic must be a subtype of class or implement some interface. In this case, as it happens with polymorphism, we can use the superclass or the interface’s methods:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GenericExample</span><span class="o">&lt;</span><span class="no">T</span> <span class="kd">extends</span> <span class="nc">Person</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="c1">// generic can use Person methods</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">generic</span><span class="o">.</span><span class="na">getAge</span><span class="o">());</span> 
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="c1">// MAIN</span>
+<span class="nc">GenericExample</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">genEx</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nc">GenericExample</span><span class="o">&lt;&gt;(</span><span class="s">"Hello world!"</span><span class="o">);</span>           <span class="c1">// ERROR</span>
+<span class="nc">GenericExample</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">genEx</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nc">GenericExample</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">));</span>  <span class="c1">// OK</span>
+</code></pre></div></div>
+
+<p>We can use more than one generic in a class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GenericExample</span><span class="o">&lt;</span><span class="no">T</span> <span class="kd">extends</span> <span class="nc">String</span><span class="o">,</span> <span class="no">E</span> <span class="kd">extends</span> <span class="nc">Person</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="no">T</span> <span class="n">attribute1</span><span class="o">;</span>
+    <span class="no">E</span> <span class="n">attribute2</span><span class="o">;</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="21-an-introductory-example">2.1. An introductory example</h4>
+
+<p>Imagine we have a class called <code class="language-plaintext highlighter-rouge">Inventory</code> that can store items (any object that inherits from class <code class="language-plaintext highlighter-rouge">Item</code>). Let’s see the difference in this case between using generics to define that class and using polymorphism.</p>
+
+<p>The general appearance of <code class="language-plaintext highlighter-rouge">Item</code> class and some of its subclasses would be like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Item</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">float</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">weight</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPrice</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">float</span> <span class="n">price</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWeight</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWeight</span><span class="o">(</span><span class="kt">int</span> <span class="n">weight</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Potion</span> <span class="kd">extends</span> <span class="nc">Item</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">drink</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Gulp gulp gulp."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Weapon</span> <span class="kd">extends</span> <span class="nc">Item</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">damage</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getDamage</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">damage</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDamage</span><span class="o">(</span><span class="kt">int</span> <span class="n">damage</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">damage</span> <span class="o">=</span> <span class="n">damage</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we use polymorphism to deal with a list of <code class="language-plaintext highlighter-rouge">Item</code> objects in our <code class="language-plaintext highlighter-rouge">Inventory</code> class, we would have something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Inventory</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addItem</span><span class="o">(</span><span class="nc">Item</span> <span class="n">item</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">items</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Item</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">items</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">?</span><span class="n">items</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">):</span><span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// MAIN</span>
+<span class="nc">Inventory</span> <span class="n">inv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Inventory</span><span class="o">();</span>
+<span class="n">inv</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">Potion</span><span class="o">());</span> <span class="c1">// Index 0</span>
+<span class="n">inv</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">Weapon</span><span class="o">());</span> <span class="c1">// Index 1</span>
+
+<span class="c1">// returns an Item, usually we don't know which type</span>
+<span class="nc">Item</span> <span class="n">it</span> <span class="o">=</span> <span class="n">inv</span><span class="o">.</span><span class="na">getItem</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> 
+
+<span class="k">if</span><span class="o">(</span><span class="n">it</span> <span class="k">instanceof</span> <span class="nc">Potion</span><span class="o">)</span> 
+<span class="o">{</span> 
+    <span class="o">((</span><span class="nc">Potion</span><span class="o">)</span> <span class="n">it</span><span class="o">).</span><span class="na">drink</span><span class="o">();</span> 
+<span class="o">}</span> <span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">it</span> <span class="k">instanceof</span> <span class="nc">Weapon</span><span class="o">)</span> <span class="o">{</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Damage: "</span> <span class="o">+</span> <span class="o">((</span><span class="nc">Weapon</span><span class="o">)</span> <span class="n">it</span><span class="o">).</span><span class="na">getDamage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we use generics to handle the same list, we would have this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Inventory</span><span class="o">&lt;</span><span class="no">T</span> <span class="kd">extends</span> <span class="nc">Item</span><span class="o">&gt;</span> 
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addItem</span><span class="o">(</span><span class="no">T</span> <span class="n">item</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">items</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="no">T</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">index</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">items</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">?</span><span class="n">items</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">):</span><span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// MAIN</span>
+<span class="nc">Inventory</span><span class="o">&lt;</span><span class="nc">Item</span><span class="o">&gt;</span> <span class="n">inv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Inventory</span><span class="o">&lt;&gt;();</span>      <span class="c1">// Same behavior as before!</span>
+<span class="nc">Inventory</span><span class="o">&lt;</span><span class="nc">Potion</span><span class="o">&gt;</span> <span class="n">potInv</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Inventory</span><span class="o">&lt;&gt;();</span> <span class="c1">// Only allows potions</span>
+<span class="n">potInv</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">Potion</span><span class="o">());</span>                 <span class="c1">// OK</span>
+<span class="n">potInv</span><span class="o">.</span><span class="na">addItem</span><span class="o">(</span><span class="k">new</span> <span class="nc">Weapon</span><span class="o">());</span>                 <span class="c1">// ERROR, &lt;T&gt; must be a Potion</span>
+<span class="nc">Potion</span> <span class="n">pot</span> <span class="o">=</span> <span class="n">potInv</span><span class="o">.</span><span class="na">getItem</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>               <span class="c1">// Compiler knows is a Potion. </span>
+</code></pre></div></div>
+
+<p>In summary, when we always want to be able to use more than one type of object inside a class instance, we can use polymorphism (an inventory with different types of items), although we still can use generics for this. When we want the possibility to use only one class at a time, defined when we instantiate an object, we can only do that with generics (we can create an inventory that only allows potions, other than only allows weapons and so on, using the same class for all).</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

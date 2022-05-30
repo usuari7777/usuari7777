@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Using regular expressions</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Static data types
+### Using regular expressions
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Regular expressions
+
+- Abbreviated, *regex*
+- Sequence of special characters that lets us detect some patterns in texts
+   - ID card made of 8 digits and an uppercase letter
+   - E-mail containing a `@`
+- Also used to force user to follow a given pattern when entering text
+   
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Basic regex syntax
+
+- **java.util.regex** package
+- **Pattern** class to define patterns
+- **Matcher** class to see if a text matches a pattern
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pattern class
+
+* **compile**: creates a *Pattern* object for a given regular expression
+* **matcher**: returns a *Matcher* object to match a pattern with a text
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Matcher class
+
+* **find**: checks if a given pattern is found in a text
+* **matches**: checks if the whole text meets a pattern (not only a part of it)
+   * Also **Pattern.matches** method does this
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example
+
+Check if a text contains digits from 0 to 9
+
+```java
+String text = "Hi, my name is Nacho and I'm 44 years old";
+Pattern p = Pattern.compile("\\d");
+Matcher m = p.matcher(text);
+
+if (m.find())
+{
+    System.out.println("The text contains digit(s)");
+}
+else
+{
+    System.out.println("The text does not contain any digit");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Some basic symbols (1/2)
+
+|Symbol|Meaning|
+|----|----|
+|`x`|'x' character|
+|`[abc]`|Character 'a', 'b' or 'c'|
+|`[^abc]`|Anything but characters 'a', 'b' or 'c'|
+|`[a-zA-Z]`|Range from 'a' to 'z' or from 'A' to 'Z'|
+|`.`|Any character|
+|`^`|Beginning of line (there's nothing before)|
+|`$`|End of line (there's nothing after)|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Some basic symbols (2/2)
+
+|Symbol|Meaning|
+|----|----|
+|`\d`|Digit from 0 to 9|
+|`\D`|Anything but a digit|
+|`\s`|Spacing char (white space, tab, new line...)|
+|`\S`|Anything but a spacing char|
+|`\w`|Alphanumeric char (letters, digits and underscore)|
+|`\W`|Anything but an alphanumeric char|
+|`(one|two)`|Text 'one' or text 'two'|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Examples
+
+```java
+//Text finished with a dot
+Pattern p = Pattern.compile("\\.$");
+
+// Text made of 4 digits
+Pattern p = Pattern.compile("^\\d\\d\\d\\d$");
+
+// Seasons of the year
+Pattern p = Pattern.compile("(winter|spring|summer|autumn)");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a project called **CarIDCheck** that asks the user to enter a cad id, and checks if it's made of 4 digits followed by 3 uppercase letters. We are not going to check if these letters are vowels or not, we just check if they are uppercase.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Cardinality
+
+|Symbol|Meaning|
+|----|----|
+|`x?`|x symbol appears 0 or 1 times|
+|`x+`|x symbol appears 1 or more times|
+|`x*`|x symbol appears 0 or more times|
+|`x{n}`|x symbol appears n times|
+|`x{n,}`|x symbol appears at least n times|
+|`x{n, m}`|x symbol appears between n and m times (both included)|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Examples
+
+```java
+// Text made of 4 digits
+Pattern p = Pattern.copile("^\\d{4}$");
+
+// ID card made of 8 digits and uppercase
+Pattern p = Pattern.copile("^\\d{8}[A-Z]$");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Repeat previous exercise using cardinality symbols
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Create a program called **EmailChecker** that asks the user to enter an e-mail and checks if it's valid: 
+
+- Alphanumeric characters (at least one), followed by 
+- `@` symbol and then
+- One or more alphanumeric characters
+- A dot 
+- One or more alphanumeric characters
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Groups
+
+- It lets us isolate some parts of a text that meet a given pattern
+- `group` method inside `Matcher` class to detect groups
+- Each group must be defined between parentheses `(...)`
+- Groups are explored from left to right
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example
+
+Detect groups of 4 digits in text
+
+```java
+String text = "Einstein was born in 1879 and Edison in 1847";
+Pattern p = Pattern.compile("(\\d{4})");
+Matcher m = p.Matcher(text);
+
+if (!m.find())
+{
+    System.out.println("The text has no sequence of 4 digits");
+}
+else
+{
+    do
+    {
+        String data = m.group();
+        System.out.println("Found " + data);
+    }
+    while(m.find());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Multiple groups
+
+`group` method admits an additional parameter indicating which of the groups we are choosing (starting from 1)
+
+```java
+String text = "Albert Einstein was born in 1879" + 
+    " and Thomas Edison in 1847";
+Pattern p = Pattern.compile("([A-Z][a-z]+) ([A-Z][a-z]+)");
+Matcher m = p.Matcher(text);
+
+if (!m.find())
+{
+    System.out.println("The text has no names");
+}
+else
+{
+    do
+    {
+        String name = m.group(1);
+        String surname = m.group(2);
+        System.out.println("Found " + name + " " + surname);
+    }
+    while(m.find());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 4
+
+Create a program called **HourIdentifier** that looks for hours in a text. An hour is made of two digits, followed by `:`, and two digits. For instance, `08:45`. We are not going to check if the hour is valid or not, we just need to identify them. Then, store these hours in a list and show them in ascending order.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

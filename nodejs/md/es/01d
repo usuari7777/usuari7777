@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Algunos conceptos básicos de JavaScript para este curso | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Algunos conceptos básicos de JavaScript para este curso" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/01d.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Algunos conceptos básicos de JavaScript para este curso" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Algunos conceptos básicos de JavaScript para este curso","url":"http://nachoiborraies.github.io/nodejs/md/es/01d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="algunos-conceptos-básicos-de-javascript-para-este-curso">Algunos conceptos básicos de JavaScript para este curso</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/nodejs/md/es/slides/01d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En este documento vamos a dar un breve repaso a algunos conceptos de JavaScript que utilizaremos a lo largo del curso, y con los que conviene que nos empecemos a familiarizar desde ya, si no los hemos utilizado aún. En concreto, trataremos:</p>
+
+<ul>
+  <li>Formas de definir variables y constantes</li>
+  <li>El uso de “funciones flecha” (<em>arrow functions</em>), también conocidas como “expresiones lambda”, como alternativa a la definición clásica de funciones, o al uso de funciones anónimas.</li>
+  <li>Cómo gestiona JavaScript el código asíncrono, mediante <em>callbacks</em>, promesas o la especificación <em>async/await</em></li>
+</ul>
+
+<h2 id="1-declaración-de-variables-y-constantes">1. Declaración de variables y constantes</h2>
+
+<p>Para empezar, trataremos sobre la declaración de <strong>variables</strong>. La forma más típica que podemos encontrar en Internet para declarar variables en JavaScript es mediante la palabra reservada <code class="language-plaintext highlighter-rouge">var</code>, que permite declarar variables de cualquier tipo. Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">nombre</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">edad</span> <span class="o">=</span> <span class="mi">41</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Sin embargo, esta forma de declarar variables tiene algunos inconvenientes, como por ejemplo, y sobre todo, el hecho de declarar una variable de forma local a un ámbito, y que pueda ser utilizada desde fuera de ese ámbito, porque la variable es válida dentro de la función donde se ha definido. Así, por ejemplo, este código funcionaría, y mostraría “Nacho” como nombre en ambos casos, a pesar de que, intuitivamente, la variable <code class="language-plaintext highlighter-rouge">nombre</code> no debería existir fuera del <em>if</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">nombre</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nombre dentro:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">nombre</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nombre fuera:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">nombre</span><span class="p">);</span>   <span class="c1">// "Nacho"</span>
+</code></pre></div></div>
+
+<p>Para evitar estas vulnerabilidades, emplearemos la palabra reservada <code class="language-plaintext highlighter-rouge">let</code>, en lugar de <code class="language-plaintext highlighter-rouge">var</code>, para declarar variables:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">nombre</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nombre dentro:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">nombre</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Nombre fuera:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">nombre</span><span class="p">);</span>   <span class="c1">// Variable no definida</span>
+</code></pre></div></div>
+
+<p>De esta forma, el ámbito de cada variable queda restringido al bloque donde se declara, y el código anterior provocaría un error.</p>
+
+<p>Recordemos también que podemos emplear la palabra <code class="language-plaintext highlighter-rouge">const</code> para definir <strong>constantes</strong> en el código. Esto será particularmente útil tanto para definir constantes convencionales (como un texto o número fijo, por ejemplo) como para cargar librerías, como veremos en sesiones posteriores.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">pi</span> <span class="o">=</span> <span class="mf">3.1416</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="2-funciones-y-arrow-functions">2. Funciones y <em>arrow functions</em></h2>
+
+<p>Veamos ahora las diferentes formas de definir funciones o métodos que existen en JavaScript, y con ello, introduciremos un concepto que se ha vuelto muy habitual, y que utilizaremos a menudo en estos apuntes. Se trata de una notación alternativa para definir métodos o funciones, las llamadas <em>arrow functions</em> (funciones flecha o funciones lambda).</p>
+
+<h3 id="21-las-funciones-tradicionales">2.1. Las funciones tradicionales</h3>
+
+<p>Comencemos por un ejemplo sencillo. Supongamos esta función tradicional que devuelve la suma de los dos parámetros que se le pasan:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">sumar</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span>  <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A la hora de utilizar esta función, basta con llamarla en el lugar deseado, pasándole los parámetros adecuados. Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sumar</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// Mostrará 5</span>
+</code></pre></div></div>
+
+<h3 id="22-las-funciones-anónimas">2.2. Las funciones anónimas</h3>
+
+<p>Esta misma función también podríamos expresarla como una función anónima. Estas funciones se declaran “sobre la marcha”, y se suelen asignar a una variable para poderlas nombrar o llamar después:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">sumarAnonimo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span> 
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sumarAnonimo</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</code></pre></div></div>
+
+<h3 id="23-las-arrow-functions">2.3. Las <em>arrow functions</em></h3>
+
+<p>Las “funciones flecha” o <em>arrow functions</em> suponen una forma de definir funciones que emplea una expresión lambda para especificar los parámetros por un lado (entre paréntesis) y el código de la función por otro entre llaves, separados por una flecha. Se prescinde de la palabra reservada <code class="language-plaintext highlighter-rouge">function</code> para definirlas.</p>
+
+<p>La misma función anterior, expresada como <em>arrow function</em>, quedaría así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">sumar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Al igual que ocurre con las funciones anónimas, se puede asignar su valor a una variable para usarlo más adelante, o bien definirlas sobre la marcha en un fragmento de código determinado.</p>
+
+<p>De hecho, el código anterior puede simplificarse aún más: en el caso de que la función simplemente devuelva un valor, se puede prescindir de las llaves y de la palabra <code class="language-plaintext highlighter-rouge">return</code>, quedando así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">sumar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Además, si la función tiene un único parámetro, se pueden prescindir de los paréntesis. Por ejemplo, esta función devuelve el doble del número que recibe como parámetro:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">doble</span> <span class="o">=</span> <span class="nx">num</span> <span class="o">=&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">num</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doble</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>         <span class="c1">// Mostrará 6</span>
+</code></pre></div></div>
+
+<h4 id="231-uso-directo-de-arrow-functions">2.3.1. Uso directo de <em>arrow functions</em></h4>
+
+<p>Como comentábamos antes, las <em>arrow functions</em>, así como las funciones anónimas, tienen la ventaja de poder utilizarse directamente en el lugar donde se precisan. Por ejemplo, dado el siguiente listado de datos personales:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">966112233</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">41</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Ana</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">911223344</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">36</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">611998877</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">633663366</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">17</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Si queremos filtrar las personas mayores de edad, podemos hacerlo con una función anónima combinada con la función <code class="language-plaintext highlighter-rouge">filter</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">mayoresDeEdad</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">persona</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">persona</span><span class="p">.</span><span class="nx">edad</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mayoresDeEdad</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Y también podemos emplear una <em>arrow function</em> en su lugar:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">mayoresDeEdad</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">persona</span> <span class="o">=&gt;</span> <span class="nx">persona</span><span class="p">.</span><span class="nx">edad</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mayoresDeEdad</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Notar que, en estos casos, no asignamos la función a una variable para usarla más tarde, sino que se emplean en el mismo punto donde se definen. Notar también que el código queda más compacto empleando una <em>arrow function</em>.</p>
+
+<h3 id="24-arrow-functions-y-funciones-tradicionales">2.4. <em>Arrow functions</em> y funciones tradicionales</h3>
+
+<p>La diferencia entre las <em>arrow functions</em> y la nomenclatura tradicional o las funciones anónimas es que con las <em>arrow functions</em> no podemos acceder al elemento <code class="language-plaintext highlighter-rouge">this</code>, o al elemento <code class="language-plaintext highlighter-rouge">arguments</code>, que sí están disponibles con las funciones anónimas o tradicionales. Así que, en caso de necesitar hacerlo, deberemos optar por una función normal o anónima, en este caso.</p>
+
+<h2 id="3-los-callbacks">3. Los <em>callbacks</em></h2>
+
+<p>Uno de los dos pilares en los que se sustenta la programación asíncrona en JavaScript lo conforman los <em>callbacks</em>. Un <em>callback</em> es una función A que se pasa como parámetro a otra B, y que será llamada en algún momento durante la ejecución de B (normalmente cuando B finaliza su tarea). Este concepto es fundamental para dotar a Node.js (y a JavaScript en general) de un comportamiento asíncrono: se llama a una función, y se le deja indicado lo que tiene que hacer cuando termine, y mientras tanto el programa puede dedicarse a otras cosas.</p>
+
+<p>Un ejemplo lo tenemos con la función <code class="language-plaintext highlighter-rouge">setTimeout</code> de JavaScript. A esta función le podemos indicar una función a la que llamar, y un tiempo (en milisegundos) que esperar antes de llamarla. Ejecutada la línea de la llamada a <code class="language-plaintext highlighter-rouge">setTimeout</code>, el programa sigue su curso y cuando el tiempo expira, se llama a la función <em>callback</em> indicada.</p>
+
+<p>Probemos a escribir este ejemplo en un archivo llamado <code class="language-plaintext highlighter-rouge">callback.js</code> en nuestra subcarpeta “<em>ProyectosNode/Pruebas/PruebasSimples</em>”:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Finalizado callback</span><span class="dl">"</span><span class="p">);},</span> <span class="mi">2000</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Si ejecutamos el ejemplo, veremos que el primer mensaje que aparece es el de “Hola”, y pasados dos segundos, aparece el mensaje de “Finalizado callback”. Es decir, hemos llamado a <code class="language-plaintext highlighter-rouge">setTimeout</code> y el programa ha seguido su curso después, ha escrito “Hola” por pantalla y, una vez ha pasado el tiempo estipulado, se ha llamado al <em>callback</em> para hacer su trabajo.</p>
+
+<p>Utilizaremos <em>callbacks</em> ampliamente durante este curso. De forma especial para procesar el resultado de algunas promesas que emplearemos (ahora veremos qué son las promesas), o el tratamiento de algunas peticiones de servicios.</p>
+
+<h2 id="4-las-promesas">4. Las promesas</h2>
+
+<p>Las promesas son otro mecanismo importante para dotar de asincronía a JavaScript. Se emplean para definir la finalización (exitosa o no) de una operación asíncrona. En nuestro código, podemos definir promesas para realizar operaciones asíncronas, o bien (más habitual) utilizar las promesas definidas por otros en el uso de sus librerías.</p>
+
+<p>A lo largo de este curso utilizaremos promesas para, por ejemplo, enviar operaciones a una base de datos y recoger el resultado de las mismas cuando finalicen, sin bloquear el programa principal. Pero para entender mejor qué es lo que haremos, llegado el momento, conviene tener clara la estructura de una promesa y las posibles respuestas que ofrece.</p>
+
+<h3 id="41-crear-una-promesa-elementos-a-tener-en-cuenta">4.1. Crear una promesa. Elementos a tener en cuenta</h3>
+
+<p>En el caso de que queramos o necesitemos crear una promesa, se creará un objeto de tipo <code class="language-plaintext highlighter-rouge">Promise</code>. A dicho objeto se le pasa como parámetro una función con dos parámetros:</p>
+
+<ul>
+  <li>La función <em>callback</em> a la que llamar si todo ha ido correctamente</li>
+  <li>La función <em>callback</em> a la que llamar si ha habido algún error</li>
+</ul>
+
+<p>Estos dos parámetros se suelen llamar, respectivamente, <code class="language-plaintext highlighter-rouge">resolve</code> y <code class="language-plaintext highlighter-rouge">reject</code>. Por lo tanto, un esqueleto básico de promesa, empleando <em>arrow functions</em> para definir la función a ejecutar, sería así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">nombreVariable</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Código a ejecutar</span>
+    <span class="c1">// Si todo va bien, llamamos a "resolve"</span>
+    <span class="c1">// Si algo falla, llamamos a "reject"</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Internamente, la función hará su trabajo y llamará a sus dos parámetros en uno u otro caso. En el caso de <code class="language-plaintext highlighter-rouge">resolve</code>, se le suele pasar como parámetro el resultado de la operación, y en el caso de <code class="language-plaintext highlighter-rouge">reject</code> se le suele pasar el error producido.</p>
+
+<p>Veámoslo con un ejemplo. La siguiente promesa busca los mayores de edad de la lista de personas vista en un ejemplo anterior. Si se encuentran resultados, se devuelven con la función <code class="language-plaintext highlighter-rouge">resolve</code>. De lo contrario, se genera un error que se envía con <code class="language-plaintext highlighter-rouge">reject</code>. Copia el ejemplo en un archivo llamado <code class="language-plaintext highlighter-rouge">prueba_promesa.js</code> en la carpeta “<em>ProyectosNode/Pruebas/PruebasSimples</em>” de tu espacio de trabajo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">966112233</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">41</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Ana</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">911223344</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">36</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">611998877</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">633663366</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">17</span><span class="p">}</span>
+<span class="p">];</span>
+
+<span class="kd">let</span> <span class="nx">promesaMayoresDeEdad</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">persona</span> <span class="o">=&gt;</span> <span class="nx">persona</span><span class="p">.</span><span class="nx">edad</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">reject</span><span class="p">(</span><span class="dl">"</span><span class="s2">No hay resultados</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>La función que define la promesa también se podría definir de esta otra forma:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">promesaMayoresDeEdad</span> <span class="o">=</span> <span class="nx">listado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">listado</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">persona</span> <span class="o">=&gt;</span> <span class="nx">persona</span><span class="p">.</span><span class="nx">edad</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+        <span class="k">else</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="dl">"</span><span class="s2">No hay resultados</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Así no hacemos uso de variables globales, y el array queda pasado como parámetro a la propia función, que devuelve el objeto <code class="language-plaintext highlighter-rouge">Promise</code> una vez concluya. Deja definida la promesa de esta segunda forma en el archivo fuente de prueba.</p>
+
+<h3 id="42-consumo-de-promesas">4.2. Consumo de promesas</h3>
+
+<p>En el caso de querer utilizar una promesa previamente definida (o creada por otros en alguna librería), simplemente llamaremos a la función u objeto que desencadena la promesa, y recogemos el resultado. En este caso:</p>
+
+<ul>
+  <li>Para recoger un resultado satisfactorio (<code class="language-plaintext highlighter-rouge">resolve</code>) empleamos la cláusula <code class="language-plaintext highlighter-rouge">then</code>.</li>
+  <li>Para recoger un resultado erróneo (<code class="language-plaintext highlighter-rouge">reject</code>) empleamos la cláusula <code class="language-plaintext highlighter-rouge">catch</code>.</li>
+</ul>
+
+<p>Así, la promesa anterior se puede emplear de esta forma (nuevamente, empleamos <em>arrow functions</em> para procesar la cláusula <code class="language-plaintext highlighter-rouge">then</code> con su resultado, o el <code class="language-plaintext highlighter-rouge">catch</code> con su error):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">promesaMayoresDeEdad</span><span class="p">(</span><span class="nx">datos</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Si entramos aquí, la promesa se ha procesado bien</span>
+    <span class="c1">// En "resultado" podemos acceder al resultado obtenido</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Coincidencias encontradas:</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Si entramos aquí, ha habido un error al procesar la promesa</span>
+    <span class="c1">// En "error" lo podemos consultar</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Copia este código bajo el código anterior en el archivo <code class="language-plaintext highlighter-rouge">prueba_promesa.js</code> creado anteriormente, para comprobar el funcionamiento y lo que muestra la promesa.</p>
+
+<p>Notar que, al definir la promesa, se define también la estructura que tendrá el resultado o el error. En este caso, el resultado es un vector de personas coincidentes con los criterios de búsqueda, y el error es una cadena de texto. Pero pueden ser el tipo de dato que queramos.</p>
+
+<h3 id="43-la-especificación-asyncawait">4.3. La especificación async/await</h3>
+
+<p>Desde <em>ECMAScript7</em> se tiene disponible una nueva forma de trabajar con promesas, a través de la especificación <strong>async/await</strong>. Es una forma más cómoda de llamar a funciones asíncronas y recoger su resultado antes de llamar a otra, sin necesidad de ir anidando cláusulas <code class="language-plaintext highlighter-rouge">then</code> para enlazar el resultado de una promesa con la siguiente.</p>
+
+<p>Hay que tener en cuenta que se trata de una especificación relativamente reciente (mediados de 2017), y por tanto puede que algunos navegadores aún no la soporten. No entraremos en detalles sobre cómo utilizarla de momento. Lo haremos más adelante, cuando estemos familiarizados con las promesas.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

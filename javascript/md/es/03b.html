@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Comunicación asíncrona con AJAX | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Comunicación asíncrona con AJAX" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/03b.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Comunicación asíncrona con AJAX" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Comunicación asíncrona con AJAX","url":"http://nachoiborraies.github.io/javascript/md/es/03b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="comunicación-asíncrona-con-ajax">Comunicación asíncrona con AJAX</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p><strong>AJAX</strong> son las siglas de <em>Asynchronous JavaScript And XML</em> (JavaScript asíncrono y XML). Hace referencia a una técnica que permite realizar peticiones desde la parte cliente de una web empleando JavaScript, recibir la información de forma asíncrona (es decir, sin quedarse esperando a recibir la respuesta), recoger los datos recibidos y actualizar con ellos una parte de la página, sin necesidad de recargarla en su totalidad.</p>
+
+<p>Para ello, emitiremos peticiones a un servidor web desde JavaScript, y dejaremos definido un método que se ejecutará cuando se reciba la respuesta. Dentro de ese método, típicamente se recogen los datos recibidos y se muestran en una parte de la página. Veremos a continuación cómo definir cada uno de estos pasos.</p>
+
+<h2 id="1-envío-de-la-petición-desde-javascript">1. Envío de la petición desde JavaScript</h2>
+
+<p>Para enviar una petición AJAX desde JavaScript haremos uso de un objeto especial ya predefinido en el lenguaje llamado <code class="language-plaintext highlighter-rouge">XMLHttpRequest</code>. Debemos inicializarlo, y definir sobre él:</p>
+
+<ul>
+  <li>El recurso del servidor que queremos solicitar, indicando la URL</li>
+  <li>Qué función queremos que se ejecute cuando se reciba la respuesta, a través del evento <em>onreadystatechange</em> del propio objeto</li>
+  <li>Enviar la petición</li>
+</ul>
+
+<p>Aquí vemos un ejemplo donde llamamos a una página llamada <em>prueba.php</em> (alojada en la raíz del servidor donde se encuentra el propio archivo JavaScript). El contenido que se reciba se volcará en el interior del elemento con <em>id</em> “contenido”.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>                
+        <span class="kd">let</span> <span class="nx">elemento</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">contenido</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">elemento</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">xhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">prueba.php</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">xhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>El método <code class="language-plaintext highlighter-rouge">open</code> es el que se encarga de definir a qué recurso queremos acceder (<em>prueba.php</em>), y su tercer parámetro a <em>true</em> indica que queremos llamarlo de forma asíncrona para no detener el código esperando respuesta. Cuando se invoca el método <code class="language-plaintext highlighter-rouge">send</code> se envía la petición, y cuando se reciba se ejecutará la función del evento <em>onreadystatechange</em>. Dentro de este evento, comprobamos si la petición ha finalizado (<code class="language-plaintext highlighter-rouge">readyState == 4</code>) y además si lo ha hecho correctamente (<code class="language-plaintext highlighter-rouge">this.status == 200</code>). Si es así, recogemos la respuesta y la mostramos en el elemento seleccionado.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Define una carpeta llamada <strong>listacompra</strong> con una página llamada <strong>lista_compra.html</strong> que tenga algún encabezado <em>h1</em> que diga “Lista de la compra”, y un espacio para cargar una lista no ordenada de elementos. Cuando pulsemos un botón “Cargar lista” llamaremos por AJAX a una página <strong>listado.php</strong>, de la misma carpeta, que devolverá una lista de la compra leída de un fichero de texto, y transformada a lista no ordenada en HTML. Al recibirla, se mostrará la lista en el lugar habilitado de la página HTML.</p>
+</blockquote>
+
+<h2 id="2-ajax-y-json">2. AJAX y JSON</h2>
+
+<p><strong>JSON</strong> son las siglas de <em>JavaScript Object Notation</em>, una sintaxis propia de Javascript para poder representar objetos como cadenas de texto, y poder así serializar y enviar información de objetos a través de flujos de datos (archivos de texto, comunicaciones cliente-servidor, etc).</p>
+
+<p>Un objeto JavaScript se define mediante una serie de propiedades y valores. Por ejemplo, los datos de una persona (como nombre y edad) podríamos almacenarlos así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">persona</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Este mismo objeto, convertido a JSON, formaría una cadena de texto con este contenido:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nacho"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">39</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Del mismo modo, si tenemos una colección (vector) de objetos como ésta:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">personas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nora</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Transformada a JSON sigue la misma sintaxis, pero entre corchetes:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nacho"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">39</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Mario"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">4</span><span class="p">},</span><span class="w">  
+ </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Laura"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nora"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">10</span><span class="p">}]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>JavaScript ofrece un par de métodos útiles para convertir datos a formato JSON y viceversa. Estos métodos son <code class="language-plaintext highlighter-rouge">JSON.stringify</code> (para convertir un objeto o array JavaScript a JSON) y <code class="language-plaintext highlighter-rouge">JSON.parse</code> (para el proceso inverso, es decir, convertir una cadena JSON en un objeto JavaScript). Aquí vemos un ejemplo de cada uno:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">personas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nora</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+<span class="p">];</span>
+
+<span class="c1">// Convertir array a JSON</span>
+<span class="kd">let</span> <span class="nx">personasJSON</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">personas</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">personasJSON</span><span class="p">);</span>
+
+<span class="c1">// Convertir JSON a array</span>
+<span class="kd">let</span> <span class="nx">personas2</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">personasJSON</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">personas2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>JSON puede resultar una herramienta realmente útil combinada con AJAX, ya que va a permitir que el servidor envíe información al cliente en formato JSON (sin un formato específico) y que ese mismo cliente adapte la información y le dé el formato adecuado a sus necesidades. De este modo, un servidor puede proporcionar la misma información a distintos clientes (aplicación web, de escritorio, móvil) y que cada una la adapte visualmente a su entorno particular.</p>
+
+<p>El siguiente fragmento de código define un array de datos en PHP y lo envía en formato JSON, usando la función <code class="language-plaintext highlighter-rouge">json_encode</code> de PHP:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$datos</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s2">"nombre"</span> <span class="o">=&gt;</span> <span class="s2">"Nacho"</span><span class="p">,</span>
+    <span class="s2">"telefono"</span> <span class="o">=&gt;</span> <span class="s2">"611223344"</span><span class="p">,</span>
+    <span class="s2">"edad"</span> <span class="o">=&gt;</span> <span class="mi">43</span>
+<span class="p">);</span>
+<span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$datos</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Suponiendo que el código anterior esté en una página llamada <em>datos.php</em>, este otro código invoca a esa página desde JavaScript usando AJAX, recoge el resultado JSON, lo convierte a JavaScript y muestra el resultado en una sección identificada como <em>contenido</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>                
+        <span class="kd">let</span> <span class="nx">elemento</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">contenido</span><span class="dl">"</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+        <span class="nx">elemento</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">&lt;ul&gt;</span><span class="dl">"</span><span class="p">;</span>
+        <span class="nx">elemento</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&lt;li&gt;Nombre: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">nombre</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;/li&gt;</span><span class="dl">"</span><span class="p">;</span>
+        <span class="nx">elemento</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&lt;li&gt;Teléfono: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">telefono</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;/li&gt;</span><span class="dl">"</span><span class="p">;</span>
+        <span class="nx">elemento</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&lt;li&gt;Edad: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">datos</span><span class="p">.</span><span class="nx">edad</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;/li&gt;</span><span class="dl">"</span><span class="p">;</span>
+        <span class="nx">elemento</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="dl">"</span><span class="s2">&lt;/ul&gt;</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">xhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">GET</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">datos.php</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">xhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Haz una copia del ejercicio anterior en otra carpeta llamada <strong>listacompraJSON</strong> y añade estos cambios:</p>
+
+  <ul>
+    <li>El fichero <strong>listado.php</strong> leerá los datos de la compra de un fichero y los enviará al cliente en formato JSON. En este caso enviaremos un array de objetos JavaScript, donde cada uno tendrá un único campo con el título del artículo</li>
+    <li>El fichero <strong>lista_compra.html</strong> pedirá el listado por AJAX, como antes, pero ahora lo que recibirá será un array de datos en formato texto, que deberá convertir a JSON y mostrar en el lugar correspondiente de la página.</li>
+  </ul>
+</blockquote>
+
+<h3 id="21-envío-de-formularios-con-ajax">2.1. Envío de formularios con AJAX</h3>
+
+<p>También es posible utilizar AJAX para enviar formularios de forma asíncrona desde el cliente, recoger la respuesta y mostrarla en un lugar de la página sin tener que recargarla toda. Supongamos que tenemos un formulario identificado con <code class="language-plaintext highlighter-rouge">name="form1"</code>, y queremos enviar sus datos por AJAX a <code class="language-plaintext highlighter-rouge">procesar_formulario.php</code>. Dicho formulario puede tener establecidos sus mecanismos de validación en el cliente, así que lo que haremos será alterar el comportamiento del evento <em>submit</em> para deshacer el comportamiento por defecto y enviar el formulario de otro modo. Para ello, crearemos un objeto de tipo <code class="language-plaintext highlighter-rouge">FormData</code> de JavaScript, con los datos del formulario, y los enviaremos por AJAX a la página destino, recogiendo la respuesta:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">formulario</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">form1</span><span class="p">;</span>
+<span class="nx">formulario</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evento</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">evento</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FormData</span><span class="p">(</span><span class="nx">formulario</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">xhttp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+    <span class="nx">xhttp</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">==</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>                
+            <span class="c1">// Recoger respuesta del servidor y procesarla</span>
+            <span class="kd">let</span> <span class="nx">datosRecibidos</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span><span class="p">);</span>
+            <span class="c1">// Mostrar los datos en algún componente</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">xhttp</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">procesar_formulario.php</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="nx">xhttp</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">datos</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Haz una copia del ejercicio anterior en otra carpeta llamada <strong>listacompraJSONForm</strong> y haz que el fichero <strong>lista_compra.html</strong> tenga ahora, además de lo anterior, un formulario para poder dar de alta nuevos títulos de artículos en la lista de la compra. Cuando enviemos el formulario, desde AJAX crearemos un <code class="language-plaintext highlighter-rouge">FormData</code> con sus datos y lo enviaremos a otra página <strong>nuevo.php</strong>, que lo añadirá al fichero con la lista de la compra, y redirigirá a <strong>listado.php</strong> para que devuelva la lista actualizada en formato JSON. Al recibir la lista JSON (tras enviar el formulario) se actualizará en <em>lista_compra.html</em>. De este modo, la lista se actualizará tanto al pulsar el botón de “Cargar lista” como al enviar el formulario.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

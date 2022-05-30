@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Formularios | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Formularios" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/02e.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Formularios" />
+<script type="application/ld+json">
+{"headline":"Formularios","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/02e.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="formularios">Formularios</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Hasta ahora, la única forma que hemos visto de interactuar con una web son los enlaces, haciendo clic en ellos. Pero existe otra opción más potente para que el usuario interactúe con una web: los formularios. Son una herramienta muy útil para enviar información a un servidor. Cuando nos registramos en una web, rellenamos una serie de datos (e-mail, contraseña, etc.) mediante un formulario. Así pues, un formulario contiene una serie de elementos (llamados normalmente “controles” o “campos”) que colocamos en una página web para que el usuario pueda introducir información. Veremos a continuación qué tipos de elementos puede tener un formulario y cómo se colocan en la página.</p>
+
+<h2 id="1-estructura-básica-de-un-formulario">1. Estructura básica de un formulario</h2>
+
+<p>Todo el contenido de un formulario va encerrado entre una pareja de etiquetas <code class="language-plaintext highlighter-rouge">form</code>. Esta etiqueta tiene, entre otros, los siguientes atributos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">action</code>: sería el equivalente al <em>href</em> de los enlaces. Indica a qué página queremos ir cuando rellenemos el formulario y lo enviemos. Podemos utilizar, como en los enlaces, una ruta relativa o absoluta a la página. Lo normal es que la página a la que ir en el action de un formulario sea una página escrita en lenguaje de servidor (PHP, JSP, ASP… según el lenguaje que hayamos elegido), ya que normalmente el servidor debe recoger la información que envía el usuario en el formulario, procesarla y hacer algo con ella. Por ejemplo, si nos estamos registrando en la web, el servidor deberá procesar nuestros datos y darnos de alta en la base de datos de usuarios de la web.</li>
+  <li><code class="language-plaintext highlighter-rouge">method</code>: indica la forma en que se envían los datos al servidor. Puede valer <em>get</em> (los datos son visibles en la barra de direcciones del navegador cuando los enviamos) o <em>post</em> (los datos no son visibles desde la barra de direcciones, y por tanto es algo más seguro).</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+   ... Contenido del formulario
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">autocomplete</code>: puede tomar los valores <em>on</em> y <em>off</em>, siendo <em>on</em> el valor por defecto. Si está activado, al rellenar cada campo del formulario se mostrará un listado de términos que hemos escrito recientemente, para ayudarnos a completar la información en el caso de que queramos que sea la misma. Por ejemplo, en campos de tipo <em>e-mail</em> se mostrará una lista con los últimos e-mails que hayamos escrito en formularios. Este mismo atributo también existe en los controles internos del formulario, de modo que podemos habilitar el autocompletado para el formulario en general, y deshabilitarlo para ciertos controles.</li>
+</ul>
+
+<h2 id="2-elementos-básicos-de-un-formulario">2. Elementos básicos de un formulario</h2>
+
+<p>Dentro de las etiquetas <em>form</em> que engloban al formulario, podemos poner diferentes tipos de controles. Los más habituales son:</p>
+
+<ul>
+  <li><strong>Cuadros de texto</strong>: para introducir en una línea una información corta y concreta, como por ejemplo un e-mail o un password.</li>
+  <li><strong>Áreas de texto</strong>: para introducir textos largos, de más de una línea. Por ejemplo, el contenido de una noticia.</li>
+  <li><strong><em>Checkboxes</em></strong>: casillas de verificación que se marcan y desmarcan</li>
+  <li><strong>Botones de radio o <em>radio buttons</em></strong>: conjunto de botones u opciones entre los que sólo puede haber uno seleccionado.</li>
+  <li><strong>Listas</strong>: desplegables o fijas</li>
+  <li><strong>Botones</strong>: para enviar el formulario, o borrar los datos del mismo, por ejemplo</li>
+  <li><strong>Etiquetas</strong>: dan información de otros controles, indicando para qué sirven.</li>
+</ul>
+
+<p>La mayor parte de estos controles (cuadros de texto, <em>checkboxes</em>, botones de radio, botones normales…) se añaden con la etiqueta <code class="language-plaintext highlighter-rouge">input</code>. Otros controles necesitan de otras etiquetas. Veremos todas ellas a continuación.</p>
+
+<h3 id="21-la-etiqueta-input">2.1. La etiqueta <em>input</em></h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">input</code> se utiliza para definir distintos tipos de controles, dependiendo de lo que valga su atributo <code class="language-plaintext highlighter-rouge">type</code>. Este atributo puede valer:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">text</code>: para definir cuadros de texto simples (de una sola línea).</li>
+  <li><code class="language-plaintext highlighter-rouge">password</code>: para definir cuadros de texto enmascarados (para contraseñas)</li>
+  <li><code class="language-plaintext highlighter-rouge">file</code>: para definir controles para subir archivos al servidor. Aparecerá un cuadro de texto y un botón para que, al pinchar en él, podamos elegir el archivo. Estos controles no son de mucha utilidad sin un lenguaje de servidor que les ayude a completar la tarea, como PHP, JSP o ASP.NET. Se puede añadir el atributo <code class="language-plaintext highlighter-rouge">multiple</code> en el caso de que queramos poder adjuntar varios archivos.</li>
+  <li><code class="language-plaintext highlighter-rouge">checkbox</code>: para definir casillas de verificación o <em>checkboxes</em></li>
+  <li><code class="language-plaintext highlighter-rouge">radio</code>: para definir botones de radio.</li>
+  <li><code class="language-plaintext highlighter-rouge">submit</code>: para definir el botón que servirá para enviar el formulario al pulsarlo</li>
+  <li><code class="language-plaintext highlighter-rouge">reset</code>: para el botón que servirá para borrar el contenido del formulario al pulsarlo</li>
+  <li><code class="language-plaintext highlighter-rouge">button</code>: para definir otro botón cualquiera, con otra funcionalidad. Esta última opción no es demasiado útil de momento, si no se combina con lenguajes de cliente como Javascript.</li>
+  <li><code class="language-plaintext highlighter-rouge">hidden</code>: sirve para definir campos ocultos, que almacenan información junto con el formulario pero no la muestran al usuario. Aparentemente no tienen utilidad, pero combinado con lenguajes de servidor como PHP, pueden ser de mucha ayuda.</li>
+</ul>
+
+<p>A partir de HTML 5 se añadieron otros tipos (<em>types</em>) válidos que permitían definir controles específicos. Podemos destacar los siguientes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">email</code>: para cuadros de texto donde se requiera introducir una dirección de correo electrónico</li>
+  <li><code class="language-plaintext highlighter-rouge">number</code>: para cuadros que exijan un dato numérico (real o entero)</li>
+  <li><code class="language-plaintext highlighter-rouge">date</code>, <code class="language-plaintext highlighter-rouge">time</code> o <code class="language-plaintext highlighter-rouge">datetime</code>: para cuadros que exijan poner una fecha, hora o fecha y hora conjunta, respectivamente</li>
+  <li><code class="language-plaintext highlighter-rouge">color</code>: para controles que permiten elegir un color de una paleta de colores</li>
+  <li><code class="language-plaintext highlighter-rouge">search</code>: para cuadros de búsqueda. En algunos navegadores se habilita estos controles con un aspa para borrar el contenido del cuadro.</li>
+  <li><code class="language-plaintext highlighter-rouge">url</code>: para introducir direcciones de internet.</li>
+  <li><code class="language-plaintext highlighter-rouge">range</code>: para controles de tipo <em>slider</em>, con una barra que podemos mover entre unos límites. Aunque, desafortunadamente, no se muestra ninguna información visual del valor actualmente seleccionado (se debería utilizar algo de código JavaScript y elementos adicionales para poder ver este valor)</li>
+</ul>
+
+<p>Una vez elegido el tipo de control, la etiqueta <em>input</em> tiene otra serie de atributos que debemos tener en cuenta (muchos de estos atributos también están presentes en otros tipos de controles):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: sirve para dar un nombre identificativo al control. Nos será muy útil para identificarlo luego en los lenguajes de cliente o de servidor (JavaScript, PHP…). Por ejemplo todos los botones de radio que queramos agrupar en funcionalidad, deben tener la misma etiqueta <em>name</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">id</code>: el identificador del control, al igual que podemos usar este atributo en otras etiquetas HTML. Se utiliza en CSS, y también para algunas cosas con JavaScript. A menudo se utiliza junto a <em>name</em>, dando a los dos el mismo nombre o valor.</li>
+  <li><code class="language-plaintext highlighter-rouge">value</code>: sirve para dar un valor inicial con el que rellenar el control (hasta que el usuario se lo cambie)</li>
+  <li><code class="language-plaintext highlighter-rouge">size</code>: sirve para indicar el tamaño del control (en caracteres si es un cuadro de texto, o en píxeles para el resto)</li>
+  <li><code class="language-plaintext highlighter-rouge">maxlength</code>: sirve para indicar el máximo número de caracteres que puede aceptar el control (en el caso de cuadros de texto).</li>
+  <li><code class="language-plaintext highlighter-rouge">checked</code>: sirve para indicar, si es un checkbox o botón de radio, que está marcado. Es un valor de <em>verdadero o falso</em>, por lo que, si no se pone, asumimos que el control no está marcado, y si se pone sí lo está</li>
+  <li><code class="language-plaintext highlighter-rouge">disabled</code>: sirve para deshabilitar un control, y que el usuario no pueda modificar su valor. Se usa sobre todo para dar información al usuario, pero sin que éste la pueda modificar. Es un valor de <em>verdadero o falso</em>, como el anterior, y se utiliza de la misma forma. Si un campo está <em>disabled</em> no se envía cuando se envía el formulario.</li>
+  <li><code class="language-plaintext highlighter-rouge">readonly</code>: similar al anterior, sirve para que un control sea de sólo lectura y el usuario no pueda modificar su valor. A diferencia del anterior, el contenido sí se envía con el resto del formulario.</li>
+  <li><code class="language-plaintext highlighter-rouge">placeholder</code>: muestra un texto informativo dentro del cuadro de texto, que normalmente indica al usuario el tipo de información que debe introducir en dicho cuadro.</li>
+</ul>
+
+<p>Veamos un ejemplo: el siguiente formulario muestra un cuadro de texto para poner nuestro nombre, otro que admite hasta 50 caracteres para un e-mail, una casilla de verificación para ver si el usuario está casado, dos botones de radio para elegir su idioma preferido, y un botón para enviar el formulario.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Introduce tu nombre:<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span> <span class="na">size=</span><span class="s">"20"</span> <span class="na">placeholder=</span><span class="s">"Nombre completo"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>Introduce tu e-mail:<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"20"</span> <span class="na">maxlength=</span><span class="s">"50"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"casado"</span><span class="nt">&gt;</span> Casado
+    <span class="nt">&lt;p&gt;</span>Elige tu idioma preferido:<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">value=</span><span class="s">"ingles"</span> <span class="na">checked</span><span class="nt">&gt;</span>Inglés
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">value=</span><span class="s">"frances"</span><span class="nt">&gt;</span>Francés
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar datos"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Esto se vería más o menos así en la página:</p>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_formulario.png" width="30%" />
+</div>
+
+<p>Observa algunas cosas interesantes, como que los controles de tipo radio comparten el mismo name (para que al pulsar uno se suelten los demás), y que tienen un value que no se muestra en el formulario realmente, y cuya utilidad escapa al alcance de este tema.</p>
+
+<h4 id="211-más-sobre-los-botones">2.1.1. Más sobre los botones</h4>
+
+<p>Además de poder definir botones con la etiqueta <code class="language-plaintext highlighter-rouge">input</code>, también podemos emplear la etiqueta <code class="language-plaintext highlighter-rouge">button</code> como alternativa. Tiene, igualmente, un atributo <code class="language-plaintext highlighter-rouge">type</code> que indica el tipo de botón que queremos crear (<em>submit</em>, <em>reset</em> o <em>button</em> normal). Así, estas dos opciones son equivalentes (aunque, si observamos, la etiqueta <em>button</em> no es una etiqueta vacía, y el texto del botón se especifica en su contenido):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar datos"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Enviar datos<span class="nt">&lt;/button&gt;</span>
+</code></pre></div></div>
+
+<h3 id="22-las-etiquetas-de-formularios-label">2.2. Las etiquetas de formularios: <em>label</em></h3>
+
+<p>Con la etiqueta <code class="language-plaintext highlighter-rouge">label</code> podemos definir controles de tipo etiqueta, es decir, controles que sirven para dar información sobre otros controles. En realidad, en el ejemplo anterior, no deberíamos haber usado párrafos para indicar que el primer cuadro de texto es para escribir el e-mail, o que los botones de radio son para elegir el idioma preferido. Para eso están las etiquetas. 
+La etiqueta <em>label</em> tiene un atributo <code class="language-plaintext highlighter-rouge">for</code>, que sirve para indicar el control al que está asociado (a través del atributo <code class="language-plaintext highlighter-rouge">id</code> de dicho control) para que, al hacer clic en la etiqueta, se acceda directamente al control. Además, el uso de etiquetas facilita la lectura de formularios por parte de lectores de pantalla, por lo que su uso es todavía más recomendable en términos de accesibilidad.</p>
+
+<p>Así, el formulario anterior se podría haber definido así:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"nombre"</span><span class="nt">&gt;</span>Introduce tu nombre:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span> <span class="na">id=</span><span class="s">"nombre"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"email"</span><span class="nt">&gt;</span>Introduce tu e-mail:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"20"</span> <span class="na">maxlength=</span><span class="s">"50"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"casado"</span> <span class="na">id=</span><span class="s">"casado"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"casado"</span><span class="nt">&gt;</span>Casado<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;label&gt;</span>Elige tu idioma preferido:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">id=</span><span class="s">"ingles"</span> <span class="na">value=</span><span class="s">"ingles"</span> <span class="na">checked</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"ingles"</span><span class="nt">&gt;</span>Inglés<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">id=</span><span class="s">"frances"</span> <span class="na">value=</span><span class="s">"frances"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"frances"</span><span class="nt">&gt;</span>Francés<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar datos"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Alternativamente, podemos hacer que la etiqueta englobe el control al que va a asociada. De este modo podemos omitir el atributo <em>for</em>, porque ya se sabe a qué control va asociada:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;label&gt;</span>
+    Introduce tu nombre:
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span> <span class="na">id=</span><span class="s">"nombre"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/label&gt;</span>
+</code></pre></div></div>
+
+<p>Otra de las ventajas que tiene usar etiquetas es que, en controles como los <em>checkboxes</em> o los botones de radio, ampliamos el área en que podemos hacer clic para seleccionarlos, ya que también podemos hacer clic en la etiqueta asociada al control (cosa que no se podría hacer si usáramos simples párrafos).</p>
+
+<h3 id="23-áreas-de-texto">2.3. Áreas de texto</h3>
+
+<p>Para introducir texto que ocupe más de una línea, no nos sirve la etiqueta <em>input</em> con su atributo <em>type=”text”</em>. En su lugar, debemos usar la pareja de etiquetas <code class="language-plaintext highlighter-rouge">textarea</code>. Esta etiqueta tiene tres atributos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code> para ponerle un nombre al control, al igual que hacíamos con <em>input</em></li>
+  <li><code class="language-plaintext highlighter-rouge">rows</code> para indicar cuántas filas de texto va a haber</li>
+  <li><code class="language-plaintext highlighter-rouge">cols</code> para indicar cuántas columnas de texto va a haber</li>
+</ul>
+
+<p>Si luego se ocuparan más filas o columnas que las que indiquemos, aparecerá una barra de desplazamiento para poder ver el resto del texto escrito en el área de texto.</p>
+
+<p>Aquí tenemos un ejemplo de uso:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;textarea</span> <span class="na">name=</span><span class="s">"noticia"</span> <span class="na">rows=</span><span class="s">"5"</span> <span class="na">cols=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+Texto de la noticia
+<span class="nt">&lt;/textarea&gt;</span>
+</code></pre></div></div>
+
+<h3 id="24-listas">2.4. Listas</h3>
+
+<p>Podemos definir dos tipos de listas para elegir opciones en un formulario: listas fijas (ocupan una altura determinada y dejan visibles X elementos, aunque pueden tener más y verlos mediante barras de desplazamiento) y listas desplegables (sólo es visible un elemento, y los demás se muestran desplegando la lista). Ambas se crean con la etiqueta <code class="language-plaintext highlighter-rouge">select</code>, que admite los siguientes atributos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: para darle un nombre al control, al igual que en controles anteriores</li>
+  <li><code class="language-plaintext highlighter-rouge">size</code>: para indicar el número de filas visibles. Si no usamos este atributo, o ponemos un valor de 1, crearemos una lista desplegable. Si vale más de 1, será una lista fija con el número de filas visibles que hayamos establecido aquí. En este caso, podemos utilizar un atributo llamado <code class="language-plaintext highlighter-rouge">multiple</code> (sin valor) que permite seleccionar varios elementos.</li>
+</ul>
+
+<p>Internamente, la etiqueta <em>select</em> tiene una serie de etiquetas <code class="language-plaintext highlighter-rouge">option</code>, una para cada elemento que queramos añadir a la lista. Estos elementos tienen un atributo <code class="language-plaintext highlighter-rouge">value</code> para indicar su valor (que puede ser diferente del que luego se mostrará). Además, para indicar si hay algún elemento preseleccionado de antemano, marcaremos ese elemento con el atributo <code class="language-plaintext highlighter-rouge">selected</code>.</p>
+
+<p>Veamos aquí un ejemplo y cómo se vería:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">"navegador"</span> <span class="na">size=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"ie"</span><span class="nt">&gt;</span>Internet Explorer<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"firefox"</span> <span class="na">selected</span><span class="nt">&gt;</span>Firefox<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"chrome"</span><span class="nt">&gt;</span>Chrome<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"opera"</span><span class="nt">&gt;</span>Opera<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"safari"</span><span class="nt">&gt;</span>Safari<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_lista_form.png" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una página llamada <strong>formDatos.html</strong> para rellenar tus datos personales. Añade un encabezado 1 (<em>h1</em>) que diga “Rellena tus datos”, y debajo un formulario como el que tienes a continuación:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_formulario1.png" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página llamada <strong>formMatricula.html</strong> para simular un proceso de matrícula en ciclos formativos:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_formulario2.png" width="70%" />
+</div>
+
+<blockquote>
+  <p>Deberás tener en cuenta que:</p>
+
+  <ul>
+    <li>El campo <em>Fecha de nacimiento</em> es de tipo <em>date</em></li>
+    <li>El campo <em>Correo electrónico</em> es de tipo <em>email</em></li>
+    <li>El campo <em>Hermanos en el centro</em> es de tipo numérico (<em>number</em>)</li>
+  </ul>
+</blockquote>
+
+<h2 id="3-algunas-opciones-avanzadas">3. Algunas opciones avanzadas</h2>
+
+<h3 id="31-validación-de-formularios-en-cliente">3.1. Validación de formularios en cliente</h3>
+
+<p>Desde HTML5, podemos incorporar una serie de atributos en los controles de los formularios para establecer una validación básica. De este modo, podemos obligar a que algunos campos se rellenen, incluso que tengan un patrón o valor determinado. Para ello, podemos hacer uso de estos atributos:</p>
+
+<p><strong>required</strong></p>
+
+<p>Este atributo se puede aplicar desde HTML 5 en los campos de un formulario que sea obligatorio cumplimentar, de forma que el formulario directamente no se envía si están vacíos. Por ejemplo, en el siguiente formulario es obligatorio rellenar el campo login:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"login.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"login"</span><span class="nt">&gt;</span>Login:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"login"</span> <span class="na">required</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"login"</span><span class="nt">&gt;</span>Password:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"password"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Si no lo rellenamos, el navegador nos posicionará sobre ese cuadro de texto con algún tipo de mensaje (dependiendo del navegador) indicando que debemos rellenarlo.</p>
+
+<p><strong>pattern</strong></p>
+
+<p>Este atributo permite especificar un patrón de entrada, de forma que para que el dato que introduce el usuario se considere válido, debe ajustarse a ese patrón. Por ejemplo, para un campo que pida un número de teléfono podemos esperar que el usuario escriba entre 9 y 11 dígitos:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"telefono"</span> <span class="na">pattern=</span><span class="s">"[0-9]{9,11}"</span> 
+ <span class="na">placeholder=</span><span class="s">"Entre 9 y 11 dígitos"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Es habitual también indicar en ese campo del formulario qué tipo de información se espera a través de un <em>placeholder</em>. La sintaxis que se utiliza para definir diferentes tipos de patrones es la misma que se usa en JavaScript para expresiones regulares, por ejemplo, pero no la veremos con detalle en este tema. Simplemente veremos algunos casos útiles:</p>
+
+<ul>
+  <li>Los <strong>corchetes</strong> especifican un <strong>rango</strong> de valores. Por ejemplo, <code class="language-plaintext highlighter-rouge">[0-9]</code> indica cualquier dígito, y <code class="language-plaintext highlighter-rouge">[a-zA-Z]</code> cualquier letra.</li>
+  <li>Las <strong>llaves</strong> indican el <strong>número de ocurrencias</strong>, bien exacto (un solo número entre llaves) o un número mínimo y máximo de ocurrencias, separados por comas.</li>
+  <li>El símbolo <code class="language-plaintext highlighter-rouge">+</code> indica una o más veces. Por ejemplo, uno o más dígitos (<code class="language-plaintext highlighter-rouge">[0-9]+</code>). Por su parte, el símbolo <code class="language-plaintext highlighter-rouge">*</code> indica cero o más veces.</li>
+  <li>El símbolo <code class="language-plaintext highlighter-rouge">\</code> se utiliza para representar algunos símbolos especiales, como por ejemplo el punto (<code class="language-plaintext highlighter-rouge">\.</code>)</li>
+</ul>
+
+<p><strong><em>min</em>, <em>max</em> y otras validaciones numéricas</strong></p>
+
+<p>Para campos numéricos o de tipo rango (<em>range</em>) podemos establecer con estos dos atributos los valores mínimo y/o máximo que se permiten (inclusive).</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">name=</span><span class="s">"numero"</span> <span class="na">min=</span><span class="s">"1"</span> <span class="na">max=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Además, podemos definir un atributo <code class="language-plaintext highlighter-rouge">step</code> para indicar el incremento que se admite. Esto permitirá definir si admitimos sólo números enteros, por ejemplo…</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">name=</span><span class="s">"numero"</span> <span class="na">min=</span><span class="s">"1"</span> <span class="na">max=</span><span class="s">"5"</span> <span class="na">step=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>… o si también admitimos números reales, hasta las centésimas, por ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">name=</span><span class="s">"numero"</span> <span class="na">min=</span><span class="s">"1"</span> <span class="na">max=</span><span class="s">"5"</span> <span class="na">step=</span><span class="s">"0.01"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Estos elementos también pueden aplicarse a los campos de tipo <em>range</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"range"</span> <span class="na">name=</span><span class="s">"porcentaje"</span> <span class="na">min=</span><span class="s">"0"</span> <span class="na">max=</span><span class="s">"100"</span> <span class="na">step=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Otras validaciones <em>de facto</em></strong></p>
+
+<p>Algunos controles de formularios incorporados desde HTML5, como el <code class="language-plaintext highlighter-rouge">input type="email"</code>, <code class="language-plaintext highlighter-rouge">input type="url"</code> o <code class="language-plaintext highlighter-rouge">input type="number"</code> incorporan una validación <em>de facto</em> en ellos, de forma que si el contenido que escribimos no se asemeja a un e-mail válido o a un dato numérico, respectivamente, también se mostrará un mensaje de error y no se enviará el formulario.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Vamos a aplicar validación al formulario del <em>Ejercicio 2</em>. En concreto, deberá cumplir lo siguiente:</p>
+
+  <ul>
+    <li>El nombre completo y el e-mail son obligatorios</li>
+    <li>El móvil de contacto debe empezar por 6, 7 u 8, y contener en total 9 dígitos</li>
+    <li>El número de hermanos admite valores entre 0 y 10, ambos inclusive</li>
+  </ul>
+</blockquote>
+
+<h3 id="32-conjuntos-de-campos-o-fieldsets">3.2. Conjuntos de campos o <em>fieldsets</em></h3>
+
+<p>Podemos agrupar conjuntos de controles en una especie de “marcos”, para poder dividir mejor la información del formulario cuando éste muestra demasiados campos. Estos marcos se crean con la pareja de etiquetas <code class="language-plaintext highlighter-rouge">fieldset</code>. Esta etiqueta contiene una subetiqueta <code class="language-plaintext highlighter-rouge">legend</code> que es el título de ese marco. Un ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;fieldset&gt;</span>
+    <span class="nt">&lt;legend&gt;</span>Datos personales<span class="nt">&lt;/legend&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"nombre"</span><span class="nt">&gt;</span>Nombre<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"apellidos"</span><span class="nt">&gt;</span>Apellidos<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"apellidos"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"dni"</span><span class="nt">&gt;</span>DNI<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"dni"</span> <span class="na">size=</span><span class="s">"10"</span> <span class="na">maxlength=</span><span class="s">"9"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;/fieldset&gt;</span>
+</code></pre></div></div>
+
+<p>que se vería así en el navegador:</p>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_fieldset.png" />
+</div>
+
+<h3 id="33-agrupar-opciones-en-listas">3.3. Agrupar opciones en listas</h3>
+
+<p>La etiqueta <code class="language-plaintext highlighter-rouge">select</code> admite algunas opciones más para agrupar los elementos que contiene en categorías, cuando hay muchos elementos que mostrar. Para ello se utiliza la etiqueta <code class="language-plaintext highlighter-rouge">optgroup</code>, con un atributo <code class="language-plaintext highlighter-rouge">label</code> que da nombre a cada categoría. Veamos un ejemplo y cómo se vería en el navegador:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"programa"</span><span class="nt">&gt;</span>Programa seleccionado<span class="nt">&lt;/label&gt;</span>
+<span class="nt">&lt;br&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">"programa"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;optgroup</span> <span class="na">label=</span><span class="s">"Sistemas Operativos"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Windows"</span><span class="nt">&gt;</span>Windows<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Mac"</span><span class="nt">&gt;</span>Mac<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Linux"</span> <span class="na">selected</span><span class="nt">&gt;</span>Linux<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Otro"</span><span class="nt">&gt;</span>Otro<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/optgroup&gt;</span>
+    <span class="nt">&lt;optgroup</span> <span class="na">label=</span><span class="s">"Navegadores"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"IE"</span><span class="nt">&gt;</span>Internet Explorer<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Firefox"</span><span class="nt">&gt;</span>Firefox<span class="nt">&lt;/option&gt;</span>
+        ...
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/02_ejemplo_lista_categorias_form.png" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Crea una página llamada <strong>formProducto.html</strong> con el siguiente formulario (más el encabezado 1 con el texto “Información sobre el producto”, y un botón de “Enviar” en la parte inferior):</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/02_ejercicio_formulario4.png" width="70%" />
+</div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

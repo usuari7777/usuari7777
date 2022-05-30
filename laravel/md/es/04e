@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Seeders y factories | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Seeders y factories" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04e.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Seeders y factories" />
+<script type="application/ld+json">
+{"headline":"Seeders y factories","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04e.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="seeders-y-factories"><em>Seeders</em> y <em>factories</em></h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/04e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="04e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En las pruebas que hemos hecho hasta ahora, para tener datos con que probar la aplicación, nos hemos limitado a añadirlos a mano desde <em>phpMyAdmin</em>, o bien desde el código con algunos datos simples como “Título de prueba 1” o cosas similares.</p>
+
+<p>Dado que los datos de inicio son necesarios para probar algunas funcionalidades básicas de la aplicación, como son las búsquedas y filtrados, y dado que los formularios para dar de alta y gestionar estos datos normalmente no se tienen listos hasta etapas más tardías, puede resultar conveniente disponer de algún mecanismo que genere estos datos de prueba al inicio, sin preocuparnos de tocar la base de datos a mano o alterar el código de la aplicación para ello. En este aspecto, los <em>seeders</em> y <em>factories</em> juegan un papel importante.</p>
+
+<h2 id="1-los-seeders">1. Los <em>seeders</em></h2>
+
+<p>Los <em>seeders</em> son clases especiales que permiten sembrar (<em>seed</em>) de contenido una aplicación. Para crearlos, utilizamos el comando <code class="language-plaintext highlighter-rouge">php artisan</code> como sigue:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:seeder NombreSeeder
+</code></pre></div></div>
+
+<p>Esto creará una clase llamada <code class="language-plaintext highlighter-rouge">NombreSeeder</code> en la carpeta <code class="language-plaintext highlighter-rouge">database/seeds</code> (hasta Laravel 7) o <code class="language-plaintext highlighter-rouge">database/seeders</code> (desde Laravel 8). En el método <code class="language-plaintext highlighter-rouge">run</code> de dicha clase podemos crear los elementos que necesitemos añadir a la base de datos.</p>
+
+<p>Por ejemplo, vamos a crear en nuestro proyecto <em>biblioteca</em> un seeder llamado <code class="language-plaintext highlighter-rouge">LibrosSeeder</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:seeder LibrosSeeder
+</code></pre></div></div>
+
+<p>Editamos el método <code class="language-plaintext highlighter-rouge">run</code> del <em>seeder</em> que hemos creado, y definimos este código para crear un autor con un libro asociado (deberemos incorporar con <code class="language-plaintext highlighter-rouge">use</code> los modelos de <code class="language-plaintext highlighter-rouge">Autor</code> y <code class="language-plaintext highlighter-rouge">Libro</code> previamente):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$autor</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Autor</span><span class="p">();</span>
+    <span class="nv">$autor</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="o">=</span> <span class="s2">"Juan Seeder"</span><span class="p">;</span>
+    <span class="nv">$autor</span><span class="o">-&gt;</span><span class="n">nacimiento</span> <span class="o">=</span> <span class="mi">1960</span><span class="p">;</span>
+    <span class="nv">$autor</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+    <span class="nv">$libro</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Libro</span><span class="p">();</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="s2">"El libro del Seeder"</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">editorial</span> <span class="o">=</span> <span class="s2">"Seeder S.A."</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">precio</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">autor</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">associate</span><span class="p">(</span><span class="nv">$autor</span><span class="p">);</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="11-añadiendo-los-seeders-a-la-aplicación">1.1. Añadiendo los <em>seeders</em> a la aplicación</h3>
+
+<p>Por defecto, los <em>seeders</em> que creamos no forman parte de la aplicación aún, en el sentido de que aún no los podemos ejecutar. Para ello, debemos darlos de alta en el <em>seeder</em> general, llamado <code class="language-plaintext highlighter-rouge">DatabaseSeeder</code>, ubicado en la misma carpeta que los <em>seeders</em> que definimos:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DatabaseSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">call</span><span class="p">(</span><span class="nc">LibrosSeeder</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="12-lanzar-los-seeders">1.2. Lanzar los <em>seeders</em></h3>
+
+<p>Si queremos ejecutar los <em>seeders</em> para que añadan los datos, emplearemos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan db:seed
+</code></pre></div></div>
+
+<p>Esto lanzará todos los <em>seeders</em> que tengamos declarados en la clase <code class="language-plaintext highlighter-rouge">DatabaseSeeder</code>. Si sólo queremos lanzar uno en concreto, podemos hacer lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan db:seed --class=LibrosSeeder
+</code></pre></div></div>
+
+<p>También puede ser necesario (y a veces conveniente) limpiar la base de datos y llenarla desde cero con los datos de los seeds para empezar a probar la aplicación. En este caso, el comando es el siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate:fresh --seed
+</code></pre></div></div>
+
+<h2 id="2-los-factories">2. Los <em>factories</em></h2>
+
+<p>Los <em>seeders</em> son una herramienta útil para poblar nuestra aplicación con datos al inicio. Podemos, por ejemplo, dar de alta una serie de usuarios iniciales con acceso a la aplicación, para que con ellos se puedan rellenar el resto de datos. También podemos dar de alta una serie de datos predefinidos en ciertas tablas, o datos de prueba que luego poder borrar.</p>
+
+<p>Sin embargo, los <em>seeders</em> por sí solos se quedan algo “cojos”. ¿Qué tendríamos que hacer para dar de alta 10 o 20 libros en nuestra base de datos de <em>biblioteca</em>? Tendríamos que definir algún tipo de bucle en el <em>seeder</em>, y definir datos diferentes (por ejemplo, con identificadores o contadores aleatorios) para cada libro. Para facilitar esta tarea, podemos echar mano de los <em>factories</em>.</p>
+
+<p>Los <em>factories</em> son clases que permiten generar datos por lotes. Se crean con el siguiente comando, almacenándose la clase en la carpeta <code class="language-plaintext highlighter-rouge">database/factories</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:factory NombreFactory
+</code></pre></div></div>
+
+<p>Por ejemplo, vamos a crear un <em>factory</em> para generar autores y otro para libros:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:factory AutorFactory
+php artisan make:factory LibroFactory
+</code></pre></div></div>
+
+<h3 id="21-usando-factories-hasta-laravel-8">2.1. Usando <em>factories</em> hasta Laravel 8</h3>
+
+<p>Hasta la aparición de Laravel 8, los <em>factories</em> eran básicamente un archivo PHP en la carpeta anteriormente citada <code class="language-plaintext highlighter-rouge">database/factories</code>, con un método <code class="language-plaintext highlighter-rouge">define</code> que debíamos completar con los datos que se van a emplear para generar objetos de esa factoría. Por ejemplo, así generamos autores con nombres al azar (“Autor X”) y nacimientos al azar entre 1950 y 1990:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Autor</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Faker\Generator</span> <span class="k">as</span> <span class="nc">Faker</span><span class="p">;</span>
+
+<span class="nv">$factory</span><span class="o">-&gt;</span><span class="nb">define</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Faker</span> <span class="nv">$faker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s2">"Autor "</span> <span class="mf">.</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="s1">'nacimiento'</span> <span class="o">=&gt;</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">1990</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Notar también que utilizamos el modelo <code class="language-plaintext highlighter-rouge">Autor</code> (<code class="language-plaintext highlighter-rouge">Autor::class</code>) en lugar del modelo que viene por defecto al crear el <em>factory</em> (<code class="language-plaintext highlighter-rouge">Model:class</code>), deberemos cambiarlo en el código.</p>
+
+<p>Ahora, para crear, por ejemplo, 5 autores aleatorios usando este <em>factory</em>, creamos el <em>seeder</em> correspondiente…</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:seeder AutoresSeeder
+</code></pre></div></div>
+
+<p>… llamamos al <em>factory</em> en su método <code class="language-plaintext highlighter-rouge">run</code> para crear 5 autores…</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">AutoresSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nf">factory</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>… y damos de alta el nuevo <em>seeder</em> en <code class="language-plaintext highlighter-rouge">DatabaseSeeder</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DatabaseSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="mf">...</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">call</span><span class="p">(</span><span class="nc">AutoresSeeder</span><span class="o">:</span><span class="n">class</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">call</span><span class="p">(</span><span class="nc">LibrosSeeder</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Usando los <em>fakers</em></strong></p>
+
+<p>Estaremos de acuerdo en que generar datos del tipo “Autor 1”, “Autor 2”, etc, no queda demasiado “real” en una aplicación, por mucho que sean datos de prueba. Por ello, Laravel nos proporciona los <em>fakers</em> para generar datos al azar con una apariencia determinada. Así, podemos generar nombres reales aleatorios, o direcciones de correo electrónico, o frases, o textos largos. Si nos fijamos, cuando definimos un <em>factory</em> existe un parámetro de tipo <code class="language-plaintext highlighter-rouge">Faker</code> en la función <code class="language-plaintext highlighter-rouge">define</code>, que podemos emplear:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$factory</span><span class="o">-&gt;</span><span class="nb">define</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Faker</span> <span class="nv">$faker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<p>Este objeto <code class="language-plaintext highlighter-rouge">Faker</code> dispone de una serie de propiedades que generan datos de un cierto tipo. Algunos de los más habituales son:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: genera un nombre de persona. Admite como parámetro opcional “male” o “female” para generar nombres masculinos o femeninos, respectivamente.</li>
+  <li><code class="language-plaintext highlighter-rouge">sentence</code>: genera una frase corta. Admite como parámetro opcional un número, indicando cuántas palabras generar.</li>
+  <li><code class="language-plaintext highlighter-rouge">word</code>: genera una palabra aleatoria.</li>
+  <li><code class="language-plaintext highlighter-rouge">text</code>: genera un texto largo.</li>
+  <li><code class="language-plaintext highlighter-rouge">phoneNumber</code>: genera un número de teléfono.</li>
+  <li><code class="language-plaintext highlighter-rouge">email</code>: genera un e-mail aleatorio.</li>
+  <li><code class="language-plaintext highlighter-rouge">randomNumber</code>: genera un número aleatorio. Como alternativa, también se tiene <code class="language-plaintext highlighter-rouge">numberBetween</code>, que genera un número aleatorio entre un mínimo y un máximo pasados como parámetro.</li>
+  <li>… etc (<a href="https://github.com/fzaninotto/Faker">aquí</a> podéis consultar más posibilidades al respecto).</li>
+</ul>
+
+<p>Además, también tenemos disponible el método <code class="language-plaintext highlighter-rouge">unique()</code> para asegurarnos de que alguno de los campos que generemos no se repita entre registros.</p>
+
+<p>Volviendo a nuestro ejemplo, vamos a modificar el <em>factory</em> de autores para que genere nombres reales, y años de nacimiento entre 1950 y 1990 usando el <code class="language-plaintext highlighter-rouge">Faker</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Autor</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Faker\Generator</span> <span class="k">as</span> <span class="nc">Faker</span><span class="p">;</span>
+
+<span class="nv">$factory</span><span class="o">-&gt;</span><span class="nb">define</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Faker</span> <span class="nv">$faker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span>
+        <span class="s1">'nacimiento'</span> <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="nf">numberBetween</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">1990</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Si ahora actualizamos la base de datos, veremos los nuevos nombres generados:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate:fresh --seed
+</code></pre></div></div>
+
+<p><strong>Generando datos relacionados</strong></p>
+
+<p>Para terminar con esta sección, hagamos las cosas bien. Hemos generado autores, pero esos autores escriben libros. ¿Cómo podemos generar N autores, cada uno con M libros asignados?</p>
+
+<p>En primer lugar, vamos a modificar el <em>factory</em> de los libros para que genere un título, editorial y precio al azar (el precio entre 5 y 20 euros, por ejemplo, con 2 decimales):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Models\Libro</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Faker\Generator</span> <span class="k">as</span> <span class="nc">Faker</span><span class="p">;</span>
+
+<span class="nb">define</span><span class="p">(</span><span class="nc">Libro</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Faker</span> <span class="nv">$faker</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'titulo'</span> <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="n">sentence</span><span class="p">,</span>
+        <span class="s1">'editorial'</span> <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="nf">sentence</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s1">'precio'</span> <span class="o">=&gt;</span> <span class="nv">$faker</span><span class="o">-&gt;</span><span class="nf">randomFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>Así generamos 2 libros asignados a cada uno de los 5 autores creados con el <em>seeder</em> de autores:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LibrosSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$autores</span> <span class="o">=</span> <span class="nc">Autor</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+        <span class="nv">$autores</span><span class="o">-&gt;</span><span class="nb">each</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$autor</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">factory</span><span class="p">(</span><span class="nc">Libro</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+                <span class="s1">'autor_id'</span> <span class="o">=&gt;</span> <span class="nv">$autor</span><span class="o">-&gt;</span><span class="n">id</span>
+            <span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como vemos, lo que hacemos es recorrer los autores previamente creados (por lo que el <em>seeder</em> de autores debe lanzarse ANTES que el de libros), y para cada uno, crear 2 libros asociados a ese <em>id</em> de autor.`</p>
+
+<h3 id="22-usando-factories-desde-laravel-8">2.2. Usando <em>factories</em> desde Laravel 8</h3>
+
+<p>Uno de los cambios importantes que ha traído la versión 8 de Laravel es que ahora los <em>factories</em> están orientados a objetos, por lo que se engloban en clases. Además, por defecto se asocian a los modelos que creamos, de forma que podemos generar una factoría de objetos a partir de una clase, como veremos a continuación. Por este motivo, cuando creamos un modelo se añade una cláusula <code class="language-plaintext highlighter-rouge">use</code> indicando que emplea el <em>trait</em> <code class="language-plaintext highlighter-rouge">HasFactory</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Libro</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nc">HasFactory</span><span class="p">;</span>
+
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Un <em>trait</em> básicamente es un conjunto de métodos que se puede emplear por cualquier clase que quiera utilizarlos. De este modo, se amortigua en parte la limitación de sólo poder heredar de una clase, y mediante estos <em>traits</em> podemos incorporar la funcionalidad de otras.</p>
+
+<p>Cuando creamos una factoría en Laravel 8 empleando el comando <code class="language-plaintext highlighter-rouge">php artisan make:factory</code> comentado anteriormente, obtendremos una clase con el nombre que hayamos indicado, en la carpeta <code class="language-plaintext highlighter-rouge">database/factories</code>. Habrá un atributo <code class="language-plaintext highlighter-rouge">model</code> que deberá corresponder con el modelo (clase) asociada a este <em>factory</em>. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Database\Factories</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">App\Models\Autor</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Factories\Factory</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">AutorFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */</span>
+    <span class="k">protected</span> <span class="nv">$model</span> <span class="o">=</span> <span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">;</span>
+
+    <span class="cd">/**
+     * Define the model's default state.
+     *
+     * @return array
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">definition</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="c1">//</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ahora deberemos rellenar el método <code class="language-plaintext highlighter-rouge">definition</code> con los datos que queramos generar para cada objeto que se cree. Por ejemplo, así emplearíamos el <code class="language-plaintext highlighter-rouge">faker</code> (ahora automáticamente incorporado en el propio objeto <code class="language-plaintext highlighter-rouge">$this</code>), para generar datos al azar para los autores:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">definition</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">faker</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span>
+        <span class="s1">'nacimiento'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">faker</span><span class="o">-&gt;</span><span class="nf">numberBetween</span><span class="p">(</span><span class="mi">1950</span><span class="p">,</span> <span class="mi">1990</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Del mismo modo, completamos la información del método <code class="language-plaintext highlighter-rouge">definition</code> para el <em>factory</em> de libros (<code class="language-plaintext highlighter-rouge">LibroFactory</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">definition</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'titulo'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">faker</span><span class="o">-&gt;</span><span class="n">sentence</span><span class="p">,</span>
+        <span class="s1">'editorial'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">faker</span><span class="o">-&gt;</span><span class="nf">sentence</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+        <span class="s1">'precio'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">faker</span><span class="o">-&gt;</span><span class="nf">randomFloat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finalmente, en los <em>seeder</em> correspondientes, podemos utilizar estos <em>factory</em> para generar N objetos del modelo asociado. Por ejemplo, para el caso de los autores:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">AutoresSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nc">Autor</span><span class="o">::</span><span class="nf">factory</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">count</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En el caso de los libros, procedemos igual que en las versiones anteriores de Laravel, pero teniendo en cuenta que para llamar a la factoría se debe utilizar el método estático del modelo asociado. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LibrosSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$autores</span> <span class="o">=</span> <span class="nc">Autor</span><span class="o">::</span><span class="nf">all</span><span class="p">();</span>
+        <span class="nv">$autores</span><span class="o">-&gt;</span><span class="nb">each</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$autor</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nc">Libro</span><span class="o">::</span><span class="nf">factory</span><span class="p">()</span><span class="o">-&gt;</span><span class="nb">count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">([</span>
+                <span class="s1">'autor_id'</span> <span class="o">=&gt;</span> <span class="nv">$autor</span><span class="o">-&gt;</span><span class="n">id</span>
+            <span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

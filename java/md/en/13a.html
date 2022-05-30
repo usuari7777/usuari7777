@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>JavaFX application development | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="JavaFX application development" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="13a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/13a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="JavaFX application development" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"JavaFX application development","url":"http://nachoiborraies.github.io/java/md/en/13a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="javafx-application-development">JavaFX application development</h1>
+
+<h2 id="first-steps-with-javafx">First steps with JavaFX</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/13a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="13a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>JavaFX is a set of Java packages that lets us create a wide variety of graphical user interfaces (GUI), from the classical ones with typical controls such as labels, buttons, text boxes, menus, and so on, to some advanced and modern applications, with some interesting options such as animations or perspective.</p>
+
+<p>If we look backwards, we can see JavaFX as an evolution of a previous Java library, called Swing, that is still included in the official JDK, although it is becoming quite obsolete, and the possibilities that it offers are much more reduced. That is why now most of the Java desktop applications are being developed with JavaFX. At the beginning, it was distributed as an additional library that we needed to add to our projects. In Java version 8 it was included in Java core, but from version 11 it is, again, a separate library. So we need to download it and link it to our projects. However, it can be integrated with some of the most popular Java IDEs, such as Eclipse, NetBeans or IntelliJ. This allows us to:</p>
+
+<ul>
+  <li>Create JavaFX applications directly from our preferred IDE.</li>
+  <li>Run our JavaFX programs on any device that runs Java 8+ applications (desktops, laptops, tablets, mobile phones…)</li>
+</ul>
+
+<h3 id="1-creating-a-javafx-project-in-intellij">1. Creating a JavaFX project in IntelliJ</h3>
+
+<blockquote>
+  <p><strong>IMPORTANT NOTE</strong>: the steps explained in this section are updated to IntelliJ version 2021.2.1. These steps are different in earlier versions, and may differ in future versions until we update the contents again. We apologize for this inconvenience, but this is one of the drawbacks of working with JavaFX in many IDEs. In <a href="13a.html#3-some-notes-about-previous-versions">this section</a> you can find some tricks to work with previous versions, although it is harder to set up a JavaFX project this way.</p>
+</blockquote>
+
+<p>The first step to deal with a JavaFX application is to create a <strong>new project</strong> of type <strong>JavaFX</strong>. You will see a dialog like this:</p>
+
+<div align="center">
+    <img src="../../img/13_intellij_jfx_project.png" width="80%" />
+</div>
+
+<p>Some of the options in the dialog are self-explanatory, but some others may be confusing:</p>
+
+<ul>
+  <li><strong>Name</strong> and <strong>Location</strong> refer to the IntelliJ project’s name and location, as you have done in many other Java applications.</li>
+  <li>In <strong>Language</strong> you can choose your project language. In this case we choose <em>Java</em>.</li>
+  <li><strong>Build system</strong> refers to the dependency manager that you want to use. A dependency manager is a tool that automatically downloads and incorporates to our project every external dependency, like JavaFX in our case. You can choose between Maven and Gradle, which are the most important Java dependency managers nowadays. You can leave <strong>Maven</strong> as your default manager.</li>
+  <li><strong>Test framework</strong> lets you choose the test library for your application. <strong>JUnit</strong> is maybe the most popular one, so you can leave this option, although we are not going to use it in this unit.</li>
+  <li><strong>Group</strong> refers to a package name which will group your whole project. In the image above we have specified a group <em>example</em>. This means that, if our project is called <em>MyFirstJavaFXproject</em>, then the main package will be called <code class="language-plaintext highlighter-rouge">example.myfirstjavafxproject</code>. You can leave this field empty if you don’t want to add an additional package to group your project.</li>
+  <li><strong>Artifact</strong> usually corresponds to the project name. It can be used to generate artifacts, such as JAR files containing the application.</li>
+  <li><strong>Project SDK</strong> points to the JDK version that you are going to use (automatically detected, usually).</li>
+</ul>
+
+<h4 id="11-javafx-project-structure">1.1. JavaFX project structure</h4>
+
+<p>After following these steps, a new JavaFX project will be created with this project structure:</p>
+
+<div align="center">
+    <img src="../../img/13_intellij_jfx_project_structure.png" />
+</div>
+
+<ul>
+  <li><strong>.idea</strong> folder contains specific configuration files for the IntelliJ project. We don’t need to care about this folder, usually.</li>
+  <li><strong>src</strong> folder contains all the source files of our project. It contains a <em>main</em> subfolder with two sections in it:
+    <ul>
+      <li><strong>java</strong> is the main source folder (that’s why it is represented in blue). Inside this folder we will place all the Java packages of our application. By default, the contents are placed in the main package, which consist in your group name (specified when creating the project) followed by your project name (<code class="language-plaintext highlighter-rouge">example.myfirstjavafxproject</code> in our case).</li>
+      <li><strong>resources</strong> contains all the additional resources for our project that are not source files. In this case, there’s a FXML added to the same package than our source files. This lets us separate the code of our application from the design and additional elements, such as images.</li>
+    </ul>
+  </li>
+  <li><strong>target</strong> folder contains the generated output when we compile or build the project</li>
+  <li><strong>External Libraries</strong> contains all the libraries required for this project. They are automatically added by Maven.</li>
+</ul>
+
+<h4 id="12-important-files-in-the-project">1.2. Important files in the project</h4>
+
+<p>Let’s have a look at some of the files contained in the project structure that have a special role:</p>
+
+<ul>
+  <li><strong>pom.xml</strong> file, located at project’s root folder, is the Maven configuration file. This contains all the references to external libraries, such as JavaFX, including versions required. All the required libraries included in this Maven configuration file are automatically added to the <strong>External Libraries</strong> section, at the end of the project, and we don’t need to care about them.</li>
+  <li>Inside <strong>resources</strong> folder there’s an FXML file that contains the elements of our application. This FXML file can be edited manually from IntelliJ, or using a tool called Scene Builder that we will see later. This way, we can add buttons, labels, text fields and many other components to our application.</li>
+  <li>Inside <strong>java</strong> folder there’s a package with two Java files: one of them is the main application that will be run, and the other one is a <em>controller</em>, which is associated with the FXML file contained in the <em>resources</em> folder.</li>
+  <li><strong>module-info.java</strong> is a Java modules configuration file, which is located in the main source folder (<em>java</em> folder, in this case). It contains a reference to the external libraries required in the code of our application, and the elements of our application that need to be open and/or exported in order to run them. These are the default contents of this file:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">module</span> <span class="n">example</span><span class="o">.</span><span class="na">myfirstjavafxproject</span> <span class="o">{</span>
+    <span class="n">requires</span> <span class="n">javafx</span><span class="o">.</span><span class="na">controls</span><span class="o">;</span>
+    <span class="n">requires</span> <span class="n">javafx</span><span class="o">.</span><span class="na">fxml</span><span class="o">;</span>
+
+    <span class="n">opens</span> <span class="n">example</span><span class="o">.</span><span class="na">myfirstjavafxproject</span> <span class="n">to</span> <span class="n">javafx</span><span class="o">.</span><span class="na">fxml</span><span class="o">;</span>
+    <span class="n">exports</span> <span class="n">example</span><span class="o">.</span><span class="na">myfirstjavafxproject</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="13-running-the-project">1.3. Running the project</h4>
+
+<p>If everything is properly set up, we can run the sample project that has been created. The first time we need to right click on the main class (<code class="language-plaintext highlighter-rouge">HelloApplication</code>) and choose <em>Run</em> from the context menu. From this point on, we can just click on the green arrow button in the upper right part of the window to run this same file again.</p>
+
+<p>If you pay attention to this main class, it’s a subtype of JavaFX’s <code class="language-plaintext highlighter-rouge">Application</code> class.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">javafx.application.Application</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.fxml.FXMLLoader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.scene.Scene</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javafx.stage.Stage</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloApplication</span> <span class="kd">extends</span> <span class="nc">Application</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">(</span><span class="nc">Stage</span> <span class="n">stage</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> 
+    <span class="o">{</span>
+        <span class="nc">FXMLLoader</span> <span class="n">fxmlLoader</span> <span class="o">=</span> 
+            <span class="k">new</span> <span class="nf">FXMLLoader</span><span class="o">(</span><span class="nc">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">"hello-view.fxml"</span><span class="o">));</span>
+        <span class="nc">Scene</span> <span class="n">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scene</span><span class="o">(</span><span class="n">fxmlLoader</span><span class="o">.</span><span class="na">load</span><span class="o">(),</span> <span class="mi">320</span><span class="o">,</span> <span class="mi">240</span><span class="o">);</span>
+        <span class="n">stage</span><span class="o">.</span><span class="na">setTitle</span><span class="o">(</span><span class="s">"Hello!"</span><span class="o">);</span>
+        <span class="n">stage</span><span class="o">.</span><span class="na">setScene</span><span class="o">(</span><span class="n">scene</span><span class="o">);</span>
+        <span class="n">stage</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">launch</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span> 
+</code></pre></div></div>
+
+<p>As you can see, the application transforms our FXML view into a Java object (the main scene node containing all the other nodes from the scene), and puts that into a Scene object which will be shown by the Stage object (main window).</p>
+
+<blockquote>
+  <p><strong>NOTE</strong>: see how the FXML file is loaded into the application through <code class="language-plaintext highlighter-rouge">HelloApplication.class.getResource</code> method. This instruction will be really useful to load any additional resource from <em>resources</em> folder into our application in later documents.</p>
+</blockquote>
+
+<h3 id="2-understanding-scene-builder">2. Understanding Scene Builder</h3>
+
+<p>Scene Builder is an external tool that can be integrated into IntelliJ to create our JavaFX graphical user interfaces (GUI). This tool lets us edit FXML files, making interface design much faster, and keeping the view separated from the rest of the code.</p>
+
+<h4 id="21-using-scene-builder-integrated-with-intellij">2.1. Using Scene Builder integrated with IntelliJ</h4>
+
+<p>In order to use Scene Builder integrated with our IntelliJ IDE, we must double click on the FXML file that we want to edit. In the main area, we can switch between the text mode (in which we will just see the FXML contents) or the graphical mode through <em>Scene Builder</em> tab. This is what you see from the <em>Text</em> tab:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="cp">&lt;?import javafx.geometry.Insets?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.control.Label?&gt;</span>
+<span class="cp">&lt;?import javafx.scene.layout.VBox?&gt;</span>
+
+<span class="cp">&lt;?import javafx.scene.control.Button?&gt;</span>
+<span class="nt">&lt;VBox</span> <span class="na">alignment=</span><span class="s">"CENTER"</span> <span class="na">spacing=</span><span class="s">"20.0"</span> <span class="na">xmlns:fx=</span><span class="s">"http://javafx.com/fxml"</span>
+      <span class="na">fx:controller=</span><span class="s">"example.myfirstjavafxproject.HelloController"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;padding&gt;</span>
+        <span class="nt">&lt;Insets</span> <span class="na">bottom=</span><span class="s">"20.0"</span> <span class="na">left=</span><span class="s">"20.0"</span> <span class="na">right=</span><span class="s">"20.0"</span> <span class="na">top=</span><span class="s">"20.0"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/padding&gt;</span>
+
+    <span class="nt">&lt;Label</span> <span class="na">fx:id=</span><span class="s">"welcomeText"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Button</span> <span class="na">text=</span><span class="s">"Hello!"</span> <span class="na">onAction=</span><span class="s">"#onHelloButtonClick"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/VBox&gt;</span>
+</code></pre></div></div>
+
+<p>If you choose the <em>Scene Builder</em> tab, Scene Builder plugin will be opened with a default initial view. The first time that we click on this tab we may be asked to install Scene Builder kit, along with JavaFX components in IntelliJ:</p>
+
+<div align="center">
+    <img src="../../img/13_intellij_download_scenebuilder.png" width="40%" />
+</div>
+
+<p>After clicking in the link(s) to download the required software, you may see something like this:</p>
+
+<div align="center">
+    <img src="../../img/13_intellij_scenebuilder_view.png" width="80%" />
+</div>
+
+<h4 id="22-using-scene-builder-as-a-standalone-application">2.2. Using Scene Builder as a standalone application</h4>
+
+<p>You can install Scene Builder as a standalone application (apart from IntelliJ) if you feel that IntelliJ plugin is not working properly. <a href="http://gluonhq.com/labs/scene-builder/">Here</a> is the official link to install it. Make sure that you choose the appropriate version, depending on your current JDK and JavaFX versions.</p>
+
+<p>If you want to use this standalone application instead of the IntelliJ plugin, you just have to right click on the FXML file from IntelliJ and choose the option <em>Open in Scene Builder</em> from the context menu.</p>
+
+<div align="center">
+    <img src="../../img/13_intellij_open_scenebuilder.png" width="30%" />
+</div>
+
+<p>The first time it may ask you to enter the path to the Scene Builder application, which is something like <em>C:\Users\YourUserName\AppData\Local\SceneBuilder</em> in Windows. If you choose to work with this standalone version of Scene Builder, remember to save the changes from Scene Builder (menu <em>File &gt; Save</em>) so that you can see them updated in your IntelliJ project.</p>
+
+<h4 id="23-scene-builder-main-window">2.3. Scene Builder main window</h4>
+
+<p>At the top left part of the application, we have the JavaFX components that we can include in our application. They are divided into some categories, such as containers, controls, menus and so on. We will learn more about these categories in later documents, but with this panel we can find the element we are looking for.</p>
+
+<div align="center">
+    <img src="../../img/13_scenebuilder_components.png" width="30%" />
+</div>
+
+<p>At the bottom left, you’ll see the scene’s object’s hierarchy. There you can also drag the elements and control which elements are inside other elements.</p>
+
+<div align="center">
+    <img src="../../img/13_scenebuilder_hierarchy.png" width="30%" />
+</div>
+
+<p>At the right part of the application you’ll find the current selected object’s inspector from which you’ll be able to change its properties (visual and code).</p>
+
+<ul>
+  <li>From the <strong>Properties</strong> tab you can change the text inside the element (for instance, the text of a label or a button), colors, text alignment, font type and size and so on.</li>
+  <li>From the <strong>Layout</strong> tab you can change the padding and margin of the element, along with the anchor point, this is, the point of the main container to which the element is anchored, so that if we resize the window, the element will keep the same distance with the chosen anchor point(s).</li>
+  <li>From the <strong>Code</strong> tab you can specify the <em>id</em> of the object (<em>fx:id</em>) to be used in the controller’s code, and the method which will be called when an event (example: action on a button) is triggered for that object.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/13_scenebuilder_inspector.png" width="80%" />
+</div>
+
+<p>If you want to add any component to the application, you just need to drag it over the main Scene Builder area, and place it at your desired position. In next documents you will learn about the different components that you can use in JavaFX applications, and how to arrange them properly.</p>
+
+<h3 id="3-some-notes-about-previous-versions">3. Some notes about previous versions</h3>
+
+<p>If you are using an older version of IntelliJ, some of the steps explained in previous section are not present. Here you can find some tricks to create your projects in this case, although we recommend that you update your IntelliJ version to the one explained in this document.</p>
+
+<h4 id="31-download-and-install-javafx">3.1. Download and install JavaFX</h4>
+
+<p>In order to download JavaFX library, we must download it <a href="https://gluonhq.com/products/javafx/">here</a>. In our case, we are going to use version 11, which is the current LTS version (<em>Long Term Support</em>). Also, is the version associated with the JDK version used in these contents. We just need to unzip the file and place it at a concrete, easy-to-access folder (for instance, <code class="language-plaintext highlighter-rouge">C:\openjfx</code>). You will see a <em>lib</em> subfolder that contains a set of <em>.jar</em> files, which will be added later to our projects.</p>
+
+<div align="center">
+    <img src="../../img/13_openjfx_lib.png" />
+</div>
+
+<h4 id="32-setting-up-intellij-project">3.2. Setting up IntelliJ project</h4>
+
+<p>As we have said before, if you are using older versions of IntelliJ, then you don’t have Maven as your dependency manager, and all the library management, this is, including JavaFX in the project and linking it to your classes, is up to you.</p>
+
+<p>By default, in older versions of IntelliJ, whenever we create a JavaFX application, there will be three default files inside <code class="language-plaintext highlighter-rouge">src</code> folder:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">sample.fxml</code> is the FXML file that will be edited from SceneBuilder as we add components to our application.</li>
+  <li><code class="language-plaintext highlighter-rouge">Controller</code> class will be used to specify the code associated to the FXML file. Every variable name or event that we define to respond to a user action, will be added to this file.</li>
+  <li><code class="language-plaintext highlighter-rouge">Main</code> class is the main application. You can have a look at the code inside this file. It just launches the application itselt, but all the logic needs to be implemented in the <code class="language-plaintext highlighter-rouge">Controller</code> class.</li>
+</ul>
+
+<p><strong>Adding module-info.java</strong></p>
+
+<p>From Java 11, we are required to add this specific file in our projects whenever we need to use external libraries, such as JavaFX. This file must be placed in the main source folder, which is <em>src</em> folder in old versions of IntelliJ (remember that this folder has changed in recent versions, and <em>module-info.java</em> is automatically added).</p>
+
+<p>These are the contents for this file according to default project structure:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">module</span> <span class="nc">YourProjectName</span> <span class="o">{</span>
+    <span class="n">requires</span> <span class="n">javafx</span><span class="o">.</span><span class="na">controls</span><span class="o">;</span>
+    <span class="n">requires</span> <span class="n">javafx</span><span class="o">.</span><span class="na">fxml</span><span class="o">;</span>
+
+    <span class="n">opens</span> <span class="n">sample</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: if you add more packages to your project, you may need to include them in the <em>opens</em> section, along with <em>sample</em> package or any other package that you use.</p>
+</blockquote>
+
+<p><strong>Adding JavaFX library</strong></p>
+
+<p>If your project does not compile or run once you have completed previous steps, you may need to add JavaFX libraries to IntelliJ global settings. Follow these steps:</p>
+
+<ul>
+  <li>Right click on the project’s name in the left panel, and choose <em>Open Module Settings</em> option.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/13_intellij_javafx_setup.png" width="90%" />
+</div>
+
+<ul>
+  <li>Choose <em>Global Libraries</em> option. If there are JavaFX libraries already added, remove them with the <code class="language-plaintext highlighter-rouge">-</code> button and then click on the <code class="language-plaintext highlighter-rouge">+</code> button and choose <em>Java</em>.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/13_intellij_javafx_setup2.png" width="90%" />
+</div>
+
+<ul>
+  <li>Choose the folder in which you copied the JavaFX files, and choose every JAR file:</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/13_intellij_javafx_setup3.png" width="60%" />
+</div>
+
+<p>Then, go to <em>Build &gt; Rebuild Project</em> menu to recompile everything. Now you should be ready to run your JavaFX project and see an empty window.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

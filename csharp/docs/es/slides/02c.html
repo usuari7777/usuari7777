@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Estructuras de control</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Estructuras de control
+#### Estructuras repetitivas: uso avanzado
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Bucles anidados
+
+- Se pueden incluir unos bucles dentro de otros para resolver tareas más complejas
+- Ejemplo: mostrar las tablas de multiplicar del 1 al 5:
+
+```csharp
+for (int i = 1; i <= 5; i++)
+{
+    for (int j = 0; j <= 10; j++)
+    {
+        Console.WriteLine("{0} x {1} = {2}", i, j, (i*j));
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02c_01.cs** que muestre por pantalla la secuencia *123451234512345* usando bucles anidados
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02c_02.cs** que le pida al usuario el lado de un cuadrado (cantidad entera) y dibuje por pantalla un cuadrado de ese lado, relleno de asteriscos. Por ejemplo si el lado es 4, debería mostrar algo así:
+
+```
+****
+****
+****
+****
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02c_03.cs** que le pida al usuario la altura de un rectángulo y muestre un rectángulo creciente de esa altura. Por ejemplo si la altura es 5, debería mostrar algo así:
+
+```
+*
+**
+***
+****
+*****
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02c_04.cs** que sea una variante del ejercicio anterior en el que se muestre el triángulo volteado hacia la derecha. Por ejemplo si la altura es 5, debería mostrar algo así:
+
+```
+    *
+   **
+  ***
+ ****
+*****
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de *break*
+
+- La instrucción **break** se utiliza para salir inmediatamente del bucle en que nos encontramos
+- Suele emplearse cuando se cumpla una condición inesperada que hace que tengamos que salir del bucle
+- NO es recomendable su uso (hace difícil seguir la pista de por dónde va el programa)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de *break*
+
+- El siguiente programa finaliza el bucle *for* cuando *n* llega a 5
+- La alternativa sería hacer un bucle que vaya de 1 a 5
+
+```csharp
+for (int n = 1; n <= 10; n++)
+{
+    Console.WriteLine(n);
+    if (n == 5)
+    {
+        break;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de *break*
+
+- El siguiente programa finaliza cuando el contador es múltiplo de 13
+- La alternativa sería hacer un bucle *while*
+
+```csharp
+// Forma incorrecta
+for (int n = 105; n <= 120; n++)
+{
+    Console.WriteLine(n);
+    if (n % 13 == 0)
+    {
+        break;
+    }
+}
+
+// Forma correcta
+int n = 105;
+while (n % 13 != 0)
+{
+    Console.WriteLine(n);
+    n++;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_02c_05.cs** que le pida al usuario dos números y calcule su máximo común divisor, es decir, el número más alto que sea divisor de ambos
+- *PISTA*: comienza por el número más pequeño de los dos y ve decrementando de uno en uno hasta que lo encuentres
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *continue*
+
+- La instrucción **continue** fuerza una nueva iteración del bucle desde el punto donde se produce (no ejecuta el resto del bucle en esa iteración)
+- NO es recomendable su uso (hace difícil seguir la pista de por dónde va el programa)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de *continue*
+
+- El siguiente programa muestra todos los números del 1 al 10, salvo el 5
+- La alternativa sería controlar qué números mostrar con un *if*
+
+```csharp
+// Forma incorrecta
+for (int n = 1; n <= 10; n++)
+{
+    if (n == 5)
+    {
+        continue;
+    }
+    Console.WriteLine(n);
+}
+
+// Forma correcta
+for (int n = 1; n <= 10; n++)
+{
+    if (n != 5)
+    {
+        Console.WriteLine(n);
+    }
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02c_06.cs** que muestre los números del 2 al 106, salvo los que sean múltiplos de 10
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Indica qué sacará por pantalla cada uno de los siguientes bloques de instrucciones
+
+```csharp
+// Bloque 1
+for (i=1; ; i++) Console.Write("{0} ", i);
+
+// Bloque 2
+for(i = 0; i <= 4; i++)
+{
+    if(i == 2)
+        continue;
+    Console.Write("{0} ", i);
+}
+
+// Bloque 3
+for(i = 0; i<= 4; i++)
+    if(i == 2)
+        continue;
+    Console.Write("{0} ", i);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de *goto*
+
+- Permite "saltar" directamente a una etiqueta en el código
+- Uso DESACONSEJADO (salvo en instrucciones de *swith..case*)
+
+```csharp
+for (int i = 1; i <= 10; i++)
+{
+    if (i == 5)
+        goto siguiente;
+}
+
+siguiente:
+    Console.WriteLine("Fin");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La estructura *foreach*
+
+- Permite recorrer automáticamente todos los elementos de una colección
+- Ejemplo: todas las letras de un texto
+
+```csharp
+Console.Write("Dime tu nombre: ");
+string nombre = Console.ReadLine();
+foreach(char letra in nombre)
+{
+    Console.WriteLine(letra);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02c_07.cs** que le pida al usuario un texto y muestre cuántas letras *a* minúscula hay en él
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## ¿Cuándo usar cada tipo de bucle?
+    
+- **while** y **do..while** cuando no sepamos cuántas repeticiones vamos a hacer en principio
+   - *do..while* cuando sepamos que al menos habrá una repetición
+- **for** cuando sepamos de entrada cuántas repeticiones van a ser necesarias
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_02c_08.cs** que muestre una cuenta atrás desde el número que indique el usuario (que deberá ser positivo) hasta cero. 
+- Piensa primero qué tipo de bucle es el más adecuado.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_02c_09.cs** que le pida al usuario que adivine un número del 1 al 100, previamente fijado en el código. En cada repetición, le deberá decir al usuario si se ha pasado o se ha quedado corto
+- Piensa primero qué tipo de bucle es el más adecuado.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Repite el ejercicio anterior en otro archivo **Ejercicio_02c_09b.cs** dándole al usuario un máximo de 6 intentos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_02c_10.cs** que le pida al usuario un número y le diga si es primo o no
+- Un número primo es aquel que sólo es divisible por él mismo y por 1
+- Piensa primero qué tipo de bucle es el más adecuado.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

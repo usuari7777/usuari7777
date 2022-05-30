@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Introducción a los servicios REST | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Introducción a los servicios REST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/06a.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a los servicios REST" />
+<script type="application/ld+json">
+{"headline":"Introducción a los servicios REST","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/06a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="introducción-a-los-servicios-rest">Introducción a los servicios REST</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/06a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="06a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En esta unidad del curso veremos cómo emplear Laravel como proveedor de servicios REST. Comenzaremos detallando algunas cuestiones básicas de la arquitectura cliente-servidor y de los servicios REST, para luego pasar a ver cómo desarrollarlos y probarlos con Laravel.</p>
+
+<p>A estas alturas todos deberíamos tener claro que cualquier aplicación web se basa en una arquitectura cliente-servidor, donde un servidor queda a la espera de conexiones de clientes, y los clientes se conectan a los servidores para solicitar ciertos recursos. Sobre esta base, veremos unas breves pinceladas de cómo funciona el protocolo HTTP, y en qué consisten los servicios REST.</p>
+
+<h2 id="1-conceptos-básicos-del-protocolo-http">1. Conceptos básicos del protocolo HTTP</h2>
+
+<p>Las comunicaciones web entre cliente y servidor se realizan mediante el protocolo <strong>HTTP</strong> (o HTTPS, en el caso de comunicaciones seguras). En ambos casos, cliente y servidor se envían cierta información estándar, en cada mensaje</p>
+
+<p>En cuanto a los <strong>clientes</strong>, envían al servidor los datos del recurso que solicitan, junto con cierta información adicional, como por ejemplo las cabeceras de petición (información relativa al tipo de cliente o navegador, contenido que acepta, etc), y parámetros adicionales llamados normalmente <em>datos del formulario</em>, puesto que suelen contener la información de algún formulario que se envía de cliente a servidor.</p>
+
+<p>Por lo que respecta a los <strong>servidores</strong>, aceptan estas peticiones, las procesan y envían de vuelta algunos datos relevantes, como un código de estado (indicando si la petición pudo ser atendida satisfactoriamente o no), cabeceras de respuesta (indicando el tipo de contenido enviado, tamaño, idioma, etc), y el recurso solicitado propiamente dicho, si todo ha ido correctamente.</p>
+
+<p>Este es el mecanismo que hemos estado utilizando hasta ahora a través de los controladores: reciben la petición concreta del cliente, y envían una respuesta, que por el momento se ha centrado en renderizar un contenido HTML de una vista.</p>
+
+<p>En cuanto a los <strong>códigos de estado</strong> de la respuesta, depende del resultado de la operación que se haya realizado, éstos se catalogan en cinco grupos:</p>
+
+<ul>
+  <li><em>Códigos 1XX</em>: representan información sobre una petición normalmente incompleta. No son muy habituales, pero se pueden emplear cuando la petición es muy larga, y se envía antes una cabecera para comprobar si se puede procesar dicha petición.</li>
+  <li><em>Códigos 2xx</em>: representan peticiones que se han podido atender satisfactoriamente. El código más habitual es el 200, respuesta estándar para las peticiones que son correctas. Existen otras variantes, como el código 201, que se envía cuando se ha insertado o creado un nuevo recurso en el servidor (una inserción en una base de datos, por ejemplo), o el código 204, que indica que la petición se ha atendido bien, pero no se ha devuelto nada como respuesta.</li>
+  <li><em>Códigos 3xx</em>: son códigos de redirección, que indican que de algún modo la petición original se ha redirigido a otro recurso del servidor. Por ejemplo, el código 301 indica que el recurso solicitado se ha movido permanentemente a otra URL. El código 304 indica que el recurso solicitado no ha cambiado desde la última vez que se solicitó, por si se quiere recuperar de la caché local en ese caso.</li>
+  <li><em>Códigos 4xx</em>: indican un error por parte del cliente. El más típico es el error 404, que indica que estamos solicitando una URL o recurso que no existe. Pero también hay otros habituales, como el 401 (cliente no autorizado), o 400 (los datos de la petición no son correctos, por ejemplo, porque los campos del formulario no sean válidos).</li>
+  <li><em>Códigos 5xx</em>: indican un error por parte del servidor. Por ejemplo, el error 500 indica un error interno del servidor, o el 504, que es un error de <em>timeout</em> por tiempo excesivo en emitir la respuesta.</li>
+</ul>
+
+<p>Haremos uso de estos códigos de estado en nuestros servicios REST para informar al cliente del tipo de error que se haya producido, o del estado en que se ha podido atender su petición.</p>
+
+<h2 id="2-los-servicios-rest">2. Los servicios REST</h2>
+
+<p>REST son las siglas de <em>REpresentational State Transfer</em>, y designa un estilo de arquitectura de aplicaciones distribuidas basada en HTTP. En un sistema REST, identificamos cada recurso a solicitar con una URI (identificador uniforme de recurso), y definimos un conjunto delimitado de comandos o métodos a realizar, que típicamente son:</p>
+
+<ul>
+  <li><strong>GET</strong>: para obtener resultados de algún tipo (listados completos o filtrados por alguna condición)</li>
+  <li><strong>POST</strong>: para realizar inserciones o añadir elementos en un conjunto de datos</li>
+  <li><strong>PUT</strong>: para realizar modificaciones o actualizaciones del conjunto de datos</li>
+  <li><strong>DELETE</strong>: para realizar borrados del conjunto de datos</li>
+  <li>Existen otros tipos de comandos o métodos, como por ejemplo PATCH (similar a PUT, pero para cambios parciales), HEAD (para consultar sólo el encabezado de la respuesta obtenida), etc. Nos centraremos de momento en los cuatro métodos principales anteriores.</li>
+</ul>
+
+<p>Por lo tanto, identificando el recurso a solicitar y el comando a aplicarle, el servidor que ofrece esta API REST proporciona una respuesta a esa petición. Esta respuesta típicamente viene dada por un mensaje en formato JSON o XML (aunque éste cada vez está más en desuso). Esto permite que las aplicaciones puedan extenderse a distintas plataformas, y acceder a los mismos servicios desde una aplicación Angular, o una aplicación de escritorio .NET, o una aplicación móvil en Android, por poner varios ejemplos.</p>
+
+<blockquote>
+  <p><strong>ACLARACIÓN</strong>: para quienes no conozcáis la definición de API (<em>Application Programming Interface</em>), básicamente es el conjunto de métodos o funcionalidades que se ponen a disposición de quienes los quieran utilizar. En este caso, el concepto de API REST hace referencia al conjunto de servicios REST proporcionados por el servidor para los clientes que quieran utilizarlos.</p>
+</blockquote>
+
+<h2 id="3-el-formato-json">3. El formato JSON</h2>
+
+<p>JSON son las siglas de <em>JavaScript Object Notation</em>, una sintaxis propia de Javascript para poder representar objetos como cadenas de texto, y poder así serializar y enviar información de objetos a través de flujos de datos (archivos de texto, comunicaciones cliente-servidor, etc).</p>
+
+<p>Un objeto Javascript se define mediante una serie de propiedades y valores. Por ejemplo, los datos de una persona (como nombre y edad) podríamos almacenarlos así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">persona</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Este mismo objeto, convertido a JSON, formaría una cadena de texto con este contenido:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nacho"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">39</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Del mismo modo, si tenemos una colección (vector) de objetos como ésta:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">personas</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">39</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Mario</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Laura</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nora</span><span class="dl">"</span><span class="p">,</span> <span class="na">edad</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>Transformada a JSON sigue la misma sintaxis, pero entre corchetes:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nacho"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">39</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Mario"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">4</span><span class="p">},</span><span class="w">  
+ </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Laura"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nl">"nombre"</span><span class="p">:</span><span class="s2">"Nora"</span><span class="p">,</span><span class="nl">"edad"</span><span class="p">:</span><span class="mi">10</span><span class="p">}]</span><span class="w">
+</span></code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

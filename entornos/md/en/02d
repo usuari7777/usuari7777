@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Integrated Development Environments | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Integrated Development Environments" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/02d.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Integrated Development Environments" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Integrated Development Environments","url":"http://nachoiborraies.github.io/entornos/md/en/02d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/entornos/assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="integrated-development-environments">Integrated Development Environments</h1>
+
+<h2 id="using-intellij-idea">Using IntelliJ IDEA</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/entornos/md/en/slides/02d.html"><img src="https://nachoiborraies.github.io/entornos/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/entornos/md/en/02d.pdf"><img src="https://nachoiborraies.github.io/entornos/img/pdf.png" width="32" /></a>
+</div>
+
+<p><img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-46_IntelliJ_logo.png" alt="Logo IntelliJ" width="10%" style="float:left;margin-right:8px;" /></p>
+
+<p><strong>IntelliJ IDEA</strong> is a multi platform IDE developed by <a href="http://www.jetbrains.com/">JetBrains</a>. It was firstly released in 2001 as <em>IntelliJ</em>, and it was one of the first IDEs with advanced browsing and code refactoring. We can consider it a specific purpose IDE, since it focuses on a few group of programming languages.</p>
+
+<p>It is available in two versions: <em>Community Edition</em> (free) and <em>Ultimate Edition</em> (commercial). The main difference between them can be found in the languages and version control systems supported. For instance, <em>Community</em> version does not allow PHP or Javascript. In our case, as we are going to work with Java Virtual Machine, we need to download the <em>Community</em> edition, which is free and open source. This is the <a href="http://www.jetbrains.com/idea/download/">download page</a>.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-42_intellij_download.png" alt="IntelliJ download page" width="70%" />
+</div>
+
+<h3 id="1-installation-and-setup">1. Installation and setup</h3>
+
+<p>Regarding the installation process:</p>
+
+<ul>
+  <li>In <strong>Windows</strong>, we have a step-by-step wizard that guides us through all the installation process. We can choose the installation folder (or just leave the one set by default), and if we want to create a shortcut in the desktop. We can also check an option to add a context menu to open IntelliJ project from the explorer. This option can be very helpful.</li>
+</ul>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-43_intellij_contextmenu.png" alt="IntelliJ download page" width="60%" />
+</div>
+
+<ul>
+  <li>In <strong>Mac OSX</strong>, we have an installer that asks us to drag the application into the <em>Applications</em> folder.</li>
+  <li>In <strong>Linux</strong>, we download a <em>tar.gz</em> file that we must unzip. Inside the main folder there is a <em>bin</em> subfolder. We must get into this folder from a terminal and run the command <code class="language-plaintext highlighter-rouge">./idea.sh</code> to launch the IDE. The first time we run it, it will create a shortcut somewhere in the applications menu, so we can launch IntelliJ using this shortcut from then on.</li>
+</ul>
+
+<p>The first time that we run <em>IntelliJ</em>, it lets us import previous settings, if we had any previous version installed. If not, we can just choose “<em>Do not import settings</em>”. Next, we can choose the UI theme…</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-42_intellij_theme.png" alt="IntelliJ UI theme" width="70%" />
+</div>
+
+<p>Next, it lets us define a script to launch programs from command line, but we can skip this step and move to the next one, in which we can choose to install some additional plugins. We can also leave this step with its default settings, and start using <em>IntelliJ</em>.</p>
+
+<h3 id="2-creating-java-projects">2. Creating Java projects</h3>
+
+<p>From the welcome screen, we can choose among:</p>
+
+<ul>
+  <li>Creating a new project</li>
+  <li>Open an existing project from our computer</li>
+  <li>Get a project from a remote repository using version control systems (VCS)</li>
+</ul>
+
+<p>So, if we want to create a new project, we choose the option <em>New Project</em>, and then specify that we want to create a Java project, from the left panel:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project.png" alt="IntelliJ welcome screen" width="90%" />
+</div>
+
+<p>Next, we can choose a template for our project in order to generate some default code, but, as we don’t have any previous template, we can skip this step, and move to the next one, in which we must specify a project name and location (we can leave the default location if we want to):</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project2.png" alt="IntelliJ welcome screen" width="90%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: by default, IntelliJ stores the projects inside a folder called <code class="language-plaintext highlighter-rouge">IdeaProjects</code> inside our home folder. Each project is assigned a subfolder inside this main folder.</p>
+</blockquote>
+
+<p>Then, we click on <em>Finish</em> and we will see our project. If we click on the project tab on the left, we can see the project folder structure, and create elements (source files) on it.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project3.png" alt="IntelliJ welcome screen" width="80%" />
+</div>
+
+<p>Now, let’s create our first source file. Right click on the <em>src</em> folder and choose <em>New &gt; Java Class</em>.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project4.png" alt="IntelliJ welcome screen" width="60%" />
+</div>
+
+<p>Then, we must specify the class name. For instance, <code class="language-plaintext highlighter-rouge">Hello</code>.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project5.png" alt="IntelliJ welcome screen" width="30%" />
+</div>
+
+<p>A new file will be created, and we can edit it in the main area. We can just leave a code like this one:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project6.png" alt="IntelliJ code editor" width="80%" />
+</div>
+
+<p>We can run the file by right clicking on it and choosing “<em>Run Hello.main()</em>” option:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project7.png" alt="IntelliJ run program" width="50%" />
+</div>
+
+<p>Then, we can check the results in the embedded terminal at the bottom of the window:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema02-44_intellij_create_java_project8.png" alt="IntelliJ terminal" width="80%" />
+</div>
+
+<h3 id="3-keybindings">3. Keybindings</h3>
+
+<p>In the following table you can see some of the most common keybindings or shortcuts available for <em>IntelliJ IDEA</em> under <strong>Windows</strong> systems.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>Open new file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>Open any class.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Spacebar</code></td>
+      <td>Complete code.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">Spacebar</code></td>
+      <td>Smart code completion.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">S</code></td>
+      <td>Save file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">O</code></td>
+      <td>Overwrite methods.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">I</code></td>
+      <td>Implement all.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>Comment / Uncomment line.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>Duplicate line.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Z</code></td>
+      <td>Undo last action.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">Z</code></td>
+      <td>Redo last undone action.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">F</code></td>
+      <td>Show search dialog.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">R</code></td>
+      <td>Show replace dialog.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">F9</code></td>
+      <td>Compile project.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">F10</code></td>
+      <td>Run project.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">F9</code></td>
+      <td>Debug.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F7</code></td>
+      <td>Step into function (in <em>debug</em> mode).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F8</code></td>
+      <td>Next line (in <em>debug</em> mode).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F9</code></td>
+      <td>Stop debug.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">F8</code></td>
+      <td>Create breakpoint.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl</code>+<code class="language-plaintext highlighter-rouge">Shift</code>+<code class="language-plaintext highlighter-rouge">F12</code></td>
+      <td>Maximize editor panel.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Most of these shortcuts are also available under Linux. Regarding MacOSX systems, you must replace <code class="language-plaintext highlighter-rouge">Ctrl</code> key with <code class="language-plaintext highlighter-rouge">Cmd</code> key. You can find more shortcuts <a href="https://shortcutworld.com/IntelliJ-IDEA/win/IntelliJ_Shortcuts">here</a>.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a new Java project with IntelliJ called <em>Test</em> and copy this code in a class called <code class="language-plaintext highlighter-rouge">Test</code>. Then, run the application to check if everything is OK.</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Have a nice day!"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"And learn a lot of Java :-)"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

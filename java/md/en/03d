@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Static data types | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Static data types" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/03d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/03d.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Static data types" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Static data types","url":"http://nachoiborraies.github.io/java/md/en/03d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="static-data-types">Static data types</h1>
+
+<h2 id="using-regular-expressions">Using regular expressions</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/03d.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/03d.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>A regular expression (or <em>regex</em> in its abbreviated form) is a sequence of special characters that lets us detect some patterns in texts. For instance, an <em>id</em> card made of 8 digits and an uppercase letter, or an e-mail containing a <code class="language-plaintext highlighter-rouge">@</code>. Using regular expressions, we can easily detect these patterns in a given text and, also, force a text to meet a given pattern when it’s being entered by the user.</p>
+
+<h3 id="1-basic-regex-syntax">1. Basic regex syntax</h3>
+
+<p>In order to work with regular expressions in Java, we need to use some classes from <code class="language-plaintext highlighter-rouge">java.util.regex</code> package. To be more precise, we are going to rely on:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Pattern</code> class, that lets us define a given pattern for a regular expression</li>
+  <li><code class="language-plaintext highlighter-rouge">Matcher</code> class, that lets us check if a givent text meets a given <em>Pattern</em>.</li>
+</ul>
+
+<h4 id="11-pattern-class">1.1. Pattern class</h4>
+
+<p>Regarding <code class="language-plaintext highlighter-rouge">Pattern</code> class, there are a couple of interesting methods inside it that we need to manage:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">compile</code>: it creates a <em>Pattern</em> object for a given regular expression</li>
+  <li><code class="language-plaintext highlighter-rouge">matcher</code>: it returns a <em>Matcher</em> object to match a pattern with a text</li>
+</ul>
+
+<h4 id="12-matcher-class">1.2. Matcher class</h4>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">Matcher</code> class, we can use these methods:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">find</code>: checks if a given pattern is found in a text</li>
+  <li><code class="language-plaintext highlighter-rouge">matches</code>: checks if the whole text meets a pattern (not only a part of it). There is also a static method in <em>Pattern</em> class, <code class="language-plaintext highlighter-rouge">Pattern.matches</code> that produces the same result.</li>
+</ul>
+
+<h4 id="13-example">1.3. Example</h4>
+
+<p>Let’s check in the following example if a text contains a digit between 0 and 9. This digit can be represented by the symbol <code class="language-plaintext highlighter-rouge">\d</code>, so we use it inside the pattern, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hi, my name is Nacho and I'm 44 years old"</span><span class="o">;</span>
+<span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"\\d"</span><span class="o">);</span>
+<span class="nc">Matcher</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">())</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The text contains digit(s)"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The text does not contain any digit"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that we need to escape the <code class="language-plaintext highlighter-rouge">\</code> when we place it inside the string, as <code class="language-plaintext highlighter-rouge">\\d</code></p>
+
+<h4 id="14-some-basic-symbols">1.4. Some basic symbols</h4>
+
+<p>In this table you can find some basic symbols that we can use inside patterns.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x</code></td>
+      <td>‘x’ character</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\t</code></td>
+      <td>Tabulation</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\n</code></td>
+      <td>New line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+      <td>Character ‘a’, ‘b’ or ‘c’</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[^abc]</code></td>
+      <td>Anything but characters ‘a’, ‘b’ or ‘c’</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[a-zA-Z]</code></td>
+      <td>Range from ‘a’ to ‘z’ or from ‘A’ to ‘Z’</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Any character</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Beginning of line (there’s nothing before)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>End of line (there’s nothing after)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\d</code></td>
+      <td>Digit from 0 to 9</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\D</code></td>
+      <td>Anything but a digit</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\s</code></td>
+      <td>Spacing char (white space, tab, new line…)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\S</code></td>
+      <td>Anything but a spacing char</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\w</code></td>
+      <td>Alphanumeric char (letters, digits and underscore)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\W</code></td>
+      <td>Anything but an alphanumeric char</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">(one|two)</code></td>
+      <td>Text ‘one’ or text ‘two’</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With these symbols, we can made expressions such as:</p>
+
+<ul>
+  <li>Text finished with a dot (we need to <em>escape</em> the dot with <code class="language-plaintext highlighter-rouge">\</code>):</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"\\.$"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Text made of 4 digits</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"^\\d\\d\\d\\d$"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>The seasons of the year:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"(winter|spring|summer|autumn)"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>CarIDCheck</strong> that asks the user to enter a cad id, and checks if it’s made of 4 digits followed by 3 uppercase letters. We are not going to check if these letters are vowels or not, we just check if they are uppercase.</p>
+</blockquote>
+
+<h3 id="2-some-complex-expressions">2. Some complex expressions</h3>
+
+<p>In order to make some more complex expressions, we need to make use of some additional symbols in the pattern. To be more precise, we need to specify the cardinality of some parts of the expressions, in orde to shorten them.
+This is a list of cardinality symbols that you can use in your patterns:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x?</code></td>
+      <td>x symbol appears 0 or 1 times</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x+</code></td>
+      <td>x symbol appears 1 or more times</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x*</code></td>
+      <td>x symbol appears 0 or more times</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x{n}</code></td>
+      <td>x symbol appears n times</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x{n,}</code></td>
+      <td>x symbol appears at least n times</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x{n, m}</code></td>
+      <td>x symbol appears between n and m times (both included)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This way, we can easily check:</p>
+
+<ul>
+  <li>If a text is made of 4 digits with this:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">copile</span><span class="o">(</span><span class="s">"^\\d{4}$"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>An <em>id</em> card made of 8 digits and an uppercase letter:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">copile</span><span class="o">(</span><span class="s">"^\\d{8}[A-Z]$"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Repeat previous exercise using cardinality symbols</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a program called <strong>EmailChecker</strong> that asks the user to enter an e-mail and checks if it’s valid. We will consider that a valid e-mail will be made of alphanumeric characters (at least one), followed by a <code class="language-plaintext highlighter-rouge">@</code>, one or more alphanumeric characters, a dot and one or more alphanumeric characters. So <code class="language-plaintext highlighter-rouge">myEmail@one.com</code> is a valid e-mail, but <code class="language-plaintext highlighter-rouge">myOtherMail@aaa</code> is not.</p>
+</blockquote>
+
+<h3 id="3-using-groups">3. Using groups</h3>
+
+<p>Groups lets us isolate some parts of a text that meet a given pattern, so we can treat them later in the code. We can use <code class="language-plaintext highlighter-rouge">group</code> method inside <code class="language-plaintext highlighter-rouge">Matcher</code> class to detect groups, and each group must be defined between parentheses <code class="language-plaintext highlighter-rouge">(...)</code> in the pattern. Groups are explored from left to right.</p>
+
+<p>Let’s see how groups work with the following example: we are going to get every sequence of 4 digits in a text:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Einstein was born in 1879 and Edison in 1847"</span><span class="o">;</span>
+<span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"(\\d{4})"</span><span class="o">);</span>
+<span class="nc">Matcher</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">Matcher</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">())</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The text has no sequence of 4 digits"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="k">do</span>
+    <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">data</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found "</span> <span class="o">+</span> <span class="n">data</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">while</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As you can see, every time we call <code class="language-plaintext highlighter-rouge">group</code> method we <em>move</em> to next group identified in the text, until there are no more matches pending.</p>
+
+<h4 id="31-multiple-groups">3.1. Multiple groups</h4>
+
+<p>We can define more than one group in a single expression. In this case, <code class="language-plaintext highlighter-rouge">group</code> method admits an additional parameter indicating which of the groups we are choosing (starting from 1).</p>
+
+<p>The following example identifies names and surnames in a text:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Albert Einstein was born in 1879"</span> <span class="o">+</span> 
+    <span class="s">" and Thomas Edison in 1847"</span><span class="o">;</span>
+<span class="nc">Pattern</span> <span class="n">p</span> <span class="o">=</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">"([A-Z][a-z]+) ([A-Z][a-z]+)"</span><span class="o">);</span>
+<span class="nc">Matcher</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">Matcher</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(!</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">())</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The text has no names"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="k">do</span>
+    <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">surname</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">group</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">surname</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">while</span><span class="o">(</span><span class="n">m</span><span class="o">.</span><span class="na">find</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>It would output <em>Found Albert Einstein</em> in the first iteration and <em>Found Thomas Edison</em> in the second one.</p>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a program called <strong>HourIdentifier</strong> that looks for hours in a text. An hour is made of two digits, followed by <code class="language-plaintext highlighter-rouge">:</code>, and two digits. For instance, <code class="language-plaintext highlighter-rouge">08:45</code>. We are not going to check if the hour is valid or not, we just need to identify them. Then, store these hours in a list and show them in ascending order.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

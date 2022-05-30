@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Programs, languages and compilers | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Programs, languages and compilers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/01a.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Programs, languages and compilers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Programs, languages and compilers","url":"http://nachoiborraies.github.io/entornos/md/en/01a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="programs-languages-and-compilers">Programs, languages and compilers</h1>
+
+<h2 id="initial-concepts">Initial concepts</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-software">1. Software</h3>
+
+<p>If we look for the definition of <em>software</em> on the Internet, we can find some of them, although they are basically the same. We call <strong>software</strong> the set of programs, documentation and data closely related in order to make up a computer application.</p>
+
+<p>Each software product is (or can be) different from the rest, because it is developed for a different customer, or to fulfill a different purpose. So, developing this product implies some previous steps: understand what we have to do, make a previous design and implement it, as we will see later. Therefore, we can’t compare software development with industrial production (such as keyboard manufacturing, for instance), where everything is much more automated. Software development requires the creation of a software project, and a group of people working in a coordinated way. Besides, software does not break along time, although its performance can be reduced because of its own updates and improvements.</p>
+
+<h4 id="11-software-components">1.1. Software components</h4>
+
+<p>From previous definition of software, we can figure out that it is composed of three elements:</p>
+
+<ul>
+  <li><strong>Programs</strong>: sets of instructions that provide the desired functionality. They are written in a specific programming language.</li>
+  <li><strong>Data</strong>: programs need data to work with. These data can be retrieved and/or stored from/in databases or files.</li>
+  <li><strong>Documentation</strong>: software documents explain how to use it, which elements are part of it and how they are interconnected, so that it can be updated or fixed in the future.</li>
+</ul>
+
+<h4 id="12-software-types">1.2. Software types</h4>
+
+<p>There are two main types of software:</p>
+
+<ul>
+  <li><strong>Application software</strong>: they bring some kind of service to the customer, such as text processors, spreadsheets, drawing, etc. In this type of software we can find some subcategories, such as management software (payroll, accounting), engineering or scientific software (CAD, simulators…), network software (web browsers, FTP clients or servers…), etc.</li>
+  <li><strong>System software</strong>: they manage a computer system. They are basically programs that support or help other programs. In this category we can talk about operating systems or compilers, for instance.</li>
+</ul>
+
+<h3 id="2-languages-and-compilers">2. Languages and compilers</h3>
+
+<p>We have seen that programs are sets of instructions that are provided to a computer to complete a task. These instructions are written in a programming <strong>language</strong> of our choice, and this way we create some text files called <strong>source code</strong>, written in the chosen language.</p>
+
+<h4 id="21-language-types">2.1. Language types</h4>
+
+<p>When we want to choose a specific programming language, we distinguish between <strong>high level</strong> languages (close to human language, and so, easier to understand by the programmers), and <strong>low level</strong> languages (close to machine language, and so, harder to understand by the programmers, but more efficient).</p>
+
+<ul>
+  <li>We have a wide variety of <strong>high level</strong> languages to choose, depending on the type of application that we want to implement. We can talk about C, C++, C#, Java, Javascript, PHP, Python, etc.</li>
+  <li>Among <strong>low level</strong> languages, maybe the most popular one is the assembly language, a very concrete set of instructions that are easily translated into machine language.</li>
+</ul>
+
+<p>Here we can see a simple program written in Java that just prints “Hello” on the screen:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The same program written in C could look more or less like this:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="22-language-processors">2.2. Language processors</h4>
+
+<p>Computers can’t understand any of the programming languages that humans use to create their programs. In order to make them work, their instructions need to be translated into a language that computers can understand. This language is called <em>machine code</em>, and is composed of bits (zeros and ones).</p>
+
+<p>If we want to translate a given programming language into machine code, we use a tool called <strong>compiler</strong>, although this assertion is not completely true. There are some different language processors that can be used, depending on the language itself:</p>
+
+<ul>
+  <li><strong>Compilers</strong>: they translate the code written in a specific language into machine code, and they generate an executable file with the result. For instance, if we compile a program written in C under Windows, we will get an <em>EXE</em> file that we will be able to run.</li>
+  <li><strong>Interpreters</strong>: they translate from the specified programming language to machine code “on the fly”. In other words, they don’t generate any executable file. So, every time we need to run the program, we need to have the source file available. This kind of language processor is very usual in languages like PHP or Python. This way, the response time increases a little, but the program can be run in multiple platforms.</li>
+  <li><strong>Virtual machines</strong>: an intermediate solution between compilers and interpreters is the one used by languages like Java. These programs are not compiled into a native machine code (there is no <em>EXE</em> file in Java, for instance), and they are not interpreted either. Java compiles the source code and translates it into its own intermediate machine code. Then, it runs its virtual machine (JVM, <em>Java Virtual Machine</em>), that is in charge of interpreting and running this code every time we need. This way, we don’t need to have the source code available before we run the program, and we don’t depend on a given platform either (Windows, Linux, etc.). We only need to have a JVM installed in our system in order to run our Java programs. The same thing happens with C# and its virtual platorm <em>.NET</em>.</li>
+</ul>
+
+<h2 id="3-some-popular-languages">3. Some popular languages</h2>
+
+<p>There are some studies and analysis that try to classify the programming languages according to its popularity or current usage. Some of the most popular ones are:</p>
+
+<ul>
+  <li><a href="https://www.tiobe.com/tiobe-index/">TIOBE index</a></li>
+  <li><a href="https://redmonk.com/sogrady/2021/03/01/language-rankings-1-21/">RedMonk ranking</a></li>
+</ul>
+
+<p>Regarding this last one, it is based on crossing data between the main source code repository (GitHub) and the main programming help page (StackOverflow). Take a look at both rankings, check the results and see if they differ in some importan language(s). Do you miss any other language in the top 10?</p>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Look for an online code editor that lets us work with many different languages. Here you can get one: <a href="https://ideone.com/">Ideone</a>. Find out how to write a program to say “Hello” in some different languages, such as Java, C, Python, JavaScript, or PHP.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Principales etiquetas HTML</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Principales etiquetas HTML
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Elementos en línea
+
+- También llamados *inline*
+- Su contenido se muestra en la misma línea, uno junto a otro
+- Ejemplos: `a`, `img`, `code`
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo elementos en línea
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... </head>
+    <body>
+        <a href="https://iessanvicente.com/"> Enlace al IES</a>
+        <img src="http://nachoiborraies.github.io/img/logo_IES.png">
+        <code>
+            Fragmento de código
+        </code>
+    </body>
+</html>    
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo elementos en línea
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_etiq_inline_logo_IES.png" alt="Ejemplo de elementos en línea" width="50%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Elementos en bloque
+
+- También llamados *block*
+- Su contenido se muestra ocupando todo el ancho disponible (uno bajo el otro)
+- Ejemplos: `p`, `h1`
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo elementos en bloque
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... </head>
+    <body>
+        <h1> Título de la página </h1>
+        <p> Esto es un párrafo en el que se explica cómo funcionan 
+            los elementos de bloque en HTML. Se trata de elementos 
+            que incorporan un salto de línea de forma automática.</p>
+        <h2> Subtítulo de la página </h2>
+        <ol> 
+            <li> etiqueta de párrafo </li>
+            <li> etiqueta de encabezado </li>
+            <li> ... </li>
+        </ol>
+    </body>
+</html>    
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo elementos en bloque
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_etiq_block.PNG" alt="Ejemplo de elementos en bloque" width="50%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Etiquetas básicas de texto
+
+- Encabezados
+- Párrafos
+- Enfatizados (negritas y cursivas)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Encabezados
+
+- Etiquetas **h1** a **h6**
+- Elementos de bloque
+- **h1** es el encabezado principal (sólo debe haber uno por página)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo encabezados
+
+```html
+<body>
+    <h1> Encabezado 1 </h1>
+    ...        
+    <h2> Encabezado 2 </h2>
+    ...
+    <h3> Encabezado 3 </h3>
+    ...
+</body>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Párrafos
+
+- Etiqueta **p**
+- Elemento de bloque
+
+```html
+<body>
+    ...
+    <p> 
+        Cras laoreet, ipsum ut mattis maximus, nisl augue 
+        tristique est, ut fringilla dolor nisi quis
+        justo. Praesent at condimentum lorem, vitae auctor 
+        nulla. Duis vitae egestas elit, sed tincidunt
+        metus. Sed vestibulum ipsum a purus bibendum, vel 
+        rhoncus orci venenatis. In convallis blandit
+        magna in tempor. 
+    </p>
+</body>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Modifica el siguiente [código base](../../../resources/UD2_Ejercicios/02b_ejercicio_encabezados_codigo_base.html) para que la página web tenga el mismo aspecto que la siguiente imagen. Guárdalo como **ejercicio_encabezados.html**.
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_encabezados_resuelto.PNG" alt="Imagen que muestra el ejercicio resuelto" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Negritas
+
+- Sirven para marcar texto como importante
+- Etiquetas *b* o *strong* (recomendada)
+- Elementos en línea
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Negritas
+
+```html
+<body>
+    ...
+    <p>
+        El trasfondo tecnológico de la novela 
+        <strong>Criptonomicón</strong> 
+        es la <strong> criptografía</strong>
+    </p>
+</body>
+```
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Negritas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_strong.PNG" alt="Ejemplo de uso del elemento strong" width="50%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cursivas
+
+- Sirven para enfatizar un texto 
+- Etiquetas *i* o *em* (recomendada)
+- Elementos en línea
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Cursivas
+
+```html
+<body>
+    ...
+    <p> 
+        Me <em>alegro</em> de que 
+        no llegues <em>tarde</em> 
+    </p> 
+</body>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cursivas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_em.PNG" alt="Ejemplo de uso del elemento em" width="25%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página web llamada **curriculum.html** que tenga lo siguiente:
+    
+* Título de la página (*title*): ponle tu nombre
+* Cuerpo (*body*):
+    * Encabezado principal (*h1*) con el texto "Mi curriculum".
+    * Encabezado secundario (*h2*) llamado "Datos personales", con información sobre ti: nombre y apellidos, dirección y teléfono.
+    * Otro encabezado secundario (*h2*) llamado “Formación”, con dos subapartados (*h3*): uno llamado "Idiomas" y otro llamado "Estudios"
+    * Utiliza negritas/cursivas para resaltar el texto que consideres
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Etiqueta span
+
+- Para marcar un texto considerando que el resto de etiquetas no encajan
+- Podemos aplicar estilos a ese texto después con CSS
+- Elemento en línea
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Etiqueta span
+
+```html
+<body>
+    ...
+    <p>
+        Mi madre tiene los ojos 
+        <span style="color:blue"> azules </span>.
+    </p>        
+</body>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Símbolos especiales
+
+- Algunos símbolos no pueden representarse directamente en un documento HTML
+- Casos de `<`, `>` o `&`
+- Los espacios también son un caso especial: sólo se representa uno si van varios seguidos.
+- Los saltos de línea no se representan directamente
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Símbolos especiales
+
+|Símbolo|Código|
+|---|---|
+|`<`|`&lt;`|
+|`>`|`&gt;`|
+|`&`|`&amp;`|
+|`"`|`&quot;`|
+|`'`|`&apos;`|
+|(espacio)|`&nbsp;`|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Símbolos especiales
+
+- Acentos agudos: `&eacute;`, `&Oacute;`
+- Acentos graves: `&agrave;`
+- Eñes: `&ntilde;`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Etiquetas de secciones
+
+- Agrupan el contenido en secciones dentro del documento
+- Hasta HTML 5: **div** (difícil identificar secciones)
+- Desde HTML 5: **section**, **article**, **nav**, **aside**, etc.
+- Todas son elementos en bloque
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *div*
+
+- Define una sección o agrupación de contenido genérico, sin un significado semántico en particular
+- Podemos distinguir secciones asignando a cada *div* un *id* (único) o un *class* (compartido)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *div*
+
+```html
+<html>
+    ... 
+    <body>
+        <div id="cabecera">
+            ...
+        </div>            
+        
+        <div id="menu">
+            ...
+        </div>
+        
+        <div id="contenido">
+            <div class="apartado">
+                ...
+            </div>
+            <div class="apartado">
+                ...
+            </div>            
+        </div>
+
+        <div id="pie">
+            ...
+        </div>
+    <body>
+<html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+- Piensa un diseño de página personal. Crea la página **pagina_divs.html** para crearlo
+- Título con nombre de la persona
+- Sección de navegación con los nombres de los diferentes apartados
+- Contenido principal con información sobre la persona
+- Pie de página nombrando sus redes sociales
+- Utiliza *id* o *class* para identificar los apartados
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Secciones desde HTML 5
+
+- Secciones temáticas (*section*)
+- Contenidos independientes (*article*)
+- Contenidos secundarios (*aside*)
+- Barras de navegación (*nav*)
+- Cabeceras (*header*)
+- Pies (*footer*)
+- ...
+    
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *section*
+
+- Distingue áreas temáticas en una página
+- Cada sección normalmente empieza con un encabezado *h1* - *h6* aludiendo al tema a tratar
+- Puede contener otros *section* o *article*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *section*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Asociación astronómica de San Vicente del Raspeig</h1>
+                
+        <section>
+            <h2> Noticias de actualidad </h2>
+            ...
+        </section>
+
+        <section>
+            <h2> Astrofotografía </h2>
+            ...
+        </section>    
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *article*
+
+- Contenido independiente
+- Típico mostrarlo en algún canal de noticias RSS, por ejemplo
+- Puede contener elementos *section* si el artículo se compone de secciones
+   - Ejemplo: introducción, desarrollo y conclusión en las entradas de un blog
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *article*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Blog de tecnología</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <section>
+            <article> 
+                <!-- aquí va el contenido de la primera entrada del blog -->
+            </article>
+
+            <article>
+                <!-- aquí va el contenido de la segunda entrada del blog -->
+            </article>
+            ...
+        </section>
+        ...
+    </body>
+</html>
+```
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *aside*
+
+- Contenido secundario, como anuncios u opiniones de clientes
+- Puede estar en *body* o asociado a una *section* o *article* concreto.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *aside*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Asociación astronómica de San Vicente del Raspeig</h1>            
+        <section>
+            <h2> Noticias de actualidad </h2>
+            ...
+        </section>
+
+        <section>
+            <h2> Astrofotografía </h2>
+            ...
+        </section>    
+
+        <aside>
+            <!-- aquí podemos poner un bloque de anuncios de material astronómico -->
+        </aside>
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *header*
+
+- Encabezado para los bloques de contenido que lo necesiten
+- Puede ser del *body* general o para alguna *section* o *article* en concreto
+- Puede contener títulos (*h1* - *h6*), logos, etc.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *header*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <img src="http://nachoiborraies.github.io/images/logo.png">
+            <h1>Asociación astronómica de San Vicente del Raspeig</h1>
+        </header>
+        ...
+    </body>
+</html>
+```     
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *nav*
+
+- Agrupa enlaces de navegación
+- En el *header* se suele poner para navegar por las páginas del sitio web
+- En el cuerpo (*body*) se suele poner para enlaces a secciones de ese propio cuerpo
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *nav*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <img src="http://nachoiborraies.github.io/images/logo.png">
+            <h1>Asociación astronómica de San Vicente del Raspeig</h1>
+            <nav> 
+                <!-- aquí van los enlaces a otras páginas del sitio web -->
+            <nav>
+        </header>
+
+        <nav>
+            <!-- aquí van los enlaces a las diferentes secciones de 
+                 la página principal -->
+        </nav>
+
+        <section>
+            <h2> Noticias de actualidad </h2>
+            ...
+        </section>
+
+        <section>
+            <h2> Astrofotografía </h2>
+            ...
+        </section>    
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *footer*
+
+- Añade información sobre la página:
+   - Autor
+   - Dirección de contacto
+   - Condiciones de uso 
+   - ...
+- En el *body* es un pie de todo el documento
+- En otras secciones (*section*, *article*) es un pie específico de esa sección.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *footer*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <img src="http://nachoiborraies.github.io/images/logo.png">
+            <h1>Asociación astronómica de San Vicente del Raspeig</h1>            
+        </header>
+
+        <nav>
+            <!-- aquí van los enlaces a las diferentes secciones 
+                 de la página principal -->
+        </nav>
+
+        <section>
+            <h2> Noticias de actualidad </h2>
+            ...
+        </section>
+
+        <section>
+            <h2> Astrofotografía </h2>
+            ...
+        </section>    
+
+        <aside>
+            <!-- aquí podemos poner un bloque de anuncios de material astronómico -->
+        </aside>
+
+        <footer>
+            <p>May Calle</p>
+            <a href="mailto:maycalle@iessanvicente.com">
+                maycalle@iessanvicente.com
+            </a> 
+        </footer>
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *address*
+
+- Define información de contacto del autor o propietario de la página o artículo
+- Normalmente forma parte del *footer*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *address*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        ...
+        <footer>
+            <address>
+                Autor: May Calle
+                Correo: 
+                <a href="mailto:maycalle@iessanvicente.com">
+                    maycalle@iessanvicente.com
+                </a> 
+            </address>
+            <p> Última modificación: 1 de septiembre de 2021</p>
+        </footer>
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *main*
+
+- Define el contenido principal de la página
+- Útil para que los navegadores de voz lo localicen y descarten el resto si es necesario
+- Puede estar colgando del *body*, un *div* o un formulario
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *main*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Asociación astronómica</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <img src="http://nachoiborraies.github.io/images/logo.png">
+            <h1>Asociación astronómica de San Vicente del Raspeig</h1>            
+        </header>
+
+        <nav>
+            <!-- aquí van los enlaces a las diferentes secciones 
+                 de la página principal -->
+        </nav>
+
+        <main>
+            <section>
+                <h2> Noticias de actualidad </h2>
+                ...
+            </section>
+
+            <section>
+                <h2> Astrofotografía </h2>
+                ...
+            </section>                
+        </main>
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Modifica el *Ejercicio 3* anterior de forma que en lugar de utilizar el elemento `<div>` se utilicen las etiquetas semánticas de estructura de HTML 5 vistas hasta ahora. Guarda el documento como **pagina_divs_html5.html**.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listas en HTML
+
+- Ordenadas (numérica o alfabéticamente)
+- No ordenadas (viñetas)
+- De definición (glosarios)
+- Todas son elementos en bloque
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Listas ordenadas
+
+- Etiqueta **ol** para englobar toda la lista
+- Etiquetas **li** para definir cada uno de los items
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Personalizar listas ordenadas
+
+- Añadimos atributos al elemento *ol*:
+   - *reversed*: para ordenar en sentido descendente
+   - *start=X*: para comenzar a contar por el número/letra X
+   - *type*: para indicar el tipo. *1* para números arábigos, *a* para alfabeto latino en minúscula, *I* para números romanos en mayúscula, etc.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas ordenadas
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>              
+        <h1> Listas ordenadas </h1>
+
+        <p> Procedimiento para acceder a la BIOS: </p>
+        <ol>
+            <li> Enciende el ordenador </li>
+            <li> Pulsa la tecla DEL cuando se indique </li>
+            <li> Introduce la contraseña </li>            
+            <li> ... </li>
+        </ol>
+
+        <p> Ahora continúa con las siguientes instrucciones: </p>
+        <ol start="5">
+            <li> Presiona la tecla F10 </li>
+            <li> Confirma la salida </li>
+        </ol>
+        
+        <p> ... presta especial atención al apartado III. </p>
+        <ol type="I">
+            <li> Introduccción a HTML </li>
+            <li> Elementos básicos de HTML </li>
+            <li> Otros elementos de HTML </li>
+        </ol>
+        
+        <p> Estas son mis 3 películas favoritas (ordenadas de menos a más): </p>
+        <ol reversed>
+            <li> First Man </li>
+            <li> Contact </li>
+            <li> Apollo 13 </li>
+        </ol>
+
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas ordenadas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_ol.PNG" alt="Ejemplo de uso del elemento ol" width="30%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas no ordenadas
+
+- Etiqueta **ul** para englobar toda la lista
+   - Atributo *type* define el tipo de viñeta: *disc*, *circle*, *square*
+- Etiquetas **li** para definir cada uno de los items
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas no ordenadas
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>              
+        <h1> Listas no ordenadas </h1>
+
+        <p> Ingredientes para creps: </p>
+        <ul>
+            <li> 1 vaso de harina de trigo </li>
+            <li> 2 vasos de leche </li>
+            <li> 3 huevos </li>            
+            <li> Una pizca de sal </li>
+        </ul>
+
+        <p> Ingredientes para creps: </p>
+        <ul type="square">
+            <li> 1 vaso de harina de trigo </li>
+            <li> 2 vasos de leche </li>
+            <li> 3 huevos </li>            
+            <li> Una pizca de sal </li>
+        </ul>
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas no ordenadas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_ul.PNG" alt="Ejemplo de uso del elemento ul" width="30%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas anidadas
+
+- Podemos definir listas dentro de otras
+- El elemento *li* donde se ubica la lista se deja abierto, y dentro se coloca la lista *ol* o *ul*
+   - Al finalizar la sublista, se cierra el *li* que la contiene
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas anidadas
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>              
+        <h1> Listas anidadas </h1>
+        <ol>
+            <li> Opción 1 </li>
+            <li> Opción 2 <!-- La etiqueta de cierre no va aquí -->
+                <ul>
+                    <li> Opción 2A </li>
+                    <li> Opción 2B </li>
+                    <li> Opción 2C </li>
+                </ul>
+            </li> <!-- Aquí está la etiqueta de cierre -->
+            <li> Opción 3 </li>            
+            <li> Opción 4 </li>
+        </ol>        
+    </body>
+</html>
+```
+
+</script>
+</section>  
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas anidadas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_listas_anidadas.PNG" alt="Ejemplo de listas anidadas" width="20%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Crea una página llamada **listas.html** y trata de representar un contenido como éste:
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_listas.png" alt="Ejercicio de listas" width="30%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Listas de descripción
+
+- Englobamos toda la lista con etiqueta *dl*
+- Están formadas por términos (*dt*) y descripción(es) asociada(s) a cada término (*dd*)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas de descripción
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>              
+        <h1> Listas de descripción </h1>
+
+        <p> <strong> Glosario de términos informáticos </strong> </p>
+        <dl>
+            <dt>HTML</dt>
+            <dd>Lenguaje de marcado para la elaboración de páginas web</dd>
+
+            <dt>Javascript</dt>
+            <dd>Lenguaje de programación interpretado que se utiliza para el desarrollo de aplicaciones
+            web tanto en la parte cliente como en la parte de servidor. </dd>
+
+            <dt>Interfaz</dt>
+            <dd> Dispositivo capaz de transformar las señales generadas por un aparato en señales
+            comprensibles por otro.<dd>
+            <dd> En programación orientada a objetos, elemento que proporciona un esqueleto común de
+            métodos a implementar por varias clases.</dd>
+        </dl>
+
+        <p> <strong> Entrevista a Chema Alonso </strong> </p>
+        <dl>
+            <dt>¿Qué motivo te impulsó para comenzar con el mundo del hacking ético?</dt>
+            <dd> Entrar en el mundo del hacking fue casi por casualidad. Con 12 años comencé con los
+            ordenadores a programar en BASIC porque me enamoré de la tecnología con la película de TRON,
+            y luego juegos de guerra, y muchas otras películas de los años 80.</dd>
+            <dt>¿Qué tendencias a nivel de seguridad informática marcarán los próximos años?<dt>
+            <dd>Creo que desde el punto de vista tecnológico, la investigación más puntera será, sin 
+            duda, todo lo referido a la Inteligencia Artificial aplicada a la ciberseguridad.</dd>            
+        </dl>        
+    </body>
+</html>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo listas de descripción
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_dt.PNG" alt="Ejemplo de uso del elemento dt" width="65%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otras etiquetas
+
+- Citas: *blockquote* y *q*
+- Texto preformateado: *pre* y *code*
+- Superíndices y subíndices: *sup* y *sub*
+- Marcar texto: *mark*
+- Inserciones y borrados: *ins* y *del* 
+- Delimitaciones: *br* y *hr*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: citas
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>
+        <p> Para los fans de Star Wars...
+        <blockquote cite="https://starwars.fandom.com/es/wiki/Star_Wars_Wiki:Citas:Han_Solo"> 
+            He recorrido esta galaxia de un extremo a otro, he visto cosas muy raras, pero nunca vi nada 
+            que me impulsara a creer que haya una única fuerza poderosa que lo controla todo. Ningún campo
+            de energía mística controla mi destino. Todo eso no son más que leyendas y tonterías.
+        </blockquote> - Han Solo
+        </p>
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: citas
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_blockquote.PNG" alt="Ejemplo de uso del elemento blockquote" width="50%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: texto preformateado
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>
+        <h1> Poema de Gloria Fuertes (sin usar <code>pre</code>) </h1>
+        <p>
+            En las noches claras,
+            resuelvo el problema de la soledad del ser.
+            Invito a la luna y con mi sombra somos tres. 
+        </p>
+
+        <h1> Poema de Gloria Fuertes (usando <code>pre</code>) </h1>
+        <pre>
+            En las noches claras,
+            resuelvo el problema de la soledad del ser.
+            Invito a la luna y con mi sombra somos tres. 
+        </pre>
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: texto preformateado
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_pre.PNG" alt="Ejemplo de uso del elemento pre" width="50%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: delimitación con *br*
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>
+        <h1> Ejemplo de <code>br</code> </h1>
+        
+        <p>P. Sherman<br>
+        42 Wallaby Way<br>
+        Sydney</p>      
+        
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: delimitación con *br*
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_br.PNG" alt="Ejemplo de uso del elemento br" width="20%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: delimitación con *hr*
+
+Para separar dos zonas de contenidos diferenciados en la web
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head> ... <head>
+    <body>              
+        <h1> Lenguajes Web </h1>
+
+        <p> HTML es el lenguaje de marcado estándar para crear páginas web. HTML describe la estructura 
+            de una página web y consta de una serie de elementos. Los elementos HTML le dicen al navegador
+            cómo mostrar el contenido. </p>
+        <hr>
+
+        <p> CSS es un lenguaje que describe cómo se mostrarán los elementos HTML en la pantalla del ordenador
+            o en otros medios. CSS ahorra mucho trabajo porque puede controlar el diseño de varias páginas 
+            web a la vez. </p>
+        <hr>
+
+        <p> JavaScript es el lenguaje de programación que permite cambiar el contenido HTML y los valores 
+            de los atributos. </p>
+
+    </body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: delimitación con *hr*
+
+<div align="center">
+    <img src="../../../img/02_ejemplo_hr.PNG" alt="Ejemplo de uso del elemento hr" width="60%" style="border: 2px solid black" />
+</div>
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

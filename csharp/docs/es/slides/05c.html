@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Uso avanzado de funciones</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Funciones
+#### Uso avanzado de funciones
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recursividad
+
+- Un módulo recursivo resuelve un problema llamándose a sí mismo con una versión cada vez más simple del problema a resolver
+- En el código del módulo encontraremos siempre dos elementos:
+   - **Caso(s) base**: caso más simple de todos, al que poco a poco van tendiendo las llamadas recursivas
+   - **Caso(s) recursivo(s)**: llamadas al propio módulo descomponiendo el problema en otro más simple
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: factorial
+
+- El factorial de un número *n* se representa por *n!*, y se calcula multiplicando todos los números desde 1 hasta n
+
+```
+5! = 5 * 4 * 3 * 2 * 1 = 120
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: factorial
+
+- Podemos representar el factorial de *n* como *n* por el factorial del número anterior (*n-1*), y repetir este proceso hasta llegar al caso más simple (factorial de 1 = 1)
+
+```
+5! = 5 * 4! = 5 * 4 * 3! = 5 * 4 * 3 * 2! = 5 * 4 * 3 * 2 * 1! = 5 * 4 * 3 * 2 * 1
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: factorial
+
+```csharp
+static int Factorial(int n)
+{
+    // Caso base
+    if (n == 1 || n == 0)
+        return 1;
+    else
+        return n * Factorial(n - 1);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pila de llamadas recursivas
+
+<div align="center">
+    <img src="../../../img/05_factorial.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05c_01.cs** con una función recursiva llamada **ContarDigitos** que reciba como parámetro un número entero y devuelva cuántos dígitos tiene. Pruébala desde el programa principal contando los dígitos de 131235.
+
+</script>
+</section>  
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de recursividad
+
+- **Simple**: en la definición de la función sólo hay una llamada a sí misma cada vez
+   - Ejemplo: factorial
+- **Múltiple**: en la definición de la función hay más de una llamada a sí misma cada vez
+   - Ejemplo: serie de Fibonacci
+- **Indirecta**: una función A llama a otras funciones, que al final acaban llamando de nuevo a A
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Usos de la recursividad
+
+- Muchos problemas se pueden expresar de forma más simple y corta de forma recursiva
+- En algunos tipos de juegos (por ejemplo, búsquedas en laberintos o mapas, o juegos de tablero por turnos), es muy utilizada para buscar posibles jugadas contra el adversario
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: serie de Fibonacci
+
+- Se comienza con los números 0 y 1
+- El resto de elementos se consigue sumando los dos anteriores
+
+```
+0 1 1 2 3 5 8 13 21 ...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: serie de Fibonacci
+
+Podemos expresarlo así:
+
+- Fibonacci(0) = 0
+- Fibonacci(1) = 1
+- Fibonacci(n) = Fibonacci(n-1) + Fibonacci(n-2)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05c_02.cs** con una función recursiva llamada **Fibonacci** que reciba como parámetro un número entero *n* y devuelva el enésimo elemento de la secuencia de Fibonacci, aplicando el esquema de la diapositiva anterior. Utilízala desde el programa principal para calcular Fibonacci(5) y Fibonacci(10).
+
+</script>
+</section>  
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05c_03.cs** con una función recursiva llamada **InvertirTexto** que reciba como parámetro un texto (*string*) y devuelva otro *string* con el texto original invertido
+
+</script>
+</section>  
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05c_04.cs** con una función recursiva llamada **CalcularPotencia** que reciba como parámetros dos enteros (base y exponente) y calcule recursivamente esa potencia (base elevado a exponente). Pruébala desde el *Main* calculando la potencia de 7<sup>3</sup>
+
+</script>
+</section>  
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05c_05.cs** con una función recursiva llamada **Palindromo** que reciba como parámetro un texto (*string*) y devuelva si es un texto palíndromo (capicúa) o no. Se supone que el texto no contiene otra cosa que letras minúsculas (no hay espacios, ni signos de puntuación).
+
+</script>
+</section>  
+    
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros al Main
+
+- Los programas que compilamos generan un ejecutable que se puede lanzar desde el terminal
+- Algunos comandos útiles de los sistemas operativos admiten una serie de parámetros adicionales.
+   - Ejemplos: `sudo apt-get install`, `dir *.txt`, etc
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros al Main
+
+Estos parámetros que se pasan desde fuera al programa se pueden recoger con un array de *strings* como parámetro del *Main*
+
+```csharp
+// miPrograma.exe Nacho 20
+
+static void Main(string[] args)
+{
+    Console.WriteLine(args[0]); // Nacho
+    Console.WriteLine(args[1]); // 20
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **suma.cs** que calcule y muestre por pantalla la suma de los parámetros que recibirá desde el terminal. Por ejemplo, si tecleamos *suma 3 6* deberá sacar por pantalla *9*. Si sólo tecleamos un número, mostrará sólo ese número como resultado, y si no tecleamos ningún número mostrará "Error: se esperaba algún número".
+
+</script>
+</section>      
+
+<section data-markdown>
+<script type="text/template">
+## Parámetros con valores por defecto
+
+- Podemos asignar un valor por defecto a los parámetros de una función
+- De este modo, si no le pasamos ese parámetro, tomará su valor por defecto
+- Es IMPORTANTE que los parámetros con valores por defecto se sitúen AL FINAL de la lista de parámetros
+   - A la hora de llamar a la función, podemos omitir parámetros siempre desde el final (nunca en posiciones intermedias)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros con valores por defecto
+
+```csharp
+static string Linea(int veces, char simbolo = '*')
+{
+    return new string(letra, veces);
+}
+
+static void Saludar(string nombre, string apellido = "García", int dia = 1)
+{
+    Console.WriteLine("Hola {0} {1}, hoy es día {2}", nombre, apellido, dia);
+}
+
+static void Main()
+{
+    string texto1 = Linea(5, '-');  // -----
+    string texto2 = Linea(8);       // ********
+
+    Saludar("Nacho");       // Hola Nacho García, hoy es día 1
+    Saludar("Nacho", 3);    // ERROR! El segundo parámetro es el apellido
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Parámetros con nombre
+
+Desde hace poco también se permite llamar a una función cambiando el orden de los parámetros, siempre que en la llamada indiquemos el nombre de cada parámetro para que se puedan emparejar
+
+```csharp
+static void DibujarRectangulo(int nBase, int nAltura) { ... }
+
+static void Main()
+{
+    DibujarRectangulo(nAltura: 3, nBase: 8);
+}
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa en el fichero **Ejercicio_05c_07.cs** con una función **DibujarRecuadro** que recibirá como parámetro la base y altura del recuadro, y el carácter de relleno. La altura será opcional y por defecto valdrá 3, y el carácter de relleno también, y por defecto será el asterisco. Prueba a llamarla varias veces desde el *Main* con diferentes parámetros para comprobar su funcionamiento
+
+</script>
+</section>      
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Programs, languages and compilers | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Programs, languages and compilers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/01d.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Programs, languages and compilers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Programs, languages and compilers","url":"http://nachoiborraies.github.io/entornos/md/en/01d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="programs-languages-and-compilers">Programs, languages and compilers</h1>
+
+<h2 id="first-steps-with-python">First steps with Python</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-python-programming-language">1. Python programming language</h3>
+
+<p>Python is an interpreted language that is really easy to learn (it is usually chosen in many educational institutions to teach programming). Resulting code is usually much more compact and understandable that the same code in other traditional languages, for the same task. We can also develop several types of applications with this language, such as system scripts, video games (with libraries like <em>PyGame</em>) or server side web applications (with frameworks like Django). It is also very appreciated in some other tasks like hacking and deep learning.</p>
+
+<h3 id="2-installing-python">2. Installing Python</h3>
+
+<p>Let’s try with an interpreted language such as Python. In order to install it under Windows or Mac OSX, we need to go to its official <a href="https://www.python.org/downloads/">download</a> page.</p>
+
+<p>Python interpreter is usually a command called <code class="language-plaintext highlighter-rouge">python</code> or <code class="language-plaintext highlighter-rouge">python3</code>, depending on the version and operating system that we are using. Nowadays, Python 2 is no longer maintained, so we will use Python 3. For instance, in Windows Python 3 interpreter is launched through <code class="language-plaintext highlighter-rouge">python</code> command, whereas in Linux we use <code class="language-plaintext highlighter-rouge">python3</code> command instead.</p>
+
+<p>When you install Python in Windows, make sure you check the option to add Python automatically to your PATH variable. You can also change the default installation folder:</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema01-05-python.png" alt="Python installation" width="70%" />
+</div>
+
+<p>Regarding Linux, we can firstly check which version of Python we have currently installed with this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 --version
+</code></pre></div></div>
+
+<p>We can easily update or install from scratch Python (version 3) with these command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install python3
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a source file called <code class="language-plaintext highlighter-rouge">test.py</code> with this source code in Python programming language:</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Save the changes and try to run it with one of these commands (depending on the name of your Python interpreter in your system):</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python test.py
+python3 test.py
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

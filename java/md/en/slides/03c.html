@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Strings</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Static data types
+### Strings
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Strings
+
+- **String** class has some useful methods to work with strings
+- You can check them in the official [API](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## String definition
+
+- Strings can be defined in code using double quotes
+- We can also read them from the keyboard using *Scanner*'s *nextLine*
+
+```Java
+String text = "Hello world";
+String name = scanner.nextLine();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## String concatenation
+
+- Using `+` operator
+
+```Java
+String text = "Hello world";
+text = text + ", how are you?";
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## String length and characters
+
+- We must use **charAt** instruction to access a single character in the string using its position (starting at 0)
+- We can use **length** instruction to determine the total number of characters in the string
+
+```Java
+for (int i = 0; i < text.length(); i++)
+    System.out.println(text.charAt(i));
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## String conversions
+
+- Concatenate a non-string value with an empty string
+- Use **String.valueOf** method alternatively
+
+```java
+int number = 23;
+String text = "" + number;
+String text2 = String.valueOf(number);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comparing strings (1/2)
+
+- Use **equals** instruction to check if two strings have the same value. Use **equalsIgnoreCase** if you want to ignore case.
+   - NEVER use *==* operator in Java
+
+```Java
+if (text1.equals(text2))
+    System.out.println("Texts are equal");
+
+if ("hello".equalsIgnoreCase("HELLO"))
+    System.out.println("Text are equal ignoring cases");
+```
+   
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comparing strings (2/2)
+
+- Use **compareTo** instruction to compare two strings alphabetically
+    - It returns a positive number if first string is greater, negative if it's lower, and 0 if they are equal
+
+```Java
+if (text1.compareTo(text2) < 0)
+    System.out.println("Second text is greater");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Finding texts (1/3)
+
+- **contains** instructions checks if a text is contained into another text
+
+```Java
+if (text.contains("hello"))
+	System.out.println("There is a 'hello' in the text");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Finding texts (2/3)
+
+- **indexOf** gets the position of the first occurrence of a text (or -1 if it's not found)
+- **lastIndexOf** is similar, but it starts searching at the end of the string
+
+```Java
+int pos = text.indexOf("hello");
+if (pos >= 0)
+	System.out.println("There is a 'hello' at position" + pos);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Finding texts (3/3)
+
+- **startsWith** checks if a string starts with a given prefix
+- **endsWith** checks if a string ends with a given suffix
+
+```Java
+if (text.startsWith("Hello"))
+	System.out.println("Text starts with 'Hello'");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Upper and lower case
+
+- **toUpperCase** converts a string into upper case
+- **toLowerCase** converts a string into lower case
+
+```Java
+String text = "Hello world";
+String textUpper = text.toUpperCase(); // "HELLO WORLD"
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Getting substrings
+
+- **substring** gets a substring of an initial string, specifying the initial index to start from (included) and the final index to finish (excluded)
+- If no final index is specified, it continues until the end of the string
+
+```Java
+String text = "Welcome";
+String subs = text.substring(3, 5); // "co"
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Replacing texts
+
+- **replace** replaces all the occurrences of an old text with a new text
+
+```Java
+// Old text = "Hello", new text = "Good morning"
+String result = text.replace("Hello", "Good morning");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Splitting texts
+
+- **split** gets an array with all the parts in a string separated by a given delimiter
+
+```Java
+String text = "Hello world";
+String[] parts = text.split(" "); 
+// Two parts, "Hello" and "world"
+```
+
+</script>
+</section>
+   
+<section data-markdown>
+<script type="text/template">
+## Joining texts
+
+- **String.join** joins a set of parts with a given delimiter
+
+```Java
+String[] parts = {"One", "Two", "Three"};
+String result = String.join(",", parts);   // "One,Two,Three"
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **SortJoin** that asks the user to enter a list of names separated by whitespaces. Then, the program must split the string, sort the names alphabetically and output them separated by commas. For instance, if the user types this name list: `Susan Kailey William John`, then the program must output `John, Kailey, Susan, William`.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **CheckMessages** that asks the user to type 10 strings. The program must store them in an array, and then replace the text "Eclipse" with "IntelliJ" in every string that contains "Eclipse". The program must output the updated version of the strings stored in the array, once the replacement has been done.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Create a program called **LispChecker**. LISP is a programming languages where every instruction is enclosed in parentheses. This could be a set of instructions in LISP:
+
+```Lisp
+(let ((new (x-point a y))))
+```
+
+You must implement a program that takes a string with LISP instructions (just one string) and then check if the parentheses are correct (this is, the number of opening parentheses and closing parentheses are the same).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Strings and static data
+
+- Every instruction that alters the contents of a string produces a new string (it never affects the original one)
+- Strings are immutable
+- If we want to alter the original string, we need to re-assign the variable, so that it points to a new memory position
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Strings and static data
+
+```java
+String text = "Hello world";
+
+// This way we don't affect original text
+String newText = text.toUpperCase();
+
+// This way we modify original variable, and it points
+// to this new text (old text is lost in memory)
+text = text.toUpperCase();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## StringBuilder
+
+- It lets us define editable strings
+
+```java
+StringBuilder text = new StringBuilder("Hello");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## StringBuilder operations
+
+* **append** to add text at the end
+* **delete** to remove a fragment
+* **insert** to add text in the middle
+* **toString** to convert to a common *String*
+* Some *String* methods available: `charAt`, `length`, `indexOf`, `lastIndexOf`...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## StringBuilder operations
+
+```java
+StringBuilder text = new StringBuilder("Hello");
+text.append(" world");                  // text = "Hello world"
+text.insert(5, " my");                  // text = "Hello my world"
+System.out.println(text.toString());    // "Hello my world"
+System.out.println(text.indexOf("my")); // 6
+text.delete(5, 8);                      // text = "Hello world"
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

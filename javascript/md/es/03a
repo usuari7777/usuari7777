@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Uso de librerías | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Uso de librerías" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/03a.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Uso de librerías" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Uso de librerías","url":"http://nachoiborraies.github.io/javascript/md/es/03a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="uso-de-librerías">Uso de librerías</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>JavaScript es uno de los lenguajes más populares a nivel mundial, y por tanto, hay una gran comunidad de usuarios que lo utiliza. Esto facilita el hecho de que algunos de esos usuarios o grupos desarrolle <strong>librerías</strong>. Una librería básicamente es un conjunto de funcionalidades implementadas que podemos incorporar y utilizar directamente en nuestras aplicaciones. Por lo general proporcionan una serie de funciones y objetos definidos, que evitan que tengamos que “reinventar la rueda” si queremos hacer algo parecido en nuestros programas.</p>
+
+<p>En este documento veremos algunos ejemplos de librerías JavaScript y cómo utilizarlas en nuestras webs.</p>
+
+<h2 id="1-chartjs">1. Chart.js</h2>
+
+<p><em>Chart.js</em> es una librería que proporciona un conjunto de elementos que nos permiten incorporar gráficas en nuestras páginas de forma sencilla. La vamos a utilizar para, por un lado, ver cómo incluir librerías de terceros en nuestras aplicaciones web, y por otro, ver concretamente cómo usar las funcionalidades proporcionadas por esta librería. Podemos consultar información actualizada en su <a href="https://www.chartjs.org/">web oficial</a>.</p>
+
+<h3 id="11-descarga-e-instalación">1.1. Descarga e instalación</h3>
+
+<p>El procedimiento para utilizar cualquier librería JavaScript es muy similar, aunque en algunos casos se complica más porque debemos incluir varios ficheros, e incluso manipular archivos CSS. En el caso de <em>Char.js</em>, en la propia web nos dan diferentes alternativas:</p>
+
+<ul>
+  <li>Por ejemplo, podemos usar el gestor de paquetes <em>npm</em> si tenemos instalado <em>Node.js</em> en el sistema.</li>
+  <li>También podemos descargar la librería desde su <a href="https://github.com/chartjs/Chart.js/releases/tag/v3.7.0">repositorio GitHub</a>. En este caso descargamos un archivo comprimido. Sólo necesitamos enlazar con el archivo <code class="language-plaintext highlighter-rouge">chart.min.js</code> o, en su defecto, el archivo <code class="language-plaintext highlighter-rouge">chart.js</code>, que está menos optimizado para su carga. Ambos se encuentran dentro de la subcarpeta <em>dist</em> (es el único archivo que necesitamos copiar a nuestra web).</li>
+  <li>Alternativamente, también podemos enlazar con la versión online de la librería en CDN:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<h3 id="12-uso-básico">1.2. Uso básico</h3>
+
+<p>Una vez incorporado el <em>script</em> correspondiente en la(s) página(s) que lo necesite(n), ya podemos utilizar los elementos que incorpora la librería. Por ejemplo, vamos a representar en un gráfico de barras la temperatura media (en rojo) y lluvias acumuladas (en azul) en los meses de Enero a Marzo. Para ello, definimos un objeto JavaScript con los siguientes campos:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">labels</code>: etiquetas que se pondrán en el eje X. En este caso, los meses del año</li>
+  <li><code class="language-plaintext highlighter-rouge">datasets</code>: un array con cada conjunto de datos que queramos representar. En este caso habrá dos grupos: uno en azul con los datos de lluvias y otro en rojo con los datos de temperaturas medias. Los colores de fondo se especifican con la propiedad <em>backgroundColor</em>, y también podemos especificar un color de contorno con <em>borderColor</em>. El objeto JavaScript puede quedar así:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">datos</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">labels</span> <span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Enero</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Febrero</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Marzo</span><span class="dl">"</span><span class="p">],</span>
+    <span class="na">datasets</span> <span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Lluvias acumuladas</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">backgroundColor</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">,</span> 
+        <span class="na">borderColor</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">black</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">data</span> <span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">125</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Temperaturas medias</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">backgroundColor</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">,</span> 
+        <span class="na">borderColor</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">black</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">data</span> <span class="p">:</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+    <span class="p">}]</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Después, construimos un objeto con la configuración del gráfico. En él indicamos el tipo de gráfico (campo <code class="language-plaintext highlighter-rouge">type</code>), los datos que va a cargar (campo <code class="language-plaintext highlighter-rouge">data</code>, donde asociaremos el objeto <em>datos</em> anterior) y opciones adicionales de visualización, si son necesarias.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">datos</span><span class="p">,</span>
+    <span class="na">options</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>En cuanto al código HTML, básicamente deberemos definir un canvas donde mostrar el dibujo (normalmente los gráficos se dibujan sobre un objeto <em>canvas</em>).</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    ...
+    <span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">"grafico"</span> <span class="na">height=</span><span class="s">"450"</span> <span class="na">width=</span><span class="s">"600"</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+    ...
+</code></pre></div></div>
+
+<p>Y después, crear un objeto de tipo <em>Chart</em> e indicarle que cargue la configuración anterior en el canvas (esto deberemos hacerlo una vez esté cargado el canvas en la página, evidentemente)</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">chart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">grafico</span><span class="dl">"</span><span class="p">),</span> <span class="nx">config</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Al final quedará algo como esto:</p>
+
+<div align="center">
+    <img src="../../img/03_chart.png" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> el gráfico por defecto va a tomar todo el ancho disponible, y en función de eso ajusta el alto según las proporciones del <em>canvas</em> que hayamos definido. Si queremos acotar más en qué zona de la página desplegar el gráfico, debemos incluirlo en algún tipo de contenedor (<em>div</em>, <em>section</em>), y establecer el tamaño de dicho contenedor: anchura, altura, <em>grid</em>…</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una página llamada <strong>graficos.html</strong>. Usando la librería <em>Chart.js</em>, investiga en su documentación cómo hacer:</p>
+
+  <ul>
+    <li>Un gráfico de <a href="https://www.chartjs.org/docs/latest/charts/line.html">líneas</a> para representar la evolución de las notas de una asignatura (con las notas 4, 7, 5, 8 y 7),</li>
+    <li>Un gráfico <a href="https://www.chartjs.org/docs/latest/charts/doughnut.html#pie">circular</a> para representar el porcentaje de aprobados (60%), suspensos (30%) y no presentados (10%) de una asignatura.</li>
+  </ul>
+
+  <p>Al final deberán quedarte estos dos gráficos:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_chart.png" width="50%" />
+</div>
+
+<h2 id="2-momentjs">2. Moment.js</h2>
+
+<p><em>Moment.js</em> es una librería que nos permite gestionar de forma cómoda fechas, para mostrarlas en distintos formatos y para hacer operaciones con ellas: calcular diferencias entre fechas, ver cuántos días faltan para una fecha determinada, etc.</p>
+
+<p>Podemos descargar la librería desde la <a href="https://momentjs.com/">web oficial</a>. Necesitamos el archivo <code class="language-plaintext highlighter-rouge">moment.min.js</code>, que copiaremos a nuestra web y enlazaremos con la correspondiente etiqueta <em>script</em>.</p>
+
+<h3 id="21-uso-básico">2.1. Uso básico</h3>
+
+<p>Una vez incorporada la librería, podemos hacer algunas operaciones básicas y útiles, como por ejemplo:</p>
+
+<ul>
+  <li>Obtener la fecha actual creando un nuevo objeto <em>moment</em>:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">ahora</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Crear una fecha a partir de una cadena con un patrón determinado (más información sobre los patrones <a href="https://momentjs.com/docs/#/displaying/">aquí</a>)</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">fechaString</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">07/03/2013</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">fecha</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">fechaString</span><span class="p">,</span> <span class="dl">"</span><span class="s2">dd/MM/YYYY</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Existen otras formas de crear fechas. Por ejemplo, pasando un array con el año, mes y día (en ese orden, y numerando el mes desde el 0 = enero):</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 7 de abril de 2022</span>
+<span class="kd">let</span> <span class="nx">fecha</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">([</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Podemos obtener las partes de una fecha por separado (día, mes, año…) con las instrucciones <code class="language-plaintext highlighter-rouge">date()</code> (día), <code class="language-plaintext highlighter-rouge">month()</code> (mes numerado desde el 0) y <code class="language-plaintext highlighter-rouge">year()</code>.</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 7 de abril de 2022</span>
+<span class="kd">let</span> <span class="nx">fecha</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">([</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">]);</span>
+<span class="kd">let</span> <span class="nx">dia</span> <span class="o">=</span> <span class="nx">fecha</span><span class="p">.</span><span class="nx">date</span><span class="p">();</span>     <span class="c1">// 7</span>
+<span class="kd">let</span> <span class="nx">mes</span> <span class="o">=</span> <span class="nx">fecha</span><span class="p">.</span><span class="nx">month</span><span class="p">();</span>    <span class="c1">// 3 (abril)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Calcular la diferencia entre dos fechas con <em><a href="https://momentjs.com/docs/#/displaying/difference/">diff</a></em>:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">dias</span> <span class="o">=</span> <span class="nx">fecha1</span><span class="p">.</span><span class="nx">diff</span><span class="p">(</span><span class="nx">fecha2</span><span class="p">,</span> <span class="dl">'</span><span class="s1">days</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">meses</span> <span class="o">=</span> <span class="nx">fecha1</span><span class="p">.</span><span class="nx">diff</span><span class="p">(</span><span class="nx">fecha2</span><span class="p">,</span> <span class="dl">'</span><span class="s1">months</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Sumar o restar a una fecha una cantidad (en días, meses, años, etc), con <em><a href="https://momentjs.com/docs/#/manipulating/add/">add</a></em> y <em><a href="https://momentjs.com/docs/#/manipulating/subtract/">substract</a></em></li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">fechaNueva1</span> <span class="o">=</span> <span class="nx">fecha1</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="dl">'</span><span class="s1">months</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">fechaNueva2</span> <span class="o">=</span> <span class="nx">fecha2</span><span class="p">.</span><span class="nx">substract</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="dl">'</span><span class="s1">years</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Comprobar si una fecha es válida o no con <code class="language-plaintext highlighter-rouge">isValid</code>, o ver si es anterior o posterior a otra con <code class="language-plaintext highlighter-rouge">isBefore</code> o <code class="language-plaintext highlighter-rouge">isAfter</code>:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">fechaErronea</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">([</span><span class="mi">2022</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">40</span><span class="p">]);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">fechaErronea</span><span class="p">.</span><span class="nx">isValid</span><span class="p">());</span>      <span class="c1">// false</span>
+<span class="p">...</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">fecha1</span><span class="p">.</span><span class="nx">isBefore</span><span class="p">(</span><span class="nx">fecha2</span><span class="p">))</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">La fecha 1 es anterior</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>También podemos trabajar con horas, minutos y segundos. Basta con que los añadamos a continuación de los datos referentes al día, mes y año.</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">fechaCompleta</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="dl">'</span><span class="s1">24/12/2019 09:15:00</span><span class="dl">'</span><span class="p">,</span> <span class="dl">"</span><span class="s2">DD/MM/YYYY hh:mm:ss</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">fechayHora</span> <span class="o">=</span> <span class="nx">fechaCompleta</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="dl">'</span><span class="s1">minutes</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">minutos</span> <span class="o">=</span> <span class="nx">fechaYHora</span><span class="p">.</span><span class="nx">minute</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><a href="https://momentjs.com/docs">Aquí</a> podéis consultar más información sobre las opciones que ofrece <em>Moment</em> para procesar fechas y horas.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea una página llamada <strong>moment.html</strong> y carga en ella la librería <em>Moment</em>. Después, sigue estos pasos:</p>
+
+  <ul>
+    <li>Pide al usuario su fecha de nacimiento con <em>prompt</em>, en formato <em>DD/MM/YYYY</em></li>
+    <li>Dile cuántos años tiene</li>
+    <li>Dile cuántos días faltan para su próximo cumpleaños</li>
+    <li>Dile “Buenos días”, “Buenas tardes” o “Buenas noches” dependiendo de la hora actual:
+      <ul>
+        <li>“Buenas noches” si estamos entre las 21:00 y las 07:00</li>
+        <li>“Buenos días” si estamos entre las 07:00 y las 14:00</li>
+        <li>“Buenas tardes” si estamos entre las 14:00 y las 21:00</li>
+      </ul>
+    </li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

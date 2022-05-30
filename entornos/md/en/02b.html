@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Integrated Development Environments | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Integrated Development Environments" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/02b.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Integrated Development Environments" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Integrated Development Environments","url":"http://nachoiborraies.github.io/entornos/md/en/02b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="integrated-development-environments">Integrated Development Environments</h1>
+
+<h2 id="using-geany">Using Geany</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p><img src="../../img/ED_b1_tema02-48-geany_logo.png" alt="Logo IntelliJ" width="10%" style="float:left;margin-right:8px;" /></p>
+
+<p>Geany is an easy text editor with some basic features of an IDE. It can be downloaded for free from its <a href="https://www.geany.org">official website</a>, where we will find versions for Linux, Windows and Mac.</p>
+
+<blockquote>
+  <p><strong>NOTE</strong>: regarding <strong>Linux</strong> (Ubuntu) users, it is better to install Geany from <em>Synaptic</em> package manager, which can be run from <em>System tools</em> section. Then, you can look for “geany” and install the corresponding package.</p>
+</blockquote>
+
+<h3 id="1-work-environment">1. Work environment</h3>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-01-Geany1_en.png" alt="Geany work environment" />
+</div>
+
+<p>Geany’s work environment has the following sections:</p>
+<ol>
+  <li>Menu.</li>
+  <li>Toolbar (optional)</li>
+  <li>Side bar with tabs:
+    <ol>
+      <li>Documents → List of documents.</li>
+      <li>Symbols → List of code symbols.</li>
+    </ol>
+  </li>
+  <li>Edit window.</li>
+  <li>Message window, with the following tabs:
+    <ol>
+      <li>Status → A list of status messages.</li>
+      <li>Compiler → Compiler messages.</li>
+      <li>Messages → General messages.</li>
+      <li>Scribble → To make annotations.</li>
+    </ol>
+  </li>
+  <li>Status bar, where we can see, among other things, the row and column we are editing, the file type, encoding…</li>
+</ol>
+
+<h3 id="2-main-features">2. Main features</h3>
+
+<h4 id="21-syntax-highlighting">2.1. Syntax highlighting</h4>
+
+<p>This is a very useful feature when we are typing code, since we can easily detect some basic typographic errors as we type the code. Besides, it helps us understand the whole code with a simple glance.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-02-Coloreado.png" alt="Geany syntax highlighting" />
+</div>
+
+<p>As we can see in previous image, reserved words are written in a different color (blue). If we type a reserved word and it is not written in blue, then we may have not written it properly, so we can check it immediately, without waiting for the compilation error.</p>
+
+<h4 id="22-code-folding">2.2. Code folding</h4>
+
+<p>Geany provides a basic code folding. This folding lets us show or hide some parts of the code, so that we can focus only in the parts that we are currently editing. This feature can be enabled or disabled from <em>Edit/Preferences</em> menu.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-03-Folding1.png" alt="Geany code folding" />
+</div>
+
+<p>From this menu, we can also enable the possibility of folding and unfolding every nested foldings that are inside the code block that we are trying to fold/unfold. By default this option is disabled, so we have to fold/unfold every code block independently.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-04-Folding2.png" alt="Geany code folding" />
+</div>
+
+<h4 id="23-word-and-symbol-auto-completion">2.3. Word and symbol auto completion</h4>
+
+<p>This option can be configured in <em>Edit/Preferences</em> menu, under <em>Editor</em> option, in <em>Completions</em> tab.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-05-Completados.png" alt="Geany code auto completion" />
+</div>
+
+<p>With this feature enabled, we will see a list of suitable options whenever we type the beginning of a reserved word, so we will be able to complete it just typing Enter. By default it is enabled to show the list when we type the first 4 letters of the reserved word. Besides, we can also configure the automatic completion of parentheses, curly braces, square brackets and so on. This is really useful if we usually forget to close these symbols.</p>
+
+<h4 id="24-some-additional-useful-features">2.4. Some additional useful features</h4>
+
+<p>Apart from the main useful features shown before, we can also highlight the following features from Geany:</p>
+
+<ul>
+  <li><strong>Auto closing XML/HTML tags</strong>: in the <em>Edit/Preferences</em> menu, under <em>Editor</em> option, we can also activate the auto closing of XML/HTML tags when we type the corresponding opening tag.</li>
+  <li><strong>Multi language support</strong>: Geany lets us choose among many different programming languages, such as C, Java, PHP, HTML, Python, C# and others, with their own auto completion and syntax highlighting. We can select the language from <em>Document &gt; Set file type</em> menu, choosing the appropriate programming language.</li>
+  <li><strong>Geany startup</strong>: when we run Geany, every open document from our previous session will be open again. This feature can be configured in <em>Edit/Preferences</em> menu, under <em>General</em> option, in <em>Startup</em> tab.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-12-Inicio.png" alt="Geany startup configuration" />
+</div>
+
+<ul>
+  <li><strong>Clone documents</strong>: in the <em>Document</em> menu there is a <em>Clone</em> option that lets us not only copy the text of current document, but also its properties, such as cursor position. It can be really helpful for creating many source files with a similar structure.</li>
+</ul>
+
+<h4 id="25-keybindings">2.5. Keybindings</h4>
+
+<p>There are many shortcuts or key bindings available in Geany, as we can also see in many other applications. In the following tables we can see some of the most common ones. These shortcuts can also be configured from <em>Edit-Preferences</em> menu, in the <em>Combinations</em> tab.</p>
+
+<h5 id="file-shortcuts">File shortcuts</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>New</td>
+      <td>Ctrl-N</td>
+      <td>Creates a new file</td>
+    </tr>
+    <tr>
+      <td>Open</td>
+      <td>Ctrl-O</td>
+      <td>Opens a file</td>
+    </tr>
+    <tr>
+      <td>Save</td>
+      <td>Ctrl-S</td>
+      <td>Saves current file</td>
+    </tr>
+    <tr>
+      <td>Save All</td>
+      <td>Ctrl-Shift-S</td>
+      <td>Saves every open file</td>
+    </tr>
+    <tr>
+      <td>Close All</td>
+      <td>Ctrl-Shift-W</td>
+      <td>Closes every open file</td>
+    </tr>
+    <tr>
+      <td>Close</td>
+      <td>Ctrl-W</td>
+      <td>Closes current file</td>
+    </tr>
+    <tr>
+      <td>Exit</td>
+      <td>Ctrl-Q</td>
+      <td>Exits Geany</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="edit-shortcuts">Edit shortcuts</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Undo</td>
+      <td>Ctrl-Z</td>
+      <td>Undoes last action</td>
+    </tr>
+    <tr>
+      <td>Redo</td>
+      <td>Ctrl-Y</td>
+      <td>Redoes last action</td>
+    </tr>
+    <tr>
+      <td>Delete current lines</td>
+      <td>Ctrl-K</td>
+      <td>Deletes currently selected line(s)</td>
+    </tr>
+    <tr>
+      <td>Delete until the end</td>
+      <td>Ctrl-Shift-Del</td>
+      <td>Deletes from current position until the end of the line</td>
+    </tr>
+    <tr>
+      <td>Delete from the beginning</td>
+      <td>Ctrl-Shift-BackSpace</td>
+      <td>Deletes from the beginning of the line until current cursor position</td>
+    </tr>
+    <tr>
+      <td>Duplicate line or selection</td>
+      <td>Ctrl-D</td>
+      <td>Duplicates current line or selection</td>
+    </tr>
+    <tr>
+      <td>Complete fragment</td>
+      <td>Tab</td>
+      <td>If we type some known structure such as <em>if</em> or <em>for</em> and press this key, it will complete the structure.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="clipboard-shortcuts">Clipboard shortcuts</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cut</td>
+      <td>Ctrl-X</td>
+      <td>Cuts current selection and copies it into the clipboard</td>
+    </tr>
+    <tr>
+      <td>Copy</td>
+      <td>Ctrl-C</td>
+      <td>Copies current selection into the clipboard</td>
+    </tr>
+    <tr>
+      <td>Paste</td>
+      <td>Ctrl-V</td>
+      <td>Pastes clipboard’s content into current cursor position.</td>
+    </tr>
+    <tr>
+      <td>Cut line</td>
+      <td>Ctrl-Shit-X</td>
+      <td>Cuts currently selected line(s) and copies it/them into the clipboard</td>
+    </tr>
+    <tr>
+      <td>Copy line</td>
+      <td>Ctrl-Shift-C</td>
+      <td>Copies currently selected line(s) into the clipboard</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="selection-shortcuts">Selection shortcuts</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Select all</td>
+      <td>Ctrl-A</td>
+      <td>Selects all the text from current document</td>
+    </tr>
+    <tr>
+      <td>Select word</td>
+      <td>Ctrl-Shift-W</td>
+      <td>Selects the word in which cursor is currently placed</td>
+    </tr>
+    <tr>
+      <td>Select paragraph</td>
+      <td>Alt-Shift-P</td>
+      <td>Selects the paragraph in which cursor is currently placed</td>
+    </tr>
+    <tr>
+      <td>Select line</td>
+      <td>Alt-Shift-L</td>
+      <td>Selects the line in which cursor is currently placed</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="format-shortcuts">Format shortcuts</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Swap Uppercase-Lowercase</td>
+      <td>Ctrl-Alt-U</td>
+      <td>Swaps uppercase and lowercase letters in current selection. It there are both uppercase and lowercase letters in the selection, then it turns everythin into lowercase.</td>
+    </tr>
+    <tr>
+      <td>Comment-Uncomment line</td>
+      <td>Ctrl-E</td>
+      <td>Comments current line, or uncomments it if it is already commented.</td>
+    </tr>
+    <tr>
+      <td>Increase indentation</td>
+      <td>Ctrl-I</td>
+      <td>Adds a new indentation level to currently selected line(s)</td>
+    </tr>
+    <tr>
+      <td>Decrease indentation</td>
+      <td>Ctrl-U</td>
+      <td>Removes an indentation level from currently selected line(s)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="search-shortcuts">Search shortcuts</h5>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Shortcut</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Find</td>
+      <td>Ctrl-F</td>
+      <td>Opens the <em>find</em> dialog</td>
+    </tr>
+    <tr>
+      <td>Find next</td>
+      <td>Ctrl-G</td>
+      <td>Go to next result</td>
+    </tr>
+    <tr>
+      <td>Find previous</td>
+      <td>Ctrl-Shift-G</td>
+      <td>Go to previous result</td>
+    </tr>
+    <tr>
+      <td>Replace</td>
+      <td>Ctrl-H</td>
+      <td>Opens the <em>replace</em> dialog</td>
+    </tr>
+    <tr>
+      <td>Find in files</td>
+      <td>Ctrl-Shift-F</td>
+      <td>Opens the <em>find in files</em> dialog</td>
+    </tr>
+    <tr>
+      <td>Find usage</td>
+      <td>Ctrl-Shift-E</td>
+      <td>Finds every occurrence of current word or selection in every open document.</td>
+    </tr>
+    <tr>
+      <td>Find usage in current document</td>
+      <td>Ctrl-Shift-D</td>
+      <td>Same as before, but it only checks current document.</td>
+    </tr>
+    <tr>
+      <td>Highlight all</td>
+      <td>Ctrl-Shift-M</td>
+      <td>Highlights every occurrence of current word or selection in current document.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Besides these shortcuts, you can check all the possible ones <a href="https://www.geany.org/manual/current/index.html#keybindings">here</a></p>
+
+<h3 id="3-creating-compiling-and-testing-our-code">3. Creating, compiling and testing our code</h3>
+
+<p>Once we have finished typing our source code, we can test it from Geany, by using the <em>Build</em> menu.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-06-MenuCompilar.png" alt="Geany Build menu" />
+</div>
+
+<p>If we go to <em>Build/Set Build Commands</em> option, we can see the compiler that will be run when we try to compile the program.</p>
+
+<p>Whenever we create a new document with Geany, it is important to save it with an appropriate name and extension before typing any code in it. This way, Geany will fill the corresponding compilation and execution commands automatically with the appropriate tools. Besides, only after detecting the type of source code that we are typing, code highlighting and auto completion will be activated.</p>
+
+<p>There are auto-detected compilers for C# and HTML (this last one is an interpreted language, so it has no compiler):</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-07-ComandosConst.png" alt="Build commands for C#" />
+</div>
+
+<p>There are also auto-detected copilers for C and Java:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-08-ComandosConstJ.png" alt="Build commands for Java" />
+</div>
+
+<p>If we want to use Windows’ C# compiler instead of <em>mono</em>, we must manually fill the corresponding fields as we can see in the following image. Previously, we must locate the folder in which this compiler called <strong>csc</strong> exists, and copy the full path in the <em>Compile</em> field.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-09-ComandosConst.png" alt="Build commands for C# with Windows compiler" />
+</div>
+
+<p>We can also configure the editor to underline with red color every compilation error. This option is available under <em>Edit/Preferences</em> menu, inside <em>Editor</em> option, in <em>Features</em> tab.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-10-Compilar.png" alt="Compilation errors" />
+</div>
+
+<p>As we can see in the image above, we can check every compilation error in the compiler messages window at the bottom of the window.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-11-CompilarJava.png" alt="Java compilation example" />
+</div>
+
+<p>In previous image we can see how to use different source code types, and each one has its own assigned compiler, so we can compile each document with its associated compiler.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Open Geany and create a new source file called <code class="language-plaintext highlighter-rouge">Test.java</code> with the following source code:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>See how Geany highlights the code. Also, check or enable the word auto completion and try it by adding a new line with the code to write “World” (just copy the line that says “Hello” and replace it with “World”).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Compile the source file of previous exercise. If there has been no errors, run it.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a file called <code class="language-plaintext highlighter-rouge">test.c</code> with Geany. Remember: after choosing <em>File-New</em>, then choose <em>File-Save As</em> and save it with .c extension, so that code will be highlighted as we type it. Then, write the following code. Check the code auto completion, compile the program (using the <em>Build</em> option in case of C or C++) and run it.</p>
+</blockquote>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Try some of previous Geany keybindings with any of the source files created so far.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

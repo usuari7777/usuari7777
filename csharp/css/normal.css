@@ -1,0 +1,53 @@
+body
+{
+    background-color: #E1D5F4;
+}
+
+.titulo
+{
+    margin-bottom: 20px;
+}
+
+h1
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.celda
+{
+    background-color: #4A2C79;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    height: 100%;
+}
+
+.celda a, .celda a:hover, .celda a:link, .celda a:visited
+{
+    display:block;
+    margin: 5px 10%;
+    background-color: #B3A0D1;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+}
+
+.celda a.ejercicios
+{
+    background-color: #C1C4C5;
+    color: black;
+}
+
+.pie 
+{
+    background-color: #4A2C79;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    height: 30px;
+}
+  

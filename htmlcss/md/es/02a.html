@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Estructura de un documento HTML/xHTML | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Estructura de un documento HTML/xHTML" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/02a.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Estructura de un documento HTML/xHTML" />
+<script type="application/ld+json">
+{"headline":"Estructura de un documento HTML/xHTML","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/02a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="estructura-de-un-documento-htmlxhtml">Estructura de un documento HTML/xHTML</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h2 id="1-introducción-a-html">1. Introducción a HTML</h2>
+
+<p>Una página web no es más que un archivo de texto (que podemos hacer con el mismo bloc de notas) donde,
+mediante una serie de <strong>elementos de marcado</strong>, configuramos la estructura y el contenido que va a tener dicha página. En otras palabras, el texto en una página web está <em>marcado</em> con estas etiquetas para dar instrucciones al navegador web sobre cómo mostrar dicho texto.</p>
+
+<p>Estas etiquetas forman un lenguaje llamado <strong>HTML</strong> (<em>HyperText Markup Language</em>), que es el lenguaje con el que se escriben la mayoría de páginas web. Es un lenguaje estándar, reconocido en todo el mundo, y definido por el <a href="https://www.w3c.es/"><strong>W3C</strong></a> (<em>World Wide Web Consortium</em>), una entidad sin ánimo de lucro que desarrolla estándares que aseguran el crecimiento de la Web a largo plazo.</p>
+
+<h3 id="11-breve-historia">1.1. Breve historia</h3>
+
+<p>El origen de HTML se remonta a los años 80, de la mano de Tim Berners-Lee, investigador del CERN que quería proponer un sistema para compartir y enlazar documentos a través del <em>hipertexto</em>, un concepto que aludía a la posibilidad de ir a un documento desde otro. El primer documento HTML se publicó en 1991 bajo el nombre <em>HTML Tags</em> (etiquetas HTML), y la primera propuesta de estándar oficial salió en 1993, aunque no se consiguió.</p>
+
+<p>En 1995 se publicó HTML 2.0 que, a pesar de su nombre, es el primer estándar oficial de HTML. A partir de 1996, los estándares de HTML los publica el W3C. De este modo, HTML 3.2 se publicó en 1997 y HTML 4.0 en 1998. Ésta incorporó las hojas de estilos CSS y la posibilidad de incluir <em>scripts</em> en páginas web. Ambas cosas supusieron un gran avance en el desarrollo web. La última especificación oficial de HTML se publicó en 1999 con el nombre de HTML 4.01, sin novedades significativas respecto a la anterior.</p>
+
+<p>Después, la actividad en torno a HTML se ralentizó, y el W3C se centró más en desarrollar otro estándar alternativo, el xHTML. Esto hizo que algunas empresas como Apple o Mozilla se organizaran en una asociación, llamada WHATWG (<em>Web Hypertext Application Technology Working Group</em>), centrada en el estándar HTML5. El primer borrador se publicó en 2008, ya con la colaboración del W3C, y a partir de ahí, diferentes módulos han ido aprobándose como estándares independientes, hasta alcanzar la versión final en 2014. La intención es construir una plataforma web en la que se puedan construir aplicaciones multiplataforma con HTML5, CSS3 y JavaScript. En cualquier caso, uno de los grandes aportes de HTML 5 al desarrollo de páginas web es la inclusión de nuevas etiquetas, que aportan una estructura semántica de la página, donde podemos identificar secciones, cabeceras, pies, artículos y otros elementos.</p>
+
+<h3 id="12-elementos-html-etiquetas-y-atributos">1.2 Elementos HTML: etiquetas y atributos.</h3>
+
+<p>Los elementos con que marcamos los documentos HTML se denominan <strong>etiquetas</strong>. Suelen dividirse en tres partes:</p>
+
+<ul>
+  <li>
+    <p><strong>Etiqueta de apertura</strong>: se usa para indicar dónde empieza un elemento; se escribe entre los símbolos de “<em>menor que</em>” (&lt;) y “<em>mayor que</em>” (&gt;). Por ejemplo, la etiqueta <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> indica el inicio de un párrafo.</p>
+  </li>
+  <li>
+    <p><strong>Contenido</strong>: es el texto que mostrará el navegador al usuario.</p>
+  </li>
+  <li>
+    <p><strong>Etiqueta de cierre</strong>: especifica dónde finaliza la acción de un elemento. Se escribe igual que la etiqueta de apertura, pero poniendo una barra inclinada después del símbolo “<em>menor que</em>” (&gt;). La etiqueta <code class="language-plaintext highlighter-rouge">&lt;/p&gt;</code> indica el final de un párrafo.</p>
+  </li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;etiqueta&gt;</span> texto <span class="nt">&lt;/etiqueta&gt;</span>
+</code></pre></div></div>
+
+<p>Aunque la mayoría de elementos tienen etiqueta de apertura y de cierre, no todos tienen etiqueta de cierre. Es el caso de los <strong>elementos vacíos</strong>. Al contrario que el resto de elementos, éstos no pueden contener otros elementos. Algunos ejemplos de elementos vacíos son las etiquetas <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;hr&gt;</code> o <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code> que trataremos más adelante.</p>
+
+<p><strong>Atributos</strong></p>
+
+<p>Por otra parte, muchas etiquetas HTML tienen <strong>atributos</strong> que sirven para añadir ciertos detalles, por ejemplo, el ancho y alto del elemento, la ubicación de una imagen, el color del texto, etc. Los atributos se escriben dentro de la etiqueta de la siguiente forma:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;etiqueta</span> <span class="na">atributo1=</span><span class="s">"valor1"</span> <span class="na">atributo2=</span><span class="s">"valor2"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Por ejemplo, para añadir una imagen se utiliza el elemento <code class="language-plaintext highlighter-rouge">img</code>. Este elemento no utiliza etiqueta de cierre pero sí necesita utilizar un atributo para indicar la ubicación de la imagen:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"/img/foto1.jpg"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Para algunas etiquetas, como la del ejemplo, es obligatorio añadir el atributo, sin embargo, para otras puede ser opcional. Una etiqueta puede tener varios atributos, de los cuales, algunos serán obligatorios y otros opcionales.</p>
+
+<p>Lo importante por ahora es saber que los contenidos se organizan en etiquetas, y que (normalmente) éstas van por parejas, una que inicia una sección, y otra que la cierra (precedida por una barra /). También es importante recalcar que las etiquetas van siempre en minúscula (<em>html</em>, <em>head</em>, <em>body</em>).</p>
+
+<h2 id="2-estructura-básica-de-un-documento-html">2. Estructura básica de un documento HTML</h2>
+
+<p>En general, cualquier página web escrita en HTML debe almacenarse en un archivo con extensión <em>.html</em> o, en su defecto, <em>.htm</em>. El contenido es procesado después por un <em>navegador</em>, software encargado de mostrar el contenido de las diferentes páginas web.</p>
+
+<p>El documento HTML tiene una estructura básica similar a la siguiente:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE ... &gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        ...
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        ...
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>En esta estructura podemos diferenciar los siguientes apartados:</p>
+
+<ul>
+  <li>
+    <p>Lo primero que suele aparecer en un documento HTML es la declaración del tipo de documento o <strong>doctype</strong>; sirve para indicar al navegador qué tipo de documento está viendo y qué versión específica del lenguaje se está empleando. Veremos información más detallada sobre esto en el siguiente punto.</p>
+  </li>
+  <li>
+    <p>Toda la estructura y contenido del documento se engloba dentro del par de etiquetas <code class="language-plaintext highlighter-rouge">&lt;html&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;/html&gt;</code>. La etiqueta <code class="language-plaintext highlighter-rouge">&lt;html&gt;</code> representa la raíz de un documento HTML y contiene todos los demás elementos HTML (excepto la etiqueta <code class="language-plaintext highlighter-rouge">&lt;!DOCTYPE&gt;</code>).</p>
+
+    <p>Es recomendable incluir el atributo <code class="language-plaintext highlighter-rouge">lang</code> dentro de la etiqueta <code class="language-plaintext highlighter-rouge">&lt;html&gt;</code> y seguido del código del idioma para declarar el idioma de la página web. Esto facilita la tarea de los motores de búsqueda y navegadores a la hora de posicionar el documento. Algunos ejemplos de código de idioma son <em>“en”</em> para inglés, <em>“es”</em> para español y <em>“fr”</em> para francés y vienen detallados en la norma ISO 639.</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+      ...
+  <span class="nt">&lt;html&gt;</span>    
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>La sección englobada entre las etiquetas <code class="language-plaintext highlighter-rouge">&lt;head&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;/head&gt;</code> se denomina <strong>cabecera</strong>, y en ella se incluye información sobre la propia página o <em>metadatos</em>, pero no su estructura y contenido. Se trata de información que no se visualiza pero que resulta útil a los navegadores. Analizaremos estos elementos más adelante.</p>
+  </li>
+  <li>
+    <p>La sección entre las etiquetas <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;/body&gt;</code> se denomina <strong>cuerpo</strong>; define la estructura y contenido de la página (lo que vemos en la ventana del navegador). Dentro de esta sección podemos utilizar una serie de etiquetas para definir ciertos tipos de contenidos, como por ejemplo encabezados, párrafos, listas, tablas, imágenes, etc. Iremos familiarizándonos con estos elementos en sucesivos apartados.</p>
+  </li>
+</ul>
+
+<h3 id="21-el-doctype">2.1 El <em>doctype</em></h3>
+
+<p>Como hemos comentado, es lo primero que suele aparecer en un documento HTML y sirve para indicar al navegador qué versión específica del lenguaje se está empleando.</p>
+
+<p>En el pasado, muchos navegadores no mostraban correctamente el contenido cuando no se indicaba la <strong>definición de tipo de documento</strong> (<strong>DTD</strong>, <em>Document Type Definition</em>) o ésta era incorrecta. Una DTD es un documento SGML que incluye las reglas sintácticas para un tipo de documento específico. Incluye los elementos que se permiten y sus atributos, así como reglas que afectan a la anidación de los primeros y a los valores de los segundos. Contrastando un documento con su DTD se puede comprobar si éste es válido o no. Éste es el aspecto que presenta, por ejemplo, la <a href="https://www.w3.org/TR/xhtml1/dtds.html#a_dtd_XHTML-1.0-Strict">DTD de xHTML 1.0 </a> (Estricto).</p>
+
+<p>La declaración del tipo de documento en algunas de las distintas versiones de HTML o xHTML quedaría así:</p>
+
+<p><strong>HTML 4.01</strong>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd"&gt;</span>
+</code></pre></div></div>
+
+<p><strong>XHTML 1.1</strong>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;</span>
+</code></pre></div></div>
+
+<p><strong>HTML 5</strong>:</p>
+
+<p>A partir de HTML 5 la declaración es muy sencilla, ya que no requiere la especificación de una DTD para mostrar la web correctamente, sino más bien, para validarlo.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</code></pre></div></div>
+
+<p>Más adelante veremos más en detalle cómo comprobar la validez de los documentos.</p>
+
+<h3 id="22-elementos-de-la-cabecera">2.2 Elementos de la cabecera</h3>
+
+<p>Los elementos que se encuentran en la sección <code class="language-plaintext highlighter-rouge">head</code> incluyen:</p>
+
+<ul>
+  <li>El título de la página web (<code class="language-plaintext highlighter-rouge">title</code>)</li>
+  <li>Las metaetiquetas (<em>metatags</em>) que describen el documento, como la codificación de caracteres utilizada y la información a la que pueden acceder los motores de búsqueda</li>
+  <li>Las referencias a archivos externos que necesita la página, tales como scripts y hojas de estilos (<code class="language-plaintext highlighter-rouge">style</code>, <code class="language-plaintext highlighter-rouge">script</code>, <code class="language-plaintext highlighter-rouge">base</code> y <code class="language-plaintext highlighter-rouge">link</code>). Estos elementos los veremos más adelante en el curso, a medida que los necesitemos.</li>
+</ul>
+
+<h4 id="221-el-elemento-title">2.2.1 El elemento title</h4>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">title</code> es el título de la página web; se escribe entre las etiquetas <code class="language-plaintext highlighter-rouge">&lt;title&gt;</code> y <code class="language-plaintext highlighter-rouge">&lt;/title&gt;</code> y se muestra en la barra de título de la ventana del navegador. Aunque el texto puede ser de cualquier longitud, si sobrepasa los 60 caracteres puede que el navegador lo corte cuando lo muestre.</p>
+
+<h4 id="222-las-metaetiquetas">2.2.2 Las metaetiquetas</h4>
+
+<p>Las <strong>metaetiquetas</strong> siempre van dentro del elemento <code class="language-plaintext highlighter-rouge">head</code>, y se utilizan para indicar el juego de caracteres empleado, la descripción de la página, las palabras clave, el autor del documento y la configuración del área visible de una página (<em>viewport</em>), que será diferente para cada tipo de dispositivo.</p>
+
+<p>Las metaetiquetas utilizan dos atributos: el atributo <code class="language-plaintext highlighter-rouge">name</code>, para indicar el nombre de la metaetiqueta, y el atributo <code class="language-plaintext highlighter-rouge">content</code>, para indicar su contenido, excepto para la metaetiqueta que indica la codificación de caracteres, que sólo utiliza el atributo <code class="language-plaintext highlighter-rouge">charset</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"description"</span> 
+          <span class="na">content=</span><span class="s">"Apuntes de Lenguaje de Marcas: HTML, CSS, Javascript"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"keywords"</span> <span class="na">content=</span><span class="s">"HTML, CSS, Javascript"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"author"</span> <span class="na">content=</span><span class="s">"May Calle"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div></div>
+
+<p>Vamos a analizar el ejemplo anterior:</p>
+
+<p><strong>Metaetiqueta <em>charset</em></strong></p>
+
+<p>Define la codificación de caracteres para el documento. Una codificación define cómo se traducen los bytes a texto y viceversa. Eligiendo una codificación en particular, decimos cómo debe ser interpretada la secuencia de bytes.</p>
+
+<p>La codificación predeterminada en HTML5 es UTF-8, y cubre (casi) todos los caracteres, signos de puntuación y símbolos del mundo. Si una página web HTML5 utiliza un juego de caracteres diferente al UTF-8, debe especificarse mediante esta meta etiqueta. Por ejemplo, para una web en español se puede utilizar la codificación ISO-8859-1, que define la codificación para Europa occidental:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"iso-8859-1"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</code></pre></div></div>
+
+<p>Es habitual incluir esta meta etiqueta dentro de los primeros 512 caracteres del documento, para asegurar que todos los navegadores la leen correctamente. Por ejemplo, puede ser la primera etiqueta dentro del bloque <code class="language-plaintext highlighter-rouge">head</code>, y debemos tener presente que sólo puede haber una (una página HTML sólo puede especificar una única codificación).</p>
+
+<p><strong>Metaetiqueta <em>description</em></strong></p>
+
+<p>Se utiliza para describir brevemente el contenido de una página web. Esta descripción aparece debajo del título y la URL de la página en los resultados del motor de búsqueda. Para permanecer visible dentro de Google, tiene que contener entre 140-160 caracteres. Además, para favorecer un buen posicionamiento es recomedable que describa el contenido de la página de forma significativa y que incluya alguna de sus palabras clave.</p>
+
+<p><strong>Metaetiqueta <em>keywords</em></strong></p>
+
+<p>Define una serie de palabras clave relacionadas con los contenidos de la página web que pueden resultar útiles para los motores de búsqueda, aunque su uso tiene cada vez menor influencia en el posicionamiento. Hoy en día es ignorado por Google y su importancia ha sido minimizada por Bing y otros buscadores populares.</p>
+
+<p><strong>Metaetiqueta <em>author</em></strong></p>
+
+<p>Indica el nombre del autor de la página.</p>
+
+<p><strong>Metaetiqueta <em>viewport</em></strong></p>
+
+<p>Configura el área visible de la página web para se visualice correctamente en todos los dispositivos.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>Al añadir el anterior código en una página web le estamos indicando al navegador la siguiente información sobre cómo controlar las dimensiones y la escala de la página:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">width=device-width</code> ajusta el ancho de la página al ancho de la pantalla del dispositivo con la que se está visualizando (es la opción más recomendable), pero si tu página está específicamente creada para móvil a 320px puedes indicar esa medida directamente con <code class="language-plaintext highlighter-rouge">width=320p</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">initial-scale=1</code> establece el nivel de zoom inicial cuando el navegador carga la página por primera vez. Al poner 1 no aplicamos ningún zoom. Podemos ir más allá y prevenir cualquier zoom por parte del usuario con <code class="language-plaintext highlighter-rouge">maximun-scale=1</code>.</p>
+  </li>
+</ul>
+
+<h3 id="23-un-ejemplo-sencillo">2.3. Un ejemplo sencillo</h3>
+
+<p>A continuación se muestra el código HTML de una página web sencilla:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Mi página<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"author"</span> <span class="na">content=</span><span class="s">"May Calle"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Una página sencilla de prueba<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="24-comentarios-en-html">2.4 Comentarios en HTML</h3>
+
+<p>HTML permite añadir comentarios en el código. Estos comentarios pueden servir para dos cosas: explicar una parte del código (en este caso, de la estructura o contenidos de la página web) que no quede clara, o para delimitar/marcar una zona del código para poder localizarla o identificarla más fácilmente.</p>
+
+<p>Los comentarios en HTML comienzan con el símbolo <code class="language-plaintext highlighter-rouge">&lt;!--</code> y terminan con el símbolo <code class="language-plaintext highlighter-rouge">--&gt;</code>. Lo que haya entre estos símbolos no se muestra en el contenido de la página, sólo se puede leer mirando el código fuente. Veamos un ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="c">&lt;!-- Añadimos el juego de caracteres --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- Título de la página --&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Bienvenido/a<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- En este ejemplo, simplemente mostraremos un texto de saludo --&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Hola, buenos días<span class="nt">&lt;/p&gt;</span>.
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea con VS Code un nuevo documento HTML, y llámalo <strong>pagina1.html</strong>. Dentro, añade una estructura básica de etiquetas HTML para que el documento tenga lo siguiente:</p>
+
+  <ul>
+    <li>Un comentario al principio del documento con tu nombre</li>
+    <li>Un título que sea “Mi primera página HTML”</li>
+    <li>Un juego de caracteres ISO-8859-1 o UTF-8.</li>
+    <li>Información sobre  el autor.</li>
+    <li>Configura el área visible de la página web para se visualice correctamente en todos los dispositivos.</li>
+    <li>Un párrafo (en el <em>body</em>) con tu nombre.</li>
+  </ul>
+
+  <p>Guarda la página y prueba a abrirla con un navegador para comprobar que se ve correctamente (incluyendo los acentos que pueda haber).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Dado el siguiente documento HTML, indica qué cosas faltan o sobran para que sea correcto.</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Mi página<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"charset"</span> <span class="na">content=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"author"</span> <span class="na">content=</span><span class="s">"May Calle"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Una página sencilla de prueba<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h2 id="3-documentos-xhtml">3. Documentos xHTML</h2>
+
+<p>Los documentos xHTML (<em>eXtended HyperText Markup Language</em>) son una variante de los documentos HTML asociada a XML, o dicho de otro modo, son documentos HTML expresados como XML válido. Para escribir documentos en formato xHTML, debemos añadir un par de cambios a la estructura base de documento que hemos visto antes.</p>
+
+<p>El primero de ellos es que debemos etiquetar el documento como un documento XML, para lo que debe comenzar con esta línea:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+</code></pre></div></div>
+
+<p>Estamos indicando que usamos la versión 1.0 de XML (la más actualizada), y la codificación del documento en general (UTF-8).</p>
+
+<p>Después, la línea de <em>DOCTYPE</em> es diferente a HTML5, y en ella debemos indicar el documento DTD que se empleará para comprobar la validez del documento, como hemos explicado anteriormente:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</span>
+</code></pre></div></div>
+
+<p>Finalmente, la etiqueta raíz <code class="language-plaintext highlighter-rouge">html</code> debe contener información sobre el espacio de nombres (<em>namespace</em>, abreviado <em>ns</em>) que se utilizará, es decir, el conjunto de etiquetas válidas que podemos emplear en el documento. Además, especificamos el idioma de la página en el atributo <code class="language-plaintext highlighter-rouge">lang</code> (como ocurre en HTML) y también en el atributo <code class="language-plaintext highlighter-rouge">xml:lang</code>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/1999/xhtml"</span> <span class="na">xml:lang=</span><span class="s">"es"</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>El resto del documento, a grandes rasgos, es igual, pero teniendo siempre en cuenta que las etiquetas permitidas por xHTML no coinciden con las que permite HTML5 (las puedes consultar <a href="https://www.w3.org/TR/xhtml1/dtds.html#a_dtd_XHTML-1.0-Strict">aquí</a>). En resumen, dependiendo del lenguaje de marcado que utilicemos para definir nuestras páginas web, y de su versión, deberemos atenernos a un conjunto de reglas u otro para que estos documentos sean correctos.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

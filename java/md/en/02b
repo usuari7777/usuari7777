@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Control structures | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Control structures" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/02b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Control structures" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Control structures","url":"http://nachoiborraies.github.io/java/md/en/02b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="control-structures">Control structures</h1>
+
+<h2 id="selective-structures">Selective structures</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/02b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/02b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Selective or conditional structures let us choose among different paths in our code depending on a given condition (or conditions) that must be checked. In this document we’ll see the selective structures provided by Java.</p>
+
+<h3 id="1-the-if-clause">1. The “if” clause</h3>
+
+<p>You can use the <code class="language-plaintext highlighter-rouge">if</code> basic structure to run a piece of code if a given condition is true:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You are old enough"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Alternatively, you can use <code class="language-plaintext highlighter-rouge">if..else</code> structure to choose among a given path (determined by a condition) or its opposite:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You are old enough"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You are not adult yet"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Finally, if there is more than two paths to choose among, we can join <code class="language-plaintext highlighter-rouge">if .. else if .. else if .. else</code> structures to choose among several paths depending on the condition relative to each one. Only one path will be chosen.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It is positive"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">10</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It is under -10"</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="k">else</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It is between -10 and 0"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The condition in each <code class="language-plaintext highlighter-rouge">if</code> or <code class="language-plaintext highlighter-rouge">else if</code> clause can be either a simple condition (like the ones shown in previous examples) or a complex condition, joined by logical operators <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> and/or <code class="language-plaintext highlighter-rouge">||</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&gt;=</span> <span class="mi">18</span> <span class="o">&amp;&amp;</span> <span class="n">age</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"You are between 18 and 30"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-the-switch-clause">2. The “switch” clause</h3>
+
+<p>Besides, there’s a <code class="language-plaintext highlighter-rouge">switch</code> clause that lets us evaluate the value of a simple variable or expression. Each of the possible values of this expression can be represented with a <code class="language-plaintext highlighter-rouge">case</code> clause. Finally, we can use a <code class="language-plaintext highlighter-rouge">default</code> case to represent any other possible value that has not been covered by previous <em>case</em> clauses.</p>
+
+<p>The data managed in the <code class="language-plaintext highlighter-rouge">switch</code> clause must be a primitive type; strings are NOT allowed in early versions of Java (Java 6 and earlier). We need to add a <code class="language-plaintext highlighter-rouge">break</code> instruction at the end of each <em>case</em> to exit the <em>switch</em> clause; otherwise, the program keeps running the instruction of next <em>case</em> clause. In other languages, such as C#, the <em>break</em> instruction is compulsory in the <em>case</em> clauses that are not empty, but this does not happen in Java, so we must take care of this situation.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">switch</span><span class="o">(</span><span class="n">number</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It is 0"</span><span class="o">);</span> <span class="k">break</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It is 1"</span><span class="o">);</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"It is 2"</span><span class="o">);</span> <span class="k">break</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Unknown number"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In previous example, if number is 1, it would output the messages “It is 1” and “It is 2”, since there is no <code class="language-plaintext highlighter-rouge">break</code> clause at case 1.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program called <strong>MarkCheck</strong> that asks the user to enter 3 marks. The program must print one of these messages, depending on the mark values:</p>
+
+  <ul>
+    <li><em>All marks are greater or equal than 4</em></li>
+    <li><em>Some marks are not greater or equal than 4</em></li>
+    <li><em>No mark is greater or equal than 4</em></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program called <strong>GramOunceConverter2</strong> that will be an improved version of a previous exercise. In this case, the user will type a weight (float), and a unit (<code class="language-plaintext highlighter-rouge">g</code> for grams, <code class="language-plaintext highlighter-rouge">o</code> for ounces). Then, depending on the unit chosen, the program will convert the weight to the opposite unit. For instance, if the user types a weight of 33 and chooses <code class="language-plaintext highlighter-rouge">o</code> as unit, then the program must convert 33 ounces to grams. You must solve this program using a <code class="language-plaintext highlighter-rouge">switch</code> structure. If the unit is other than <code class="language-plaintext highlighter-rouge">g</code> or <code class="language-plaintext highlighter-rouge">o</code>, then the program must output an error message: “Unexpected unit”, with no final result.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

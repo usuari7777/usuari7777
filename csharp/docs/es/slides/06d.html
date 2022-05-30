@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Ejemplo videojuego</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos
+#### Videojuego en consola con POO
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Objetivo
+
+- Desarrollar una versión en consola de *Space Invaders*
+- Elementos del juego: 
+   - Una **nave** protagonista que se mueve a izq/der y **dispara**
+   - Un **bloque** de **enemigos** que avanza hacia la nave con **disparos**
+   - Unas **torres** donde podemos ocultarnos de los disparos
+   - Un **OVNI** que pasa de vez en cuando
+   - Un **marcador** de puntos y vidas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Objetivo
+
+<div align="center">
+    <img src="../../../img/06_spaceinvaders.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Diagrama de clases
+
+<div align="center">
+    <img src="../../../img/06_spaceinvaders_diagrama.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 1
+#### Creación del proyecto y las pantallas
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 1 (1/4)
+
+Creación del proyecto y las pantallas
+
+- Crea un proyecto de consola **ConsoleInvaders**
+- Define dentro las siguientes clases (en archivos separados):
+   - *Bienvenida*: para la pantalla de Bienvenida
+   - *Partida*: para la pantalla de partida
+   - *ConsoleInvaders*: con el programa principal o *Main*
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 1 (2/4)
+
+Pantalla de bienvenida:
+
+```cs
+using System;
+
+/*
+ * Clase para la pantalla de bienvenida del juego
+ */ 
+class Bienvenida
+{
+    private bool salir;
+
+    // Lanza la pantalla de bienvenida, y se guarda si 
+    // queremos salir o jugar en la variable "salir"
+    public void Lanzar()
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        for (int i = 0; i < 5; i++)
+            Console.WriteLine();
+        Console.WriteLine("******************************************");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Bienvenido a Console Invaders.");
+        Console.WriteLine("Pulse Intro para jugar o Esc para salir");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("******************************************");
+
+        Console.ResetColor();
+
+        ConsoleKeyInfo tecla = Console.ReadKey(true);
+        if (tecla.Key == ConsoleKey.Escape)
+            salir = true;
+        else if (tecla.Key == ConsoleKey.Enter)
+            salir = false;
+        else
+        {
+            Console.WriteLine("Opción incorrecta. Saliendo del juego");
+            salir = true;
+        }
+    }
+
+    // Obtiene si queremos salir del juego
+    public bool GetSalir()
+    {
+        return salir;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 1 (3/4)
+
+Pantalla de partida:
+
+```cs
+using System;
+
+/*
+ * Clase para gestionar la partida principal
+ */ 
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        Console.WriteLine("Partida principal (próximamente).");
+        Console.WriteLine("Pulsa una tecla para volver a bienvenida");
+
+        ConsoleKeyInfo tecla = new ConsoleKeyInfo(); ;
+        tecla = Console.ReadKey(true);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 1 (4/4)
+
+Programa principal
+
+```cs
+/*
+ * Programa principal de ConsoleInvaders
+ * Se centra en la lógica de alternar entre pantalla de partida y de bienvenida
+ */
+
+Bienvenida b;
+
+// Ocultamos el cursor durante el juego
+Console.CursorVisible = false;
+
+do
+{
+    b = new Bienvenida();
+    b.Lanzar();
+    if (!b.GetSalir())
+    {
+        Console.Clear();
+        Partida p = new Partida();
+        p.Lanzar();
+        Console.Clear();
+    }
+} while (!b.GetSalir());
+
+Console.Clear();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 1)
+
+Personaliza el mensaje de la pantalla de bienvenida a tu gusto, con los colores, símbolos y teclas de acción que prefieras
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 2
+#### Creación de los sprites
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 2 (1/6)
+
+- *Sprite*: cada uno de los elementos que se dibujan en un videojuego:
+   - Personajes, enemigos, disparos, objetos que se recogen...
+- Sprites en nuestro videojuego:
+   - Nave principal
+   - Enemigos (de distintos tipos)
+   - Torres defensivas
+   - Ovni
+</script>
+</section>
+  
+<section data-markdown>
+<script type="text/template">
+## Paso 2 (2/6)
+
+Clase padre *Sprite*
+
+```cs
+/* Clase para representar todos los sprites del juego */
+class Sprite
+{
+    // Coordenada X
+    protected int x;
+    // Coordenada Y
+    protected int y;
+    // Imagen a dibujar, formada por caracteres
+    protected string imagen;
+
+    // Obtiene la coordenada X
+    public int GetX()
+    {
+        return x;
+    }
+
+    // Obtiene la coordenada Y
+    public int GetY()
+    {
+        return y;
+    }
+
+    // Obtiene la imagen de la nave
+    public string GetImagen()
+    {
+        return imagen;
+    }
+
+    // Establece la coordenada X
+    public void SetX(int cx)
+    {
+        x = cx;
+    }
+
+    // Establece la coordenada Y
+    public void SetY(int cy)
+    {
+        y = cy;
+    }
+
+    // Establece la imagen de la nave
+    public void SetImagen(string img)
+    {
+        imagen = img;
+    }
+
+    // Mover la nave a una nueva posición (cx, cy)
+    public void MoverA(int cx, int cy)
+    {
+        SetX(cx);
+        SetY(cy);
+    }
+
+    // Dibujar la nave en sus coordenadas actuales
+    public virtual void Dibujar()
+    {
+        Console.SetCursorPosition(x, y);
+        Console.Write(imagen);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 2 (3/6)
+
+Subclase *Enemigo*
+
+```cs
+/* Enemigos del juego. Subtipo de Sprite */
+class Enemigo : Sprite
+{
+    // Indica si el enemigo está activo o no (porque no aparezca en pantalla
+    // o haya sido destruido)
+    protected bool activo;
+
+    // Constructor por defecto para que puedan compilar las clases hija
+    public Enemigo()
+    {
+        activo = true;
+    }
+
+    // Constructor para establecer las coordenadas
+    public Enemigo(int cx, int cy)
+    {
+        activo = true;
+        x = cx;
+        y = cy;
+    }
+
+    // Obtiene si el ovni está activo
+    public bool GetActivo()
+    {
+        return activo;
+    }
+
+    // Desactiva el ovni
+    public void SetActivo(bool a)
+    {
+        activo = a;
+    }
+
+    // Dibuja el enemigo (comprueba si está activo para dibujarlo)
+    public override void Dibujar()
+    {
+        if (activo)
+            base.Dibujar();
+    }
+}
+```
+
+</script>
+</section>
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 2 (4/6)
+
+Subtipo de enemigo
+
+```cs
+/* Subtipo de enemigo con imagen propia */
+class Enemigo1 : Enemigo
+{
+    // Constructor para indicar las coordenadas
+    public Enemigo1(int cx, int cy) : base(cx, cy)
+    {
+        imagen = "][";
+    }
+
+    // Redefinición del método Dibujar
+    public override void Dibujar()
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        base.Dibujar();
+        Console.ResetColor();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 2 (5/6)
+
+El ovni
+
+```cs
+/* Tipo especial de enemigo que aparece ocasionalmente por la parte superior de 
+   la pantalla */
+class Ovni : Enemigo
+{
+    // Constructor
+    public Ovni()
+    {
+        imagen = "[-]";
+    }
+
+    // Redefinición del método Dibujar para el ovni
+    public override void Dibujar()
+    {
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        base.Dibujar();
+        Console.ResetColor();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 2 (6/6)
+
+Las torres defensivas
+
+```cs
+/* Torres defensivas que protegen a la nave de los enemigos. Es un subtipo de 
+   sprite, donde la X y la Y representan la esquina superior izquierda de la 
+   torre */
+class TorreDefensiva : Sprite
+{
+    // Ladrillos de la torre, que se van borrando con cada disparo enemigo
+    private StringBuilder[] ladrillos = {
+        new StringBuilder("******"),
+        new StringBuilder("******"),
+        new StringBuilder("******")
+    };
+
+    // Constructor para ubicar la torre en una posición determinada
+    public TorreDefensiva(int cx, int cy)
+    {
+        x = cx;
+        y = cy;
+    }
+
+    // Dibujar la torre
+    public override void Dibujar()
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        for (int i = 0; i < ladrillos.Length; i++)
+        {
+            Console.SetCursorPosition(x, y + i);
+            Console.Write(ladrillos[i]);
+        }
+        Console.ResetColor();
+
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 2)
+
+Añade los siguientes sprites al juego
+
+* Clase **Nave**, que representa a la nave principal. Su imagen será `/\`, de color blanco
+* Dos subtipos de enemigos más, en las clases **Enemigo2** y **Enemigo3**. El primero tendrá como símbolo `XX` de color rojo, y el segundo `)(` de color azul
+* En la clase *Partida*, quita el mensaje de prueba que hay y dibuja un sprite de cada clase en diferentes zonas de la pantalla
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 2)
+
+<div align="center">
+    <img src="../../../img/06_consoleinvaders01.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 3
+#### Movimiento de la nave y bucle del juego
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 3 (1/4)
+
+Bucle del juego:
+
+* Bucle *do..while* en clase *Partida*
+   * Saldremos del juego al pulsar Escape
+   * Redibujamos escenario
+   * Recogemos pulsación de tecla del usuario
+   * Si son flecha izquierda o derecha, movemos la nave
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 3 (2/4)
+
+Bucle del juego:
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ConsoleKeyInfo tecla = new ConsoleKeyInfo();
+
+        // Aquí declaramos los objetos (nave, enemigos, etc)
+        // y les damos una posición inicial
+
+        do
+        {
+            Console.Clear();
+            // Dibujar los objetos (nave, enemigos, etc)
+
+            tecla = Console.ReadKey(true);
+            if (tecla.Key == ConsoleKey.LeftArrow)
+            {
+                nave.MoverA(nave.GetX() - 1, nave.GetY());
+            }
+            else if (tecla.Key == ConsoleKey.RightArrow)
+            {
+                nave.MoverA(nave.GetX() + 1, nave.GetY());
+            }
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 3 (3/4)
+
+Mejora en bucle del juego:
+
+* No redibujar toda la consola (quitamos *Console.Clear* del bucle del juego)
+* Borrar (espacios vacíos) el espacio antiguo de la nave
+* Dibujar la nave en su espacio nuevo
+* Estos pasos los añadimos al método *MoverA* de la clase *Sprite*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 3 (4/4)
+
+Mejora en bucle del juego:
+
+```cs
+class Sprite
+{
+    ...
+    // Mover sprite a una nueva posición (cx, cy)
+    public void MoverA(int cx, int cy)
+    {
+        // Borramos la posición actual (dibujando espacios)
+        Console.SetCursorPosition(x, y);
+        for (int i = 0; i < imagen.Length; i++)
+            Console.Write(" ");
+        // Movemos a esas coordenadas
+        SetX(cx);
+        SetY(cy);
+    }
+
+    // Dibujar la nave en sus coordenadas actuales
+    public virtual void Dibujar()
+    {
+        Console.SetCursorPosition(x, y);
+        Console.Write(imagen);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 3)
+
+Añade los siguientes cambios al juego
+
+* Controla en la clase *Sprite*, en el método *MoverA*, que el sprite no se mueva fuera de los límites de la pantalla
+   - Consideraremos un ancho máximo de 80 y un alto máximo de 25
+* Crea un array de 4 torres defensivas y distribúyelas uniformemente a lo ancho de la pantalla
+   - Dibújalas en Y = 15, y varía la X de cada torre para que se distribuyan a lo ancho
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 3)
+
+<div align="center">
+    <img src="../../../img/06_consoleinvaders02.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 4
+#### Movimiento de los enemigos
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (1/8)
+
+- Añadir mecanismo de movimiento en clase *Enemigo*
+- Añadir movimiento en bucle del juego
+- Ajustar velocidad de movimiento
+- Definir movimiento para un bloque de enemigos
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (2/8)
+
+Añadir mecanismo de movimiento en clase *Enemigo*: añadimos *direccion* de movimiento y método *Mover*
+
+```cs
+class Enemigo : Sprite
+{
+    ...
+
+    // Dirección de movimiento: 1 derecha, -1 izquierda
+    protected int direccion;
+
+    // Constructor por defecto para que puedan compilar las clases hija
+    public Enemigo()
+    {
+        activo = true;
+        direccion = 1;
+    }
+
+    // Constructor para establecer las coordenadas
+    public Enemigo(int cx, int cy)
+    {
+        activo = true;
+        direccion = 1;
+        x = cx;
+        y = cy;
+    }
+
+    ...
+
+    // Mueve al enemigo en la dirección indicada hasta llegar al límite de la 
+    // pantalla
+    public void Mover()
+    {
+        if ((x < Configuracion.ANCHO_PANTALLA - imagen.Length && direccion > 0) 
+            || (x > 0 && direccion < 0))
+        {
+            // Mover a la derecha o izquierda, según la dirección
+            MoverA(x + direccion, y);
+        }
+        else
+        {
+            // Cambiar la dirección de movimiento
+            direccion = -direccion;
+        }
+    }
+}
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (3/8)
+
+Añadir movimiento en bucle del juego (clase *Partida*)
+
+```cs
+class Partida
+{
+    ...
+
+    public void Lanzar()
+    {
+        ...
+        Enemigo1 e1 = new Enemigo1(10, 5);
+        Enemigo2 e2 = new Enemigo2(10, 7);
+        Enemigo3 e3 = new Enemigo3(10, 9);
+        ...
+
+        do
+        {
+            ...
+            e1.Mover();
+            e2.Mover();
+            e3.Mover();
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+
+        Console.Clear();
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (4/8)
+
+Ajustar velocidad de movimiento (clase *Partida*)
+
+- El movimiento de los enemigos debe ser automático (aunque no pulsemos ninguna tecla)
+    - Usaremos *Console.KeyAvailable* para no bloquear el programa esperando una tecla
+- El movimiento debe tener una velocidad apropiada
+    - Usaremos *Thread.Sleep* para ajustar la velocidad del bucle del juego
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (5/8)
+
+Ajustar velocidad de movimiento
+
+```cs
+class Configuracion
+{
+    ...
+    public const int PAUSA_BUCLE = 70;
+}
+
+// ----------------------------
+
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ...
+
+        do
+        {
+            // Dibujar elementos
+            ...
+
+            Thread.Sleep(Configuracion.PAUSA_BUCLE);
+
+            if (Console.KeyAvailable)
+            {
+                while (Console.KeyAvailable)
+                {
+                    tecla = Console.ReadKey(true);
+                }
+                if (tecla.Key == ConsoleKey.LeftArrow)
+                {
+                    nave.MoverA(nave.GetX() - 1, nave.GetY());
+                }
+                else if (tecla.Key == ConsoleKey.RightArrow)
+                {
+                    nave.MoverA(nave.GetX() + 1, nave.GetY());
+                }
+            }
+
+            ...
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+
+        Console.Clear();
+    }
+}
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (6/8)
+
+Definir movimiento para un bloque de enemigos
+
+- Clase *BloqueEnemigos* que contendrá un array bidimensional de enemigos (3 x 10)
+- Cada fila de enemigos la haremos de un tipo y los distribuiremos uniformemente
+- Podemos quitar el atributo *direccion* y el método *Mover* de la clase *Enemigo*
+   - Los incorporaremos aquí
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (7/8)
+
+Definir movimiento para un bloque de enemigos
+
+```cs
+/* Clase para gestionar todo el bloque entero de enemigos, y moverlos a todos a 
+   la par */
+class BloqueEnemigos
+{
+    // Array de enemigos a mostrar
+    private Enemigo[,] enemigos;
+
+    // Direccion actual de movimiento del bloque (+1 hacia la derecha, 
+    // -1 hacia la izquierda)
+    private int direccion;
+
+    // Constructor. Inicializa el array de enemigos
+    public BloqueEnemigos()
+    {
+        enemigos = new Enemigo[3, 10];
+        for (int i = 0; i < enemigos.GetLength(0); i++)
+        {
+            for (int j = 0; j < enemigos.GetLength(1); j++)
+            {
+                // Creamos 3 filas de enemigos, en cada una de un tipo diferente
+                if (i == 0)
+                    enemigos[i, j] = new Enemigo1(j * 7 + 5, 5);
+                else if (i == 1)
+                    enemigos[i, j] = new Enemigo2(j * 7 + 5, 7);
+                else
+                    enemigos[i, j] = new Enemigo3(j * 7 + 5, 9);
+            }
+        }
+
+        direccion = 1;
+    }
+
+    // Obtiene el enemigo con una X más a la izquierda que el resto
+    private Enemigo GetEnemigoIzquierdo()
+    {
+        Enemigo elegido = null;
+        int minX = Configuracion.ANCHO_PANTALLA;
+
+        for (int i = 0; i < enemigos.GetLength(0); i++)
+            for (int j = 0; j < enemigos.GetLength(1); j++)
+            {
+                if (enemigos[i, j].GetX() < minX && enemigos[i, j].GetActivo())
+                {
+                    minX = enemigos[i, j].GetX();
+                    elegido = enemigos[i, j];
+                }
+            }
+        return elegido;
+    }
+
+    // Obtiene el enemigo con una X más a la derecha que el resto
+    private Enemigo GetEnemigoDerecho()
+    {
+        Enemigo elegido = null;
+        int maxX = -1;
+
+        for (int i = 0; i < enemigos.GetLength(0); i++)
+            for (int j = 0; j < enemigos.GetLength(1); j++)
+            {
+                if (enemigos[i, j].GetX() > maxX && enemigos[i, j].GetActivo())
+                {
+                    maxX = enemigos[i, j].GetX();
+                    elegido = enemigos[i, j];
+                }
+            }
+        return elegido;
+    }
+
+    // Mover el bloque de enemigos
+    public void Mover()
+    {
+        Enemigo referencia;
+        // Cogemos el enemigo más a la derecha o a la izquierda, dependiendo de 
+        // la dirección de movimiento actual
+        if (direccion > 0)
+            referencia = GetEnemigoDerecho();
+        else
+            referencia = GetEnemigoIzquierdo();
+
+        // Intentamos mover en la dirección actual si se puede. Si no, cambiamos 
+        // la dirección de movimiento
+        if ((referencia.GetX() < Configuracion.ANCHO_PANTALLA - 
+             referencia.GetImagen().Length && direccion > 0) || 
+            (referencia.GetX() > 0 && direccion < 0))
+        {
+            // Mover a la derecha o izquierda, según la dirección
+            for (int i = 0; i < enemigos.GetLength(0); i++)
+                for (int j = 0; j < enemigos.GetLength(1); j++)
+                {
+                    enemigos[i, j].MoverA(enemigos[i, j].GetX() + direccion, 
+                        enemigos[i, j].GetY());
+                }
+        }
+        else
+        {
+            // Cambiar la dirección de movimiento
+            direccion = -direccion;
+        }
+    }
+
+    // Dibujar el bloque de enemigos
+    public void Dibujar()
+    {
+        for (int i = 0; i < enemigos.GetLength(0); i++)
+            for (int j = 0; j < enemigos.GetLength(1); j++)
+                enemigos[i, j].Dibujar();
+    }
+}
+```
+
+</script>
+</section> 
+  
+<section data-markdown>
+<script type="text/template">
+## Paso 4 (8/8)
+
+Definir movimiento para un bloque de enemigos
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ConsoleKeyInfo tecla = new ConsoleKeyInfo();
+        Nave nave = new Nave();
+        BloqueEnemigos enemigos = new BloqueEnemigos();
+        Ovni o = new Ovni();
+        ...
+        
+        do
+        {
+            nave.Dibujar();
+            enemigos.Dibujar();
+            o.Dibujar();
+
+            ...
+
+            enemigos.Mover();
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+
+        Console.Clear();
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 4)
+
+Añade el movimiento del Ovni en el juego:
+
+* Debe aparecer aleatoriamente cada cierto tiempo
+   - Puedes generar aleatoriamente números para que se active el 10% de las veces
+   - En cuanto se active, recorrerá la pantalla de izquierda a derecha y volverá a desactivarse
+* En la clase *Partida*: 
+   - Si el ovni está activo se mueve y se dibuja, como el bloque de enemigos
+   - Si no está activo, se genera un número al azar para ver si toca activarlo de nuevo y comenzar el movimiento
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 4)
+
+<div align="center">
+    <img src="../../../img/06_consoleinvaders03.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 5
+#### Disparos
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 5 (1/6)
+
+Disparos 
+
+- La nave producirá un disparo al pulsar *espacio*
+- Los enemigos dispararán aleatoriamente en cada intervalo del bucle del juego
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 5 (2/6)
+
+Clase *Disparo*: subtipo de *Sprite* con atributo *activo*
+
+```cs
+/* Clase para representar los disparos de las naves */
+class Disparo : Sprite
+{
+    private bool activo;
+
+    public Disparo()
+    {
+        activo = false;
+        imagen = "|";
+    }
+
+    // Establecer el disparo como activo o no
+    public void SetActivo(bool a)
+    {
+        activo = a;
+    }
+
+    // Obtener si el disparo está activo o no
+    public bool GetActivo()
+    {
+        return activo;
+    }
+
+    // Dibujar el disparo
+    public override void Dibujar()
+    {
+        if (activo)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            base.Dibujar();
+            Console.ResetColor();
+        }
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 5 (3/6)
+
+Añadimos un *Disparo* a la *Nave* (sólo habrá uno activo), con un método para activarlo y otro para moverlo
+
+```cs
+class Nave : Sprite
+{
+    // Disparo de la nave
+    private Disparo disparo;
+
+    ...
+
+    // Constructor para establecer la posición
+    public Nave(int cx, int cy)
+    {
+        disparo = new Disparo();
+        imagen = "/\\";
+        x = cx;
+        y = cy;
+    }
+
+    // Inicia un disparo si no está activo
+    public void Disparar()
+    {
+        if (!disparo.GetActivo())
+        {
+            disparo.MoverA(x, y - 1);
+            disparo.SetActivo(true);
+        }
+    }
+
+    // Mueve el disparo hacia arriba
+    public void MoverDisparo()
+    {
+        if (disparo.GetActivo())
+        {
+            if (disparo.GetY() > 0)
+                disparo.MoverA(disparo.GetX(), disparo.GetY() - 1);
+            else
+            {
+                disparo.SetActivo(false);
+                disparo.MoverA(x, y);
+            }
+        }
+    }
+
+    // Redefinición del método Dibujar
+    public override void Dibujar()
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        base.Dibujar();
+        disparo.Dibujar();
+        Console.ResetColor();
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 5 (4/6)
+
+Añadimos código a la partida para disparar (pulsando *espacio*)
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ...
+
+        do
+        {
+            ...
+
+            if (Console.KeyAvailable)
+            {
+                while (Console.KeyAvailable)
+                {
+                    tecla = Console.ReadKey(true);
+                }
+                if (tecla.Key == ConsoleKey.LeftArrow)
+                {
+                    nave.MoverA(nave.GetX() - 1, nave.GetY());
+                }
+                else if (tecla.Key == ConsoleKey.RightArrow)
+                {
+                    nave.MoverA(nave.GetX() + 1, nave.GetY());
+                }
+                else if (tecla.Key == ConsoleKey.Spacebar)
+                {
+                    nave.Disparar();
+                }
+            }
+
+            enemigos.Mover();
+            nave.MoverDisparo();
+
+            ...
+
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+
+        Console.Clear();
+    }
+}
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 5 (5/6)
+
+Añadimos un *Disparo* al *BloqueEnemigos* (sólo habrá uno activo), con un método para activarlo aleatoriamente y otro para moverlo
+
+```cs
+class BloqueEnemigos
+{
+    // Array de enemigos a mostrar
+    private Enemigo[,] enemigos;
+
+    // Disparo del bloque
+    private Disparo disparo;
+
+    // Semilla de números aleatorios para disparos
+    // Puede declararse también en clase Configuracion como "static"
+    private Random r = new Random();
+
+    ...
+
+    // Constructor. Inicializa el array de enemigos
+    public BloqueEnemigos()
+    {
+        enemigos = new Enemigo[3, 10];
+        disparo = new Disparo();
+        ...
+    }
+
+    ...
+
+    // Dibujar el bloque de enemigos
+    public void Dibujar()
+    {
+        for (int i = 0; i < enemigos.GetLength(0); i++)
+            for (int j = 0; j < enemigos.GetLength(1); j++)
+                enemigos[i, j].Dibujar();
+
+        disparo.Dibujar();
+    }
+
+    // Intenta generar un disparo enemigo, obteniendo las coordenadas x e y de 
+    // inicio del disparo
+    public void IntentarDisparo()
+    {
+        int j;
+
+        if (!disparo.GetActivo())
+        {
+            // Recorremos los enemigos activos, y a cada uno le damos el 10% 
+            // de probabilidades de generar un disparo
+            for (int i = 0; i < enemigos.GetLength(0); i++)
+            {
+                j = 0;
+                while (j < enemigos.GetLength(1) && !disparo.GetActivo())
+                {
+                    if (enemigos[i, j].GetActivo())
+                    {
+                        int num = r.Next(0, 10);
+                        if (num >= 9)
+                        {
+                            disparo.MoverA(enemigos[i, j].GetX(), 
+                                enemigos[i, j].GetY() + 1);
+                            disparo.SetActivo(true);
+                        }
+                    }
+                    j++;
+                }
+            }
+        }
+    }
+
+    // Mueve el disparo hacia abajo
+    public void MoverDisparo()
+    {
+        if (disparo.GetActivo())
+        {
+            if (disparo.GetY() < Configuracion.ALTO_PANTALLA - 1)
+                disparo.MoverA(disparo.GetX(), disparo.GetY() + 1);
+            else
+            {
+                disparo.SetActivo(false);
+                disparo.MoverA(0, 0);
+            }
+        }
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 5 (6/6)
+
+Añadimos código a la clase *Partida* para generar disparos aleatorios y moverlos
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ...
+
+        do
+        {
+            ...
+
+            enemigos.Mover();
+            enemigos.IntentarDisparo();
+            enemigos.MoverDisparo();
+            nave.MoverDisparo();
+
+            ...
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+
+        Console.Clear();
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 5)
+
+Permite que tanto la nave como el bloque de enemigos puedan efectuar hasta 5 disparos en pantalla. El bloque de enemigos lo hará de forma aleatoria entre sus naves. A medida que los disparos desaparezcan o dejen de estar activos, se podrán realizar nuevos
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 5)
+
+<div align="center">
+    <img src="../../../img/06_consoleinvaders04.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6
+#### Actualización del HUD y colisiones
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (1/11)
+
+HUD (*Head Up Display*)
+
+- Contador de puntos
+   - Lo incrementaremos al eliminar a un enemigo, dependiendo del tipo de enemigo
+   - Al eliminar a todo el bloque acaba la partida y volvemos a pantalla de bienvenida
+- Contador de vidas
+   - Lo decrementaremos cuando un disparo enemigo alcance a la nave
+   - Al llegar a 0 acaba la partida y volvemos a pantalla de bienvenida
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (2/11)
+
+Determinación de puntos y vidas en el juego
+
+```cs
+class Configuracion
+{
+    ...
+    public const int VIDAS_INICIALES = 3;
+    public const int PUNTOS_ENEMIGO1 = 10;
+    public const int PUNTOS_ENEMIGO2 = 20;
+    public const int PUNTOS_ENEMIGO3 = 30;
+    public const int PUNTOS_OVNI = 100;
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (3/11)
+
+Puntos y vidas en clase *Nave*
+
+```cs
+class Nave : Sprite
+{
+    // Disparo de la nave
+    private Disparo[] disparos;
+
+    // Vidas restantes
+    private int vidas;
+
+    // Puntos actuales
+    private int puntos;
+
+    ...
+
+    // Constructor para establecer la posición
+    public Nave(int cx, int cy)
+    {
+        vidas = Configuracion.VIDAS_INICIALES;
+        puntos = 0;
+        ...
+    }
+
+    // Getters y setters para puntos y vidas
+
+    public int GetVidas()
+    {
+        return vidas;
+    }
+
+    public int GetPuntos()
+    {
+        return puntos;
+    }
+
+    public void SetVidas(int vidas)
+    {
+        this.vidas = vidas;
+    }
+
+    public void SetPuntos(int puntos)
+    {
+        this.puntos = puntos;
+    }
+
+    ...
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (4/11)
+
+Actualizar HUD en clase *Partida*
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ...
+
+        do
+        {
+            ...
+            ActualizarHUD(nave);
+        }
+        while (tecla.Key != ConsoleKey.Escape);
+
+        Console.Clear();
+    }
+
+    /*
+     * Actualiza el HUD del juego
+     */ 
+    public void ActualizarHUD(Nave nave)
+    {
+        Console.SetCursorPosition(0, 0);
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write("Puntos: {0}", nave.GetPuntos());
+
+        Console.SetCursorPosition(Configuracion.ANCHO_PANTALLA - 10, 0);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Vidas: {0}", nave.GetVidas());
+
+        Console.ResetColor();
+    }
+}
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (5/11)
+
+Comprobación de colisiones
+
+- Disparo nave contra enemigo
+   - Aumentar contador de puntos y destruir enemigo (*activo* = *false*)
+   - Detectar fin de partida
+- Disparo enemigo contra nave
+   - Disminuir contador de vidas y resetear nave
+   - Detectar fin de partida
+- Disparos contra torre defensiva
+   - Eliminar bloque colisionado
+
+</script>
+</section> 
+        
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (6/11)
+
+Método para detectar colisión entre dos sprites (clase *Sprite*):
+
+```cs
+class Sprite
+{
+    ...
+
+    // Detecta si el sprite actual colisiona con el que se pasa como parámetro
+    public bool ColisionaCon(Sprite s)
+    {
+        // Consideramos los tamaños de cada sprite para ver si colisionan 
+        // horizontalmente
+        int tam1 = GetImagen().Length;
+        int tam2 = s.GetImagen().Length;
+
+        // Colisionarán en horizontal si uno de los sprites está contenido entre 
+        // la coordenada X y la coordenada X + el tamaño del sprite del otro
+        bool colisionX = (GetX() <= s.GetX() && GetX() + tam1 >= s.GetX()) || 
+                         (s.GetX() <= GetX() && s.GetX() + tam2 >= GetX());
+        bool colisionY = GetY() == s.GetY();
+
+        return colisionX && colisionY;
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (7/11)
+
+Colisión de nave con disparos enemigos (clase *BloqueEnemigos*)
+
+```cs
+class BloqueEnemigos
+{
+    ...
+
+    // Comprueba si los disparos enemigos colisionan con la nave
+    public void ComprobarColisionConNave(Nave nave)
+    {
+        int j = 0;
+        bool colision = false;
+        while(j < disparos.Length && !colision)
+        {
+            if (disparos[j].GetActivo() && nave.ColisionaCon(disparos[j]))
+            {
+                disparos[j].SetActivo(false);
+                disparos[j].MoverA(0, 0);
+                nave.SetVidas(nave.GetVidas() - 1);
+                nave.MoverA(Configuracion.ANCHO_PANTALLA / 2, 
+                    Configuracion.ALTO_PANTALLA - 5);
+                colision = true;
+            }
+            j++;
+        }
+
+        if (colision)
+        {
+            LimpiarDisparos();
+        }
+    }
+
+    // Quita los disparos activos cuando la nave ha sido alcanzada
+    private void LimpiarDisparos()
+    {
+        foreach(Disparo d in disparos)
+        {
+            d.SetActivo(false);
+            d.MoverA(0, 0);
+        }
+    }    
+}
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (8/11)
+
+Colisión de nave con disparos enemigos (clase *Partida*)
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ...
+
+        do
+        {
+            ...
+
+            enemigos.ComprobarColisionConNave(nave);
+            ActualizarHUD(nave);
+        }
+        while (tecla.Key != ConsoleKey.Escape && nave.GetVidas() > 0);
+
+        Console.Clear();
+    }
+
+    ...
+}
+```
+
+</script>
+</section> 
+    
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (9/11)
+
+Colisión de torres con disparos enemigos (clase *TorreDefensiva*)
+
+```cs
+class TorreDefensiva : Sprite
+{
+    ...
+
+    // Comprueba si un disparo colisiona con la torre, y si es así elimina 
+    // alguno de sus "ladrillos"
+    public bool ColisionaCon(Disparo d)
+    {
+        // Miramos si la X del disparo está dentro de la anchura de la torre
+        bool colisionaX = d.GetX() >= x && d.GetX() < x + ladrillos[0].Length;
+        // Miramos si la Y del disparo está dentro de la altura de la torre
+        bool colisionaY = d.GetY() >= y && d.GetY() < y + ladrillos.Length;
+
+        if (colisionaX && colisionaY)
+        {
+            // Miramos si hay un ladrillo (asterisco) en la posición del disparo
+            // Si es así, lo borramos porque ha impactado
+            bool hayLadrillo = ladrillos[d.GetY() - y][d.GetX() - x] == '*';
+            if (hayLadrillo)
+            {
+                ladrillos[d.GetY() - y][d.GetX() - x] = ' ';
+                return true;
+            }
+        }
+        return false;
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (10/11)
+
+Colisión de torres con disparos enemigos (clase *BloqueEnemigos*)
+
+```cs
+class BloqueEnemigos
+{
+    ...
+
+    // Comprueba si los disparos enemigos colisionan con alguna torre
+    public void ComprobarColisionConTorres(TorreDefensiva[] torres)
+    {
+        foreach(TorreDefensiva t in torres)
+        {
+            foreach(Disparo d in disparos)
+            {
+                if (d.GetActivo() && t.ColisionaCon(d))
+                {
+                    d.SetActivo(false);
+                    d.MoverA(0, 0);
+                }
+            }
+        }
+    }
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Paso 6 (11/11)
+
+Colisión de torres con disparos enemigos (clase *Partida*)
+
+```cs
+class Partida
+{
+    // Lanza la partida principal
+    public void Lanzar()
+    {
+        ...
+
+        do
+        {
+            ...
+
+            enemigos.ComprobarColisionConNave(nave);
+            enemigos.ComprobarColisionConTorres(torres);
+            ActualizarHUD(nave);
+        }
+        while (tecla.Key != ConsoleKey.Escape && nave.GetVidas() > 0);
+
+        Console.Clear();
+    }
+
+    ...
+}
+```
+
+</script>
+</section> 
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 6)
+
+Añade las siguientes comprobaciones:
+
+- Si un disparo de la nave colisiona con un enemigo (u ovni), se elimina (desactiva) al enemigo y se incrementan los puntos de la nave
+- Si un disparo de la nave colisiona con alguna torre, se elimina el ladrillo afectado
+- Si ya no quedan enemigos del bloque, se finaliza el bucle del juego
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto (fin del paso 6)
+
+<div align="center">
+    <img src="../../../img/06_consoleinvaders05.png">
+</div>
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

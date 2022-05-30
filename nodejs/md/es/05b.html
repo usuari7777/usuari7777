@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Primeros pasos con Express | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Primeros pasos con Express" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/05b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Primeros pasos con Express" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Primeros pasos con Express","url":"http://nachoiborraies.github.io/nodejs/md/es/05b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="primeros-pasos-con-express">Primeros pasos con Express</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/05b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/05b.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>Express es un framework ligero y, a la vez, flexible y potente para desarrollo de aplicaciones web con Node. En primer lugar, se trata de un framework ligero porque no viene cargado de serie con toda la funcionalidad que un framework podría tener, a diferencia de otros frameworks más pesados y autocontenidos como Symfony o Ruby on Rails. Pero, además, se trata de un framework flexible y potente porque permite añadirle, a través de módulos Node y de <em>middleware</em>, toda la funcionalidad que se requiera para cada tipo de aplicación. De este modo, podemos utilizarlo en su versión más ligera para aplicaciones web sencillas, y dotarle de más elementos para desarrollar aplicaciones muy complejas.</p>
+
+<p>Como veremos, con Express podemos desarrollar tanto servidores típicos de contenido estático (HTML, CSS y Javascript), como servicios web accesibles desde un cliente, y por supuesto, aplicaciones que combinen ambas cosas.</p>
+
+<p>Podéis encontrar información actualizada sobre Express, tutoriales y demás información en su <a href="http://expressjs.com/">página oficial</a>.</p>
+
+<h2 id="1-descarga-e-instalación">1. Descarga e instalación</h2>
+
+<p>La instalación de Express es tan sencilla como la de cualquier otro módulo que queramos incorporar a un proyecto Node. Simplemente necesitamos ejecutar el correspondiente comando <code class="language-plaintext highlighter-rouge">npm install</code> en la carpeta del proyecto donde queramos añadirlo (y, previamente, el comando <code class="language-plaintext highlighter-rouge">npm init</code> en el caso de que aún no hayamos creado el archivo <em>package.json</em>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install express
+</code></pre></div></div>
+
+<h3 id="11-ejemplo-de-servidor-básico-con-express">1.1. Ejemplo de servidor básico con Express</h3>
+
+<p>Vamos a crear un proyecto llamado “<em>PruebaExpress</em>” en la carpeta de “<em>ProyectosNode/Pruebas</em>”, y a instalar Express en él. Después, creamos un archivo llamado <code class="language-plaintext highlighter-rouge">index.js</code> con este código:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El código, como podemos ver, es muy sencillo. Primero incluimos la librería, después inicializamos una instancia de Express (normalmente se almacena en una variable llamada <code class="language-plaintext highlighter-rouge">app</code>), y finalmente, la ponemos a escuchar por el puerto que queramos. En este caso, se ha escogido el puerto 8080 para no interferir con el puerto por defecto por el que se escuchan las peticiones HTTP, que es el 80. También es habitual encontrar ejemplos de código en Internet que usan los puertos 3000 o 6000 para las pruebas. Es indiferente el número de puerto, siempre que no interfiera con otro servicio que tengamos en marcha en el sistema.</p>
+
+<p>Para probar el ejemplo desde nuestra máquina local, basta con poner en marcha la aplicación Node, abrir un navegador y acceder a la URL:</p>
+
+<p><em>http://localhost:8080</em></p>
+
+<p>Si pruebas a ejecutar la aplicación Node desde Visual Studio Code, verás que no finaliza. Hemos creado un pequeño servidor Express que queda a la espera de peticiones de los clientes. Sin embargo, aún no está preparado para responder a ninguna de ellas, por lo que dará un mensaje de error al intentar acceder a cualquier URL. Esto lo solucionaremos en los en los siguientes apartados.</p>
+
+<h2 id="2-express-como-proveedor-de-servicios">2. Express como proveedor de servicios</h2>
+
+<p>Ahora que ya sabemos qué es Express y cómo incluirlo en las aplicaciones Node, veremos uno de los principales usos que se le da: el de servidor que proporciona servicios REST a los clientes que lo soliciten.</p>
+
+<p>Para ello, y como paso previo, debemos comprender y asimilar cómo se procesan las rutas en Express, y cómo se aísla el tratamiento de cada una, de forma que el código resulta muy modular e independiente entre rutas.</p>
+
+<p>Recordemos, antes de nada, la estructura básica que tiene un servidor Express:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="21-un-primer-servicio-básico">2.1. Un primer servicio básico</h3>
+
+<p>Partiendo de la base anterior, vamos a añadir una serie de rutas en nuestro servidor principal para dar soporte a los servicios asociados a las mismas. Una vez hemos inicializado la aplicación (variable <code class="language-plaintext highlighter-rouge">app</code>), basta con ir añadiendo métodos (<code class="language-plaintext highlighter-rouge">get</code>, <code class="language-plaintext highlighter-rouge">post</code>, <code class="language-plaintext highlighter-rouge">put</code> o <code class="language-plaintext highlighter-rouge">delete</code>), indicando para cada uno la ruta o URI que debe atender, y el callback o función que se ejecutará en ese caso. Por ejemplo, para atender a una ruta llamada <code class="language-plaintext highlighter-rouge">/bienvenida</code> por GET, añadiríamos este método:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/bienvenida</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hola, bienvenido/a</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>El callback en cuestión recibe dos parámetros siempre: el objeto que contiene la petición (típicamente llamado <code class="language-plaintext highlighter-rouge">req</code>, abreviatura de <em>request</em>), y el objeto para emitir la respuesta (típicamente llamado <code class="language-plaintext highlighter-rouge">res</code>, abreviatura de <em>response</em>). Más adelante veremos qué otras cosas podemos hacer con estos objetos, pero de momento emplearemos la respuesta para enviar (<code class="language-plaintext highlighter-rouge">send</code>) texto al cliente que solicitó el servicio, y <code class="language-plaintext highlighter-rouge">req</code> para obtener determinados datos de la petición.
+Podemos volver a lanzar el servidor Express, y probar este nuevo servicio accediendo a la URL correspondiente:</p>
+
+<p><em>http://localhost:8080/bienvenida</em></p>
+
+<p>Del mismo modo, se añadirán el resto de métodos para atender las distintas opciones de la aplicación. Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="dl">'</span><span class="s1">/comentarios</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">...</span>
+</code></pre></div></div>
+
+<p>En este punto, puedes realizar el <a href="05b.html#ejercicio-1">Ejercicio 1</a> de los propuestos al final de la sesión.</p>
+
+<h2 id="3-elementos-básicos-aplicación-petición-y-respuesta">3. Elementos básicos: aplicación, petición y respuesta</h2>
+
+<p>Existen tres elementos básicos sobre los que se sustenta el desarrollo de aplicaciones en Express: la aplicación en sí, el objeto con la petición del cliente, y el objeto con la respuesta a enviar.</p>
+
+<h3 id="31-la-aplicación">3.1. La aplicación</h3>
+
+<p>La aplicación es una instancia de un objeto Express, que típicamente se asocia a una variable llamada <code class="language-plaintext highlighter-rouge">app</code> en el código:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Toda la funcionalidad de la aplicación (métodos de respuesta a peticiones, inclusión de <em>middleware</em>, etc) se asienta sobre este elemento. Cuenta con una serie de métodos útiles, que iremos viendo en futuros ejemplos, como son:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">use(middleware)</code>: para incorporar <em>middleware</em> al proyecto</li>
+  <li><code class="language-plaintext highlighter-rouge">set(propiedad, valor)</code> / <code class="language-plaintext highlighter-rouge">get(propiedad)</code>: para establecer y obtener determinadas propiedades relativas al proyecto</li>
+  <li><code class="language-plaintext highlighter-rouge">listen(puerto)</code>: para hacer que el servidor se quede escuchando por un puerto determinado.</li>
+  <li>…</li>
+</ul>
+
+<h3 id="32-la-petición">3.2. La petición</h3>
+
+<p>El objeto de petición (típicamente lo encontraremos en el código como <code class="language-plaintext highlighter-rouge">req</code>) se crea cuando un cliente envía una petición a un servidor Express. Contiene varios métodos y propiedades útiles para acceder a información contenida en la petición, como:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">params</code>: la colección de parámetros que se envía con la petición</li>
+  <li><code class="language-plaintext highlighter-rouge">query</code>: con la <em>query string</em> enviada en una petición GET (información detrás del interrogante <code class="language-plaintext highlighter-rouge">?</code> en una URL)</li>
+  <li><code class="language-plaintext highlighter-rouge">body</code>: con el cuerpo enviado en una petición POST</li>
+  <li><code class="language-plaintext highlighter-rouge">files</code>: con los archivos subidos desde un formulario en el cliente</li>
+  <li><code class="language-plaintext highlighter-rouge">get(cabecera)</code>: un método para obtener distintas cabeceras de la petición, a partir de su nombre</li>
+  <li><code class="language-plaintext highlighter-rouge">path</code>: para obtener la ruta o URI de la petición</li>
+  <li><code class="language-plaintext highlighter-rouge">url</code>: para obtener la URI junto con cualquier <em>query string</em> que haya a continuación</li>
+  <li>…</li>
+</ul>
+
+<h3 id="33-la-respuesta">3.3. La respuesta</h3>
+
+<p>El objeto respuesta se crea junto con el de la petición, y se completa desde el código del servidor Express con la información que se vaya a enviar al cliente. Típicamente se representa con la variable o parámetro <code class="language-plaintext highlighter-rouge">res</code>, y cuenta, entre otros, con estos métodos y propiedades de utilidad:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">status(codigo)</code>: establece el código de estado de la respuesta</li>
+  <li><code class="language-plaintext highlighter-rouge">set(cabecera, valor)</code>: establece cada una de las cabeceras de respuesta que se necesiten</li>
+  <li><code class="language-plaintext highlighter-rouge">redirect (estado, url)</code>: redirige a otra URL, con el correspondiente código de estado</li>
+  <li><code class="language-plaintext highlighter-rouge">send([estado], cuerpo)</code>: envía el contenido indicado, junto con el código de estado asociado (de forma opcional, si no se envía éste por separado).</li>
+  <li><code class="language-plaintext highlighter-rouge">json([estado], cuerpo)</code>: envía contenido JSON específicamente, junto con el código de estado asociado (opcional)</li>
+  <li><code class="language-plaintext highlighter-rouge">render(vista, [opciones])</code>: para mostrar una determinada vista como respuesta, pudiendo especificar opciones adicionales y un callback de respuesta.</li>
+  <li>…</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

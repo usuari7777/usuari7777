@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Creación de servicios REST | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Creación de servicios REST" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/06b.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Creación de servicios REST" />
+<script type="application/ld+json">
+{"headline":"Creación de servicios REST","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/06b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="creación-de-servicios-rest">Creación de servicios REST</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/06b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="06b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Veamos ahora qué pasos dar para construir una API REST en Laravel que dé soporte a las operaciones básicas sobre una o varias entidades: consultas (GET), inserciones (POST), modificaciones (PUT) y borrados (DELETE). Emplearemos para ello los denominados controladores de API, que comentamos brevemente en unidades anteriores, al hablar de controladores, y que proporcionan un conjunto de funciones ya definidas para dar soporte a cada uno de estos comandos.</p>
+
+<h2 id="1-definiendo-los-controladores-de-api">1. Definiendo los controladores de API</h2>
+
+<p>Para proporcionar una API REST a los clientes que lo requieran, necesitamos definir un controlador (o controladores) orientados a ofrecer estos servicios REST. Estos controladores en Laravel se denominan de tipo <em>api</em>, como vimos en sesiones previas. Normalmente se definirá un controlador API por cada uno de los modelos a los que necesitemos acceder. Vamos a crear uno de prueba para ofrecer una API REST sobre los libros de nuestra aplicación de biblioteca.</p>
+
+<p>Existen diferentes formas de ejecutar el comando de creación del controlador de API. Aquí vamos a mostrar quizá una de las más útiles:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller Api/LibroController --api --model=Libro
+</code></pre></div></div>
+
+<p>Esto creará el controlador en la carpeta <code class="language-plaintext highlighter-rouge">App\Http\Controllers\Api</code> con una serie de funciones ya predefinidas. No es obligatorio ubicarlo en esa subcarpeta, obviamente, pero esto nos servirá para separar los controladores de API del resto. Esta será la apariencia del controlador generado:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Http\Controllers\Api</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">App\Http\Controllers\Controller</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">App\Models\Libro</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">LibroController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">//</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Libro  $libro
+     * @return \Illuminate\Http\Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Libro  $libro
+     * @return \Illuminate\Http\Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//</span>
+    <span class="p">}</span>
+
+    <span class="cd">/**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Libro  $libro
+     * @return \Illuminate\Http\Response
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observemos que se incorpora automáticamente la cláusula <code class="language-plaintext highlighter-rouge">use</code> para cargar el modelo asociado, que hemos indicado en el parámetro <code class="language-plaintext highlighter-rouge">--model</code>. Además, los métodos <code class="language-plaintext highlighter-rouge">show</code>, <code class="language-plaintext highlighter-rouge">update</code> y <code class="language-plaintext highlighter-rouge">destroy</code> ya vienen con un parámetro de tipo <code class="language-plaintext highlighter-rouge">Libro</code> que facilitará mucho algunas tareas.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en el caso de versiones anteriores a Laravel 8, hay que tener en cuenta que por defecto los modelos se ubican en la carpeta <code class="language-plaintext highlighter-rouge">App</code>, por lo que deberemos indicar cualquier subcarpeta donde localizar el modelo cuando creemos el controlador, si es que lo hemos movido a una subcarpeta. Por ejemplo, <code class="language-plaintext highlighter-rouge">--model=Models/Libro</code>.</p>
+</blockquote>
+
+<p>Cada una de las funciones del nuevo controlador creado se asocia a uno de los métodos REST comentados anteriormente:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">index</code> se asociaría con una operación GET de listado general, para obtener todos los registros (de libros, en este caso)</li>
+  <li><code class="language-plaintext highlighter-rouge">store</code> se asociaría con una operación POST, para almacenar los datos que lleguen en la petición (como un nuevo libro, en nuestro caso)</li>
+  <li><code class="language-plaintext highlighter-rouge">show</code> se asociaría con una operación GET para obtener el registro asociado a un identificador concreto</li>
+  <li><code class="language-plaintext highlighter-rouge">update</code> se asociaría con una operación PUT, para actualizar los datos del registro asociado a un identificador concreto</li>
+  <li><code class="language-plaintext highlighter-rouge">destroy</code> se asociaría con una operación DELETE, para eliminar los datos del registro asociado a un identificador concreto</li>
+</ul>
+
+<h2 id="2-estableciendo-las-rutas">2. Estableciendo las rutas</h2>
+
+<p>Una vez tenemos el controlador API creado, vamos a definir las rutas asociadas a cada método del controlador. Si recordamos de sesiones anteriores, podíamos emplear el método <code class="language-plaintext highlighter-rouge">Route::resource</code> en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code> para establecer de golpe todas las rutas asociadas a un controlador de recursos. De forma análoga, podemos emplear el método <code class="language-plaintext highlighter-rouge">Route::apiResource</code> en el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code> para establecer automáticamente todas las rutas de un controlador de API. Añadimos esta línea en dicho archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Laravel &lt; 8</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">Api\LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+
+<span class="c1">// Laravel 8 </span>
+<span class="kn">use</span> <span class="nc">App\Http\Controllers\Api\LibroController</span><span class="p">;</span>
+<span class="mf">...</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="nc">LibroController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Las rutas de API (aquellas definidas en el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code>) por defecto tienen un prefijo <code class="language-plaintext highlighter-rouge">api</code>, tal y como se establece en el <em>provider</em> <code class="language-plaintext highlighter-rouge">RouteServiceProvider</code>. Por tanto, hemos definido una ruta general <code class="language-plaintext highlighter-rouge">api/libros</code>, de forma que todas las subrutas que se deriven de ella llevarán a uno u otro método del controlador de API de libros.</p>
+
+<p>Podemos comprobar qué rutas hay activas con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan route:list
+</code></pre></div></div>
+
+<p>Veremos, entre otras, las 5 rutas derivadas del controlador API de libros:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+----------------------------------------------------+
+|Method     | URI                   | Name           |
++----------------------------------------------------+
+| GET|HEAD  | api/libros            | libros.index   |
+| POST      | api/libros            | libros.store   |
+| GET|HEAD  | api/libros/{libro}    | libros.show    |
+| PUT|PATCH | api/libros/{libro}    | libros.update  |
+| DELETE    | api/libros/{libro}    | libros.destroy |
++----------------------------------------------------+
+</code></pre></div></div>
+
+<h2 id="3-servicios-get">3. Servicios GET</h2>
+
+<p>Vamos a empezar por definir el método <code class="language-plaintext highlighter-rouge">index</code>. En este caso, vamos a obtener el conjunto de libros de la base de datos y devolverlo tal cual:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">get</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nv">$libros</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si accedemos a la ruta <code class="language-plaintext highlighter-rouge">api/libros</code> desde el navegador, se activará el método <code class="language-plaintext highlighter-rouge">index</code> que acabamos de implementar, y recibiremos los libros de la base de datos, directamente en formato JSON.</p>
+
+<div align="center">
+    <img src="../../img/06_get_json.png" width="60%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: podemos instalar la extensión <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=es">JSON formatter</a> para Chrome, y así poder ver los datos en formato JSON más organizados y con la sintaxis resaltada, como en la imagen anterior.</p>
+</blockquote>
+
+<p>De una forma similar, podríamos implementar y probar el método <code class="language-plaintext highlighter-rouge">show</code>, para mostrar los datos de un libro en particular:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$libro</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este caso, si accedemos a la URI <code class="language-plaintext highlighter-rouge">api/libros/1</code>, obtendremos la información del libro con <em>id</em> = 1. Notar que Laravel se encarga automáticamente de buscar el libro por nosotros (hacer la correspondiente operación <code class="language-plaintext highlighter-rouge">find</code> para el <em>id</em> proporcionado). Es lo que se conoce como <em>enlace implícito</em>, y es algo que también está disponible en los controladores web normales, siempre que los asociemos correctamente con el modelo vinculado. Esto se hace automáticamente si creamos el controlador junto con el modelo, como vimos en la unidad 4, o si usamos el parámetro <code class="language-plaintext highlighter-rouge">--model</code> para asociarlo, como hemos hecho aquí.</p>
+
+<h3 id="31-más-sobre-el-formato-json-y-la-respuesta">3.1. Más sobre el formato JSON y la respuesta</h3>
+
+<p>Tras probar los dos servicios anteriores, habrás observado que Laravel se encarga de transformar directamente los registros obtenidos a formato JSON cuando los enviamos mediante <code class="language-plaintext highlighter-rouge">return</code>, por lo que, en principio, no tenemos por qué preocuparnos de este proceso. Sin embargo, de este modo se escapan algunas cosas a nuestro control. Por ejemplo, y sobre todo, no podemos especificar el código de estado de la respuesta, que por defecto es 200 si todo ha ido correctamente. Además, tampoco podemos controlar qué información enviar del objeto en cuestión.</p>
+
+<p>Si queremos limitar o formatear la información a enviar de los objetos que estamos tratando, y que no se envíen todos sus campos sin más, tenemos varias opciones:</p>
+
+<ol>
+  <li>Añadir cláusulas <code class="language-plaintext highlighter-rouge">hidden</code> en los modelos correspondientes, para indicar que esa información no debe ser enviada en ningún caso en ninguna parte de la aplicación. Es lo que ocurre, por ejemplo, con el campo <em>password</em> del modelo de <code class="language-plaintext highlighter-rouge">Usuario</code>:</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$hidden</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'password'</span><span class="p">];</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Definir a mano un array con los campos a enviar en el método del controlador. En el caso de la ficha del libro anterior, si sólo queremos enviar el título y la editorial, podríamos hacer algo así:</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">'titulo'</span>    <span class="o">=&gt;</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span><span class="p">,</span>
+        <span class="s1">'editorial'</span> <span class="o">=&gt;</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">editorial</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>En el caso de que el paso anterior sea muy costoso (porque el modelo tenga muchos campos, o porque tengamos que hacer lo mismo en varias partes del código), también podemos definir recursos (<em>resources</em>), que permiten separar el código de la información a mostrar del propio controlador. <a href="https://laravel.com/docs/eloquent-resources">Aquí</a> podéis encontrar información al respecto, ya que estos contenidos escapan del alcance de esta sesión.</li>
+</ol>
+
+<p>Por otra parte, si queremos añadir o modificar más información en la respuesta, como el código de estado, la estructura anterior no nos sirve, ya que siempre se va a enviar un código 200. Para esto, es conveniente emplear el método <code class="language-plaintext highlighter-rouge">response()-&gt;json(...)</code>, que permite especificar como primer parámetro los datos a enviar, y como segundo parámetro el código de estado. Los métodos anteriores quedarían así, enviando un código 200 como respuesta (aunque si se omite el segundo parámetro, se asume que es 200):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">get</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$libros</span><span class="p">,</span> <span class="mi">200</span><span class="p">);;</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$libro</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="4-resto-de-servicios">4. Resto de servicios</h2>
+
+<p>Veamos ahora cómo implementar el resto de servicios (POST, PUT y DELETE). En el caso de la inserción (<strong>POST</strong>), deberemos recibir en la petición los datos del objeto a insertar (un libro, en nuestro ejemplo). Igual que los datos del servidor al cliente se envían en formato JSON, es de esperar en aplicaciones que siguen la arquitectura REST que los datos del cliente al servidor también se envíen en formato JSON.</p>
+
+<p>Nuestro método <code class="language-plaintext highlighter-rouge">store</code>, asociado al servicio POST, podría quedar de este modo (devolvemos el código de estado 201, que se utiliza cuando se han insertado elementos nuevos):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$libro</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Libro</span><span class="p">();</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">titulo</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">editorial</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">editorial</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">precio</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">precio</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">autor</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">associate</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="n">autor_id</span><span class="p">));</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$libro</span><span class="p">,</span> <span class="mi">201</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>De forma similar implementaríamos el servicio <strong>PUT</strong>, a través del método <code class="language-plaintext highlighter-rouge">update</code>. En este caso devolvemos un código de estado 200:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">titulo</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">editorial</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">editorial</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">precio</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">precio</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">autor</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">associate</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="n">autor_id</span><span class="p">));</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$libro</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finalmente, para el servicio <strong>DELETE</strong>, debemos implementar el método <code class="language-plaintext highlighter-rouge">destroy</code>, que podría quedar así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">204</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notar que devolvemos un código de estado 204, que indica que no estamos devolviendo contenido (es <em>null</em>). Por otra parte, es habitual en este tipo de operaciones de borrado devolver en formato JSON el objeto que se ha eliminado, por si acaso se quiere deshacer la operación en un paso posterior. En este caso, el código del método de borrado sería así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nb">delete</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span><span class="nv">$libro</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Como podemos empezar a intuir, probar estos servicios no es tan sencillo como probar servicios de tipo GET, ya que no podemos simplemente teclear una URL en el navegador. Necesitamos un mecanismo para pasarle los datos al servidor en formato JSON, y también el método (POST, PUT o DELETE). Veremos cómo en la siguiente sección.</p>
+
+<h3 id="41-validación-de-datos">4.1. Validación de datos</h3>
+
+<p>A la hora de recibir datos en formato JSON para servicios REST, también podemos establecer mecanismos de <strong>validación</strong> similares a los vistos para los formularios, a través de los correspondientes <em>requests</em>. De hecho, en el caso de la biblioteca podemos emplear la clase <code class="language-plaintext highlighter-rouge">App\Http\Requests\LibroPost</code> que hicimos en sesiones anteriores, para validar que los datos que llegan tanto a <code class="language-plaintext highlighter-rouge">store</code> como a <code class="language-plaintext highlighter-rouge">update</code> son correctos. Basta con usar un parámetro de este tipo en estos métodos, en lugar del parámetro <code class="language-plaintext highlighter-rouge">Request</code> que viene por defecto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">LibroPost</span> <span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">LibroPost</span> <span class="nv">$request</span><span class="p">,</span> <span class="kt">Libro</span> <span class="nv">$libro</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="42-respuestas-de-error">4.2. Respuestas de error</h3>
+
+<p>Por otra parte, debemos asegurarnos de que cualquier error que se produzca en la parte de la API devuelva un cotenido en formato JSON, y no una página web. Por ejemplo, si solicitamos ver la ficha de un libro cuyo <em>id</em> no existe, no debería devolvernos una página de error 404, sino un código de estado 404 con un mensaje de error en formato JSON.</p>
+
+<p>Esto no se cumple por defecto, ya que Laravel está configurado para renderizar una vista con el error producido. Para modificar este comportamiento en <strong>versiones anteriores a Laravel 8</strong>, debemos editar el archivo <code class="language-plaintext highlighter-rouge">App\Exceptions\Handler.php</code>, en concreto su método <code class="language-plaintext highlighter-rouge">render</code>, y hacer algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="kt">Throwable</span> <span class="nv">$exception</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">is</span><span class="p">(</span><span class="s1">'api*'</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">ModelNotFoundException</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Elemento no encontrado'</span><span class="p">],</span> 
+                <span class="mi">404</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">ValidationException</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Datos no válidos'</span><span class="p">],</span> <span class="mi">400</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$exception</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Error en la aplicación: '</span> <span class="mf">.</span> 
+                <span class="nv">$exception</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">()],</span> <span class="mi">500</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Esta es la única instrucción que hay en la versión original</span>
+    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="nf">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$exception</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Hemos añadido sobre el código original una cláusula <code class="language-plaintext highlighter-rouge">if</code> que se centra en las peticiones de tipo <code class="language-plaintext highlighter-rouge">api</code>. En este caso, podemos distinguir los distintos tipos de excepciones que se producen. Para nuestro ejemplo distinguimos tres: errores de tipo 404, errores de validación u otros errores. En todos los casos se devuelve un contenido JSON con el código de estado y campos adecuados. Si todo es correcto y no hay errores, o si no estamos en rutas <em>api</em>, el comportamiento será el habitual.</p>
+
+<p>En el caso de <strong>Laravel 8</strong>, el método a modificar se llama <code class="language-plaintext highlighter-rouge">register</code>, dentro de la misma clase <code class="language-plaintext highlighter-rouge">App\Exceptions\Handler.php</code>. Lo podemos dejar de este modo para hacer algo equivalente a lo anterior:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">register</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">renderable</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="kt">Throwable</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nf">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">is</span><span class="p">(</span><span class="s1">'api*'</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">ModelNotFoundException</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Recurso no encontrado'</span><span class="p">],</span> 
+                    <span class="mi">404</span><span class="p">);</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">ValidationException</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Datos no válidos'</span><span class="p">],</span> 
+                    <span class="mi">400</span><span class="p">);</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$exception</span><span class="p">))</span>
+                <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Error: '</span> <span class="mf">.</span> 
+                    <span class="nv">$exception</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">()],</span> <span class="mi">500</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: relacionado con el código anterior, las excepciones que se identifican están en <code class="language-plaintext highlighter-rouge">Illuminate\Database\Eloquent\ModelNotFoundException</code> e <code class="language-plaintext highlighter-rouge">Illuminate\Validation\ValidationException</code>, respectivamente.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

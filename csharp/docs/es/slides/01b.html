@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Toma de contacto con C#</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Toma de contacto con C#
+#### Software necesario
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de editores online
+    
+- Ejemplo: [editor repl.it](https://replit.com/languages/csharp)
+- Permiten escribir el código fuente y ejecutarlo online
+- Limitaciones: 
+   - No sirven para programas grandes
+   - No disponen de opciones avanzadas de otros editores
+   - Algunos no permiten interactuar con el usuario
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Escribe el código en C# del ejemplo anterior del saludo en el editor online propuesto y ejecútalo.
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Un editor offline sencillo: Geany
+    
+- Descarga en su [web oficial](https://www.geany.org/) (salvo Linux)
+- Se basa en un compilador externo que debemos tener instalado:
+    - Windows: compilador `csc` de .NET en Windows (preinstalado)
+    - Todos los sistemas: compilador del proyecto Mono ([web oficial](https://www.mono-project.com/))
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Configuración de Geany con C#
+    
+- Menú *Construir* > *Establecer comandos de construcción*
+- La sección *Compilar* debe apuntar a la ruta donde se encuentra instalado el compilador
+- La sección *Ejecutar* debe lanzar el ejecutable
+   - En Linux o Mac deberemos usar el comando `mono` para ejecutarlo
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Configuración de Geany con C#
+    
+<div align="center">
+    <img src="../../../img/01_geany_conf.png" alt="Configuración de Geany en Windows" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso básico de Geany
+
+Con las herramientas superiores de `Compilar` y `Ejecutar` podemos compilar y lanzar nuestros programas. Los errores de compilación se detectan y marcan en rojo.
+
+<div align="center">
+    <img src="../../../img/01_geany_compilar.png" alt="Errores de compilación en Geany" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Escribe el código en C# del programa de saludo anterior en un fichero fuente llamado `Saludo.cs`. 
+- Compílalo y ejecútalo en Geany.
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Un entorno para proyectos complejos: Visual Studio
+    
+- Descarga en su [web oficial](https://visualstudio.microsoft.com/es/downloads/) (Windows y Mac)
+- Versión Community gratuita
+- Al instalarlo debemos elegir las *cargas de trabajo* (*workloads*) que necesitamos
+   - El pack básico para aplicaciones de escritorio es *.NET desktop development*
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Instalando Visual Studio
+
+<div align="center">
+    <img src="../../../img/01_vstudio_workloads.png" alt="Cargas de trabajo en Visual Studio" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Trabajando con Visual Studio
+    
+- Debemos crear proyectos
+   - *Aplicación de consola .NET framework*
+- Se crea por defecto un archivo fuente `Program.cs` que podemos editar
+- Compilamos y ejecutamos con `F5` o con `Ctrl + F5`, o con el botón de `Iniciar` de la barra superior.
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Trabajando con Visual Studio
+
+<div align="center">
+    <img src="../../../img/01_vstudio_nuevo_proyecto.png" alt="Nuevo proyecto en Visual Studio" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Trabajando con Visual Studio
+
+<div align="center">
+    <img src="../../../img/01_vstudio_programa.png" alt="Edición de código en Visual Studio" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Crea un nuevo proyecto de consola .NET en Visual Studio llamado **Saludo**. 
+- Escribe el código en C# del programa de saludo en el fichero *Program.cs* que se creará. 
+- Compila y ejecuta el programa.
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Alternativas a Visual Studio
+    
+Entornos para equipos menos potentes
+
+- **SharpDevelop** (Windows)
+- **MonoDevelop** o **Xamarin Studio** (Windows, Mac o Linux)
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

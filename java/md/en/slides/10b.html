@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software testing</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software testing
+### Introduction to Test Driven Development
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## TDD
+
+- *Test Driven Development*
+- Technique applied in agile methodologies
+- I first defines the test cases, then implement the test methods, and from these test methods, implement the original class to be tested
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 1: Person test
+
+- We create an IntelliJ project called *PersonTest*
+- We leave the *src* folder empty
+- We define a *tests* folder with a *PersonTest* class
+   - *Alt* + *Enter* to import JUnit library and fix compilation errors
+
+</script>
+</section>  
+
+<section data-markdown>
+<script type="text/template">
+## Example 1: Person test
+
+```java
+package person.types;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class PersonTest
+{
+    @BeforeEach
+    void setUp()
+    {
+        person = new Person("James", "11223344A");
+    }
+
+    @Test
+    void getName()
+    {
+        assertNotNull(person.getName());
+        assertEquals("James", person.getName());
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 1: person class
+
+In order to fix the compilation error regarding *Person* type, we need to create this class (*Alt* + *Enter*), making sure that we place it in the *src* folder
+
+<div align="center">
+    <img src="../../../img/10_tdd_example4.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 1: person class
+
+```java
+package person.types;
+
+public class Person
+{
+    public Person (String name, String phone)
+    {
+
+    }
+
+    public String getName()
+    {
+        return "";
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 1: running tests
+
+Now the tests will fail
+
+<div align="center">
+    <img src="../../../img/10_tdd_example5.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 1: fixing bugs
+
+We fix the bugs in *Person* class to pass the tests
+
+```java
+package person.types;
+
+public class Person
+{
+    private String name;
+    private String phone;
+
+    public Person (String name, String phone)
+    {
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 1: next steps
+
+- We would add new test methods and cases to our test class
+- Then, we run the tests (they will probably fail)
+- We add the code to *Person* class to pass the tests
+- Repeat this process until *Person* class is complete
+- Conclusion: this process can be very costly
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+- Let's implement a method to check if a year number corresponds to a leap year
+   - It must be divisible by 4
+   - If it's divisble by 100, it must be divisible by 400 as well
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Test case table
+
+|Test case|Name|Input|Expected result|
+|---|---|---|---|
+|TC1|NonDivisible4|2001|false|
+|TC2|Divisible4|2012|true|
+|TC3|Divisible100Not400|1700|false|
+|TC4|Divisible100And400|2000|true|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+We create a project called *LeapYearTDD* with a class called *LeapYear* and a method called *isLeap* that receives an integer and returns a boolean (by default *false*, for instance)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+```java
+package leapyear;
+
+public class LeapYear
+{
+    public static boolean isLeap(int year)
+    {
+        return false;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+- We create the *tests* folder and generate the test class for *LeapYear* class
+- We include the test method for *isLeap* method, and add the first test case of our table
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+```java
+package leapyear;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LeapYearTest
+{
+    @Test
+    void isLeap() 
+    {
+        assertFalse(LeapYear.isLeap(2001));
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+- The first test succeeds because our method returns *false* by default
+- We add the second test case
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+```java
+package leapyear;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LeapYearTest
+{
+    @Test
+    void isLeap() 
+    {
+        assertFalse(LeapYear.isLeap(2001));
+        assertTrue(LeapYear.isLeap(2012));
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Test now fails. We fix it in *LeapYear* class
+
+```java
+package leapyear;
+
+public class LeapYear
+{
+    public static boolean isLeap(int year)
+    {
+        if (year % 4 == 0)
+            return true;
+        else
+            return false;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Add one more test case
+
+```java
+package leapyear;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LeapYearTest
+{
+    @Test
+    void isLeap() 
+    {
+        assertFalse(LeapYear.isLeap(2001));
+        assertTrue(LeapYear.isLeap(2012));
+        assertFalse(LeapYear.isLeap(1700));
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Test fails again. We fix it
+
+```java
+package leapyear;
+
+public class LeapYear
+{
+    public static boolean isLeap(int year)
+    {
+        if (year % 100 == 0)
+            return false;
+        else if (year % 4 == 0)
+            return true;
+        else
+            return false;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Add one more test case
+
+```java
+package leapyear;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LeapYearTest
+{
+    @Test
+    void isLeap() 
+    {
+        assertFalse(LeapYear.isLeap(2001));
+        assertTrue(LeapYear.isLeap(2012));
+        assertFalse(LeapYear.isLeap(1700));
+        assertTrue(LeapYear.isLeap(2000));
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Test fails again. We fix it
+
+```java
+package leapyear;
+
+public class LeapYear
+{
+    public static boolean isLeap(int year)
+    {
+        if (year % 400 == 0)
+            return true;
+        else if (year % 100 == 0)
+            return false;
+        else if (year % 4 == 0)
+            return true;
+        else
+            return false;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example 2: leap years
+
+Finally we can refactor the code of the tested method
+
+```java
+package leapyear;
+
+public class LeapYear
+{
+    public static boolean isLeap(int year)
+    {
+        boolean result = false;
+        if (year % 4 == 0)
+        {
+            if (year % 100 != 0 || year % 400 == 0)
+                result = true;
+        }
+        return result;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Final conclusions
+
+- TDD can be really helpful to write the code of complex algorithms or methods
+- We add every test case step by step, then run the tests, fix the code and go back until there are no more test cases pending
+- We can refactor the code of the method at the end of the process or in any intermediate step
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 
+
+Do the **Exercise 1** of the document associated with these slides
+
+</script>
+</section>
+
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

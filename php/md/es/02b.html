@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Redirecciones e inclusiones | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Redirecciones e inclusiones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/02b.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Redirecciones e inclusiones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Redirecciones e inclusiones","url":"http://nachoiborraies.github.io/php/md/es/02b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="redirecciones-e-inclusiones">Redirecciones e inclusiones</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>PHP también dispone de instrucciones para permitir incluir el contenido de un documento en otro como parte de la respuesta a un cliente, o redirigir a otra página si es necesario.</p>
+
+<h2 id="1-redirigir-a-otra-página">1. Redirigir a otra página</h2>
+
+<p>Las redirecciones se producen cuando desde el cliente accedemos a una página que está preparada para, según ciertas condiciones, enviarnos a otra. Por ejemplo, si intentamos acceder a una zona restringida y no estamos logueados en el servidor, lo normal es que se nos redirija a la página de login para que entremos con nuestro usuario y contraseña.</p>
+
+<p>La redirección de una página a otra se hace aprovechando el protocolo HTTP, mediante una de sus cabeceras, llamada <em>Location</em>. Usaremos el comando <code class="language-plaintext highlighter-rouge">header</code> para acceder a las cabeceras HTTP, y dentro pondremos la cabecera <em>Location</em>, junto con la página a la que queremos redirigir. Por ejemplo, si queremos redirigir a la página <em>login.php</em> de nuestra web, pondríamos algo como:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">header</span><span class="p">(</span><span class="s2">"Location:login.php"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: es importante recalcar que las redirecciones deben hacerse <em>antes</em> de escribir cualquier contenido por el buffer de salida, es decir, antes de generar cualquier tipo de contenido HTML que enviar al navegador.</p>
+</blockquote>
+
+<p>También podemos añadir algo más de información con la redirección. Por ejemplo, redirigir pasados X segundos, para así mostrar algún mensaje de advertencia en la página, y que el usuario sepa que va a ser redirigido. Para ello se utiliza la cabecera <em>Refresh</em>, indicando el tiempo en segundos a esperar, y un atributo <em>url</em> con la página a la que redirigir (si no se pone esto, se recarga la misma página pasado ese tiempo, lo que puede ser útil, por ejemplo, para actualizar resultados deportivos). El siguiente código redirige a <em>index.php</em> pasados 5 segundos, mostrando un mensaje de redirección.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">header</span><span class="p">(</span><span class="s2">"Refresh:5; url=index.php"</span><span class="p">);</span>
+<span class="mf">...</span>
+<span class="k">echo</span> <span class="s1">'&lt;p&gt;En breve le redirigiremos a la página principal.&lt;/p&gt;'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Una de las utilidades prácticas que tiene esta característica es la de poder enviar al usuario a otro recurso si no se cumplen ciertas condiciones. Por ejemplo, si los datos de un formulario no son correctos. Así, podríamos utilizar funciones como <code class="language-plaintext highlighter-rouge">isset</code> o <code class="language-plaintext highlighter-rouge">empty</code> (entre otras, como la comprobación de expresiones regulares) para determinar si los datos recibidos son correctos y, en caso contrario, redirigir a una página de error o al propio formulario de nuevo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'login'</span><span class="p">])</span> <span class="o">||</span> <span class="nb">empty</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'login'</span><span class="p">]))</span>
+<span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:login.php"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea una carpeta llamada <strong>ejercicios5</strong> donde ubicar los ejercicios de esta sesión. Copia en ella la carpeta <em>libros</em> de la sesión anterior, y modifica la página <em>result_libros.php</em> para que, si el texto a buscar que le llega del formulario está vacío, o no le han llegado datos del formulario (por ejemplo, porque hemos cargado esta página directamente, sin pasar por el formulario), redirija a la página <em>form_libros.php</em> para rellenar los datos.</p>
+
+  <p>Opcionalmente, trata de mostrar un mensaje de error en color rojo, en el formulario, indicando que “Debes rellenar todos los campos antes de enviar el formulario”.</p>
+</blockquote>
+
+<h3 id="11-más-sobre-las-redirecciones">1.1. Más sobre las redirecciones</h3>
+
+<p>A la hora de trabajar con redirecciones, conviene tener en cuenta algunas cosas. Para empezar, no conviene abusar de ellas, ya que los buscadores suelen castigar este hecho si se hace con frecuencia, penalizando el posicionamiento de la web. Además, reduce el rendimiento al estar haciendo nuevas peticiones para cargar otra página</p>
+
+<p>Además, es recomendable también hacer una llamada a <code class="language-plaintext highlighter-rouge">die()</code> o <code class="language-plaintext highlighter-rouge">exit()</code> tras una redirección, para evitar que se siga ejecutando el resto de la página. Por ejemplo, en el siguiente código, aunque fallen todas las comprobaciones, sólo se va a ejecutar la última redirección, porque se sigue interpretando el código de la página y PHP se queda con la última redirección que ha encontrado:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mf">....</span><span class="p">)</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:pag1.php"</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mf">....</span><span class="p">)</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:pag2.php"</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mf">....</span><span class="p">)</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:pag3.php"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Para evitar esto, podemos llamar a <code class="language-plaintext highlighter-rouge">die()</code> justo después de cada redirección. Así, al encontrar una redirección ya deja de ejecutarse el resto de la página:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="mf">....</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:pag1.php"</span><span class="p">);</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mf">....</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:pag2.php"</span><span class="p">);</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="mf">....</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">header</span><span class="p">(</span><span class="s2">"Location:pag3.php"</span><span class="p">);</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="2-incluir-páginas-dentro-de-otras">2. Incluir páginas dentro de otras</h2>
+
+<p>La inclusión de contenido externo es una funcionalidad importante para, por ejemplo y sobre todo, no tener que estar repitiendo código en diferentes páginas. Así, podríamos tener una página <em>cabecera.php</em> con el encabezado de nuestra página web (bloque head, logo de la empresa y menú de navegación principal):</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        ...
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">"logo"</span> <span class="na">src=</span><span class="s">"imgs/logoempresa.jpg"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"menuNavegacion"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"inicio.php"</span><span class="nt">&gt;</span>Inicio<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"noticias.php"</span><span class="nt">&gt;</span>Noticias<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+            ...
+        <span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<p>Después, podríamos incluir este fichero <em>cabecera.php</em> en cada página de nuestra web, para así tener la misma cabecera en todas, y modificar simplemente el contenido de la página. Para ello, ya hemos visto en documentos anteriores que podemos utilizar las instrucciones o directivas <code class="language-plaintext highlighter-rouge">include</code>, <code class="language-plaintext highlighter-rouge">include_once</code>, <code class="language-plaintext highlighter-rouge">require</code> o <code class="language-plaintext highlighter-rouge">require_once</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> <span class="k">include</span><span class="p">(</span><span class="s1">'cabecera.php'</span><span class="p">);</span> <span class="cp">?&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"principal"</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;/div&gt;</span>
+    ...
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Cuando incluimos un documento en otro, el funcionamiento es como si copiáramos y pegáramos literalmente todo el código fuente del fichero incluido en el fichero destino. Pero tenemos la ventaja de que, de este modo, si queremos hacer algún cambio (por ejemplo, añadir más opciones al menú de la cabecera), se cambiaría el fichero <em>cabecera.php</em> y automáticamente se actualizarían los demás donde se incluye.</p>
+
+<p>Ya hemos explicado en un documento anterior las principales diferencias entre estas cuatro directivas, pero las volvemos a recordar aquí:</p>
+
+<ul>
+  <li>Las directivas <strong>include</strong> e <strong>include_once</strong> provocan una advertencia si no se encuentra el archivo a incluir, mientras que <strong>require</strong> y <strong>require_once</strong> producen un error fatal que cuelga la página (son más restrictivas estas últimas). Usaremos las primeras para incluir contenido que no sea crítico para el funcionamiento de la página, y las segundas para contenido esencial que debe estar presente.</li>
+  <li>Las directivas acabadas en <em>_once</em> incluyen el documento si no se ha incluido ya previamente con otra directiva include o require. Esto es habitual cuando incluimos ficheros que, a su vez, incluyen otros, y otros… Es posible que en estos casos alguna de las inclusiones afecte a un fichero que pensábamos incluir, y ya está incluido.</li>
+</ul>
+
+<p>Lógicamente, de la misma forma que hemos incluido la cabecera, también podríamos tener otro fichero <em>pie.php</em> con el pie de página (cierre de etiquetas, marco legal, copyright, etc.), e incluirlo también en todas las páginas. Por último destacar que, a la hora de incluir páginas dentro de otras, se suele utilizar la siguiente convención:</p>
+
+<p>Si la página incluida no es una página completa por sí misma (sino que necesita de otras para completarse), o es una librería de funciones PHP para poder utilizar en la página donde se incluye, el archivo suele tener extensión <em>.inc</em> o <em>.inc.php</em>. Así, por ejemplo, la cabecera anterior no sería una página completa por sí misma, y debería haberse llamado <em>cabecera.inc</em>. De la misma forma, si hacemos un conjunto de funciones para acceder a una base de datos, y lo queremos incluir es un archivo PHP para usar esas funciones, el archivo debería llamarse, por ejemplo, <em>libreria.inc</em>.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Modifica el ejercicio de libros anterior. Añade en la carpeta un nuevo archivo llamado <em>cabecera.inc</em>, con la cabecera de las dos páginas web (el <em>html</em>, <em>head</em>, algún estilo CSS como color de fondo o tipo de letra, y algún logo en el body que encuentres por Internet relacionado con el mundo de los libros). Después, haz que las otras dos páginas (<em>form_libros.php</em> y <em>result_libros.php</em>) incluyan la nueva cabecera y quiten las suyas propias, para compartir cabecera.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea en tu carpeta de <em>ejercicios5</em> una subcarpeta llamada <strong>formulario</strong>. Dentro, crea un formulario llamado <strong>formulario.php</strong> que permita introducir un nombre, un email y subir un fichero con una imagen a la misma página <em>formulario.php</em>.</p>
+
+  <p>El fichero de imagen debes guardarlo en una subcarpeta llamada <em>fotos</em>, que debes crear previamente. Además, debes comprobar si se ha enviado el formulario o no.</p>
+
+  <p>Debes comprobar que se envían todos los campos del formulario; si algún campo está vacío debes redirigir a una página <em>error.php</em>, donde mostrarás un mensaje personalizado según el campo que esté vacío. Por ejemplo, si el campo <em>nombre</em> está vacío debes mostrar el mensaje “Debes indicar tu nombre”. El mensaje personalizado lo puedes enviar mediante un enlace: <em>error.php?mensaje=Debes indicar tu nombre</em>. Además, la página de <em>error.php</em> mostrará un enlace que permitirá volver a la página formulario.php</p>
+
+  <p>Si se han rellenado todos los campos, debes mostrar el valor de los campos enviados e insertar la imagen en la página.</p>
+
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Variables and operators</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Basic elements of a Java program
+### Variables and operators
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using variables
+
+- They store values that can change along program execution
+- We must **declare them**:
+   - Choose data type
+   - Choose name or identifier
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Variables examples
+
+```java
+int myVariable;
+int num1 = 1, num2 = 2, num3 = 3;
+...
+myVariable = 7;
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variable identifiers
+
+- They must contain letters (in upper or lower case) digits and/or underscores (*_*)
+- They can't start with a digit
+
+```java
+int oneNumber;          // OK
+int another_number;     // OK
+int 1number;            // Error
+int one more number;    // Error
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arithmetic operators
+
+|Operator|Meaning|
+|---|---|
+|`+`|Addition|
+|`-`|Substraction|
+|`*`|Multiplication|
+|`/`|Division|
+|`%`|Division module|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arithmetic operators precedence
+
+1. Operations between parentheses
+2. Multiplications, divisions and modules
+3. Additions and substractions
+
+If there is more than one operation of the same category, they are evaluated from left to right
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Try to determine the final value stored in `result` variable in each one of these expressions. You can write a small Java program later to check your answers:
+
+* `int result = 4 + 8 * 2 / 4`
+* `int result = (4 + 8) * 2 / 4`
+* `int result = (4 + 8) * 3 % 5`
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Assignment operators
+
+|Operator|Meaning|
+|---|---|
+|`=`|Simple assignment|
+|`+=`|Auto-addition|
+|`-=`|Auto-substraction|
+|`*=`|Auto-multiplication|
+|`/=`|Auto-division|
+|`%=`|Auto-module|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Auto increment and auto decrement
+
+- Auto-increment `++` and auto-decrement `--` operators
+- They apply to a single variable, and automatically increase or decrease its value in 1 unit, respectively
+- If we place them BEFORE the variable, we first change the value of the variable and then complete the expression
+- If we place them AFTER the variable, we first complete the expression and then change the value of the variable
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Determine the final value of `result` variable after running all these instructions:
+
+```java
+int result = 4;
+result += 3;
+result *= 2;
+result--;
+result %= 4;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constants
+
+- Values that never change
+- Defined as `final` and `static`
+- Usually at the beginning of a class
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constants
+
+```Java
+class MyClass
+{
+    static final int MAX_USERS = 10;
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comments
+
+```Java
+// Single line comments
+
+/* Comments with
+more than one
+line */
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

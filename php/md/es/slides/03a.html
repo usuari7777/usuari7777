@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Programación orientada a objetos con PHP</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos con PHP
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos
+
+- Forma de programar relativamente reciente (en PHP existe desde su versión 5)
+- Pretende identificar cada uno de los tipos de objeto que componen un programa (*clase*)
+- Cada tipo está compuesto por una serie de propiedades o **atributos**, y una serie de operaciones que puede realizar (**métodos**)
+- Cada variable que creemos de ese tipo será un **objeto** de esa clase
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: software
+
+Definimos una clase para gestionar el software que tenemos en casa (id, título y versión)
+
+```php
+class Software
+{
+    private $codigo = 0;
+    private $titulo = "";
+    private $version = "1";
+
+    public function MostrarDatos()
+    {
+        echo "<p>$this->titulo ($this->version)</p>";
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Aspectos importantes
+
+- Todo el código de la clase debe definirse en el mismo bloque `<?php ... ?>` (no podemos partirlo)
+- Usamos `$this` para hacer referencia a los atributos de la clase, y no confundirlos con variables normales
+   - El uso de `$this` es obligatorio en PHP, siendo opcional en muchos lenguajes
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Constructores
+
+- Funciones especiales que permiten crear objetos de la clase
+- Suelen recibir como parámetro los valores de cada atributo
+
+```php
+class Software
+{
+    private $codigo = 0;
+    private $titulo = "";
+    private $version = "1";
+
+    public function __construct($c, $t, $v)
+    {
+        $this->codigo = $c;
+        $this->titulo = $t;
+        $this->version = $v;
+    }
+
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Creación de objetos
+
+- Usamos *new* seguido del nombre de la clase (invocando así al constructor)
+- Usamos `->` para acceder a los elementos del objeto
+
+```php
+$s1 = new Software(1, "LibreOffice", "6.0");
+$s2 = new Software(2, "GIMP", "3.8");
+
+echo "<p>Datos del primer programa:</p>";
+$s1->MostrarDatos();
+echo "<p>Datos del segundo programa:</p>";
+$s2->MostrarDatos();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Modificadores de acceso
+
+* **private**: el elemento no puede ser visto desde fuera de la clase
+* **public**: el elemento puede verse y utilizarse fuera de la clase. 
+   * Es el modificador por defecto si no indicamos uno nosotros
+* **protected**: para herencia, el elemento es visible desde la propia clase o las clases heredadas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Getters y setters
+
+* Métodos especiales para acceder a los atributos
+* Los *getters* permiten obtener el valor
+* Los *setters* permite cambiar el valor (controlando que sea correcto)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Getters y setters
+
+```php
+class Software
+{
+    private $codigo;
+    private $titulo;
+    private $version;
+    ...
+
+    public function __get($nombre)
+    {
+        if ($nombre == 'Cod')
+            return $this->codigo;
+        else if ($nombre == 'Titulo')
+            return $this->titulo;
+        else if ($nombre == 'Version')
+            return $this->version;
+    }
+
+    public function __set($nombre, $valor)
+    {
+        if ($nombre == 'Cod' && $valor > 0)
+            $this->codigo = $valor;
+        else if ($nombre == 'Titulo')
+            $this->titulo = $valor;
+        else if ($nombre == 'Version')
+            $this->version = $valor;
+    }
+    ...
+}
+
+...
+
+$s1->Cod = -1; // Esto no hará nada
+$s1->Cod = 10; // Esto sí funcionará
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Herencia
+
+* Mecanismo de la programación orientada a objetos que permite crear clases (subtipos) a partir de otras
+* La clase de la que heredamos se suele llamar clase padre, clase base o super clase
+* El subtipo que hereda se suele llamar clase hija, clase derivada o subclase
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Herencia
+
+Ejemplo: creamos un subtipo *Videojuego* que hereda de *Software*
+
+```php
+class Videojuego extends Software
+{
+    private $plataforma;
+
+    public function __construct($c, $t, $v, $p)
+    {
+        $this->codigo = $c;
+        $this->titulo = $t;
+        $this->version = $v;
+        $this->plataforma = $p;
+    }
+
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Herencia y visibilidad
+
+Si los atributos del padre son *private* no podremos acceder a ellos desde la clase hija. Debemos ponerlos *protected* (o usar *getters* y *setters* desde la subclase)
+
+```php
+class Software
+{
+    protected $codigo;
+    protected $titulo;
+    protected $version;
+
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *parent*
+
+Permite referenciar a los elementos de la clase padre desde la hija
+
+```php
+public function __construct($c, $t, $v, $p)
+{
+    // Hacemos que Software asigne código, título y versión
+    parent::__construct($c, $t, $v);
+    $this->plataforma = $p;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Realiza el *Ejercicio 1* del documento de apuntes asociado a estas diapositivas
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

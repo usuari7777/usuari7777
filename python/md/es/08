@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Clases y objetos | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Clases y objetos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="08.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/08.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Clases y objetos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Clases y objetos","url":"http://nachoiborraies.github.io/python/md/es/08.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="clases-y-objetos">Clases y objetos</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/08.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="08.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Python es un lenguaje multiparadigma, lo que significa que podemos utilizarlo enfocado a distintos paradigmas o formas de resolver problemas. En los documentos anteriores nos hemos centrado en un paradigma estructurado y modular, donde descomponíamos el código en funciones, y llamábamos a unas u otras en un orden determinado para resolver el problema.</p>
+
+<p>Además de lo anterior, Python también permite estructurar nuestro código en clases, de forma que cada clase es una entidad que representa un conjunto de elementos del programa (clientes, productos, pedidos, etc.), y podremos crear objetos de esas clases que interactuarán entre sí.</p>
+
+<h2 id="1-definición-de-clases-y-objetos">1. Definición de clases y objetos</h2>
+
+<p>Las clases en Python se definen con la palabra <code class="language-plaintext highlighter-rouge">class</code> seguida del nombre de la clase. Después, con el código tabulado, indicamos los diferentes elementos de la clase: constructor métodos, etc. Por ejemplo, de este modo definiríamos una clase <code class="language-plaintext highlighter-rouge">Persona</code> que almacene datos básicos de personas, como su nombre, edad o teléfono:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Persona</span><span class="p">:</span>
+
+    <span class="c1"># Constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nombre</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">edad</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">telefono</span> <span class="o">=</span> <span class="n">t</span>
+
+    <span class="c1"># Otro método de ejemplo
+</span>    <span class="k">def</span> <span class="nf">mostrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">nombre</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Como podemos ver, el constructor de una clase en Python se llama <code class="language-plaintext highlighter-rouge">__init__</code>. El primer parámetro que recibe (<code class="language-plaintext highlighter-rouge">self</code>) es una partícula especial que servirá para hacer referencia a cualquier elemento de la clase (atributos o métodos). De este modo, <code class="language-plaintext highlighter-rouge">self.nombre</code> hace referencia al atributo <code class="language-plaintext highlighter-rouge">nombre</code> (que no es necesario definir previamente, como en otros lenguajes). El resto de parámetros del constructor son los valores que vamos a asignar a cada atributo respectivamente: nombre (<em>n</em>), edad (<em>e</em>) y teléfono (<em>t</em>).</p>
+
+<p>Adicionalmente, podemos especificar otros métodos que podamos necesitar, como en este caso el método <code class="language-plaintext highlighter-rouge">mostrar</code> que muestra por pantalla el nombre de la persona.</p>
+
+<h3 id="11-instanciación-de-objetos">1.1. Instanciación de objetos</h3>
+
+<p>Para crear objetos de una clase, basta con usar su constructor, y para ello escribimos el nombre de la clase y le pasamos los parámetros que necesita el constructor (excluyendo el parámetro <code class="language-plaintext highlighter-rouge">self</code>, que va implícito). Así crearíamos un objeto de tipo <code class="language-plaintext highlighter-rouge">Persona</code>, y llamaríamos a su método <code class="language-plaintext highlighter-rouge">mostrar</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p1</span> <span class="o">=</span> <span class="n">Persona</span><span class="p">(</span><span class="s">"María"</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="s">"677889900"</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">.</span><span class="n">mostrar</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="12-visibilidad-pública-o-privada">1.2. Visibilidad pública o privada</h3>
+
+<p>Por defecto todos los elementos de una clase en Python tienen visibilidad pública. Eso quiere decir que, en el ejemplo anterior, podríamos acceder directamente a los atributos de la clase desde fuera de la misma:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p1</span> <span class="o">=</span> <span class="n">Persona</span><span class="p">(</span><span class="s">"María"</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="s">"677889900"</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">.</span><span class="n">edad</span> <span class="o">=</span> <span class="mi">53</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="n">telefono</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>En el caso de no querer que sea así, se deben nombrar los elementos privados anteponiéndoles el símbolo del subrayado <code class="language-plaintext highlighter-rouge">_</code>. La clase anterior quedaría así, dejando los atributos privados:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Persona</span><span class="p">:</span>
+
+    <span class="c1"># Constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_nombre</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_edad</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_telefono</span> <span class="o">=</span> <span class="n">t</span>
+
+    <span class="c1"># Otro método de ejemplo
+</span>    <span class="k">def</span> <span class="nf">mostrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_nombre</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>En este caso, convendría definir unos métodos públicos de acceso a los elementos privados; los típicos <em>getters</em> y <em>setters</em> de otros lenguajes, que en Python tienen una nomenclatura particular, ya que debemos utilizar ciertas anotaciones para especificar que ciertos métodos son <em>getters</em> o <em>setters</em>. Así, por ejemplo, definiríamos el <em>getter</em> y el <em>setter</em> para la edad en la clase anterior:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Persona</span><span class="p">:</span>
+
+    <span class="c1"># Constructor
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_nombre</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_edad</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_telefono</span> <span class="o">=</span> <span class="n">t</span>
+
+    <span class="c1"># Otro método de ejemplo
+</span>    <span class="k">def</span> <span class="nf">mostrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">_nombre</span><span class="p">)</span>
+
+    <span class="c1"># Getter
+</span>    <span class="o">@</span><span class="nb">property</span>
+    <span class="k">def</span> <span class="nf">edad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">_edad</span>
+
+    <span class="c1"># Setter
+</span>    <span class="o">@</span><span class="n">edad</span><span class="p">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">edad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">e</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">_edad</span> <span class="o">=</span> <span class="n">e</span>
+</code></pre></div></div>
+
+<p>Desde el programa principal, podemos usarlos de este modo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p1</span> <span class="o">=</span> <span class="n">Persona</span><span class="p">(</span><span class="s">"María"</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="s">"677889900"</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">.</span><span class="n">edad</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p1</span><span class="p">.</span><span class="n">edad</span><span class="p">)</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Escribe un programa en Python llamado <strong>Jugadores.py</strong> que defina una clase llamada <code class="language-plaintext highlighter-rouge">Jugador</code>, con atributos dorsal (numérico) y nombre (texto). Define el constructor para darles valor y un método que muestre la información de un jugador con el formato <code class="language-plaintext highlighter-rouge">dorsal. Nombre.</code>. Por ejemplo:  <code class="language-plaintext highlighter-rouge">16. Pau Gasol​</code>. En el programa principal, crea un par de jugadores con sus datos, y muestra su información por pantalla.​</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong>
+Escribe una nueva versión del ejercicio anterior en un programa llamado <strong>Equipos.py</strong> donde, además de la clase <code class="language-plaintext highlighter-rouge">Jugador</code> haya una segunda clase llamada <code class="language-plaintext highlighter-rouge">Equipo</code>, cuyo único atributo será el nombre del equipo (texto), junto con un constructor para darle valor​. Haz que cada jugador pueda pertenecer a un equipo añadiendo un atributo <em>Equipo</em> a la clase <em>Jugador</em>. En el programa principal, crea un jugador y un equipo, y asigna el equipo al jugador. Muestra por pantalla la información del jugador, incluyendo el equipo.​</p>
+</blockquote>
+
+<h2 id="2-herencia">2. Herencia</h2>
+
+<p>Para ilustrar el mecanismo de herencia en Python, vamos a suponer que disponemos de una clase <code class="language-plaintext highlighter-rouge">Persona</code> con un nombre y una edad como atributos (además de constructores y métodos) y de ella vamos a heredar para crear una clase <code class="language-plaintext highlighter-rouge">Programador</code>, que incorporará todos los elementos de su clase base (<code class="language-plaintext highlighter-rouge">Persona</code>) y añadirá como atributo propio el lenguaje en que programa.</p>
+
+<ul>
+  <li>Para indicar que una clase <strong>hereda de</strong> otra clase, se indica el nombre de la clase a heredar entre paréntesis, tras el nombre de la clase hija.</li>
+  <li>Para <strong>acceder desde una clase hija a los elementos de una clase padre</strong> se emplea el método <code class="language-plaintext highlighter-rouge">super()</code>. Se puede utilizar tanto en el constructor (para llamar al constructor de la clase padre y pasarle los parámetros que necesite) como desde cualquier otro método.</li>
+  <li>Para <strong>redefinir un método de la clase padre en la hija</strong> no es necesario marcarlo de ninguna forma especidal. Simplemente se vuelve a definir el método con su nuevo código (que se puede apoyar en el del padre, si lo necesita).</li>
+</ul>
+
+<p>Veamos todo esto en el ejemplo:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># Clase padre
+</span>
+<span class="k">class</span> <span class="nc">Persona</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nombre</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">edad</span> <span class="o">=</span> <span class="n">e</span>
+
+    <span class="k">def</span> <span class="nf">mostrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">nombre</span> <span class="o">+</span> <span class="s">", "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">edad</span><span class="p">)</span> <span class="o">+</span> <span class="s">" años"</span>
+
+    <span class="c1"># Otros métodos...
+</span>
+<span class="c1"># Clase hija
+</span>
+<span class="k">class</span> <span class="nc">Programador</span><span class="p">(</span><span class="n">Persona</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lenguaje</span> <span class="o">=</span> <span class="n">l</span>
+
+    <span class="k">def</span> <span class="nf">mostrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">().</span><span class="n">mostrar</span><span class="p">()</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">Programa en "</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">lenguaje</span>
+</code></pre></div></div>
+
+<h3 id="21-herencia-múltiple-en-python">2.1. Herencia múltiple en Python</h3>
+
+<p>En Python se <strong>admite herencia múltiple</strong>, de forma que una clase puede heredar de más de una clase padre. Supongamos el caso anterior, donde la clase <code class="language-plaintext highlighter-rouge">Programador</code> hereda tanto de <code class="language-plaintext highlighter-rouge">Persona</code> como de <code class="language-plaintext highlighter-rouge">Empleado</code>. De esta última clase, incorpora el nombre de la empresa donde trabaja y el salario mensual.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># Clase padre 1: Persona
+</span>
+<span class="k">class</span> <span class="nc">Persona</span> <span class="p">:</span>
+	<span class="c1"># El código es el mismo que en el ejemplo anterior
+</span>
+<span class="c1"># Clase padre 2: Empleado
+</span>
+<span class="k">class</span> <span class="nc">Empleado</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">empresa</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">salario</span> <span class="o">=</span> <span class="n">s</span>
+
+	<span class="c1"># Otros métodos...
+</span>
+<span class="c1"># Clase hija
+</span>
+<span class="k">class</span> <span class="nc">Programador</span> <span class="p">(</span><span class="n">Persona</span><span class="p">,</span> <span class="n">Empleado</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">edad</span><span class="p">,</span> <span class="n">empresa</span><span class="p">,</span> <span class="n">salario</span><span class="p">,</span> <span class="n">lenguaje</span><span class="p">):</span>
+        <span class="n">Persona</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">edad</span><span class="p">)</span>
+        <span class="n">Empleado</span><span class="p">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">empresa</span><span class="p">,</span> <span class="n">salario</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">lenguaje</span> <span class="o">=</span> <span class="n">lenguaje</span>
+
+    <span class="k">def</span> <span class="nf">mostrar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">nombre</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">Programa en "</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">lenguaje</span>
+</code></pre></div></div>
+
+<p>Notar cómo, en el constructor, se antepone el nombre de cada clase delante del método al que llamar de dicha clase. En este caso, para llamar al constructor de <code class="language-plaintext highlighter-rouge">Persona</code> o de <code class="language-plaintext highlighter-rouge">Empleado</code>, con los parámetros correspondientes.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>En un hospital hay diferentes tipos de personal: médicos, enfermeros y administrativos. De todos guardamos su información básica (dni, nombre, dirección y teléfono), de los médicos almacenamos también su especialidad, y de los enfermeros la planta en la que trabajan. ​</p>
+
+  <p>Al hospital acuden pacientes. De todos ellos se guarda un historial con su dni, nombre, dirección, teléfono, y un conjunto de pruebas y consultas que hayan hecho en el hospital. De cada prueba o consulta guardamos la fecha en que se hizo, y el médico que le atendió ​</p>
+
+  <p>Define las clases necesarias para el enunciado propuesto en un programa llamado <strong>Hospital.py</strong>. Define un programa principal que cree un array de personal de hospital con varios médicos y enfermeros. Define un paciente con sus datos, y dale de alta diversas pruebas realizadas por varios médicos. Finalmente, trata de mostrar por pantalla los datos completos del paciente, incluyendo su historial de pruebas.​</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

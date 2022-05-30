@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>JavaFX application development</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## JavaFX application development
+### Basic JavaFX elements
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Stages and scenes
+
+- A **stage** is the main element of an application, which contains the rest of components
+   - The main window in systems such as Linux, Windows or MacOSX
+- A **scene** is a set of elements that conform a "slide" of the application.
+   - An application can have multiple scenes
+   - Every scene must be associated to a stage that shows it
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Stage class
+
+- **setTitle(String)**: sets the application title (upper bar of the window)
+- **setScene(Scene)**: sets current application scene
+- **show**: makes the application (stage) visible, and keeps on running next instructions
+- **showAndWait**: makes the application (stage) visible, and waits until it is closed before going on.
+- Others (set min/max width/height, maximize...)
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Scene class
+
+- The initial one is loaded in the **start** method
+- We can define multiple scenes and choose them in different moments
+
+```java
+FXMLLoader fxmlLoader = 
+    new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+stage.setScene(scene);
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## JavaFX containers
+
+- They contain other elements (controls and other containers)
+- Also known as *layout managers*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Containers: HBox and VBox
+
+<div align="center">
+    <img src="../../../img/13_hboxvbox.png" width="50%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Containers: FlowPane
+
+<div align="center">
+    <img src="../../../img/13_flowpane.png" width="50%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Containers: BorderPane
+
+<div align="center">
+    <img src="../../../img/13_borderpane1.png" width="40%" />
+    &nbsp;
+    <img src="../../../img/13_borderpane2.png" width="20%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Containers: AnchorPane
+
+<div align="center">
+    <img src="../../../img/13_anchorpane.png" width="90%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## JavaFX controls
+
+- Typical components of most desktop applications
+- Examples: buttons, labels, text fields, dropdown lists... 
+- We must assign an *fx:id* to some of them to use them in the code
+- We just drag and drop them inside a previous container
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Some typical controls
+
+- **Buttons**: `Button` class. Method **getText**
+- **Labels**: `Label` class. Methods **getText** and **setText** 
+- **RadioButtons**: must be assigned to a *ToggleGroup* to work as a group
+- **Checkboxes**: methods **isSelected** and **setSelected**
+- **Text fields**: single line (`TextField`) or multiple line (`TextArea`). Methods **getText** and **setText**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lists
+
+- **Fixed size**: `ListView` class. Method **getSelectionModel().getSelectedIndex()** among others
+- **Dropdown lists**: `ComboBox` or `ChoiceBox` class. Method **getValue** apart from `ListView` methods
+- We often use **ObservableList** objects to populate these lists
+- Recommended to use generics when defining these variables in the code
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lists
+
+```java
+list.setItems(
+    FXCollections.observableArrayList(
+        "Windows", "Linux", "Mac OS X"));
+...
+String element = myList.getSelectionModel().getSelectedItem();
+```
+
+We need to OVERRIDE **toString** method in complex objects
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Menus
+
+Inside *Menu* category in the upper left section
+
+- **MenuBar**: defines the bar where all menus will be placed
+- **Menu**: categories for the menu items
+- **MenuItem**: each item of our menus
+   - Subtypes: `CheckMenuItem`, `RadioMenuItem`, `SeparatorMenuItem`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Synchronizing controller class
+
+- The main container of our FXML file must point to the associated controller class
+- We must add it manually if we change the default root container
+
+```xml
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="example.myfirstjavafxproject.HelloController">
+    ...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Adding controls to controller class
+
+In order to add some control(s) to the controller we must:
+
+1. Assign an *fx:id* to these controls
+2. Add them from the FXML file to the controller (yellow bulb)
+3. Mark them as private in the controller
+4. Add `@FXML` annotation from the FXML file (red bulb)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Settig the FX id
+
+<div align="center">
+    <img src="../../../img/13_scenebuilder_fxid.png" width="50%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Add control to controller
+
+<div align="center">
+    <img src="../../../img/13_scenebuilder_fxid2.png" width="30%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Add FXML annotation
+
+Previously, we must mark the attribute as private in the controller
+
+<div align="center">
+    <img src="../../../img/13_intellij_annotate_fxml.png" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Initializing components
+
+- Make de controller implement **Initializable** interface
+- Define **initialize** method
+
+```java
+public class HomeController implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Renaming components
+
+Right click on the file to rename and change its name. Be careful with:
+
+- The FXML file name referenced in **start** method of the main class
+- The controller class referenced in the FXML file
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 1** of the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 2** of the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Events
+
+- Something that happens in our application
+   - Click the mouse, press a key... 
+- An **event handler** is a method that responds to a given event by executing some instructions
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Event types
+
+- **ActionEvent**: typically when user clicks on a button or menu item
+- **KeyEvent**: user presses or releases a key
+- **MouseEvent**: user does something with the mouse (click, move...)
+- **WindowEvent**: status of window changes (maximized, minimized, closed...)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Event handlers in Scene Builder
+
+Through *Code* tab on the right
+
+<div align="center">
+    <img src="../../../img/13_scenebuilder_events.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Event handlers in Scene Builder
+
+A new method is added to FXML file and we can add it to controller
+
+```java
+private void handleButton(ActionEvent event) {
+    // Code
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Events by code
+
+Action over a button 
+
+```java
+@Override
+public void initialize(URL url, ResourceBundle rb) {
+    ...
+    button.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            // Code
+        }
+    });
+} 
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Events by code
+
+Event over a list to detect selection change 
+
+```java
+listView.getSelectionModel().selectedItemProperty().addListener(
+    new ChangeListener<String>() {
+        @Override
+        public void changed(ObservableValue<? extends String> obs, 
+                            String oldValue, String newValue) {
+            // "newValue" contains the new selected item
+            // and "oldValue" the previously selected one
+        }
+    }
+);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 3** of the document associated to these slides. There's a video to follow and complete a simple calculator implemented with JavaFX.
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+You can practice with more **exercises from 4 to 6** from the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Dialogs
+
+- **Alert** class from JavaFX 8 lets us show *popup* dialogs with error or information messages, among others
+- Inside **AlertType** enum we can see the different types of dialogs available:
+   - ERROR, WARNING, INFORMATION, CONFIRMATION
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Alert example
+
+```java
+Alert dialog = new Alert(AlertType.ERROR);
+dialog.setTitle("Error");
+dialog.setHeaderText("Error loading data");
+dialog.setContentText("File 'data.txt' not found");
+dialog.showAndWait();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Alert result
+
+<div align="center">
+    <img src="../../../img/13_alert.png" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## File choosing dialogs
+
+```java
+FileChooser fileChooser = new FileChooser();
+fileChooser.setTitle("Open Resource File");
+File selectedFile = fileChooser.showOpenDialog(stage);
+```
+
+Also **showSaveDialog** is available for saving
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+You can practice with **exercises 7 and 8** from the document associated to these slides
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Introduction to software testing</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software testing
+### Introduction to software testing
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software testing
+
+- One of the stages in the software development process
+- Really important (watch [this video](https://www.youtube.com/watch?v=TDynSmrzpXw&list=PLDC2A0C8D2EC934C7))
+- They consist in the dynamic verification of the behavior of a program, with a properly selected set of test cases
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Testing targets
+
+* Detect software failures or bugs, and make sure that every previously detected bug has been fixed.
+* Verify the appropriate integration of the components.
+* Verify that every requirement has been implemented.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Testing principles
+
+* Test can help us find bugs, but not their absence.
+* The most difficult part is to decide when to stop.
+* Try to avoid test cases that are not previously planned, not reusable and/or trivial
+* Test cases must be written for both valid and not valid or unexpected input.
+* The more bugs we have detected with our test cases, the more bugs are waiting for us.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Stages in software testing
+
+1. Select what the test must detect, its main target.
+2. Decide which kind of test is going to be performed and what kind of elements do we need to do it.
+3. Implement the test cases. 
+4. Determine the expected results of the test cases 
+5. Run the test cases 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evaluating the results
+
+- Compare actual results with expected results
+- If there is any difference, the test process has failed, due to:
+   - Errors in tests themselves
+   - Errors in the part of the program that is being tested
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Test types
+
+From lower to higher level
+
+1. Unit tests
+2. Integration tests
+3. Acceptance or validation tests
+4. System tests
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Unit tests
+
+- Check the appropriate behavior of one code unit
+   - A class in object oriented programming
+   - A set of functions in non object oriented languages
+- Run by the development team
+- They must be automatable, complete, repeatable and independent from other unit tests
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Integration tests (1/2)
+
+- Test the interface or connection among many units (or all of them)
+- *Regression tests*: test a component whenever it's modified, since changes may affect other components
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Integration tests (2/2)
+
+- Techniques:
+    - *Big bang*: integrate everything at once (not recommended, unless the project is too simple)
+    - *Top down*: components are tested from top to down. Connections are tested before bottom components
+    - *Bottom up*: bottom componentes are firstly implemented and tested, and then we test upper components
+    - *Combined*: combines *top down* and *bottom up* techniques
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## CI/CD
+
+- Continuous Integration / Continuous Deployment
+- If all the tests have been passed, then the application is automatically deployed on its target environment
+   - If deployment is manual, it's called *Continuous Delivery*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Acceptance or validation tests
+
+- Check if every user requirement has been satisfied
+- Run by the development team along with the final user or customer
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## System tests
+
+- Check if application deployment in user dependencies is successful
+- Run by the development team along with the final user or customer
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Test cases
+
+*A set of input values, execution preconditions, expected results and execution postconditions, developed for a particular objective or test condition, such as to exercise a particular program path or to verify compliance with a specific requirement*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Test cases
+
+For every test case, we must include the following information
+
+* **Identifier**: to identify each test case
+* **Name**: a descriptive (meaningful) name.
+* **Preconditions**: what needs to be ready before starting the test (input file, results of other test cases...)
+* **Steps**: interaction with the user (user input)
+* **Test data**: concrete values to be used in the test case
+* **Expected result**: what the test must produce or output
+* **Actual result**: result that we actually get 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Test cases
+
+Example: user login
+
+|ID|Name|Preconditions|Steps|Data|Expected result|Actual result|
+|----|------|--------------|-----|----|------------------|--------------|
+|U1|ValidInput1|User **pepe** exists with password 1234|Type user and password|pepe 1234|OK||
+|U2|UserNotValid|User **pepito** does not exist|Type user and password|pepito 1234|error||
+|U3|PasswordNotValid|User **pepe** exists with password different than 4567|Type user and password|pepe 4567|error||
+|...|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Design test cases to check the behavior of a function that returns a boolean indicating if the number specified as a parameter is even or not.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

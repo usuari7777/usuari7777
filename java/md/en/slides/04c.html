@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Exception management</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Functions and error handling
+### Exception management
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exceptions
+
+- Event that happens during the execution of a program and makes it exit from its normal instruction flow
+- We can deal with this error separating the "normal" code from the error management
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exception types
+
+Errors in an application can be:
+
+- **Errors**: fatal errors from which application can't recover (memory errors, hardware failures...)
+- **Exceptions**: non-critical errors that can be managed
+   - **Runtime exceptions**: difficult to predict, don't need to be catched. Examples: null assignments, array index out of bounds...
+   - **Checked exceptions**: need to be catched. Examples: files not found, thread management...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exception management
+
+- **Catching exceptions**: exception is "destroyed" and we can show a controlled, customized error message instead
+- **Throwing exceptions**: we delegate in another piece of code the exception handling
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Catching exceptions
+
+- Surround code that may fail in a **try** clause
+- Define one or more **catch** clauses to catch the possible exception(s) and their corresponding error messages
+- We can use *getMessage* function from the exception produced
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Catching a single exception
+
+```Java
+int number;
+string text = ... // Whatever value
+
+try
+{
+    number = Integer.parseInt(text);
+} catch (NumberFormatException e) {
+    System.err.println("Error parsing text: " + e.getMessage());
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exception subtypes
+
+- Every exception produced in a program is a subtype of **Exception** main type
+- We can catch the specific subtype of exception or just catch the generic *Exception* instead
+
+```Java
+try
+{
+    ...
+} catch (Exception e) {
+    System.err.println("Error: " + e.getMessage());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Catching many possible exceptions
+
+- Useful if we want to produce different error messages in each case
+- Must be placed from less general to more general
+
+```Java
+try
+{
+    // Code that may fail
+} catch (NumberFormatException e1) {
+    // Error message for number format
+} catch (ArithmeticException e2) {
+    // Error message for dividing by zero
+...
+} catch (Exception eN) {
+    // Error message for any other error
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Throwing exceptions
+
+- We produce or propagate an error to be managed in another part of the code
+
+```java
+public static int divide (int n1, int n2)
+{
+    if (n2 == 0)
+        throw new ArithmeticException("Can't divide by zero");
+    else
+        return n1 / n2;
+}
+
+public static void anotherFunction()
+{
+    int number1, number2;
+
+    // ... Ask user to fill number1 and number2
+
+    try
+    {
+        int result = divide(number1, number2);
+    }
+    catch (ArithmeticException e)
+    {
+        System.err.println("Error: " + e.getMessage());
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## The *throws* clause
+
+- Used in the function header when the exception produced is a *checked* exception, such as *InterruptedException*
+
+```java
+public static void a() throws InterruptedException
+{
+    throw new InterruptedException ("Exception in a");
+}
+
+public static void b() throws InterruptedException
+{
+    a();
+}
+
+public static void c() throws InterruptedException
+{
+    b();
+}
+
+public static void d() throws InterruptedException
+{
+    c();
+}
+
+public static void main(String[] args)
+{
+    try
+    {
+        d();
+    } catch (InterruptedException e) {
+        System.err.println("Exception: " + e.getMessage());
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Throwing multiple exceptions in a function
+
+- Separate possible exceptions with commas in the *throws* clause
+
+```java
+public static void multipleExceptionsFunction()
+throws IOException, InterruptedException
+{
+    ...
+    if (...)
+        throw new IOException("IOException produced");
+    ...
+    if (...)
+        throw new InterruptedException("Interrupted!!");
+}
+
+...
+
+public static void anotherFunction()
+{
+    try
+    {
+        multipleExceptionsFunction();
+    } catch (IOException e1) {
+        System.err.println(...);
+    } catch (InterruptedException e2) {
+        System.err.println(...);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do **Exercises 1 and 2** to practice with exception handling
+
+</script>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

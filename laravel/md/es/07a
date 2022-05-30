@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Autenticación basada en sesiones | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Autenticación basada en sesiones" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/07a.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Autenticación basada en sesiones" />
+<script type="application/ld+json">
+{"headline":"Autenticación basada en sesiones","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/07a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="autenticación-basada-en-sesiones">Autenticación basada en sesiones</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/07a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="07a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>A la hora de añadir autenticación de usuarios en nuestras aplicaciones Laravel, debemos tener en cuenta que existen dos posibles escenarios:</p>
+
+<ul>
+  <li>Estamos trabajando sobre un proyecto ya existente que no dispone de autenticación</li>
+  <li>Estamos creando un nuevo proyecto en el que vamos a definir la autenticación desde el inicio</li>
+</ul>
+
+<p>En el primer caso, deberemos implementar una autenticación más o menos “manual”, aunque muy sencilla. En el segundo caso, podemos especificar unas opciones al crear el proyecto que nos facilitarán mucho la incorporación del <em>login</em>, e incluso del registro de nuevos usuarios. Veremos cada caso por separado en esta sesión.</p>
+
+<h2 id="1-configuración-general-de-la-autenticación">1. Configuración general de la autenticación</h2>
+
+<p>En el archivo <code class="language-plaintext highlighter-rouge">config/auth.php</code> se dispone de algunas opciones de configuración generales de autenticación. Esta autenticación en Laravel se apoya en dos elementos: los <em>guards</em> y los <em>providers</em>.</p>
+
+<ul>
+  <li>Los <strong><em>guards</em></strong> son mecanismos que definen cómo se van a autenticar los usuarios para cada petición. El mecanismo más habitual es mediante sesiones, donde se guarda la información del usuario autenticado en la sesión, aunque por defecto también se habilita la autenticación mediante tokens.</li>
+  <li>Los <strong><em>providers</em></strong> indican cómo se van a obtener los usuarios de la base de datos para comprobar la autenticación. Las opciones habilitadas por defecto son mediante Eloquent (y el modelo de usuarios que tengamos definido), o mediante <em>query builder</em>, consultando directamente la tabla correspondiente de usuarios.</li>
+</ul>
+
+<p>Deberemos modificar en el archivo la referencia a la tabla donde almacenaremos los usuarios (por defecto se hace referencia a una tabla llamada <code class="language-plaintext highlighter-rouge">users</code>) y/o al modelo asociado (por defecto, la clase <code class="language-plaintext highlighter-rouge">User</code>). Así que convendrá modificar los nombres de estos dos elementos en la sección <code class="language-plaintext highlighter-rouge">providers</code>, así como la ubicación (<em>namespace</em>) del modelo de usuario, si procede. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="mf">...</span>
+
+<span class="s1">'providers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'users'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="s1">'eloquent'</span><span class="p">,</span>
+        <span class="s1">'model'</span> <span class="o">=&gt;</span> <span class="nc">App\Models\Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">,</span>
+    <span class="p">],</span>
+
+    <span class="c1">// 'users' =&gt; [</span>
+    <span class="c1">//     'driver' =&gt; 'database',</span>
+    <span class="c1">//     'table' =&gt; 'usuarios',</span>
+    <span class="c1">// ],</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<p>Notar que la sección <code class="language-plaintext highlighter-rouge">providers</code> dispone de dos proveedores de autenticación: uno (el que está habilitado) está basado en Eloquent, y hace uso del modelo de usuarios que hayamos definido. El otro (que aparece comentado) no utiliza Eloquent, sino del <em>query builder</em> contra la propia base de datos. Si preferimos esta segunda opción, deberemos comentar la primera y dejar habilitada la segunda. También es posible dejar habilitados múltiples <em>providers</em>, cada uno con un nombre diferente, y asignarlo a múltiples <em>guards</em>.</p>
+
+<h3 id="11-el-modelo-o-la-tabla-de-usuarios">1.1. El modelo o la tabla de usuarios</h3>
+
+<p>Si elegimos el <em>provider</em> basado en Eloquent, deberemos tener un modelo de usuarios al que acceder. En el caso de nuestra aplicación de biblioteca (o el ejercicio del blog), disponemos ya de un modelo creado en <code class="language-plaintext highlighter-rouge">App\Models\Usuario</code>, por lo que el ejemplo anterior nos serviría para establecer este modelo como el modelo de usuarios por defecto.</p>
+
+<p>Si optamos por utilizar el <em>query builder</em> en lugar de Eloquent, deberemos tener una tabla en la base de datos donde estén los datos de los usuarios. En nuestro caso, también disponemos de esa tabla <em>usuarios</em>, por lo que podríamos emplear esta otra opción para autenticar usuarios si quisiéramos. No obstante, nos valdremos de Eloquent para la autenticación.</p>
+
+<p>En cualquier caso, como veremos a continuación, será conveniente que los passwords de los usuarios estén <strong>encriptados</strong> mediante <em>bcrypt</em>, que es el mecanismo de encriptación por defecto que utiliza Laravel. Vamos a crear un nuevo <em>seeder</em> en nuestra aplicación de <em>biblioteca</em> para crear un usuario con un login y password predefinidos. Llamamos al <em>seeder</em> <code class="language-plaintext highlighter-rouge">UsuariosSeeder</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:seeder UsuariosSeeder
+</code></pre></div></div>
+
+<p>En el método <code class="language-plaintext highlighter-rouge">run</code> del nuevo <em>seeder</em> añadiremos un nuevo usuario con login <em>admin</em> y password <em>admin</em> (encriptado usando <em>bcrypt</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$usuario</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Usuario</span><span class="p">();</span>
+    <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">login</span> <span class="o">=</span> <span class="s1">'admin'</span><span class="p">;</span>
+    <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">password</span> <span class="o">=</span> <span class="nf">bcrypt</span><span class="p">(</span><span class="s1">'admin'</span><span class="p">);</span>
+    <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finalmente, cargamos este nuevo <em>seeder</em> en la base de datos, o bien con una migración completa nueva (<code class="language-plaintext highlighter-rouge">php artisan migrate:fresh --seed</code>), o bien ejecutando sólo el seeder con esto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan db:seed --class=UsuariosSeeder
+</code></pre></div></div>
+
+<h2 id="2-añadir-autenticación-a-un-proyecto-existente">2. Añadir autenticación a un proyecto existente</h2>
+
+<p>Para añadir autenticación a un proyecto Laravel ya existente que no disponga de estos mecanismos, seguiremos estos pasos:</p>
+
+<ol>
+  <li>Definiremos un formulario de login</li>
+  <li>Definiremos un nuevo controlador que se encargue de gestionar el login: tanto de mostrar el formulario cuando el usuario no esté autenticado como de validar sus credenciales cuando las envíe</li>
+  <li>Añadiremos las rutas pertinentes en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code> tanto para el formulario de login como para la autenticación posterior</li>
+  <li>Protegeremos las rutas que sean de acceso restringido</li>
+  <li>Opcionalmente, podemos añadir también una opción de <em>logout</em>.</li>
+</ol>
+
+<h3 id="21-el-formulario-de-login">2.1. El formulario de login</h3>
+
+<p>Vamos a definir un formulario de login en la vista <code class="language-plaintext highlighter-rouge">resources/views/auth/login.blade.php</code>, para que el usuario especifique su <em>login</em> y su <em>password</em>. También dejaremos una zona para mostrar un posible mensaje de error si la autenticación no ha sido exitosa:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">extends</span><span class="p">(</span><span class="s1">'plantilla'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'Login'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'contenido'</span><span class="p">)</span>
+
+    <span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Login</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+
+    <span class="o">@</span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">empty</span><span class="p">(</span><span class="nv">$error</span><span class="p">))</span>
+    <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">"text-danger"</span><span class="o">&gt;</span>
+        <span class="p">{{</span> <span class="nv">$error</span> <span class="p">}}</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="k">endif</span>
+
+    <span class="o">&lt;</span><span class="n">form</span> <span class="n">action</span><span class="o">=</span><span class="s2">"{{ route('login') }}"</span> <span class="n">method</span><span class="o">=</span><span class="s2">"POST"</span><span class="o">&gt;</span>
+
+        <span class="o">@</span><span class="n">csrf</span>
+
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">"form-group"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">label</span> <span class="k">for</span><span class="o">=</span><span class="s2">"login"</span><span class="o">&gt;</span><span class="nc">Login</span><span class="o">:&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">"text"</span> <span class="n">class</span><span class="o">=</span><span class="s2">"form-control"</span> 
+             <span class="n">name</span><span class="o">=</span><span class="s2">"login"</span> <span class="n">id</span><span class="o">=</span><span class="s2">"login"</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">div</span> <span class="n">class</span><span class="o">=</span><span class="s2">"form-group"</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">label</span> <span class="k">for</span><span class="o">=</span><span class="s2">"password"</span><span class="o">&gt;</span><span class="nc">Password</span><span class="o">:&lt;/</span><span class="n">label</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">"password"</span> <span class="n">class</span><span class="o">=</span><span class="s2">"form-control"</span> 
+             <span class="n">name</span><span class="o">=</span><span class="s2">"password"</span> <span class="n">id</span><span class="o">=</span><span class="s2">"password"</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s2">"submit"</span> <span class="n">name</span><span class="o">=</span><span class="s2">"enviar"</span> <span class="n">value</span><span class="o">=</span><span class="s2">"Enviar"</span> 
+         <span class="n">class</span><span class="o">=</span><span class="s2">"btn btn-dark btn-block"</span><span class="o">&gt;</span>
+
+    <span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+
+<span class="o">@</span><span class="n">endsection</span>
+</code></pre></div></div>
+<!---->
+
+<h3 id="22-el-controlador-de-login">2.2. El controlador de login</h3>
+
+<p>Crearemos un nuevo controlador que se encargue de gestionar toda la autenticación:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller LoginController
+</code></pre></div></div>
+
+<p>Dentro, definimos una función que se encargará de mostrar el formulario anterior:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">loginForm</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'auth.login'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y añadiremos una segunda función que se encargue de validar las credenciales enviadas por el usuario. Para esto, haremos uso del <em>facade</em> de autenticación, existente en <code class="language-plaintext highlighter-rouge">Illuminate\Support\Facades\Auth</code>. Recuerda de sesiones previas que un <em>facade</em> es básicamente un elemento que proporciona acceso a una serie de métodos estáticos de utilidad, en este caso para autenticar usuarios.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Auth</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">LoginController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">login</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$credenciales</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">only</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nc">Auth</span><span class="o">::</span><span class="nf">attempt</span><span class="p">(</span><span class="nv">$credenciales</span><span class="p">))</span> 
+        <span class="p">{</span>
+            <span class="c1">// Autenticación exitosa</span>
+            <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">intended</span><span class="p">(</span><span class="nf">route</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nv">$error</span> <span class="o">=</span> <span class="s1">'Usuario incorrecto'</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'auth.login'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'error'</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El método <code class="language-plaintext highlighter-rouge">attempt</code> acepta una serie de pares <em>clave-valor</em> como primer parámetro. En este caso, le pasamos un sólo par formado por el login (o el e-mail, dependiendo del campo que usemos para autenticar) y el password recibidos en la petición. Esto servirá para localizar al usuario por la clave (login), y comprobar si tiene el valor asociado (el password). En el caso de los passwords, Laravel automáticamente los encripta en formato <em>bcrypt</em>, por lo que debemos cerciorarnos de que el password está encriptado en ese formato en la base de datos.</p>
+
+<p>Por otra parte, el método <code class="language-plaintext highlighter-rouge">intended</code> trata de enviar al usuario a la ruta a la que intentaba acceder antes de que se le solicitara autenticación. Le pasamos como parámetro una ruta por defecto en el caso de que el destino previsto no esté disponible.</p>
+
+<h3 id="23-las-rutas-asociadas">2.3. Las rutas asociadas</h3>
+
+<p>Finalmente, debemos definir las rutas tanto para mostrar el formulario (por <em>get</em>) como para recoger las credenciales y validar al usuario (por <em>post</em>).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LoginController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'loginForm'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'login'</span><span class="p">);</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LoginController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'login'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h4 id="231-redirección-en-caso-de-error">2.3.1. Redirección en caso de error</h4>
+
+<p>Cuando se detecta que un usuario no autenticado intenta acceder a una ruta protegida, automáticamente se le redirige a la ruta nombrada como <em>login</em> (como la que hemos definido previamente), donde verá el formulario de acceso. Si queremos cambiar el nombre de la ruta a la que redirigir (en el caso de que no queramos que sea <em>login</em>), debemos modificar el método <code class="language-plaintext highlighter-rouge">redirectTo</code> en el <em>middleware</em> de autenticación <code class="language-plaintext highlighter-rouge">app/Http/Middleware/Authenticate.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="k">function</span> <span class="n">redirectTo</span><span class="p">(</span><span class="nv">$request</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">return</span> <span class="nf">route</span><span class="p">(</span><span class="s1">'login'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="24-proteger-las-rutas-de-acceso-restringido">2.4. Proteger las rutas de acceso restringido</h3>
+
+<p>Ahora que ya tenemos definido el mecanismo de login (controlador con método de autenticación, formulario de login y ruta asociada), podemos proteger aquellas rutas o enlaces que queramos que sean de acceso restringido. Por ejemplo, podemos hacer que las operaciones de creación, borrado y edición de libros (funciones <code class="language-plaintext highlighter-rouge">create</code>, <code class="language-plaintext highlighter-rouge">store</code>, <code class="language-plaintext highlighter-rouge">edit</code>, <code class="language-plaintext highlighter-rouge">update</code> y <code class="language-plaintext highlighter-rouge">destroy</code>) sólo estén disponibles para usuarios autenticados. Esto puede hacerse de varias formas.</p>
+
+<ul>
+  <li>Si tenemos una ruta de recursos (<code class="language-plaintext highlighter-rouge">Route::resource</code>) en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code>, entonces la opción más cómoda es definir un constructor en el controlador asociado (en este caso, <code class="language-plaintext highlighter-rouge">LibroController</code>), y especificar qué funciones queremos proteger, bien con <code class="language-plaintext highlighter-rouge">only</code> o con <code class="language-plaintext highlighter-rouge">except</code> (en este último caso, se protegerán todas las rutas salvo las indicadas en la lista):</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">LibroController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth'</span><span class="p">,</span> 
+            <span class="p">[</span><span class="s1">'only'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'create'</span><span class="p">,</span> <span class="s1">'store'</span><span class="p">,</span> <span class="s1">'edit'</span><span class="p">,</span> <span class="s1">'update'</span><span class="p">,</span> <span class="s1">'destroy'</span><span class="p">]]);</span>
+    <span class="p">}</span>
+
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Si definimos las rutas sueltas, podemos emplear el método <code class="language-plaintext highlighter-rouge">middleware</code> para indicar en cada una si queremos que se aplique el <em>middleware</em> de autenticación:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="p">[</span><span class="nc">PruebaController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'create'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="25-detectar-en-las-vistas-al-usuario-autenticado">2.5. Detectar en las vistas al usuario autenticado</h3>
+
+<p>Puede ser muy necesario detectar en una vista si el usuario se ha autenticado o no, bien para mostrar ciertos controles (por ejemplo, enlaces para crear libros), o para cargar información propia del usuario (por ejemplo, posts creados por el usuario que ha entrado en un blog).</p>
+
+<p>Por ejemplo, de este modo podemos modificar el menú de navegación (<code class="language-plaintext highlighter-rouge">resources/views/partials/nav.blade.php</code>) para que muestre el enlace de crear nuevo libro sólo si el usuario se ha autenticado:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">if</span><span class="p">(</span><span class="nf">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">check</span><span class="p">())</span>
+    <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">"{{ setActivo('libros.create') }} nav-item"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">"nav-link"</span> <span class="n">href</span><span class="o">=</span><span class="s2">"{{ route('libros.create') }}"</span><span class="o">&gt;</span><span class="nc">Nuevo</span> <span class="n">libro</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="k">endif</span>
+</code></pre></div></div>
+<!---->
+
+<p>Podemos emplear el método <code class="language-plaintext highlighter-rouge">auth()-&gt;guest()</code> si queremos comprobar si el usuario aún NO se ha autenticado (por ejemplo, para mostrarle el enlace a <em>login</em>), y el método <code class="language-plaintext highlighter-rouge">auth()-&gt;check()</code> para comprobar si SI está autenticado (para mostrarle, por ejemplo, las opciones restringidas). De forma análoga, el método <code class="language-plaintext highlighter-rouge">auth()-&gt;user()</code> obtiene el objeto del usuario autenticado, con lo que podemos acceder a sus atributos:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Bienvenido</span><span class="o">/</span><span class="n">a</span> <span class="p">{{</span> <span class="nf">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">login</span> <span class="p">}}</span>
+</code></pre></div></div>
+<!---->
+
+<h3 id="26-implementación-del-logout">2.6. Implementación del <em>logout</em></h3>
+
+<p>Para implementar el <em>logout</em>, basta con llamar al método <code class="language-plaintext highlighter-rouge">logout</code> del <em>facade</em> <code class="language-plaintext highlighter-rouge">Auth</code> utilizado anteriormente, en el método que se vaya a encargar de esa tarea. Lo podemos añadir en el mismo controlador anterior:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">App\Http\Controllers</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Auth</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">LoginController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">logout</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nc">Auth</span><span class="o">::</span><span class="nf">logout</span><span class="p">();</span>
+        <span class="c1">// ... Renderizar la vista deseada</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>También hará falta definir la ruta asociada en <code class="language-plaintext highlighter-rouge">routes/web.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'logout'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LoginController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'logout'</span><span class="p">])</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'logout'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Obviamente, también será necesario añadir un enlace para hacer <em>logout</em> en alguna parte. Podemos ponerlo en el menú de navegación (archivo <code class="language-plaintext highlighter-rouge">resources/views/partials/nav.blade.php</code>, cuando detectemos que el usuario está autenticado):</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">if</span><span class="p">(</span><span class="nf">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">check</span><span class="p">())</span>
+    <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">"{{ setActivo('libros.create') }} nav-item"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">"nav-link"</span> <span class="n">href</span><span class="o">=</span><span class="s2">"{{ route('libros.create') }}"</span><span class="o">&gt;</span><span class="nc">Nuevo</span> <span class="n">libro</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">li</span> <span class="n">class</span><span class="o">=</span><span class="s2">"nav-item"</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">class</span><span class="o">=</span><span class="s2">"nav-link"</span> <span class="n">href</span><span class="o">=</span><span class="s2">"{{ route('logout') }}"</span><span class="o">&gt;</span><span class="nc">Logout</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="k">endif</span>
+</code></pre></div></div>
+<!---->
+
+<h2 id="3-crear-un-proyecto-desde-cero-con-autenticación-incorporada">3. Crear un proyecto desde cero con autenticación incorporada</h2>
+
+<p>Laravel también ofrece la opción de crear un proyecto desde cero incorporando mecanismos de autenticación de usuarios desde el principio. Esta opción ha variado con el paso de las versiones de Laravel, pero básicamente se conserva una misma esencia: cuando creamos el proyecto, podemos dejar ya establecido el modelo de usuarios, y mecanismos para registrar y autenticar usuarios en la aplicación.</p>
+
+<h3 id="31-creación-de-proyectos-con-laravel-8">3.1. Creación de proyectos con Laravel 8</h3>
+
+<p>Para crear un proyecto con esta infraestructura ya definida ejecutamos el comando <code class="language-plaintext highlighter-rouge">laravel new</code> con la opción <code class="language-plaintext highlighter-rouge">--jet</code> en Laravel 8.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel new nombre_proyecto --jet
+</code></pre></div></div>
+
+<p>Tras ejecutar el comando, nos pedirá que elijamos entre <em>Livewire</em> o <em>Inertia</em> como nuestro <em>JetStream stack</em>, o en otras palabras, la tecnología que se va a encargar de generar la parte de <em>frontend</em>. <strong>Livewire</strong> está basado en el propio motor de plantillas de Blade, y generará en la carpeta <em>resources/views</em> una serie de plantillas para formularios de registro, login, etc.</p>
+
+<div align="center">
+    <img src="../../img/07_auth_scaffolding.png" width="30%" />
+</div>
+
+<p>Una vez creado el proyecto con Livewire, deberemos ejecutar este comando desde su carpeta principal para instalar los componentes restantes de la parte de JavaScript:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install
+npm ci
+npm run dev
+</code></pre></div></div>
+
+<p>Por otra parte, <strong>Inertia</strong> está basado en el framework de cliente Vue. La gestión de plantillas la controla el propio Vue y las plantillas o componentes no se ubican en <em>resources/views</em> sino en <em>resources/js/jetstream</em>, donde podremos encontrar una serie de componentes de Vue para la autenticación y gestión de usuarios. La carpeta <em>resources/views</em> tendrá el aspecto habitual de otros proyectos (una plantilla de bienvenida, que en este caso se llama <em>app.blade.php</em>).</p>
+
+<h3 id="32-creación-de-proyectos-con-versiones-anteriores-de-laravel">3.2. Creación de proyectos con versiones anteriores de Laravel</h3>
+
+<p>En el caso de tener alguna versión anterior del instalador <em>laravel</em>, podemos obtener un resultado similar con el comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel new nombre_proyecto --auth
+</code></pre></div></div>
+
+<p>Se obtiene un resultado similar al explicado para Livewire con Laravel 8, aunque en este caso empleando el <em>scaffolding</em> estándar de autenticación de esta versión. Una de las principales diferencias entre ambas versiones es que en Laravel 7 se emplea Bootstrap para la apariencia o el diseño web, y en Laravel 8 se emplea Tailwind.</p>
+
+<h3 id="33-puesta-en-marcha-y-prueba-de-la-aplicación">3.3. Puesta en marcha y prueba de la aplicación</h3>
+
+<p>Si probamos a lanzar la aplicación y accedemos a su página de inicio (<em>http://localhost:8000</em> si la hemos lanzado con <em>php artisan serve</em>), veremos en la esquina superior derecha enlaces para registrarnos y acceder al formulario de login. El formulario de <em>login</em> tendrá una apariencia como ésta en Laravel 8:</p>
+
+<div align="center">
+    <img src="../../img/07_home_auth.png" width="80%" />
+</div>
+
+<p>Evidentemente, antes de poder hacer nada necesitamos tener una base de datos creada. Recuerda crearla y modificar los datos de conexión en el archivo <code class="language-plaintext highlighter-rouge">.env</code> de tu proyecto, y también ejecutar las migraciones predefinidas en el proyecto con <code class="language-plaintext highlighter-rouge">php artisan migrate:fresh</code>.</p>
+
+<h3 id="34-cambiar-el-idioma">3.4. Cambiar el idioma</h3>
+
+<p>Uno de los inconvenientes que tenemos al utilizar este <em>scaffolding</em> es que todos los enlaces y campos de formularios que se han creado vienen con textos en inglés. Podemos añadir mensajes en otros idiomas con dos pasos sencillos:</p>
+
+<ul>
+  <li>Por un lado, debemos modificar la región (<em>locale</em>) por defecto definida en el archivo <code class="language-plaintext highlighter-rouge">config/app.php</code>. Así la dejaríamos para fijar el idioma en español:</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'locale'</span> <span class="o">=&gt;</span> <span class="s1">'es'</span><span class="p">,</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Por otro lado, debemos descargar el paquete de ficheros en el idioma correspondiente, y ubicarlo en la subcarpeta adecuada dentro de <code class="language-plaintext highlighter-rouge">resources/lang</code>. En nuestro caso, podemos por ejemplo copiar los archivos de <a href="https://github.com/Laraveles/spanish/tree/master/resources/lang">esta carpeta</a> en la subcarpeta <code class="language-plaintext highlighter-rouge">resources/lang</code> de nuestro proyecto, de forma que el archivo <code class="language-plaintext highlighter-rouge">es.json</code> quedará en esa carpeta, y además se creará una subcarpeta <code class="language-plaintext highlighter-rouge">es</code> con el contenido de los archivos que hay en ese repositorio. Si les echamos un vistazo, podemos ver que contienen las traducciones al español de distintos mensajes de distintas secciones de la web.</li>
+</ul>
+
+<p>Con esto ya podremos ver los contenidos de la web en español. Esta “magia” se debe a que en las vistas que hemos cargado, los mensajes se obtienen directamente de esta carpeta <code class="language-plaintext highlighter-rouge">resources/lang</code> para el idioma especificado en <code class="language-plaintext highlighter-rouge">config/app.php</code>. Por ejemplo, así se muestra el mensaje <em>Forgot Your Password?</em> original en el formulario de login:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"btn btn-link"</span> <span class="na">href=</span><span class="s">"{{ route('password.request') }}"</span><span class="nt">&gt;</span>
+    {{ __('Forgot Your Password?') }}
+<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>La instrucción <code class="language-plaintext highlighter-rouge">__()</code> busca la clave que le pasemos (<em>Forgot Your Password?</em>) en los archivos de configuración en inglés, y si no la encuentra, pone directamente la clave sin más. Si buscamos esta misma clave en el archivo <code class="language-plaintext highlighter-rouge">es.json</code> que hemos descargado, podemos ver por qué texto se sustituirá cuando cambiemos el idioma a español:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"Forgot Your Password?"</span><span class="p">:</span><span class="w"> </span><span class="s2">"¿Olvidaste tu contraseña?"</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="35-proteger-rutas">3.5. Proteger rutas</h3>
+
+<p>A partir del <em>scaffolding</em> proporcionado, el mecanismo para proteger rutas es similar al visto anteriormente. Una vez hayamos creado nuestros modelos, controladores, etc, añadimos el <em>middleware</em> <code class="language-plaintext highlighter-rouge">auth</code> o bien en el constructor del controlador (si hemos definido una ruta de recursos <code class="language-plaintext highlighter-rouge">Route::resource</code>), o bien podemos hacerlo ruta a ruta en el archivo de rutas (si hemos definido individualmente cada ruta). También podemos hacer uso de <code class="language-plaintext highlighter-rouge">auth()-&gt;guest()</code>, <code class="language-plaintext highlighter-rouge">auth()-&gt;check()</code>, etc, en las vistas, para comprobar si el usuario se ha autenticado, o los datos del usuario autenticado.</p>
+
+<h3 id="36-otras-consideraciones">3.6. Otras consideraciones</h3>
+
+<p>La incorporación del <em>scaffolding</em> de autenticación, como podemos comprobar, ahorra mucho trabajo a la hora de definir los mecanismos de registro y login de usuarios en el sistema. Sin embargo, quedan algunas tareas pendientes que pueden requerir una configuración adicional, y que no veremos en este curso por falta de tiempo.</p>
+
+<p>Una de ellas, por ejemplo, es la opción de recuperar contraseña cuando pinchamos en el enlace de <em>¿Olvidaste tu contraseña?</em>. En principio, y dado que nos registramos con un e-mail como <em>login</em>, nos pide que facilitemos dicho e-mail para enviarnos un enlace para restablecer la contraseña. Sin embargo, debemos configurar apropiadamente el correo SMTP para poder enviar el mensaje. Para ello, necesitamos una cuenta origen, y dependiendo del servidor de correo donde la tengamos creada (Gmail, Outlook, etc), la configuración es diferente. <a href="https://medium.com/@agavitalis/how-to-send-an-email-in-laravel-using-gmail-smtp-server-53d962f01a0c">Aquí</a>, por ejemplo, explica los pasos a seguir para configurar como cuenta emisora una de Gmail. Pero, como decimos, estos contenidos quedan fuera del alcance del curso.</p>
+
+<h2 id="4-definir-roles-uso-de-middleware">4. Definir roles. Uso de <em>middleware</em></h2>
+
+<p>Para poder definir roles para los distintos usuarios de nuestra aplicación, obviamente debemos comenzar por definir un nuevo campo en la tabla de usuarios para almacenar dicho rol.</p>
+
+<p>Después, para proteger ciertas rutas en función de los roles, podemos ocultar el enlace en las vistas con una simple comprobación. Por ejemplo, asumiendo que el campo de los roles se llama <code class="language-plaintext highlighter-rouge">rol</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">if</span> <span class="p">(</span><span class="nf">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">rol</span> <span class="o">===</span> <span class="s1">'admin'</span><span class="p">)</span>
+    <span class="c1">// Mostrar contenido</span>
+<span class="o">@</span><span class="k">endif</span>
+</code></pre></div></div>
+
+<p>Sin embargo, si accedemos a la URL sin pasar por el enlace, podremos ver el contenido. Debemos nuevamente incorporar el <em>middleware</em> <code class="language-plaintext highlighter-rouge">auth</code> al controlador que corresponda (si no lo está ya), para proteger el acceso general para usuarios autenticados.</p>
+
+<p>Además, debemos definir un <em>middleware</em> propio que verifique el rol del usuario logueado. Podemos crearlo con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:middleware RolCheck
+</code></pre></div></div>
+
+<p>En este caso hemos llamado al <em>middleware</em> <code class="language-plaintext highlighter-rouge">RolCheck</code>, pero el nombre puede ser el que queramos. Este <em>middleware</em> se creará en la carpeta <code class="language-plaintext highlighter-rouge">App\Http\Middleware</code>. Debemos editar su método <code class="language-plaintext highlighter-rouge">handle</code> para verificar que los usuarios son de tipo “admin”:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">handle</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="kt">Closure</span> <span class="nv">$next</span><span class="p">,</span> <span class="nv">$rol</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nf">auth</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">user</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">rol</span> <span class="o">===</span> <span class="nv">$rol</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nv">$next</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="nf">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Tras definir el <em>middleware</em>, lo registramos en el archivo <code class="language-plaintext highlighter-rouge">App/Http/Kernel.php</code> (en el apartado de <em>routeMiddleware</em>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$routeMiddleware</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mf">...</span>
+    <span class="s1">'roles'</span> <span class="o">=&gt;</span> <span class="err">\</span><span class="nc">App\Http\Middleware\RolCheck</span><span class="o">::</span><span class="n">class</span>
+</code></pre></div></div>
+
+<p>Finalmente, lo cargamos en el constructor de nuestro controlador. Podemos incluir con <code class="language-plaintext highlighter-rouge">except</code> y <code class="language-plaintext highlighter-rouge">only</code> restricciones sobre qué métodos del controlador se verán afectados o no por el <em>middleware</em>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">middleware</span><span class="p">([</span><span class="s1">'auth'</span><span class="p">,</span> <span class="s1">'roles:admin'</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>En este ejemplo, hemos mapeado el <em>middleware</em> con el alias <em>roles</em> en el archivo <code class="language-plaintext highlighter-rouge">Kernel.php</code>, y lo que hay tras los dos puntos es el parámetro extra que tiene el método <code class="language-plaintext highlighter-rouge">handle</code> del <em>middleware</em> (el rol a comprobar). En el caso de querer pasar más parámetros, se puede hacer separados por comas.</p>
+
+<h3 id="41-sobre-el-concepto-de-middleware">4.1. Sobre el concepto de <em>middleware</em></h3>
+
+<p>Hemos comentado brevemente el concepto de <em>middleware</em> asociado tanto al mecanismo de autenticación como a la clase “extra” que podemos crear para comprobar roles. En general, un <strong>middleware</strong> es un fragmento de código (normalmente una función) que se ejecuta en medio de un proceso. En este caso, se ejecuta desde que se recibe la petición hasta que se emite la respuesta, y permite alterar ese flujo normal, haciendo ciertas comprobaciones sobre la petición. Por ejemplo, como es el caso, verificar que el usuario tiene los permisos adecuados antes de emitir una respuesta u otra.</p>
+
+<h1 id="5-más-información">5. Más información</h1>
+
+<p>Los mecanismos de autenticación de Laravel son muy variados y flexibles. Aquí hemos pretendido ofrecer sólo una parte, quizá la más habitual o estándar. Para más información, podéis consultar la documentación oficial:</p>
+
+<ul>
+  <li><a href="https://laravel.com/docs/authentication">Autenticación con Laravel</a></li>
+  <li><a href="https://laravel.com/docs/middleware">Uso de middleware</a></li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Usando nuestros propios módulos | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Usando nuestros propios módulos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/02b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Usando nuestros propios módulos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Usando nuestros propios módulos","url":"http://nachoiborraies.github.io/nodejs/md/es/02b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="usando-nuestros-propios-módulos">Usando nuestros propios módulos</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/02b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/02b.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>La instrucción <code class="language-plaintext highlighter-rouge">require</code> que hemos utilizado en el documento anterior para utilizar módulos incorporados en el núcleo de Node.js también debe utilizarse para incluir un archivo nuestro dentro de otro, de forma que podemos (debemos) descomponer nuestra aplicación en diferentes archivos, lo que la hará más fácil de mantener.</p>
+
+<h2 id="1-un-ejemplo-sencillo">1. Un ejemplo sencillo</h2>
+
+<p>Por ejemplo, vamos a crear un proyecto llamado “<em>PruebasRequire</em>” en nuestra carpeta de “<em>Pruebas</em>”, con dos archivos de momento: uno llamado <code class="language-plaintext highlighter-rouge">principal.js</code> que tendrá el código principal de funcionamiento del programa, y otro llamado <code class="language-plaintext highlighter-rouge">utilidades.js</code> con una serie de funciones o propiedades auxiliares. Desde el archivo <code class="language-plaintext highlighter-rouge">principal.js</code>, podemos incluir el de utilidades con la instrucción <code class="language-plaintext highlighter-rouge">require</code>, del mismo modo que lo hicimos antes, pero indicando la ruta relativa del archivo a incluir. En este caso quedaría así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">utilidades</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utilidades.js</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Es posible también suprimir la extensión del archivo en el caso de archivos JavaScript, por lo que la instrucción anterior sería equivalente a esta otra (Node sobreentiende que se trata de un archivo JavaScript):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">utilidades</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utilidades</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El contenido del archivo <code class="language-plaintext highlighter-rouge">utilidades.js</code> debe tener una estructura determinada. Si, por ejemplo, el archivo tiene este contenido:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Entrando en utilidades.js</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Entonces el mero hecho de incluirlo con <code class="language-plaintext highlighter-rouge">require</code> mostrará por pantalla el mensaje “Entrando en utilidades.js” al ejecutar la aplicación. Es decir, cualquier instrucción directa que contenga el archivo incluido se ejecuta al incluirlo. Lo normal, no obstante, es que este archivo no contenga instrucciones directas, sino una serie de propiedades y métodos que puedan ser accesibles desde el archivo que lo incluye.</p>
+
+<p>Vamos a ello, supongamos que el archivo <code class="language-plaintext highlighter-rouge">utilidades.js</code> tiene unas funciones matemáticas para sumar y restar dos números y devolver el resultado. Algo así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">sumar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">restar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="err">–</span> <span class="nx">num2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Lo lógico sería pensar que, al incluir este archivo con <code class="language-plaintext highlighter-rouge">require</code> desde <code class="language-plaintext highlighter-rouge">principal.js</code>, podamos acceder a las funciones <code class="language-plaintext highlighter-rouge">sumar</code> y <code class="language-plaintext highlighter-rouge">restar</code> que hemos definido… pero no es así.</p>
+
+<h3 id="11-exportando-contenido-con-moduleexports">1.1. Exportando contenido con <em>module.exports</em></h3>
+
+<p>Para poder hacer los métodos o propiedades de un archivo visibles desde otro que lo incluya, debemos añadirlos como elementos del objeto <code class="language-plaintext highlighter-rouge">module.exports</code>. Así, las dos funciones anteriores se deberían definir de esta forma:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">sumar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">restar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="err">–</span> <span class="nx">num2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Es habitual definir un objeto en <code class="language-plaintext highlighter-rouge">module.exports</code>, y añadir dentro todo lo que queramos exportar. De esta forma, tendremos por un lado el código de nuestro módulo, y por otro la parte que queremos exportar. El módulo quedaría así, en este caso:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">sumar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">restar</span> <span class="o">=</span> <span class="p">(</span><span class="nx">num1</span><span class="p">,</span> <span class="nx">num2</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">num1</span> <span class="err">–</span> <span class="nx">num2</span><span class="p">;</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">sumar</span><span class="p">:</span> <span class="nx">sumar</span><span class="p">,</span>
+    <span class="na">restar</span><span class="p">:</span> <span class="nx">restar</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>En cualquier caso, ahora sí podemos utilizar estas funciones desde el programa <code class="language-plaintext highlighter-rouge">principal.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">utilidades</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utilidades</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">utilidades</span><span class="p">.</span><span class="nx">sumar</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>Notar que el objeto <code class="language-plaintext highlighter-rouge">module.exports</code> admite tanto funciones como atributos o propiedades. Por ejemplo, podríamos definir una propiedad para almacenar el valor del número “pi”:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">pi</span><span class="p">:</span> <span class="mf">3.1416</span><span class="p">,</span>
+    <span class="na">sumar</span><span class="p">:</span> <span class="nx">sumar</span><span class="p">,</span>
+    <span class="na">restar</span><span class="p">:</span> <span class="nx">restar</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>… y acceder a ella desde el módulo principal:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">utilidades</span><span class="p">.</span><span class="nx">pi</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="2-incluir-carpetas-enteras">2. Incluir carpetas enteras</h2>
+
+<p>En el caso de que nuestro proyecto contenga varios módulos, es recomendable agruparlos en carpetas, y en este caso es posible incluir una carpeta entera de módulos, siguiendo una nomenclatura específica. Los pasos a seguir son:</p>
+
+<ul>
+  <li>Añadir todos los módulos (ficheros <em>.js</em>) que queramos dentro de la carpeta deseada</li>
+  <li>Crear en esa carpeta un archivo llamado <code class="language-plaintext highlighter-rouge">index.js</code>. Este será el archivo que se incluirá en nombre de toda la carpeta</li>
+  <li>Dentro de este archivo <code class="language-plaintext highlighter-rouge">index.js</code>, incluir (con <code class="language-plaintext highlighter-rouge">require</code>) todos los demás módulos de la carpeta, y exportar lo que se considere.</li>
+</ul>
+
+<p>Desde el programa principal (u otro lugar que necesite incluir la carpeta entera), incluir el nombre de la carpeta. Automáticamente se localizará e incluirá el archivo <code class="language-plaintext highlighter-rouge">index.js</code>, con todos los módulos que éste haya incluido dentro.</p>
+
+<p>Veamos un ejemplo: vamos a nuestra carpeta “<em>PruebasRequire</em>” creada en el ejemplo anterior, y crea una carpeta llamada “<em>idiomas</em>”. Dentro, crea estos tres archivos, con el siguiente contenido:</p>
+
+<p><strong>Archivo <em>es.js</em></strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">saludo</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>en.js</em></strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">saludo</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Hello</span><span class="dl">"</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>index.js</em></strong></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">en</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./en</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">es</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./es</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">es</span> <span class="p">:</span> <span class="nx">es</span><span class="p">,</span>
+    <span class="na">en</span> <span class="p">:</span> <span class="nx">en</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Ahora, en la carpeta raíz de “<em>PruebasRequire</em>” crea un archivo llamado <code class="language-plaintext highlighter-rouge">saludo_idioma.js</code>, con este contenido:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">idiomas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./idiomas</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">English:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">idiomas</span><span class="p">.</span><span class="nx">en</span><span class="p">.</span><span class="nx">saludo</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Español:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">idiomas</span><span class="p">.</span><span class="nx">es</span><span class="p">.</span><span class="nx">saludo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Como puedes ver, desde el archivo principal sólo hemos incluido la carpeta, y con eso automáticamente incluimos el archivo <code class="language-plaintext highlighter-rouge">index.js</code> que, a su vez, incluye a los demás. Una vez hecho esto, y tal y como hemos exportado las propiedades en <code class="language-plaintext highlighter-rouge">index.js</code>, podemos acceder al saludo en cada idioma.</p>
+
+<h2 id="3-incluir-archivos-json">3. Incluir archivos JSON</h2>
+
+<p>Los archivos JSON son especialmente útiles, como veremos, para definir cierta configuración básica (no encriptada) en las aplicaciones, además de para enviar información entre partes de la aplicación (lo que veremos también más adelante). Por ejemplo, y siguiendo con el ejemplo anterior, podríamos sacar a un archivo JSON el texto del saludo en cada idioma. Añadamos un archivo llamado <code class="language-plaintext highlighter-rouge">saludos.json</code> dentro de nuestra subcarpeta “idiomas”:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"es"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hola"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"en"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Después, podemos modificar el contenido de los archivos <code class="language-plaintext highlighter-rouge">es.js</code> y <code class="language-plaintext highlighter-rouge">en.js</code> para que no pongan literalmente el texto, sino que lo cojan del archivo JSON, incluyéndolo. Nos quedarían así:</p>
+
+<p><strong>Archivo <em>es.js</em></strong>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">textos</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./saludos.json</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">saludo</span> <span class="p">:</span> <span class="nx">textos</span><span class="p">.</span><span class="nx">es</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><strong>Archivo <em>en.js</em></strong>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">textos</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./saludos.json</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">saludo</span> <span class="p">:</span> <span class="nx">textos</span><span class="p">.</span><span class="nx">en</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>La forma de acceder a los textos desde el programa principal no cambia, sólo lo ha hecho la forma de almacenarlos, que queda centralizada en un archivo JSON, en lugar de en múltiples archivos Javascript. De este modo, ante cualquier errata o actualización, sólo tenemos que modificar el texto en el archivo JSON y no ir buscando archivo por archivo. Además, nos evita el problema de las <em>magic strings</em> (cadenas que los programadores ponen a mano donde toca, suponiendo que están bien escritas y que no van a hacer falta desde otra parte de la aplicación).</p>
+
+<h2 id="4-más-sobre-inclusión-de-módulos-locales">4. Más sobre inclusión de módulos locales</h2>
+
+<p>Para finalizar con este subapartado de inclusión de módulos locales de nuestra aplicación (o división de nuestra aplicación en diversos ficheros fuente, según cómo queramos verlo), conviene tener en cuenta un par de matices adicionales:</p>
+
+<h3 id="41-rutas-relativas-y-require">4.1. Rutas relativas y <em>require</em></h3>
+
+<p>Hasta ahora, cuando hemos empleado la instrucción <code class="language-plaintext highlighter-rouge">require</code> para incluir un módulo de nuestro propio proyecto, hemos partido de la carpeta actual. Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">utilidades</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utilidades</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Este código funcionará siempre que ejecutemos la aplicación Node desde su misma carpeta:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node principal.js
+</code></pre></div></div>
+
+<p>Pero si estamos en otra carpeta y ejecutamos la aplicación desde allí…</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node /Users/nacho/Proyectos/PruebasRequire/principal.js
+</code></pre></div></div>
+
+<p>… entonces <code class="language-plaintext highlighter-rouge">require</code> hará referencia a la carpeta desde donde estamos ejecutando, y no encontrará el archivo “<em>utilidades.js</em>”, en este caso. Para evitar este problema, podemos emplear la propiedad <code class="language-plaintext highlighter-rouge">__dirname</code>, que hace referencia a la carpeta del módulo que se está ejecutando (<code class="language-plaintext highlighter-rouge">principal.js</code>, en este caso):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">utilidades</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/utilidades</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="42-sobre-moduleexports">4.2. Sobre <em>module.exports</em></h3>
+
+<p>Quizá algunos de vosotros os habréis preguntado… ¿cómo es que puedo tener accesibles variables o métodos que yo no he definido al empezar, como <code class="language-plaintext highlighter-rouge">require</code>, o <code class="language-plaintext highlighter-rouge">module.exports</code>?</p>
+
+<p>Cuando se ejecuta nuestro código, Node.js lo encapsula dentro de una función, y le pasa como parámetros los elementos externos que puede necesitar, como por ejemplo <code class="language-plaintext highlighter-rouge">require</code>, o <code class="language-plaintext highlighter-rouge">module</code> (en cuyo interior encontraremos <code class="language-plaintext highlighter-rouge">exports</code>). Sin embargo, en algunos ejemplos en Internet también podemos encontrar que se hace uso de una propiedad <code class="language-plaintext highlighter-rouge">exports</code>, en lugar de <code class="language-plaintext highlighter-rouge">module.exports</code>. Entonces…</p>
+
+<ul>
+  <li>¿Hay un <code class="language-plaintext highlighter-rouge">exports</code> por un lado y un <code class="language-plaintext highlighter-rouge">module.exports</code> por otro? La respuesta es que SI</li>
+  <li>¿Existe diferencia entre ambos? La respuesta también es que SI. A priori, ambos elementos apuntan al mismo objeto en memoria, es decir, <code class="language-plaintext highlighter-rouge">exports</code> es un atajo para no tener que escribir <code class="language-plaintext highlighter-rouge">module.exports</code>. Pero…
+    <ul>
+      <li>Si cometemos el error de reasignar la variable (por ejemplo, haciendo <code class="language-plaintext highlighter-rouge">exports = a</code>), entonces las referencias dejan de ser iguales.</li>
+      <li>Por otra parte, si queréis ver el código fuente de la función <code class="language-plaintext highlighter-rouge">require</code>, veréis que lo que devuelve es <code class="language-plaintext highlighter-rouge">module.exports</code>, por lo que, en caso de reasignar la variable <code class="language-plaintext highlighter-rouge">exports</code>, no nos serviría de nada.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>La moraleja de todo esto es que, en principio, <code class="language-plaintext highlighter-rouge">exports</code> y <code class="language-plaintext highlighter-rouge">module.exports</code> sirven para lo mismo siempre que no las reasignemos. Pero durante todo este curso seguiremos nuestro propio consejo: usaremos siempre <code class="language-plaintext highlighter-rouge">module.exports</code> para evitar problemas.</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

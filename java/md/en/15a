@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic client-server communications | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic client-server communications" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/15a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/15a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic client-server communications" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic client-server communications","url":"http://nachoiborraies.github.io/java/md/en/15a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="basic-client-server-communications">Basic client-server communications</h1>
+
+<h2 id="first-steps-with-java-sockets">First steps with Java sockets</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/15a.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/15a.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-introduction-to-sockets">1. Introduction to sockets</h3>
+
+<p>A <strong>socket</strong> is a communication system between processes running on the same or different machines in a network. These processes send and receive information through a connector, and this connector is commonly called <em>socket</em>.</p>
+
+<h4 id="11-sockets-and-port-numbers">1.1. Sockets and port numbers</h4>
+
+<p>Each socket has a <strong>port number</strong> associated to it. This number identifies the process that is sending or receiving the information through this socket. So, when a local process wants to communicate with a remote process, they both establish their own port numbers, and whenever the information is sent to each other, the computer knows which process must receive it by checking the destination port.</p>
+
+<blockquote>
+  <p>For instance, if a machine <em>A</em> has a process <em>PA</em> listening on port 30, and a machine <em>B</em> has another process <em>PB</em> listening on port 44, whenever a message gets to machine <em>B</em> indicating port number 44, then this message will be received by process <em>PB</em> (the machine will redirect the message to that process). On the other side, whenever a message gets to machine <em>A</em> indicating port number 30, it will be received by process <em>PA</em>.</p>
+</blockquote>
+
+<h4 id="12-client-server-communication">1.2. Client-server communication</h4>
+
+<p>Client-server communication is a concrete type of network communication where:</p>
+
+<ul>
+  <li>One side is set as a <strong>server</strong>, this is, it keeps listening to a given port number, waiting for the other side to send requests or messages.</li>
+  <li>The other side is set as a <strong>client</strong>. It must know the server address, and the port number to connect to, and then it can send requests to it.</li>
+</ul>
+
+<p>When a client connects to a server, they establish a socket communication, from which the client sends requests to the server, and the server sends the appropriate responses to the client. For instance, in a web application, we must know the server address (typically its domain name), and its port number (the default port number is 80 for web connections,  if we do not specify any). Then, we connect to the server, and we can ask it to send us web pages, documents and other resources.</p>
+
+<p>We have said before that both sides need to have a port number associated to the connection. The port number of the server must be known (for instance, port 80 for web communications, or port 21 for FTP access), but the client port number is randomly assigned, so that the server will be able to send its responses back to the client.</p>
+
+<blockquote>
+  <p>For instance, if we try to create a connection to a web server hosted in <em>www.myserver.com</em>, we will set port 80 as our destination port. Then, the server will accept our connection, and automatically a random port number (for instance, 9241), will be assigned to our client. From then on, both client and server can send messages to each other to the corresponding port numbers.</p>
+</blockquote>
+
+<p>Actually, when the connection between client and server is established, the original server port is released to listen for more connections, and another socket is used to communicate with the client. So the client will use the original server port to connect to it, and another (random) port to send data to the server (although client does not need to know this last port when it connects to the server).</p>
+
+<h4 id="13-socket-types">1.3. Socket types</h4>
+
+<p>There are two basic types of sockets:</p>
+
+<ul>
+  <li><strong>TCP sockets</strong>, which are connection-oriented sockets. They establish reliable connections, where the delivery of every piece of message is guaranteed. This type of connection is, however, slower than UDP connections that we will see next, because the reception of every data package must be confirmed. So they are used when the integrity of the data being sent is more important than the transfer speed.
+    <ul>
+      <li>FTP applications are examples of TCP connections, because the integrity of the files that we download/upload is very important.</li>
+    </ul>
+  </li>
+  <li><strong>UDP sockets</strong>, which are non-connection-oriented. Connections are not reliable, and so, there might be some pieces of messages that do not get to its destination. We will use this type of connection when the speed is more important than the integrity of the data.
+    <ul>
+      <li>For instance, a live video streaming application uses UDP, because the speed to send and receive the video is more important than losing some frames.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-basic-usage-of-java-sockets">2. Basic usage of Java sockets</h3>
+
+<p>In this section we are going to learn how to deal with the two main types of sockets (TCP and UDP) in Java. The core of Java sockets is defined in the <code class="language-plaintext highlighter-rouge">java.net</code> package. There, we can find some useful classes, as we will see now. You can also download <a href="https://nachoiborraies.github.io/java/resources/en/15a_examples.zip">here</a> the source code of the examples that we are going to explain in this section, so you can test them easily.</p>
+
+<h4 id="21-using-tcp-sockets">2.1. Using TCP sockets</h4>
+
+<p>If we want to work with TCP sockets, we will need to handle these two classes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ServerSocket</code> class, that will be used to implement a socket in the server side, that will be listening to client connection requests.</li>
+  <li><code class="language-plaintext highlighter-rouge">Socket</code> class, that will hold the communication between both sides. We will use a <code class="language-plaintext highlighter-rouge">Socket</code> object in each side.</li>
+</ul>
+
+<p>In order to connect a client to a server, we will follow these steps:</p>
+
+<p>In the server side:</p>
+
+<ol>
+  <li>Create a <code class="language-plaintext highlighter-rouge">ServerSocket</code> object in the server, specifying the desired port number. Regarding port numbers, you must know that ports from 0 to 1023 are usually reserved to other services, such as FTP, HTTP, SMTP… So it is a good idea to choose a port higher than 1023 for our applications.</li>
+  <li>Wait until a client connects, with the accept method.</li>
+  <li>Once the connection is established, we will have a <code class="language-plaintext highlighter-rouge">Socket</code> object to communicate with that client.</li>
+  <li>Then, we can create input and/or output streams on each side to send or receive data to/from the client.</li>
+  <li>When we finish the communication, we must close everything: input stream, output stream, socket… and server socket, if we don’t want to accept more connections. This can be easily done by putting all the closeable objects in the <code class="language-plaintext highlighter-rouge">try</code> clause (what is called the <em>try-with-resources</em> clause).</li>
+</ol>
+
+<p>Let’s see all these steps in a piece of code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="nc">Socket</span> <span class="n">service</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="nc">DataInputStream</span> <span class="n">socketIn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="nc">DataOutputStream</span> <span class="n">socketOut</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+<span class="k">try</span> <span class="o">(</span>
+    <span class="nc">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServerSocket</span><span class="o">(</span><span class="n">portNumber</span><span class="o">);</span>
+    <span class="nc">Socket</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span>
+    <span class="nc">DataInputStream</span> <span class="n">sIn</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nf">DataInputStream</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+    <span class="nc">DataOutputStream</span> <span class="n">sOut</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nf">DataOutputStream</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+<span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span> <span class="c1">// Communication process</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the client side:</p>
+
+<ol>
+  <li>Create a <code class="language-plaintext highlighter-rouge">Socket</code> object with the server address and port.</li>
+  <li>When this instruction is completed, we have our connection to the server ready, although it may throw an exception if something goes wrong.</li>
+  <li>Then, we can also create input and/or output streams to send or receive data to/from the server.</li>
+</ol>
+
+<p>If we put all of this together in a piece of code:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span>
+    <span class="nc">Socket</span> <span class="n">mySocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Socket</span><span class="o">(</span><span class="s">"address"</span><span class="o">,</span> <span class="n">portNumber</span><span class="o">);</span>
+    <span class="nc">DataInputStream</span> <span class="n">sIn</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nf">DataInputStream</span><span class="o">(</span><span class="n">mySocket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+    <span class="nc">DataOutputStream</span> <span class="n">sOut</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nf">DataOutputStream</span><span class="o">(</span><span class="n">mySocket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+<span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span> <span class="c1">// Communication process</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h5 id="211-example">2.1.1. Example</h5>
+
+<p>Let’s implement our first, complete example. Whenever we create a client-server application, we normally create two separate projects: one for the server and another one for the client, so that we can distribute both sides of the application separately. In this case, we are going to create a client that says “Hello” to server, and a server that, when receives this message, sends an answer with “Goodbye” to the client.</p>
+
+<p>In the client side, our code should look like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Greet_Client</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span>   
+            <span class="nc">Socket</span> <span class="n">mySocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Socket</span><span class="o">(</span><span class="s">"localhost"</span><span class="o">,</span> <span class="mi">2000</span><span class="o">);</span>
+            <span class="nc">DataInputStream</span> <span class="n">socketIn</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nf">DataInputStream</span><span class="o">(</span><span class="n">mySocket</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+            <span class="nc">DataOutputStream</span> <span class="n">socketOut</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nf">DataOutputStream</span><span class="o">(</span><span class="n">mySocket</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+        <span class="o">)</span>
+        <span class="o">{</span>                        
+            <span class="n">socketOut</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+            <span class="nc">String</span> <span class="n">response</span> <span class="o">=</span> <span class="n">socketIn</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">);</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the server side, the code is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Greet_Server</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span>
+            <span class="nc">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServerSocket</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+            <span class="nc">Socket</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span>
+            <span class="nc">DataInputStream</span> <span class="n">socketIn</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nf">DataInputStream</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+            <span class="nc">DataOutputStream</span> <span class="n">socketOut</span> <span class="o">=</span>
+                <span class="k">new</span> <span class="nf">DataOutputStream</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+        <span class="o">)</span>
+        <span class="o">{</span>                        
+            <span class="c1">// Read the message from the client</span>
+            <span class="nc">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">socketIn</span><span class="o">.</span><span class="na">readUTF</span><span class="o">();</span>
+            <span class="c1">// Print the message</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received: "</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
+            <span class="c1">// Answer goodbye to the client</span>
+            <span class="n">socketOut</span><span class="o">.</span><span class="na">writeUTF</span><span class="o">(</span><span class="s">"Goodbye"</span><span class="o">);</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we want to run this example (or any other client-server application), we must start by running the server, and when it’s waiting for connections, then we run the client. The output should be the text “Received: Hello” in the server console, and the text “Received: Goodbye” in the client console.</p>
+
+<p>Note that the server address for this example has been set to localhost, so that we can test the example in the same computer. But we can change this address to test it with two different machines.</p>
+
+<h5 id="212-some-implementation-issues">2.1.2. Some implementation issues</h5>
+
+<p>If we take a look at previous examples, note that we have used a <code class="language-plaintext highlighter-rouge">DataInputStream</code> object for reading and a <code class="language-plaintext highlighter-rouge">DataOutputStream</code> object for writing. We could use other objects for reading or writing, such as <code class="language-plaintext highlighter-rouge">BufferedReader</code> or <code class="language-plaintext highlighter-rouge">PrintStream</code>. With these two objects, we could send and receive text messages line by line, instead of using UTF strings.</p>
+
+<p>If the communication between client and server is not synchronous (i.e., the client can send messages to the server at any time and/or there are multiple clients communicating with server at any time), we will need to open the connections (socket, input and/or output streams) inside the try clause (not inside the <em>try-with-resources</em> clause), and close them in a finally clause. We will see an example of this when using threads to deal with multiple connections (section 3.2.4).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServerSocket</span><span class="o">(</span><span class="mi">2000</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="o">...</span>            
+    <span class="n">socketIn</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="n">socketOut</span> <span class="o">=</span> <span class="o">...</span>
+    <span class="o">...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">socketOut</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">socketOut</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="k">try</span> <span class="o">{</span>            
+        <span class="k">if</span> <span class="o">(</span><span class="n">socketIn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">socketIn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="k">try</span> <span class="o">{</span>            
+        <span class="k">if</span> <span class="o">(</span><span class="n">service</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">service</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Also, if we have a graphical application, and we use the sockets or streams from different events, we will not be able to use the <em>try-with-resources</em> clause, and we will need to use several <em>try</em> clauses to use the socket, or the streams, or close them, in different parts of our application. We will see this in later exercises.</p>
+
+<h5 id="213-some-useful-methods">2.1.3. Some useful methods</h5>
+
+<p>Regarding the classes that we have just learnt, there are some useful constructors and methods that we may need to have on hand (apart from the ones used in previous examples):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Method(s)</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">ServerSocket(int port, int max)</code></td>
+      <td>Creates a server socket with the specified input port and the maximum number of simultaneous connections specified in the 2nd parameter</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">Socket(InetAddress addr, int port)</code></td>
+      <td>Creates a socket to connect to the specified InetAddress object and port</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">int getLocalPort()</code>, <code class="language-plaintext highlighter-rouge">int getPort()</code></td>
+      <td>These methods belong to Socket class, and return the port number assigned to this socket in the local machine and remote machine, respectively</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">readByte()</code>, <code class="language-plaintext highlighter-rouge">readChar()</code>, <code class="language-plaintext highlighter-rouge">readDouble()</code>, <code class="language-plaintext highlighter-rouge">readFloat()</code>, <code class="language-plaintext highlighter-rouge">readUTF()</code></td>
+      <td>These methods belong to DataInputStream class, and they can be used to read specific data types from the socket. The last one returns a String in UTF-8 format</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">writeBytes(String)</code>, <code class="language-plaintext highlighter-rouge">writeChars(String)</code>, <code class="language-plaintext highlighter-rouge">writeDouble(double)</code>, <code class="language-plaintext highlighter-rouge">writeFloat(float)</code>, <code class="language-plaintext highlighter-rouge">writeUTF(String)</code></td>
+      <td>These methods belong to DataOutputStream class, and they write specific data types to the socket (the last one writes a String in UTF-8 format)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">print(String message)</code>, <code class="language-plaintext highlighter-rouge">println(String message)</code></td>
+      <td>These methods belong to PrintStream class, and allows us to write messages to the socket as if we were writing them in the console</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">readLine()</code></td>
+      <td>This method belongs to BufferedReader class, and allows us to read messages from the socket line by line, as long as the other side writes them line by line as well</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create an “echo” client-server application using Java sockets, by creating these two separate projects (one for the client and another one for the server):</p>
+
+  <ul>
+    <li>Create a project for the server side called <strong>Echo_Server</strong>. Define a server that will be listening to port 6000, and when he gets a connection, it will constantly read a message from the client, and send the same message back to it, converted into uppercase. For instance, if it receives the message “Hello”, it will return “HELLO” to the client.</li>
+    <li>Create a project for the client side called <strong>Echo_Client</strong>. Define a socket that will connect to the server (use “localhost” as server name, if you are running both projects in the same machine). When the connection is set, the client constantly asks the user to enter a message, and then it will send it to the server, waiting for the corresponding echo.</li>
+    <li>The communication process will finish when the server receives the message “bye”.</li>
+  </ul>
+</blockquote>
+
+<h4 id="22-using-udp-sockets">2.2. Using UDP sockets</h4>
+
+<p>When we use UDP connections, we don’t need to establish a previous connection between client and server. Every time that we need to send a message between them, we will need to specify the address and port number of the receiver, and it will get the sender address and port from the message as well. We will work with <code class="language-plaintext highlighter-rouge">DatagramSocket</code> and <code class="language-plaintext highlighter-rouge">DatagramPacket</code> classes.</p>
+
+<p>The steps that we need to follow regarding UDP connections are:</p>
+
+<ol>
+  <li>Create a <code class="language-plaintext highlighter-rouge">DatagramSocket</code> specifying an IP address and port. Regarding the server, we usually specify a port number known by the client(s), although there are several ways of creating the socket:
+    <ul>
+      <li>Connecting to localhost at any available port: <code class="language-plaintext highlighter-rouge">DatagramSocket socket = new DatagramSocket();</code></li>
+      <li>Connecting to localhost at a given port number: <code class="language-plaintext highlighter-rouge">DatagramSocket socket = new DatagramSocket(portNumber);</code></li>
+      <li>Connecting to a given host and port number: <code class="language-plaintext highlighter-rouge">DatagramSocket socket = new DatagramSocket(portNumber, address);</code>, where <code class="language-plaintext highlighter-rouge">address</code> is an <code class="language-plaintext highlighter-rouge">InetAddress</code> object.</li>
+    </ul>
+  </li>
+  <li>As soon as we receive a packet (<code class="language-plaintext highlighter-rouge">DatagramPacket</code>), we can send messages to the address and port stored in this packet, by using <code class="language-plaintext highlighter-rouge">DatagramPacket</code> objects as well. We create a <code class="language-plaintext highlighter-rouge">DatagramPacket</code> object by specifying the message to be sent (as a byte array), its length, and the destination address and port number. Then, we call its <code class="language-plaintext highlighter-rouge">send()</code> message to send the datagram to the specified destination. To receive it, we create an empty <code class="language-plaintext highlighter-rouge">DatagramPacket</code> object and call its receive method to fill it with data.</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello"</span><span class="o">;</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">message</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+<span class="nc">DatagramPacket</span> <span class="n">packetS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">length</span><span class="o">,</span>
+    <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getLocalHost</span><span class="o">(),</span> <span class="mi">2000</span><span class="o">);</span>
+<span class="n">socket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">packetS</span><span class="o">);</span>
+
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+<span class="nc">DatagramPacket</span> <span class="n">packetR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+<span class="n">socket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packetR</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ol>
+  <li>We can also specify a timeout in the socket (in milliseconds), so that if the receive method waits for more than the specified timeout to get a response, then an <code class="language-plaintext highlighter-rouge">InterruptedIOException</code> is thrown and we can go on.</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">socket</span><span class="o">.</span><span class="na">setSoTimeout</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span> <span class="c1">// 2 seconds</span>
+<span class="err">…</span>
+<span class="k">try</span>
+<span class="o">{</span>
+    <span class="err">…</span>
+    <span class="n">socket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packetR</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedIOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="err">…</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>When we finish the communication, we must close the socket established. We can also put the socket in the try clause so that it will auto close when the clause finishes.</li>
+</ol>
+
+<h5 id="221-example">2.2.1. Example</h5>
+
+<p>We are going to implement the same example shown in TCP sockets, but in this case we will use UDP protocol. The client side would be like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GreetUDP_Client</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">DatagramSocket</span> <span class="n">mySocket</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramSocket</span><span class="o">())</span>
+        <span class="o">{</span>
+            <span class="c1">// Create the packet to be sent</span>
+            <span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello"</span><span class="o">;</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">message</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+            <span class="nc">DatagramPacket</span> <span class="n">packetS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">length</span><span class="o">,</span>
+                <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getLocalHost</span><span class="o">(),</span> <span class="mi">2000</span><span class="o">);</span>
+            <span class="n">mySocket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">packetS</span><span class="o">);</span>
+            
+            <span class="c1">// Receive the response</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+            <span class="nc">DatagramPacket</span> <span class="n">packetR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+            <span class="n">mySocket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packetR</span><span class="o">);</span>            
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received: "</span> <span class="o">+</span>
+                <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">packetR</span><span class="o">.</span><span class="na">getData</span><span class="o">()).</span><span class="na">trim</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>And the server side would be like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GreetUDP_Server</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">DatagramSocket</span> <span class="n">mySocket</span> <span class="o">=</span>
+            <span class="k">new</span> <span class="nf">DatagramSocket</span><span class="o">(</span><span class="mi">2000</span><span class="o">,</span> <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getLocalHost</span><span class="o">()))</span>
+        <span class="o">{</span>
+            <span class="c1">// Receive the text</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+            <span class="nc">DatagramPacket</span> <span class="n">packetR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="n">buffer</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+            <span class="n">mySocket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">packetR</span><span class="o">);</span>            
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received: "</span> <span class="o">+</span>
+                <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">packetR</span><span class="o">.</span><span class="na">getData</span><span class="o">()).</span><span class="na">trim</span><span class="o">());</span>
+            
+            <span class="c1">// Get host and port from the message</span>
+            <span class="kt">int</span> <span class="n">destPort</span> <span class="o">=</span> <span class="n">packetR</span><span class="o">.</span><span class="na">getPort</span><span class="o">();</span>
+            <span class="nc">InetAddress</span> <span class="n">destAddr</span> <span class="o">=</span> <span class="n">packetR</span><span class="o">.</span><span class="na">getAddress</span><span class="o">();</span>
+
+            <span class="c1">// Create the response to be sent</span>
+            <span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Goodbye"</span><span class="o">;</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">message</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+            <span class="nc">DatagramPacket</span> <span class="n">packetS</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">length</span><span class="o">,</span>
+                <span class="n">destAddr</span><span class="o">,</span> <span class="n">destPort</span><span class="o">);</span>
+            <span class="n">mySocket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">packetS</span><span class="o">);</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h5 id="222-some-implementation-issues">2.2.2. Some implementation issues</h5>
+
+<p>As you can see, a datagram is composed of:</p>
+
+<ul>
+  <li>The information or message to be sent</li>
+  <li>The message length</li>
+  <li>Destination IP and port number</li>
+  <li>Local IP and port number (added automatically when creating the datagram)</li>
+</ul>
+
+<p>Note that, when we create a datagram packet to be sent, we convert the message (<em>String</em>) into a byte array, with the <code class="language-plaintext highlighter-rouge">getBytes()</code> method. And when we want to receive a message, we use the <code class="language-plaintext highlighter-rouge">getData()</code> method to get the bytes of the message, and then we create a <em>String</em> with that array and trim it to clean the edges.</p>
+
+<p>Besides, note that, when the server receives the packet from the client, it can retrieve the client host name and port number with the methods <code class="language-plaintext highlighter-rouge">getPort()</code> and <code class="language-plaintext highlighter-rouge">getAddress()</code>, since this information is included in the datagram automatically.</p>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a UDP client-server application with the following projects:</p>
+
+  <ul>
+    <li>A project called <strong>UDPDictionary_Client</strong> that will send to the server a word typed by the user. Try to set a timeout in the client (for instance, 5 seconds), by using the <code class="language-plaintext highlighter-rouge">setSoTimeout</code> method from the socket. If this timeout expires, an <code class="language-plaintext highlighter-rouge">InterruptedIOException</code> will be thrown, and the client must print a message on the screen with the text “No translation found”.</li>
+    <li>A project called <strong>UDPDictionary_Server</strong> that will run on port 6000. It will have a collection (hashtable or something similar) with some words in English (keys) and their corresponding Spanish translation (values). The server will read the word sent by the client, and it will return the Spanish translation of that word. If the word can’t be found in the collection, the server will not return anything.</li>
+  </ul>
+</blockquote>
+
+<h4 id="23-more-about-the-inetaddress-class">2.3. More about the InetAddress class</h4>
+
+<p>You may have read about the <code class="language-plaintext highlighter-rouge">InetAddress</code> class before, although we have not explained it in detail. It represents an IP address in Java, but it also has methods that connect to a DNS server and resolve a hostname. In other words, we can use an object of this class to connect to a remote server, either by its IP address (not very usual) or by its domain name, that is automatically converted into an IP address.</p>
+
+<p>To create an <code class="language-plaintext highlighter-rouge">InetAddress</code> object, we must use one of its static factory methods. The most common is:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">InetAddress</span> <span class="n">address</span> <span class="o">=</span> <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="s">"www.myserver.com"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>This method makes a connection to the local DNS server to look up the name and its corresponding IP address. We can also use this method to do a reverse lookup, this is, get the hostname from the IP address:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">InetAddress</span> <span class="n">address</span> <span class="o">=</span> <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="s">"201.114.121.65"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>In both cases, we can check both the hostname and the IP address stored in the InetAddress object by calling the methods <code class="language-plaintext highlighter-rouge">getHostName()</code> and <code class="language-plaintext highlighter-rouge">getHostAddress()</code>, respectively.</p>
+
+<h3 id="3-connecting-multiple-clients-sockets-and-threads">3. Connecting multiple clients. Sockets and threads</h3>
+
+<p>A server that only accepts one client is not a usual server. In real world, a server must be ready to accept multiple clients. To do this, we need to create a thread in the server to deal with each client. So, if we are working with a TCP application, the server code will only create the <code class="language-plaintext highlighter-rouge">ServerSocket</code> object and go into a loop that creates a socket with each client, and a thread that deals with it:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span><span class="nc">ServerSocket</span> <span class="n">server</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServerSocket</span><span class="o">(</span><span class="no">PORT</span><span class="o">))</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Listening..."</span><span class="o">);</span>
+    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">Socket</span> <span class="n">service</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="na">accept</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Connection established"</span><span class="o">);</span>
+        <span class="nc">ServerThread</span> <span class="n">st</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServerThread</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+        <span class="n">st</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In the thread, we usually implement all the communication with the client (the input and output streams handling that we did in the server class before):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerThread</span> <span class="kd">extends</span> <span class="nc">Thread</span>
+<span class="o">{</span>
+    <span class="nc">Socket</span> <span class="n">service</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">ServerThread</span><span class="o">(</span><span class="nc">Socket</span> <span class="n">s</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">service</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">DataInputStream</span> <span class="n">socketIn</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="nc">DataOutputStream</span> <span class="n">socketOut</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span>
+        <span class="o">{</span>            
+            <span class="n">socketIn</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DataInputStream</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">());</span>
+            <span class="n">socketOut</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DataOutputStream</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+
+            <span class="c1">// … Communication with client</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">socketOut</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                    <span class="n">socketOut</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+            <span class="k">try</span> <span class="o">{</span>            
+                <span class="k">if</span> <span class="o">(</span><span class="n">socketIn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                    <span class="n">socketIn</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+            <span class="k">try</span> <span class="o">{</span>            
+                <span class="k">if</span> <span class="o">(</span><span class="n">service</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+                    <span class="n">service</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that, in this case, we can’t use the <em>try</em> clause to define the socket and input streams inside (i.e. use the <em>try-with-resources</em> clause), because the <code class="language-plaintext highlighter-rouge">Socket</code> object is created in the server main object, and passed to the thread, so it would be closed by the server before the thread could use it. So, we can use a finally clause to close the socket and the input and output streams from the thread.</p>
+
+<p>If we work with UDP servers, we do not need to use any thread, since every datagram sent or received has no relationship with the others, and we do not need to establish a different connection with each client. We only need to define a loop where the server receives datagrams, gets the remote IP and port number, and sends a response to it.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">sent</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">received</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>            
+    
+    <span class="nc">DatagramPacket</span> <span class="n">datagramReceived</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nf">DatagramPacket</span><span class="o">(</span><span class="n">received</span><span class="o">,</span> <span class="n">received</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+
+    <span class="n">mySocket</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="n">datagramReceived</span><span class="o">);</span>
+    <span class="o">...</span>
+    <span class="nc">InetAddress</span> <span class="n">remoteIP</span> <span class="o">=</span> <span class="n">datagramReceived</span><span class="o">.</span><span class="na">getAddress</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">remotePort</span> <span class="o">=</span> <span class="n">datagramReceived</span><span class="o">.</span><span class="na">getPort</span><span class="o">();</span>
+                
+    <span class="nc">DatagramPacket</span> <span class="n">datagramSent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DatagramPacket</span> <span class="o">(</span><span class="n">sent</span><span class="o">,</span>
+            <span class="n">sent</span><span class="o">.</span><span class="na">length</span><span class="o">,</span> <span class="n">remoteIP</span><span class="o">,</span> <span class="n">remotePort</span><span class="o">);</span>
+        
+    <span class="n">mySocket</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">datagramSent</span><span class="o">);</span>    
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3</strong>:</p>
+
+  <p>Improve <em>Exercise 1</em> with these two changes:</p>
+
+  <ul>
+    <li>Make the client-server connection independent from the machines where they are placed. This is, you must not use “localhost” as the server address. Instead of this, let the user specify the server address.</li>
+    <li>Allow more than one client connecting to the server. Then, the server will have to echo the messages from different clients, sending each one its answers.</li>
+    <li>Call the new projects <strong>EchoImproved_Server</strong> and <strong>EchoImproved_Client</strong>.</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Collections</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Collections in Java
+### Lists
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lists features
+
+- Collections whose elements are indexed
+- Elements can be accessed by an index starting at 0
+- Every list implements [List](https://docs.oracle.com/javase/8/docs/api/java/util/List.html) interface in Java
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Main lists operations
+
+* **`add(element)`**: adds element at the end
+* **add(index, element)**: adds element at position
+* **clear()**: removes all elements
+* **contains(element)**: checks if element exists in list
+* **get(index)**: gets element at position
+* **indexOf(element)**: gets position of element (-1 if not found)
+* **remove(index)**: removes element at position
+* **size()**: current number of elements
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## ArrayList
+
+- Implementation of *List* interface
+- Uses an internal array to store the elements
+
+```java
+List myList = new ArrayList();
+ArrayList myOtherList = new ArrayList();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## ArrayList example
+
+```java
+List myList = new ArrayList();
+myList.add("Hello");
+myList.add(new Person("Nacho", 40));
+...
+if (myList.get(1) instanceof Person)
+{
+    Person p = (Person)(myList.get(1));
+    System.out.println(p.getName());
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using generics
+
+- By default a list accepts elements of different types
+- We need to typecast them when we get them
+
+```java
+// Every Person method can be called
+Person p = (Person)(myList.get(1));
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using generics
+
+We can specify the type of the list in the declaration
+
+```java
+List<String> stringList = new ArrayList<>();
+stringList.add("Hello");
+stringList.add("Goodbye");
+System.out.println(stringList.get(1).toUpperCase()); // GOODBYE    
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Generics and polymorphism
+
+We can specify a parent type in a list, and add as many different subtypes as we need
+
+```java
+List<Animal> animals = new ArrayList<>();
+animals.add(new Dog(...));
+animals.add(new Duck(...));
+...    
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Other list implementations
+
+* **Vector**: similar to `ArrayList`, but thread-safe
+* **LinkedList**: every element is linked with previous one and next one
+   * Better for insertions and deletions
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lists of basic data types
+
+We need to use a special class called *wrapper* to specify the list type (*Integer*, *Double*, *Long*, *Character*...)
+
+```java
+List<int> numbers = new ArrayList<>();     // ERROR
+List<Integer> numbers = new ArrayList<>(); // OK
+...
+int number = numbers.get(3);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sorting lists
+
+- We can use **Collections.sort** method to sort lists
+- If list is made of complex objects, then we need to implement *Comparable* or *Comparator* interface
+   - If we use *Comparator*, we need to pass a second parameter to *sort* method, with the comparator instance
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sorting lists
+
+```java
+List<Person> people = new ArrayList<>();
+... // Fill list
+Collections.sort(people, new Comparator<Person>()
+{
+    @Override
+    public int compare(Person p1, Person p2)
+    {
+        return Integer.compare(p1.getAge(), p2.getAge());
+    }
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Go back to Exercise 1 of [this document](05c). Replace the video game array in `main` method with a generic `ArrayList`. Then, add some video games to the list, explore and show the list with a `for` and ask the user to:
+ 
+* Search video games by title (entered by the user)
+* Remove a video game from the list whose index is the one typed by the user
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Sort the video game list in previous exercise by price in ascending order using `Collections.sort` and the appropriate comparing method. Do this step before printing the list in the screen.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Stacks 
+
+- Special type of list in which elements can only be added or extracted from one of the edges, called *top*
+- LIFO structures (*Last In, First Out*)
+- We use [Stack](https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html) class in Java
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Stack methods
+
+Apart from the ones specific from *List*:
+
+* **push(element)**: adds a new element onto the top
+* **pop()**: removes the element at the top of the stack and returns it (or throws an exception if stack is empty)
+* **peek()**: returns the element at the top of the stack without removing it
+* **empty()**: checks if stack is currently empty
+ 
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Stack example
+
+```java
+Stack(Integer) numberStack = new Stack<>();
+numberStack.push(3);
+numberStack.push(9);
+...
+while (!stack.empty())
+{
+    int number = stack.pop();
+    System.out.println(number);
+}
+``` 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Create a project called **ReversedFigure** that asks the user to draw a bi-dimensional figure (line by line), and then prints the same figure inverted vertically
+
+```
+   *             *******
+  ***             *****
+ *****     =>      ***
+*******             *
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Queues 
+
+- Special type of list in which elements can only be added to one of the edges and extracted from the opposite edge
+- FIFO structures (*First In, First Out*)
+- We use [Queue](https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html) interface, which is implemented by *LinkedList* class
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Queue methods
+
+Apart from the ones specific from *List*:
+
+* **add(element):** adds a new element in the tail of the queue
+* **remove()** or **poll()**: retrieve and remove the element at the head of the queue. 
+* **peek()**: checks the element at the head of the queue (without removing it)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Queue example
+
+```java
+LinkedList<Integer> numbers = new LinkedList<>();
+
+numbers.add(1);
+numbers.add(3);
+numbers.add(4);
+
+while(numbers.size() > 0)
+{
+    System.out.println("We are going to extract " + numbers.peek());
+    System.out.println(numbers.remove());
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 4
+
+Create a project called **ConcertAttendance**. Define a class called `Person` to represent every person that wants to attend the concert, and store his/her name and age. Then, in the main program, add some `Person` objects to a queue (add them until user enters empty values). Then, filter from this queue only the adult people, and print the final result in the screen, in arrival order.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

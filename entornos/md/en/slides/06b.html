@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Unit test design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software testing
+### Unit test design
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Unit tests
+
+- They test code units: either classes or sets of functions
+- Strategies or approaches:
+   - *Structural* or **white box**: we focus on the internal behavior of each component (code of each method)
+   - *Functional* or **black box**: we focus on the interface of each component (expected inputs and outputs)
+   - *Random*, in which we rely on statistical approaches to generate the test cases
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Unit tests main approaches
+
+<div align="center">
+    <img src="../../../img/ED_b3-tema01-02-WBox.jpg" alt="Ejercicio1" width="40%"/>
+</div>
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## White box tests
+
+- Focus on the inner working of a program    
+- First tests that we must apply to a system
+- Techniques (not exclusive):
+   - Basic path tests
+   - Condition tests
+   - Loop tests
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Basic path tests
+
+- They determine the complexity of a piece of code
+- We get the number of different paths that a piece of code has
+   - **Cyclomatic complexity** or **V(G)**
+- We need to add a test case to check each possible path
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Basic path tests
+
+Example:
+
+<div align="center">
+    <img src="../../../img/ED_b3-tema01-03-CaminoB.png" alt="Ejercicio1" width="50%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Basic path tests
+
+- Previous example has the following paths:
+   - 1,2,3,F
+   - 1,4,5,F
+   - 1,2,4,5,F
+   - 1,2,4,F
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Basic path tests
+
+- These paths can be tested with the following input values:
+   - a=true, b=true, c=true
+   - a=false, b=*,c=true
+   - a=true, b=false, c=true
+   - a=true, b=false, c=false
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Design the test cases for *Basic path test* approach of this code
+
+```java
+if (num1 > 10)
+{
+    if (num2 > 10)
+        System.out.println("Both are greater");
+    else
+        System.out.println("First is greater");
+} else {
+    if (num2 > 10)
+        System.out.println("Second is greater");
+    else
+        System.out.println("None is greater");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Condition tests
+
+- They evaluate every possible path of the code
+- They focus on conditions
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Condition tests
+
+Example:
+
+```java
+public boolean isLeapYear(int year)
+{
+    boolean result = false;
+    if(year % 4 == 0)
+    {
+        result = true;
+
+        if(year % 100 == 0)
+        {
+            result = false;
+
+            if(year % 400 == 0)
+            {
+                result=true;
+            }
+        }
+    }
+    return result;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Condition tests
+
+- Conditions in previous example:
+   - `if(year % 4 == 0)` : **C1**
+   - `if(year % 100 == 0)`: **C2**
+   - `if(year % 400 == 0)`: **C3**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Condition tests
+
+Truth table from previous conditions set
+
+|N|C1|C2|C3|Result|
+|--|--|--|--|---------|
+|1|true|true|true|true|
+|2|true|true|false|false|
+|3|true|false|true|true|
+|4|true|false|false|true|
+|5|false|true|true|false|
+|6|false|true|false|false|
+|7|false|false|true|false|
+|8|false|false|false|false|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Condition tests
+
+- We simplify the table:
+   - Cases 3 and 4 lead to the same result regardless of the value of C3. 
+   - The same happens with cases 5 to 8 (condition C1 determines the final result)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Condition tests
+
+Simplified truth table (final test cases):
+
+|N|C1|C2|C3|Result|
+|--|--|--|--|---------|
+|1|true|true|true|true|
+|2|true|true|false|false|
+|3|true|false|true|true|
+|4|false|true|true|false|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Repeat previous exercise using now the *Condition tests* approach
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Loop tests
+
+- They evaluate paths for loops. For every loop with n iterations, we must check if:
+   - The loop is never iterated
+   - The loop is iterated only once
+   - The loop is iterated twice
+   - The loop is iterated m times, being m < n
+   - The loop performs n and n-1 iterations.
+- If we have any nested loop, we must start exploring the inner loops and then go to the outer ones.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Loop tests
+
+Example: detecting if *number* is prime
+
+```java
+boolean result = true;
+if (number == 0 || number == 1)
+    result = false;
+int i = 2;
+while (i <= number / 2 && result)
+{
+    if (number % i == 0)
+        result = false;
+    else
+        i++;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Loop tests
+
+- The loop is expected to run up to *N = number / 2 - 1* times as much. 
+- We need test cases for:
+   - Basic cases (0 and/or 1 which are not prime)
+   - Loop never iterated: *number = 2*
+   - Loop iterated once: *number = 3*
+   - Loop iterated twice: *number = 9*
+   - Loop iterated *m* < *N* times: *number = 25* (4 times)
+   - Loop iterated *N-1* times: *number = 4*
+   - Loop iterated *N* times: *number = 23* (prime)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Loop tests
+
+Test cases table
+
+|ID|Name|Data|Expected result|Actual result|
+|---|---|---|---|---|
+|U0|BasicCases|1|false||
+|U1|NoIterations|2|true||
+|U2|OneIteration|3|true||
+|U3|TwoIterations|9|false||
+|U4|MIterations|25|false||
+|U5|N-1Iterations|4|false||
+|U6|NIterations|23|true||
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+This code checks if digits of a number are in ascending order. Design the test cases using the *loop tests* approach
+
+```java
+boolean result = true;
+while (number > 10 && result)
+{
+    int lastDigit = number % 10;
+    number /= 10;
+    int newLastDigit = number % 10;
+    if (lastDigit < newLastDigit)
+        result = false;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Black box tests
+
+- Focus on the interface (input/output) of the element to be tested
+   - We don't care about the internal code of the element
+- Techniques (not exclusive):
+    - Equivalent partitions
+    - Limit values
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Equivalent partitions
+
+- It divides the possible inputs of the application in groups called *equivalence classes*
+- Some of them will be valid and some of them will be invalid
+- We must design test cases for both valid and invalid classes
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Equivalent partitions
+
+Example: we have a method to determine the total amount of a sale, given the concept (string starting with letter), product amount (integer other than 0) and product price (double greater or equal than zero)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Equivalent partitions
+
+Equivalence classes for previous example
+
+|Input condition|Valid class|Invalid class|
+|--|--|--|
+|Concept not empty starting with letter|string=letter+*| empty string OR string starting with number OR string starting with special character|
+|Amount integer other than 0|amount other than 0|amount 0 OR not integer
+|Price double greater or equal than 0|price>=0|price<0 OR not numeric|
+
+</script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+## Equivalent partitions
+
+We must design test cases for every possible combination of previous classes
+
+|ID|Name|Preconditions|Steps|Data|Expected result|Actual result|
+|----|------|--------------|-----|----|------------------|--------------|
+|U1|Valid|*SalesList* object exists|Enter valid classes for concept, amount and price|concept="screw", amount=2,price=2|0, a new element is added||
+|U2|NotValidConcept1|*SalesList* object exists|Enter empty string as concept|concept="", amount=2, price=2|-1, no element added||
+|U3|NotValidConcept2|*SalesList* object exists|Enter string starting with number|concept="2screw", cantidad=2, precio=2 |-1, no element added||
+|U4|NotValidConcept3|*SalesList* object exists|Enter string starting with special char|concept="@screw", amount=2, price=2|-1, no element added||
+|U5|ValidAmount|*SalesList* object exists|Enter negative amount|concept="screw", amount=-2, price=2|0, a new element is added||
+|U6|NotValidAmount|*SalesList* object exists|Enter amount of 0|concept="screw", amount=0, price=2|-1, no element added||
+|...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 4
+
+Do the **Exercise 4** of the document attached to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Analysis of limit values
+
+* If the input condition is a range, we must design test cases for the limits of this range.
+* If the input condition is a finite and consecutive set of values, we must define the test cases for the minimum and maximum value, along with the *minimum + 1* and *maximum - 1* values.
+* We must apply these same rules for the output conditions.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Analysis of limit values
+
+Example: we are testing a function that checks the average of a list of marks that must contain between 3 and 9 marks
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Analysis of limit values
+
+Test cases to check the **input values**:
+
+- Lists of 2, 3 and 4 marks
+   - Regarding the case of 2 marks, it should produce an error
+- Lists of 8, 9 and 10 marks
+   - Again, regarding the case of 10 marks, it should also produce an error
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Analysis of limit values
+
+Regarding the **output values**: 
+
+- Final averages of -1, 0 and 1
+- Final averages of 9, 10 and 11
+
+Depending on the internal code, some of these cases are impossible to reach
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Analysis of limit values
+
+Final test cases
+
+|ID|Name|Data|Expected result|Actual result|
+|---|---|---|---|---|
+|TC1|2Marks|[2, 6]|Error||
+|TC2|3Marks|[4, 5, 6]|5||
+|TC3|4Marks|[7, 7, 9, 9]|8||
+|TC4|8Marks|[1, 2, 3, 4, 6, 7, 8, 9]|5||
+|TC5|9Marks|[2, 3, 4, 5, 6, 7, 8, 9, 10]|6||
+|...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 5
+
+Let's test a function that gets as input the day of a month (integer between 1 and 31) and a month number (integer between 1 and 12) and returns how many days are left in this month (an integer between 1 and 30, depending on the month). 
+
+```java
+int getDaysLeft(int dayOfMonth, int monthNumber) { ... }
+```
+
+Think of the possible test cases to cover all the limit values
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

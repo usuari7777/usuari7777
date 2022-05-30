@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Classes and objects in Java</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Object oriented programming
+### Classes and objects in Java
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Object oriented programming
+
+- A different approach to face software projects
+- We don't focus on what the program must do, but in which elements are part of the system, and how they interact
+- These elements are categorized in *classes*
+- From each class we create *objects* in the program
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Introductory example
+
+We are going to implement an application for bookshop management. In this library there are many books, and each one has an author, and some basic information about the book (title, number of pages, price...). The library has many registered users or customers that want to buy some books.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Introductory example: traditional approach
+
+- We would define some variables to store the information: string array to store book titles, another string array to store customer names... and so on. 
+- We would define the functions to search for a book in the array, to look for user data to login...
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Introductory example: classes
+
+- Think about the different elements that will be part of the project. 
+   - Books, authors, customers... 
+- These elements will be the **classes** of our project. 
+- Classes are templates that categorize the different elements of the application. 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Classes and attributes
+
+- For each class, we need to store some useful information
+- For instance, for every book we need to know the title, number of pages and price. 
+- This information are the **attributes** of each class.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Objects
+
+- Once we know the attributes of a class, we can create **objects** of this class 
+- An object is a concrete instance or representation of a class
+   - E.g: a book with a concrete title (e.g. "Ender's game"), a concrete number of pages (e.g. 321), and so on
+- There can be many objects of a class when our application is running (we could have many books created in our bookshop)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Methods
+
+- Every object in the application may need to do some operations
+   - For instance, we may need to print the information of a book in the screen
+   - Customers may need to search for books, or buy them
+- These operations are called **methods** of these classes.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Summary
+
+From object oriented programming approach we must
+
+1. Identify the different elements that will be part of the application (*classes*)
+2. Define the information that we need to store for each element (*attributes*)
+3. Define the operations that each element may need to do (*methods*)
+4. Create the different objects of each class
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Defining classes in Java
+
+- Through the **class** word, asigning each class a name (usually in upper case)
+- Inside the class code, we can place the attributes of the class, also called *instance variables*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Defining classes in Java
+
+```java
+class Book
+{
+    String title;
+    int numPages;
+    double price;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Creating objects in Java
+
+- We need to declare a variable of the same type of the class, and use the **new** operator to create the object
+- In order to assign values to the attributes, we can use the `.` operator to access each attribute
+
+```java
+Book myBook = new Book();
+myBook.title = "Ender's game";
+myBook.numPages = 321;
+myBook.price = 11.95;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Full example
+
+```java
+class Book
+{
+    String title;
+    int numPages;
+    double price;
+}
+
+class BookExample
+{
+    public static void main(String[] args)
+    {
+        Book myBook = new Book();
+        myBook.title = "Ender's game";
+        myBook.numPages = 321;
+        myBook.price = 11.95;
+
+        System.out.println("Book information:");
+        System.out.println("Title: " + myBook.title);
+        System.out.println("Pages: " + myBook.numPages);
+        System.out.println("Price: " + myBook.price);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Important notes
+
+- `main` method is usually defined in another class apart from the elements of the program
+- Every Java source file must have a *public* class with the same name than the source file. 
+   - If we create a source file called `MyClass.java`, there must be a public class called `MyClass` in it
+   - There can be also other (non public) classes there
+   - The class with the *main* function must be the public class in the file.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class methods
+
+- Functions inside a class to do some operations. Also called *instance methods*.
+
+```java
+class Book
+{
+    String title;
+    int numPages;
+    double price;
+
+    void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+    }
+}
+
+class BookExample
+{
+    public static void main(String[] args)
+    {
+        Book myBook = new Book();
+        myBook.title = "Ender's game";
+        myBook.numPages = 321;
+        myBook.price = 11.95;
+
+        myBook.printInformation();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructors
+
+- Special methods that let us initialize objects
+- They have the same name than the class to which they belong and they don't have any return type
+- Inside their code we usually assign values to the class attributes
+- We can have as many different constructors in a class as we may need
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Default constructor
+
+- It has no parameters, and assigns default values to class attributes
+- This default constructor is automatically generated by Java if we don't specify any constructor
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Default constructor
+
+```java
+class Book
+{
+    String title;
+    int numPages;
+    double price;
+
+    // Default constructor
+    Book()
+    {
+        title = "";
+        numPages = 0;
+        price = 0;
+    }
+
+    void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+    }
+}
+
+class BookExample
+{
+    public static void main(String[] args)
+    {
+        Book myBook = new Book();
+        myBook.printInformation();
+
+        Book myBook2 = new Book();
+        myBook2.printInformation();        
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parameterized constructor
+
+It has parameters with values to be assigned to the attributes
+
+```java
+class Book
+{
+    String title;
+    int numPages;
+    double price;
+
+    // Default constructor
+    Book()
+    {
+        title = "";
+        numPages = 0;
+        price = 0;
+    }
+
+    // Parameterized constructor
+    Book(String t, int n, float p)
+    {
+        title = t;
+        numPages = n;
+        price = p;
+    }
+
+    void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+    }
+}
+
+class BookExample
+{
+    public static void main(String[] args)
+    {
+        Book myBook = new Book("Ender's game", 321, 11.95);
+        myBook.printInformation();
+
+        Book myBook2 = new Book();
+        myBook2.printInformation();        
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Visibility
+
+- Visibility establishes which elements are visible from which other classes of our code
+- Managed through **access modifiers**:
+   - **public**: accessible from anywhere, including other classes
+   - **private**: only accessible from current class
+- Attributes are usually private to protect their values, and methods are usually public
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Visibility
+
+```java
+class Book
+{
+    private String title;
+    private int numPages;
+    private double price;
+
+    // Default constructor
+    public Book()
+    {
+        title = "";
+        numPages = 0;
+        price = 0;
+    }
+
+    // Parameterized constructor
+    public Book(String t, int n, float p)
+    {
+        title = t;
+        numPages = n;
+        price = p;
+    }
+
+    public void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+    }
+}
+
+class BookExample
+{
+    public static void main(String[] args)
+    {
+        Book myBook = new Book("Ender's game", 321, 11.95);
+
+        // ERROR: title is not public
+        System.out.println("This book is " + myBook.title);
+    }
+}
+
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Getters and setters. Encapsulation
+
+- Special methods to access private members
+- **Encapsulation**: private information is preserved and can only be accessed through public methods
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Getters and setters. Encapsulation
+
+```java
+class Book
+{
+    private String title;
+    private int numPages;
+    private double price;
+
+    // Default constructor
+    public Book()
+    {
+        title = "";
+        numPages = 0;
+        price = 0;
+    }
+
+    // Parameterized constructor
+    public Book(String t, int n, float p)
+    {
+        title = t;
+        numPages = n;
+        price = p;
+    }
+
+    public void printInformation()
+    {
+        System.out.println("Book information:");
+        System.out.println("Title: " + title);
+        System.out.println("Pages: " + numPages);
+        System.out.println("Price: " + price);
+    }
+
+    // Getters
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public int getNumPages()
+    {
+        return numPages;
+    }
+
+    public double getPrice()
+    {
+        return price;
+    }
+
+    // Setters
+
+    public void setTitle(String t)
+    {
+        title = t;
+    }
+
+    public void setNumPages(int n)
+    {
+        if (n > 0)
+            numPages = n;
+    }
+
+    public void setPrice(double p)
+    {
+        if (p >= 0)
+            price = p;
+    }    
+}
+
+class BookExample
+{
+    public static void main(String[] args)
+    {
+        Book myBook = new Book("Ender's game", 321, 11.95);
+        myBook.setNumPages(355); // OK
+        myBook.setPrice(-3);     // Has no effect
+        System.out.println("This book is " + myBook.getTitle());
+    }
+}
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a source file called **TeamsExample.java**. Define a class called `Team` with some specific information about the teams, such as the team name and the foundation year. Add a constructor to this class to specify both attributes, and the corresponding getters and setters. Then, define a main class called `TeamsExample` with a main function that creates a *Team* object with the values of your choice, and prints the information in the screen.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Default values for attributes
+
+- If we don't specify a value for an attribute, it automatically gets a default value depending on its data type:
+   - Numeric values (integers, floats, characters...) are set to 0
+   - Boolean values are set to false
+   - Strings are set to *null*, a special value when the string has no value
+   - Any complex object (arrays or even other objects) are also set to *null*
+- These default values are NOT applied to local variables in methods. They are just for attributes
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Using *this*
+
+- Special word to refer to any internal element of a class (either an attribute, constructor or method)
+- Useful to distinguish class elements when they have the same name as external elements (such as parameters)
+   - Typical in constructors and *setters*, for instance
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Using *this*
+
+```java
+class Book
+{
+    private String title;
+    private int numPages;
+    private double price;
+
+    public Book(String title, int numPages, float price)
+    {
+        this.title = title;
+        this.numPages = numPages;
+        this.price = price;
+    }
+
+    ...
+
+    public void setPrice(double price) 
+    {
+        if (price >= 0)
+            this.price = price;
+    }
+
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays of objects: definition
+
+We can define an array of objects of a class in the same way that we did for basic data types
+
+```java
+Book[] books = new Book[10];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays of objects: filling the array
+
+We need to instantiate (*new*) every object that will be part of the array
+
+```Java
+books[0] = new Book("Ender's game", 321, 11.95);
+books[1] = new Book("The never ending story", 525, 14.15);
+...
+
+// Or with a loop:
+for (int i = 0; i < books.length; i++)
+{
+    books[i] = new Book(...);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **VideoGameList.java** to store objects of a class called `VideoGame` that you must define. For each videogame, we are going to store its title, genre and price. Add also the corresponding getters, setters and constructor to set these values. Define a main, public class called `VideoGameList` in the same source file. Then, in the *main* method of this class, create an array of 5 video games, ask the user to fill de information of each videogame, and then show the title of the cheapest and the most expensive video game of the array.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class diagrams in Java
+
+- You can learn about class diagrams in general [here](https://nachoiborraies.github.io/entornos/md/en/04e)
+- Regarding Java, we also need to specify the data type of each attribute, along with the type of every method (including parameters and return type)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Class diagrams in Java
+
+This is an example of our *Book* class in a class diagram using Java
+
+<div align="center">
+    <img src="../../../img/05_book_class.png" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Complete the class diagrams proposed along [this document](https://nachoiborraies.github.io/entornos/md/en/04e), including Java data types for every attribute, constructor or method.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Function definition</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Functions and error handling
+### Function definition
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Functions
+
+- It may be hard to maintain or keep clean a piece of code of some hundred lines
+- Besides, we may need to repeat the same piece of code in many parts of our program
+- We need to divide our code into functions or modules (**modular programming**)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Function definition in Java
+
+- We define functions as *public* and *static* to be used anywhere
+- We need to specify the return type (or *void* for no return type), function name and parentheses
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Function definition in Java
+
+```Java
+public static void welcome()
+{
+    System.out.println("Hello, welcome to this program!");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Function calling
+
+Use function name and parentheses
+
+```Java
+public static void main(String[] args)
+{
+    welcome();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Returning values
+
+- We can specify any return type instead of *void*
+- Then, we must use **return** clause to return a result of this type
+- The returned value can be assigned to a variable or used in an expression
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Returning values
+
+```Java
+public static string welcome()
+{
+    return "Hello, welcome to this program!";
+}
+
+public static void main(String[] args)
+{
+    // Nothing happens    
+    welcome(); 
+
+    // Option 1
+    string result = welcome();
+    System.out.println(result);
+
+    // Option 2
+    System.out.println(welcome());    
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parameters
+
+- Additional data that functions need to do their job
+- Passed between parentheses, separated by commas
+- For each parameter we need to specify its type and name
+- When we call the function, we must specify a value for each parameter in the same order
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parameters
+
+```java
+public static void myOtherFunction (int a, String b)
+{
+    ...
+}
+
+public static void main (String[] args)
+{
+    ...
+    myOtherFunction(3, "Hello");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Parameters by value
+
+- We pass a copy of the original value
+- Original value can NOT be changed from within the function
+- Applied to simple values (integers, floats...)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parameters by value
+
+```Java
+public static void myFunction(int value)
+{
+    // This increment will have no effect after exiting the function
+    value = value + 1; 
+    System.out.println("Inside function: " + value);
+}
+
+public static void main(String[] args)
+{
+    int number = 3;
+    myFunction(number);         // Inside function: 4
+    System.out.println(number); // 3
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parameters by reference
+
+- We pass a reference or pointer to the original data
+- Data can be changed from within the function AS LONG AS we don't change the original reference
+    - This is, as long as we don't reassign the whole variable
+- Applied to complex data (arrays, objects...)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parameters by reference
+
+```Java
+public static void myFunctionWithArray(int[] data)
+{
+    data[0] = 10;           // OK
+}
+
+public static void myFunctionWithArray2(int[] data)
+{
+    data = {1, 2, 3, 4};    // No effect outside the function
+}
+
+public static void main(String[] args)
+{
+    int[] numbers = {1, 1, 1, 1};
+    myFunctionWithArray(numbers);
+    // Here numbers = {10, 1, 1, 1}
+    myFunctionsWithArray2(numbers);
+    // Here numbers = {10, 1, 1, 1}
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## More on return values
+
+- There should be just one *return* point in a function
+
+```java
+/* 
+ This function returns the maximum between its two parameters 
+ BUT it has more than one return
+*/
+public static int maximum(int n1, int n2)
+{
+    if (n1 > n2)
+    {
+        return n1;
+    }
+    else
+    {
+        return n2;
+    }
+}
+
+/*
+ This other function does the same task with just one return
+*/
+public static int maximum(int n1, int n2)
+{
+    int result = n1;
+    if (n2 > n1)
+    {
+        result = n2;
+    }
+
+    return result;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Global variables
+
+- Variables defined outside every function (inside a class), so that they can be accessed from any function
+- In Java they should be *public* and *static* for now
+
+```java
+class MyClass
+{
+    public static int myGlobalVariable;
+
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Local variables
+
+- Variables defined inside a function, they are not accessible from other functions
+
+```java
+class MyClass
+{
+    public static void aFunction()
+    {
+        int number = 3;
+        anotherFunction();
+    }
+
+    public static void anotherFunction()
+    {
+        System.out.println(number); // Error: number does not exist here
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Global vs local variables
+
+- Global variables must cause side effects (changes from any function accidentally)
+- Better to use local variables and pass them as parameters to other functions
+
+```java
+class MyClass
+{
+    public static void aFunction()
+    {
+        int number = 3;
+        anotherFunction(number);
+    }
+
+    public static void anotherFunction(int n)
+    {
+        System.out.println(n); // OK
+    }
+}
+```
+
+</script>
+</section>
+    
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises 
+
+Do **exercises 1 and 2** of the contents of this session to practice with function definition and management.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Recursion
+
+Ability of a function to solve a task by calling itself multiple times with simpler versions of the problem to be solved
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Components of a recursive function
+
+* **Base case**: simplest problem that we can find, in which recursive calls finish. There can be more than one
+* **Recursive case**: every internal call to the same function with a simpler version of the problem.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: factorial
+
+- Multiplication of numbers from N to 1
+- 5! = 5 * 4 * 3 * 2 * 1
+- Can be expressed recursively: N! = N * N-1!
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: factorial
+
+```
+5! = 5 * 4!
+4! = 4 * 3!
+3! = 3 * 2!
+2! = 2 * 1!
+1! = 1
+```
+
+1! is the simplest case of a factorial (base case)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: factorial
+
+As soon as we get to the base case, we can finish the pending operations
+
+```
+1! = 1
+2! = 2 * 1 = 2
+3! = 3 * 2 = 6
+4! = 4 * 6 = 24
+5! = 5 * 24 = 120
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: factorial
+
+Recursive function in Java
+
+```java
+public static int factorial(int number)
+{
+    // Base case
+    if (number == 1)
+    {
+        return 1;
+    }
+    // Recursive case
+    else
+    {
+        return number * factorial(number - 1);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: factorial
+
+Non-recursive (iterative) function in Java
+
+```java
+public static inf factorialIterative(int number)
+{
+    int result = 1;
+    for (int i = number; i > 1; i--)
+    {
+        result = result * i;
+    }
+    return result;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: Fibonacci series
+
+- Start with 0 and 1
+- Next numbers are calculated with the addition of two previous numbers
+- 0, 1, 1, 2, 3, 5, 8, 13, 21...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: Fibonacci series
+
+Iterative function in Java to get the nth element of the series
+
+```java
+public static int fibonacci(int n)
+{
+    int previous, previous2, result;
+
+    if (n == 0)
+    {
+        result = 0;
+    }
+    else if (n == 1)
+    {
+        result = 1;
+    }
+    else
+    {
+        previous2 = 0;
+        previous = 1;
+        for (int i = 2; i <= n; i++)
+        {
+            result = previous + previous2;
+            previous2 = previous;
+            previous = result;
+        }
+    }
+
+    return result;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: Fibonacci series
+
+Recursive function in Java to get the nth element of the series
+
+```java
+public static int fibonacci(int n)
+{
+    if (n == 0 || n == 1)
+    {
+        return n;
+    }
+    else
+    {
+        return fibonacci(n-1) + fibonacci(n-2);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercises 
+
+Do **exercises 3 and 4** of the contents of this session to practice with recursion
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Using *main* arguments 
+
+- *main* function has a *String* array as parameter
+- We can fill this array from the command line: *java Program Nacho 20 12*
+
+```Java
+public static void main(String[] args)
+{
+    if (args.length > 0)
+        System.out.println("Received " + args.length + " args.");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercises 
+
+Do **exercise 5** of the contents of this session to practice with main arguments
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

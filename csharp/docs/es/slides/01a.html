@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Toma de contacto con C#</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Toma de contacto con C#
+#### Programas, lenguajes y herramientas
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Programas y lenguajes
+
+* **Programa**: conjunto de instrucciones que hacen que el ordenador realice una tarea 
+* **Lenguaje de programación**: lenguaje **formal** que permite escribir instrucciones de un programa
+   * *formal* = con reglas sintácticas bien definidas
+   * Las instrucciones se almacenan en ficheros de texto llamados **código fuente**.
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de lenguajes
+
+- **Alto nivel**: cercanos a lenguaje humano, incomprensibles para el ordenador
+    - Java, Python, C#, C, C++, PHP, JavaScript...
+- **Bajo nivel**: cercanos al ordenador, difíciles de entender por los humanos
+    - Lenguaje ensamblador
+</script>
+</section>
+
+<section>
+    <h2>Ejemplo: programa en BASIC (1964)</h2>
+    <pre><code data-trim data-noescape>    
+PRINT "Hola"
+    </code></pre>
+</section>
+
+<section>
+<h2>Ejemplo: programa en C (1972)</h2>
+
+<pre><code data-line-numbers="|6|7|4">
+#include <stdio.h>
+
+int main()
+{
+    printf("Hola");
+    return 0;
+}    
+```
+</code>
+</pre>
+</section>
+
+<section>
+    <h2>Ejemplo: programa en C# (2000)</h2>
+    <pre><code data-trim data-noescape data-line-numbers="|5|3|1">
+class Saludo
+{
+    static void Main()
+    {
+        System.Console.WriteLine("Hola");
+    }
+}
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evolución de los lenguajes de alto nivel
+
+* Poco a poco se van haciendo más complejos para cubrir más necesidades
+   * Interfaz gráfica, conexión a Internet... 
+* Algunos lenguajes recientes también tienden a la simplicidad, como *Python*:
+
+```python
+print("Hola")
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+¿Qué tendríamos que cambiar en el codigo del ejemplo en C# para sacar por pantalla "Hasta luego" en lugar de "Hola"?
+</script>
+</section>
+    
+<section>
+    <h2>Ejemplo: programa en ensamblador</h2>
+    <pre><code data-trim data-noescape>    
+dosseg
+.model small
+.stack 100h
+
+.data 
+saludo db 'Hola',0dh,0ah,'$'
+
+.code
+main    proc
+        mov ax,@data
+        mov ds,ax
+        mov ah,9
+        mov dx,offset saludo
+        int 21h
+        mov ax,4C00h
+        int 21h 
+main    endp
+end     main
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Procesadores del lenguaje
+
+- Traducen un lenguaje de programación en otro comprensible por el ordenador
+- Este lenguaje se llama **código máquina**, compuesto por ceros y unos (bits)
+
+<div align="center">
+1000 0011 1101 1000 1011 0100 0000 1001
+</div>
+
+- Tipos principales:
+   - Compiladores
+   - Intérpretes
+   - Máquinas virtuales
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Compiladores
+
+- Traducen de un lenguaje de programación a código máquina, generando un archivo ejecutable como resultado
+- Ejemplos de lenguajes compilados: C, C++
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Compiladores: pros y contras
+
+- PROS: 
+   - Código resultado más eficiente
+   - No se necesita el código fuente para ejecutar el programa
+- CONTRAS: 
+   - Dependiente de la plataforma
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Intérpretes
+
+- Traducen de un lenguaje de programación a código máquina *al vuelo*, sin generar ningún archivo resultado
+- Ejemplos de lenguajes interpretados: Python, PHP, JavaScript
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Intérpretes: pros y contras
+
+- PROS: 
+   - Independiente de la plataforma
+- CONTRAS: 
+   - Menos eficiente que los compilados
+   - Se necesita el código fuente para ejecutar el programa
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Máquinas virtuales
+
+- Traducen de un lenguaje de programación a otro intermedio comprensible por una máquina virtual
+- Ejemplos: Java (*JVM*), C# (plataforma *.NET*)
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Máquinas virtuales: pros y contras
+
+- PROS: 
+    - Independiente de la plataforma (si tiene la MV instalada)
+    - No se necesita el código fuente para ejecutar el programa
+- CONTRAS: 
+    - No tan eficiente como los lenguajes compilados
+</script>
+</section>    
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

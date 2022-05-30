@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Collections | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Collections" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/06c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/06c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Collections" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Collections","url":"http://nachoiborraies.github.io/java/md/en/06c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="collections">Collections</h1>
+
+<h2 id="maps-sets-and-trees">Maps, sets and trees</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/06c.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/06c.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Apart from lists, there are some other important collection types in Java that we can use in our programs. Let’s have a look at them in this document.</p>
+
+<h3 id="1-maps">1. Maps</h3>
+
+<p>Maps are a type of dynamic collection in which every element or value is referenced by a key. They are also called hash tables or <em>dictionaries</em>, because they work like a dictionary: if we know the word we are looking for, we can “jump” to it (without exploring all previous words in the dictionary) and check its meaning.</p>
+
+<h4 id="11-map-management-in-java">1.1. Map management in Java</h4>
+
+<p>In Java, every type of map implements a global interface called <code class="language-plaintext highlighter-rouge">Map</code>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">here</a> you can see the API of this interface.</p>
+
+<p>If you take a look at that API, there are some methods that we can use in any list type, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">clear()</code> to clear the map (remove all of its elements).</li>
+  <li><code class="language-plaintext highlighter-rouge">containsKey(key)</code> to check if the map contains a given key.</li>
+  <li><code class="language-plaintext highlighter-rouge">get(key)</code>: to get the value associated to the given key.</li>
+  <li><code class="language-plaintext highlighter-rouge">put(key, value)</code>: to add the specified key-value pair to the map</li>
+  <li><code class="language-plaintext highlighter-rouge">remove(key)</code>: to remove the key-value pair identified by the given key.</li>
+  <li><code class="language-plaintext highlighter-rouge">size()</code> to get the total number of elements stored in the map</li>
+</ul>
+
+<p>The most popular map subtype that we can use in Java is <code class="language-plaintext highlighter-rouge">HashMap</code> class (<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html">API</a>). As it implements <code class="language-plaintext highlighter-rouge">Map</code> interface, we can use all of the methods from that interface.</p>
+
+<p>We can create a <em>HashMap</em> by either defining a <code class="language-plaintext highlighter-rouge">HashMap</code> variable or a <code class="language-plaintext highlighter-rouge">Map</code> variable (using polymorphism). In both cases, we should use generics (although it is not compulsory), to establish the data type of both the key and the value. In the following example, we define a map whose keys are strings, and whose values are <code class="language-plaintext highlighter-rouge">Person</code> objects. Then we add some elements to the map (see how we specify both the key and value when putting the element in the map), and look for a given element by its key:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Person</span><span class="o">&gt;</span> <span class="n">myMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">myMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"11223344A"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">,</span> <span class="mi">40</span><span class="o">));</span>
+<span class="n">myMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"22334455B"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Arturo"</span><span class="o">,</span> <span class="mi">35</span><span class="o">));</span>
+<span class="o">...</span>
+<span class="c1">// Print the name of the Person with key = 11223344A</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"11223344A"</span><span class="o">).</span><span class="na">getName</span><span class="o">());</span>
+</code></pre></div></div>
+
+<p>If we want to explore a map, we can’t use a traditional <code class="language-plaintext highlighter-rouge">for</code> and increase an index to go to each position, since there is no numeric index in maps. Instead of this, we need to get the set of keys (with <code class="language-plaintext highlighter-rouge">keySet</code> method), and explore it with a “foreach”:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">myMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">myMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">getName</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="12-hash-function">1.2. Hash function</h4>
+
+<p>How does Java place each element of a map in a position so that it can be automatically retrieved by its key? Well, it applies a <strong>hash function</strong>, this is, a function that converts the key into a numeric value, which represents an index in the map. Then, the element is automatically placed at that index (user doesn’t need to care about it, obviously).</p>
+
+<p>Every object in Java has (and can override) an inherited function called <code class="language-plaintext highlighter-rouge">hashCode</code> that returns an integer associated to this object. Java uses this hashing function to determine the number associated to each key in the map, and this function can also be used, along with <code class="language-plaintext highlighter-rouge">equals</code> method, to automatically check if two objects are equal or not, as we will see in later examples.</p>
+
+<h4 id="13-map-subtypes-and-performance">1.3. Map subtypes and performance</h4>
+
+<p><code class="language-plaintext highlighter-rouge">HashMap</code> and <code class="language-plaintext highlighter-rouge">Hashtable</code> are <code class="language-plaintext highlighter-rouge">Map</code> implementations using a hash function for distributing keys. The main difference between them is that a <code class="language-plaintext highlighter-rouge">Hashtable</code> is synchronized, so it’s thread safe. Another difference is that with <code class="language-plaintext highlighter-rouge">HashMap</code> you can use <code class="language-plaintext highlighter-rouge">null</code> as a key.</p>
+
+<p>The main advantage of this type of structures is that, when you want to search for a value, it’s very fast to find (compared to a list for example), since it only has to calculate a hash function to find out where the desired object is placed. When you want to insert a lot of entries and search a lot too, instead of iterating, a <code class="language-plaintext highlighter-rouge">Map</code> implementation is usually better suited than a <code class="language-plaintext highlighter-rouge">List</code>.</p>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>Library</strong>, with a main class called <code class="language-plaintext highlighter-rouge">Library</code> and another class called <code class="language-plaintext highlighter-rouge">Book</code>, in which we are going to store some information about each book: the <em>id</em> (a string), the title and the author’s name. In the main application, define a map of books, whose keys will be their corresponding <em>ids</em>. Manually add some books to the map, and then explore it and show the books in the screen (override the <code class="language-plaintext highlighter-rouge">toString</code> method of <code class="language-plaintext highlighter-rouge">Book</code> class to properly show book info).</p>
+</blockquote>
+
+<h3 id="2-sets">2. Sets</h3>
+
+<p>A set is a collection with no duplicate elements. In Java, every type of set implements a global interface called <code class="language-plaintext highlighter-rouge">Set</code> (<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Set.html">here</a> you can see the API of this interface).</p>
+
+<p>If you take a look at that API, there are some methods that we can use in any list type, such as:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">add(element)</code>: to add an element to the set, as long as it is not already present. Notice that this method returns a <strong>boolean</strong>, indicating if the new element could be added or not.</li>
+  <li><code class="language-plaintext highlighter-rouge">clear()</code> to clear the set (remove all of its elements).</li>
+  <li><code class="language-plaintext highlighter-rouge">contains(element)</code>: to check if a given element already exists in the set (as long as the class overrides <code class="language-plaintext highlighter-rouge">equals</code> method to know how to check if two elements are equal or not).</li>
+  <li><code class="language-plaintext highlighter-rouge">iterator()</code>: to get an iterator and explore the elements of the set with it.</li>
+  <li><code class="language-plaintext highlighter-rouge">remove(element)</code>: to remove the element from the set (as long as the class overrides <code class="language-plaintext highlighter-rouge">equals</code> method). This method also returns a boolean.</li>
+  <li><code class="language-plaintext highlighter-rouge">size()</code> to get the total number of elements stored in the set</li>
+</ul>
+
+<p>As you can see, there is no index to specify the position of the elements in the set, so we must explore them with an iterator. Let’s suppose that we have a set of strings… We can explore it this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">mySet</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="nc">Iterator</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">it</span> <span class="o">=</span> <span class="n">mySet</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">it</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span>
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>One of the most popular classes to work with sets is <code class="language-plaintext highlighter-rouge">HashSet</code> class (<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html">API</a>). It works like <em>HashMap</em> class seen before, but we only specify the keys of the map (not the values). As it implements <code class="language-plaintext highlighter-rouge">Set</code> interface, we can use all of the methods from that interface.</p>
+
+<p>We can create a HashSet by either defining a <code class="language-plaintext highlighter-rouge">HashSet</code> variable or a <code class="language-plaintext highlighter-rouge">Set</code> variable (using polymorphism). In both cases, we should use generics (although it is not compulsory), to establish the data type of the keys. In the following example, we define a set of strings and add some strings on it. Then we remove a given string from the set:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">mySet</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
+<span class="n">mySet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+<span class="n">mySet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span> <span class="c1">// Will not work, "Hello" already exits</span>
+<span class="n">mySet</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Goobye"</span><span class="o">);</span>
+<span class="o">...</span>
+<span class="n">mySet</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="s">"Goodbye"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>FairyTaleSet</strong> with a main program that stores a set of fairy tales. For each fairy tale, we are going to store its title and the number of pages, so define a <code class="language-plaintext highlighter-rouge">FairyTale</code> class with these two attributes, a constructor and the corresponding getters and setters.<br />
+Also, override <code class="language-plaintext highlighter-rouge">equals</code> method to determine when two fairy tales will be considered the same: they will be the same whenever they have the same title.
+Then, in the main application, define a set of <code class="language-plaintext highlighter-rouge">FairyTale</code> objects, and add some of them to the list. Try to add some fairy tales with the same title, to see how many of them are finally included in the set. Then, explore the set with an iterator and print the data in the screen (you can also override <code class="language-plaintext highlighter-rouge">toString</code> method for this).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTE</strong>: in order to determine if two fairy tales are the same by title, besides overriding <code class="language-plaintext highlighter-rouge">equals</code> method, you need to override <code class="language-plaintext highlighter-rouge">hashCode</code> method to generate a <em>hash code</em> with its title (not the number of pages), so that Java can compare two hash codes of two different fairy tales and determine that the titles are the same. <code class="language-plaintext highlighter-rouge">hashcode</code> method can be automatically generated by IntelliJ, as getters, setters and other common methods.</p>
+</blockquote>
+
+<h3 id="3-trees">3. Trees</h3>
+
+<p>A tree is a hierarchical structure with a root value from which we can find a set of linked nodes. Each of these nodes is a subtree indeed, with all of the nodes linked from it. There are some restrictions: no node is duplicated, there are no cycles and no node points to the root.</p>
+
+<p>This is an example of a tree. Root node is represented by number 8, and it has two subtrees: one represented by number 3 and another one represented by number 10. Subtree number 3 has two more subtrees inside: numbers 1 and 6, and so on…</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/06_trees.png" width="30%" />
+</div>
+
+<p>We can define a tree exploring its nodes recursively (it can be useful, for instance, for exploring our directory structure), and we can also define a tree as an ordered structure, so that all the nodes at the left of a given node are lower than this node, and all the nodes at the right of a node are higher. The tree shown in the image above is an ordered tree (all the nodes of the left subtree are lower than 8, and all the nodes of the right subtree are higher than 8, and we can say the same with any subtree). The main advantage of this ordered trees, assuming that they are balanced (i.e., all the branches have more or less the same depth), is that the complexity of searching a given node is simpler than in a list. If a list has N elements, the complexity of searching an element is O(N); it means that we could explore up to N elements before finding the desired one. However, if we have a balanced tree with N nodes, where each node has up to M branches, the complexity of searching an element in this tree is O(log<sub>M</sub>N), which is lower than O(N).</p>
+
+<p>There are several types of tree structures, such as binary trees (each node has 2 branches), red-black trees (balanced binary tree), and so on. We will not focus on implementing these types of trees, but in using the ones provided by Java. Let’s see how they work with an example.</p>
+
+<p>Some of the implementations for maps and sets use trees to store the values, such as <code class="language-plaintext highlighter-rouge">TreeMap</code> or <code class="language-plaintext highlighter-rouge">TreeSet</code>. In general, trees are a structure not very usual in our programs, although they have some advantages.</p>
+
+<p>Let’s see an example: we have an interface called <code class="language-plaintext highlighter-rouge">Shape</code> to represent different geometrical shapes (circles, squares and so on). They all have a <code class="language-plaintext highlighter-rouge">getArea</code> method, provided by the interface, that calculates the area of each shape. We could override the toString <code class="language-plaintext highlighter-rouge">method</code> in each subclass (<code class="language-plaintext highlighter-rouge">Circle</code>, <code class="language-plaintext highlighter-rouge">Square</code>…) to make them print the shape type and the area. For instance, in <code class="language-plaintext highlighter-rouge">Square</code> class we would have this method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"Square -&gt; Area: %.2f"</span><span class="o">,</span> <span class="n">getArea</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>From this class structure, we can create a <code class="language-plaintext highlighter-rouge">TreeSet</code> that stores a set of shapes, ordering them automatically by their area. Our main program would look like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Shape</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TreeSet</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="nc">Shape</span><span class="o">&gt;()</span> 
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="nc">Shape</span> <span class="n">s1</span><span class="o">,</span> <span class="nc">Shape</span> <span class="n">s2</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Double</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">getArea</span><span class="o">(),</span> <span class="n">s2</span><span class="o">.</span><span class="na">getArea</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Triangle</span><span class="o">(</span><span class="mf">6.25</span><span class="o">,</span> <span class="mi">8</span><span class="o">));</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Triangle</span><span class="o">(</span><span class="mf">7.2</span><span class="o">,</span> <span class="mf">6.78</span><span class="o">));</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Circle</span><span class="o">(</span><span class="mf">4.3</span><span class="o">));</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Circle</span><span class="o">(</span><span class="mf">1.88</span><span class="o">));</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mf">9.25</span><span class="o">,</span> <span class="mf">7.6</span><span class="o">));</span>
+<span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">Rectangle</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mf">2.55</span><span class="o">));</span>
+
+<span class="k">for</span><span class="o">(</span><span class="nc">Shape</span> <span class="nl">s:</span> <span class="n">set</span><span class="o">)</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span> 
+</code></pre></div></div>
+
+<p>Note that we create a new <code class="language-plaintext highlighter-rouge">Comparator</code> object with an anonymous class, and implement the method compare, that compares two shapes by their area. Then, we add some shapes to the tree (unordered), and if we run the program, we would get this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Circle -&gt; Area: 11,10
+Rectangle -&gt; Area: 22,95
+Triangle -&gt; Area: 24,41
+Triangle -&gt; Area: 25,00
+Circle -&gt; Area: 58,09
+Rectangle -&gt; Area: 70,30
+</code></pre></div></div>
+
+<p>You can see that shapes are listed ordered by their area automatically. This is one of the strengths of trees.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

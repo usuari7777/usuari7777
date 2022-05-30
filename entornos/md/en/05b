@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Version control tools | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Version control tools" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/05b.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Version control tools" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Version control tools","url":"http://nachoiborraies.github.io/entornos/md/en/05b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="version-control-tools">Version control tools</h1>
+
+<h2 id="basic-github-management">Basic GitHub management</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>GitHub is an online tool that lets us manage projects using version control through Git. So we can make use of a DVCS, which is Git, and its source code management. Besides, GitHub provides some additional functionalities, such as access control, collaborative work, continuous integration, hosting for static web pages…</p>
+
+<p>There are some alternatives to GitHub, such as BitBucket, or GitLab, but nowadays GitHub is the most popular one.</p>
+
+<h3 id="1-signing-up-and-first-steps">1. Signing up and first steps</h3>
+
+<p>In order to use this platform, we must go to the <a href="https://github.com/">official web site</a> and sign up using the <em>Sign Up</em> button in the upper right corner. Once we sign up, we can see our main page:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-06-CreateRepositoryGitHub.png" width="70%" />
+</div>
+
+<p>We can distinguish some important areas in this main page:</p>
+
+<ul>
+  <li>On the left we can see the list of our repositories. At the beginning this list will be empty. We will see now what a repository is, and how to create them.</li>
+  <li>In the middle there’s a list of your recent activity. Every last change that you’ve made to your repositories will be published here.</li>
+  <li>In the upper bar there are some links and menus that can be useful:
+    <ul>
+      <li>The icon in the top left will send you to this home page.</li>
+      <li>The link with the <strong>+</strong> symbol lets you add new elements to your account: repositories, organizations…</li>
+      <li>The last icon in the top right section is your profile, from which you can manage your personal information, repositories, organizations created, personal settings and so on.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-repositories">2. Repositories</h3>
+
+<p>A VCS is normally used for storing projects that can be developed by many people. Either if we develop the project on our own or with other people, we may need to have a remote copy of it, so that we can restore it if there are any problems with our local copy. To do this, we need to have a repository where our remote copy will be stored.</p>
+
+<p>We can create our repository in <a href="https://github.com">GitHub</a>, <a href="https://bitbucket.org/product">Bitbucket</a> or other platforms. In this case, we are going to use GitHub, which is the most popular one. Besides, it lets us create both public and private repositories. Public repositories can be seen by anyone, but only allowed people can make changes to both public and private repositories.</p>
+
+<p>If we want to create a GitHub repository (as long as we have already signed up), we must click on the <em>New</em> button on the upper left corner (or through the <strong>+</strong> link in the upper right, choosing <em>New repository</em> then), and specify the repository name and some of its general settings: if we want it to be public or private, and if we want to add an initial <code class="language-plaintext highlighter-rouge">README</code> file (recommended).</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-06-CreateRepositoryGitHub2.png" alt="Create repository" width="70%" />
+</div>
+
+<p>If we click on the repository name in the left panel of the main view, we can enter this repository. From this page we can, for instance, clone or download the repository, or see the commit history.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-06-CreateRepositoryGitHub3.png" alt="Repository main page" width="90%" />
+</div>
+
+<p>If we click on the <em>Settings</em> link, we can change some settings. From this page, we can add collaborators from the <em>Collaborators</em> menu on the left (this is, other GitHub users) to our project, so that they can also make changes on it. We can also delete the repository, or change its visibility (public/private).</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-06-CreateRepositoryGitHub4.png" alt="Repository settings" width="90%" />
+</div>
+
+<h4 id="21-adding-contents-manually">2.1. Adding contents manually</h4>
+
+<p>From the GitHub tool we can add or edit the files in our projet (although this is not the recommended way). For instance, if we have created the project with a <code class="language-plaintext highlighter-rouge">README.md</code> file, we can click on this file and open it. Then, we can click on the pencil tool to edit the contents.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-07-GitHubEditContents.png" alt="Editing README" width="80%" />
+</div>
+
+<p>Also, we can add new files to the repository from its main page, clicking on the <em>Add file</em> button.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-07-GitHubEditContents2.png" alt="Adding files to repository" width="70%" />
+</div>
+
+<p>Next, we need to specify the new file’s name, along with the folders and subfolders where it will be placed (we can specify as many folders and subfolders as we want, separated by <code class="language-plaintext highlighter-rouge">/</code>, and they will be automatically created).</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema05-07-GitHubEditContents3.png" alt="Adding files to repository" width="80%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Sign up in GitHub if you don’t have an account yet. Then, create a new public repository called <strong>MyFirstRepo</strong>, with a README file. Next, do these steps:</p>
+
+  <ul>
+    <li>Edit <code class="language-plaintext highlighter-rouge">README.md</code> file and add this text: “This is my first repo”</li>
+    <li>Add a new file called <code class="language-plaintext highlighter-rouge">notes.md</code> and add some text about yourself: hobbies, interests…</li>
+  </ul>
+
+  <p>Remember to save changes after editing these files.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

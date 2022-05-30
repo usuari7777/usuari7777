@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Integrated Development Environments</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Integrated Development Environments
+### Using Visual Studio
+</script>
+</section>
+
+<section>
+    <h2>IntelliJ IDEA</h2>
+    <table>
+        <tr>
+            <td valign="middle" width="30%"><img src="../../../img/ED_b1_tema02-36_VisualStudio.png" alt="IntelliJ"/></td>
+            <td>
+                <ul>
+                    <li>Specific purpose IDE</li>
+                    <li>Initially conceived to work with C++ and Visual Basic</li>
+                    <li><em>Community</em>: free</li>
+                    <li><em>Professional</em>: commercial</li>
+                    <li><em>visualstudio.microsoft.com</em></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Installation
+
+- Choose *workloads*
+   - Recommended *.NET desktop development* 
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-37_VisualStudio_WorkLoads.png" alt="Visual Studio workloads" width="80%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Creating projects (1/2)
+
+- *File* > *New project*
+- C# console application, usually
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-45_VisualStudio_project.png" alt="Visual Studio new project" width="90%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Creating projects (2/2)
+
+- Choose project name and location
+- A new project with a default **Program.cs** file will be shown
+- Click on *Start* button, or `F5`, or `Ctrl + F5`
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-45_VisualStudio_project2.png" alt="Visual Studio new project" width="90%"/>
+</div>
+
+</script>
+</section>
+
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

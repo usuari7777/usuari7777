@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Desarrollo de videojuegos con Pygame | Programación en Python</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Desarrollo de videojuegos con Pygame" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="pygame01.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/python/md/es/pygame01.html" />
+<meta property="og:site_name" content="Programación en Python" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Desarrollo de videojuegos con Pygame" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de programación en Python. Desde los elementos básicos del lenguaje hasta conceptos algo más avanzados. Escrito por Nacho Iborra, profesor de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Desarrollo de videojuegos con Pygame","url":"http://nachoiborraies.github.io/python/md/es/pygame01.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=ad772411c2d54aed2fa2db75ebd82d7033d25af5">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/python/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Programación en Python</a></h1>
+      
+
+      <h1 id="desarrollo-de-videojuegos-con-pygame">Desarrollo de videojuegos con Pygame</h1>
+<h2 id="primeros-pasos">Primeros pasos</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/pygame01.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="pygame01.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p><strong>Pygame</strong> es una librería para desarrollar videojuegos en Python de forma sencilla. Incorpora mecanismos que nos van a permitir dibujar distintos tipos de imágenes, reproducir audios, detectar colisiones entre objetos, etc. En este primer documento aprenderemos a dar los primeros pasos con ella: instalarla y configurar un entorno básico de ejecución.</p>
+
+<h3 id="1-instalación-de-pygame">1. Instalación de Pygame</h3>
+
+<p>Pygame es una librería que no viene incorporada en el núcleo de instalación de Python, y debemos instalar de forma adicional. Para ello, utilizaremos una herramienta que sí viene incorporada en Python, llamada <code class="language-plaintext highlighter-rouge">pip</code>. Seguimos estos pasos.</p>
+
+<p><strong>Windows</strong></p>
+
+<ol>
+  <li>Actualizamos la herramienta <code class="language-plaintext highlighter-rouge">pip</code> a su última versión:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python -m pip install --upgrade pip
+</code></pre></div></div>
+
+<ol>
+  <li>Instalamos <em>pygame</em>:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pygame
+</code></pre></div></div>
+
+<p>Esto instalará la librería de forma global en el sistema, con lo que podremos utilizarla en diferentes proyectos de videojuegos. Para comprobar que está correctamente instalada podemos lanzar algunos de los juegos de prueba que se instalan con ella, como por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python -m pygame.examples.aliens
+</code></pre></div></div>
+
+<p><strong>Linux (Ubuntu)</strong></p>
+
+<p>En el caso de distribuciones Ubuntu Linux, debemos instalar <code class="language-plaintext highlighter-rouge">pip</code> si no lo tenemos ya instalado, con estos comandos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install python3-pip
+</code></pre></div></div>
+
+<p>Después, podemos actualizar la propia versión de <code class="language-plaintext highlighter-rouge">pip</code> con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install -U pip
+</code></pre></div></div>
+
+<p>Finalmente, instalamos <em>pygame</em> empleando el comando <code class="language-plaintext highlighter-rouge">pip</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m pip install -U pygame --user
+</code></pre></div></div>
+
+<p>Igualmente, podemos comprobar el funcionamiento cargando algún juego de ejemplo preinstalado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m pygame.examples.aliens
+</code></pre></div></div>
+
+<h4 id="11-instalación-en-entornos-particulares">1.1. Instalación en entornos particulares</h4>
+
+<p>Si utilizamos algún entorno de desarrollo que incorpore su propia versión de Python, como por ejemplo <em>Thonny</em>, debemos instalar Pygame de forma interna para dicho entorno. En el caso de <em>Thonny</em>, vamos al menú <em>Herramientas</em> &gt; <em>Gestionar paquetes</em> y buscamos <em>pygame</em>. Pulsamos el botón de <em>Instalar</em> y listo.</p>
+
+<h3 id="2-estructura-básica-de-un-juego-en-pygame">2. Estructura básica de un juego en Pygame</h3>
+
+<p>Para poder utilizar la librería <em>pygame</em> necesitamos importar el módulo <code class="language-plaintext highlighter-rouge">pygame</code>, que contiene ciertos elementos indispensables, como funciones para dibujar, detectar eventos, inicializar la aplicación, etc.</p>
+
+<p>Después, el programa principal del juego puede tener una secuencia como la siguiente:</p>
+
+<ol>
+  <li>Inicializar elementos</li>
+  <li>Bucle del juego:
+    <ul>
+      <li>Gestionar eventos</li>
+      <li>Implementar lógica del juego</li>
+      <li>Actualizar la pantalla</li>
+    </ul>
+  </li>
+  <li>Finalizar</li>
+</ol>
+
+<p>El siguiente ejemplo crea un pequeño escenario de 800 x 600 con el título “Mi juego”, y queda esperando a que se cierre la ventana para finalizar.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pygame</span>
+
+<span class="c1"># 1. Inicialización
+</span>
+<span class="n">pygame</span><span class="p">.</span><span class="n">init</span><span class="p">()</span>
+
+<span class="c1"># 1.1. Tamaño de pantalla
+</span><span class="n">tamano</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span>
+<span class="n">pantalla</span> <span class="o">=</span> <span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">set_mode</span><span class="p">(</span><span class="n">tamano</span><span class="p">)</span>
+
+<span class="c1"># 1.2. Título de la ventana
+</span><span class="n">pygame</span><span class="p">.</span><span class="n">display</span><span class="p">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s">"Mi juego"</span><span class="p">)</span>
+
+<span class="c1"># 1.3. Variables de control
+</span><span class="n">jugar</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c1"># 2. Bucle del juego
+</span>
+<span class="k">while</span> <span class="n">jugar</span><span class="p">:</span>
+    
+    <span class="c1"># 2.1. Gestión de eventos (salir, en este caso)
+</span>    <span class="k">for</span> <span class="n">evento</span> <span class="ow">in</span> <span class="n">pygame</span><span class="p">.</span><span class="n">event</span><span class="p">.</span><span class="n">get</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">evento</span><span class="p">.</span><span class="nb">type</span> <span class="o">==</span> <span class="n">pygame</span><span class="p">.</span><span class="n">QUIT</span><span class="p">:</span>
+            <span class="n">jugar</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c1"># 3. Finalizar
+</span>
+<span class="n">pygame</span><span class="p">.</span><span class="n">quit</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Si ejecutamos el programa anterior veremos una ventana negra de tamaño 800 x 600 con el título “Mi juego”, que se cerrará en cuanto activemos el evento de cerrar la ventana.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

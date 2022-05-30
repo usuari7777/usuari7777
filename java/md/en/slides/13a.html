@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>JavaFX application development</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## JavaFX application development
+### First steps with JavaFX
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JavaFX
+
+- Library to define Graphical User Interfaces (GUI) in Java
+- Evolution of Swing library
+- Was included in JDK for Java 8, but works as an independent library since Java 11
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Create new JavaFX project
+
+<div align="center">
+    <img src="../../../img/13_intellij_jfx_project.png" width="50%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## JavaFX project structure
+
+<div align="center">
+    <img src="../../../img/13_intellij_jfx_project_structure.png" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Important files and folders
+
+- **pom.xml**: Maven configuration file. Includes required libraries
+- **resources**: contains FXML file(s) with application design
+- **java**: contains Java source files
+- **module-info.java**: inside *java* folder, contains module dependencies (required since Java 9)
+
+</script>
+</section>
+
+<section>
+    <h2>Example of <em>module-info.java</em></h2>
+    <pre><code data-trim data-noescape>    
+module example.myfirstjavafxproject {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+    opens example.myfirstjavafxproject to javafx.fxml;
+    exports example.myfirstjavafxproject;
+}
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Run project
+
+- First time: right click on main class and choose *Run*
+- Then: click on the green arrow on the upper right section
+
+</script>
+</section>
+    
+<section>
+    <h2>Example of main class</h2>
+    <pre><code data-trim data-noescape>    
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class HelloApplication extends Application 
+{
+    @Override
+    public void start(Stage stage) throws IOException 
+    {
+        FXMLLoader fxmlLoader = 
+            new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) 
+    {
+        launch();
+    }
+}
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Loading FXML contents
+
+This instruction will be important to load external resources (FXML files, images) in our application
+
+```java
+HelloApplication.class.getResource("hello-view.fxml")
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Scene Builder
+
+- External tool to graphically design GUIs
+- Can be integrated into IntelliJ
+- Keeps the view separated from the source code
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Using Scene Builder from IntelliJ
+
+- Double click on the FXML file
+- You can choose *Text* or *SceneBuilder* tabs
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## FXML in text mode
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="example.myfirstjavafxproject.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <Label fx:id="welcomeText"/>
+    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+</VBox>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Choosing Scene Builder tab
+
+You may need to download required elements
+
+<div align="center">
+    <img src="../../../img/13_intellij_download_scenebuilder.png" width="30%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Choosing Scene Builder tab
+
+<div align="center">
+    <img src="../../../img/13_intellij_scenebuilder_view.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+
+<section data-markdown>
+<script type="text/template">
+## Using Scene Builder as standalone application
+
+- Download it [here](http://gluonhq.com/labs/scene-builder/) and right click on the FXML file to open
+- Default Scene Builder folder in Windows is *C:\Users\YourUserName\AppData\Local\SceneBuilder*
+
+<div align="center">
+    <img src="../../../img/13_intellij_open_scenebuilder.png" width="20%" />
+</div>
+
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JavaFX components
+
+Upper left corner
+
+<div align="center">
+    <img src="../../../img/13_scenebuilder_components.png" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Scene Builder hierarchy
+
+Lower left corner
+
+<div align="center">
+    <img src="../../../img/13_scenebuilder_hierarchy.png" width="30%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Scene Builder inspector
+
+Right panel
+
+- **Properties**: texts, colors, fonts... 
+- **Layout**: alignments, anchor points...
+- **Code**: *fx:id* for code reference, events... 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Scene Builder inspector
+
+<div align="center">
+    <img src="../../../img/13_scenebuilder_inspector.png" width="50%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Old versions
+
+If you're using and old version of IntelliJ and don't want to update, check the document associated to these slides to learn how to setup JavaFX for these old versions
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

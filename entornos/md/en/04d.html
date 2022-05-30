@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software analysis and design | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software analysis and design" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/04d.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software analysis and design" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software analysis and design","url":"http://nachoiborraies.github.io/entornos/md/en/04d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-analysis-and-design">Software analysis and design</h1>
+
+<h2 id="activity-diagrams">Activity diagrams</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/04d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="04d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Once the system requirements have been set, it’s time to start modeling the application. In this stage we can use some graphical representations, such as UML diagrams. The first step would be to create a use case diagram from those requirements, and next, we could expand each use case using an activity diagram.</p>
+
+<p>A flow diagram is a graphical representation of a given process. Each step of the process is represented by a symbol which has a short description. Symbols are linked by arrows that show the process flow. This method has been used since 1930 in industrial engineering, and it was also adapted by Goldstine and Von Neumann to computer engineering, in 1947. It has evolved in recent years to the UML activity diagram.</p>
+
+<h3 id="1-components-of-an-activity-diagram">1. Components of an activity diagram</h3>
+
+<p>The main components of an activity diagram are:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-01-shapesAD_en.png" alt="Symbols of activity diagrams" />
+</div>
+
+<ul>
+  <li><strong>Activities or Actions</strong>: a step in the process. It is represented by a <strong>rectangle</strong> that may have rounded corners.</li>
+  <li><strong>Decision node</strong>: a bifurcation given by a condition. It is represented by a <strong>diamond</strong>. If both branches converge later in the process, then this merge is also represented by a diamond.</li>
+  <li><strong>Control flows</strong>: they connect the different steps of the diagram. We use <strong>arrows</strong> for this purpose.</li>
+  <li><strong>Initial node</strong>: it represents the beginning of the process. It is represented by a <strong>black circle</strong>.</li>
+  <li>When some tasks happen <strong>simultaneously</strong>, we use a <strong>bar</strong>. If it generates two different flows, then it is a <em>fork</em>, and when it joins two different flows in one single flow, then it is a <em>join</em>.</li>
+  <li><strong>Final node</strong>: it represents the end of the process. It is represented by a <strong>black circle within a circle</strong>.</li>
+  <li>There are some additional symbols, such as <em>notes</em>, that let us add some additional information that do not fit in any particular symbol of the diagram.</li>
+</ul>
+
+<h3 id="2-examples">2. Examples</h3>
+
+<h4 id="validate-user-and-password">Validate user and password</h4>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-03-example1_en.png" alt="Example: validate user and password" />
+</div>
+
+<p>First of all, there is a note explaining that the user must be previously registered before trying to validate himself/herself. Then, the logic of this process is as follows:</p>
+
+<ol>
+  <li>We ask the user to type his/her user and password</li>
+  <li>We validate if they are correct or not
+    <ul>
+      <li>If they are not correct, we prompt an error message and go back to step 1</li>
+      <li>Otherwise
+        <ul>
+          <li>We show an “ok” message</li>
+          <li>We show user data</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="library-management">Library management</h4>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-04-example2.png" alt="Example: library management" />
+</div>
+
+<p>This example shows the logic of searching and asking for a book in a library.</p>
+
+<ol>
+  <li>We search the book that we want</li>
+  <li>We check if it is available</li>
+  <li>If it is not available
+    <ul>
+      <li>We show a message of “not available”</li>
+      <li>End of the process</li>
+    </ul>
+  </li>
+  <li>If it is available
+    <ul>
+      <li>We check if the user is a member of the library</li>
+      <li>If he is not a member
+        <ul>
+          <li>We show a message of “not available”</li>
+          <li>End of the process</li>
+        </ul>
+      </li>
+      <li>If he is a member
+        <ul>
+          <li>We check if the user has more books on loan than allowed</li>
+          <li>If he has
+            <ul>
+              <li>We show a message indicating the excess of books on loan</li>
+              <li>End of the proess</li>
+            </ul>
+          </li>
+          <li>If he still can loan the book
+            <ul>
+              <li>We register the loan with the information about the user and the book</li>
+              <li>We update the status of the book</li>
+              <li>End of the process</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="orders">Orders</h4>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-05-example3_en.png" alt="Example: orders" width="55%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Analyze the example of <em>Orders</em> shown above, and write the explanation of this diagram following the same pattern than in previous examples.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create an activity diagram for the following simple programs:</p>
+
+  <ol>
+    <li>A program that asks the user to enter a number and then tells if it is even or odd.</li>
+    <li>A program that iteratively asks the user to enter a number until he types an odd number.</li>
+    <li>A program that iteratively asks the user to enter a number until he types 0. Then, it will show the total amount of positive and negative numbers that the user has typed.</li>
+    <li>A program that asks the user to enter his username and password. If they are not correct, the program must ask again, up to 3 times. After the 3rd attempt, the program will show an error message and then, it will finish.</li>
+  </ol>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create the activity diagram of any use case from exercise about the cultural organization of previous section.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

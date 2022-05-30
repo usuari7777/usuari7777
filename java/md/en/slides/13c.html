@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>JavaFX application development</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## JavaFX application development
+### Building complex JavaFX applications
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Closing window event
+
+- If we don't control it, user can close the window and lose changes
+- We need to get the controller class and define a method on it that uses **setOnCloseRequest** handler
+- Using **consume** method inside this handler cancels the closing action
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Closing window event
+
+```java
+// Main class
+public void start(Stage primaryStage) throws Exception {
+
+    FXMLLoader loader = new FXMLLoader(...);
+    Parent root = loader.load();
+
+    Controller controller = (Controller)loader.getController();
+    controller.setOnCloseListener(primaryStage);
+
+    primaryStage.setTitle("Hello World");
+    ...
+}
+
+// Controller class
+public void setOnCloseListener(Stage stage) {
+    stage.setOnCloseRequest(e -> {
+        // This way we can prevent window from closing
+        e.consume();
+    });
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using CSS
+
+- Section 2 of the document associated to these slides explains how to add CSS styles to our JavaFX applications
+- We are not going to cover this section in these slides
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Applications with multiple views
+
+- We can define multiple FXML files associated with multiple controller classes
+- Using **setScene** method we can choose the desired scene from the available ones
+- Every time we change the view, *initialize* method of the associated controller is called
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example of multiple views
+
+- Create a JavaFX project called **MultipleViews**.
+- Place 3 FXML files in *resources*: *view1.fxml*, *view2.fxml* and *main.fxml*
+- Place the 3 associated controllers in *java* source folder: *View1Controller*, *View2Controller* and *MainController*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example of multiple views
+
+Appearance of main view
+
+<div align="center">
+    <img src="../../../img/13_multiview1.png" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example of multiple views
+
+Appearance of secondary views (*view1* and *view2*)
+
+<div align="center">
+    <img src="../../../img/13_multiview2.png" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example of multiple views
+
+Changing from main view to *view1*
+
+```java
+void goToView1(ActionEvent event) throws IOException {
+
+    Parent root = FXMLLoader.load(
+        HelloApplication.class.getResource("view1.fxml"));
+    Scene view1Scene = new Scene(root);
+    Stage stage = 
+        (Stage)((Node) event.getSource()).getScene().getWindow();
+    stage.setScene(view1Scene);
+    stage.show();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reusing code
+
+Define a class with a static method to change scenes
+
+```java
+public class SceneLoader {
+    public static void loadScreen(String viewPath, Stage stage)
+    throws IOException {
+        Parent root = FXMLLoader.load(
+            HelloApplication.class.getResource(viewPath));
+        Scene viewScene = new Scene(root);
+        stage.setScene(viewScene);
+        stage.show();
+    }
+}
+
+// Main controller
+void goToView1(ActionEvent event) throws IOException {
+    ScreenLoader.loadScreen("view1.fxml", 
+        (Stage)((Node) event.getSource()).getScene().getWindow());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Complete the example to change among the different scenes
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Loading views in different stages
+
+We can define a *modal dialog*
+
+```java
+// 1. Load FXML file for the new scene
+Parent view = FXMLLoader.load(HelloApplication.class.getResource("newApp.fxml"));
+// 2. Attach FXML to a new scene
+Scene viewScene = new Scene(view);
+// 3. Get current main stage
+Stage stage=
+    (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+// 4. Create a new stage with the new scene
+Stage secondaryStage= new Stage();
+secondaryStage.setScene(viewScene);
+// 5. Set it as a modal stage and attach it to the main stage
+secondaryStage.initModality(Modality.WINDOW_MODAL);
+secondaryStage.initOwner(stage);
+// 6. Define close event for modal stage and show it
+secondaryStage.setOnCloseRequest(e -> // Do whatever);
+secondaryStage.show();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using charts
+
+They represent the information in a graphical, summarized way
+
+<div align="center">
+    <img src="../../../img/13_charts.png" width="30%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: BarChart
+
+<div align="center">
+    <img src="../../../img/13_charts2.png" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: BarChart
+
+- Add a **BarChart** chart to the container
+- Assign a specific *fx:id* and add it to the controller
+- Specify the data type for X and Y axis
+
+```java
+@FXML
+private BarChart<String, Number> chart;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: BarChart
+
+- Fill it in **initialize** method defining **XYChart.Data** objects
+- We can add as many **XYChart.Series** as we need (each one with a different color)
+
+```java
+String[] categories = {"Programming", "Databases", "Markup languages"};
+double[] marks = { 6.4, 7.2, 8.6 };
+    
+chart.setTitle("Final marks 1DAM");
+    
+XYChart.Series data = new XYChart.Series();
+data.setName("Me");
+for (int i = 0; i < categories.length; i++)
+{
+    data.getData().add(new XYChart.Data(categories[i], marks[i]));
+}
+    
+chart.getData().add(data);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do the **Exercise 3** of the document associated to these slides
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Working with tables
+
+- **TableView** defines the whole table 
+- **TableColumn** defines each column of the table
+
+<div align="center">
+    <img src="../../../img/13_tableview.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Table model
+
+Define the class that will store the table info
+
+```java
+public class Book
+{
+    String isbn, title, author;
+
+    public Book (String isbn, String title, String author) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    //... Rest of getters and setters
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Fill table rows
+
+- Use **ObservableList** to define the data that will be stored in the table 
+- Every change in this list will be automatically reflected in the table 
+   - You can use table's **refresh** method if not
+- We can use **add** or **remove** method of this list to add/remove items
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Fill table rows
+
+```java
+ObservableList<Book> data = FXCollections.observableArrayList(
+    new Book("111111", "Ender's game", "Orson Scott Card"),
+    new Book("222222", "The adventures of Tom Sawyer", "Mark Twain"),
+    new Book("333333", "The never ending story", "Michael Ende")
+);
+table.setItems(data);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Column setup
+
+Specify column and table type in the FXML attributes
+
+```java
+@FXML 
+private TableView<Book> table;
+@FXML 
+private TableColumn<Book, String> colIsbn;
+@FXML 
+private TableColumn<Book, String> colTitle;
+@FXML 
+private TableColumn<Book, String> colAuthor;    
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Column setup
+
+Specify the property (*getter*) associated to each column
+
+```java
+colIsbn.setCellValueFactory(new PropertyValueFactory("isbn"));
+colTitle.setCellValueFactory(new PropertyValueFactory("title"));
+colAuthor.setCellValueFactory(new PropertyValueFactory("author"));
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Date pickers
+
+- **DatePicker** control, has **getValue** and **setValue** methods
+- Works with **LocalDate** objects
+
+```java
+// By default we select today
+datepicker.setValue(LocalDate.now()); 
+...
+LocalDate date = datepicker.getValue();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using images
+
+- **ImageView** control places an image in a container
+- **Image** class loads an image in the application
+- We need to associate an *Image* to an *ImageView*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Loading images
+
+```java
+// Version 1: absolute path from source folder root
+Image image = new Image (
+    getClass().getResourceAsStream("/sample/img/javafx.png"));
+
+// Version 2: absolute path from project's root folder
+Image image = new Image ("file:src/sample/img/javafx.png");
+
+// Version 3: relative path from class location
+Image image = new Image (MyMainClass.class.getResource("javafx.png"));
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Setting images
+
+```java
+@FXML
+private ImageView imgFX;
+...
+imgFX.setImage(image);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu
+
+<div align="center">
+    <img src="../../../img/13_healthymenu1.png" width="50%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 1)
+
+- Create project **HealthyMenu** with *healthymenu* main package
+- Rename default FXML to *main.fxml*
+- Rename main class to *HealthyMenu*
+- Rename default controller to *MainController*
+- Make sure names are properly refactored
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 2)
+
+- Define the main FXML appearance using a vertical **SplitPane** as main container. 
+- Place a **TableView** at the top
+   - Right click on it and choose *Fit to Parent*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 3)
+
+Table columns:
+
+- Name of a food ("Tomatoes", "Milk"...)
+- Food category: "*Fruits and vegetables*", "*Meat and fish*", "*Milk derivatives*" and "*Other*"
+- Amount of food in grams
+- Amount of food in ounces (oz)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 3)
+    
+<div align="center">
+    <img src="../../../img/13_healthymenu3.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 4)
+    
+Change each TableColumn properties
+
+<div align="center">
+    <img src="../../../img/13_healthymenu4.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 5)
+    
+Add bottom form
+
+<div align="center">
+    <img src="../../../img/13_healthymenu7.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 6)
+    
+Assign *fx:id* to controls and add them to `MainController`
+
+- For the form: `txtFoodName`, `choiceCategory` and `txtWeight`
+- For the table: `tableFood`
+- For the columns: `colFoodName`, `colFoodCategory`, `colWeightG` and `colWeightOz`
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 7)
+    
+Filling dropdown list
+
+```java
+private ChoiceBox<String> choiceCategory;
+
+...
+
+choiceCategory.setItems(FXCollections.observableArrayList(
+    "Fruits and vegetables", "Meat and fish",
+    "Milk derivatives", "Other"));
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 8)
+    
+Group form controls horizontally and wrap them in *HBox*
+
+<div align="center">
+    <img src="../../../img/13_healthymenu8.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 9)
+    
+Assign a default spacing for form controls in each *HBox*
+
+<div align="center">
+    <img src="../../../img/13_healthymenu9.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 10)
+    
+Wrap *HBoxes* in a *VBox*
+
+<div align="center">
+    <img src="../../../img/13_healthymenu11.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 11)
+    
+Anchor *VBox* to left and right
+
+<div align="center">
+    <img src="../../../img/13_healthymenu12.png" width="40%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 12)
+    
+Define minimum width for labels
+
+<div align="center">
+    <img src="../../../img/13_healthymenu13.png" width="50%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 13)
+    
+Tell input fields to grow as much as possible
+
+<div align="center">
+    <img src="../../../img/13_healthymenu14.png" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 14)
+    
+Define class in *healthymenu.model* package to store table info
+
+```java
+public class Food
+{
+    String name;
+    String category;
+    int weight;
+
+    public Food(String name, String category, int weight) {
+        this.name = name;
+        this.category = category;
+        this.weight = weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getWeightInOz() {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        return df.format((float)weight * 0.035274f);
+    }
+
+    @Override
+    public String toString() {
+        return name + ";" + category + ";" + weight;
+    }
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 15)
+    
+Define generics for table and columns
+
+```java
+@FXML
+private TableView<Food> tableFood;
+@FXML
+private TableColumn<Food, String> colFoodName;
+@FXML
+private TableColumn<Food, String> colFoodCategory;
+@FXML
+private TableColumn<Food, Integer> colWeightG;
+@FXML
+private TableColumn<Food, String> colWeightOz;
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 16)
+    
+Fill table with some default data, and check the application
+
+```java
+private ObservableList<Food> food;
+...
+food = FXCollections.observableArrayList(
+    new Food ("Potatoes", "Fruits and vegetables", 200),
+    new Food ("Chicken", "Meat and fish", 300),
+    new Food ("Milkshake", "Milk derivatives", 250),
+    new Food ("Salmon", "Meat and fish", 300)
+);
+
+colFoodName.setCellValueFactory(new PropertyValueFactory("name"));
+colFoodCategory.setCellValueFactory(new PropertyValueFactory("category"));
+colWeightG.setCellValueFactory(new PropertyValueFactory("weight"));
+colWeightOz.setCellValueFactory(new PropertyValueFactory("weightInOz"));
+
+tableFood.setItems(food);
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 17)
+    
+Store food data in *food.txt* text file (in project's root folder)
+
+```
+Potatoes;Fruits and vegetables;200
+Chicken;Meat and fish;300
+Milkshake;Milk derivatives;250
+Salmon;Meat and fish;300
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 18)
+    
+Add methods to read/write from/to file
+
+```java
+private static List<Food> readFile() {
+    try {
+        return Files.lines(Paths.get("food.txt"))
+            .map(line -> new Food(line.split(";")[0], line.split(";")[1],
+                Integer.parseInt(line.split(";")[2])))
+            .collect(Collectors.toList());
+    } catch (Exception e) {
+        return null;
+    }
+}
+
+private static void saveFile(List<Food> food) {
+    try(PrintWriter pw = new PrintWriter("food.txt")) {
+        food.stream()
+            .forEach(f -> pw.println(f.toString()));
+    } catch (Exception e) {}
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 19)
+    
+Add *chart.fxml* for chart, and *ChartController*. Add a *PieChart* and a button
+
+<div align="center">
+    <img src="../../../img/13_healthymenu17.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 20)
+    
+Add button in main FXML to show chart
+
+<div align="center">
+    <img src="../../../img/13_healthymenu18.png" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 21)
+    
+Event to add food to table
+
+```java
+private void addFood(ActionEvent event) {
+
+    if (txtName.getText().equals("") ||  
+        choiceCategory.getSelectionModel().getSelectedIndex() < 0 ||
+        txtWeight.getText().equals("")) {
+        Alert dialog = new Alert(AlertType.ERROR);
+        dialog.setTitle("Error");
+        dialog.setHeaderText("Error adding data");
+        dialog.setContentText("No field can be empty");
+        dialog.showAndWait();
+    } else {
+        food.add(new Food(txtName.getText(),
+            choiceCategory.getSelectionModel().getSelectedItem(),
+            Integer.parseInt(txtWeight.getText())));
+        saveFile(food);
+    }
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 22)
+    
+Getter for food list in main controller
+
+```java
+public List<Food> getFood()
+{
+    return food;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 23)
+    
+Event to change to chart view in main controller
+
+```java
+private void goToChartView(ActionEvent event) throws IOException
+{
+    FXMLLoader loader = new FXMLLoader(HealthyMenu.class.getResource("chart.fxml"));
+    Parent view1 = loader.load();
+    Scene view1Scene = new Scene(view1);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.hide();
+    stage.setScene(view1Scene);
+    stage.show();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 24)
+    
+Load food list from chart controller (*initialize* method)
+
+```java
+public void initialize() {
+
+    // Get the controller object to get to the food list
+
+    FXMLLoader loader = new FXMLLoader(HealthyMenu.class.getResource("main.fxml"));
+
+    try {
+        Parent root = (Parent)loader.load();
+    } catch (Exception e) {}
+
+    FXMLDocumentController controller =
+        (FXMLDocumentController)loader.getController();
+    
+    List<Food> food = controller.getFood();
+
+    // Update the pie chart data from the food list data
+
+    pieChart.getData().clear();
+
+    // We get a map with all the categories and the sum of its weights
+    Map<String, Integer> result;
+    result = food.stream()
+            .collect(Collectors.groupingBy(
+                    f -> f.getCategory(),
+                    Collectors.summingInt(f -> f.getWeight())
+            ));
+
+    // We add an entry for the pie chart with each category and its sum
+    result.forEach((cat, sum) -> {
+        pieChart.getData().add(new PieChart.Data(cat, sum));
+    });
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 25)
+    
+Go back to main view from chart
+
+```java
+private void back(ActionEvent event) throws IOException
+{
+    FXMLLoader loader = new FXMLLoader(HealthyMenu.class.getResource("main.fxml"));
+    Parent view1 = loader.load();
+    Scene view1Scene = new Scene(view1);
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.hide();
+    stage.setScene(view1Scene);
+    stage.show();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: HealthyMenu (Step 26)
+    
+Updating module-info.java *if necessary*
+
+```java
+module healthyMenu
+{
+    requires javafx.controls;
+    requires javafx.fxml;
+
+    exports healthymenu.model;
+
+    opens healthymenu;
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+    
+Add a *Delete* button to remove food from table and file (after confirmation)
+
+<div align="center">
+    <img src="../../../img/13_healthymenu21.png" width="50%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using animations
+
+- Section 7 of the document associated to these slides explains how to define animations in JavaFX applications
+- We are not going to cover this section in these slides
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

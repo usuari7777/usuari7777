@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Concurrent programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Concurrent programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="14e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/14e.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Concurrent programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Concurrent programming","url":"http://nachoiborraies.github.io/java/md/en/14e.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="concurrent-programming">Concurrent programming</h1>
+
+<h2 id="advanced-thread-synchronization-and-coordination">Advanced thread synchronization and coordination</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/14e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="14e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In previous section of this unit we have learnt some basic techniques of coordinating and synchronizing threads, such as joining threads, or synchronizing methods or blocks of code. In this document we are going to see some advanced strategies that were added to Java API from version 5 and later.</p>
+
+<h3 id="1-using-thread-executors">1. Using thread executors</h3>
+
+<p>When we are dealing with multiple threads in our application, we may face two problems:</p>
+
+<ul>
+  <li>The performance of our application is not as good as it is expected to be, since there are too many threads running at the same time.</li>
+  <li>Our code gets a little bit confusing, because we have to create and start every thread that we need.</li>
+</ul>
+
+<p>These problems can be partially avoided by using <strong>thread executors</strong>. These structures allow us to create a pool of threads, and let a special object handle the threads in our place. For instance, if we define a thread like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyThread</span> <span class="kd">implements</span> <span class="nc">Runnable</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then we can create a thread executor that handles objects of type <code class="language-plaintext highlighter-rouge">MyThread</code> (and any other <code class="language-plaintext highlighter-rouge">Runnable</code> object), this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span> <span class="o">=</span>
+    <span class="o">(</span><span class="nc">ThreadPoolExecutor</span><span class="o">)</span><span class="nc">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
+
+<span class="nc">MyThread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+<span class="nc">MyThread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyThread</span><span class="o">();</span>
+<span class="n">executor</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">t1</span><span class="o">);</span>
+<span class="n">executor</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">t2</span><span class="o">);</span>
+
+<span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>We can typically define a loop to create threads using a lambda expression, and add them to the executor, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="no">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="n">executor</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+        <span class="c1">// Thread code</span>
+    <span class="o">});</span><span class="err"> </span>
+<span class="o">}</span>
+
+<span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>In both cases, we use the <code class="language-plaintext highlighter-rouge">ThreadPoolExecutor</code> class (from <code class="language-plaintext highlighter-rouge">java.util.concurrent</code> package) to handle the pool of threads. There are many ways of getting an object of this type, but the one used in the code above is quite simple. Then, we can create as many threads as we need, and call the <code class="language-plaintext highlighter-rouge">execute</code> method from the thread executor. From then on, the thread executor is in charge of calling the <code class="language-plaintext highlighter-rouge">start</code> method of each thread. When all the threads have been added to the pool, we must call the <code class="language-plaintext highlighter-rouge">shutdown</code> method of the executor to let the program finish when all the threads finish their task.</p>
+
+<h4 id="11-advantages-of-using-executors">1.1. Advantages of using executors</h4>
+
+<p>What advantages do executors offer if we compare them with traditional thread management?</p>
+
+<ul>
+  <li>The thread executor can reuse a thread (or a position in the pool) to put a new thread if any previous thread has finished its task, so we can save some memory space.</li>
+  <li>We can also tell the executor how many threads we want to have running at the same time, by using this instruction instead of the first one used before:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span> <span class="o">=</span>
+    <span class="o">(</span><span class="nc">ThreadPoolExecutor</span><span class="o">)</span><span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we limit the size of the pool, every thread that exceeds this size will be waiting for a free slot before starting its task. This can be particularly useful if we adjust the total size to the total number of cores of our processor, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span> <span class="o">=(</span><span class="nc">ThreadPoolExecutor</span><span class="o">)</span>
+    <span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span>
+        <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">()</span>
+    <span class="o">);</span>
+</code></pre></div></div>
+
+<p>We can also use this method from <em>Executors</em> class to fit the pool size to the number of available processors.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span> <span class="o">=</span> 
+    <span class="o">(</span><span class="nc">ThreadPoolExecutor</span><span class="o">)</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newWorkStealingPool</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Besides, we have some useful methods in <em>ThreadPoolExecutor</em> class, such as <code class="language-plaintext highlighter-rouge">getPoolSize</code> (it returns how many threads are currently added to the pool),  <code class="language-plaintext highlighter-rouge">getActiveCount</code> (it returns how many threads in the pool are still alive) or <code class="language-plaintext highlighter-rouge">shutdownNow</code> (it forces all the threads in the pool to finish immediately).</p>
+
+<h3 id="2-using-callables-and-completablefutures">2. Using <em>Callables</em> and <em>CompletableFutures</em></h3>
+
+<p>In this section we are going to see some alternatives to just launch <em>Runnable</em> objects. Depending on whether we want to get a result back after each thread execution or not, we may need some other ways of launching threads. This is when callables and completable futures come into scene.</p>
+
+<h4 id="21-using-callable">2.1. Using Callable</h4>
+
+<p>In addition to <code class="language-plaintext highlighter-rouge">Runnable</code>, executors support another kind of task named <code class="language-plaintext highlighter-rouge">Callable</code>. Callables are <strong>functional interfaces</strong> just like runnables but instead of being void they <strong>return</strong> a value. The <code class="language-plaintext highlighter-rouge">Callable</code> interface defines the type of data returned using generics.</p>
+
+<p>In this example, we are going to create a <code class="language-plaintext highlighter-rouge">Callable</code> thread using an <code class="language-plaintext highlighter-rouge">ExecutorService</code> (<code class="language-plaintext highlighter-rouge">ThreadPoolExecutor</code> implements <code class="language-plaintext highlighter-rouge">ExecutorService</code>, so it’s the same). When submitting a <em>Callable</em> to an Executor, it will return a <code class="language-plaintext highlighter-rouge">Future</code> object. It’s just an interface that has the necessary methods to get the result returned by the <em>Callable</em>.</p>
+
+<p>However, whenever we call <code class="language-plaintext highlighter-rouge">get()</code> on the Future object, the current thread is blocked until the <em>Callable</em> thread returns something. So it is a good idea to call <code class="language-plaintext highlighter-rouge">isDone()</code> method before, just to check if the <em>Callable</em> has finished its task. Besides, we do not use <code class="language-plaintext highlighter-rouge">execute()</code> method to add Futures to the executor: we use <code class="language-plaintext highlighter-rouge">submit</code> instead, in order to get the result later.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Callable</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">callInt</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="k">return</span> <span class="mi">20</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"task interrupted"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="nc">ExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+
+    <span class="c1">// Calling submit executes the thread and returns a Future</span>
+    <span class="nc">Future</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">callInt</span><span class="o">);</span>
+
+    <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"future done? "</span> <span class="o">+</span> <span class="n">future</span><span class="o">.</span><span class="na">isDone</span><span class="o">());</span>
+    <span class="nc">Integer</span> <span class="n">result</span><span class="o">;</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="na">get</span><span class="o">();</span> <span class="c1">// It BLOCKS main thread until it returns!</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"future done? "</span> <span class="o">+</span> <span class="n">future</span><span class="o">.</span><span class="na">isDone</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Result: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span> <span class="c1">// Prints 20 </span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Passing a timeout</strong></p>
+
+<p>When calling <code class="language-plaintext highlighter-rouge">get()</code> on the Future object to retrieve the result, we can pass a timeout, so when that time passes, if the thread hasn’t finished, it will throw a <code class="language-plaintext highlighter-rouge">TimeoutException</code>. It’s also a good idea to cancel the task when that happens:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> 
+<span class="o">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span> <span class="c1">// Blocks 1 second maximum</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Result: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> 
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">TimeoutException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// When the timeout expires...</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"The thread took more than 1 second to complete!"</span><span class="o">);</span>
+    <span class="n">executor</span><span class="o">.</span><span class="na">shutdownNow</span><span class="o">();</span> <span class="c1">// Cancel immediately all pending tasks</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>Launching several <em>Callable</em> tasks at the same time</strong></p>
+
+<p>We can launch more than one <em>Callable</em> thread at the same time using an executor. If we pass a list of <em>Callables</em> using <code class="language-plaintext highlighter-rouge">invokeAll</code>, it will return a list of <em>Futures</em>. Iterating over the <em>Future</em> list and calling <code class="language-plaintext highlighter-rouge">get()</code> should give us the results. We’ll get all results when the last thread finishes.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">Callable</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">getSumCallable</span><span class="o">(</span><span class="kt">int</span> <span class="n">num1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">num2</span><span class="o">,</span> 
+    <span class="kt">int</span> <span class="n">secondsSleep</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="k">return</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">secondsSleep</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"task interrupted"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Callable</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;&gt;</span> <span class="n">callables</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+        <span class="n">getSumCallable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+        <span class="n">getSumCallable</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span>
+        <span class="n">getSumCallable</span><span class="o">(</span><span class="mi">12</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="o">);</span>
+
+    <span class="nc">ExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newWorkStealingPool</span><span class="o">();</span> 
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Future</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;&gt;</span> <span class="n">futures</span><span class="o">;</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">futures</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="na">invokeAll</span><span class="o">(</span><span class="n">callables</span><span class="o">);</span>
+        <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+        <span class="n">futures</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">future</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="k">try</span> 
+            <span class="o">{</span> 
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">future</span><span class="o">.</span><span class="na">get</span><span class="o">());</span> 
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="o">|</span> <span class="nc">ExecutionException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span> 
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>In this case, we have created a static method that returns the <em>Callable</em> object. We call this method many times to add many callables to our list. Then we invoke all of them from the executor. You can download <a href="../../resources/en/CallablesExample.java">here</a> the source code of this example.</p>
+
+<p>If we don’t want to wait until all tasks finish, and instead, want to get only the result of the task that finishes in first place, we can use <code class="language-plaintext highlighter-rouge">invokeAny</code>. This will return a single <em>Future</em> object that should get the result of the first thread that finishes without error. When a task finishes first and returns a value, the rest of tasks are cancelled.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newWorkStealingPool</span><span class="o">();</span> 
+<span class="k">try</span> 
+<span class="o">{</span>
+    <span class="c1">// Blocks and returns first result</span>
+    <span class="kt">int</span> <span class="n">firstResult</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="na">invokeAny</span><span class="o">(</span><span class="n">callables</span><span class="o">);</span> 
+    <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">firstResult</span><span class="o">);</span> <span class="c1">// 15 -&gt; 12 + 3 finishes in 1 second</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="22-scheduled-executors">2.2. Scheduled executors</h4>
+
+<p>If we wanted to run a task periodically, instead of doing it manually, we could use a <code class="language-plaintext highlighter-rouge">ScheduledExecutorService</code>. First of all, we’ll see an example of a task that doesn’t run periodically, but instead has a delay and waits for a number of seconds before starting. This kind of executor service returns an <code class="language-plaintext highlighter-rouge">ScheduledFuture</code> object.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ScheduledExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+<span class="k">try</span> 
+<span class="o">{</span>
+    <span class="c1">// Usage: schedule(Callable/Runnable, delay, Time unit)</span>
+    <span class="nc">ScheduledFuture</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">schedFuture</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="na">schedule</span><span class="o">(</span>
+        <span class="n">getSumCallable</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="mi">3</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span> 
+
+    <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1500</span><span class="o">);</span> <span class="c1">// Sleeps for about 1.5 seconds</span>
+    <span class="kt">long</span> <span class="n">remainingDelay</span> <span class="o">=</span> <span class="n">schedFuture</span><span class="o">.</span><span class="na">getDelay</span><span class="o">(</span><span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Remaining Delay: %dms\n"</span><span class="o">,</span> <span class="n">remainingDelay</span><span class="o">);</span> 
+    <span class="c1">// 1498ms</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">schedFuture</span><span class="o">.</span><span class="na">get</span><span class="o">();</span> 
+    <span class="c1">// blocks 3.5 sec. (1.5 delay + 2 task)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Result: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span> 
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ExecutionException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>To run a scheduled task (task that runs every X time), we should call one of these two methods: <code class="language-plaintext highlighter-rouge">scheduledAtFixedRate</code> or <code class="language-plaintext highlighter-rouge">scheduleWithFixedDelay</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">scheduledAtFixedRate</code> always launches a new thread every X time and doesn’t care about the task running time. For example, if we schedule to run a new task every 3 seconds but the task needs 5 seconds, the executor will try to run a new task when 3 seconds have passed since it launched the previous one (the second task will be running at the same time as the first one, and so on)</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">scheduleWithFixedDelay</code> can be usually a better idea, because the delay for the next task will begin when the current task finishes (not when it starts). It’s important <strong>not to</strong> call <code class="language-plaintext highlighter-rouge">executor.shutdown()</code> until we want to cancel the scheduled task.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">Runnable</span> <span class="n">task</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Time now: "</span> <span class="o">+</span> <span class="nc">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">};</span>
+
+    <span class="nc">ScheduledExecutorService</span> <span class="n">executor</span> <span class="o">=</span>
+        <span class="nc">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="c1">// Delay (1 second), runs every 3 seconds</span>
+    <span class="n">executor</span><span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span><span class="n">task</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+    <span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+    <span class="nc">String</span> <span class="n">command</span><span class="o">;</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="k">do</span> 
+        <span class="o">{</span> 
+            <span class="c1">// When user presses "q" and "enter", program will end</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">command</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"q"</span><span class="o">));</span>
+        <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span> <span class="c1">// Cancel the scheduled task</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project named <strong>CallableWordCounting</strong>. Launch 3 Callable threads at the same time using executor’s method <code class="language-plaintext highlighter-rouge">invokeAll</code>.</p>
+
+  <p>Each thread will read a different text file (create 3 text files with a lot of text inside, or use <a href="../../resources/en/14e_sample_files.zip">these ones</a>) and search how many times a text appears in that file. At the end return the number of times the text has appeared in the file (<em>Integer</em>).</p>
+
+  <p><strong>Hint</strong>: Create a class that implements <code class="language-plaintext highlighter-rouge">Callable&lt;Integer&gt;</code> and pass to the constructor the file name and the text to search, or create a static method that receives these 2 parameters and returns a <em>Callable</em> lambda.</p>
+
+  <p>The main thread will get the results and add them, printing the total number of times the word or text has appeared in all files (notice that you don’t need any synchronized section or variable for this exercise)</p>
+</blockquote>
+
+<h4 id="23-using-completablefuture">2.3. Using <em>CompletableFuture</em></h4>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a> is a class that implements <code class="language-plaintext highlighter-rouge">Future</code> and <code class="language-plaintext highlighter-rouge">CompletionStage</code> interfaces. <code class="language-plaintext highlighter-rouge">CompletionStage</code> represents a <a href="https://en.wikipedia.org/wiki/Futures_and_promises">Promise</a>. This is a great advantage over the previous methodology, because it doesn’t block the current thread while waiting for the task to finish. Instead, we’ll provide a callback (a function to be executed after the task finishes and returns its result) to it. This kind of elements support both runnables and callables.</p>
+
+<p>This example uses a runnable (this is, a <code class="language-plaintext highlighter-rouge">CompletableFuture</code> that does not return anything) to print a message in the screen after 3 seconds. We launch it with <code class="language-plaintext highlighter-rouge">runAsync</code> method.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="c1">// runAsync receives a runnable that doesn't return anything</span>
+    <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="n">compRunnable</span> <span class="o">=</span>
+            <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">runAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span>
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Task completed"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="o">});</span>
+
+    <span class="c1">// thenRun runs another task (in main thread) </span>
+    <span class="c1">// when the current task finishes</span>
+    <span class="n">compRunnable</span><span class="o">.</span><span class="na">thenRun</span><span class="o">(()</span> <span class="o">-&gt;</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"CompletableFuture finish"</span><span class="o">));</span>
+
+    <span class="nc">InputStreamReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Press enter to exit (let the task finish first)"</span><span class="o">);</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we use <code class="language-plaintext highlighter-rouge">Callable</code> instead of <code class="language-plaintext highlighter-rouge">Runnable</code>, this is, if we want to get a value back from the thread(s) involved, then we should use <code class="language-plaintext highlighter-rouge">supplyAsync</code> method instead of <code class="language-plaintext highlighter-rouge">runAsync</code>. We can use this to process the result returned by the async task (this processing is also asynchronous). In this example, the callable returns a random integer between 0 and 100, and this data is stored in a <em>CompletableFuture</em> object.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">compRunnable</span> <span class="o">=</span>
+                <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(</span>
+    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="c1">// Return random 0 - 100</span>
+            <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="nc">Random</span><span class="o">()).</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span> 
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+
+    <span class="c1">// thenAccept receives the result of the previous task to process</span>
+    <span class="n">compRunnable</span><span class="o">.</span><span class="na">thenAccept</span><span class="o">((</span><span class="n">num</span><span class="o">)</span> <span class="o">-&gt;</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Number generated: "</span> <span class="o">+</span> <span class="n">num</span><span class="o">));</span>
+
+    <span class="nc">InputStreamReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+            <span class="s">"Press enter to exit (let the task finish first)"</span><span class="o">);</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">CompletableFuture</code> can be seen as an asynchronous version of Stream in Java. It allows us to apply/chain multiple filters to the result obtained in first place. To execute intermediate tasks use <code class="language-plaintext highlighter-rouge">thenAccept</code> (doesn’t return anything) or <code class="language-plaintext highlighter-rouge">thenApply</code> (returns another result).</p>
+
+<p>This example uses a <em>CompletableFuture</em> to get a string formatted with a person name and an age (separated by a semicolon). Once the data is obtained, it launches a second asynchronous task to split the string and return a <em>Person</em> object with these attributes. Finally, it launches a third asynchronous task to print the person on the screen.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">compRunnable</span> <span class="o">=</span>
+                <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(</span>
+    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="k">return</span> <span class="s">"Peter;28"</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">"Error;0"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+
+    <span class="c1">// thenApply gets the previous result and returns another (Person)</span>
+    <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">comPerson</span> <span class="o">=</span> <span class="n">compRunnable</span><span class="o">.</span><span class="na">thenApply</span><span class="o">((</span><span class="n">str</span><span class="o">)</span> <span class="o">-&gt;</span> 
+    <span class="o">{</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">";"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="mi">1</span><span class="o">]));</span>
+    <span class="o">});</span>
+
+    <span class="c1">// thenRun runs the final task with the last processed result</span>
+    <span class="n">comPerson</span><span class="o">.</span><span class="na">thenAccept</span><span class="o">((</span><span class="n">person</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">));</span>
+
+    <span class="nc">InputStreamReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+        <span class="s">"Press enter to exit (let the task finish first)"</span><span class="o">);</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What happens if the original task throws an exception and we want to recover from it? (return valid data that can be processed). We can use <code class="language-plaintext highlighter-rouge">exceptionally</code> method. This method will act like a <em>catch</em> statement for exceptions that are thrown in the previous task (it must return the same type of data as the previous task). In this example, we’ll see how we can chain all these tasks without using intermediate variables:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">try</span>
+        <span class="o">{</span>
+            <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="k">return</span> <span class="s">"Peter;28"</span><span class="o">;</span>
+    <span class="o">}).</span><span class="na">exceptionally</span><span class="o">((</span><span class="n">error</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+        <span class="c1">// Only if previous step throws an error</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Error: "</span> <span class="o">+</span> <span class="n">error</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="k">return</span> <span class="s">"Error;0"</span><span class="o">;</span>
+    <span class="o">}).</span><span class="na">thenApply</span><span class="o">((</span><span class="n">str</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+        <span class="c1">// Process the string and return a Person</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">";"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="mi">0</span><span class="o">],</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">parts</span><span class="o">[</span><span class="mi">1</span><span class="o">]));</span>
+    <span class="o">}).</span><span class="na">thenAccept</span><span class="o">((</span><span class="n">person</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">));</span> 
+
+    <span class="nc">InputStreamReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+        <span class="s">"Press enter to exit (let the task finish first)"</span><span class="o">);</span>
+    <span class="k">try</span> 
+    <span class="o">{</span>
+        <span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Finally (although this CompletableFuture API has many more possibilities), we’ll see how to execute a task when a number (greater than 1) of CompletableFutures end their tasks, using <code class="language-plaintext highlighter-rouge">CompletableFuture.allOf</code>. In this example, we’ll create tasks that try to ping some servers and at the end, we’ll show the results and end the program.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ThreadsExamples</span> 
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Deque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">ipMessages</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nc">ConcurrentLinkedDeque</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="nf">pingIp</span><span class="o">(</span><span class="nc">String</span> <span class="n">address</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">supplyAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="nc">InetAddress</span> <span class="n">inet</span> <span class="o">=</span> <span class="nc">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="n">address</span><span class="o">);</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">inet</span><span class="o">.</span><span class="na">isReachable</span><span class="o">(</span><span class="mi">4000</span><span class="o">))</span> <span class="c1">// 4 seconds</span>
+                <span class="o">{</span> 
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">UnknownHostException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> 
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}).</span><span class="na">thenAccept</span><span class="o">(</span><span class="n">result</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="n">ipMessages</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">address</span> <span class="o">+</span> <span class="o">(</span><span class="n">result</span><span class="o">?</span><span class="s">" ping OK"</span><span class="o">:</span><span class="s">" unreachable"</span><span class="o">));</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="n">allTasks</span> <span class="o">=</span> <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">allOf</span><span class="o">(</span>
+            <span class="n">pingIp</span><span class="o">(</span><span class="s">"google.es"</span><span class="o">),</span>
+            <span class="n">pingIp</span><span class="o">(</span><span class="s">"iessanvicente.com"</span><span class="o">),</span>
+            <span class="n">pingIp</span><span class="o">(</span><span class="s">"apache.org"</span><span class="o">),</span>
+            <span class="n">pingIp</span><span class="o">(</span><span class="s">"facebook.com"</span><span class="o">)</span>
+        <span class="o">);</span>
+        <span class="n">allTasks</span><span class="o">.</span><span class="na">thenRun</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"All tasks finished"</span><span class="o">);</span> 
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ipMessages</span><span class="o">);</span>
+        <span class="o">});</span>
+
+        <span class="k">while</span><span class="o">(!</span><span class="n">allTasks</span><span class="o">.</span><span class="na">isDone</span><span class="o">())</span> 
+        <span class="o">{</span>
+            <span class="k">try</span> 
+            <span class="o">{</span>
+                <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If instead of <code class="language-plaintext highlighter-rouge">allOf</code>, we use <code class="language-plaintext highlighter-rouge">CompletableFuture.anyOf</code>, it would execute <code class="language-plaintext highlighter-rouge">thenRun</code> when the first task ends, instead of waiting for all of them. You can download <a href="../../resources/en/CompletableFutureExample.java">here</a> the source code from previous examples.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>FastestWordCounting</strong>.  This exercise will be similar to previous <em>Exercise 1</em>, but with some differences.</p>
+
+  <ul>
+    <li>Create a <code class="language-plaintext highlighter-rouge">CompletableFuture&lt;Integer&gt;</code> object instead of a <code class="language-plaintext highlighter-rouge">Callable&lt;Integer&gt;</code> object for reading each file.</li>
+    <li>This time, use the <code class="language-plaintext highlighter-rouge">CompletableFuture.anyOf</code> method. This method will return also a <code class="language-plaintext highlighter-rouge">CompletableFuture&lt;Integer&gt;</code>, which will receive the value of the thread that finishes first. When this first thread finishes (<code class="language-plaintext highlighter-rouge">thenRun</code>), print a message like this:</li>
+  </ul>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The first thread has finished and found the text “cat” 24 times.
+</code></pre></div>  </div>
+</blockquote>
+
+<h3 id="3-synchronizing-with-lock">3. Synchronizing with <em>Lock</em></h3>
+
+<p>Since Java 5 there is another way of synchronizing threads (besides using <code class="language-plaintext highlighter-rouge">synchronized</code> keyword), when trying to get to critical sections. It consists in implementing an interface called <code class="language-plaintext highlighter-rouge">Lock</code> (from package <code class="language-plaintext highlighter-rouge">java.util.concurrent.locks</code>). This interface provides methods to lock and unlock a given resource, so that the operations in the in between are guaranteed to be run not concurrently.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Lock</span> <span class="n">myLock</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">myMethod</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">myLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+    <span class="o">...</span> <span class="c1">// Do some not concurrent tasks</span>
+    <span class="n">myLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We should define a class that implements this interface. Fortunately, Java provides such a class: <code class="language-plaintext highlighter-rouge">ReentrantLock</code> (from the same package), so we can use this class directly to create our lock:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Lock</span> <span class="n">myLock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReentrantLock</span><span class="o">();</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Create a project call <strong>BankAccountLock</strong>, that is a copy of the project created in previous documents (<em>BankAccountSynchronized</em>). Replace the old <em>synchronized</em> methods with the <em>Lock</em> mechanisms that we have just seen, and check that everything goes OK.</p>
+</blockquote>
+
+<h4 id="31-read--write-locks">3.1. Read / Write locks</h4>
+
+<p>Besides, there is an improvement brought by this <code class="language-plaintext highlighter-rouge">Lock</code> interface: the possibility of having read and write operations working separately, so that there can be multiple read operations running at the same time on a given file or resource, but only one write operation (when a thread is writing, no one else can be reading or writing). We can achieve this with the <code class="language-plaintext highlighter-rouge">ReadWriteLock</code> interface and its implementation in <code class="language-plaintext highlighter-rouge">ReentrantReadWriteLock</code> class. This class has two locks, one for reading operations and one for writing operations, so that we can use any of them depending on the operation we actually want to do.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ReadWriteLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReentrantReadWriteLock</span><span class="o">();</span>
+<span class="o">...</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">readOperation</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">readLock</span><span class="o">().</span><span class="na">lock</span><span class="o">();</span>
+    <span class="o">...</span> <span class="c1">// This area can be achieved by multiple reading threads</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">readLock</span><span class="o">().</span><span class="na">unlock</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">writeOperation</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">().</span><span class="na">lock</span><span class="o">();</span>
+    <span class="o">...</span> <span class="c1">// When a writing thread gets here, no one else can have the lock</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">().</span><span class="na">unlock</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As you can see in the code below, the read lock allows to lock an object for reading, so that any other reading operation can also get to the critical section. However, when a write lock wants to be set, no other lock can be currently applied. In other words, we can have multiple readers running the critical section at the same time, but whenever a writer is running the critical section, no other thread can be running it.</p>
+
+<p>Let’s see how it works with the following example: we are going to create a class that stores an integer value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.locks.ReentrantReadWriteLock</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyData</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+    <span class="nc">ReentrantReadWriteLock</span> <span class="n">lock</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">MyData</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+        <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReentrantReadWriteLock</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">lock</span><span class="o">.</span><span class="na">readLock</span><span class="o">().</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread #"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span> 
+            <span class="s">" reads value "</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+        <span class="n">lock</span><span class="o">.</span><span class="na">readLock</span><span class="o">().</span><span class="na">unlock</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setValue</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">lock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">().</span><span class="na">lock</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Thread #"</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span> 
+            <span class="s">" sets value to "</span> <span class="o">+</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">+</span> <span class="n">value</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">+=</span> <span class="n">value</span><span class="o">;</span>
+        <span class="n">lock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">().</span><span class="na">unlock</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, we define a thread class that tries to read it, and a thread class that tries to change its value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadingThread</span> <span class="kd">extends</span> <span class="nc">Thread</span>
+<span class="o">{</span>
+    <span class="nc">MyData</span> <span class="n">sharedData</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ReadingThread</span><span class="o">(</span><span class="nc">MyData</span> <span class="n">sharedData</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sharedData</span> <span class="o">=</span> <span class="n">sharedData</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">sharedData</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WritingThread</span> <span class="kd">extends</span> <span class="nc">Thread</span>
+<span class="o">{</span>
+    <span class="nc">MyData</span> <span class="n">sharedData</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">WritingThread</span><span class="o">(</span><span class="nc">MyData</span> <span class="n">sharedData</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sharedData</span> <span class="o">=</span> <span class="n">sharedData</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">sharedData</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>If we run a main program like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MyData</span> <span class="n">mds</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyData</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="nc">ReadingThread</span><span class="o">[]</span> <span class="n">threadsR</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReadingThread</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+<span class="nc">WritingThread</span><span class="o">[]</span> <span class="n">threadsW</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">WritingThread</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">threadsW</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="n">threadsW</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">WritingThread</span><span class="o">(</span><span class="n">mds</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">threadsR</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="n">threadsR</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReadingThread</span><span class="o">(</span><span class="n">mds</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">threadsW</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="n">threadsW</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">threadsR</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="n">threadsR</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>we will notice that all the reading threads print their results at the same time, whereas the writing threads print their messages separately, after 2 seconds. The output may be something like this (it may differ depending on the order in which threads are actually started):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Thread #9 sets value to 20
+Thread #13 reads value 20
+Thread #11 reads value 20
+Thread #14 reads value 20
+Thread #12 reads value 20
+Thread #15 reads value 20
+Thread #10 sets value to 30
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Create a project called <strong>ReadersWritersLock</strong> and copy the previous example on it. Make changes to the code so that there are 10 reading threads (instead of 5), and each thread (reader or writer) will sleep a random number of seconds (between 1 and 10), and then it will do its job. This way, there should be some reading operations at the beginning, some in the middle of the two writings, and some at the end. Your output should look like this one:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Thread #13 reads value 10
+Thread #11 reads value 10
+Thread #9 sets value to 20
+Thread #14 reads value 20
+Thread #12 reads value 20
+Thread #15 reads value 20
+Thread #10 sets value to 30
+Thread #16 reads value 30
+Thread #18 reads value 30
+...
+</code></pre></div></div>
+
+<h3 id="4-the-forkjoin-framework">4. The Fork/Join framework</h3>
+
+<p>The thread executor that we have just seen was added in Java 5, and it allows us to separate the thread creation and its execution. Since Java 7, we can go a step further thanks to the <em>Fork/Join</em> framework.</p>
+
+<p>With this framework, we can divide complex or big problems into smaller ones. So, this framework is based on two operations: <strong>fork</strong> (divide a task into smaller tasks) and <strong>join</strong> (a task waits for its subtasks to finish). However, tasks involved in <em>Fork/Join</em> framework have no other synchronization mechanism.</p>
+
+<p><em>Fork/Join</em> framework relies on two classes: <code class="language-plaintext highlighter-rouge">ForkJoinPool</code> (it will manage the tasks and will offer information about their execution) and <code class="language-plaintext highlighter-rouge">ForkJoinTask</code> (the base class of every task added to the <code class="language-plaintext highlighter-rouge">ForkJoinPool</code>). This class has two implemented subclasses: <code class="language-plaintext highlighter-rouge">RecursiveAction</code> (for tasks that will not return any result) and <code class="language-plaintext highlighter-rouge">RecursiveTask</code> (for tasks that will return a result). All these classes belong to <code class="language-plaintext highlighter-rouge">java.util.concurrent</code> package.</p>
+
+<h4 id="41-example-tasks-that-do-not-return-any-result">4.1. Example: tasks that do not return any result</h4>
+
+<p>Let’s see how this framework can be used with the following example: we are going to create a list of video games, with their titles and prices. Then, we are going to look for a given title in the list, so that, if the list size is smaller than 5 video games, only one task will be needed, but if not, a task will be created to search a subset of up to 5 video games from the list.</p>
+
+<p>Our VideoGame class would be like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VideoGame</span> 
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kt">float</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">VideoGame</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTitle</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPrice</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our thread or task to search in the list would be like this one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameSearch</span> <span class="kd">extends</span> <span class="nc">RecursiveAction</span>
+<span class="o">{</span>
+    <span class="cm">/* How many video games will each task be in charge of? */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_GAMES</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+    <span class="cm">/* List of video games */</span>
+    <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">VideoGame</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">;</span>
+
+    <span class="cm">/* First index of the list to search */</span>
+    <span class="kt">int</span> <span class="n">first</span><span class="o">;</span>
+
+    <span class="cm">/* Last index of the list to search */</span>
+    <span class="kt">int</span> <span class="n">last</span><span class="o">;</span>
+
+    <span class="cm">/* Text to be searched in the list */</span>
+    <span class="nc">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">GameSearch</span><span class="o">(</span><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">VideoGame</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">,</span> <span class="nc">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">first</span><span class="o">,</span>
+        <span class="kt">int</span> <span class="n">last</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">list</span> <span class="o">=</span> <span class="n">list</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">last</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">compute</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">last</span> <span class="o">-</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="no">MAX_GAMES</span><span class="o">)</span>
+            <span class="n">search</span><span class="o">();</span>
+        <span class="k">else</span>
+        <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="o">(</span><span class="n">last</span> <span class="o">-</span> <span class="n">first</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Creating 2 subtasks..."</span><span class="o">);</span>
+            <span class="nc">GameSearch</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">text</span><span class="o">,</span> <span class="n">first</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">);</span>
+            <span class="nc">GameSearch</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">text</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">last</span><span class="o">);</span>
+            <span class="n">invokeAll</span><span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">search</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">last</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getTitle</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="n">text</span><span class="o">))</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found at position "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span>
+                    <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getTitle</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Notice that, when we extend <code class="language-plaintext highlighter-rouge">RecursiveAction</code> class, we need to define a <code class="language-plaintext highlighter-rouge">compute</code> method. This would be the equivalent to the <em>run</em> method in common threads. Inside this method, we check the size of the game list. If it is smaller than 5, we just call the search method to solve the problem. Otherwise, we divide the list in two parts and create two subtasks; each one will be in charge of searching in one half of the list.</p>
+
+<p>We can also create a list of tasks, and call the <code class="language-plaintext highlighter-rouge">invokeAll</code> method passing that list as a parameter:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">GameSearch</span><span class="o">&gt;</span> <span class="n">subtasks</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="o">...</span>
+<span class="n">subtasks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(...));</span>
+<span class="n">subtasks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(...));</span>
+<span class="n">subtasks</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(...));</span>
+
+<span class="n">invokeAll</span><span class="o">(</span><span class="n">subtasks</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>From our main program, we create the video game list, create a <code class="language-plaintext highlighter-rouge">GameSearch</code> task to look for the word “Assassin’s”, and launch it in the <em>Fork/Join</em> pool, as we did before with thread executors:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">VideoGame</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">VideoGame</span><span class="o">&gt;();</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Assassin's Creed"</span><span class="o">,</span> <span class="mf">19.95f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"The last of us"</span><span class="o">,</span> <span class="mf">49.90f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Fifa 14"</span><span class="o">,</span> <span class="mf">39.95f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Far Cry 2"</span><span class="o">,</span> <span class="mf">14.95f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Watchdogs"</span><span class="o">,</span> <span class="mf">59.95f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Assassin's Creed II"</span><span class="o">,</span> <span class="mf">24.90f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Far Cry 3"</span><span class="o">,</span> <span class="mf">39.50f</span><span class="o">));</span>
+    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="nc">VideoGame</span><span class="o">(</span><span class="s">"Borderlands"</span><span class="o">,</span> <span class="mf">19.90f</span><span class="o">));</span>
+
+    <span class="nc">GameSearch</span> <span class="n">v</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="s">"Assassin's"</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+    <span class="nc">ForkJoinPool</span> <span class="n">pool</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ForkJoinPool</span><span class="o">();</span>
+    <span class="n">pool</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">v</span><span class="o">);</span>
+    <span class="k">do</span>
+    <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(!</span><span class="n">v</span><span class="o">.</span><span class="na">isDone</span><span class="o">());</span>
+    <span class="n">pool</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Main program has to wait until task finishes (using its <code class="language-plaintext highlighter-rouge">isDone</code> method), before shutting down.</p>
+
+<h4 id="42-example-tasks-that-return-a-result">4.2. Example: tasks that return a result</h4>
+
+<p>How could we adapt the previous example so that tasks do not print anything to the output, and return a set or list of results found? We have to use a subclass of <code class="language-plaintext highlighter-rouge">RecursiveTask</code> instead of a subclass of <code class="language-plaintext highlighter-rouge">RecursiveAction</code>. When we extend <code class="language-plaintext highlighter-rouge">RecursiveTask</code>, we have to take into account that it is a parameterized class, this is, we need to provide the type of result that will be returned. So our <code class="language-plaintext highlighter-rouge">GameSearch</code> class from previous example would look like this one now:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameSearch</span> <span class="kd">extends</span> <span class="nc">RecursiveTask</span><span class="o">&lt;</span><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;</span>
+<span class="o">{</span>
+    <span class="cm">/* How many video games will each task be in charge of? */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_GAMES</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+    <span class="cm">/* List of video games */</span>
+    <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">VideoGame</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">;</span>
+    <span class="cm">/* First index of the list to search */</span>
+    <span class="kt">int</span> <span class="n">first</span><span class="o">;</span>
+    <span class="cm">/* Last index of the list to search */</span>
+    <span class="kt">int</span> <span class="n">last</span><span class="o">;</span>
+    <span class="cm">/* Text to be searched in the list */</span>
+    <span class="nc">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">GameSearch</span><span class="o">(</span><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">VideoGame</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">,</span> <span class="nc">String</span> <span class="n">text</span><span class="o">,</span> <span class="kt">int</span> <span class="n">first</span><span class="o">,</span> 
+    <span class="kt">int</span> <span class="n">last</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">list</span> <span class="o">=</span> <span class="n">list</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">first</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">last</span> <span class="o">=</span> <span class="n">last</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">compute</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">last</span> <span class="o">-</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="no">MAX_GAMES</span><span class="o">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">search</span><span class="o">();</span>
+        <span class="k">else</span>
+        <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="o">(</span><span class="n">first</span> <span class="o">+</span> <span class="n">last</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Creating 2 subtasks..."</span><span class="o">);</span>
+            <span class="nc">GameSearch</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">text</span><span class="o">,</span> <span class="n">first</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">);</span>
+            <span class="nc">GameSearch</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">text</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">last</span><span class="o">);</span>
+            <span class="n">invokeAll</span><span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">);</span>
+            <span class="k">try</span>
+            <span class="o">{</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+                <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">aux</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+                <span class="n">results</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">aux</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">results</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">search</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">last</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getTitle</span><span class="o">().</span><span class="na">contains</span><span class="o">(</span><span class="n">text</span><span class="o">))</span>
+                <span class="n">results</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Found at "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> 
+                    <span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">getTitle</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">results</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We are going to return an <code class="language-plaintext highlighter-rouge">ArrayList</code> of <em>Strings</em> as a result, each one containing each occurrence of the searched text. In <code class="language-plaintext highlighter-rouge">search</code> method, we just create the list of games matching the text and return it. In <code class="language-plaintext highlighter-rouge">compute</code> method, we call the <code class="language-plaintext highlighter-rouge">search</code> method directly if there are less than 5 games to search, or we split the work in two tasks, and join their results in the <code class="language-plaintext highlighter-rouge">try..catch</code> block (calling to <code class="language-plaintext highlighter-rouge">get</code> method may throw exceptions).</p>
+
+<p>Our main program will get the results after the main task has finished, and it will print them to the standard output:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="o">...</span> 
+    <span class="cm">/* Main method is the same until we call the shutdown method, then we 
+    need to add some lines to get and print the results */</span>
+    <span class="k">try</span>
+    <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">results</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">results</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Exception occurred: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+    <span class="n">pool</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 5:</strong></p>
+
+  <p>Create a project called <strong>ForkJoinFile</strong>. Create a text file in it, with some lines (at least 50, you can copy them from any source). Use the <em>Fork/Join</em> framework to create tasks that will check the contents of the text file (up to 10 lines for each task). The tasks must replace every occurrence of the word “java” with “Java” (of course, try to add some occurrences of the word “java” in the text file). At the end, main program will get the results of all the subtasks (i.e., the pieces of text with the replacements done), will join them and will rewrite the text file with the updated text.</p>
+</blockquote>
+
+<h4 id="43-launching-asynchronous-subtasks">4.3. Launching asynchronous subtasks</h4>
+
+<p>In the examples shown above, when we call the <code class="language-plaintext highlighter-rouge">invokeAll</code> method, the task that calls it waits until the subtasks invoked finish their job. This is, we are using a synchronous way of calling tasks and subtasks.</p>
+
+<p>We can also call the subtasks in an asynchronous way (this is, the main task continues its job while it launches the subtasks), by using the <code class="language-plaintext highlighter-rouge">fork</code> and <code class="language-plaintext highlighter-rouge">join</code> methods, instead of <code class="language-plaintext highlighter-rouge">invokeAll</code> and other synchronous methods. So previous code of <code class="language-plaintext highlighter-rouge">compute</code> method could be changed into an asynchronous one this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">compute</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">last</span> <span class="o">-</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="no">MAX_GAMES</span><span class="o">)</span>
+        <span class="n">search</span><span class="o">();</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="o">(</span><span class="n">first</span> <span class="o">+</span> <span class="n">last</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Creating 2 subtasks..."</span><span class="o">);</span>
+        <span class="nc">GameSearch</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">text</span><span class="o">,</span> <span class="n">first</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">);</span>
+        <span class="nc">GameSearch</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GameSearch</span><span class="o">(</span><span class="n">list</span><span class="o">,</span> <span class="n">text</span><span class="o">,</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">last</span><span class="o">);</span>
+        <span class="n">s1</span><span class="o">.</span><span class="na">fork</span><span class="o">();</span>
+        <span class="n">s2</span><span class="o">.</span><span class="na">fork</span><span class="o">();</span>
+        <span class="c1">// At this point, this task continues running its code</span>
+        <span class="o">...</span>
+        <span class="c1">// Wait for the 1st subtask to finish</span>
+        <span class="n">s1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="o">...</span>
+        <span class="c1">// Wait for the 2nd subtask to finish</span>
+        <span class="n">s2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

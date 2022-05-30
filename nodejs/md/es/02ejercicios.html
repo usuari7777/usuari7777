@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 2 | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/02ejercicios.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 2" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 2","url":"http://nachoiborraies.github.io/nodejs/md/es/02ejercicios.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-2">Ejercicios propuestos - Parte 2</h1>
+
+<p>Para los ejercicios de esta sesión, crea una subcarpeta llamada “<strong>Sesion2</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro ir creando un proyecto para cada ejercicio.</p>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_2_1</strong>” dentro de la carpeta anterior “<em>ProyectosNode/Ejercicios/Sesion2</em>”. Añade un archivo llamado “saludo.js”. Echa un vistazo en la API de Node al módulo <code class="language-plaintext highlighter-rouge">os</code>, y en concreto al método <code class="language-plaintext highlighter-rouge">userInfo</code>. Utilízalo para hacer un programa que salude al usuario que ha accedido al sistema operativo. Por ejemplo, si el usuario es “nacho”, debería decir “Hola nacho”. Ejecuta el programa en el terminal para comprobar su correcto funcionamiento.</p>
+
+<blockquote>
+  <p><strong>AYUDA:</strong> el método <code class="language-plaintext highlighter-rouge">userInfo</code> devuelve un objeto con varias propiedades del usuario que ha accedido. Para obtener el nombre del usuario, deberemos acceder a la propiedad <code class="language-plaintext highlighter-rouge">username</code>.</p>
+
+  <p><strong>AYUDA:</strong> el método <code class="language-plaintext highlighter-rouge">console.log</code> admite un número indefinido de parámetros, y los concatena uno tras otro con un espacio. Así, estas dos líneas son equivalentes:</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">nombre</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hola</span><span class="dl">"</span><span class="p">,</span> <span class="nx">nombre</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p><strong><em>Opcional</em></strong></p>
+
+<p>Para realizar este ejercicio, nos basaremos en el “<em>Ejercicio_1_4</em>” de la sesión anterior, donde gestionábamos las personas de un vector mediante unos métodos que insertaban o borraban datos del mismo, y devolvían una promesa con el resultado.</p>
+
+<p>Copia esa carpeta “<em>Ejercicio_1_4</em>” en tu carpeta “<em>ProyectosNode/Ejercicios/Sesion2</em>” y renómbrala a “<strong>Ejercicio_2_2</strong>”. Lo que vamos  hacer en este ejercicio es dividir el código en dos archivos:</p>
+
+<ul>
+  <li>Un archivo llamado <code class="language-plaintext highlighter-rouge">personas.js</code> donde definiremos los dos métodos que se encargan de añadir y borrar personas del vector. Recuerda exportar dichos métodos con <code class="language-plaintext highlighter-rouge">module.exports</code> para poderlos utilizar desde fuera. También necesitarás pasarles como parámetro el vector de personas, ya que dicho vector quedará en otro archivo aparte y no será directamente accesible.</li>
+  <li>Un archivo llamado <code class="language-plaintext highlighter-rouge">index.js</code> donde incluiremos el módulo anterior. En este archivo definiremos el vector de personas tal y como estaba originalmente, y el programa principal, que utilizará el módulo anterior para insertar o borrar algunas personas de prueba en el vector.</li>
+</ul>
+
+<p>Ejecuta el programa para verificar que las dependencias con el módulo se han establecido correctamente, y los datos se insertan y borran del vector de forma satisfactoria.</p>
+
+<h2 id="ejercicio-3">Ejercicio 3</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_2_3</strong>” en tu espacio de trabajo, en la carpeta “<em>ProyectosNode/Ejercicios/Sesion2</em>”. Dentro, crea un archivo <code class="language-plaintext highlighter-rouge">package.json</code> utilizando el comando <code class="language-plaintext highlighter-rouge">npm init</code> visto antes. Deja los valores por defecto que te plantea el asistente, y pon tu nombre como autor.</p>
+
+<p>Después, instala el paquete <code class="language-plaintext highlighter-rouge">lodash</code> como se ha explicado en un ejemplo anterior, y consulta su documentación <a href="https://lodash.com/docs/4.17.15">aquí</a>, para hacer un programa en un archivo <code class="language-plaintext highlighter-rouge">index.js</code> que, dado un vector de nombres de personas, los muestre por pantalla separados por comas. Deberás definir a mano el array de nombres dentro del código. Por ejemplo, para el array <code class="language-plaintext highlighter-rouge">["Nacho", "Ana", "Mario", "Laura"]</code>, la salida del programa deberá ser:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nacho,Ana,Mario,Laura
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> revisa el método <code class="language-plaintext highlighter-rouge">join</code> dentro de la documentación de “lodash”, puede serte muy útil para este ejercicio.</p>
+</blockquote>
+
+<h2 id="ejercicio-4">Ejercicio 4</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_2_4</strong>” en tu espacio de trabajo, en la carpeta “<em>ProyectosNode/Ejercicios/Sesion2</em>”. Dentro, crea un archivo <code class="language-plaintext highlighter-rouge">package.json</code> con el correspondiente comando <code class="language-plaintext highlighter-rouge">npm init</code> visto antes. Deja los valores por defecto que te plantea el asistente, y pon tu nombre como autor.</p>
+
+<p>Instala el paquete <code class="language-plaintext highlighter-rouge">moment</code>, una librería para gestión de fechas y tiempos cuya documentación se puede consultar <a href="https://momentjs.com/docs/">aquí</a>. Define un programa principal en un archivo <code class="language-plaintext highlighter-rouge">index.js</code> que incluya dicha librería:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">moment</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">moment</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Una vez incluida, haz lo siguiente:</p>
+
+<ul>
+  <li>Guarda en una variable la fecha y hora actuales. Esto puedes hacerlo con:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">ahora</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Define una fecha anterior a la actual. Puedes especificar el formato de la fecha en una cadena de texto, seguido del patrón de dicha fecha. Por ejemplo:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">antes</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="dl">"</span><span class="s2">07/10/2015</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">DD/MM/YYYY</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Define también una fecha posterior a la actual. Puedes utilizar la misma nomenclatura que para la fecha anterior, pero con una posterior.</li>
+  <li>Imprime por consola cuántos años han pasado desde la fecha vieja a la actual. Para calcular este dato, te puede ser de utilidad el método <code class="language-plaintext highlighter-rouge">dif</code>:</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fechaNueva</span><span class="p">.</span><span class="nx">diff</span><span class="p">(</span><span class="nx">fechaVieja</span><span class="p">,</span> <span class="dl">'</span><span class="s1">years</span><span class="dl">'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Saca por consola, de una forma similar, cuántos años y meses faltan para llegar a la fecha futura desde la actual.</li>
+  <li>Muestra ahora por consola si la fecha vieja es, efectivamente, anterior a la actual. Para ello puedes utilizar el método <code class="language-plaintext highlighter-rouge">isBefore</code> (o <code class="language-plaintext highlighter-rouge">isAfter</code>, dependiendo de cómo las compares):</li>
+</ul>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nx">fechaVieja</span><span class="p">.</span><span class="nx">isBefore</span><span class="p">(</span><span class="nx">fechaReciente</span><span class="p">))...</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">fechaReciente</span><span class="p">.</span><span class="nx">isAfter</span><span class="p">(</span><span class="nx">fechaVieja</span><span class="p">))...</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Finalmente, crea una fecha que sea exactamente dentro de un mes. Para ello, usa el método <code class="language-plaintext highlighter-rouge">add</code>, añadiendo un mes a la fecha actual. Saca esta fecha por pantalla, formateada como <em>DD/MM/YYYY</em>. Utiliza el método <code class="language-plaintext highlighter-rouge">format</code> para esto.</li>
+</ul>
+
+<p>Si no lo has hecho aún, instala el módulo <code class="language-plaintext highlighter-rouge">nodemon</code> de forma global al sistema, como se ha explicado en esta sesión. Ejecuta esta aplicación con dicho módulo, y comprueba que todos los datos que se muestran por consola son los esperados. Después, prueba a cambiar alguna fecha (la pasada y/o la futura), y comprueba cómo se ejecuta de nuevo automáticamente y muestra los nuevos resultados.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

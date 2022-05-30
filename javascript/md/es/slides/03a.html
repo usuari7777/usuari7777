@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Uso de librerías</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Uso de librerías
+#### Chart y Moment
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Librerías
+
+- JavaScript es uno de los lenguajes más populares a nivel mundial
+- Una gran comunidad de desarrolladores lo utiliza y desarrolla sus propias funcionalidades
+- Podemos hacer uso de esas funcionalidades de terceros a través de las **librerías**
+   - Evitamos *reinventar la rueda*
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Chart.js
+
+- Librería para incluir gráficas en las páginas web
+- [Web oficial](https://www.chartjs.org/)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Chart.js: instalación
+
+- Descargar con NPM (si tenemos *Node.js* instalado)
+- Descargar desde [GitHub](https://github.com/chartjs/Chart.js/releases/tag/v3.7.0)
+   - Interesa disponer del archivo **chart.min.js** o **chart.js** (subcarpeta *dist*)
+- Enlazar directamente con librería en CDN 
+   - *https://cdn.jsdelivr.net/npm/chart.js*
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Chart.js: enlazado
+
+<div align="center">
+    <img src="../../../img/03_enlace_chart.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Chart.js: uso básico
+
+Para construir un gráfico, debemos definir un objeto con las siguientes propiedades:
+
+- **labels**: etiquetas que se pondrán identificando cada parte del gráfico
+    - Ejemplo: rótulos del eje X
+- **datasets**: conjuntos de datos que representar en cada tramo del gráfico
+    - Podemos especificar sus valores, color de relleno, etc.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Chart.js: ejemplo gráfico de barras
+
+Lluvias y temperaturas de Enero a Marzo
+
+```js
+let datos = {
+    labels : ["Enero","Febrero","Marzo"],
+    datasets : [
+    {
+        label: "Lluvias acumuladas",
+        backgroundColor : "blue", 
+        borderColor : "black",
+        data : [100, 80, 125]
+    },
+    {
+        label: "Temperaturas medias",
+        backgroundColor : "red", 
+        borderColor : "black",
+        data : [8, 10, 16]
+    }]
+};
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Chart.js: ejemplo gráfico de barras
+
+Definimos un objeto con la configuración del gráfico: tipo de gráfico, datos asociados y opciones adicionales
+
+```js
+let config = {
+    type: 'bar',
+    data: datos,
+    options: {}
+};
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Chart.js: ejemplo gráfico de barras
+
+Definimos un *canvas* donde representar el gráfico (debemos incluirlo en algún *div* o *section* para acotar el tamaño en pantalla)
+
+```html
+<body>
+    ...
+    <canvas id="grafico" height="450" width="600"></canvas>
+    ...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Chart.js: ejemplo gráfico de barras
+
+Creamos un objeto de tipo *Chart* y lo dibujamos en el canvas seleccionado con la configuración indicada
+
+```js
+const chart = new Chart(document.getElementById("grafico"), config);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Chart.js: ejemplo gráfico de barras
+
+<div align="center">
+    <img src="../../../img/03_chart.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (1/2)
+
+Crea una página llamada **graficos.html**. Usando la librería *Chart.js*, investiga en su documentación cómo hacer:
+
+- Un gráfico de [líneas](https://www.chartjs.org/docs/latest/charts/line.html) para representar la evolución de las notas de una asignatura (con las notas 4, 7, 5, 8 y 7)
+- Un gráfico [circular](https://www.chartjs.org/docs/latest/charts/doughnut.html#pie) para representar el porcentaje de aprobados (60%), suspensos (30%) y no presentados (10%) de una asignatura
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (2/2)
+
+<div align="center">
+    <img src="../../../img/03_ejercicio_chart.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js
+
+- Librería para trabajar con fechas (creación, diferencias entre fechas, etc)
+- [Web oficial](https://momentjs.com/)
+- Descargaremos de ella el archivo *moment.min.js*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+Creación de fechas
+
+```js
+// Fecha actual
+let ahora = moment();
+
+// Fecha definida por su año, mes (desde el 0) y día
+let fecha1 = moment([2022, 3, 7]); // 7 de abril de 2022
+
+// Fecha definida por un texto con un patrón
+let fechaString = "07/03/2013";
+let fecha2 = moment(fechaString, "dd/MM/YYYY");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+Acceder a las partes de una fecha (día, mes, año...)
+
+```js
+let fecha1 = moment([2022, 3, 7]);
+let dia = fecha1.date();    // 7
+let mes = fecha1.month();   // 3
+let anyo = fecha1.year();   // 2022
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+Diferencia entre dos fechas (en distintas unidades)
+
+```js
+let dias = fecha1.diff(fecha2, 'days');
+let meses = fecha1.diff(fecha2, 'months');
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+Sumar o restar a una fecha una cantidad (en días, meses, años, etc), con *[add](https://momentjs.com/docs/#/manipulating/add/)* y *[substract](https://momentjs.com/docs/#/manipulating/subtract/)*
+
+```js
+let fechaNueva1 = fecha1.add(1, 'months');
+let fechaNueva2 = fecha2.substract(2, 'years');
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+Comprobar si una fecha es válida o no con `isValid`, o ver si es anterior o posterior a otra con `isBefore` o `isAfter`
+
+```js
+let fechaErronea = moment([2022, 3, 40]);
+alert(fechaErronea.isValid());      // false
+...
+if (fecha1.isBefore(fecha2))
+    alert("La fecha 1 es anterior");
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+Trabajar con horas, minutos y segundos
+
+```js
+let fechaCompleta = moment('24/12/2019 09:15:00', "DD/MM/YYYY hh:mm:ss");
+let fechayHora = fechaCompleta.add(20, 'minutes');
+let minutos = fechaYHora.minute();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Moment.js: uso básico
+
+- [Aquí](https://momentjs.com/docs/#/displaying/) podéis encontrar más información sobre los patrones de fechas
+- [Aquí](https://momentjs.com/docs) podéis encontrar más información sobre la librería en general
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página llamada **moment.html** y carga en ella la librería *Moment*. Después, sigue estos pasos:
+ 
+* Pide al usuario su fecha de nacimiento con *prompt*, en formato *DD/MM/YYYY*
+* Dile cuántos años tiene, y cuántos días faltan para su próximo cumpleaños
+* Dile "Buenos días", "Buenas tardes" o "Buenas noches" dependiendo de la hora actual:
+   * "Buenas noches" si estamos entre las 21:00 y las 07:00
+   * "Buenos días" si estamos entre las 07:00 y las 14:00
+   * "Buenas tardes" si estamos entre las 14:00 y las 21:00
+
+</script>
+</section>
+    
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

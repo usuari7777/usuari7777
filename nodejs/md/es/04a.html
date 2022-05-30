@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Introducción a MongoDB | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Introducción a MongoDB" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/04a.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Introducción a MongoDB" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Introducción a MongoDB","url":"http://nachoiborraies.github.io/nodejs/md/es/04a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="introducción-a-mongodb">Introducción a MongoDB</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/04a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/04a.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>En esta sesión daremos unas nociones básicas de cómo conectar y gestionar una base de datos MongoDB desde Node. Para los no iniciados en el tema, MongoDB es el principal representante, actualmente, de los sistemas de bases de datos NoSQL. Estos sistemas se han vuelto muy populares en los últimos años, y permiten dotar de persistencia a los datos de nuestra aplicación de una forma diferente a los tradicionales sistemas SQL.</p>
+
+<p>En lugar de almacenar la información en tablas con sus correspondientes campos y registros, lo que haremos será almacenar estructuras de datos en formato BSON (similar a JSON), lo que facilita la integración con ciertas aplicaciones, como las aplicaciones Node.</p>
+
+<h2 id="1-algunos-conceptos-de-bases-de-datos-nosql">1. Algunos conceptos de bases de datos NoSQL</h2>
+
+<p>Las bases de datos NoSQL tienen algunas similitudes y diferencias con las tradicionales bases de datos SQL. Entre las similitudes, las dos trabajan con bases de datos, es decir, lo que creamos en uno u otro gestor es siempre una base de datos, pero la principal diferencia radica en cómo se almacenan los datos. En una base de datos SQL, la información se almacena en forma de tablas, mientras que en una NoSQL lo que se almacena se denominan <strong>colecciones</strong> (arrays de objetos en formato BSON, en el caso de Mongo). Las tablas están compuestas de registros (cada fila de la tabla), mientras que las colecciones se componen de <strong>documentos</strong> (cada objeto de la colección). Finalmente, cada registro de una tabla SQL tiene una serie de campos fijos (todos los registros de la tabla tienen los mismos campos), mientras que en una colección NoSQL, cada documento puede tener un conjunto diferente de <strong>propiedades</strong> (que también se suelen llamar campos). En cualquier caso, lo habitual es que los documentos de una misma colección compartan las mismas propiedades.</p>
+
+<h2 id="2-acceso-a-sistemas-mongodb">2. Acceso a sistemas MongoDB</h2>
+
+<p>Como decíamos, el ejemplo más representativo de los sistemas NoSQL actualmente vigentes es MongoDB, un sistema de bases de datos de código abierto y multiplataforma, que podemos instalar en sistemas Windows, Mac OSX o Linux. En el documento de <a href="http://nachoiborraies.github.io/nodejs/md/es/01b">instalación</a> ya se han visto los pasos para instalarlo, y en la máquina virtual completa del curso ya se proporciona instalado junto con la herramienta que utilizaremos para acceder a él, la extensión <em>MySQL</em> que tenemos disponible para Visual Studio Code, que nos va a permitir también conectar con sistemas NoSQL.</p>
+
+<p>Como recordatorio, simplemente ten en cuenta que en la instalación de la máquina virtual podemos consultar el estado, detener, arrancar o reiniciar el servicio MongoDB con los siguientes comandos, respectivamente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl status mongod
+sudo systemctl stop mongod
+sudo systemctl start mongod
+sudo systemctl restart mongod
+</code></pre></div></div>
+
+<p>También podemos hacer que se quede iniciado al arrancar con este comando (ya ejecutado en la máquina virtual con el software instalado):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl enable mongod
+</code></pre></div></div>
+
+<p>En cuanto a la extensión <em>MySQL</em> de Visual Studio Code, en la barra izquierda aparecen los iconos para conectar a bases de datos relacionales (superior) o NoSQL (inferior):</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql_2.png" />
+</div>
+
+<p>Así configuraremos la conexión de MongoDB (sin usuario ni contraseña):</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql_4.png" width="90%" />
+</div>
+
+<p>Y podremos ver a la izquierda las bases de datos existentes:</p>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/nodejs/img/01_extension_mysql_4b.png" />
+</div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

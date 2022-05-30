@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Frameworks de diseño. Bootstrap | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Frameworks de diseño. Bootstrap" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03e.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/03e.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Frameworks de diseño. Bootstrap" />
+<script type="application/ld+json">
+{"headline":"Frameworks de diseño. Bootstrap","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/03e.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="frameworks-de-diseño-bootstrap">Frameworks de diseño. Bootstrap</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03e.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03e.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Además de todas las ventajas que se han ido incorporando en el diseño web con las sucesivas versiones de HTML y CSS (especialmente con HTML5 y CSS3), ciertas comunidades de desarrolladores han elaborado una serie de herramientas que permiten diseñar sitios web de una forma más integral y sencilla. Estas herramientas, denominadas comúnmente <em>frameworks de diseño web</em>, son un conjunto compuesto normalmente de:</p>
+
+<ul>
+  <li>Estilos CSS predefinidos que podemos añadir a nuestras webs utilizando, normalmente, una serie de selectores de clase o de id predefinidos.</li>
+  <li>Plugins JavaScript que dotan de cierta funcionalidad adicional a la web y sus componentes, a la hora de interactuar con formularios, arrastrar componentes, etc.</li>
+  <li>Otras opciones. Por ejemplo, algunos incorporan funcionalidad en el servidor mediante páginas PHP o similares, otros traen una serie de imágenes o iconos predefinidos que utilizar en las aplicaciones, etc.</li>
+</ul>
+
+<p>Algunos ejemplos de Frameworks populares son:</p>
+
+<ul>
+  <li><strong>Bootstrap</strong>: quizá sea el framework más popular para desarrollo web. Sus nuevas versiones se centran cada vez más en el diseño web adaptativo, y cada vez incluye más componentes que añadir a las páginas (elementos de formularios, migas de pan de navegación, etc.). Su web oficial es <a href="https://getbootstrap.com/">getbootstrap.com</a>.</li>
+  <li><strong>Ionic</strong>: es un framework que, unido a otros frameworks de desarrollo en la parte cliente como Angular o React, permite desarrollar la apariencia de la aplicación, e incluso hacerla exportable a otras plataformas, como los dispositivos móviles, a través de aplicaciones híbridas (desarrolladas con tecnologías web, pero exportadas a otros soportes). Su web oficial es <a href="https://ionicframework.com/">ionicframework.com</a>.</li>
+  <li><strong>Tailwind</strong>: con una filosofía similar a Bootstrap, se utiliza en el diseño de plantillas de algunos frameworks en servidor, como Laravel. Podemos leer sobre él en su <a href="https://tailwindcss.com/">web oficial</a>.</li>
+  <li>…</li>
+</ul>
+
+<h2 id="1-primeros-pasos-con-bootstrap">1. Primeros pasos con Bootstrap</h2>
+
+<p>Bootstrap puede utilizarse tanto descargando el framework desde su web, como enlazándolo directamente desde algún repositorio online. Veamos aquí las dos opciones de enlazar con el framework, y un primer vistazo a sus posiblidades.</p>
+
+<h3 id="11-descargar-bootstrap">1.1. Descargar Bootstrap</h3>
+
+<p>Si queremos descargar Bootstrap, tenemos varias opciones para ello. Una opción bastante sencilla consiste en descargarlo de su web oficial (sección de <a href="https://getbootstrap.com/docs/5.1/getting-started/download/">descargas</a>). Podemos descargar la versión ya compilada y preparada para usar (es menos modificable pero podemos empezar a trabajar con ella) o el código fuente de CSS y Javascript (es menos eficiente, pero lo podemos modificar mejor). En estos apuntes optaremos por la versión compilada, ya que no tenemos previsto modificar nada.</p>
+
+<p>Una vez descargado el archivo comprimido, veremos dentro varios archivos y carpetas, divididos en dos grandes bloques:</p>
+
+<ul>
+  <li><strong>css</strong>: con los diferentes archivos CSS de estilos que podemos utilizar</li>
+  <li><strong>js</strong>: con los distintos archivos JavaScript necesarios para algunas funcionalidades</li>
+</ul>
+
+<p>En nuestro caso, basta con que copiemos estas dos carpetas en nuestra web (o bien en la carpeta inicial, o bien en alguna subcarpeta como <em>bootstrap</em>, por ejemplo). Después, simplemente tenemos que enlazar con el archivo <code class="language-plaintext highlighter-rouge">bootstrap.min.css</code> de la subcarpeta <em>css</em>. Por ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Ejemplo Bootstrap<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"bootstrap/css/bootstrap.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    ...
+</code></pre></div></div>
+
+<p>Opcionalmente (aunque suele ser habitual) podemos enlazar también con el archivo JavaScript al final del cuerpo del documento, para cargar las funcionalidades añadidas:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        ...
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"bootstrap/js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="12-enlazar-con-bootstrap-desde-una-fuente-externa">1.2. Enlazar con Bootstrap desde una fuente externa</h3>
+
+<p>Alternativamente, podemos no descargar Bootstrap y enlazar con alguna versión oficial en Internet. En este caso, los enlaces al CSS y al JavaScript pueden quedar como sigue (modificando la URL en función de la versión de Bootstrap que queramos usar), tal y como puede verse en la <a href="https://getbootstrap.com/docs/5.1/getting-started/introduction/">documentación oficial</a>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Ejemplo Bootstrap<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"</span> 
+         <span class="na">integrity=</span><span class="s">"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"</span> 
+         <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        ...
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"</span> 
+        <span class="na">integrity=</span><span class="s">"sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"</span> 
+        <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="13-uso-de-bootstrap-junto-con-estilos-propios">1.3. Uso de Bootstrap junto con estilos propios</h3>
+
+<p>Tras el paso anterior, ya podríamos ver que el contenido de nuestra página tiene un aspecto diferente al que tiene por defecto en un navegador, gracias a los estilos de Bootstrap. Por ejemplo, se habrá cambiado el tipo de fuente por defecto. Sin embargo, en ocasiones puede que nos interese modificar ese estilo predefinido, y aportar algo propio: colores de fondo, bordes a algunos componentes, etc. En este caso, podemos incluir nuestra propia hoja de estilos CSS, que deberá ubicarse siempre después de haber incorporado los estilos de Bootstrap, para evitar problemas si hubiera algún conflicto con algún estilo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Ejemplo Bootstrap<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"bootstrap/css/bootstrap.min.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/estilos.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    ...
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en el ejemplo anterior, se asume que todo el contenido de Bootstrap está en una subcarpeta <em>bootstrap</em> de nuestro proyecto, y los estilos propios están en una carpeta <em>css</em>, externa a Bootstrap.</p>
+</blockquote>
+
+<h2 id="2-diseño-responsive-con-bootstrap-la-rejilla">2. Diseño <em>responsive</em> con Bootstrap. La rejilla</h2>
+
+<p>Una vez enlazada la hoja de estilos CSS, ya podremos utilizar algunos selectores de clase de Bootstrap que nos permiten colocar diferentes elementos de contenido. Veremos que Bootstrap estructura el área de contenido de la página en una especie de rejilla, de forma que cada pieza de contenido puede ocupar las casillas que queramos. Aquí tenemos un ejemplo, que podemos probar en el navegador y cambiar el tamaño de la ventana para ver cómo se reajusta el contenido:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Ejemplo Bootstrap<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"bootstrap/css/bootstrap.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-4"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;h2&gt;</span>Columna 1<span class="nt">&lt;/h3&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Texto de prueba para esta primera columna.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-4"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;h2&gt;</span>Columna 2<span class="nt">&lt;/h3&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Texto de prueba para esta segunda columna.<span class="nt">&lt;/p&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Un segundo párrafo para esta columna de prueba.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-4"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;h2&gt;</span>Columna 3<span class="nt">&lt;/h3&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Tercera y última columna.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>La apariencia que tendrá esta página en el navegador será aproximadamente ésta:</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_bootstrap.png" width="80%" />
+</div>
+
+<p>Hemos utilizado algunos selectores de clase de los muchos que ofrece el CSS de Bootstrap.</p>
+
+<p>El selector <code class="language-plaintext highlighter-rouge">container</code> permite definir una caja que contenga a todo nuestro contenido, estableciendo unos márgenes de separación con el borde de la página. Existe una alternativa, que es el selector <code class="language-plaintext highlighter-rouge">container-fluid</code>, que no pone márgenes laterales para que el contenido ocupe todo lo que pueda.</p>
+
+<p>El selector <code class="language-plaintext highlighter-rouge">row</code> sirve para estructurar el contenido de la página en filas, de forma que cada fila estará compuesta por una serie de columnas, y esas columnas se autoajustarán según el tamaño de la pantalla. Pondremos un selector <em>row</em> para cada fila que queramos añadir de contenido en nuestra página.</p>
+
+<p>En cuanto a las columnas, hay diferentes estilos que empiezan por la palabra <code class="language-plaintext highlighter-rouge">col</code>, seguida de un tamaño (<em>xs</em>, <em>sm</em>, <em>md</em>, <em>lg</em>, <em>xl</em> o <em>xxl</em>, según hasta qué resolución queramos mantener las columnas, aunque en la versión 5 de Bootstrap el sufijo <em>xs</em> se omite), y un número, que indica cuántas celdas (de un total de 12 por fila) va a ocupar esa columna. Así, en el ejemplo anterior, con el selector <code class="language-plaintext highlighter-rouge">col-sm-4</code>, estamos utilizando columnas para dispositivos relativamente pequeños (hasta unos 768px), de forma que cada columna ocupará 4 de 12 celdas (por tanto, caben 3 columnas). En el momento en que el tamaño de la ventana baje de 768px, se deshacen las columnas y se apilan una debajo de otra, ocupando cada una el 100% del ancho de pantalla disponible. Podemos hacer que una caja se comporte como varios de estos tipos, según la resolución disponible en cada momento:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-4 col-6"</span><span class="nt">&gt;</span>...<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Esta caja ocupa 4 rejillas para dispositivos pequeños (&lt; 768px) o superiores, y 6 rejillas para dispositivos extra pequeños (<em>xs</em>, es decir, &lt; 576px). Es decir, se verá a 3 columnas en pantallas pequeñas o superiores, y a 2 columnas en pantallas extra-pequeñas.</p>
+
+<h3 id="41-más-opciones-de-posicionamiento-de-elementos">4.1. Más opciones de posicionamiento de elementos</h3>
+
+<p>Los selectores <em>col</em> vistos sirven para distribuir las diferentes columnas de cada fila. Sin embargo, el contenido de estas celdas se ve “pegado”, es decir, no hay separación o <em>gap</em> por defecto entre las celdas de la rejilla. Para definir espaciados entre los elementos (ya sean celdas de rejilla u otros componentes), Bootstrap dispone de otros selectores de clase que podemos utilizar.</p>
+
+<p>Por ejemplo, el selector <em>p</em> sirve para establecer un <em>padding</em> interno en el componente que elijamos. Detrás de este prefijo <em>p</em> podemos añadir una serie de elementos que definen las características de dicho <em>padding</em>. Así, por ejemplo, si especificamos <em>pt-0</em> estamos diciendo que no queremos <em>padding</em> superior (<em>t</em> = <em>top</em>). Bootstrap tiene unos tamaños predefinidos numerados, de forma que <em>p-1</em> es el padding más pequeño que tiene definido, y <em>p-5</em> el más grande.</p>
+
+<p>Del mismo modo, el selector <em>m</em> sirve para establecer un margen externo en el componente sobre el que se aplica, con los mismos sufijos disponibles que para el padding.</p>
+
+<p>Echemos un vistazo a este ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"bootstrap/css/bootstrap.min.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"estilos.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Ejemplo Bootstrap<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Prueba de rejilla Bootstrap<span class="nt">&lt;/h1&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row m-2"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3 m-1 p-2 caja"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;h2&gt;</span>Caja 1<span class="nt">&lt;/h2&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                       Dolores eligendi dolorem iure. Expedita, pariatur in.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-5 m-1 p-2 caja"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;h2&gt;</span>Caja 2<span class="nt">&lt;/h2&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                       Dolorem totam voluptate repellat sunt rem neque quia 
+                       distinctio quo nulla esse.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+                <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-md-3 m-1 p-2 caja"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;h2&gt;</span>Caja 3<span class="nt">&lt;/h2&gt;</span>
+                    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                       Earum accusantium quod nesciunt porro reiciendis architecto 
+                       nobis dolorem maxime! Ipsam accusamus nisi dolorem 
+                       consequuntur sit nihil voluptatibus, libero animi autem eius.<span class="nt">&lt;/p&gt;</span>
+                <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>            
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"bootstrap/js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Si definimos en el selector <em>caja</em> un color de fondo (por ejemplo, naranja) podemos ver cómo queda delimitada cada rejilla. En este caso, hemos añadido un margen externo de tipo 1 (por todos lados) y un padding interno de tipo 2, obteniendo este resultado:</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_rejilla_bootstrap.png" width="80%" />
+</div>
+
+<p>Notar que, al definir un margen, la rejilla ya no puede albergar 12 filas (el margen ocupa un espacio extra adicional), y la suma de columnas de los elementos <em>col</em> en el ejemplo anterior es 11 para que quepan en la misma fila.</p>
+
+<p>Podéis leer más sobre Bootstrap y los usos de la rejilla en su <a href="https://getbootstrap.com/docs/5.1/layout/grid/">documentación oficial</a>. También podéis investigar las opciones de espaciado de elementos <a href="https://getbootstrap.com/docs/5.0/utilities/spacing/">aquí</a>.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Descarga <a href="../../resources/UD3_Ejercicios/03d_ejercicio_responsive.html">este ejemplo</a> que ya hemos utilizado en secciones anteriores. Añade una hoja propia <em>estilos.css</em> simplemente para dar un color de fondo a las cajas. Ahora vamos a utilizar la rejilla de Bootstrap para que:</p>
+
+  <ul>
+    <li>Las cuatro cajas se muestren una junto a otra en dispositivos tamaño <em>lg</em> o superior</li>
+    <li>Las cajas se muestren de dos en dos en tamaño <em>sm</em> o superior</li>
+    <li>Las cajas se muestren una bajo la otra en dispositivos más pequeños</li>
+  </ul>
+
+  <p>Define un margen entre las cajas para separarlas, y asigna a cada caja una anchura en celdas apropiada para su contenido, a tu gusto.</p>
+</blockquote>
+
+<h2 id="3-formularios-bootstrap">3. Formularios Bootstrap</h2>
+
+<p>Bootstrap dispone de unos pocos selectores de clase que nos ayudan a dotar de un estilo diferente a nuestros formularios. Por ejemplo, podemos utilizar los selectores de clase <em>form-label</em> para etiquetas y <em>form-control</em> para el resto de controles. Observemos la diferencia…</p>
+
+<p>Así definiríamos un formulario normal y corriente sin hacer uso de Bootstrap:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"nombre"</span><span class="nt">&gt;</span>Introduce tu nombre:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span> <span class="na">id=</span><span class="s">"nombre"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"email"</span><span class="nt">&gt;</span>Introduce tu e-mail:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"20"</span> <span class="na">maxlength=</span><span class="s">"50"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"casado"</span> <span class="na">id=</span><span class="s">"casado"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"casado"</span><span class="nt">&gt;</span>Casado<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;label&gt;</span>Elige tu idioma preferido:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">id=</span><span class="s">"ingles"</span> <span class="na">value=</span><span class="s">"ingles"</span> <span class="na">checked</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"ingles"</span><span class="nt">&gt;</span>Inglés<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">id=</span><span class="s">"frances"</span> <span class="na">value=</span><span class="s">"frances"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"frances"</span><span class="nt">&gt;</span>Francés<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar datos"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Y su aspecto visual sería éste:</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_form_no_bootstrap.png" />
+</div>
+
+<p>Ahora vamos a añadir la clase <em>form-label</em> a las etiquetas y <em>form-control</em> a los <em>inputs</em> de tipo texto (nombre y email) y al botón de enviar:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span> <span class="na">for=</span><span class="s">"nombre"</span><span class="nt">&gt;</span>Introduce tu nombre:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span> <span class="na">id=</span><span class="s">"nombre"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span> <span class="na">for=</span><span class="s">"email"</span><span class="nt">&gt;</span>Introduce tu e-mail:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"20"</span> 
+     <span class="na">maxlength=</span><span class="s">"50"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"casado"</span> <span class="na">id=</span><span class="s">"casado"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span> <span class="na">for=</span><span class="s">"casado"</span><span class="nt">&gt;</span>Casado<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span><span class="nt">&gt;</span>Elige tu idioma preferido:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">id=</span><span class="s">"ingles"</span> <span class="na">value=</span><span class="s">"ingles"</span> <span class="na">checked</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span> <span class="na">for=</span><span class="s">"ingles"</span><span class="nt">&gt;</span>Inglés<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">id=</span><span class="s">"frances"</span> <span class="na">value=</span><span class="s">"frances"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span> <span class="na">for=</span><span class="s">"frances"</span><span class="nt">&gt;</span>Francés<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+
+    <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar datos"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Ahora la apariencia es la siguiente:</p>
+
+<div align="center">
+    <img src="../../img/03_ejemplo_form_bootstrap.png" width="70%" />
+</div>
+
+<p>Puedes leer más sobre el diseño de formularios con Bootstrap <a href="https://getbootstrap.com/docs/5.0/forms/overview/">aquí</a>.</p>
+
+<p>En cuanto a los botones, Bootstrap también ofrece algunos selectores de clase para definir distintos tipos de botones, con distintas apariencias y colores. Por ejemplo, este botón se verá con texto blanco y fondo azul, al ser de tipo <em>primary</em>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar datos"</span> <span class="na">class=</span><span class="s">"form-control btn btn-primary"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p>En general, tenemos disponible la siguiente gama de clases de botones (y veremos a continuación que esos mismos selectores se pueden aplicar también a otros componentes):</p>
+
+<div align="center">
+    <img src="../../img/03_bootstrap_botones.png" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2</strong>:</p>
+
+  <p>Descarga <a href="../../resources/UD3_Ejercicios/03e_ejercicio_formulario.html">este formulario</a> y aplícale los estilos facilitados por Bootstrap para poderlo visualizar de este modo:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_bootstrap_formulario.png" width="90%" />
+</div>
+
+<h2 id="4-algunos-componentes-de-bootstrap">4. Algunos componentes de Bootstrap</h2>
+
+<p>Para finalizar este breve repaso introductorio al framework Bootstrap, veamos algunos de los componentes predefinidos que podemos añadir en nuestras páginas.</p>
+
+<h3 id="41-barras-de-navegación">4.1. Barras de navegación</h3>
+
+<p>Las barras de navegación son un componente importante en el diseño de cualquier página. Contienen un conjunto de enlaces que nos permiten visitar las páginas más relevantes del sitio. Bootstrap ofrece una amplia gama de selectores de clase que podemos utilizar para definir un estilo personalizado en nuestras barras. Podemos consultar toda la información disponible <a href="https://getbootstrap.com/docs/5.1/components/navbar/">aquí</a>.</p>
+
+<p>Por ejemplo, así podemos definir una barra de navegación con tres apartados: <em>Inicio</em>, <em>Noticias</em> y <em>Contacto</em>. Dentro de <em>Noticias</em> definimos un <em>dropdown menu</em> (menú desplegable) con las diferentes categorías de noticias que podemos consultar.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav</span> <span class="na">class=</span><span class="s">"navbar navbar-expand-lg navbar-dark bg-dark"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container-fluid"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"navbar-brand"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Mi Web<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"navbar-toggler"</span> <span class="na">type=</span><span class="s">"button"</span> 
+            <span class="na">data-bs-toggle=</span><span class="s">"collapse"</span> <span class="na">data-bs-target=</span><span class="s">"#navbarScroll"</span> 
+            <span class="na">aria-controls=</span><span class="s">"navbarScroll"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span> 
+            <span class="na">aria-label=</span><span class="s">"Toggle navigation"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"navbar-toggler-icon"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"collapse navbar-collapse"</span> <span class="na">id=</span><span class="s">"navbarScroll"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"</span> 
+            <span class="na">style=</span><span class="s">"--bs-scroll-height: 100px;"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link active"</span> <span class="na">aria-current=</span><span class="s">"page"</span> 
+                    <span class="na">href=</span><span class="s">"inicio.html"</span><span class="nt">&gt;</span>Inicio<span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item dropdown"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link dropdown-toggle"</span> <span class="na">href=</span><span class="s">"#"</span> 
+                    <span class="na">id=</span><span class="s">"navbarScrollingDropdown"</span> <span class="na">role=</span><span class="s">"button"</span> 
+                    <span class="na">data-bs-toggle=</span><span class="s">"dropdown"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+                        Noticias
+                    <span class="nt">&lt;/a&gt;</span>
+                    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span> 
+                    <span class="na">aria-labelledby=</span><span class="s">"navbarScrollingDropdown"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">class=</span><span class="s">"dropdown-item"</span> 
+                            <span class="na">href=</span><span class="s">"economia.html"</span><span class="nt">&gt;</span>Economía<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">class=</span><span class="s">"dropdown-item"</span> 
+                            <span class="na">href=</span><span class="s">"deportes.html"</span><span class="nt">&gt;</span>Deportes<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">class=</span><span class="s">"dropdown-item"</span> 
+                            <span class="na">href=</span><span class="s">"sociedad.html"</span><span class="nt">&gt;</span>Sociedad<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                    <span class="nt">&lt;/ul&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"nav-item"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"nav-link"</span> <span class="na">aria-current=</span><span class="s">"page"</span> 
+                    <span class="na">href=</span><span class="s">"contacto.html"</span><span class="nt">&gt;</span>Contacto<span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre></div></div>
+
+<p>El aspecto visual sería éste, ya que hemos elegido el tema <em>dark</em>:</p>
+
+<div align="center">
+    <img src="../../img/03_bootstrap_navbar.png" width="90%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: Es IMPORTANTE tener en cuenta que, para que algunas funcionalidades como el <em>dropdown</em> funcionen, será necesario cargar el componente JavaScript de Bootstrap en la página, como se ha visto en los ejemplos anteriores (normalmente al final de la página).</p>
+</blockquote>
+
+<h3 id="42-alertas-e-insignias">4.2. Alertas e insignias</h3>
+
+<p>Dos componentes muy sencillos de utilizar son las alertas (<em>alert</em>) y las insignias (<em>badges</em>). Los primeros permiten mostrar mensajes con un color de fondo particular en ciertas partes de la web. Pueden resultar útiles para mostrar mensajes de error o de advertencia en algunos puntos. Por ejemplo, un error en un formulario:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"mipagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label</span> <span class="na">class=</span><span class="s">"form-label"</span> <span class="na">for=</span><span class="s">"nombre"</span><span class="nt">&gt;</span>Introduce tu nombre:<span class="nt">&lt;/label&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"nombre"</span> <span class="na">id=</span><span class="s">"nombre"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"alert alert-danger"</span><span class="nt">&gt;</span>Error: el nombre no puede estar vacío<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>que se vería de este modo:</p>
+
+<div align="center">
+    <img src="../../img/03_bootstrap_alert.png" width="90%" />
+</div>
+
+<p>Existen diferentes colores para las alertas, similares a los colores para los botones vistos antes (<em>primary</em>, <em>secondary</em>, <em>success</em>, <em>warning</em>, <em>info</em>…).</p>
+
+<p>En cuanto a las insignias o <em>badges</em>, permiten mostrar un pequeño texto resaltado en ciertas partes de la web. Podemos utilizarlo, por ejemplo, para indicar contenido nuevo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>
+    Ya a la venta nuestro nuevo curso de diseño web para principiantes
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"badge badge-warning"</span><span class="nt">&gt;</span>Nuevo!<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_bootstrap_badges.png" />
+</div>
+
+<h3 id="43-más-componentes">4.3. Más componentes</h3>
+
+<p>Existe una amplia variedad de componentes ofrecidos por Bootstrap. Desde elementos simples como migas de pan o listas, hasta elementos más complejos como carruseles de diapositivas o ventanas modales. Puedes consultar información sobre todos ellos en la <a href="https://getbootstrap.com/docs/5.1/components">documentación oficial</a>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

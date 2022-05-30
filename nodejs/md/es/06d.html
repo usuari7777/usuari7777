@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Gestión de formularios | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Gestión de formularios" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/06d.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Gestión de formularios" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Gestión de formularios","url":"http://nachoiborraies.github.io/nodejs/md/es/06d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="gestión-de-formularios">Gestión de formularios</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/06d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/06d.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>Vamos ahora a añadir formularios a nuestra aplicación que nos permitirán insertar, borrar o modificar contenido de la base de datos. También modificaremos las correspondientes rutas para, por un lado, mostrar estos formulario, y por otro, recoger la petición y hacer la inserción/borrado/modificación propiamente dicha.</p>
+
+<h2 id="1-formulario-de-inserción">1. Formulario de inserción</h2>
+
+<p>En primer lugar, crearemos una vista llamada <code class="language-plaintext highlighter-rouge">contactos_nuevo.njk</code> en nuestra carpeta de <code class="language-plaintext highlighter-rouge">views</code>. Esta vista, como las anteriores, heredará de <code class="language-plaintext highlighter-rouge">base.njk</code> y definirá el formulario en su bloque de contenido:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends "base.njk" %}
+
+{% block titulo %}Contactos | Nuevo{% endblock %}
+
+{% block contenido %}
+
+    <span class="nt">&lt;h1&gt;</span>Inserción de nuevo contactos<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/contactos"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Nombre:
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"nombre"</span> 
+                <span class="na">placeholder=</span><span class="s">"Nombre del contacto..."</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Edad:
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"Edad"</span>
+                <span class="na">placeholder=</span><span class="s">"Edad del contacto..."</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Teléfono:
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"telefono"</span>
+                <span class="na">placeholder=</span><span class="s">"Teléfono del contacto..."</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>
+            Enviar
+        <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+
+{% endblock %}
+</code></pre></div></div>
+<!---->
+
+<p>Para mostrar esta vista, habrá un enlace “Nuevo contacto” en el menú de navegación de la aplicación (vista <code class="language-plaintext highlighter-rouge">menu.njk</code>), que enviará a la ruta <code class="language-plaintext highlighter-rouge">/nuevo_contacto</code>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"alert alert-secondary"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/contactos"</span><span class="nt">&gt;</span>Listado de contactos<span class="nt">&lt;/a&gt;</span>
+    <span class="ni">&amp;nbsp;&amp;nbsp;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/contactos/nuevo"</span><span class="nt">&gt;</span>Nuevo contacto<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="11-la-ruta-para-mostrar-el-formulario">1.1. La ruta para mostrar el formulario</h3>
+
+<p>En segundo lugar, vamos a definir una ruta en el enrutador de contactos (<code class="language-plaintext highlighter-rouge">routes/contactos.js</code>) que, atendiendo una petición GET normal a la ruta <code class="language-plaintext highlighter-rouge">/contactos/nuevo</code>, renderizará la vista anterior:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/nuevo</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">nuevo_contacto</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: esta nueva ruta deberemos ubicarla ANTES de la ruta de ficha del contacto, ya que, de lo contrario, el patrón de esta ruta coincide con <code class="language-plaintext highlighter-rouge">/contactos/loquesea</code>, que es lo que espera <code class="language-plaintext highlighter-rouge">/contactos/:id</code>, y en ese caso intentará mostrar la ficha del contacto. Como alternativa, podemos renombrarla a <code class="language-plaintext highlighter-rouge">/contactos/nuevo/contacto</code> para que no tenga el mismo patrón.</p>
+</blockquote>
+
+<h3 id="12-la-ruta-para-realizar-la-inserción">1.2. La ruta para realizar la inserción</h3>
+
+<p>Finalmente, el formulario se enviará por POST a la ruta <code class="language-plaintext highlighter-rouge">/contactos</code>. Nos falta definir (o redefinir, porque ya la teníamos de ejemplos previos) esta ruta para que recoja los datos de la petición, haga la inserción y, por ejemplo, renderice el listado de contactos como resultado final, para poder comprobar que el nuevo contacto se ha añadido satisfactoriamente. En caso de error al insertar, podemos renderizar una vista de error.</p>
+
+<p>Hay que tener en cuenta, no obstante, que los datos del formulario no los vamos a enviar en formato JSON esta vez. Para ello tendríamos que utilizar algún mecanismo en el cliente que, mediante JavaScript, construyera la petición con los datos añadidos en formato JSON antes de enviar el formulario, pero no lo vamos a hacer. En su lugar, vamos a utilizar el <em>middleware</em> incorporado en Express para que procese la petición también cuando los datos lleguen desde un formulario normal. Para ello, además de habilitar el procesado JSON, habilitamos el procesado <code class="language-plaintext highlighter-rouge">urlencoded</code>, de esta forma (en el archivo <code class="language-plaintext highlighter-rouge">index.js</code>, justo después o antes de habilitar el procesado JSON):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="na">extended</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}));</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> el parámetro <code class="language-plaintext highlighter-rouge">extended</code> indica si se permite procesar datos que proporcionen información compleja, como objetos en sí mismos (<em>true</em>) o si sólo se procesará información simple (<em>false</em>).</p>
+</blockquote>
+
+<p>Ahora ya podemos añadir nuestra ruta POST para insertar contactos, en el archivo <code class="language-plaintext highlighter-rouge">routes/contactos.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">nuevoContacto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contacto</span><span class="p">({</span>
+        <span class="na">nombre</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">nombre</span><span class="p">,</span>
+        <span class="na">telefono</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">telefono</span><span class="p">,</span>
+        <span class="na">edad</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">edad</span>
+    <span class="p">});</span>
+    <span class="nx">nuevoContacto</span><span class="p">.</span><span class="nx">save</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">);</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> 
+            <span class="p">{</span><span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Error añadiendo contacto</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Lo que hacemos es similar al caso de los servicios REST: recogemos los datos del contacto de la petición, creamos uno nuevo, insertamos en la base de datos y, si todo ha ido bien (y aquí está la diferencia con el servicio REST), renderizamos la vista del listado de contactos (en realidad, redirigimos a la ruta que la muestra, para que cargue los datos del listado). Si ha habido algún error, renderizamos la vista de error con el error indicado (suponiendo que tengamos definida alguna vista de error).</p>
+
+<h2 id="2-formulario-de-borrado">2. Formulario de borrado</h2>
+
+<p>Vamos ahora con el borrado. En este caso, añadiremos un formulario con un botón de “Borrar” en el listado de contactos, asociado a cada contacto. Dicho botón se enviará a la URL <code class="language-plaintext highlighter-rouge">/contactos</code>, pero como los formularios no aceptan un método DELETE, tenemos que añadir algún mecanismo para que el formulario llegue a la ruta correcta en el servidor.</p>
+
+<h3 id="21-redefinir-el-método-delete">2.1. Redefinir el método DELETE</h3>
+
+<p>Igual que en el caso anterior, podríamos recurrir a utilizar JavaScript en el cliente para simular una petición AJAX que encapsule los datos necesarios, pero para evitar cargar librerías adicionales en la parte cliente, vamos a instalar un módulo llamado <em>method-override</em>, de NPM, que permite emparejar formularios del cliente con métodos del servidor de forma sencilla. Lo añadimos a nuestro proyecto como cualquier otro:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install method-override
+</code></pre></div></div>
+
+<p>Y vamos a configurarlo para que, si le llega en el formulario un campo (normalmente oculto) llamado <code class="language-plaintext highlighter-rouge">_method</code>, que utilice ese método en lugar del propio del formulario. Así, podemos emplear ese campo oculto para indicar que en realidad queremos hacer un DELETE (o un PUT, si fuera el caso), y que omita el atributo <code class="language-plaintext highlighter-rouge">method</code> del formulario. Lo primero que haremos será incluir el módulo en el servidor principal <code class="language-plaintext highlighter-rouge">index.js</code>, junto con el resto de módulos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">methodOverride</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">method-override</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Después, añadimos estas líneas más abajo, justo cuando se añade el resto de middleware. Podemos añadirlo al principio de todo, o tras el middleware de <em>express</em>, por ejemplo, pero es importante definirlo antes de cargar los enrutadores:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">methodOverride</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">object</span><span class="dl">'</span> <span class="o">&amp;&amp;</span> <span class="dl">'</span><span class="s1">_method</span><span class="dl">'</span> <span class="k">in</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">_method</span><span class="p">;</span>
+      <span class="k">delete</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">_method</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">method</span><span class="p">;</span>
+    <span class="p">}</span> 
+<span class="p">}));</span>
+</code></pre></div></div>
+
+<h3 id="22-el-formulario-de-borrado">2.2. El formulario de borrado</h3>
+
+<p>Ahora, en la vista de <code class="language-plaintext highlighter-rouge">contactos_listado.njk</code>, definimos un pequeño formulario junto a cada contacto, con un botón para borrarlo a partir de su <em>id</em>. En dicho formulario, incluimos un campo <em>hidden</em> (oculto) cuyo nombre sea <code class="language-plaintext highlighter-rouge">_method</code>, donde indicaremos que la operación que queremos realizar en el servidor es DELETE:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    {% for contacto in contactos %}
+        <span class="nt">&lt;li&gt;</span>{{ contacto.nombre }} 
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/contactos/{{ contacto.id }}"</span><span class="nt">&gt;</span>Ficha<span class="nt">&lt;/a&gt;</span>
+            <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/contactos/{{ contacto.id }}"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"_method"</span> <span class="na">value=</span><span class="s">"delete"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-danger"</span><span class="nt">&gt;</span>
+                    Borrar
+                <span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;/form&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+    {% endfor %}
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<h3 id="23-la-ruta-de-borrado">2.3. La ruta de borrado</h3>
+
+<p>Finalmente, redefinimos la ruta para el borrado. Lo que hacemos es eliminar el contacto cuyo ID nos llega en la URL, y redirigir al listado de contactos si todo ha ido bien, o mostrar la vista de error si no.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndRemove</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">);</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Error borrando contacto</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="3-formulario-de-actualización">3. Formulario de actualización</h2>
+
+<p>Para hacer una actualización debemos combinar pasos que hemos seguido previamente en la inserción y en el borrado:</p>
+
+<ol>
+  <li>Definiremos el formulario de actualización, de forma que le pasaremos como parámetro a la vista el objeto que queremos modificar, para rellenar los campos del formulario con dicho objeto.</li>
+  <li>También añadiremos una nueva ruta GET en el enrutador para renderizar este formulario. Por ejemplo, <code class="language-plaintext highlighter-rouge">/contactos/editar</code>.</li>
+  <li>El formulario deberá enviarse por PUT a la ruta correspondiente de su enrutador. Para ello, utilizaremos de nuevo el campo oculto <code class="language-plaintext highlighter-rouge">_method</code> para indicar que queremos hacer <em>PUT</em></li>
+  <li>En la ruta <code class="language-plaintext highlighter-rouge">put</code> del enrutador, recogemos los datos del formulario, hacemos la correspondiente actualización y redirigimos donde queramos (listado general o página de error, por ejemplo).</li>
+</ol>
+
+<h3 id="31-formulario-y-ruta-de-edición">3.1. Formulario y ruta de edición</h3>
+
+<p>Siguiendo estos pasos anteriores, nuestro formulario de edición podríamos definirlo en un archivo <code class="language-plaintext highlighter-rouge">contactos_editar.njk</code>, con el siguiente aspecto:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends "base.njk" %}
+
+{% block titulo %}Contactos | Nuevo{% endblock %}
+
+{% block contenido %}
+
+    <span class="nt">&lt;h1&gt;</span>Inserción de nuevo contactos<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/contactos/{{ contacto.id }}"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"_method"</span> <span class="na">value=</span><span class="s">"put"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Nombre:
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"nombre"</span> 
+                <span class="na">placeholder=</span><span class="s">"Nombre del contacto..."</span>
+                <span class="na">value=</span><span class="s">"{{ contacto.nombre }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Edad:
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"Edad"</span>
+                <span class="na">placeholder=</span><span class="s">"Edad del contacto..."</span>
+                <span class="na">value=</span><span class="s">"{{ contacto.edad }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;label&gt;</span>Teléfono:
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"telefono"</span>
+                <span class="na">placeholder=</span><span class="s">"Teléfono del contacto..."</span>
+                <span class="na">value=</span><span class="s">"{{ contacto.telefono }}"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;/label&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-primary"</span><span class="nt">&gt;</span>
+            Enviar
+        <span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+
+{% endblock %}
+</code></pre></div></div>
+<!---->
+
+<p>Por su parte, añadiríamos esta nueva ruta en el controlador de contactos para renderizar el formulario:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/editar/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="dl">'</span><span class="s1">id</span><span class="dl">'</span><span class="p">]).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos_editar</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">contacto</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Contacto no encontrado</span><span class="dl">"</span><span class="p">});</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Contacto no encontrado</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="32-actualización-de-datos-del-contacto">3.2. Actualización de datos del contacto</h3>
+
+<p>Finalmente, la ruta <em>put</em> recogerá los datos de la petición y actualizará el contacto:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByIdAndUpdate</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">$set</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">nombre</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">nombre</span><span class="p">,</span>
+            <span class="na">edad</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">edad</span><span class="p">,</span>
+            <span class="na">telefono</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">telefono</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="p">{</span><span class="na">new</span><span class="p">:</span> <span class="kc">true</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">);</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">error</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Error modificando contacto</span><span class="dl">"</span><span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="4-subir-ficheros-en-el-formulario">4. Subir ficheros en el formulario</h2>
+
+<p>Para subir archivos en un formulario, necesitamos que el tipo de dicho formulario sea <code class="language-plaintext highlighter-rouge">multipart/form-data</code>. Dentro, habrá uno o varios campos de tipo <code class="language-plaintext highlighter-rouge">file</code> con los archivos que el usuario elegirá para subir:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"..."</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>
+...
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"file"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"imagen"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Para poder procesar este tipo de formularios, necesitaremos alguna librería adicional. Vamos a utilizar otra librería adicional llamada <code class="language-plaintext highlighter-rouge">multer</code>, que instalaremos en nuestro proyecto junto al resto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install multer
+</code></pre></div></div>
+
+<p>Ahora, en los ficheros donde vayamos a necesitar la subida de archivos, necesitamos incluir esta librería, y configurar los parámetros de subida y almacenamiento:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">multer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">multer</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="kd">let</span> <span class="nx">storage</span> <span class="o">=</span> <span class="nx">multer</span><span class="p">.</span><span class="nx">diskStorage</span><span class="p">({</span>
+    <span class="na">destination</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="dl">'</span><span class="s1">public/uploads</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">file</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">_</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">file</span><span class="p">.</span><span class="nx">originalname</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+
+<span class="kd">let</span> <span class="nx">upload</span> <span class="o">=</span> <span class="nx">multer</span><span class="p">({</span><span class="na">storage</span><span class="p">:</span> <span class="nx">storage</span><span class="p">});</span>
+</code></pre></div></div>
+
+<p>El elemento <code class="language-plaintext highlighter-rouge">storage</code> define, en primer lugar, cuál va a ser la carpeta donde se suban los archivos (en nuestro ejemplo será <code class="language-plaintext highlighter-rouge">public/uploads</code>), y después, qué nombre asignaremos a los archivos cuando los subamos. El atributo <code class="language-plaintext highlighter-rouge">originalname</code> del objeto <code class="language-plaintext highlighter-rouge">file</code> que se recibe contiene el nombre original del archivo en el cliente, pero para evitar sobreescrituras, le vamos a concatenar como prefijo la fecha o <em>timestamp</em> actual con <code class="language-plaintext highlighter-rouge">Date.now()</code>. Este último paso no es obligatorio si no nos importa sobreescribir archivos existentes.</p>
+
+<p>Finalmente, nos queda utilizar el middleware <code class="language-plaintext highlighter-rouge">upload</code> que hemos configurado antes en los métodos o servicios que lo necesiten. Si, por ejemplo, en un servicio POST esperamos recibir un archivo en un campo <code class="language-plaintext highlighter-rouge">file</code> llamado <code class="language-plaintext highlighter-rouge">imagen</code>, podemos hacer que automáticamente se suba a la carpeta especificada antes, con el nombre asignado en la configuración, simplemente aplicando este <em>middleware</em> en el servicio:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="nx">upload</span><span class="p">.</span><span class="nx">single</span><span class="p">(</span><span class="dl">'</span><span class="s1">imagen</span><span class="dl">'</span><span class="p">),</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Aquí ya estará el archivo subido</span>
+    <span class="c1">// Con req.file.filename obtenemos el nombre actual</span>
+    <span class="c1">// Con req.body.XXX obtenemos el resto de campos</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

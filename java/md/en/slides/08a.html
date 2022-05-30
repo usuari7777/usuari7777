@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Date and time</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Date and time
+### Traditional date management
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Date and Calendar classes
+
+- From the very early versions of Java
+- *Date* class is almost deprecated
+- *Calendar* class provides some methods to manage dates
+   - **Calendar.getInstance** to get *Calendar* objects (*factory*)
+   - **set** method to change date parts (day, month, year...)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Calendar examples
+
+Example 1: simple date with day, month and year
+
+```java
+Calendar cal = Calendar.getInstance();
+cal.set(2021, 5, 4);
+System.out.println(cal.getTime());
+// Thu Jun 24 20:09:27 CEST 2021
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Calendar examples
+
+Example 2: complete date including time
+
+```java
+Calendar cal = Calendar.getInstance();
+cal.set(Calendar.YEAR, 2021);
+cal.set(Calendar.MONTH, Calendar.JUNE);
+cal.set(Calendar.DAY_OF_MONTH, 24);
+cal.set(Calendar.HOUR, 10);
+cal.set(Calendar.AM_PM, Calendar.PM);
+// Also: cal.set(Calendar.HOUR_OF_DAY, 22);
+cal.set(Calendar.MINUTE, 36);
+cal.set(Calendar.SECOND, 54);
+
+System.out.println(cal.getTime());
+// Thu Jun 24 22:36:54 CEST 2021
+
+System.out.println(cal.get(Calendar.DAY_OF_MONTH) +
+    "/" + (cal.get(Calendar.MONTH) + 1) + "/" +
+    cal.get(Calendar.YEAR));
+// 24/6/2021
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Calendar operations
+
+```java
+Calendar date1 = Calendar.getInstance();
+date1.add(Calendar.DAY_OF_MONTH, 10);
+System.out.println("In 10 days it will be " + 
+    date1.getTime());
+
+Calendar date2 = Calendar.getInstance();
+date2.add(Calendar.DAY_OF_MONTH, -10);
+if (date2.before(date1))
+    System.out.println("It's before");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Drawbacks using Calendar
+
+- We can't easily format a date in an output
+- We can't do some operations, such as the difference between two dates
+- We should better use newer classes to deal with date and time
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **UserBirthday** that asks the user to enter his birth date (day, month and year separately), and then tell him if his birthday has already taken place this year or not.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

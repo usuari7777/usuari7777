@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Static data types | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Static data types" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/03b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/03b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Static data types" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Static data types","url":"http://nachoiborraies.github.io/java/md/en/03b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="static-data-types">Static data types</h1>
+
+<h2 id="enums">Enums</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/03b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/03b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>Enum types represent a data type with a finite or concrete set of possible values. For instance, the seasons of the year, of the days of the week are good examples of enums.</p>
+
+<h3 id="1-basic-enum-management">1. Basic enum management</h3>
+
+<p>If we want to declare an <em>enum</em> type, we use the word <code class="language-plaintext highlighter-rouge">enum</code> followed by a name. This will be the name that we will use to refer to this data type when we declare variables. Then, between curly braces, we specify the values that this enum can have.</p>
+
+<p>For instance, this way we can declare an enum for the days of the week:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="n">dayOfWeek</span> <span class="o">{</span> <span class="no">MONDAY</span><span class="o">,</span> <span class="no">TUESDAY</span><span class="o">,</span> <span class="no">WEDNESDAY</span><span class="o">,</span> <span class="no">THURSDAY</span><span class="o">,</span> 
+    <span class="no">FRIDAY</span><span class="o">,</span> <span class="no">SATURDAY</span><span class="o">,</span> <span class="no">SUNDAY</span><span class="o">};</span>
+</code></pre></div></div>
+
+<p>This <em>enum</em> should be declared out of the <em>class</em>, as an external data type. Then, we can declare variables of this enum in our program, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dayOfWeek</span> <span class="n">aDay</span> <span class="o">=</span> <span class="n">dayOfWeek</span><span class="o">.</span><span class="na">FRIDAY</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Every value inside an <em>enum</em> as a numeric index associated, starting at 0. This way, we can either work with the enum value or with its inner index, if we want to, using <code class="language-plaintext highlighter-rouge">ordinal()</code> instruction.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dayOfWeek</span> <span class="n">aDay</span> <span class="o">=</span> <span class="n">dayOfWeek</span><span class="o">.</span><span class="na">FRIDAY</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">aDay</span><span class="o">);</span>           <span class="c1">// Prints FRIDAY</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">aDay</span><span class="o">.</span><span class="na">ordinal</span><span class="o">());</span> <span class="c1">// Prints 4</span>
+</code></pre></div></div>
+
+<p>If we want to read an enum value from the keyboard, this value can be either the enum value (for instance, <em>FRIDAY</em>), or the ordinal number for this value (4, if we want to refer to FRIDAY). We can use <code class="language-plaintext highlighter-rouge">valueOf</code> or <code class="language-plaintext highlighter-rouge">value</code> instructions, respectively, to match the value typed by the user with the value stored in the enum:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Enter a day of the week:"</span><span class="o">);</span>
+<span class="n">dayOfWeek</span> <span class="n">aDay1</span> <span class="o">=</span> <span class="n">dayOfWeek</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">());</span>  <span class="c1">// If user types FRIDAY</span>
+<span class="n">dayOfWeek</span> <span class="n">aDay2</span> <span class="o">=</span> <span class="n">dayOfWeek</span><span class="o">.</span><span class="na">values</span><span class="o">()[</span><span class="n">sc</span><span class="o">.</span><span class="na">nextInt</span><span class="o">()];</span>  <span class="c1">// If user types 4</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>MonthEnum.java</strong> that defines an enum to store the months of the year. Then, ask the user to type a month and tell him/her the number of days of this month (we assume that February has 28 days).</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

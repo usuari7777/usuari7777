@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software analysis and design | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software analysis and design" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/04a.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software analysis and design" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software analysis and design","url":"http://nachoiborraies.github.io/entornos/md/en/04a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-analysis-and-design">Software analysis and design</h1>
+
+<h2 id="requirements-specification">Requirements specification</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/04a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="04a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>When a software development company decides to start a software project, it has to take into account some issues like: where does the idea come from? who will be in charge of the project?</p>
+
+<h3 id="1-origin-of-the-project">1. Origin of the project</h3>
+
+<p>Regarding the origin of the idea, it can come from:</p>
+
+<ul>
+  <li>The company itself, as one of its internal developments. In this case, the company becomes its own customer.</li>
+  <li>An external entity/company which asks this company to develop the product. In this case, the company acts as a software provider.</li>
+</ul>
+
+<p>In both cases, we must have a clear overview of the product to be developed, and evaluate its viability. This is easier when it comes from external entities, since the agreement can fit the needs of the software company in order to make a profitable product. But, when it is an internal development, as the company has no additional incomes, it is essential to evaluate if this project is really worth it.</p>
+
+<h3 id="2-the-project-manager">2. The project manager</h3>
+
+<p>The project manager is an experienced person who will be in charge of coordinating the development process in general. We have to take into account some factors, such as:</p>
+
+<ul>
+  <li>This manager should take part in the decision of starting the project</li>
+  <li>The chosen candidate should have a proven experience in the business area of the project, besides having good interpersonal relationships and group management.</li>
+</ul>
+
+<p>The project manager must do tasks like:</p>
+
+<ul>
+  <li>Identify the possible risk areas of the project</li>
+  <li>Set budgets, calendars and task assignments</li>
+  <li>Support and provide communication techniques among the team members.</li>
+  <li>Set how to communicate with the customer</li>
+</ul>
+
+<h3 id="3-gathering-requirements">3. Gathering requirements</h3>
+
+<p>The first stage in the sofware development process is the requirements analysis, which is divided into two subtasks: requirements specification and software analysis. In this section we are going to talk about how to gather the requirements of the system to be developed.</p>
+
+<p>The communication with the customer is an essential part of the decision-making process, since we can get to know what he really wants. In this process we have two main drawbacks:</p>
+
+<ul>
+  <li>Developers don’t know (and they may never get to know) what the customer exactly wants.</li>
+  <li>Customers don’t know what type of information is relevant for the development team in order to implement the application.</li>
+</ul>
+
+<p>In order to reduce these drawbacks as much as possible, we must:</p>
+
+<ul>
+  <li>Identify the sources of information that are suitable for our purposes in the customer’s company</li>
+  <li>Ask the appropriate questions and understand the customer needs</li>
+  <li>Check with the customer what we have understood about the application requirements</li>
+  <li>Synthesize the requirements in a document called <strong>system requirements specification</strong> (SRS).</li>
+</ul>
+
+<h4 id="31-techniques-to-gather-information">3.1. Techniques to gather information</h4>
+
+<p>There are several techniques that we can apply to gather information from the customer, set the application requirements and evaluate its viability. Some of the most popular (and not necessarily excluding) are:</p>
+
+<ul>
+  <li><strong>Interviews</strong>: it is maybe the most popular one, although it requires a good level of preparation and experience from the analyst in order to be successful.</li>
+  <li><strong>Joint Application Development (JAD)</strong>: customers and analysts work together in the features that the product must have. This way, the customer is more involved in the development process. It consists of a set of meetings or workshops (2 to 4 days long each one), where some people from the customer company and the software company meet.</li>
+  <li><strong>Observation</strong>: it consists in analyzing (in the customer’s company) how the company works and how the software product may fit in this company.</li>
+  <li><strong>Documentation study</strong>: a study of the official documents of the company, which describe its internal performance</li>
+  <li><strong>Questionnaires</strong>: they are useful to gather information from many people in a short time. It is also useful when these people are very far from each other geographically.</li>
+  <li><strong>Brainstorming</strong>: this technique is used when the needs or requirements are not clear at the beginning, so that we can gather a few basic ones.</li>
+</ul>
+
+<h4 id="32-more-about-interviews">3.2. More about interviews</h4>
+
+<p>An interview is a systematic way of getting information from another person, through a structured/guided conversation. This is an important aspect, since an interview does not consist in just asking questions. These questions must be ordered and structured, and they must follow a final purpose. The way we set the conversation will determine the information that we will finally get.</p>
+
+<p>A good interview must be divided into these stages:</p>
+
+<ul>
+  <li><strong>Preparation of the interview</strong>, we get information about the customer company, identify our targets (people to interview) and prepare the contents of each interview, including date and time. Regarding the people chosen for the interviews, it is usual to start from the managers and go down to the employees. We may need to include an additional “courtesy” interview with some section head, in order to smooth the way to interview his/her subordinates.</li>
+  <li><strong>Interview</strong>. This is the core of this process, and in this stage we distinguish three substages:
+    <ul>
+      <li><strong>Introduction</strong>, where we introduce ourselves to the customer, we tell him about the main reason of the interview and how it will go. This way, the person interviewed will have a first impression about us and feel more comfortable from the beginning.</li>
+      <li><strong>Development</strong> of the interview. At the beginning there may be more “open” questions, that lead to more specific ones (which can be answered with a simple “yes” or “no”, or a simple short answer). We should adapt our speech to our listener (for instance, do not use technical words for someone who does not understand them), and repeat the answers given in order to verify them.</li>
+      <li><strong>Ending</strong>, where we summarize the interview, thank our listener for his/her time, and leave an open door for a (possible) future second interview with him/her.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Determine if the following statements are true or false, and why:</p>
+
+  <ul>
+    <li>Interviews are the most suitable way of getting information for a software project, in general</li>
+    <li>JAD is a quick way of specifying the requirements of an application in projects where several departments of the customer company are involved</li>
+    <li>Questionnaires are useful when we try to gather information from the customer and the components are far from each other geographically</li>
+    <li>Only with the observation of the company or the study of its documentation we can get a SRS very accurate.</li>
+  </ul>
+</blockquote>
+
+<h3 id="4-system-requirements-specification-srs">4. System Requirements Specification (SRS)</h3>
+
+<p>From the customer needs gathered through any of the techniques explained above, we must get to define the requirements of the application, either hardware or software. This way, we elaborate a document called <strong>system requirements specification (SRS)</strong>, which describes as much as possible what the software product is going to do.</p>
+
+<p>Before going on, we must set what a requirement is: a <strong>requirement</strong> is a condition that the customer needs in order to solve a problem or reach a target. This way, we define the system restrictions.</p>
+
+<p>For instance, a broker that asks us to implement an investment application may be worried about the response time of the application, which is crucial in order to buy or sell the stocks optimally. This quickness would then be a requirement for the application.</p>
+
+<h4 id="41-requirement-types">4.1. Requirement types</h4>
+
+<p>There are three main types of requirements:</p>
+
+<ul>
+  <li><strong>System requirements</strong>: physical components (hardware) and additional software which are needed in order to install or run the application. For instance, the number of computers to install the application in, number of processors/cores, hard drive space, database servers…</li>
+  <li><strong>Functional requirements</strong>: they set what the system is expected to do, including the inputs and outpus, user interactions, stored data… For instance, if the application must ask the user to log in at the beginning, or if it must send e-mails periodically to someone, they are both examples of functional requirements.</li>
+  <li><strong>Non functional requirements</strong>: they determine how well the system meets the functional requirements. In this category we can talk about performance, security… These requirements are less critical, since they don’t make the application crash, they just degrade its performance.
+    <ul>
+      <li>In this type of requirements, a particular sub-category is the one related to the ease of use of the application, which measures the coupling between the application and the final user. In order to reach a good ease of use, we must analyze those final users, their level of skill, work environment… and also check the usability of the application screens (for instance, don’t add too many buttons in a single screen), and some particular aspects, such as the usability for left-handed people.</li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong>Proposed exercises:</strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Read the following text about the development of a software product, and then identify the system, functional and non functional requirements:</p>
+
+  <p><em>A blog has three types of users: administrators, editors and visitors. Any of them must log in in order to enter the application. Administrators can register other users, editors can publish posts, and visitors can comment them. We expect that this web site has lots of visits per day, so the availability of the service must be high. We must also have several servers in order to balance the load and distribute client accesses. Besides, as we don’t have very experienced editors, the user interface for them must be as simple as possible. Every post and comment will be stored in a MySQL database, with daily backups. Passwords will be encrypted in order to prevent possible attacks.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>From the following proposal for a software product, try to identify the system, functional and non functional requirements.</p>
+
+  <p><em>A cultural organization is focused on the loan of two type of objects: music discs and books. We need an application that lets us add new objects to the system from both types. Besides, there are many users that come to this organization. They will need to log in with a user name and password. Then, they may be able to search any disc or book, either by object type (disk/book) and/or by object name (title). Once the object is chosen, they can ask for it if it is not available. Users can have up to 5 objects on loan simultaneously. As this organization is settled in a small town, we don’t expect to have many users asking for books or disks at the same time, so we just need a single computer and a small database to store the information. In case a user does not remember his password, the system will send it by email to the same account that he entered when he registered.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4:</strong></p>
+
+  <p>Classify the following requirements into system requirements, functional requirements or non functional requirements:</p>
+
+  <ul>
+    <li>The application must save the data before closing</li>
+    <li>The database server must be in a separate computer</li>
+    <li>If there is no connection with the remote server, the application must show an error message and then close</li>
+    <li>The response time must not exceed 10 milliseconds</li>
+    <li>We must have enough bandwidth to send the video in real time streaming</li>
+    <li>We must verify that the information entered by the user (name, id and phone number) is correct</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

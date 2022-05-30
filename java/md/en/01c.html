@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic elements of a Java program | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic elements of a Java program" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="01c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/01c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic elements of a Java program" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic elements of a Java program","url":"http://nachoiborraies.github.io/java/md/en/01c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="basic-elements-of-a-java-program">Basic elements of a Java program</h1>
+
+<h2 id="basic-data-types">Basic data types</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In previous sections we have talked about variables. We have learnt that we can use them to store values, and these values can be of different types. In this section we are going to learn about the basic data types provided by Java, and how we can use them to store values in our programs.</p>
+
+<h3 id="1-numeric-types">1. Numeric types</h3>
+
+<p>There are two main numeric types in Java:</p>
+
+<ul>
+  <li>Integer values, which can be represented by <code class="language-plaintext highlighter-rouge">byte</code>, <code class="language-plaintext highlighter-rouge">short</code>, <code class="language-plaintext highlighter-rouge">int</code> or <code class="language-plaintext highlighter-rouge">long</code> data types</li>
+  <li>Real value, which can be represented by <code class="language-plaintext highlighter-rouge">float</code> or <code class="language-plaintext highlighter-rouge">double</code> data types.</li>
+</ul>
+
+<h4 id="11-integer-data-types">1.1. Integer data types</h4>
+
+<p>As we have said before, we can choose among 4 different data types to represent integer values. The choice can be determined by the range of values that we need to deal with. In this table you can see the range of values allowe by each data type:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data type</th>
+      <th>Memory (bytes)</th>
+      <th>Range allowed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">byte</code></td>
+      <td>1</td>
+      <td>-128 to 127</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">short</code></td>
+      <td>2</td>
+      <td>-65536 to 65535</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">int</code></td>
+      <td>4</td>
+      <td>-2.147.483.648 to 2.147.483.647​</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">long</code></td>
+      <td>8</td>
+      <td>up to 18-19 digit numbers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For instance, if we want to manage the age of a person, we could use an <code class="language-plaintext highlighter-rouge">int</code> variable, but we would waste some memory, since this age is usually lower than 100, and we would just need a single byte to store it. We could use a <code class="language-plaintext highlighter-rouge">byte</code> variable instead:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">34</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>However, if we want to store the price of an object, we should use a <code class="language-plaintext highlighter-rouge">short</code> or even an <code class="language-plaintext highlighter-rouge">int</code> variable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">short</span> <span class="n">price</span> <span class="o">=</span> <span class="mi">4200</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">higherPrice</span> <span class="o">=</span> <span class="mi">2223424</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="12-real-data-types">1.2. Real data types</h4>
+
+<p>If we want to deal with real numbers, Java provides two different data types, each one with its own memory space and range:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">float</code> data type needs 4 bytes of memory, and lets us manage numbers with up to 6-7 significant numbers. For instance, if we want to store PI value in a float variable with just 4 or 5 fraction digits (i.e. <em>3.14159</em>), we can use a <code class="language-plaintext highlighter-rouge">float</code> variable.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">double</code> data type needs 8 bytes of memory, and lets us manage numbers with up to 15 significant numbers. This way we can store more fraction digits, if we want to:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159265359</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Regarding <code class="language-plaintext highlighter-rouge">float</code> variables, if we want to assign them a direct value, we must specify an <code class="language-plaintext highlighter-rouge">f</code> symbol at the end of this value. So the example given before should be written like this (otherwise we’ll get a compilation error):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.14159f</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="13-the-overflow-problem">1.3. The overflow problem</h4>
+
+<p>When we are working with numbers, we may need to do some operations that exceed the maximum range allowed by a data type. For instance, if we are working with two <code class="language-plaintext highlighter-rouge">byte</code> values and we add them, we may exceed the maximum range allowed by <code class="language-plaintext highlighter-rouge">byte</code> data type, which is 127. This situation is called <strong>overflow</strong>.</p>
+
+<p>So, we must take care of the data types that we choose for each situation, taking into account the different operations that we expect to do with these variables.</p>
+
+<h3 id="2-text-types">2. Text types</h3>
+
+<p>In order to deal with texts, Java provides two data types:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">char</code> data type if we want to use single characters or symbols</li>
+  <li><code class="language-plaintext highlighter-rouge">String</code> data type if we want to manage complex texts (with more than one character or symbol).</li>
+</ul>
+
+<p>Regarding <code class="language-plaintext highlighter-rouge">char</code> data type, it is 2 bytes length, so that we can represent any possible character or symbol. We just declare the corresponding variable, and assign the character represented between single quotes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">symbol</span> <span class="o">=</span> <span class="sc">'a'</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>If we want to work with longer texts, then we use <code class="language-plaintext highlighter-rouge">String</code> variables, specifying the text between double quotes:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello world"</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="21-escape-sequences">2.1. Escape sequences</h4>
+
+<p>There are some special characters that can’t be represented easily with the keyboard in a source file. For instance, the <em>new line</em> character, or even the quotes inside a quoted text. For this purpose, we can use <strong>escape sequences</strong>, this is, special symbols that represent these unwritable elements. This is a list of the most popular escape characters or sequences:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sequence</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\n</code></td>
+      <td>New line</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\t</code></td>
+      <td>Tabulation</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\"</code></td>
+      <td>Double quotes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\'</code></td>
+      <td>Single quotes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\\</code></td>
+      <td>Backslash <code class="language-plaintext highlighter-rouge">\</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These escape sequences can be placed inside a char or string value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">newLine</span> <span class="o">=</span> <span class="sc">'\n'</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"Hello world.\n\"Quoted text\""</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="22-character-operations">2.2. Character operations</h4>
+
+<p>We can do some basic operations with characters. You need to take into account that Java internally treats characters as numeric values, assigning each character a numeric code. For instance, alphabet characters are represented by consecutive numeric values, from <code class="language-plaintext highlighter-rouge">a</code> to <code class="language-plaintext highlighter-rouge">z</code>. This way, if we add 3 to <code class="language-plaintext highlighter-rouge">a</code> value, we will get <code class="language-plaintext highlighter-rouge">d</code> value:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">symbol</span> <span class="o">=</span> <span class="sc">'a'</span><span class="o">;</span>
+<span class="n">symbol</span> <span class="o">+=</span> <span class="mi">3</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>We can also use <code class="language-plaintext highlighter-rouge">+</code> operator in texts (<em>strings</em>), but in this case we are not doing any addition, we are just concatenating texts or expressions. This expressions produces the text “Hello3”:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello"</span> <span class="o">+</span> <span class="mi">3</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Keep in mind that you can’t mix arithmetic and text operations in a single line directly. The following expression produces a result of “Hello32”:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello"</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>If you want to calculate the addition and then concatenate the result, then you must prioritize the addition using parentheses. This expression produces a result of “Hello5”:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"Hello"</span> <span class="o">+</span> <span class="o">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="3-conversion-between-data-types">3. Conversion between data types</h3>
+
+<p>Sometimes we need to convert a value of some type into another different type. The way we do this step depends on the types involved.</p>
+
+<h4 id="31-some-basic-conversions-typecasting">3.1. Some basic conversions. Typecasting</h4>
+
+<p>The conversions between numeric values are quite straightforward. We just need to do a <strong>typecast</strong>, this is, specify between parentheses the data type to which we want to convert the expression. In this example, we are converting <code class="language-plaintext highlighter-rouge">pi</code> real value to an integer (so we get 3 as final result):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.1416f</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">piInteger</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">pi</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>The opposite step can also be done. In this case, we are converting an integer value into a double one (the final value will be 5.0):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="kt">double</span> <span class="n">realNumber</span> <span class="o">=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span><span class="n">number</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>However, this step is NOT necessary if the source type is smaller than the destination type. For instance, a <code class="language-plaintext highlighter-rouge">byte</code> doesn’t need to be converted into <code class="language-plaintext highlighter-rouge">int</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>Typecast can be useful, for instance, to convert integer divisions into real ones. This example divides two integer values, but, as we are converting one of them into <code class="language-plaintext highlighter-rouge">float</code>, then the final result will be a real number, with the corresponding fraction digits, and can be stored in a <code class="language-plaintext highlighter-rouge">float</code> variable:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>In general, every arithmetic operation tries to produce a result of the same type of its operands (if we divide two integers, we get an integer result, for instance). However, in certain operations, such as additions or multiplications, Java tries to convert the result to a higher type, and we need to typecast it. In this example, we try to add two byte values, but Java tries to convert the result to <code class="language-plaintext highlighter-rouge">int</code>, so we need to specify that we want to keep using a <code class="language-plaintext highlighter-rouge">byte</code> as a result (even though we could cause an overflow):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="o">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="kt">byte</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="kt">byte</span><span class="o">)(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we mix two different types in an arithmetic operation, then Java converts the result to the highest of them. This multiplication gets a <code class="language-plaintext highlighter-rouge">float</code> number because one of the operands is <code class="language-plaintext highlighter-rouge">float</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">3.5f</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="o">;</span>
+</code></pre></div></div>
+
+<h4 id="32-converting-from--to-string">3.2. Converting from / to string</h4>
+
+<p>In some situations, we may read numeric values from textual sources, such as text file, or user input. In this case, we need to <strong>convert the text into the corresponding numeric value</strong>. To do this, Java provides some useful instructions. Here you can see the most useful ones:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Integer.parseInt</code> converts a text value into <code class="language-plaintext highlighter-rouge">int</code>:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="s">"23"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Float.parseFloat</code>, <code class="language-plaintext highlighter-rouge">Double.parseDouble</code>, <code class="language-plaintext highlighter-rouge">Byte.parseByte</code>, <code class="language-plaintext highlighter-rouge">Short.parseShort</code> and <code class="language-plaintext highlighter-rouge">Long.parseLong</code> do the same with their corresponding data types:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">value</span> <span class="o">=</span> <span class="nc">Float</span><span class="o">.</span><span class="na">parseFloat</span><span class="o">(</span><span class="s">"3.1416"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we want to convert a <strong>numeric value into a string</strong>, we can choose one of these solutions:</p>
+
+<ul>
+  <li>Concatenate the numeric value with an empty string <code class="language-plaintext highlighter-rouge">""</code>:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">23</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">""</span> <span class="o">+</span> <span class="n">number</span><span class="o">;</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Use <code class="language-plaintext highlighter-rouge">String.valueOf</code> instruction to convert the specified value to string:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">23</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program called <strong>Ages.java</strong> that:</p>
+
+  <ul>
+    <li>Defines two <code class="language-plaintext highlighter-rouge">byte</code> variables to store your age and the age of a friend</li>
+    <li>Defines another <code class="language-plaintext highlighter-rouge">byte</code> variable to store the addition of both ages (you may need to typecast the result)</li>
+    <li>Defines a <code class="language-plaintext highlighter-rouge">float</code> variable to store the average of these ages, including fraction digits</li>
+    <li>Prints the message “The age average is “ followed by the average calculated in previous step</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

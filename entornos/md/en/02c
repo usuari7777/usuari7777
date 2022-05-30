@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Integrated Development Environments | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Integrated Development Environments" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/02c.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Integrated Development Environments" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Integrated Development Environments","url":"http://nachoiborraies.github.io/entornos/md/en/02c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="integrated-development-environments">Integrated Development Environments</h1>
+
+<h2 id="using-visual-studio-code">Using Visual Studio Code</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p><img src="../../img/ED_b1_tema02-47-VSCode_logo.png" alt="Logo IntelliJ" width="10%" style="float:left;margin-right:8px;" /></p>
+
+<p>Visual Studio Code is a lightweight (but powerful) code editor available for Windows, MacOSX and Linux. It has native support for Javascript, TypeScript and Node.js, and a wide variety of extensions that let us work with (almost) any other programming language, such as C, C#, Java, Python, PHP, Go, etc.</p>
+
+<p>You can download it from its <a href="https://code.visualstudio.com">official website</a>, where you can also find some useful extensions for Java, C, C#…</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-13-CodeExtensions.png" alt="Some extensions for Visual Studio Code" />
+</div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: for <strong>Linux</strong> (Ubuntu) users, once you download the <em>.deb</em> package from the official web site, you need to open a terminal and go to the download folder. Then, type this command and you will have Visual Studio Code available in the <em>Programming</em> section:</p>
+
+  <p><code class="language-plaintext highlighter-rouge">sudo dpkg -i &lt;visual_studio_file_name&gt;</code></p>
+
+  <p>where <code class="language-plaintext highlighter-rouge">&lt;visual_studio_file_name&gt;</code> is the file name of the downloaded file.</p>
+</blockquote>
+
+<h3 id="1-work-environment">1. Work environment</h3>
+
+<p>Once it is installed, you can see the welcome screen with some of the basic options</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-14-CodeWelcome_en.png" alt="Visual Studio Code welcome screen" />
+</div>
+
+<p>If we create a new file we will see the usual work environment, which is divided into 5 sections.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-15-UI.png" alt="Main sections of the Visual Studio Code work environment" />
+</div>
+
+<ul>
+  <li><strong>Editor</strong> (C): Main edition area. You can open as many editors as you need.</li>
+  <li><strong>Margin bar</strong> (B): It contains some useful information about the file explorer, code errors or warnings, etc.</li>
+  <li><strong>Status bar</strong> (E): It shows information about current project, or currently open files.</li>
+  <li><strong>Activities bar</strong> (A): It has some options:
+    <ul>
+      <li>File explorer, to locate the files to be edited. This option shows/hides a left panel to browse current folder</li>
+      <li>Search tool, to look for some words or regular expressions in our source files.</li>
+      <li>Source code control (to communicate with version control tools, such as Git repositories)</li>
+      <li>Debugger</li>
+      <li>Extension manager, from which we can install new extensions to this IDE, and check/config the ones that are already installed.</li>
+    </ul>
+  </li>
+  <li><strong>Panels</strong> (D): Below the editor you can see some different panels, such as errors/warnings, or a terminal to type some commands from current folder. This panel can be moved to the right if we want to have more vertical space.</li>
+</ul>
+
+<p>Every time we open Visual Studio Code, it shows the last snapshot before it was closed the last time, with the same open files and so on.</p>
+
+<h4 id="11-changing-the-color-theme">1.1. Changing the color theme</h4>
+
+<p>If you want to change the default color theme for Visual Studio Code, you must go to <em>File/Preferences</em> menu (or <em>Code/Preferences</em> menu if you are running it under Mac OSX), and then choose the <em>Color Theme</em> option. Then, you can choose among a wide variety of options. The most popular ones are the Visual Studio’s Dark or Light modes.</p>
+
+<h3 id="2-installing-extensions">2. Installing extensions</h3>
+
+<p>One of the most outstanding features of Visual Studio Code is that we can improve its perfomance by installing additional extensions. Many of these extensions refer to a particular programming language, so we can enrich the IDE for a specific language(s).</p>
+
+<p>If we want to start coding, we need to install the appropriate extension(s) for the language we are going to work with. To do this, we click on the extension icon in the activities bar (left bar), and we look for the desired language in the text field. For instance, if we want to work with Java programming language, we just type <em>Java</em> and then we will see a lot of extensions related with this language.</p>
+
+<p>There is a useful extension called <strong>Java Extension Pack</strong>, from Microsoft, that contains the most common extensions to work with Java:</p>
+
+<ul>
+  <li>Language Support for Java(TM) by Red Hat</li>
+  <li>Debugger for Java</li>
+  <li>Java Test Runner</li>
+  <li>Maven for Java</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-16-PluginJava.png" alt="Some extensions available for Java" />
+</div>
+
+<p>Besides, you may need the <strong>Code Runner</strong> extension, a general extension that lets us run programs written in many different programming languages, such as C, Python, Java and so on. You should also go to <em>File/Preferences/Settings</em> menu, go to the <em>Extensions</em> section and choose <em>Run Code configuration</em>. Then, look for <em>Run in terminal</em> option and check it.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-27-RunCode.png" alt="Run Code settings" width="80%" />
+</div>
+
+<p>Next, we just need to open the folder in which we are going to store the source files. In the left panel, we will see the contents of this folder, and we will be able to open an existing file, or create a new one from the <em>File</em> menu.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-17-CodeAbrirCarpeta_en.png" alt="Open folder from Visual Studio Code" width="50%" />
+</div>
+
+<p>In order to run a single file, we can just right click on its source code and choose <em>Run Code</em> option from the context menu (this option is provided by the <em>Code Runner</em> extension, so you must install this extension in order to use this option).</p>
+
+<p>In the same way that we have tried our Java example, we can run programs in many other languages, such as C, Python and so on. We just need to download the appropriate extension(s) to work with this language, and run the source files with <em>Code Runner</em>.</p>
+
+<p>However, there are some concrete languages whose configuration is quite more difficult. This is the case of C#, for instance. We need to install the appropriate compiler (either Mono or .NET), but we need to follow some additional steps in each case in order to set up everything properly. In this case, it may be a better choice to use Geany for single source files, or Visual Studio for complex projects.</p>
+
+<h3 id="3-other-visual-studio-code-features">3. Other Visual Studio Code features</h3>
+
+<p>Visual Studio Code has the same features seen before with Geany regarding:</p>
+
+<ul>
+  <li>Syntax highlighting</li>
+  <li>Code folding</li>
+  <li>Code auto completion through IntelliSense</li>
+  <li>XML/HTML tags auto closing</li>
+  <li>etc.</li>
+</ul>
+
+<p>The configuration can be changed in <em>File/Preferences/Configuration</em> (in MacOSX, this menu turns into <em>Code/Preferences/Configuration</em>).</p>
+
+<p>But, besides these basic features, Visual Studio Code has some more advanced features that Geany has not.</p>
+
+<h4 id="31-side-by-side-editing">3.1. Side by side editing</h4>
+
+<p>This feature lets us edit two or more source files at the same time, having each one in a different column. This way, we can edit and compile them without having to close any of them. This option is activated by clicking on the 2 column icon in the upper right bar.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-19-SidebySide.png" alt="Side by side editing in Visual Studio Code" />
+</div>
+
+<p>If we want to compile any of these files, as we have more than one active document, a popup menu will be shown to choose the file to be compiled.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-20-CodeCompilarFuentes.png" alt="Choosing the file to be compiled in side by side editing" />
+</div>
+
+<h4 id="32-multi-cursor">3.2. Multi-cursor</h4>
+
+<p>We can also activate more than one cursor at the same time, by typing Alt + Clic in the position in which we want to add a new cursor. Once we have all the cursors set, everything that we type or delete will be added/removed at the same time to/from every cursor position.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-21-CodeMultiCursor.png" alt="Multi cursor in Visual Studio Code" />
+</div>
+
+<p>Whenever we want to remove all the additional cursors and leave just one of them, we must type <em>Escape</em>.</p>
+
+<h4 id="33-box-selection">3.3. Box selection</h4>
+
+<p>If we want to make this type of selection, we must hold Shift+Alt as we select the desired column(s) with the mouse.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-22-CodeBoxSelection.png" alt="Box selection in Visual Studio Code" />
+</div>
+
+<h4 id="34-code-formatting">3.4. Code formatting</h4>
+
+<p>There is an option to format the currently selected code (or the whole file). This option is in the context menu of the editor (by right clicking on the editor panel), with the name <em>Format Document</em>. It formats the code according to the language we are using. For instance, for a Java program we will have this format:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can see that the opening braces have been placed next to the line that creates the block (instead of putting them in the next line). This is the format that Java source files usually have.</p>
+
+<h4 id="35-other-features">3.5. Other features</h4>
+
+<p>There are some other additional features that we could mention:</p>
+
+<ul>
+  <li><strong>Auto-save</strong>: by default, VS Code asks us to manually save our changes, but there is an option in the <em>File</em> menu called <em>Auto Save</em>. If it is enabled, the IDE will periodically save our work (or every time the editor loses the focus).</li>
+  <li><strong>Hot exit</strong>: every time we exit VS Code without saving changes, this state is automatically saved, and when we open the IDE again, we will keep all our unsaved changes.</li>
+  <li><strong>Auto detecting indentation</strong>: whenever we open a source file, its own indentation is automatically detected and used, instead of the one set by default in VS Code. This option is shown (and can be modified) in the status bar (<em>Tab size</em>).</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-24-CodeIndentation_en.png" alt="Code indentation in Visual Studio Code" />
+</div>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-25-CodeIndentation2.png" alt="Code indentation configuration in Visual Studio Code" />
+</div>
+
+<h3 id="4-keybindings">4. Keybindings</h3>
+
+<p>In the welcome screen we have a link with a complete list of shortcuts for VS Code. Some of them are similar to other editors, and some others are particular for this IDE.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema02-26-CodeKeybindings.png" alt="Keybindings for Visual Studio Code" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Open Visual Studio Code and create a new source file called <code class="language-plaintext highlighter-rouge">Test.java</code> with the following source code:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>See how VS Code highlights the code. Compile and run the program using <em>Code Runner</em> extension.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a file called <code class="language-plaintext highlighter-rouge">test.c</code> with Visual Studio Code with the following contents. Compile and run the program using <em>Code Runner</em>.</p>
+</blockquote>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>Try some of the Visual Studio features, such as box selection or multi cursor, with any of the files mentioned in previous exercises.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

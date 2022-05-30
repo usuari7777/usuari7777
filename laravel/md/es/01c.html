@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Primeros pasos con Laravel | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Primeros pasos con Laravel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/01c.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Primeros pasos con Laravel" />
+<script type="application/ld+json">
+{"headline":"Primeros pasos con Laravel","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/01c.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="primeros-pasos-con-laravel">Primeros pasos con Laravel</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/01c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="01c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Ahora que ya tenemos todo el sistema preparado para desarrollar proyectos Laravel, veamos los primeros pasos que debemos dar para crear estos proyectos.</p>
+
+<h2 id="1-crear-proyectos-laravel">1. Crear proyectos Laravel</h2>
+
+<p>Para crear proyectos Laravel, tenemos dos alternativas:</p>
+
+<ul>
+  <li>Emplear el comando <code class="language-plaintext highlighter-rouge">laravel</code> que hemos instalado en sesiones anteriores mediante <em>composer</em></li>
+  <li>Utilizar el propio comando <code class="language-plaintext highlighter-rouge">composer</code> para crear el proyecto. Esta opción será la recomendada si queremos crear proyectos con versiones de Laravel que no sean la última, o si por algún motivo no funciona la opción anterior.</li>
+</ul>
+
+<h3 id="11-usando-el-comando-laravel">1.1. Usando el comando <em>laravel</em></h3>
+
+<p>Si empleamos el comando <code class="language-plaintext highlighter-rouge">laravel</code> para crear proyectos (asumiendo que ya lo tendremos instalado de la sesión de <a href="01b">software necesario</a>), nos deberemos ubicar en la carpeta donde queramos crear el proyecto y escribir este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel new nombre_proyecto
+</code></pre></div></div>
+
+<p>Por ejemplo, para las pruebas que iremos construyendo poco a poco en las siguientes sesiones, vamos a crear una web de libros, por lo que, en la carpeta donde queramos tener este proyecto, comenzamos escribiendo este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel new biblioteca
+</code></pre></div></div>
+
+<p>Esto creará un proyecto <code class="language-plaintext highlighter-rouge">biblioteca</code> en una subcarpeta con el mismo nombre.</p>
+
+<h3 id="12-usando-el-comando-composer">1.2. Usando el comando <em>composer</em></h3>
+
+<p>Alternativamente, también se puede emplear la herramienta <code class="language-plaintext highlighter-rouge">composer</code> para crear el proyecto, usando la siguiente sintaxis (también desde la carpeta donde queramos ubicar el proyecto):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer create-project --prefer-dist laravel/laravel nombre_proyecto
+</code></pre></div></div>
+
+<p>En nuestro caso, para el ejemplo de la biblioteca que vamos a ir desarrollando, escribiremos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer create-project --prefer-dist laravel/laravel biblioteca
+</code></pre></div></div>
+
+<p>Del mismo modo que en el caso anterior, se creará una carpeta <code class="language-plaintext highlighter-rouge">biblioteca</code> con el contenido inicial del proyecto dentro, empleando la última versión de Laravel disponible.</p>
+
+<h3 id="13-crear-proyectos-laravel-usando-versiones-anteriores">1.3. Crear proyectos Laravel usando versiones anteriores</h3>
+
+<p>Al crear un proyecto con el comando <code class="language-plaintext highlighter-rouge">laravel new</code>, se creará con la última versión disponible de Laravel. En el caso de que necesitemos crear un proyecto Laravel que no utilice la última versión, sino alguna anterior, necesitamos utilizar la herramienta <code class="language-plaintext highlighter-rouge">composer</code> para especificar el número de versión de Laravel que queremos utilizar. Por ejemplo, este comando crea un proyecto llamado “prueba” utilizando Laravel 7:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer create-project --prefer-dist laravel/laravel prueba 7.x
+</code></pre></div></div>
+
+<h3 id="14-el-comando-artisan">1.4. El comando <em>artisan</em></h3>
+
+<p>Cuando se crea un proyecto Laravel, se instala una herramienta llamada <code class="language-plaintext highlighter-rouge">artisan</code> en la raíz del proyecto. Es una interfaz de línea de comandos (CLI, <em>Command Line Interface</em>), que proporciona una serie de opciones adicionales que nos vendrán bien en nuestra gestión de proyectos Laravel para, por ejemplo, crear controladores, migrar datos a una base de datos, etc.</p>
+
+<p>Para comprobar que está instalada y las opciones que ofrece, podemos escribir el siguiente comando en un terminal desde la carpeta del proyecto que hayamos creado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan list
+</code></pre></div></div>
+
+<p>Este otro comando muestra la versión de Laravel del proyecto en el que estamos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan --version
+</code></pre></div></div>
+
+<p>Para escribir estos comandos, podemos abrir la carpeta del proyecto con Visual Studio Code, y abrir el terminal integrado en este IDE (menú <em>Ver &gt; Terminal</em>). Esto nos ubicará automáticamente en la carpeta del proyecto, y podemos directamente ejecutar estos comandos desde ahí.</p>
+
+<h3 id="15-laravel-y-visual-studio-code">1.5. Laravel y Visual Studio Code</h3>
+
+<p>Como hemos comentado, podemos gestionar muy cómodamente los proyectos Laravel desde el IDE Visual Studio Code. Basta con abrir la carpeta principal del proyecto desde el propio IDE, y eso puede hacerse desde el menú <em>Archivo &gt; Abrir Carpeta</em>, o bien arrastrando la carpeta a la zona principal del IDE, e incluso, dependiendo de cómo hayamos hecho la instalación, también podemos hacer clic derecho sobre la carpeta del proyecto en el explorador de archivos, y elegir <em>Abrir con Code</em> en el menú contextual.</p>
+
+<p>Una vez abierto, tendremos la estructura del proyecto en la parte izquierda (pestaña de explorador de archivos), y podremos ir editando los archivos en la parte derecha.</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_laravel_proyecto.png" width="60%" />
+</div>
+
+<p>Para facilitar aún más la gestión de proyectos Laravel, podemos instalar alguna extensión adicional a Visual Studio Code. Una de las más populares es <em>Laravel Extension Pack</em>, que a su vez contiene una serie de extensiones para resaltar sintaxis, editar vistas, etc:</p>
+
+<div align="center">
+    <img src="../../img/01_vscode_laravel_extension.png" width="80%" />
+</div>
+
+<h2 id="2-estructura-de-un-proyecto-laravel">2. Estructura de un proyecto Laravel</h2>
+
+<p>Los proyectos Laravel se pueden gestionar abriendo la carpeta directamente desde nuestro IDE (Visual Studio Code). Cuando creamos un proyecto Laravel, se crea una estructura de carpetas y archivos predefinida. Explicamos ahora brevemente en qué consisten las principales carpetas y archivos que se generan, de acuerdo a la versión actualizada de estos apuntes.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">app</code>: contiene el código fuente de la aplicación. Gran parte de las clases que definamos estarán en esta carpeta. Inicialmente, se incluyen algunas subcarpetas dentro:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Console</code>: para definir nuestros propios comandos</li>
+      <li><code class="language-plaintext highlighter-rouge">Exceptions</code>: para definir nuestras propias excepciones</li>
+      <li><code class="language-plaintext highlighter-rouge">Http</code>: contiene los controladores y el <em>middleware</em></li>
+      <li><code class="language-plaintext highlighter-rouge">Models</code>: almacena los modelos de datos de la aplicación (clases que se utilizarán para gestionar los objetos que intervienen en el sistema).</li>
+      <li><code class="language-plaintext highlighter-rouge">Providers</code>: contiene los proveedores de servicios de la aplicación, más los que podamos definir nosotros.</li>
+      <li>Además, podemos definir aquí otras carpetas que podamos necesitar. Por ejemplo, en versiones anteriores de Laravel se creaba aquí a mano la carpeta <em>Models</em> para gestionar los modelos de datos.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">bootstrap</code>: contiene el archivo <code class="language-plaintext highlighter-rouge">app.php</code>, que es el que pone en marcha la aplicación. Además, contiene la carpeta <code class="language-plaintext highlighter-rouge">cache</code>, donde se almacenan los archivos ya cargados por Laravel para acelerar su acceso en futuras peticiones.</li>
+  <li><code class="language-plaintext highlighter-rouge">config</code>: contiene los archivos de configuración de la aplicación, donde se tienen variables de entorno, o si nuestra aplicación está en desarrollo o producción, o los parámetros de conexión a la base de datos, entre otras cosas.</li>
+  <li><code class="language-plaintext highlighter-rouge">database</code>: almacena los elementos de gestión de la base de datos, tales como generadores de objetos, migraciones, etc.</li>
+  <li><code class="language-plaintext highlighter-rouge">public</code>: contenido visible de la web. Contiene el archivo <code class="language-plaintext highlighter-rouge">index.php</code>, punto de entrada de todas las peticiones a la web, y además podemos definir o generar carpetas donde ubicar el contenido estático del cliente (imágenes, hojas de estilo CSS, archivos JavaScript…).</li>
+  <li><code class="language-plaintext highlighter-rouge">resources</code>: contiene, por un lado, las vistas de nuestra aplicación. Por otro lado, también contiene archivos no compilados de CSS (archivos <em>sass</em>) y JavaScript (archivos sin minimizar u optimizar). Además, también almacena los archivos de traducción, en el caso de que queramos hacer sitios multi idioma.</li>
+  <li><code class="language-plaintext highlighter-rouge">routes</code>: almacena las rutas de la aplicación, tanto para acceder a contenido web normal (<code class="language-plaintext highlighter-rouge">web.php</code>), como para servicios web (<code class="language-plaintext highlighter-rouge">api.php</code>), como para comandos y otras opciones.</li>
+  <li><code class="language-plaintext highlighter-rouge">storage</code>: contiene las vistas compiladas, y otros archivos generados por Laravel, como los logs o las sesiones.</li>
+  <li><code class="language-plaintext highlighter-rouge">test</code>: para almacenar los tests o pruebas sobre los componentes de nuestra aplicación</li>
+  <li><code class="language-plaintext highlighter-rouge">vendor</code>: donde se almacenan las dependencias o librerías adicionales que se requieren en nuestro proyecto Laravel. Esta carpeta debería ser ignorada por Git, y regenerada cada vez que se clone el repositorio remoto, para evitar almacenar demasiada información innecesaria.</li>
+</ul>
+
+<p>Aunque algunos de los conceptos vistos aquí pueden no estar claros aún (como el concepto de <em>middleware</em>, o los proveedores de servicios), los iremos viendo poco a poco durante el curso.</p>
+
+<h3 id="21-configuración-general-del-proyecto">2.1. Configuración general del proyecto</h3>
+
+<p>De entre la estructura de carpetas de un proyecto Laravel vista anteriormente, echaremos ahora un rápido vistazo a dónde se encuentra la configuración general del proyecto.</p>
+
+<p>Por un lado, disponemos de un archivo <code class="language-plaintext highlighter-rouge">.env</code> en la raíz del proyecto, que básicamente contiene una serie de variables de entorno generales. Por ejemplo, se tiene la variable <code class="language-plaintext highlighter-rouge">APP_NAME</code> con el nombre que queremos que tenga la aplicación, o un conjunto de variables que utilizaremos más adelante para conectar con la base de datos, entre otras cosas:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>APP_NAME=Laravel
+...
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+...
+</code></pre></div></div>
+
+<p>En general, los cambios de configuración es preferible hacerlos en este archivo <code class="language-plaintext highlighter-rouge">.env</code>, de forma que en los archivos de la carpeta <code class="language-plaintext highlighter-rouge">config</code> accederemos a estas variables de entorno definidas en <code class="language-plaintext highlighter-rouge">env</code>. Por ejemplo, podemos definir las propiedades del archivo <code class="language-plaintext highlighter-rouge">.env</code> de este modo para el proyecto <em>biblioteca</em> que hemos creado anteriormente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>APP_NAME=Biblioteca
+...
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=biblioteca
+DB_USERNAME=root
+DB_PASSWORD=
+...
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> Además, el archivo <code class="language-plaintext highlighter-rouge">.env</code> está configurado (o debe configurarse, de lo contrario) para ser ignorado por Git, de modo que no se suba a repositorios, y se evite un acceso a datos confidenciales que pongan en riesgo el acceso al sistema.</p>
+</blockquote>
+
+<p>Por otra parte, la carpeta <code class="language-plaintext highlighter-rouge">config</code> contiene unos archivos generales de configuración. Iremos viendo algunos de ellos en sesiones posteriores, pero, para empezar, podemos echar un vistazo al archivo <code class="language-plaintext highlighter-rouge">config/app.php</code>, que contiene parámetros de configuración general de la aplicación. Por ejemplo, podemos modificar el nombre de la aplicación, en la propiedad <code class="language-plaintext highlighter-rouge">name</code>, aunque, como vemos, el nombre lo coge de la propiedad <code class="language-plaintext highlighter-rouge">APP_NAME</code> del archivo <code class="language-plaintext highlighter-rouge">.env</code>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="nf">env</span><span class="p">(</span><span class="s1">'APP_NAME'</span><span class="p">,</span> <span class="s1">'Laravel'</span><span class="p">),</span>
+</code></pre></div></div>
+
+<p>Es más habitual modificar los valores del archivo <code class="language-plaintext highlighter-rouge">.env</code> que los que hay en este archivo de configuración. Pero, en algunos casos, sí convendrá acudir a alguno de los archivos de esta carpeta y modificar la información que contiene.</p>
+
+<h2 id="3-arquitectura-de-un-proyecto-laravel">3. Arquitectura de un proyecto Laravel</h2>
+
+<p>Una vez vista la estructura de carpetas y archivos que se genera cuando creamos un proyecto Laravel, es importante también tener unas nociones básicas de cómo se interconectan los elementos internamente, y qué hace que un proyecto Laravel se pueda poner en marcha.</p>
+
+<h3 id="31-los-proveedores-de-servicios-service-providers">3.1. Los proveedores de servicios (<em>service providers</em>)</h3>
+
+<p>Los proveedores de servicios son los principales responsables del arranque o puesta en marcha de todo proyecto Laravel, lo que se conoce como <em>bootstrapping</em>. Se encargan de registrar los componentes del proyecto, dependencias externas, clases y métodos definidos por nosotros, para hacerlos accesibles al resto de la aplicación.</p>
+
+<p>Si abrimos el archivo <code class="language-plaintext highlighter-rouge">config/app.php</code> de nuestro proyecto Laravel, veremos entre otras cosas una sección denominada <code class="language-plaintext highlighter-rouge">providers</code>, donde se define un array con todos los proveedores de servicios que se ponen en marcha al arrancar la aplicación. Por ejemplo, hay proveedores de servicios para acceso a la base de datos (<em>DatabaseServiceProvider</em>), autenticación de usuarios (<em>AuthServiceProvider</em>), etc.</p>
+
+<h3 id="32-las-clases-del-núcleo-de-laravel">3.2. Las clases del núcleo de Laravel</h3>
+
+<p>Para poder desarrollar los componentes de las aplicaciones Laravel, es necesario contar con una infraestructura previa de clases que nos faciliten esta tarea. Así, a lo largo de las siguientes sesiones haremos uso de algunas clases proporcionadas por Laravel que vienen preinstaladas con el framework, tales como <code class="language-plaintext highlighter-rouge">Model</code>, <code class="language-plaintext highlighter-rouge">Route</code>, etc, y que nos permiten o bien heredar de ellas para crear otras subclases (como es el caso de los modelos de datos) o bien utilizar algunos métodos de utilidad que estas clases proporcionan (como es el caso de la clase <code class="language-plaintext highlighter-rouge">Route</code>, por ejemplo).</p>
+
+<p>Conviene tener presente que todas estas clases pertenecientes al núcleo de Laravel parten de un espacio de nombres común llamado <code class="language-plaintext highlighter-rouge">Illuminate</code>, por lo que, en los archivos fuente donde las utilicemos, será frecuente encontrar instrucciones <code class="language-plaintext highlighter-rouge">use</code> que comiencen por dicho espacio de nombres. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Model</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="33-otros-elementos">3.3. Otros elementos</h3>
+
+<p>Además de los dos pilares anteriores sobre los que se sustenta fundamentalmente el desarrollo de proyectos en Laravel, podemos hablar de otros elementos que nos pueden resultar de utilidad en el desarrollo, como son los <em>facades</em> y los <em>contracts</em>.</p>
+
+<p>Las <em>facades</em> proporcionan una interfaz estática a los elementos de la aplicación, de forma que facilitan el acceso a ciertos métodos o utilidades. Por ejemplo, la <em>facade</em> <code class="language-plaintext highlighter-rouge">Cache</code> permite acceder de forma sencilla con su método <code class="language-plaintext highlighter-rouge">get</code> a ciertas propiedades cacheadas previamente.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nc">Cache</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'key'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Los <em>contracts</em> son un conjunto de interfaces que proporcionan el núcleo de servicios ofrecidos por Laravel. Por ejemplo, métodos para enviar e-mails, o encolar tareas en una cola de prioridad, etc.</p>
+
+<h2 id="4-prueba-de-proyectos-laravel">4. Prueba de proyectos Laravel</h2>
+
+<p>Existen varias formas de probar o poner en marcha un proyecto Laravel, dependiendo de si estamos desarrollándolo y probándolo (en cuyo caso buscamos ponerlo en marcha fácilmente), o si ya lo hemos puesto en producción. Resumidamente, veremos tres formas de poner en marcha el proyecto:</p>
+
+<ul>
+  <li>De forma local al proyecto, a través de la herramienta <code class="language-plaintext highlighter-rouge">artisan</code></li>
+  <li>De forma local a XAMPP, ubicando el proyecto en una carpeta predefinida</li>
+  <li>De forma general en el sistema, definiendo un <em>host virtual</em> conectado con Apache</li>
+</ul>
+
+<p>La tercera forma será la que necesitemos utilizar si queremos poner la web en producción en un servidor real, ya que en estos casos cada aplicación tiene su propia configuración y ubicación diferente al resto. Las otras dos primeras opciones pueden resultarnos útiles para pruebas sencillas durante el desarrollo.</p>
+
+<h3 id="41-permisos-en-carpetas-del-proyecto">4.1. Permisos en carpetas del proyecto</h3>
+
+<p>Para poder probar nuestro proyecto Laravel, además de configurar y poner en marcha el servidor correspondiente es necesario habilitar permisos de acceso y escritura a ciertas carpetas del proyecto, especialmente en sistemas Linux o Mac, si movemos el proyecto a una carpeta con permisos reducidos.</p>
+
+<ul>
+  <li>Carpeta <code class="language-plaintext highlighter-rouge">storage</code> junto con sus subcarpetas y contenidos. En esta carpeta se compilarán las vistas, se generarán los archivos de log, etc, por lo que conviene que esta carpeta tenga permisos de escritura.</li>
+  <li>Subcarpeta <code class="language-plaintext highlighter-rouge">bootstrap/cache</code>, donde se almacenará la caché de los archivos ya cargados.</li>
+</ul>
+
+<p>Para habilitar los permisos en estas carpetas bajo Linux o Mac OSX, podemos ejecutar estos comandos desde la raíz del proyecto (la opción <code class="language-plaintext highlighter-rouge">-R</code> aplica los permisos de forma recursiva):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod -R 777 bootstrap/cache
+sudo chmod -R 777 storage
+sudo chmod -R 777 storage/logs
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong> El tercer comando no sería necesario en principio, ya que la subcarpeta <code class="language-plaintext highlighter-rouge">logs</code> está dentro de la carpeta <code class="language-plaintext highlighter-rouge">storage</code>, y se aplican los cambios de forma recursiva. Sin embargo, es posible que en algunas situaciones esta subcarpeta se cree a posteriori y no tenga los permisos adecuados. Comprobaremos al cargar la aplicación desde el navegador si existe algún error al inicio. En este caso, el propio error indicará que no puede generar el <em>log</em>, y deberemos escribir ese comando.</p>
+</blockquote>
+
+<h3 id="42-puesta-en-marcha-con-el-comando-artisan">4.2. Puesta en marcha con el comando <em>artisan</em></h3>
+
+<p>La forma más sencilla de probar nuestro proyecto es a través del comando <code class="language-plaintext highlighter-rouge">artisan</code>. Nos ubicamos en la carpeta raíz del proyecto (recuerda que esto se puede hacer automáticamente abriendo la carpeta con Visual Studio Code y abriendo su terminal), y ejecutamos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan serve
+</code></pre></div></div>
+
+<p>Esto habilitará un pequeño servidor local, y se nos indicará en un mensaje en el terminal la URL que podemos emplear para probar el proyecto, que suele ser algo así:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting Laravel development server: http://127.0.0.1:8000
+</code></pre></div></div>
+
+<p>Conectando a la URL que se nos facilita, veremos la pantalla de inicio de nuestro proyecto, que será algo así (aunque el diseño de la página de inicio puede variar dependiendo de la versión de Laravel que usemos):</p>
+
+<div align="center">
+    <img src="../../img/01_laravel_welcome.png" width="90%" />
+</div>
+
+<p>Más adelante aprenderemos a modificar esta página de inicio, obviamente, y a ir añadiendo otras.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: si nuestra aplicación necesita acceder a una base de datos, además de arrancarla con el comando <code class="language-plaintext highlighter-rouge">artisan</code> visto antes, también tendremos que tener en marcha el servidor de bases de datos correspondiente, a través del manager de XAMPP.</p>
+</blockquote>
+
+<h3 id="43-puesta-en-marcha-en-carpeta-predefinida-de-xampp">4.3. Puesta en marcha en carpeta predefinida de XAMPP</h3>
+
+<p>Como segunda alternativa relativamente rápida, podemos ubicar la carpeta del proyecto dentro de la carpeta predefinida de XAMPP para alojar webs:</p>
+
+<ul>
+  <li>En el caso de <em>Windows</em> es la carpeta <em>htdocs</em> dentro de la carpeta de instalación de XAMPP. Típicamente la ruta es <em>C:\xampp\htdocs</em></li>
+  <li>En el caso de <em>Linux</em>, en particular en la distribución de nuestra máquina virtual, es la carpeta <em>/opt/lampp/htdocs</em></li>
+  <li>En el caso de <em>Mac OSX</em>, la ruta es <em>/Applications/XAMPP/xamppfiles/htdocs</em></li>
+</ul>
+
+<p>Por ejemplo, si nuestro proyecto se llama <em>biblioteca</em> y queremos moverlo a esta carpeta en Linux, escribimos este comando desde la carpeta que contiene nuestro proyecto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mv biblioteca /opt/lampp/htdocs
+</code></pre></div></div>
+
+<p>A continuación debemos poner en marcha el servidor Apache (empleando el <em>manager</em> de XAMPP), y luego acceder a la URL <em>http://localhost/biblioteca/public</em>. Obtendremos la misma página de inicio que en el caso anterior.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: al mover la carpeta del proyecto a la ubicación de XAMPP en Linux, ten en cuenta que esa carpeta es de acceso restringido. Deberemos dar permisos a las carpetas indicadas <a href="01c.html#41-permisos-en-carpetas-del-proyecto">en la sección 4.1</a> para que la aplicación se pueda poner en marcha adecuadamente.</p>
+</blockquote>
+
+<h3 id="44-puesta-en-marcha-como-host-virtual">4.4. Puesta en marcha como host virtual</h3>
+
+<p>En el caso de una puesta en producción real, o si queremos dejar una aplicación correctamente configurada con Apache, hay que realizar una serie de pasos previos, tales como asociarlo a un <em>virtual host</em> (de Apache, en nuestro caso). A continuación indicamos los pasos a seguir, y conviene tener presente que:</p>
+
+<ul>
+  <li>El paso 1 deberemos hacerlo <strong>sólo una vez</strong>, cuando demos de alta nuestro primer <em>virtual host</em> con Apache.</li>
+  <li>El resto de pasos deberemos hacerlos <strong>una vez por proyecto</strong> para configurar dicho proyecto en Apache y establecer los permisos adecuados.</li>
+</ul>
+
+<p><strong>1. Habilitar los <em>virtual hosts</em> en Apache</strong></p>
+
+<p>Los <em>virtual hosts</em> son un mecanismo que ofrecen los servidores web, como Apache, para poder asociar carpetas arbitrarias del sistema, externas a la estructura de Apache, al propio servidor, de forma que, accediendo a una URL o nombre de dominio determinado, le indicamos a Apache que cargue los contenidos de esa carpeta.</p>
+
+<p>En primer lugar debemos habilitar los <em>virtual hosts</em> en Apache, editando el archivo de configuración de Apache:</p>
+
+<ul>
+  <li>Archivo <code class="language-plaintext highlighter-rouge">/opt/lampp/etc/httpd.conf</code> en Linux</li>
+  <li>Archivo <code class="language-plaintext highlighter-rouge">C:\xampp\apache\conf\httpd.conf</code> de la carpeta de instalación de XAMPP en Windows (suponiendo que lo hemos instalado en <em>C:\xampp</em>)</li>
+  <li>Archivo <code class="language-plaintext highlighter-rouge">/Applications/XAMPP/xamppfiles/etc/httpd.conf</code> en Mac OSX</li>
+</ul>
+
+<p>En todos los casos, debemos asegurarnos de que está descomentada la línea que hace referencia al lugar donde se definen dichos <em>virtual hosts</em>. Debe quedar así en Linux y Mac OSX:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Virtual hosts
+Include etc/extra/httpd-vhosts.conf
+</code></pre></div></div>
+
+<p>O así en Windows, por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Virtual hosts
+Include conf/extra/httpd-vhosts.conf
+</code></pre></div></div>
+
+<p><strong>2. Añadir el nuevo nombre de dominio</strong></p>
+
+<p>Después, debemos editar el archivo <em>hosts</em> del sistema y asignar un nombre de dominio (local) a nuestro proyecto. Dicho archivo de hosts es:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/etc/hosts</code> en Linux</li>
+  <li><code class="language-plaintext highlighter-rouge">C:\Windows\System32\drivers\etc\hosts</code> en Windows</li>
+  <li><code class="language-plaintext highlighter-rouge">/private/etc/hosts</code> en Mac OSX</li>
+</ul>
+
+<p>Por ejemplo, para el proyecto <em>biblioteca</em> que hemos creado antes, podríamos definir algo como esto (al final, o entre los otros registros de nombres existentes en dicho archivo):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.5   biblioteca
+</code></pre></div></div>
+
+<p>Lo que hemos hecho ha sido asignar la IP local 127.0.0.5 (puede ser la IP local que nosotros queramos) al nombre “biblioteca”. De este modo, cuando carguemos localmente el proyecto podremos acceder a él mediante la URL <em>http://biblioteca</em> o bien con <em>http://127.0.0.5</em>.</p>
+
+<p><strong>3. Definir la configuración del nuevo <em>virtual host</em></strong></p>
+
+<p>A continuación, debemos editar el archivo al que hacía referencia la línea que hemos descomentado antes en el paso 1: el archivo <code class="language-plaintext highlighter-rouge">httpd-vhosts.conf</code>, y añadir una nueva configuración para nuestro nuevo <em>virtual host</em>. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;VirtualHost 127.0.0.5:80&gt;
+  DocumentRoot "/home/alumno/ProyectosLaravel/biblioteca/public"
+  DirectoryIndex index.php
+
+  &lt;Directory "/home/alumno/ProyectosLaravel/biblioteca/public"&gt;
+	Options All
+	AllowOverride All
+	Require all granted
+  &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: la ruta indicada en el atributo <em>DocumentRoot</em> dependerá, evidentemente, de la ruta donde tengamos alojado nuestro proyecto <em>biblioteca</em>. El ejemplo anterior se ha ilustrado suponiendo que el proyecto <em>biblioteca</em> se ubica en una carpeta <em>ProyectosLaravel</em> en la carpeta de usuario de nuestra máquina virtual.</p>
+</blockquote>
+
+<h2 id="5-importando--exportando-un-proyecto-laravel">5. Importando / Exportando un proyecto Laravel</h2>
+
+<p>Vamos a indicar ahora unas instrucciones necesarias en el caso de que queramos importar un proyecto Laravel a un nuevo ordenador, o llevarlo a otro diferente, descargándolo de, por ejemplo, un repositorio GitHub, o comprimido en un archivo ZIP o similar. Dado que ciertas carpetas y archivos no se suben a dicho repositorio (o no deberían subirse), es conveniente saber cómo regenerar estos elementos en la nueva ubicación del proyecto.</p>
+
+<h3 id="51-exportar-un-proyecto">5.1. Exportar un proyecto</h3>
+
+<p>Si queremos exportar o compartir un proyecto Laravel de forma externa, podemos:</p>
+
+<ul>
+  <li>Compartirlo en un repositorio remoto tipo GitHub o similar. En este caso, el propio archivo <code class="language-plaintext highlighter-rouge">.gitignore</code> que se crea en el proyecto indica qué elementos no van a subirse al repositorio. De entre estos elementos, conviene destacar el archivo de configuración <code class="language-plaintext highlighter-rouge">.env</code>, y las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code>.</li>
+  <li>Comprimirlo en un archivo que poder distribuir o instalar en otras partes. En este caso, debemos tomar las mismas precauciones que cuando lo compartimos vía GitHub, y eliminar los elementos que no sean necesarios.</li>
+</ul>
+
+<blockquote>
+  <p><strong>NOTA IMPORTANTE</strong>: cuando comprimas un proyecto Laravel, procura comprimir la carpeta entera desde fuera, para así incluir también los archivos ocultos, como <code class="language-plaintext highlighter-rouge">.env.example</code>. De lo contrario, no será posible poner en marcha el proyecto en el lugar donde se utilice. Así que, simplemente, elimina las carpetas pesadas (<code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code>), archivos que no quieras compartir directamente (<code class="language-plaintext highlighter-rouge">.env</code>, si es el caso) sal a la carpeta padre y comprímela.</p>
+</blockquote>
+
+<h3 id="52-importar-un-proyecto-existente">5.2. Importar un proyecto existente</h3>
+
+<p>A la hora de importar en un nuevo ordenador un proyecto existente (bien descargándolo de GitHub, o descomprimiéndolo de un archivo ZIP), debemos dar estos pasos (una vez descargado o descomprimido el proyecto).</p>
+
+<p><strong>1. El archivo de configuración de variables de entorno <em>.env</em></strong></p>
+
+<p>Como hemos comentado antes, el archivo <code class="language-plaintext highlighter-rouge">.env</code> es uno de los que no se incluye por defecto en un repositorio GitHub, ya que contiene información sensible, como la contraseña de acceso a la base de datos. Sin embargo, lo que sí se incluye es una copia inicial del mismo, en el archivo <code class="language-plaintext highlighter-rouge">.env.backup</code> o <code class="language-plaintext highlighter-rouge">.env.example</code>, dependiendo de la versión de Laravel que utilicemos. Basta con hacer una copia de dicho archivo en la carpeta raíz del proyecto…</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp .env.example .env
+</code></pre></div></div>
+
+<p>… y luego editar dicho archivo para establecer la configuración oportuna en el lugar donde hayamos importado el proyecto: parámetros de conexión a la base de datos, y otras variables de entorno que iremos viendo en este curso.</p>
+
+<p><strong>2. La clave del proyecto</strong></p>
+
+<p>Laravel necesita de una clave en la variable de entorno APP_KEY del archivo <code class="language-plaintext highlighter-rouge">.env</code> anterior, que por defecto está vacía. Dicha clave es un código aleatorio de 32 caracteres, que Laravel emplea para encriptar cookies. Podemos generar una clave con el comando <code class="language-plaintext highlighter-rouge">php artisan</code> (desde la raíz del proyecto):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan key:generate
+</code></pre></div></div>
+
+<p>y ya la tendremos lista en nuestro archivo <code class="language-plaintext highlighter-rouge">.env</code>.</p>
+
+<p><strong>3. Dependencias PHP</strong></p>
+
+<p>Otro de los elementos del proyecto que no se comparte en repositorios es la carpeta <code class="language-plaintext highlighter-rouge">vendor</code>, donde vienen descargadas las dependencias PHP de nuestro proyecto. Por defecto, al generar un nuevo proyecto Laravel, se presuponen algunas de ellas, incluidas en el archivo <code class="language-plaintext highlighter-rouge">composer.json</code> de la raíz del proyecto. Para volverlas a instalar en donde hayamos clonado el proyecto, ejecutamos este comando desde la raíz del proyecto (suponiendo que ya tengamos instalado el comando <code class="language-plaintext highlighter-rouge">composer</code> de pasos anteriores):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer install
+</code></pre></div></div>
+
+<p><strong>4. Dependencias JavaScript</strong></p>
+
+<p>Del mismo modo, existen algunas dependencias para la parte de cliente (como por ejemplo <em>Bootstrap</em>, o <em>jQuery</em>), definidas en el archivo <code class="language-plaintext highlighter-rouge">package.json</code> de la raíz del proyecto, y que se encuentran preinstaladas en la carpeta <code class="language-plaintext highlighter-rouge">node_modules</code>. Esta carpeta, sin embargo, tampoco se comparte en el repositorio, así que para volverla a generar en el proyecto clonado, y suponiendo que también tendremos instalada la herramienta <code class="language-plaintext highlighter-rouge">npm</code> de pasos anteriores, ejecutamos el comando siguiente desde la raíz del proyecto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

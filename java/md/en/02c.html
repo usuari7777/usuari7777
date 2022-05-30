@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Control structures | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Control structures" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="02c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/02c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Control structures" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Control structures","url":"http://nachoiborraies.github.io/java/md/en/02c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="control-structures">Control structures</h1>
+
+<h2 id="iterative-structures">Iterative structures</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Iterative structures, also known as <em>loops</em>, can repeat a set of instructions a given number of times, or as long as a condition is true. This way, we avoid writing this set of instructions more than once if we want to repeat it. Now, we are going to see the main iterative structures provided by Java, although we will learn some more in later documents.</p>
+
+<h3 id="1-the-while-clause">1. The “while” clause</h3>
+
+<p>This clause is used to repeat a given set of instructions while a given condition (or set of conditions) is true. For instance, this example counts from 1 to 10:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+    <span class="n">n</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As soon as the condition inside the <em>while</em> clause is false, the program exits the <em>loop</em> and runs next instruction beyond this loop. Take into account that this instruction can be simple or complex:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-the-dowhile-clause">2. The “do..while” clause</h3>
+
+<p>This clause si similar to the previous one, but the condition is evaluated at the end of the loop, instead of the beginning. If we do the same loop than in previous example with a <code class="language-plaintext highlighter-rouge">do..while</code> structure, it would look like this.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+<span class="k">do</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+    <span class="n">n</span><span class="o">++;</span>
+<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>We will use this loop when we don’t know how many iterations are expected, but we know that there will be (at least) one iteration. It is very usual when we ask the user to type something and then check the input and ask the user again. On the contrary, <em>while</em> loop is better when we don’t even know if there will be one iteration.</p>
+
+<h3 id="3-the-for-clause">3. The “for” clause</h3>
+
+<p>We will use this loop when we know how many iterations are expected. It has 3 parts on it:</p>
+
+<ul>
+  <li>The declaration of a counter</li>
+  <li>The condition to repeat the bucle (similar to <em>while</em> or <em>do..while</em> condition)</li>
+  <li>The increment or decrement for the counter (generally to reach the end of the loop when the condition turns into <em>false</em>)</li>
+</ul>
+
+<p>The counter from 1 to 10 should be done with this structure preferably, and it would look like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="o">;</span> <span class="n">n</span><span class="o">++)</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that we can declare variables in <code class="language-plaintext highlighter-rouge">for</code> loops (and in the middle of other code, as in other languages such as C#).</p>
+
+<h4 id="31-another-for">3.1. Another “for”</h4>
+
+<p>There is another way of using the <code class="language-plaintext highlighter-rouge">for</code> clause, applied to collections or arrays. It consists in using a variable with the same type, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="nl">number:</span> <span class="n">numbers</span><span class="o">)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">""</span> <span class="o">+</span> <span class="n">number</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">numbers</code> is expected to be a collection or array of integers. This structure is equivalent to the <code class="language-plaintext highlighter-rouge">foreach</code> structure of other languages such as C#, and is expected to be used in a read-only way (only to check the values, but not to modify them).</p>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>GroupPeople</strong> that asks the user to enter how many people is going to attend to a conference. The program must create groups of (preferably) 50 people. Whenever this is not possible, then it will attempt to create groups of 10 people, and finally it will create groups of 1 person. The program must output how many groups of each category are necessary. For instance, if 78 people are going to attend to the conference, then we need 1 group of 50 people, 2 groups of 10 people and 8 groups of 1 people.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a program called <strong>SumDigits</strong> that asks the user to enter numbers (integer values) until he enters 0. The program must sum up all the numbers entered by the user and then show the final result, and how many digits it has. For instance, if the user types 12, 20, 60, 33, 99 and 0, then the program must output: “<em>The result is 224, and it has 3 digits</em>”.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

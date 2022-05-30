@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Concurrent programming | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Concurrent programming" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="14f.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/14f.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Concurrent programming" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Concurrent programming","url":"http://nachoiborraies.github.io/java/md/en/14f.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="concurrent-programming">Concurrent programming</h1>
+
+<h2 id="threads-and-shared-data">Threads and shared data</h2>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/14f.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="14f.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In this subsection we are going to see which type of objects we shall use in order to deal with simple values or collections safely in a multi-threaded application.</p>
+
+<h3 id="1-accessing-single-values">1. Accessing single values</h3>
+
+<p>Let’s start by learning how to solve some problems associated with single values (primitive and object), how to write (update its value) and read them safely when many threads are accessing at the same time.</p>
+
+<h4 id="11-introducing-the-problem">1.1. Introducing the problem</h4>
+
+<p>Let’s suppose that we have a class to manage a variable (integer) and some methods to modify it and get its value.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleInteger</span> 
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SimpleInteger</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">num</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNum</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">num</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNum</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">num</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">num</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, let’s create some threads that modify the values of that number by calling the available <code class="language-plaintext highlighter-rouge">increment</code> method (we’ll manage them with an <em>Executor</em>):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">SimpleInteger</span> <span class="n">simpleInt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleInteger</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="nc">ThreadPoolExecutor</span> <span class="n">executor</span> <span class="o">=</span>
+        <span class="o">(</span><span class="nc">ThreadPoolExecutor</span><span class="o">)</span><span class="nc">Executors</span><span class="o">.</span><span class="na">newCachedThreadPool</span><span class="o">();</span>
+
+    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> 
+    <span class="o">{</span>
+        <span class="n">executor</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="n">simpleInt</span><span class="o">.</span><span class="na">increment</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+
+    <span class="k">while</span><span class="o">(!</span><span class="n">executor</span><span class="o">.</span><span class="na">isTerminated</span><span class="o">())</span> 
+    <span class="o">{</span>
+        <span class="k">try</span> 
+        <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="o">}</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Expected: 10000, Result: "</span> <span class="o">+</span> <span class="n">simpleInt</span><span class="o">.</span><span class="na">getNum</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>What happens when we execute this code? We may have results like these:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Expected: 10000, Result: 9954
+Expected: 10000, Result: 9924
+</code></pre></div></div>
+
+<p>We can see that there’s a problem. 10,000 threads incrementing each one the same variable should give us always 10,000, but we get a different result each time and none is correct. Here is why: let’s examine this operation: <code class="language-plaintext highlighter-rouge">num++</code>. For the compiler, this increment is translated like this → <code class="language-plaintext highlighter-rouge">num = num + 1</code>. There are <strong>three operations</strong> taking place here (imagine current value for <code class="language-plaintext highlighter-rouge">num</code> is 5):</p>
+
+<ul>
+  <li>Variable substitution: <code class="language-plaintext highlighter-rouge">num = 5 + 1</code></li>
+  <li>Adding operation: <code class="language-plaintext highlighter-rouge">num = 6</code></li>
+  <li>Assigning the new value to num: <code class="language-plaintext highlighter-rouge">num</code> ← 6</li>
+</ul>
+
+<p>If this thread (when current value is 5) stops <strong>just after</strong> doing the first or second step, the next thread accessing that variable won’t see the value updated and will see that’s still 5. This second thread will then increment 5 and assign 6 to the variable num. When the first thread wakes up, it will <strong>continue from the last step before stopping</strong>, so it will assign 6 like the other thread (one increment has been lost!!).</p>
+
+<div align="center">
+    <img src="../../img/14_concurrent_data.png" width="70%" />
+</div>
+
+<h4 id="12-solving-it-with-synchronize">1.2. Solving it with synchronize</h4>
+
+<p>As we have seen in previous documents, a synchronized block or method only allows to enter <strong>one thread</strong> at a time. If a thread wants to enter while another is inside, it will be <strong>stopped</strong> until the thread inside the block or method exits.</p>
+
+<p>We can use it in different ways:</p>
+
+<ul>
+  <li>Outside the class (in main method for example):</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">executor</span><span class="o">.</span><span class="na">execute</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="kd">synchronized</span><span class="o">(</span><span class="n">simpleInt</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">simpleInt</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Inside the object methods, whenever we try to change the value of the variable which can be accessible by more than 1 thread:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="n">num</span><span class="o">++;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>In the method declaration (for every method that changes the value of the variable)</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> 
+<span class="o">{</span>
+    <span class="n">num</span><span class="o">++;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We must use <strong>only one solution</strong> from above (not all of them). Now, it works properly and produces → <strong>10,000</strong> as the result.</p>
+
+<h4 id="13-solving-it-with-atomic-objects">1.3. Solving it with atomic objects</h4>
+
+<p>Instead of synchronization, we can also use <strong>atomic variables</strong> (since Java 5), a mechanism to check that the operation applied to a given variable is done in one step. This way, we can use data types such as <code class="language-plaintext highlighter-rouge">AtomicLong</code>, <code class="language-plaintext highlighter-rouge">AtomicInteger</code> or <code class="language-plaintext highlighter-rouge">AtomicBoolean</code> to deal with simple long, integer or boolean data types. So, instead of doing this (which is not thread-safe):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">num</span><span class="o">;</span>
+<span class="n">num</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="n">num</span><span class="o">++;</span>
+</code></pre></div></div>
+
+<p>we can do this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">AtomicLong</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicLong</span><span class="o">();</span>
+<span class="n">num</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+<span class="n">num</span><span class="o">.</span><span class="na">getAndAdd</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>If we apply this to our problem, we can use an <em>AtomicInteger</em> variable instead of just an <em>int</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleInteger</span>
+<span class="o">{</span>
+    <span class="nc">AtomicInteger</span> <span class="n">num</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">SimpleInteger</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicInteger</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNum</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">localReturn</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">localReturn</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNum</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> 
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">num</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">num</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="n">num</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>There is an additional type called <code class="language-plaintext highlighter-rouge">AtomicReference</code>, which is parameterized, so that we can use it to make any other data type atomic:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">AtomicReference</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+<span class="n">name</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="s">"Nacho"</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"My name is "</span> <span class="o">+</span> <span class="n">name</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>AtomicCounter</strong> from the example shown in section 2 of <a href="14d">this document</a> with no synchronization mechanism. You must now use an <code class="language-plaintext highlighter-rouge">AtomicInteger</code> attribute (instead of the int attribute of that example), to guarantee that the <code class="language-plaintext highlighter-rouge">increment</code> and <code class="language-plaintext highlighter-rouge">decrement</code> operations against this object will be atomic and thus thread-safe.</p>
+</blockquote>
+
+<h3 id="2-accessing-arrays">2. Accessing arrays</h3>
+
+<p>Regarding <strong>arrays</strong>, Java also provides atomic data types to deal with them. For instance, you can use <code class="language-plaintext highlighter-rouge">AtomicIntegerArray</code> to handle integer arrays, or <code class="language-plaintext highlighter-rouge">AtomicReferenceArray</code> to handle many other data types.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Create an array of strings with size 10</span>
+<span class="nc">AtomicReferenceArray</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">names</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicReferenceArray</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;(</span><span class="mi">10</span><span class="o">);</span>
+
+<span class="c1">// Add names to some positions</span>
+<span class="n">names</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="s">"Arturo"</span><span class="o">);</span>
+<span class="n">names</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"Nacho"</span><span class="o">);</span>
+
+<span class="c1">// Get names at given positions</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Name at 1st position is "</span> <span class="o">+</span> <span class="n">names</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
+</code></pre></div></div>
+
+<h3 id="3-concurrent-and-synchronized-collections">3. Concurrent and synchronized collections</h3>
+
+<p>When we want to use data collections in a concurrent program, we have to be very careful with the way we handle these data. Many of these collections, such as <code class="language-plaintext highlighter-rouge">ArrayList</code>, are not ready to work with multiple threads, and if many of them are trying to modify the same element, it can be assigned a wrong, final value. But there are some other collections that we can use safely.</p>
+
+<h4 id="31-synchronized-collections">3.1. Synchronized collections</h4>
+
+<p>Synchronized collections are generated from the static class <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html">Collections</a>. Those collections synchronize the access to the list (every method except iterators), blocking the entire list to only one thread at a time.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Not synchronized</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span> 				
+<span class="c1">// Synchronized</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">syncList</span> <span class="o">=</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">synchronizedList</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
+</code></pre></div></div>
+
+<h4 id="32-concurrent-collections">3.2. Concurrent collections</h4>
+
+<p>Regarding concurrent collections, they can be:</p>
+
+<ul>
+  <li><strong>Blocking</strong>: when we try to add or remove something to/from the collection and we can’t, our thread gets blocked until the operation can be made. In this group we can use, for instance, the  <code class="language-plaintext highlighter-rouge">LinkedBlockingDeque</code> class. It has a <code class="language-plaintext highlighter-rouge">put</code> method to add elements to the list, <code class="language-plaintext highlighter-rouge">getFirst/getLast</code> to get them from the beginning/end of the list and <code class="language-plaintext highlighter-rouge">takeFirst/takeLast</code> method to get and remove them from the beginning /end of the list. Check the API for a full explanation of these and other methods.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LinkedBlockingDeque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedBlockingDeque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+<span class="n">data</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"One element"</span><span class="o">);</span>
+<span class="n">data</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"Another element"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">first</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">takeFirst</span><span class="o">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Non-blocking</strong>: if our add/remove operation can’t be performed, a null value is returned, or an exception is thrown. In this group we can use, for instance, the <code class="language-plaintext highlighter-rouge">ConcurrentLinkedDeque</code> class. It has the <code class="language-plaintext highlighter-rouge">add</code> method to add elements to the list, <code class="language-plaintext highlighter-rouge">getFirst/getLast</code> to get the first or last element of the list, <code class="language-plaintext highlighter-rouge">removeFirst/removeLast</code> to remove the first/last element of the list, and so on (check the API for a full explanation of its methods).</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ConcurrentLinkedDeque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcurrentLinkedDeque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+<span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"One element"</span><span class="o">);</span>
+<span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Another element"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">first</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getFirst</span><span class="o">();</span>
+<span class="n">data</span><span class="o">.</span><span class="na">removeFirst</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Regarding maps, we can use, for instance the <code class="language-plaintext highlighter-rouge">ConcurrentSkipListMap</code>, which is a <em>non-blocking</em> implementation of some kind of hashtable. For instance, we could store a set of book titles, identified by their ISBN:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ConcurrentSkipListMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> 
+    <span class="k">new</span> <span class="nc">ConcurrentSkipListMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;();</span>
+<span class="n">data</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"1122"</span><span class="o">,</span> <span class="s">"Ender's game"</span><span class="o">);</span>
+<span class="n">data</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"3344"</span><span class="o">,</span> <span class="s">"The Da Vinci's code"</span><span class="o">);</span>
+
+<span class="nc">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">element</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">firstEntry</span><span class="o">()</span>
+<span class="nc">String</span> <span class="n">isbn</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+<span class="nc">String</span> <span class="n">title</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"First element is "</span> <span class="o">+</span> <span class="n">isbn</span> <span class="o">+</span> <span class="s">" - "</span> <span class="o">+</span> <span class="n">title</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="33-synchronized-vs-concurrent">3.3. Synchronized vs concurrent</h4>
+
+<p>There is an important difference between using a synchronized collection and using a concurrent one:</p>
+
+<ul>
+  <li>
+    <p>Calling a method on a synchronized collection blocks the entire collection object, so no other thread can access the collection, even if it wants to get to a different index.</p>
+  </li>
+  <li>
+    <p>Calling a method on a concurrent collection usually blocks just the position or key to be accessed. In conclusion, these collections reach more performance than synchronized when working with many threads.</p>
+  </li>
+</ul>
+
+<p>Besides, when using synchronized collections, iterating over them is not thread safe, so you’ll need to implement it manually:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">synchronized</span> <span class="o">(</span><span class="n">syncList</span><span class="o">)</span> 
+<span class="o">{</span>
+    <span class="c1">// Must be in synchronized block</span>
+    <span class="nc">Iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">syncList</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span> 
+    <span class="k">while</span> <span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> 
+    <span class="o">{</span>
+        <span class="c1">// Do something</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>That problem doesn’t happen with concurrent collections. Their iterators are safe but they don’t guarantee that if another thread changes an element while iterating, current thread will see that modification immediately.</p>
+
+<h4 id="34-updating-internal-objects">3.4. Updating internal objects</h4>
+
+<p>When you want to modify an internal object of the collection, if you do it by getting the object and then make some modification to its properties, you’ll need to synchronize that operation (or the object’s methods).</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ConcurrentLinkedDeque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcurrentLinkedDeque</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+<span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"One element"</span><span class="o">);</span>
+<span class="n">data</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"Another element"</span><span class="o">);</span>
+<span class="n">data</span><span class="o">.</span><span class="na">getFirst</span><span class="o">().</span><span class="na">replace</span><span class="o">(</span><span class="s">"One"</span><span class="o">,</span> <span class="s">"First"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>When we concatenate the <code class="language-plaintext highlighter-rouge">getFirst</code> operation with the <code class="language-plaintext highlighter-rouge">replace</code> method, the first one is thread safe, but once we get the string, the second method (the replacement) is not thread safe. Then, we could, for instance, use a synchronized method that replaces the text, or methods such as <code class="language-plaintext highlighter-rouge">compute</code> that are executed in an atomic way. For instance, if we want to replace the text of the first element (index 0) of previous list, we could do something like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data</span><span class="o">.</span><span class="na">compute</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">value</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="s">"One"</span><span class="o">,</span> <span class="s">"First"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+<span class="o">});</span>
+</code></pre></div></div>
+
+<p>We take the value from that position (position 0), store the replacement and then return it, so that old value is automatically replaced by this new returned value.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a project called <strong>ConcurrentVideoGames</strong>. We are going to handle a list of video games with a title and a price, according to this structure:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VideoGame</span> 
+<span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kt">float</span> <span class="n">price</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">VideoGame</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="kt">float</span> <span class="n">price</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getTitle</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPrice</span><span class="o">()</span> 
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>In main program, we will create a list of 100 videogames.</p>
+
+  <p><em>To add video games automatically, just add them with a given pattern (such as “Videogame 1”, “Videogame 2”…), and the same price (or a random one)</em></p>
+
+  <p>Then, we will launch two threads:</p>
+
+  <ul>
+    <li>One of them will add 1 to the price of every video game in the list (sleeping 50ms after each operation)</li>
+    <li>The other one will subtract 1 from the price of every video game in the list (sleeping 50ms after each operation).</li>
+  </ul>
+
+  <p>Try with a simple <code class="language-plaintext highlighter-rouge">ArrayList</code> firstly, and see how the total price of the list is different each time you run the program. Then, change your <code class="language-plaintext highlighter-rouge">ArrayList</code> for an appropriate thread-safe structure, such as <code class="language-plaintext highlighter-rouge">LinkedBlockingDeque</code>, and see how it works perfectly now.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

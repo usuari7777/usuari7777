@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Relaciones entre modelos | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Relaciones entre modelos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/04d.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Relaciones entre modelos" />
+<script type="application/ld+json">
+{"headline":"Relaciones entre modelos","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/04d.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="relaciones-entre-modelos">Relaciones entre modelos</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/04d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="04d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En esta sesión veremos qué tipos de relaciones se pueden establecer entre los modelos de la aplicación, y cómo se reflejan automáticamente en la base de datos. Para ello, Eloquent permite definir relaciones de varios tipos entre tablas. Éstas se definen a través de los distintos modelos involucrados en la relación, como veremos a continuación.</p>
+
+<h2 id="1-relaciones-uno-a-uno-o-one-to-one">1. Relaciones uno a uno o <em>one to one</em></h2>
+
+<p>Supongamos que tenemos dos modelos <code class="language-plaintext highlighter-rouge">Usuario</code> y <code class="language-plaintext highlighter-rouge">Telefono</code>, de modo que podemos establecer una relación <em>uno a uno</em> entre ellos: un usuario tiene un teléfono, y un teléfono pertenece a un usuario.</p>
+
+<p>Para reflejar esta relación en tablas, una de las dos debería tener una referencia a la otra. En este caso, podríamos tener un campo <code class="language-plaintext highlighter-rouge">telefono_id</code> en la tabla de <code class="language-plaintext highlighter-rouge">usuarios</code> que indique el teléfono que pertenece a dicho usuario, o viceversa (un campo <code class="language-plaintext highlighter-rouge">usuario_id</code> en la tabla <code class="language-plaintext highlighter-rouge">telefonos</code> que indique a qué usuario pertenece un teléfono). Conceptualmente es más correcta la primera opción (el usuario <em>tiene</em> el teléfono), así que seguiremos ese primer ejemplo. Es importante que el campo nuevo en la tabla <code class="language-plaintext highlighter-rouge">usuarios</code> se llame <code class="language-plaintext highlighter-rouge">telefono_id</code>, como veremos a continuación.</p>
+
+<p>Para indicar que <em>un usuario tiene un teléfono</em>, añadimos un nuevo método en el modelo de <code class="language-plaintext highlighter-rouge">Usuario</code>, que se llame igual que el modelo con el que queremos conectar (<code class="language-plaintext highlighter-rouge">telefono</code>, en este caso). Dentro, usaremos el método <code class="language-plaintext highlighter-rouge">hasOne</code> del modelo de usuario para indicar que un objeto de este tipo <em>tiene un</em> objeto del otro modelo (teléfono):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Usuario</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">telefono</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasOne</span><span class="p">(</span><span class="nc">Telefono</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ahora, si queremos obtener el teléfono de un usuario, basta con que hagamos esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$telefono</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">telefono</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Hemos empleado una característica de Eloquent denominada <em>propiedades dinámicas</em>, por la cual podemos referenciar un método de relación como si fuera una propiedad (en lugar de usar <code class="language-plaintext highlighter-rouge">telefono()</code>, hemos empleado <code class="language-plaintext highlighter-rouge">telefono</code>).</p>
+
+<p>La instrucción anterior obtiene el objeto <code class="language-plaintext highlighter-rouge">Telefono</code> asociado con el usuario buscado (a través del <code class="language-plaintext highlighter-rouge">$id</code> del teléfono). Para que esta asociación tenga efecto, es preciso que en la tabla <code class="language-plaintext highlighter-rouge">usuarios</code> exista un campo <code class="language-plaintext highlighter-rouge">telefono_id</code> y que se corresponda con un campo <code class="language-plaintext highlighter-rouge">id</code> de la tabla de <code class="language-plaintext highlighter-rouge">telefonos</code>, de modo que Eloquent establece la conexión entre una y otra tabla. Deberemos definir una nueva migración de modificación sobre la tabla <em>usuarios</em> para añadir ese nuevo campo, o refrescar la migración original con él y borrar los contenidos previos.</p>
+
+<p>Si queremos utilizar otros campos distintos en una y otra tabla para conectarlas, debemos indicar dos parámetros más al llamar a <code class="language-plaintext highlighter-rouge">hasOne</code>. Por ejemplo, así relacionaríamos las dos tablas anteriores, indicando que la clave ajena de <code class="language-plaintext highlighter-rouge">usuarios</code> a <code class="language-plaintext highlighter-rouge">telefonos</code> es <code class="language-plaintext highlighter-rouge">idTelefono</code>, y que la clave primaria de <code class="language-plaintext highlighter-rouge">telefonos</code> a la que se referencia es <code class="language-plaintext highlighter-rouge">codigo</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasOne</span><span class="p">(</span><span class="nc">Telefono</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'idTelefono'</span><span class="p">,</span> <span class="s1">'codigo'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>También es posible obtener la <strong>relación inversa</strong>, es decir, a partir de un teléfono, obtener el usuario al que pertenece. Para ello, añadimos un método <code class="language-plaintext highlighter-rouge">usuario</code> en el modelo <code class="language-plaintext highlighter-rouge">Telefono</code> y empleamos el método <code class="language-plaintext highlighter-rouge">belongsTo</code> para indicar a qué modelo se asocia:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Telefono</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">usuario</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nc">Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Nuevamente, podemos especificar otros nombres de clave pasando parámetros adicionales a <code class="language-plaintext highlighter-rouge">belongsTo</code>, igual que se hace para <code class="language-plaintext highlighter-rouge">hasOne</code>.</p>
+
+<p>De este modo, si queremos obtener el usuario a partir del teléfono, podemos hacerlo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$usuario</span> <span class="o">=</span> <span class="nc">Telefono</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$idTelefono</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">usuario</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="11-guardar-datos-relacionados">1.1. Guardar datos relacionados</h3>
+
+<p>Supongamos que queremos guardar un usuario con su teléfono asociado. Podemos simplemente guardar el <em>id</em> del teléfono como un campo más del usuario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Buscamos el teléfono que queremos asociar</span>
+<span class="c1">// (suponiendo que existe previamente)</span>
+<span class="nv">$telefono</span> <span class="o">=</span> <span class="nc">Telefono</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$idTelefono</span><span class="p">);</span>
+<span class="nv">$usuario</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Usuario</span><span class="p">();</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="o">=</span> <span class="s2">"Pepe"</span><span class="p">;</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">email</span> <span class="o">=</span> <span class="s2">"pepe@gmail.com"</span><span class="p">;</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">telefono_id</span> <span class="o">=</span> <span class="nv">$telefono</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">;</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Pero, además, podemos vincular ambos objetos en la relación, usando el método <code class="language-plaintext highlighter-rouge">associate</code>, de este modo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Buscamos el teléfono que queremos asociar</span>
+<span class="c1">// (suponiendo que existe previamente)</span>
+<span class="nv">$telefono</span> <span class="o">=</span> <span class="nc">Telefono</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$idTelefono</span><span class="p">);</span>
+<span class="nv">$usuario</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Usuario</span><span class="p">();</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="o">=</span> <span class="s2">"Pepe"</span><span class="p">;</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">email</span> <span class="o">=</span> <span class="s2">"pepe@gmail.com"</span><span class="p">;</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="nf">telefono</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">associate</span><span class="p">(</span><span class="nv">$telefono</span><span class="p">);</span>
+<span class="nv">$usuario</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="2-relaciones-uno-a-muchos-o-one-to-many">2. Relaciones uno a muchos o <em>one to many</em></h2>
+
+<p>Para ilustrar esta relación veamos otro ejemplo: supongamos que tenemos los modelos <code class="language-plaintext highlighter-rouge">Autor</code> y <code class="language-plaintext highlighter-rouge">Libro</code>, de modo que un autor puede tener varios libros, y un libro está asociado a un autor.</p>
+
+<p>La forma de establecer la relación entre ambos consistirá en añadir en la tabla de <code class="language-plaintext highlighter-rouge">libros</code> una clave ajena al autor al que pertenece. A la hora de plasmar esta relación en los modelos, se hace de forma similar al caso anterior, sólo que en lugar de utilizar el método <code class="language-plaintext highlighter-rouge">hasOne</code> en la clase <code class="language-plaintext highlighter-rouge">Autor</code> usaríamos el método <code class="language-plaintext highlighter-rouge">hasMany</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Autor</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">libros</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="nc">Libro</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Igual que ocurría antes, se asume que la tabla de libros tiene una clave primaria <code class="language-plaintext highlighter-rouge">id</code>, y que la clave ajena correspondiente hacia la tabla de autores es <code class="language-plaintext highlighter-rouge">autor_id</code>. De lo contrario, se pueden especificar otros pasando más parámetros a <code class="language-plaintext highlighter-rouge">hasMany</code>.</p>
+
+<p>De este modo obtenemos los libros asociados a un autor:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Autor</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">libros</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Finalmente, también podemos establecer la <strong>relación inversa</strong>, y recuperar el autor al que pertenece un determinado libro, definiendo un método en la clase <code class="language-plaintext highlighter-rouge">Libro</code> que emplee <code class="language-plaintext highlighter-rouge">belongsTo</code>, como en las relaciones uno a uno:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Libro</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">autor</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y obtener, por ejemplo, el nombre del autor a partir del libro:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$nombreAutor</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">autor</span><span class="o">-&gt;</span><span class="n">nombre</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="21-aplicando-esta-relación-en-nuestro-ejemplo">2.1. Aplicando esta relación en nuestro ejemplo</h3>
+
+<p>Esta relación la podemos dejar plasmada en nuestro ejemplo de la biblioteca, definiendo un nuevo modelo <code class="language-plaintext highlighter-rouge">Autor</code> con su correspondiente migración, y relacionando los modelos. Para ello, seguiremos estos pasos:</p>
+
+<ol>
+  <li>Creamos una nueva migración de modificación sobre la tabla de <em>libros</em>, para añadir un nuevo campo <code class="language-plaintext highlighter-rouge">autor_id</code>.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:migration nuevo_campo_autor_libros --table=libros
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">NuevoCampoAutorLibros</span> <span class="kd">extends</span> <span class="nc">Migration</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nc">Schema</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">integer</span><span class="p">(</span><span class="s1">'autor_id'</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">down</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nc">Schema</span><span class="o">::</span><span class="nf">table</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">dropColumn</span><span class="p">(</span><span class="s1">'autor_id'</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate
+</code></pre></div></div>
+
+<ol>
+  <li>Creamos de golpe el modelo, la migración y el controlador de autores (aunque el controlador no lo vamos a utilizar, al menos por el momento). El modelo <code class="language-plaintext highlighter-rouge">Autor</code> debe quedar en la carpeta <code class="language-plaintext highlighter-rouge">app\Models</code>, junto con el de usuarios y el de libros.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:model Autor -mcr
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en este punto, deberás renombrar a mano la migración, ya que el plural que asignará Laravel por defecto será <em>autors</em>, y no <em>autores</em>. Recuerda cambiar tanto el nombre del fichero de la migración, como el nombre de la clase interna, como el nombre de la tabla a la que se referencia en los métodos <code class="language-plaintext highlighter-rouge">up</code> y <code class="language-plaintext highlighter-rouge">down</code>.</p>
+</blockquote>
+
+<ol>
+  <li>Editamos la migración para definir los campos que tendrá la nueva tabla de autores, en su método <code class="language-plaintext highlighter-rouge">up</code>: un nombre y un año de nacimiento (opcional):</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CreateAutoresTable</span> <span class="kd">extends</span> <span class="nc">Migration</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'autores'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">);</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">integer</span><span class="p">(</span><span class="s1">'nacimiento'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">nullable</span><span class="p">();</span>
+            <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate
+</code></pre></div></div>
+
+<ol>
+  <li>Añadimos en el modelo <code class="language-plaintext highlighter-rouge">Autor</code> que la tabla asociada será <code class="language-plaintext highlighter-rouge">autores</code> (de lo contrario, considera que será <em>autors</em>. Además, definimos una relación de uno a muchos con los libros, añadiendo el método siguiente:</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Autor</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'autores'</span><span class="p">;</span>
+    <span class="mf">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">libros</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">hasMany</span><span class="p">(</span><span class="nc">Libro</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Recíprocamente, añadimos al modelo <code class="language-plaintext highlighter-rouge">Libro</code> este otro método, para poder recuperar un autor a partir de uno de sus libros:</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Libro</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">autor</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsTo</span><span class="p">(</span><span class="nc">Autor</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Utilizando <em>phpMyAdmin</em>, creamos a mano un par de autores en la tabla de autores, y los relacionamos con algunos de los libros que haya en la tabla de libros, añadiendo también a mano el <em>id</em> de cada autor en la clave ajena correspondiente de los libros. Por ejemplo:</li>
+</ol>
+
+<div align="center">
+    <img src="../../img/04_tabla_autores.png" width="70%" />
+</div>
+<div align="center">
+    <img src="../../img/04_tabla_libros.png" width="80%" />
+</div>
+
+<ol>
+  <li>Para probar cómo funcionan las relaciones, vamos primero a crear un nuevo libro asociado al autor 1. Definimos una ruta de prueba en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code> con este código (deberemos incorporar con <code class="language-plaintext highlighter-rouge">use</code> los modelos de <code class="language-plaintext highlighter-rouge">Autor</code> y <code class="language-plaintext highlighter-rouge">Libro</code>):</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'relacionPrueba'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$autor</span> <span class="o">=</span> <span class="nc">Autor</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="nv">$libro</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Libro</span><span class="p">();</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="o">=</span> <span class="s2">"Libro de prueba "</span> <span class="mf">.</span> <span class="nb">rand</span><span class="p">();</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">editorial</span> <span class="o">=</span> <span class="s2">"Editorial de prueba"</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">precio</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">autor</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">associate</span><span class="p">(</span><span class="nv">$autor</span><span class="p">);</span>
+    <span class="nv">$libro</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="nf">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">route</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<ol>
+  <li>Ahora, modificamos la vista <code class="language-plaintext highlighter-rouge">libros/index.blade.php</code> para que, en el listado, utilice las relaciones entre tablas para mostrar el nombre del autor entre paréntesis junto al título de cada libro:</li>
+</ol>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="nf">forelse</span><span class="p">(</span><span class="nv">$libros</span> <span class="k">as</span> <span class="nv">$libro</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">"{{ route('libros.show', </span><span class="nv">$libro</span><span class="s2">) }}"</span><span class="o">&gt;</span>
+        <span class="p">{{</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">titulo</span> <span class="p">}}</span> <span class="p">({{</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">autor</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="p">}})</span>
+    <span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="n">empty</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="nc">No</span> <span class="n">se</span> <span class="n">encontraron</span> <span class="n">libros</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="n">endforelse</span>
+</code></pre></div></div>
+<!---->
+
+<ol>
+  <li>Podemos probar las dos cosas accediendo respectivamente a estas dos URLs (suponiendo que el servidor está escuchando en <em>localhost</em> por el puerto 8000):</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:8000/relacionPrueba
+http://localhost:8000/libros
+</code></pre></div></div>
+
+<h3 id="22-acceso-eficiente-a-datos-relacionados-eager-loading">2.2. Acceso eficiente a datos relacionados. <em>Eager loading</em></h3>
+
+<p>En el ejemplo anterior, hemos visto cómo, dado un libro, podemos obtener el nombre del autor de este modo en una vista Blade:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{{</span> <span class="nv">$libro</span><span class="o">-&gt;</span><span class="n">autor</span><span class="o">-&gt;</span><span class="n">nombre</span> <span class="p">}}</span>
+</code></pre></div></div>
+<!---->
+
+<p>Sin embargo, este código provoca una nueva consulta en la base de datos para buscar los datos del autor asociado al libro, con lo que, para un listado de 100 libros, estaremos haciendo 100 consultas adicionales para extraer la información de los respectivos autores.</p>
+
+<p>Para evitar esta sobrecarga, podemos emplear una técnica llamada <em>eager loading</em> (que en español podríamos traducir como <em>carga apresurada</em> o <em>impaciente</em>). Consiste en emplear el método <code class="language-plaintext highlighter-rouge">with</code> para indicar qué relación queremos dejar pre-cargada en el resultado. Por ejemplo, si indicamos algo así en la función <code class="language-plaintext highlighter-rouge">index</code> del controlador de libros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="nc">Libro</span><span class="o">::</span><span class="nf">with</span><span class="p">(</span><span class="s1">'autor'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.index'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="3-relaciones-muchos-a-muchos-o-many-to-many">3. Relaciones muchos a muchos o <em>many to many</em></h2>
+
+<p>Estas relaciones son más difíciles de plasmar, ya que es necesario contar con una tercera tabla que relacione las dos tablas afectadas. Pero vayamos por partes…</p>
+
+<p>Para ilustrar este caso, supongamos los modelos <code class="language-plaintext highlighter-rouge">Usuario</code> y <code class="language-plaintext highlighter-rouge">Rol</code>, de modo que un usuario puede tener varios roles, y un rol puede ser asignado a varios usuarios. Nuevamente, definimos un método en el modelo <code class="language-plaintext highlighter-rouge">Usuario</code> que utilice el método <code class="language-plaintext highlighter-rouge">belongsToMany</code> para indicar con qué otro modelo se relaciona:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Usuario</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">roles</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="nc">Rol</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Así ya podremos acceder a los roles de un usuario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$roles</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>En este caso, al otro lado de la relación hacemos lo mismo: definimos un método en el modelo <code class="language-plaintext highlighter-rouge">Rol</code> que indique con <code class="language-plaintext highlighter-rouge">belongsToMany</code> que puede pertenecer a varios usuarios:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Rol</span> <span class="kd">extends</span> <span class="nc">Model</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">usuarios</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">belongsToMany</span><span class="p">(</span><span class="nc">Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A efectos de automatización, es decir, para que Eloquent establezca los nexos de forma automática, si queremos establecer una relación muchos a muchos entre un modelo <code class="language-plaintext highlighter-rouge">A</code> y otro <code class="language-plaintext highlighter-rouge">B</code>, se asume que existirá otra tabla <code class="language-plaintext highlighter-rouge">a_b</code> (el orden en que se colocan los nombres de las tablas es alfabético), con los campos <code class="language-plaintext highlighter-rouge">a_id</code> y <code class="language-plaintext highlighter-rouge">b_id</code>, que relacionen los dos modelos. En nuetro caso, se asumirá que existe una tabla <code class="language-plaintext highlighter-rouge">rol_usuario</code> con un campo <code class="language-plaintext highlighter-rouge">rol_id</code> y otro llamado <code class="language-plaintext highlighter-rouge">usuario_id</code>, que enlacen con los correspondientes <code class="language-plaintext highlighter-rouge">id</code> de las tablas de usuarios y roles. Si esto no fuera así, podemos pasar más parámetros a <code class="language-plaintext highlighter-rouge">belongsToMany</code> para indicarlo.</p>
+
+<p>En el caso de las relaciones muchos a muchos, es posible que nos interese acceder a algún dato de esa tabla intermedia que los relaciona. En ese caso, hacemos uso del atributo <code class="language-plaintext highlighter-rouge">pivot</code>, predefinido, y que apunta a la tabla o modelo intermedio entre los dos relacionados. Por ejemplo, si quisiéramos obtener la fecha de creación de la relación entre un usuario y un rol, podríamos hacer esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$roles</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">findOrFail</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">roles</span><span class="p">;</span>
+
+<span class="k">for</span><span class="p">(</span><span class="nv">$roles</span> <span class="k">as</span> <span class="nv">$rol</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$rol</span><span class="o">-&gt;</span><span class="n">pivot</span><span class="o">-&gt;</span><span class="n">created_at</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="4-más-información">4. Más información</h2>
+
+<p>Sobre estas relaciones existen algunas variantes, y formas de personalizar las tablas y campos afectados. Se puede consultar más información en la <a href="https://laravel.com/docs/eloquent-relationships#defining-relationships">documentación oficial de Eloquent</a>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software documentation | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software documentation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="09c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/09c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software documentation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Software documentation","url":"http://nachoiborraies.github.io/java/md/en/09c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="software-documentation">Software documentation</h1>
+
+<h2 id="documentation-with-doxygen">Documentation with Doxygen</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/09c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="09c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Doxygen is an external, independent tool that lets us generate documentation for many programming languages, such as C#, Java or PHP, among others. You can download Doxygen from its <a href="http://www.doxygen.nl/">official web site</a>, in the <em>Downloads</em> section. Regarding Windows, it consists in running an installer.</p>
+
+<p>Then, we must launch the Doxygen wizard (also known as <em>DoxyWizard</em>), which will show an initial screen like this one:</p>
+
+<div align="center">
+    <img src="../../img/09_Doxygen1.png" alt="Doxygen Step 1" width="80%" />
+</div>
+
+<p>In the upper text field we must choose the folder in which Doxygen has been installed (typically <code class="language-plaintext highlighter-rouge">C:\Program Files\doxygen</code>). In the lower text fields, we can just indicate the source folder to check the files (we can check the option to scan it recursively), and the destination folder to generate the documentation in.</p>
+
+<div align="center">
+    <img src="../../img/09_Doxygen2.jpg" alt="Doxygen Step 2" width="80%" />
+</div>
+
+<p>We usually choose to include <em>All Entities</em>, and then the programming language that we are using (in our case, <em>Optimize for Java or C# output</em>). Then we move to next step.</p>
+
+<div align="center">
+    <img src="../../img/09_Doxygen3.jpg" alt="Doxygen Step 3" width="80%" />
+</div>
+
+<p>Here we need to choose the output format. We usually check the HTML checkbox, and we can decide if we want to show a navigation panel or a search option. Then, we move to next step.</p>
+
+<p>Last two steps consist in:</p>
+
+<ul>
+  <li>Choosing if you want to generate class diagrams with the internal tool (or with a external tool called GraphViz)</li>
+  <li>Run Doxygen</li>
+</ul>
+
+<p>After running <em>Doxygen</em>, you will see the progress in the log text area, until a <em>Doxygen has finished</em> final message. Then, you can show the HTML output from Doxygen, or navigate to the chosen output folder.</p>
+
+<div align="center">
+    <img src="../../img/09_Doxygen4.png" alt="Doxygen final result" width="80%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Generate the documentation for Exercise 1 and 2 of <a href="09a">this previous document</a> using Doxygen</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

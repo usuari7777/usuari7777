@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Some additional concepts</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Control structures
+### Some additional concepts
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Nested loops
+
+- Iterative structures can be combined
+   - A *while* inside a *for*
+   - A *for* inside another *for*
+   - ...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Nested loops
+
+This prints a square filled with asterisks, whose size is determined by variable *size*
+
+```java
+for (int i = 1; i <= size; i++)
+{
+    for (int j = 1; j <= size; j++)
+    {
+        System.out.print("*");
+    }
+    System.out.println();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Write a program called **Triangle** in which we as a user to enter a height (integer) and then we write a reversed triangle like the following one (assuming a height of 5):
+
+```
+*****
+ ****
+  ***
+   **
+    *
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **Counter** that asks the user to write a number between 1 and 100. The program must keep asking the number until it is a number in the valid range. Then it must count from this number to 1 in descending order.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *break* instruction
+
+It exits the loop in which it is placed
+
+```java
+for (int i = 1; i <= 10; i++)
+{
+    System.out.println(i);
+    if (i == 5)
+        break;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *continue* instruction
+
+It forces a new iteration of the loop, without running the instructions below it
+
+```java
+for (int i = 1; i <= 10; i++)
+{
+    if (i == 5)
+        continue;
+    System.out.println(i);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using *break* and *continue*
+
+NOT recommended. They can always be avoided
+
+```java
+for (int i = 1; i <= 10; i++)
+{
+    if (i != 5)
+        System.out.println(i);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Writing clean code. Spacing
+
+- Appropriate code formatting and spacing tells the reader that the programmer has paid attention to every single detail
+- A bunch of lines of code incorrectly indented and/or spaced, we may think that the same inattention may be present in other aspects
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Vertical spacing
+
+Every group of lines that represents a concrete task must be separated vertically from the other groups
+
+```java
+import java.util.Scanner;
+
+public class Program 
+{
+    public static void main(String[] args) 
+    {
+        int personAge;
+        String personName;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Tell me your name:");
+        personName = sc.nextLine();
+
+        System.out.println("Tell me your age:");
+        personAge = sc.nextInt();
+
+        if (personAge > 18)
+            System.out.println("You are an adult, " + personName);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Vertical spacing
+
+Concepts that are tightly related should be placed together vertically, without any separation or comment between them
+
+```java
+String personName;
+/* 
+ * This comment should not be written here!
+ */
+int personAge;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Vertical spacing
+
+Opening braces can be put at the end of the line (Java, JavaScript) or at the beginning of a new line (C#, C, C++). You can choose your own style, but you must always apply the same pattern, and follow the same guidelines that your team.
+
+```java
+// Java style (opening brace is NOT considered a blank line)
+if (condition) {
+    ...
+}
+
+// C# style (opening brace can be considered a blank line)
+public static void Main()
+{
+    if (condition)
+    {
+        ...
+    }
+...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Horizontal spacing
+
+- Lines should not be longer than 80 characters (many IDEs have a vertical guide for this)
+- Otherwise, we must divide this line in multiple lines
+- Other hints: we should not scroll any line, and if we print it, the final appearance should be the same
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Horizontal spacing
+
+Example of line width checking
+
+```java
+if ((personAge > 18 && personAge <= 65) ||
+    (personName.equals("John")) || (personName.equals("Mary"))) 
+{
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Horizontal spacing
+
+- Horizontal spacing helps us associate things that are related, and disassociate things that are not
+   - Operators must be separated from the elements they are operating
+
+```java
+int average = (number1 + number2) / 2;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Horizontal spacing
+
+- Do not align the variable names vertically. You may not pay attention to corresponding data types
+
+```java
+StringBuilder longText;
+int           textSize;
+String        textToFindAndReplace;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Horizontal spacing
+
+- Indentation is important, since it establishes a hierarchy.
+   * Class name is not indented
+   * Functions or other elements inside a class are indented one level
+   * Implementation of these functions are indented two levels
+   * Block implementations inside function code (code of *if* or *while* clauses, for instance) are indented three levels
+   * ... etc.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

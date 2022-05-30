@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Integrated Development Environments</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Integrated Development Environments
+### Using Visual Studio Code
+</script>
+</section>
+
+<section>
+    <h2>Visual Studio Code</h2>
+    <table>
+        <tr>
+            <td valign="middle" width="30%"><img src="../../../img/ED_b1_tema02-47-VSCode_logo.png" /></td>
+            <td>
+                <ul>
+                    <li>Lightweight and powerful text editor</li>
+                    <li>Multiple languages</li>
+                    <li><em>code.visualstudio.com</em></li>
+                </ul>
+                <p>Linux:</p>
+                <pre><code data-trim data-noescape>    
+sudo dpkg -i vscode_file.deb
+                </code></pre>                    
+            </td>
+        </tr>
+    </table>
+</section>
+
+<section>
+    <h2>VS Code work environment</h2>
+    <div align="center">
+        <img src="../../../img/ED_b1_tema02-15-UI.png" alt="Main sections of the Visual Studio Code work environment" width="60%" />
+    </div>
+    <p>Change theme in <em>File &gt; Preferences &gt; Color Theme</em></p>
+</section>
+
+<section>
+    <h2>VS Code Extensions</h2>
+    <table>
+        <tr>
+            <td valign="middle" width="30%"><img src="../../../img/ED_b1_tema02-49-vscode_extensiones.png" /></td>
+            <td>
+                <ul>
+                    <li>Improve IDE perfomance</li>
+                    <li>Example: <em>Java Extension Pack</em></li>
+                    <li>Example: <em>Code Runner</em></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## VS Code Extension Settings
+
+- *File > Preferences > Settings* menu, go to *Extensions* section 
+- *Code Runner*: *Run Code configuration* > check *Run in terminal*
+   - Run programs: right click on source code and *Run Code*
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-27-RunCode.png" alt="Run Code settings" width="60%" />
+</div>    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## VS Code basic features
+
+- Syntax highlighting
+- Code folding
+- Code auto completion (*IntelliSense*)
+- XML/HTML tags auto closing
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## VS Code side by side editing
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-19-SidebySide.png" alt="Side by side editing in Visual Studio Code" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## VS Code multicursor
+
+Add cursors with *Alt* + click, remove with *Esc*
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-21-CodeMultiCursor.png" alt="Multi cursor in Visual Studio Code" width="60%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## VS Code box selection
+
+*Shift* + *Alt* and drag mouse over selection
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-22-CodeBoxSelection.png" alt="Box selection in Visual Studio Code" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## VS Code additional features
+
+- Document auto format (right click > *Format Document*)
+- Auto save files periodically (*File* > *Auto Save*)
+- Hot exit
+- Indentation configuration (from status bar)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## VS Code Keybindings (1/2)
+
+|Shortcut|Action|
+|---|---|
+|Ctrl-S|Save current file|
+|Ctrl-Z| Undo last action|
+|Ctrl-Shift-K|Delete current line|
+|Shift-Alt-Up/Down|Duplicate line up/down|
+|Ctrl-K-C|Comment selected line(s)|
+|Ctrl-K-U|Uncomment selected line(s)|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## VS Code Keybindings (2/2)
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema02-26-CodeKeybindings.png" alt="Keybindings for Visual Studio Code" width="60%" />
+</div>
+
+</script>
+</section>
+  
+<section>
+    <h2>Exercise</h2>
+
+    <p>Create a file called <em>Test.java</em> with VS Code and add the following code. Try some word auto completion and keybindings with it. Finally, compile it and run it.</p>
+    <pre><code data-trim data-noescape>    
+public class Test
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Hello");
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+
+    <p>Create a file called <em>test.c</em> with VS Code and add the following code. Try some word auto completion and keybindings with it. Finally, compile it and run it.</p>
+    <pre><code data-trim data-noescape>    
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello");
+    return 0;
+}
+    </code></pre>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

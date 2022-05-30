@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Acceso a bases de datos con PHP</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Acceso a bases de datos con PHP
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Acceso a bases de datos con PHP
+
+- PHP incorpora distintas funciones específicas para conectar con determinados SGBD
+   - MySQL, PostgreSQL...
+- Usaremos **PDO** (*PHP Data Objects*)
+   - Capa que proporciona un acceso uniforme a bases de datos, independiente del SGBD utilizado
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Preparar la base de datos
+
+Usamos la herramienta **phpMyAdmin** de XAMPP (*http://localhost/phpmyadmin*), poniendo en marcha tanto Apache como MySQL
+
+<div align="center">
+    <img src="../../../img/03_phpmyadmin.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Crear la base de datos
+
+Desde la opción *Nueva* del panel izquierdo
+
+<div align="center">
+    <img src="../../../img/03_phpmyadmin2.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Crear la(s) tabla(s)
+
+Especificamos nombre y número (estimado) de columnas o campos
+
+<div align="center">
+    <img src="../../../img/03_phpmyadmin3.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Definir los campos de la(s) tabla(s)
+
+Indicamos nombre, tipo de datos, restricciones...
+
+<div align="center">
+    <img src="../../../img/03_phpmyadmin4.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otras opciones
+
+* **Exportar** (menú superior): hace una copia de seguridad de la base de datos en un archivo de texto
+* **Importar** (menú superior): importa o restaura una base de datos desde un fichero de texto generado (exportado) previamente
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea una base de datos llamada *videojuegos* con una tabla *videojuegos* como la del ejemplo anterior, usando *phpMyAdmin*.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conexión a la base de datos
+
+Parámetros de conexión necesarios
+
+- Dirección del servidor (típicamente *localhost*)
+- Puerto de escucha (si no es el puerto por defecto)
+- Nombre de la base de datos que utilizar
+- Usuario y contraseña de acceso
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conexión a la base de datos con PDO
+
+Recomendable incluir el código en un archivo *.inc* para usarlo en todas las páginas que necesiten conectar
+
+```php
+$host = "localhost";
+$nombreBD = "videojuegos";
+$usuario = "root";
+$password = "";
+
+$pdo = new PDO("mysql:host=$host;dbname=$nombreBD;charset=utf8",
+    $usuario, $password);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejecutar instrucciones SQL
+
+1. Preparamos la instrucción con el método **prepare** de PDO
+2. Ejecutamos la instrucción con el método **execute**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: inserción
+
+```php
+$insercion = $pdo->prepare("INSERT INTO videojuegos(titulo, genero, precio)" .
+    " VALUES('Fifa 2020', 'Deportes', 40.95)");
+$insercion->execute();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parametrizar operaciones
+
+- Normalmente las instrucciones no tienen datos fijos
+- Los datos pueden variar dependiendo, por ejemplo, de lo que se envíe en un formulario
+- Definimos partes variables en la *query*, y las reemplazamos después por los datos reales usando el método **bindParam**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parametrizar operaciones
+
+```php
+$insercion = $pdo->prepare("INSERT INTO videojuegos(titulo, genero, precio)" .
+    " VALUES(:titulo, :genero, :precio)");
+$insercion->bindParam(':titulo', $_REQUEST['titulo']);
+$insercion->bindParam(':genero', $_REQUEST['genero']);
+$insercion->bindParam(':precio', $_REQUEST['precio']);
+$insercion->execute();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Resultado de las operaciones
+
+En el caso de inserciones, borrados y modificaciones, **execute** devuelve un booleano que indica si ha ido bien o mal
+
+```php
+if ($insercion->execute())
+{
+    // OK
+}
+else
+{
+    // Error
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Resultado de las operaciones
+
+En el caso de consultas, podemos recorrer con **fetch** cada registro devuelto, y acceder a sus datos
+
+```php
+$consulta = $pdo->prepare("SELECT * FROM videojuegos WHERE genero=:genero");
+$consulta->bindParam(':genero', $_REQUEST['genero']);
+$consulta->execute();
+while($registro = $consulta->fetch())
+{
+    echo $registro['titulo'];
+}
+``` 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Liberar conexiones
+
+Al dejar de usar la conexión en cada página, debemos poner a NULL los recursos utilizados
+
+```php
+$consulta = NULL;
+$pdo = NULL;
+``` 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una carpeta llamada **videojuegos** en tu espacio de trabajo XAMPP. Define dentro una página llamada **form_videojuego.php** que simplemente tenga un formulario para dar de alta un videojuego en la base de datos (con los campos del título, género y precio, siendo el género un desplegable con varias opciones predefinidas). El formulario se enviará a **insertar_videojuego.php**, que realizará la inserción recogiendo los datos del formulario. Si todo ha ido bien, redirigirá a **index.php**, que mostrará un listado de videojuegos actualizado. Si algo ha ido mal, redirigirá a **error.php** con el mensaje *Error insertando videojuego*.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Modifica el archivo **index.php** del ejercicio anterior para añadir un formulario de búsqueda que permita filtrar videojuegos por precio. Si especificamos un precio, se mostrarán sólo los videojuegos que sean más baratos que el precio indicado.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

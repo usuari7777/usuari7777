@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Introducción a JavaScript</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Introducción a JavaScript
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JavaScript
+
+- Lenguaje de desarrollo *en el cliente*
+- Se ejecuta en navegadores web
+- Añade funcionalidades a las páginas HTML
+   - Añadir contenido dinámicamente
+   - Validar datos de formularios
+   - ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Historia
+
+- Desde años 90 (auge de las páginas web)
+- Ayudaba a generar ciertos contenidos o procesar ciertos datos sin acudir al servidor
+- Presente en Netscape 3.0
+- Formó su propio estándar (ECMAScript) en 1997
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Versiones
+
+- Como implementación de ECMAScript, ha tenido varias versiones desde entonces
+- [Web oficial](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)
+- [Wikipedia](https://es.wikipedia.org/wiki/ECMAScript)
+- Versiones recientes pueden no ser compatibles con todos los navegadores
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Añadir JavaScript a las páginas (1/3)
+
+Incluir bloque *script* con el código en alguna parte de la página
+
+<div align="center">
+    <img src="../../../img/01_script_interno.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Añadir JavaScript a las páginas (2/3)
+
+Añadir código sobre algunas etiquetas (a base de eventos)
+
+```html
+<p onclick="alert('Hola, buenas');">Bla bla bla bla bla... </p>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Añadir JavaScript a las páginas (3/3)
+
+Incluir bloque *script* que referencie a un fichero *.js* externo con el código
+
+<div align="center">
+    <img src="../../../img/01_script_externo.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ubicar la etiqueta *script*
+
+- Al inicio (*head*) si contiene código que no se va a ejecutar inmediatamente (funciones)
+- Al final del *body* si contiene código que necesite ejecutarse inmediatamente, porque así ya se han cargado todos los componentes de la página
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La etiqueta *noscript*
+
+Permite mostrar un contenido determinado si el navegador tiene JavaScript desactivado
+
+```html
+<noscript>
+    <p>Tienes JavaScript desactivado. Deberás activarlo para poder
+        utilizar la página correctamente.</p>
+</noscript>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Detectar errores en JavaScript
+
+- No existe una consola directamente disponible donde ver qué hace el programa
+- Podemos mostrarla en cada navegador con las herramientas para desarrolladores
+   - F12 o clic derecho - *Inspeccionar* en Google Chrome
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Detectar errores en JavaScript
+
+<div align="center">
+    <img src="../../../img/01_consola_chrome.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea un archivo llamado **saludo_js.html**. Define dentro, embebido, código JavaScript con un mensaje que te salude por tu nombre. Procura cometer algún error de sintaxis (por ejemplo, no cerrar los paréntesis) para ver cómo te informa de ello la consola del navegador.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipos de datos básicos
+
+- **Números**: enteros (*integer*) o reales (*float*), JavaScript no hace distinción. Se consideran tipo *Number*.
+- **Booleanos**: *true* o *false*. Tipo *Boolean*
+- **Textos**: con comillas simples o dobles, son tipo *String*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Declaración de variables
+
+- Permiten almacenar información del tipo que sea
+- Usamos la palabra **var** o **let** seguida del nombre de la variable
+   - El nombre puede contener letras, subrayados, $ o números, pero no puede empezar por número
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Declaración de variables
+
+```js
+var nombreUsuario;  --> OK
+let apellido1;      --> OK
+var $precio;        --> OK
+var 1apellido;      --> ERROR
+let nombre.usuario; --> ERROR
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo
+
+```js
+var texto = "Hola, buenas tardes.";
+alert(texto);
+```
+
+El punto y coma al final de cada instrucción no es obligatorio, pero sí recomendable
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Constantes
+
+Con la palabra **const**, definen datos que no van a variar durante la ejecución del programa
+
+```js
+const pi = 3.1416;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## *undefined* y *null*
+
+- Cuando declaramos una variable y no le damos valor, se le asigna el tipo *undefined*
+- Distinto al valor *null*, que también existe, pero se debe asignar a mano
+
+```js
+var dato;
+console.log(dato);      // undefined
+dato = null;
+console.log(dato);      // null
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comentarios
+
+- De varias líneas entre `/*` y `*/`
+- De una línea comenzando con `//`
+
+```js
+/* Creamos una variable edad para 
+pedirle al usuario su edad */
+var edad = prompt ("Dime tu edad");
+// Pasamos esa edad a número
+var edadNumerica = parseInt(edad);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sacar información al usuario
+
+- **alert(mensaje)** muestra un mensaje en forma de *popup*
+- **document.write(texto)** escribe el texto en la página HTML
+- **console.log(mensaje)** y **console.error(mensaje)** muestran el mensaje en la consola del navegador (opciones de desarrollador)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sacar información al usuario
+
+```js
+alert("Hola, buenos días");
+console.log("El email está vacío");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pedir información al usuario
+
+- **prompt(mensaje)** muestra al usuario el mensaje y recoge lo que el usuario escriba
+- Se puede asignar a una variable
+- Es *null* si el usuario cancela la operación
+
+```js
+let nombre = prompt("Dime tu nombre");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones aritméticas
+
+Suma (+), resta (-), multiplicación (*), división (/) y resto (%)
+
+```js
+var num1 = 2;
+var num2 = 3;
+var suma = num1 + num2;
+alert (suma);
+suma = suma * 2;
+alert(suma);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Otras operaciones aritméticas
+
+- El operador + también enlaza textos
+- Los operadores ++ y -- sirven para incrementar o decrementar variables
+
+```js
+var num1 = 3;
+var num2 = 2;
+var suma = num1 + num2;
+num1++;
+alert("El resultado es " + suma);   // El resultado es 5
+alert(num1);                        // 4
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones relacionales
+
+- Comparaciones con operadores >, <, >=, <=, == (igual) y != (distinto)
+- Funcionan también para textos (comparación alfabética)
+
+```js
+var num1 = 3;
+alert (num1 > 2);
+alert (num1 == 3);
+alert (num1 <= 1);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones relacionales de identidad
+
+=== y !== comparan si los datos son iguales y del mismo tipo
+
+```js
+var num = 3;
+var texto = "3";
+
+alert (num == texto);   // true
+alert (num === texto);  // false
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Operaciones lógicas
+
+- Trabajan sobre condiciones (booleanas), combinando varias o alterando su valor
+   - **Negación**: operador `!`, invierte el sentido de una condición (verdadero / falso)
+   - **Y** lógica: operador `&&`, combina dos condiciones siendo cierta si las dos lo son
+   - **O** lógica: operador `||`, combina dos condiciones siendo cierta si alguna lo es
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones lógicas
+
+```js
+var num1 = 3;
+var num2 = 5;
+var num3 = 4;
+alert (!(num1 < num2));
+alert (num3 > num2 && num3 > num1);
+alert (num3 > num2 || num3 > num1);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Conversiones entre tipos simples
+
+- **Number(dato)** convierte un dato a numérico
+   - **parseInt(dato)** y **parseFloat(dato)** convierten a entero y real, respectivamente
+- **String(dato)** convierte un dato a texto
+- **Boolean(dato)** convierte un dato a booleano
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Conversiones entre tipos simples
+
+```js
+var texto = "32";
+var numero = Number(texto);      // 32
+var numero2 = parseInt(texto);   // 32
+var texto2 = String(numero);     // "32"
+var resultado = Boolean("true"); // true
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: uso de *prompt*
+
+*prompt* devuelve siempre un texto. Debemos convertirlo si es un número
+
+```js
+var numero = prompt("Dime un número");
+var doble = parseInt(numero) * 2;
+alert("El doble es " + doble);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## NaN
+
+- *Not a Number*
+- Resultado de algunas operaciones numéricas o de conversión cuando no se pueden hacer
+- Disponemos de la función *isNaN* para comprobar si una expresión no es numérica, antes de utilizarla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## NaN
+
+```js
+var numero;
+var otroNumero = parseInt(numero);
+// otroNumero es NaN porque numero es *undefined*
+
+if (isNaN(otroNumero))
+{
+    alert("El valor no es numérico");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea un documento llamado **operaciones_js.html** y, con JavaScript, pídele al usuario que introduzca dos números (primero uno y luego otro) y saca cuatro mensajes mostrando su suma, resta, multiplicación y división.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *if*
+
+- Permite ejecutar un conjunto de instrucciones si se cumple una determinada condición
+- Permite también ejecutar un conjunto alternativo si no se cumple, usando *else*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *if*
+
+```js
+if (email == "")
+{
+    alert ("Debes rellenar el e-mail antes de continuar");
+}
+else
+{
+    alert ("Todo correcto. Podemos continuar");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *if* enlazada
+
+Podemos enlazar *if.. else if.. else if..* para definir distintas alternativas
+
+```js
+var edad = prompt("Dime tu edad");
+edad = parseInt(edad);
+if (edad < 10)
+{
+    alert ("No tienes edad para ver esta web");
+}
+else if (edad < 18)
+{
+    alert ("Aún eres menor de edad, pero puedes acceder a esta web");
+}
+else
+{
+    alert ("Todo correcto");
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea un documento HTML llamado **notaBasica_js.html**. Utilizando JavaScript, crea una variable nota con una nota de examen que le pedirás al usuario. Después, utilizando `if..else`, saca un mensaje por pantalla indicando si el examen está aprobado o no.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea un documento llamado **notaNominal_js.html**, similar al anterior. En este caso, en lugar de decir simplemente si el examen está aprobado o no, deberá decir la nota nominal del examen (suspenso, aprobado, bien, notable o sobresaliente).
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *switch*
+
+- Permite analizar el valor que toma una expresión o variable de entre un conjunto de valores limitado o finito
+- Cada posible valor que puede tomar la expresión se asocia a un grupo `case`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *switch*
+
+```js
+switch(opcion)
+{
+    case 1:
+        console.log("Bienvenido");
+        break;
+    case 2:
+        console.log("Hasta pronto");
+        break;
+    case 3:
+        console.log("Acceso no permitido");
+        break;
+    default:
+        console.log("Opción no reconocida");
+        break;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura *switch*
+
+Podemos definir condiciones en los *case*, simulando *if..else*
+
+```js
+switch(true)
+{
+    case opcion < 2:
+        console.log("La opción es menor que 2");
+        break;
+    case opcion < 10:
+        console.log("La opción es mayor o igual que 2 y menor que 10");
+        break;
+    default:
+        console.log("La opción es mayor o igual que 10");
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Estructura *while*
+
+Permite repetir un conjunto de instrucciones mientras se cumpla una condición
+
+```js
+// Contar de 1 a 5
+var numero = 1;
+while (numero <= 5)
+{
+    alert(numero);
+    numero = numero + 1;    // También podríamos poner numero++
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *do..while*
+
+Similar a *while*, pero comprueba la condición después de ejecutar el bloque de instrucciones
+
+```js
+// Contar de 1 a 5
+var numero = 1;
+do
+{
+    alert(numero);
+    numero = numero + 1;    // También podríamos poner numero++
+}
+while (numero <= 5);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura *for*
+
+Permite ejecutar un conjunto de instrucciones un número de veces, normalmente usando un contador
+
+```js
+// Contar de 1 a 5
+for (var i = 1; i <= 5; i++)
+{
+    alert (i);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Crea un documento llamado **repeticiones_js.html**. En él, pídele al usuario que escriba dos números. Deberá ir contando del primero al segundo (sacando cada número en un alert). Deberás tener en cuenta cuál es el mayor de los dos, para saber si tienes que ir contando hacia arriba o hacia abajo (utiliza para esta comprobación la estructura *if* que hemos visto anteriormente).
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *var* vs *let*
+
+- Las variables con *var* son movidas al inicio del bloque, y su ámbito se extiende más allá de donde fueron definidas (*hoisting*)
+- Las variables con *let* sólo son válidas en el ámbito donde se han declarado (recomendado)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *var* vs *let*
+
+```js
+var numero = 3;
+alert(nombre);  // undefined
+if (numero >= 0)
+{
+    var nombre = "Nacho";
+}
+alert(nombre);  // Nacho
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *var* vs *let*
+
+```js
+let numero = 3;
+if (numero >= 0)
+{
+    let nombre = "Nacho";
+}
+alert(nombre);  // Error
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

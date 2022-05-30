@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Funciones y modularización del código</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Funciones y modularización del código
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Introducción
+
+- Cualquier fragmento de código de los hechos hasta ahora se ejecuta nada más cargar la página
+- Lo normal es que el código JavaScript se vaya activando a medida que el usuario interactúa con la página
+- Para ello es preciso agrupar el código en funciones
+
+</script>
+</section>
+   
+<section data-markdown>
+<script type="text/template">
+## Función
+
+- Fragmento de código con un nombre que nos sirve para invocarlo cuando lo necesitemos
+- Se definen con la palabra **function** en JavaScript, seguida del nombre, unos paréntesis y, entre llaves, el código asociado
+- Los nombres de funciones pueden tener letras, números y subrayados (_)
+- El orden en que las definamos es irrelevante
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de función
+
+```js
+function sumaVariables()
+{
+    var num1 = 2;
+    var num2 = 6;
+    var suma = num1 + num2;
+    alert("El resultado de la suma es " + suma);
+}
+```
+
+</script>
+</section>
+   
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de llamada a función
+
+```html
+<p onclick="sumaVariables()">Bla bla bla bla...</p>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros
+
+- Datos que se proporcionan desde fuera a la función para completar su tarea
+- Se especifican entre los paréntesis, separados por comas, como nombres de variables
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de uso de parámetros
+
+```js
+function sumaDatos(num1, num2)
+{
+    var suma = num1 + num2;
+    alert("El resultado de la suma es " + suma);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de uso de parámetros
+
+```html
+<p onclick="sumaDatos(3, 5)">Bla bla bla bla...</p>
+```
+
+- Seguimos la nomenclatura *camel case* para nombrar parámetros, variables y funciones: primera letra en minúscula y cada primera letra del resto de palabras en mayúscula
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea un documento llamado **operaciones_funcion_js.html**. En él, define cuatro párrafos: uno que ponga "Suma", otro que ponga "Resta", otro que ponga "Multiplicación" y otro que ponga "División". Añade un código JavaScript que defina cuatro funciones llamadas *sumar*, *restar*, *multiplicar* y *dividir* que reciban dos números como parámetro y hagan cada una de estas cuatro operaciones con los números que reciben, y muestren su resultado, como en el ejemplo anterior. Estas funciones se deben activar respectivamente cuando hagamos clic sobre el párrafo correspondiente, es decir, al hacer clic en el párrafo que pone "Suma", deberemos activar la función *sumar*, y así sucesivamente. Pasa como parámetro a las funciones los números que quieras.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Número de parámetros
+
+- Si pasamos menos parámetros de los que necesita la función, el resto se ponen a *undefined*
+- Si pasamos más parámetros de los necesarios, el resto se ignoran
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros con valores por defecto
+
+Se les asigna un valor por defecto en la definición de la función, por si llamamos a la función sin especificar ese parámetro
+
+```js
+function sumaDatos(num1, num2 = 0)
+{
+    var suma = num1 + num2;
+    alert("El resultado de la suma es " + suma);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipo de retorno
+
+- Algunas funciones necesitan devolver un resultado
+- Ese resultado se puede asignar a una variable o utilizar en una expresión en el código
+- Usamos la palabra **return** para devolver el valor que nos interese
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipo de retorno
+
+```js
+function sumaDatos(num1, num2)
+{
+    var suma = num1 + num2;
+    return suma;
+}
+
+...
+
+let resultado = sumaDatos(3, 5);
+console.log(resultado);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página llamada **calcular_precio_js.html** que defina una función llamada `calcularPrecio` con 3 parámetros: el nombre de un producto, su precio y su porcentaje de IVA.
+ 
+* Los parámetros deberán tener valor por defecto: "Producto genérico", 100 y 21.
+* Se debe convertir el nombre del producto a string y los otros dos datos a números
+* Si precio o porcentaje no son numéricos, se mostrará el mensaje de "Datos incorrectos"
+* Si son válidos, mostraremos por consola el nombre del producto y el precio final incluyendo el IVA
+* Llama a la función varias veces con varios datos de prueba para comprobar su funcionamiento
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea una página llamada **tabla_multiplicar_js.html**. Deberá pedirle al usuario un número del 1 al 10 (repetidamente hasta que sea válido) y después, usando una función previamente definida, mostrar la tabla de multiplicar de ese número en el contenido de la página (`document.write`), en forma de lista no ordenada.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Variables locales y globales
+
+- Una variable definida dentro de una función es *local* a la función (no existe fuera de ella)
+   - Independientemente de si se ha declarado con *var* o con *let*
+- Una variable declarada fuera de cualquier función es *global* a todas ellas
+- Cuando una variable local se llama igual que una global, prevalece la local
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Modo estricto
+
+- Si en algún momento usamos una variable que no hemos declarado, se considera una variable global a toda la aplicación
+   - Importantes efectos colaterales no deseables
+- Habilitar modo estricto añadiendo esto al inicio de cada fichero o fragmento JavaScript:
+
+```js
+'use strict';
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones para manejo de textos (1/3)
+
+* **+** concatena cadenas de texto
+* Los **corchetes** o la instrucción **charAt** accede a una letra de una posición (desde la 0)
+* **length** devuelve el número de caracteres
+* **indexOf**  devuelve la posición donde se encuentra un texto dentro de otro (-1 si no se encuentra)
+* **includes** determina si un texto está o no dentro de otro (booleano)
+* **search** busca la primera ocurrencia que encaje con un patrón o expresión regular
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones para manejo de textos (2/3)
+
+* **endsWith** y **startsWith** determinan si un texto termina o empieza por otro
+* **toUpperCase** y **toLowerCase** convierten a mayúscula y minúscula
+* **replace** reemplaza un texto con otro. Reemplaza sólo la primera ocurrencia encontrada.
+* **substring** obtiene una subcadena a partir de otra. Indicamos desde qué posición empezar a obtener la subcadena, y hasta qué posición llegar. 
+   - **slice** tiene los mismos parámetros y utilidad
+   - **substr** indica como segundo parámetro cuántos caracteres coger
+   - Si no se indica segundo parámetro, se llega hasta el final de la cadena
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones para manejo de textos (3/3)
+
+* **split** parte una cadena por un delimitador indicado, obteniendo un array con todas las partes encontradas.
+* **trim** elimina posibles espacios adicionales que pueda haber al principio o al final de la cadena. 
+   - Útil al procesar datos de formularios
+* Para **comparar dos cadenas** podemos emplear los operadores de comparación `==`, `!=`, `>`, `<` (comparación alfabética)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos de manejo de textos
+
+```js
+let texto = "Hola";
+texto = texto + " buenas";                       // texto = "Hola buenas"
+console.log(texto[0]);                           // H
+console.log(texto.charAt(0));                    // H
+let tamano = texto.length;                       // 11
+let posicion = texto.indexOf("buenas");          // 5  
+let contiene = texto.includes("bue");            // true
+let posicion2 = texto.search(/[aeiou]/);         // 1 (posición de la primera vocal minúscula)
+let mayus = texto.toUpperCase();                 // mayus = "HOLA BUENAS"
+let texto2 = texto.replace("bu", "BU");          // texto2 = "Hola BUenas"
+let subcad = texto.substring(5, 7);              // subcad = "bu"
+let subcad2 = texto.substr(5, 3);                // subcad2 = "bue"
+let partes = texto.split(" ");                   // partes = ["Hola", "buenas"]
+let menor = texto < "Adiós";                     // false
+let empieza = texto.startsWith("Hola");          // true
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea una página llamada **ejercicio_strings_js.html** con las siguientes funciones:
+ 
+* Función que reciba como parámetro dos textos *t1* y *t2* y devuelva el texto resultado de quitar de *t1* todas las apariciones de *t2*
+* Función que reciba como parámetro un nombre de fichero (texto) y determine si es una imagen JPG o PNG.
+* Función que reciba como parámetro un texto y determine si es una matrícula válida. Una matrícula se considera válida si está compuesta por 4 dígitos y 3 letras mayúsculas.
+ 
+Comprueba el funcionamiento de todas estas funciones desde el propio código JavaScript, con los datos de entrada que quieras.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones matemáticas (1/2)
+
+* **Math.PI** y **Math.E** representan estos dos valores numéricos (*pi* y el número *e*)
+* **Math.round(x)** redondea *x* al entero más cercano (por arriba o por abajo)
+* **Math.floor(x)** y **Math.ceil(x)** aproximan al entero más cercano por abajo o por arriba, respectivamente.
+* **Math.min(n1, n2, n3...)** y **Math.max(n1, n2, n3...)** obtienen el menor/mayor valor de los que se le pasan como parámetro, respectivamente.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones matemáticas (2/2)
+
+* **Math.pow(b, e)** obtiene la potencia de elevar una base *b* a un exponente *e*.
+* **Math.abs(x)** obtiene el valor absoluto de *x*
+* **Math.random()** genera un número real aleatorio entre 0 y 1 (sin contar el 1)
+* **Math.sqrt(x)** calcula la raíz cuadrada de *x*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos con funciones matemáticas
+
+```js
+let n1 = Math.sqrd(16);             // 4
+let n2 = Math.min(2, 6, 1, 7);      // 1
+let n3 = Math.pow(3, 2);            // 9
+let n4 = Math.ceil(3.12);           // 4
+let n5 = Math.abs(-3);              // 3
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones de gestión de fechas y horas
+
+```js
+let fecha1 = new Date();                    // Fecha y hora actuales
+let fecha2 = new Date(2021, 3, 4);          // 4 de abril de 2021
+let fecha3 = new Date("2021-04-04");        // 4 de abril de 2021
+let fecha4 = Date.now();                    // Fecha actual en milisegundos desde el 1/1/1970
+
+let texto1 = fecha2.toLocaleDateString();   // 4/4/2021
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones anónimas
+
+- Funciones sin nombre asignado
+- Se suelen asignar a una variable para invocarse después, o bien definirse en el mismo momento en que se van a utilizar (funciones de un solo uso)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones anónimas
+
+```js
+let suma = function(n1, n2) {
+    return n1 + n2;
+}
+
+...
+console.log(suma(4, 3));        // 7
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones lambda o *arrow functions*
+
+- Alternativa a las funciones anónimas
+- Ponemos los parámetros entre paréntesis, una flecha `=>` y el código entre llaves
+   - Si sólo hay un parámetro no hacen falta paréntesis
+   - Si sólo hay un *return* no hacen falta llaves ni *return*
+- Muy utilizadas en desarrollo en servidor con Node.js y algunos frameworks cliente
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones lambda o *arrow functions*
+
+```js
+// Opción 1
+let suma = (n1, n2) => {
+    return n1 + n2;
+}
+
+// Opción 2 (más compacta)
+let suma = (n1, n2) => n1 + n2;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Repite el ejercicio anterior definiendo las funciones requeridas como funciones lambda.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cargar diversos archivos fuente
+
+- Podemos usar una etiqueta *script* para cada archivo fuente que necesitemos
+- Cada archivo puede incorporar un conjunto de funciones propio, y todos están disponibles de este modo
+- Si hay una función que se llame igual en varios archivos, se utiliza la del último archivo que se cargó
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cargar diversos archivos fuente
+
+<div align="center">
+    <img src="../../../img/01_script_multiple.png">
+</div>
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

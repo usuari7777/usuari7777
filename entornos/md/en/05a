@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Version control tools | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Version control tools" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/05a.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Version control tools" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Version control tools","url":"http://nachoiborraies.github.io/entornos/md/en/05a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="version-control-tools">Version control tools</h1>
+
+<h2 id="introduction-to-vcs">Introduction to VCS</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/05a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="05a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-version-control-systems">1. Version control systems</h3>
+
+<p>Version control systems (VCS) are tools that can register any change in any file or set of files over time, so that we can easily recover any older version. They can be used not only with source files, but also with any other file type.</p>
+
+<p>A VCS lets us revert the state of any file or even of a whole project, and compare files over time, determine who changed the file at a given timestamp and much more. Besides, if any file gets damaged or lost, we can just go back to a previous version in history and recover it again.</p>
+
+<h4 id="11-vcs-types-local-vcs">1.1. VCS types: Local VCS</h4>
+
+<p>VCS can be used either online or in local mode. This last mode is particularly useful because we can easily create a backup of a project and store it locally, so that we can restore it later if we need to (in case of an error, for instance) and go back to a stable version.</p>
+
+<p>The main advantage of this is its simplicity, and the main drawback is that we must manage the version control manually, so we may make some mistakes in this process. For instance, we must forget that we are in the wrong folder, and then modify the backup file instead of the current one.</p>
+
+<p>In order to face these problems, there are some interesting tools that help us manage the files and changes. One of the most popular ones is a system called <em>rcs</em>, which can still be found in many computers. This tool basically stores a set of patches or differences between files from one version to the next one. These changes are stored in a special file type, and then the system can recover any previous state of any file, by adding or substracting the corresponding patches.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-01-localVSC.png" alt="Local VCS" width="60%" />
+</div>
+
+<h4 id="12-vcs-types-centralized-vcs">1.2. VCS types: Centralized VCS</h4>
+
+<p>Local VCS are not suitable when we need to collaborate with other team members. To solve this problem, there are also centralized VCS (CVCS). These systems are installed in a single server that contains all the files and their different versions. Then, many clients can connect to this server and download/upload changes to these files. This second way of controlling versions was a standard for many years, since it had a great advantages over the local CVS systems, but its main drawback is that, if server fails, we could lose the whole project.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-02-CentralizedVSC.png" alt="Centralized VCS" width="60%" />
+</div>
+
+<h4 id="13-vcs-types-distributed-vcs">1.3. VCS types: Distributed VCS</h4>
+
+<p>Distributed VCS (DVCS) emerged to solve the main drawback of CVCS. In a DVCS (such as Git, Mercurial, Bazaar or Darcs), clients not only connect to the server, but also download the whole repository. So, if a server fails, any of the local repositories of the clients can be copied to the server again, and the project can be restored. Everytime we download anything from the repository, we are in fact making a complete backup of the data.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-03-DistributedVSC.png" alt="Distributed VSC" width="60%" />
+</div>
+
+<h3 id="2-git">2. Git</h3>
+
+<p><em>Git</em> was developed by the Linux team once they broke up the relationship with <em>BitKeeper</em>, the tool that they used for version control before. From the lacks seen in this tool, they decided some of the main targets of the new system to be developed:</p>
+
+<ul>
+  <li>Speed</li>
+  <li>Easy design</li>
+  <li>Strong support to non-lineal development (thousands of parallel branches)</li>
+  <li>Completely distributed</li>
+  <li>Suitable for big projects (such as Linux core)</li>
+  <li>Efficiency (in terms of speed and data size)</li>
+</ul>
+
+<p>From its birth in 2005, Git has evolved and it has become more and more easy to use. It is really fast and efficient with big projects, and has an outstanding branching system.</p>
+
+<h4 id="21-git-foundamentals">2.1. Git foundamentals</h4>
+
+<p>Let’s see some of the basic concepts regarding Git version control system.</p>
+
+<p><strong>Data modeling</strong></p>
+
+<p>Git stores some kind of snapshot set of its file system, instead of storing a list of changes. Everytime we upload a new change, it basically takes a photo of every file at that moment, and stores a reference to this snapshot. If the file has not been modified, then Git does not save a copy of it, just a link to previous, identical version.</p>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-04-ModelGit.png" alt="Git data modeling" width="70%" />
+</div>
+
+<p>This is an important difference between Git and almost every other VCS, and it makes Git reconsider these aspects from previous generations of VCS. So it looks more like a small file system with some useful tools, rather than a VCS.</p>
+
+<p><strong>Local work</strong></p>
+
+<p>Most of Git functions just need local files and resources to work. As the project history is stored locally, many operations are immediate, and it lets us work in a project even if we are not connected to the Internet. Changes are stored locally and, as soon as we have a connection, the external repository can be updated.</p>
+
+<p><strong>Integrity</strong></p>
+
+<p>Git uses <em>hash</em> SHA-1 algorithm to store the information, so data is always verified and, in case it is changed, Git would notice.</p>
+
+<p><strong>It only adds information</strong></p>
+
+<p>Every Git operation consists in adding some information, so everything can be easily undone (information is not erased). After confirming a snapshot, information is stored safely.</p>
+
+<p><strong>Project states</strong></p>
+
+<p>Git has three main states in which every file of a project can be:</p>
+
+<ul>
+  <li><strong>Modified</strong>: data has been changed locally, but it has not been committed yet.</li>
+  <li><strong>Staged</strong>: data has been tagged to be sent in next commit.</li>
+  <li><strong>Committed</strong>: data is safely stored in a local storage</li>
+</ul>
+
+<p>Therefore, there are three sections in Git:</p>
+
+<ul>
+  <li><strong>Git directory</strong>: where Git stores the metadata and the database of the elements of the project. This part is what we copy when we clone the repository from other computer.</li>
+  <li><strong>Working directory</strong>: it is a copy of a project version. These files are extracted from the Git database and placed in a folder, ready to be used.</li>
+  <li><strong>Staging area</strong>: it is a simple file stored in Git directory that contains information about the files that will be sent in next commit. It is also called <em>index</em>.</li>
+</ul>
+
+<div align="center">
+	<img src="../../img/ED_b1_tema05-05-SectionsGit.png" alt="Git project states" width="60%" />
+</div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

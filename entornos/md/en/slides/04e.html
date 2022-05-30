@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software analysis and design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software analysis and design
+### Class diagrams
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Class diagrams
+
+- Graphical representation of the classes of a project, and their relationships
+- We focus on the different types of elements that are involved in the application
+- Complementary to use case diagrams and other diagrams
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example
+
+We are going to implement an application for an online shop. This shop will have some *customers* registered, and will sell a list of *products*. So each customer can have his/her own *shopping cart*, make *orders* and so on.
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Classes
+
+We can see that our application has customers, products, shopping carts, orders... These elements will be the **classes** of our application.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Attributes
+
+- From each element we need to store some essential information.
+- For customers: login, password, email... 
+- For products: id, brand, model, price... 
+- All these things are the **attributes** for each class.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Objects
+
+- Concrete instances of each class, with concrete values for the attributes
+- Example: a customer with login *john123*, password *johnny111*, and e-mail *john@gmail.com*
+- There can be many objects of a class at the same time in the program
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Methods
+
+- Provide functionality to every object
+- Operations that objects can do
+- Example: customers need to login, add products to their shopping carts... 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Classes in a class diagram
+
+Rectangle divided in 3 sections: class name, attributes and methods
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-EstructuraClaseUML_en.png" alt="Class example" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-ejemplo_clase_en.png" alt="Class example" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Access modifiers
+
+- Represent the visibility of every element of a class (attribute or method)
+- **+** for **public** visibility (can be accessed from anywhere)
+- **-** for **private** visibility (can only be accessed from within current class)
+- Attributes are usually private, and methods are usually public
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Relationships: generalization
+
+- Represented by an arrow
+- Establishes that a class called **subclass** or **child class** inherits the elements of another class called **superclass** or **parent class**. 
+- Besides, subclass can also have its own attributes and methods.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Generalization example
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-ejemplo_herencia_en.png" alt="Generalization example" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+- Do exercises 1 and 2 of the contents of this section
+   - Exercise 1 is showing a system that represents different types of ships
+   - Exercise 2 is showing a system that defines different types of characters for a video game
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Relationships: association
+
+- Represented by continuous line
+- It lets us link two classes that collaborate between them
+- An object of a class has an object (or some objects) of the other class
+- Is not a strong relationship: the lifetime of one side does not depend on the other side
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Cardinality of an association
+
+- Sets the dependency level of two classes: how many objects of one class can be associated with one object of the other class
+- Types:
+   - **One to many**: specified as `1..*` or `(1..n)`
+   - **Zero to many**: `0..*` or `(0..n)`
+   - **Fixed number**: `m` (m is a given number)
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Association example
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-ejemplo_asociacion_en.png" alt="Association example" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Navigability in an association
+
+An arrow in the line indicates that we can only get the objects of the edge pointed by the arrow from the other edge
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-ejemplo_asociacion_navegable.png" alt="Association example" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Aggregation and composition
+
+- Subtypes of associations in which one class is a whole and the other one is a part of this whole
+- **Aggregation**: the part can exist without the whole (can be associated to another whole)
+   - Represented by a white diamond
+- **Composition**: the part can't exist without the whole (is destroyed if whole is also destroyed)
+   - Represented by a black diamond
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example of aggregation and composition
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-ejemplo_agregacion_en.png" alt="Aggregation and composition example" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Relationships: dependency
+
+- Usage relationship
+- A class uses another class in some part of its code
+- Represented by a discontinuous arrow
+   - The direction of the arrow tells us which class is being used
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Dependency example
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-ejemplo_dependencia_en.png" alt="Dependency example" width="40%" />
+</div>
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Complete example
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-tienda_en.png" alt="Online shop example" width="40%" />
+</div>
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+- Do exercises 3 and 4 of the contents of this section
+    
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Windows Forms</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Windows Forms
+#### Juegos en Windows Forms (II)
+#### Juegos con animaciones y colisiones
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Introducción
+
+- Definiremos un videojuego con sprites que se mueven por pantalla, chocan entre ellos, etc
+- Usaremos objetos de tipo *Image* (espacio *System.Drawing*) para definir la imagen de cada sprite
+
+</script>
+</section>   
+
+<section data-markdown>
+<script type="text/template">
+## Creación de un videojuego animado
+
+- Creamos un proyecto tipo *Aplicación Windows Forms* convencional
+- Le podemos dar el tamaño a la ventana que queramos de inicio, para que cuadre con el tamaño que queramos que tenga el juego
+   - Podemos emplear la propiedad *ClientSize* del formulario para dar el tamaño adecuado desde el constructor
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo propuesto
+
+- Crea un proyecto Windows Forms llamado **OsoComeFrutas**
+- El juego consistirá en mover un oso a izquierda y derecha cogiendo frutas que caen desde arriba
+   - Perderemos una vida por cada fruta que se pierda
+   - Ganaremos X puntos por cada fruta cogida
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo propuesto
+
+<div align="center">
+    <img src="../../../img/09_oso_come_frutas.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Establecer los recursos del juego
+
+- Podemos crear una carpeta *recursos* en la carpeta del proyecto, y copiar dentro las imágenes (subcarpeta *imagenes*) y sonidos (subcarpeta *sonidos*)
+   - [Aquí](../../../soluciones/recursos_juego_oso.zip) puedes descargar los recursos
+- Los nombres de carpetas pueden ser los que queramos.
+- Marcamos cada archivo (imagen o sonido) para que se copie a la carpeta de salida.
+
+</script>
+</section>
+                
+<section data-markdown>
+<script type="text/template">
+## Establecer los recursos del juego
+
+<div align="center">
+    <img src="../../../img/09_estructura_assets.png" width="30%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Configuración del juego
+
+Clase *Configuracion* con constantes generales para el juego
+
+```cs
+namespace OsoComeFrutas
+{
+    internal class Configuracion
+    {
+        // Tamaño de la pantalla
+        public const int ANCHO_PANTALLA = 816;
+        public const int ALTO_PANTALLA = 480;
+        // Cada cuántos pasos vamos a cambiar el sprite del oso
+        public const int TASA_ANIMACION_SPRITES = 3;
+        // Puntos por cada fruta cogida
+        public const int PUNTOS_FRUTA = 10;
+        // Vidas iniciales del oso
+        public const int VIDAS_OSO = 3;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pantalla de bienvenida
+
+Hacemos que el formulario principal se llame *Bienvenida*. Podemos cambiar también su *StartPosition*
+
+<div align="center">
+    <img src="../../../img/09_juego_oso_bienvenida.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pantalla de bienvenida
+
+Debemos definir los eventos *Click* sobre el subtítulo y *KeyDown* sobre el formulario
+
+```cs
+public partial class Bienvenida : Form
+{
+    public Bienvenida()
+    {
+        InitializeComponent();
+        this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA,
+            Configuracion.ALTO_PANTALLA);
+        // Borde para no poder redimensionar la ventana
+        this.FormBorderStyle = FormBorderStyle.FixedSingle;
+        // Textos centrados
+        lblTitulo.Left = (this.Width - lblTitulo.Width) / 2;
+        lblTitulo.Top = this.Height / 2 - lblTitulo.Height;
+        lblSubtitulo.Left = (this.Width - lblSubtitulo.Width) / 2;
+        lblSubtitulo.Top = this.Height / 2 + lblSubtitulo.Height / 2;
+    }
+
+    private void lblSubtitulo_Click(object sender, EventArgs e)
+    {
+        IniciarPartida();
+    }
+
+    private void Bienvenida_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Space)
+            IniciarPartida();
+    }
+
+    private void IniciarPartida()
+    {
+        Partida p = new Partida();
+        p.Bienvenida = this;
+        p.Show();
+        this.Hide();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pantalla de partida
+
+Hacemos que otro formulario secundario llamado *Partida*. Eventos *FormClosed* y *Paint* sobre el formulario
+
+```cs
+public partial class Partida : Form
+{
+    private Bienvenida bienvenida;
+    private Image fondo;
+
+    public Bienvenida Bienvenida
+    {
+        get { return bienvenida; }
+        set { bienvenida = value; }
+    }
+
+    public Partida()
+    {
+        InitializeComponent();
+        this.ClientSize = new Size(Configuracion.ANCHO_PANTALLA, 
+            Configuracion.ALTO_PANTALLA);
+        fondo = Image.FromFile(@"recursos/imagenes/fondo.png");
+    }
+
+    private void Partida_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        bienvenida.Show();
+    }
+
+    private void Partida_Paint(object sender, PaintEventArgs e)
+    {
+        e.Graphics.DrawImage(fondo, 0, 0, Configuracion.ANCHO_PANTALLA, 
+            Configuracion.ALTO_PANTALLA);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Clases adicionales
+
+- Clase padre **Sprite** para definir cualquier tipo de *sprite*
+   - Subclase **SpriteAnimado** para sprites que necesiten animación (el oso)
+- Clase **Oso** que heredará de *SpriteAnimado* con las características propias del oso
+- Clase **Fruta** que heredará de *Sprite* con las características de las frutas
+- Creamos todas ellas en el mismo *namespace* del proyecto
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Clase Sprite
+
+```cs
+internal class Sprite
+{
+    // Anchura y altura de cada sprite
+    protected int ancho, alto;
+    // Posición actual (esquina superior izquierda)
+    protected int x, y;
+    // Coordenadas en la imagen del sprite seleccionado
+    protected int spriteX, spriteY;
+    // Imagen con todos los sprites
+    protected Image imagen;
+
+    public int X
+    {
+        get { return x; }
+        set { x = value; }
+    }
+
+    public int Y
+    {
+        get { return y; }
+        set { y = value; }
+    }
+
+    public Sprite(int ancho, int alto)
+    {
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+
+    public void MoverA(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void Dibujar(Graphics g)
+    {
+        // Seleccionamos en la imagen un rectángulo con el sprite seleccionado
+        Rectangle rect = new Rectangle(spriteX, spriteY, ancho, alto);
+        // Dibujamos en el formulario el rectángulo seleccionado,
+        // en las coordenadas actuales del sprite
+        g.DrawImage(imagen, x, y, rect, GraphicsUnit.Pixel);
+    }
+
+    public bool ColisionaCon(Sprite sp)
+    {
+        return (x < sp.x + sp.ancho && x + ancho > sp.x &&
+                y < sp.y + alto && y + alto > sp.y);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Clase SpriteAnimado
+
+```cs
+internal class SpriteAnimado : Sprite
+{
+    // Cuántos movimientos diferentes puede hacer el objeto
+    protected byte totalMovimientos;
+    // Dirección o movimiento actual del objeto
+    protected byte movimientoActual;
+    // Índice del sprite actual en la animación
+    protected byte spriteActual;
+    // Contador de iteraciones para siguiente cambio de sprite
+    private byte contadorCambioSprite;
+
+    // Array de coordenadas X, Y de cada sprite para cada movimiento
+    protected int[][] coordenadasX;
+    protected int[][] coordenadasY;
+
+    public SpriteAnimado(int ancho, int alto, byte movimientos) 
+        : base (ancho, alto)
+    {
+        totalMovimientos = movimientos;
+        coordenadasX = new int[totalMovimientos][];
+        coordenadasY = new int[totalMovimientos][];
+        movimientoActual = 0;
+        spriteActual = 0;
+        contadorCambioSprite = 0;
+    }
+
+    public void Animar(byte movimiento)
+    {
+        if (movimiento != movimientoActual)
+        {
+            movimientoActual = movimiento;
+            spriteActual = 0;
+            contadorCambioSprite = 0;
+        }
+        else
+        {
+            contadorCambioSprite++;
+            if (contadorCambioSprite >= 
+                Configuracion.TASA_ANIMACION_SPRITES)
+            {
+                contadorCambioSprite = 0;
+                spriteActual = (byte)((spriteActual + 1) %
+                        coordenadasX[movimientoActual].Length);
+            }
+        }
+        ActualizarCoordenadasSprite();
+    }
+
+    protected void ActualizarCoordenadasSprite()
+    {
+        spriteX = coordenadasX[movimientoActual][spriteActual];
+        spriteY = coordenadasY[movimientoActual][spriteActual];
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Animación de sprites
+
+- Debemos contar con una imagen por cada paso de la animación, o con una sola imagen con todos los pasos (*sprite sheet*)
+   - Esto lo debemos tener para cada posible movimiento (izquierda, derecha, arriba, abajo)
+- Podemos definir un array con las coordenadas X,Y de cada imagen para cada movimiento
+- Añadimos un contador que nos indique por qué *sprite* vamos en la animación actual (atributo *spriteActual* en clase *SpriteAnimado*)
+- Para que la animación no vaya demasiado rápido, podemos definir cada cuántas iteraciones cambiamos de sprite (constante *TASA_ANIMACION_SPRITES* en clase *Configuracion*), y un contador para saber cuándo pasar al siguiente (atributo *contadorCambioSprite* en clase *SpriteAnimado*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Animación de sprites
+
+<div align="center">
+    <img src="../../../img/09_animacion_sprite.png" width = "50%">
+</div>
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Clase Oso
+
+```cs
+internal class Oso : SpriteAnimado
+{
+    // Posibles movimientos del oso
+    public const byte DERECHA = 0;
+    public const byte IZQUIERDA = 1;
+
+    // Tamaño de cada sprite
+    public const int ANCHURA = 96;
+    public const int ALTURA = 96;
+
+    private const string FICHERO  = "recursos/imagenes/oso.png";
+    // Cuántos píxeles avanza con cada paso
+    private const byte PASO = 4;
+
+    // Indicadores de movimiento a uno u otro lado
+    private bool izquierda, derecha;
+
+    public bool Izquierda
+    {
+        get { return izquierda; }
+        set { izquierda = value; }
+    }
+
+    public bool Derecha
+    {
+        get { return derecha; }
+        set { derecha = value; }
+    }
+
+    public Oso() : base(ANCHURA, ALTURA, 2)
+    {
+        imagen = Image.FromFile(FICHERO);
+        // Coordenadas X,Y de cada sprite para cada dirección en la imagen del oso
+        coordenadasX[DERECHA] = new int[] { 480, 576, 672, 576 };
+        coordenadasY[DERECHA] = new int[] { 0, 0, 0, 0 };
+        coordenadasX[IZQUIERDA] = new int[] { 1248, 1344, 1440, 1344 };
+        coordenadasY[IZQUIERDA] = new int[] { 0, 0, 0, 0 };
+        izquierda = false;
+        derecha = false;
+        ActualizarCoordenadasSprite();
+    }
+
+    public void Mover()
+    {
+        // Comparador XOR
+        if (izquierda ^ derecha)
+        {
+            int nuevaX = x;
+            if (izquierda)
+            {
+                nuevaX -= Math.Min(PASO, x);
+                Animar(IZQUIERDA);
+            }
+            else
+            {
+                nuevaX += Math.Min(PASO,
+                    Configuracion.ANCHO_PANTALLA - ANCHURA - x);
+                Animar(DERECHA);
+            }
+            MoverA(nuevaX, y);
+        }
+    }
+
+    public void Resetear()
+    {
+        MoverA(Configuracion.ANCHO_PANTALLA / 2 - ANCHURA / 2,
+                Configuracion.ALTO_PANTALLA - ALTURA - 40);
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Clase Fruta
+
+```cs
+internal class Fruta : Sprite
+{
+    public const int ANCHURA = 30;
+    public const int ALTURA = 30;
+    private const string FICHERO = "recursos/imagenes/frutas.png";
+    private const int PASO = 2;
+
+    private static Random random = new Random();
+
+    public Fruta() : base (ANCHURA, ALTURA)
+    {
+        imagen = Image.FromFile(FICHERO);
+        // Banana
+        spriteX = 4;
+        spriteY = 40;
+
+        MoverA(random.Next(0,
+            Configuracion.ANCHO_PANTALLA - Fruta.ANCHURA), 0);
+    }
+
+
+    public void Mover()
+    {
+        y += PASO;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Animación del oso
+
+- Clase Partida. Creamos un oso en el constructor
+- Evento *KeyDown* para establecer movimiento Izquierda/Derecha
+- Evento *KeyUp* para anular movimiento Izquierda/Derecha
+- Añadimos un control *Timer* que se repita cada 30ms
+   - En su evento *Tick* movemos al oso
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Animación del oso
+
+Creación del oso
+
+```cs
+public partial class Partida : Form
+{
+    private Bienvenida bienvenida;
+    private Image fondo;
+    private Oso oso;
+
+    public Partida()
+    {
+        ...
+        oso = new Oso();
+    }
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Animación del oso
+
+Eventos *KeyDown* y *KeyUp*
+
+```cs
+private void Partida_KeyDown(object sender, KeyEventArgs e)
+{
+    if (e.KeyCode == Keys.Left)
+    {
+        oso.Izquierda = true;
+    }
+    else if (e.KeyCode == Keys.Right)
+    {
+        oso.Derecha = true;
+    }
+}
+
+private void Partida_KeyUp(object sender, KeyEventArgs e)
+{
+    if (e.KeyCode == Keys.Left)
+    {
+        oso.Izquierda = false;
+    }
+    else if (e.KeyCode == Keys.Right)
+    {
+        oso.Derecha = false;
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Animación del oso
+
+Añadimos *Timer* de 30 ms
+
+<div align="center">
+    <img src="../../../img/09_timer_juego.png" width="80%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Animación del oso
+
+Evento *Tick* del *timer*. Lo iniciamos en el constructor y lo paramos al cerrar
+
+```cs
+public Partida
+{
+    ...
+    timerJuego.Start();
+}
+
+...
+
+private void FormPrincipal_Paint(object sender, PaintEventArgs e)
+{
+    e.Graphics.DrawImage(fondo, 0, 0, Configuracion.ANCHO_PANTALLA, 
+        Configuracion.ALTO_PANTALLA);
+    oso.Dibujar(e.Graphics);
+}
+
+...
+
+private void timerJuego_Tick(object sender, System.EventArgs e)
+{
+    // Para redibujar la pantalla
+    Invalidate();
+    oso.Mover();
+}
+
+...
+
+private void Partida_FormClosed(object sender, FormClosedEventArgs e)
+{
+    timerJuego.Stop();
+    bienvenida.Show();
+}
+``` 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Evitar parpadeos al redibujar
+
+Tenemos que configurar el formulario como *doble buffer*, para que se dibuje fuera de la pantalla y se vuelque de golpe
+
+```cs
+public Partida()
+{
+    ...
+    DoubleBuffered = true;
+}
+``` 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Movimiento de la fruta
+
+- Añadimos un atributo de tipo *Fruta*. Inicialmente nulo
+- En el *Tick*, si es nulo, lo creamos en una X aleatoria (Y = 0), y lo vamos moviendo
+- Cuando el oso lo coja o salga de la pantalla, lo ponemos a nulo otra vez
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Movimiento de la fruta
+
+Atributo de tipo *Fruta*
+
+```cs
+public partial class Partida : Form
+{
+    private Bienvenida bienvenida;
+    private Image fondo;
+    private Oso oso;
+    private Fruta fruta;
+
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Movimiento de la fruta
+
+Gestión de la fruta en cada *tick*
+
+```cs
+private void FormPrincipal_Paint(object sender, PaintEventArgs e)
+{
+    e.Graphics.DrawImage(fondo, 0, 0, Configuracion.ANCHO_PANTALLA, 
+        Configuracion.ALTO_PANTALLA);
+    oso.Dibujar(e.Graphics);
+    if (fruta != null)
+        fruta.Dibujar(e.Graphics);
+}
+
+...
+
+private void timerJuego_Tick(object sender, System.EventArgs e)
+{
+    Invalidate();
+    oso.Mover();
+    if (fruta == null)
+    {
+        fruta = new Fruta();
+    }
+    else
+    {
+        fruta.Mover();
+        if (fruta.ColisionaCon(oso))
+        {
+            fruta = null;
+        }
+        else if (fruta.Y > Configuracion.ALTO_PANTALLA)
+        {
+            oso.Resetear();
+            fruta = null;
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colisiones y HUD
+
+- Añadimos contador de vidas y puntos en clase *Oso*
+- En el *Tick*: 
+   - Si el oso coge la fruta, incrementamos los puntos
+   - Si la fruta desaparece, decrementamos las vidas y reseteamos la posición del oso
+   - Si llegamos a 0 vidas, cerramos la ventana
+- Definimos una función para actualizar las vidas y puntos en pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colisiones y HUD
+
+Vidas y puntos en clase *Oso*
+
+```cs
+internal class Oso : SpriteAnimado
+{
+    ...
+    private bool izquierda, derecha;
+    private int vidas, puntos;
+
+    public bool Izquierda
+    {
+        get { return izquierda; }
+        set { izquierda = value; }
+    }
+
+    public bool Derecha
+    {
+        get { return derecha; }
+        set { derecha = value; }
+    }
+
+    public int Vidas
+    {
+        get { return vidas; }
+        set { vidas = value; }
+    }
+
+    public int Puntos
+    {
+        get { return puntos; }
+        set { puntos = value; }
+    }
+
+    public Oso() : base(ANCHURA, ALTURA, 2)
+    {
+        ...
+        vidas = Configuracion.VIDAS_OSO;
+        puntos = 0;
+        ActualizarCoordenadasSprite();
+    }
+
+    ...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Colisiones y HUD
+
+Actualizaciones en evento *Tick*
+
+```cs
+private void timerJuego_Tick(object sender, System.EventArgs e)
+{
+    Invalidate();
+    oso.Mover();
+    if (fruta == null)
+    {
+        fruta = new Fruta();
+    }
+    else
+    {
+        fruta.Mover();
+        if (fruta.ColisionaCon(oso))
+        {
+            oso.Puntos += Configuracion.PUNTOS_FRUTA;
+            fruta = null;
+        }
+        else if (fruta.Y > Configuracion.ALTO_PANTALLA)
+        {
+            oso.Vidas--;
+            oso.Resetear();
+            fruta = null;
+        }
+    }
+
+    if (oso.Vidas == 0)
+    {
+        Close();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Colisiones y HUD
+
+Actualización del marcador
+
+```cs
+private void FormPrincipal_Paint(object sender, PaintEventArgs e)
+{
+    e.Graphics.DrawImage(fondo, 0, 0, Configuracion.ANCHO_PANTALLA, 
+        Configuracion.ALTO_PANTALLA);
+    oso.Dibujar(e.Graphics);
+    if (fruta != null)
+        fruta.Dibujar(e.Graphics);
+    actualizarHUD(e.Graphics);
+}
+
+...
+
+private void actualizarHUD(Graphics g)
+{
+    Font fuente = new Font("Arial", 16);
+    SolidBrush colorPuntos = new SolidBrush(Color.Green);
+    SolidBrush colorVidas = new SolidBrush(Color.Yellow);
+    g.DrawString("Puntos: " + oso.Puntos, fuente, colorPuntos, 5, 5);
+    g.DrawString("Vidas: " + oso.Vidas, fuente, colorVidas,
+        Configuracion.ANCHO_PANTALLA - 100, 5);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+- Alternativas
+   - Clase *System.Media.SoundPlayer*: fácil de usar, pero sólo permite reproducir un audio simultáneamente
+   - Clases de librería externa *NAudio* para más audios simultáneos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Ejemplo con *SoundPlayer*
+
+```cs
+SoundPlayer sonido = new SoundPlayer("archivo.wav");
+// Reproducir una vez
+sonido.Play();
+// Reproducir en bucle
+sonido.PlayLooping();
+// Detener reproducción
+sonido.Stop();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Uso de librería externa *NAudio*
+
+- Descargar librería desde nuestro proyecto con *NuGet*
+- Importar espacio de nombres *NAudio.Wave*
+- Usar clase *WaveStream* para cargar cada archivo de audio
+- Usar clase *WaveOut* para reproducir cada *WaveStream*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Descarga de librería: click derecho en *Referencias* (panel derecho) y elegir *Administrar paquetes NuGet*
+
+<div align="center">
+    <img src="../../../img/09_instalar_nuget_naudio.png" width="80%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Confirmación de los elementos a instalar
+
+<div align="center">
+    <img src="../../../img/09_instalar_nuget_naudio2.png" width="40%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Importación de clases necesarias (clase *Partida*)
+
+```cs
+...
+using NAudio.Wave;
+
+namespace OsoComeFrutas
+{
+    public partial class Partida : Form
+    {
+        private const string SONIDO_FONDO = "recursos/sonidos/musica_fondo.wav";
+        private const string EFECTO_FRUTA = "recursos/sonidos/salto.wav";
+
+        ...
+
+        private WaveStream streamFondo;
+        private WaveStream streamEfecto;
+        private WaveOut playerFondo;
+        private WaveOut playerEfecto;
+
+        ...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Sonido de fondo
+
+- Lo ponemos en marcha en el constructor
+- Lo volvemos a reproducir en cada *Tick*, si detectamos que ha terminado
+- Lo paramos al cerrar la ventana
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Sonido de fondo
+
+```cs
+public Partida()
+{
+    ...
+    streamFondo = new WaveFileReader(SONIDO_FONDO);
+    playerFondo = new WaveOut();
+    playerFondo.Init(streamFondo);
+    playerFondo.Play();
+}
+
+...
+
+private void Partida_FormClosed(object sender, FormClosedEventArgs e)
+{
+    ...
+    playerFondo.Stop();
+}
+
+...
+
+private void timerJuego_Tick(object sender, System.EventArgs e)
+{
+    ...
+    if (oso.Vidas == 0)
+    {
+        playerFondo.Stop();
+        Close();
+    }
+    if (streamFondo.Position == streamFondo.Length)
+    {
+        streamFondo.Position = 0;
+        playerFondo.Play();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Efecto al coger la fruta
+
+- Lo dejamos cargado en el constructor
+- Lo reproducimos cada vez que el oso colisione con la fruta
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Audio y efectos
+
+Efecto al coger la fruta
+
+```cs
+public Partida()
+{
+    ...
+    streamEfecto = new WaveFileReader(EFECTO_FRUTA);
+    playerEfecto = new WaveOut();
+    playerEfecto.Init(streamEfecto);
+}
+
+...
+
+private void timerJuego_Tick(object sender, System.EventArgs e)
+{
+    ...
+        if (fruta.ColisionaCon(oso))
+        {
+            oso.Puntos += Configuracion.PUNTOS_FRUTA;
+            streamEfecto.Position = 0;
+            playerEfecto.Play();
+            fruta = null;
+        }
+    ...
+}
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Mejora el juego añadiéndole dos cosas:
+
+- Elegir cada vez una fruta aleatoria entre las que hay en la imagen de frutas (al menos dos diferentes para que haya variedad)
+- Una dificultad creciente: cada X frutas recogidas, aumentará la velocidad de caída de las frutas
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

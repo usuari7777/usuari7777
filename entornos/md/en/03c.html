@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software methodologies | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software methodologies" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/03c.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software methodologies" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software methodologies","url":"http://nachoiborraies.github.io/entornos/md/en/03c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-methodologies">Software methodologies</h1>
+
+<h2 id="agile-methodologies">Agile methodologies</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>As developing software products is not an easy task, there are some different methodologies that we can follow for this development. A <strong>methodology</strong> is a set of techniques and methods that help us face each stage of a <a href="03a">lifecycle</a>. This way, we can:</p>
+
+<ul>
+  <li>Optimize the process and the final product</li>
+  <li>Use guided protocols for the planning and the development</li>
+  <li>Set what to do, how to do it and when, along all the project</li>
+</ul>
+
+<p>Traditional methodologies are really useful for big projects (in terms of time and budget), but they have some drawbacks for projects not so big, or with a close deadline, or with uncertain requirements. For instance, they produce too much documentation, and they are overplanned.</p>
+
+<p>To face these other projects, many teams have tried agile methodologies, which are specially suitable for small projects, to be developed in a short time, with teams composed of less than 10 people. With these methodologies, we promote the teamwork, our own responsibility, the customer needs and the targets of his company. Face to face communication among the members of the team, and with the customer, is very regular. This way, team members share their progresses and problems, and they have a quick feedback from the customer.</p>
+
+<p>In order to fulfill its purpose, agile development makes small project increments, with a minimum planning. Each increment performs a whole iteration over the software stages (requirements, design, implementation, tests…), in a short period of time (usually 1 - 4 weeks), which is known as <em>timebox</em>. This way, we minimize the general risk, and the project can be adapted to many changes along its development. Documentation is only generated when it is really needed, and the aim is to get a working prototype after each iteration, even though it has really reduced functionalities.</p>
+
+<h3 id="1-the-agile-manifesto">1. The agile manifesto</h3>
+
+<p>The agile manifesto is a specification created in 2001 that gathers the main principles that a methodology must have in order to let the team build a software project quickly and facing the changes that it may have in the future.</p>
+
+<p>Some of the most important principles are:</p>
+
+<ul>
+  <li>People are the main success factor of a project. It is better to create a good team and let it configure its own working environment, than building the environment and force the team to get used to it.</li>
+  <li>We should not produce any documentation unless it is needed to make a decision immediately.</li>
+  <li>There must be a constant interaction between the customer and the work team.</li>
+  <li>The ability to face the changes that the project may have during the development is more important than to follow a rigid planning from the beginning.</li>
+  <li>The main priority is to satisfy the customer through the continuous delivery of working software.</li>
+  <li>Face to face conversation is the most efficient method to transmit information in a work team.</li>
+  <li>Simplicity</li>
+</ul>
+
+<h3 id="2-some-usual-practices">2. Some usual practices</h3>
+
+<p>Besides the principles gathered in the agile manifesto, some agile methodologies use certain practices. Let’s see some of them.</p>
+
+<p><strong>Pair programming (PP)</strong></p>
+
+<p>Pair programming is a technique that offers many advantages. Two programmers work together in the same computer. One of them is typing code (driver) and the other one is checking what is being typed (observer). Both swap their roles frequently (every 30 minutes, for instance). The observer is in charge of guiding the work of the driver, and providing any ideas to solve future problems.</p>
+
+<p>The main advantages of this technique are:</p>
+
+<ul>
+  <li>We produce shorter programs, with less errors and better designed (since code must be readable for both members of the team).</li>
+  <li>It is useful for learning, if one of the members is very experienced, and the other one is a newbie, or if both have different knowledge that can be transferred to each other.</li>
+  <li>If one of the members leaves the team, there can be another one who takes his place supported by the old member, so that the deadlines may not need to be modified.</li>
+  <li>There are less interruptions along the process, as both members swap their tasks and they can work more continuously.</li>
+</ul>
+
+<p>However, it also has some drawbacks:</p>
+
+<ul>
+  <li>Some engineers prefer to work on their own.</li>
+  <li>A newbie may feel intimidate if he works with someone which is more experienced than him, and vice versa (experienced workers may feel boring to help a newbie).</li>
+  <li>It is more costly (we have to pay two salaries for a single job).</li>
+  <li>There may be some annoying working habits in the team</li>
+</ul>
+
+<p><strong>Test driven development (TDD)</strong></p>
+
+<p>This is a technique that uses short iterations based on test cases previously written. This way, each iteration produces the code needed to pass these tests, and once they are passed, we integrate this code with the previous one and optimize it. So the process is as follows:</p>
+
+<ol>
+  <li>We add a new test to current set</li>
+  <li>We write the code to pass this last test</li>
+  <li>We run again the test set and check that every test is passed</li>
+  <li>We refactor the final code to optimize it</li>
+  <li>Go back to step 1</li>
+</ol>
+
+<p>It is important to have a set of unit tests that can be launched automatically, so that we can add more tests from time to time, and we can re-launch it at every moment. We will see later in this module some techniques to define test cases and test sets.</p>
+
+<p>So the main idea is to define the tests that the system must pass before writing the corresponding code, so that we make sure that the application can be checked, and we define tests for each feature. This way, we avoid writing unnecessary code (this is, code that is not bound to any test).</p>
+
+<h3 id="3-example-scrum">3. Example: Scrum</h3>
+
+<p>Scrum is an agile methodology that can be used in complex projects. It uses iterative and incremental processes, and can be applied to either software products or other scopes. Its name comes from the “melée” that rugby players do.</p>
+
+<p><strong>Roles</strong></p>
+
+<p>The main Scrum roles are:</p>
+
+<ul>
+  <li><strong>ScrumMaster</strong>, it is something equivalent to the <em>project manager</em>, although this role does not implicitly exist in Scrum, since the own work team is self-managed. His main task is to make sure that the Scrum method is used properly, and there are no external influences that may disturb it.</li>
+  <li><strong>ProductOwner</strong>, who represents the customer, although he doesn’t need to be part of the customer’s company. He may even be someone from the work team.</li>
+  <li><strong>Team</strong> of developers.</li>
+</ul>
+
+<p><strong>Process</strong></p>
+
+<p>To begin with, the work team must gather the user requirements from the customer (both managers and employees who are going to use the application). The application features are gathered through <strong>user stories</strong>, which are basically a set of paper cards in which the customer describes the features of the system. Each story must be understandable and concrete, so that the team can implement it in a few weeks. Each user from the customer company is asked to write what he expects from the application. The whole set of stories are packed in a collection called <strong>backlog</strong>. From this backlog, some stories will be finally part of the application (the rest will be discarded).</p>
+
+<p>From this point, we start the development process, based on iterations called <strong>sprints</strong>. Each iteration takes 2 - 4 weeks to be completed, and produces a prototype or operative version of the product. In this increment, we add to the application some requirements extracted from the <em>backlog</em>. The set of requirements to be added in each iteration is decided in a planning meeting, where the <em>Product Owner</em> chooses some items to be added, and the team decides which ones can be added in next iteration. Then, during the iteration, the <em>backlog</em> freezes, this is, we can’t change any previous requirement until next iteration begins.</p>
+
+<p>Besides the meeting at the beginning of the iteration, there are also daily meetings in Scrum, where people discuss about the state of the project, what has been done and what is about to be done. There is also a final meeting at the end of the iteration to check the version or prototype obtained.</p>
+
+<p><strong>Time estimation</strong></p>
+
+<p>Every user story in the <em>backlog</em> is assigned a time, usually in hours, days, or even weeks. So, the total estimated time of a sprints is the sum of every user story chosen for that sprint.</p>
+
+<p>In order to determine if total estimated time differs too much from real time, we can use some additional tools such as <strong>burndown charts</strong>, that graphically help us determine which measures can be taken to reduce this difference.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-07-burndown_charts2.png" alt="Burndown charts" width="60%" />
+</div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>In <a href="https://www.youtube.com/watch?v=XU0llRltyFM">this video</a> you have a summary of Scrum methodology. After watching it, try to answer to these questions:</p>
+
+  <ol>
+    <li>What is a <em>sprint</em> in Scrum?</li>
+    <li>Who is in charge of prioritizing the tasks to do in every <em>sprint</em>?</li>
+    <li>How can the final delivery date of a <em>sprint</em> be calculated?</li>
+  </ol>
+</blockquote>
+
+<h3 id="4-example-kanban">4. Example: Kanban</h3>
+
+<p>Kanban is another agile methodology, which is really easy to apply. Its name is a combination of two Japanese words: <em>kan</em> (“visual”) and <em>ban</em> (“card”), so we can figure out that the main component of this methodology consists in using cards, that represent the different tasks that we must complete in the development process.</p>
+
+<p>The origins of Kanban methodology date back more than 60 years. In the late 1940s Toyota began to optimize its engineering processes, based on the same model used by supermarkets to optimize their stock. As inventory levels should match consumption patterns, the excess stock can (must) be controlled. This way, Toyota could align their inventory levels with their actual consumption of materials. Workers passed a <em>card</em> between teams when a bin of materials had been emptied, indicating the exact amount of material needed. The warehouse would have a new bin of material ready to be delivered to the factory, and then they would send a new kanban to the supplier to provide a new bin.</p>
+
+<p>Applied to software development processes, Kanban allows teams to match the amount of <em>work in progress</em> (WIP) to the team’s capacity. This gives teams more flexible planning options, faster output, and clearer focus.</p>
+
+<p><strong>Process:</strong></p>
+
+<p>The general term to refer to Kanban methodology is <em>flow</em>, since work flows continuously through the system instead of being organized in timeboxes, as Scrum does with its <em>sprints</em>.</p>
+
+<p>Kanban uses visual mechanisms, such as <strong>Kanban boards</strong>, so that team members can see the state of every piece of work at any time. These boards can be either physical and/or virtual.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-05-kanban_board.png" alt="Kanban board" width="90%" />
+</div>
+
+<p>The main function of the Kanban board is to ensure that team’s work is visualized and all blockers and dependencies are immediately detected. The most basic board has three sections (<em>To Do</em>, <em>In Progress</em> and <em>Done</em>), but we can add as many columns and states as we need for our particular case.</p>
+
+<p>Any section or column of a Kanban board can be filled with <strong>Kanban cards</strong>. They reflect critical information about a particular work item, giving the whole team information about who is responsible for that item, a brief description of the job to be done and an estimation of how long it will take</p>
+
+<p><strong>Principles:</strong></p>
+
+<p>Some of the main principles of Kanban methodology are:</p>
+
+<ul>
+  <li><strong>Limited <em>work in progress</em></strong>, or <em>stop starting</em> and <em>start finishing</em>, this is, the team should not start another issue until the current one has been finished.</li>
+  <li><strong>Guaranteed quality</strong>: everything needs to go well at the first opportunity, there’s no error margin. This way, speed is not as important as quality, because fixing bugs may be costly.</li>
+  <li><strong>Waste reduction</strong>: we must do just what we need, and do it well.</li>
+  <li><strong>Flexibility</strong>: next step is decided from the <em>backlog</em>, by choosing the next task to be completed. So we can prioritize the chosen task depending on the needs of each concrete moment.</li>
+</ul>
+
+<p><strong>Kanban vs Scrum</strong></p>
+
+<p>Kanban has some similarities with Scrum methodology, since they are both agile methodologies: both require collaborative and self-managed teams, and both focus on releasing software very often. However, there are some important differences between them:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kanban</th>
+      <th>Scrum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>No prescribed roles</td>
+      <td>ScrumMaster, ProductOwner…</td>
+    </tr>
+    <tr>
+      <td>Continuous deliveries</td>
+      <td>Timeboxed sprints</td>
+    </tr>
+    <tr>
+      <td>Changes can be made at any time</td>
+      <td>No changes allowed during sprint</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both methodologies can be applied at the same time. Scrum is more appropriate in giving feedback to the team, and in short-term planning, whereas Kanban can be used for day to day work, or in envinroments with a high degree of variability in priorities.</p>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>In <a href="https://www.youtube.com/watch?v=R8dYLbJiTUE">this video</a> you have an example of Kanban methodology. Try to answer to these questions after watching it:</p>
+
+  <ol>
+    <li>What is the main function of WIP limits? What happens when we try to move a task to a column that exceeds this limit?</li>
+    <li>How can Kanban and Scrum be combined? Which is the main purpose of adding Scrum to Kanban?</li>
+  </ol>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

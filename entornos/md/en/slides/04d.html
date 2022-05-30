@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software analysis and design</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software analysis and design
+### Activity diagrams
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Activity diagrams
+
+- After gathering requirements, we can start modeling our application
+- Use case diagram shows an overview of application functionality and user interaction
+- Activity diagrams expand each use case showing its inner steps
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Components
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-01-shapesAD_en.png" alt="Symbols of activity diagrams" />
+</div>
+
+</script>
+</section>
+    
+    
+<section data-markdown>
+<script type="text/template">
+## Example: user validation
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-03-example1_en.png" alt="Example: validate user and password" width="30%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: library management
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-04-example2.png" alt="Example: library management" width="35%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: orders
+
+Try to figure out what this activity diagram reflects 
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema04-05-example3_en.png" alt="Example: orders" width="30%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Create an activity diagram for the following simple programs: 
+
+1. Ask the user to enter a number and then tells if it is even or odd.
+2. Iteratively ask the user to enter a number until he types an odd number.
+3. Iteratively ask the user to enter a number until he types 0. Then, show the total amount of positive and negative numbers that the user has typed.
+4. Ask the user to enter his username and password. If they are not correct, the program must ask again, up to 3 times. After the 3rd attempt, the program will show an error message and then, it will finish.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Create the activity diagram of any use case from exercise about the cultural organization of previous section
+
+</script>
+</section>
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

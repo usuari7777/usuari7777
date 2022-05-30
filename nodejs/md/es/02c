@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Usando módulos de terceros | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Usando módulos de terceros" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/02c.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Usando módulos de terceros" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Usando módulos de terceros","url":"http://nachoiborraies.github.io/nodejs/md/es/02c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="usando-módulos-de-terceros">Usando módulos de terceros</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/02c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="02c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Además de poder utilizar módulos incorporados en Node.js, o descomponer nuestra aplicación en diversos módulos conectados, Node.js es un framework con una gran comunidad de desarrollo detrás, que ya ha desarrollado una gran variedad de módulos o librerías que podemos utilizar libremente en nuestros proyectos, con el objetivo (siempre presente) de no tener que “reinventar la rueda”, y además, utilizar un código que ha sido ampliamente probado y utilizado por otros desarrolladores.</p>
+
+<h2 id="1-el-gestor-de-paquetes-npm">1. El gestor de paquetes NPM</h2>
+
+<p><strong>npm</strong> (<em>Node Package Manager</em>) es un gestor de paquetes para Javascript, y se instala automáticamente al instalar Node.js. Podemos comprobar que lo tenemos instalado, y qué versión concreta tenemos, mediante el comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm -v
+</code></pre></div></div>
+
+<p>aunque también nos servirá el comando <code class="language-plaintext highlighter-rouge">npm --version</code>.</p>
+
+<p>Inicialmente, <code class="language-plaintext highlighter-rouge">npm</code> se pensó como un gestor para poder instalar módulos en las aplicaciones Node, pero se ha convertido en mucho más que eso, y a través de él podemos también descargar e instalar en nuestras aplicaciones JavaScript (cliente o servidor) otros módulos o librerías que no tienen que ver con Node, como por ejemplo <em>Bootstrap</em> o <em>jQuery</em>. Así que actualmente es un enorme ecosistema de librerías open-source, que nos permite centrarnos en las necesidades específicas de nuestra aplicación, sin tener que “reinventar la rueda” cada vez que necesitemos una funcionalidad que ya han hecho otros antes.</p>
+
+<p>El registro de librerías o módulos gestionado por NPM está en la web <a href="https://npmjs.com">npmjs.com</a>. Podemos consultar información sobre alguna librería en particular, consultar estadísticas de cuánta gente se la descarga, e incluso proporcionar nosotros nuestras propias librerías si queremos. Por ejemplo, esta es la ficha de la librería <em>express</em>, que emplearemos dentro de unas sesiones:</p>
+
+<div align="center">
+    <img src="../../img/02_npmjs_express.png" width="90%" />
+</div>
+
+<p>La opción más habitual de uso de <em>npm</em> es instalar módulos o paquetes en un proyecto concreto, de forma que cada proyecto tenga sus propios módulos. Sin embargo, en algunas ocasiones también nos puede interesar (y es posible) instalar algún módulo de forma global al sistema. Veremos cómo hacer estas dos operaciones.</p>
+
+<h2 id="2-instalar-módulos-locales-a-un-proyecto">2. Instalar módulos locales a un proyecto</h2>
+
+<p>En este apartado veremos cómo instalar módulos de terceros de forma local a un proyecto concreto. Haremos pruebas dentro de un proyecto llamado “<em>PruebaNPM</em>” en nuestra carpeta de “<em>ProyectosNode/Pruebas</em>”, cuya carpeta podemos crear ya.</p>
+
+<h3 id="21-el-archivo-packagejson">2.1. El archivo “package.json”</h3>
+
+<p>La configuración básica de los proyectos Node se almacena en un archivo JSON llamado <code class="language-plaintext highlighter-rouge">package.json</code>. Este archivo se puede crear directamente desde línea de comandos, utilizando una de estas dos opciones (debemos ejecutarla en la carpeta de nuestro proyecto Node):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">npm init --yes</code>, que creará un archivo con unos valores por defecto, como éste que se muestra a continuación:</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PruebaNPM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"index.js"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"test"</span><span class="p">:</span><span class="w"> </span><span class="s2">"echo </span><span class="se">\"</span><span class="s2">Error: no test specified</span><span class="se">\"</span><span class="s2"> &amp;&amp; exit 1"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"license"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ISC"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">npm init</code>, que iniciará un asistente en el terminal para que demos valor a cada atributo de la configuración. Lo más típico es rellenar el nombre del proyecto (toma como valor por defecto el nombre de la carpeta donde está), la versión, el autor y poco más. Muchas opciones tienen valores por defecto puestos entre paréntesis, por lo que si pulsamos <em>Intro</em> se asignará dicho valor sin más.</li>
+</ul>
+
+<p>Al final de todo el proceso, tendremos el archivo en la carpeta de nuestro proyecto. En él añadiremos después (de forma manual o automática) los módulos que necesitemos, y las versiones de los mismos, como explicaremos a continuación.</p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: al generar el archivo <code class="language-plaintext highlighter-rouge">package.json</code>, podemos observar que el nombre de programa principal (<em>entry point</em>) que se asigna por defecto a la aplicación Node es <em>index.js</em>. Es habitual que el fichero principal de una aplicación Node se llame así, o también <em>app.js</em>, como veremos en posteriores ejemplos, aunque no es obligatorio llamarlos así.</p>
+</blockquote>
+
+<h3 id="22-añadir-módulos-al-proyecto-y-utilizarlos">2.2. Añadir módulos al proyecto y utilizarlos</h3>
+
+<p>Para instalar un módulo externo en un proyecto determinado, debemos abrir un terminal y situarnos en la carpeta del proyecto. Después, escribimos el siguiente comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install nombre_modulo
+</code></pre></div></div>
+
+<p>donde <em>nombre_modulo</em> será el nombre del módulo que queramos instalar. Podemos instalar también una versión específica del módulo añadiéndolo como sufijo con una arroba al nombre del módulo. Por ejemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install nombre_modulo@1.1.0
+</code></pre></div></div>
+
+<p>Vamos a probar con un módulo sencillo y muy utilizado (tiene millones de descargas semanalmente), ya que contiene una serie de utilidades para facilitarnos el desarrollo de nuestros proyectos. Se trata del módulo <code class="language-plaintext highlighter-rouge">lodash</code>, que podéis consultar en la web citada anteriormente (<a href="https://www.npmjs.com/package/lodash">aquí</a>). Para instalarlo, escribimos lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install lodash
+</code></pre></div></div>
+
+<p>Algunas puntualizaciones antes de seguir:</p>
+
+<ul>
+  <li>Tras ejecutar el comando anterior, se habrá añadido el nuevo módulo en una subcarpeta llamada <code class="language-plaintext highlighter-rouge">node_modules</code> dentro de nuestro proyecto.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/02_node_modules.png" width="40%" />
+</div>
+
+<ul>
+  <li>También tras ejecutar el comando anterior, se habrá añadido el módulo en una sección llamada <em>dependencies</em> dentro del archivo <code class="language-plaintext highlighter-rouge">package.json</code>.</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pruebanpm"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"lodash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.17.21"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Al instalar cualquier nuevo módulo, se generará (o modificará) un archivo adicional llamado <code class="language-plaintext highlighter-rouge">package-lock.json</code>. Este archivo es un backup de cómo ha quedado el árbol de carpetas en “<em>node_modules</em>” con la nueva instalación, de forma que podamos volver atrás y dejar los módulos como estaban en cualquier paso previo. Es utilizado en repositorios git para estas restauraciones, precisamente. Nosotros no le haremos mucho caso en este curso.</li>
+</ul>
+
+<p>Para poder utilizar el nuevo módulo, procederemos de la misma forma que para utilizar módulos predefinidos de Node: emplearemos la instrucción <code class="language-plaintext highlighter-rouge">require</code> con el nombre original del módulo. Por ejemplo, vamos a editar un archivo <code class="language-plaintext highlighter-rouge">index.js</code> en la carpeta “<em>PruebaNPM</em>” que venimos editando en estos últimos pasos, y añadimos este código que carga el módulo “lodash” y lo utiliza para eliminar un elemento de un vector:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">lodash</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">lodash</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">lodash</span><span class="p">.</span><span class="nx">difference</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA:</strong> si buscáis documentación o ejemplos de uso de esta librería en Internet, es habitual que el nombre de variable o constante donde se carga (en la línea <code class="language-plaintext highlighter-rouge">require</code>) sea un simple símbolo de subrayado (eso es lo que significa <em>low dash</em> en inglés), con lo que el ejemplo anterior quedaría así:</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">lodash</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">difference</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+</code></pre></div></div>
+
+<p>Si ejecutamos este ejemplo desde el terminal, obtendremos lo siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node index.js
+[ 2, 3 ]
+</code></pre></div></div>
+
+<h3 id="23-desinstalar-un-módulo">2.3. Desinstalar un módulo</h3>
+
+<p>Para desinstalar un módulo (y eliminarlo del archivo <code class="language-plaintext highlighter-rouge">package.json</code>, si existe), escribimos el comando siguiente:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm uninstall nombre_modulo
+</code></pre></div></div>
+
+<p>Tras este paso, el módulo se elimina tanto de la carpeta <code class="language-plaintext highlighter-rouge">node_modules</code> como de la sección <em>dependencies</em> del archivo <code class="language-plaintext highlighter-rouge">package.json</code>.</p>
+
+<h3 id="24-orden-de-inclusión-de-los-módulos">2.4. Orden de inclusión de los módulos</h3>
+
+<p>Hemos visto cómo incluir en una aplicación Node tres tipos de módulos:</p>
+
+<ul>
+  <li>Módulos pertenecientes al núcleo de Node</li>
+  <li>Módulos de nuestro propio proyecto, si está dividido en varios ficheros fuente</li>
+  <li>Módulos hechos por terceros, descargados a través de <em>npm</em></li>
+</ul>
+
+<p>Aunque no hay una norma obligatoria a seguir al respecto, sí es habitual que, cuando nuestra aplicación necesita incluir módulos de diversos tipos (predefinidos de Node, de terceros y archivos propios), se haga con una estructura determinada.</p>
+
+<p>Básicamente, lo que se hace es incluir primero los módulos de Node y los de terceros, y después (separados por un espacio del bloque anterior), los archivos propios de nuestro proyecto. Por ejemplo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">lodash</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">utilidades</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./utilidades</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="25-algunas-consideraciones-sobre-módulos-de-terceros">2.5. Algunas consideraciones sobre módulos de terceros</h3>
+
+<p>Hemos visto los pasos elementales para poder instalar, utilizar, y desinstalar (si es necesario) módulos de terceros localmente en nuestras aplicaciones. Pero hay algunos aspectos referentes a estos módulos, y la forma en que se instalan y distribuyen, que debes tener en cuenta.</p>
+
+<p><strong>Gestión de versiones</strong></p>
+
+<p>Desde que comenzamos a desarrollar una aplicación hasta que la finalizamos, o en mantenimientos posteriores, es posible que los módulos que la componen se hayan actualizado. Algunas de esas nuevas versiones pueden no ser compatibles con lo que en su día hicimos, o al contrario, hemos actualizado la aplicación y ya no nos sirven versiones demasiado antiguas de ciertos módulos.</p>
+
+<p>Para poder determinar qué versiones o rangos de versiones son compatibles con nuestro proyecto, podemos utilizar la misma sección de “<em>dependencies</em>” del archivo <code class="language-plaintext highlighter-rouge">package.json</code>, con una nomenclatura determinada. Veamos algunos ejemplos utilizando el paquete “<em>lodash</em>” del caso anterior:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "1.0.0"</code> indicaría que la aplicación sólo es compatible con la versión 1.0.0 de la librería</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "1.0.x"</code> indica que nos sirve cualquier versión 1.0</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "*"</code> indica que queremos tener siempre la última versión disponible del paquete. Si dejamos una cadena vacía “”, se tiene el mismo efecto. No es una opción recomendable en algunos casos, al no poder controlar lo que contiene esa versión.</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "&gt;= 1.0.2"</code> indica que nos sirve cualquier versión a partir de la 1.0.2.</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "&lt; 1.0.9"</code> indica que sólo son compatibles las versiones de la librería hasta la 1.0.9 (sin contar esta última).</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "&gt;= 1.0.2 &lt; 1.0.9"</code> indica que sólo son compatibles las versiones de la librería desde la 1.0.2 (inclusive) hasta la 1.0.9 (sin contar esta última).</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "^1.1.2"</code> indica cualquier versión desde la 1.1.2 (inclusive) hasta el siguiente salto mayor de versión (2.0.0, en este caso, sin incluir este último).</li>
+  <li><code class="language-plaintext highlighter-rouge">"lodash": "~1.3.0"</code> indica cualquier versión entre la 1.3.0 (inclusive) y la siguiente versión menor (1.4.0, exclusive).</li>
+</ul>
+
+<p>Existen otros modificadores también, pero con éstos podemos hacernos una idea de lo que podemos controlar. Una vez hayamos especificado los rangos de versiones compatibles de cada módulo, con el siguiente comando actualizamos los paquetes que se vean afectados por estas restricciones, dejando para cada uno una versión dentro del rango compatible indicado:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm update
+</code></pre></div></div>
+
+<p><strong>Añadir módulos a mano en “package.json”</strong></p>
+
+<p>También podríamos añadir a mano en el archivo “package.json” módulos que necesitemos instalar. Por ejemplo, así añadiríamos al ejemplo anterior la última versión del módulo “express”:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"lodash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.17.21"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"express"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Para hacer efectiva la instalación de los módulos de este archivo, una vez añadidos, debemos ejecutar este comando en el terminal:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install
+</code></pre></div></div>
+
+<p>Automáticamente se añadirán los módulos que falten en la carpeta <em>node_modules</em> del proyecto.</p>
+
+<p><strong>Compartir nuestro proyecto</strong></p>
+
+<p>Si decidimos subir nuestro proyecto a algún repositorio en Internet como Github o similares, o dejar que alguien se lo descargue para modificarlo después, no es buena idea subir la carpeta “node_modules”, ya que contiene código fuente hecho por terceras personas, probado en entornos reales y fiable, que no debería poderse modificar a la ligera. Además, la forma en que se estructura la carpeta “node_modules” depende de la versión de npm que cada uno tengamos instalada, y es posible que ocupe demasiado. De hecho, los propios módulos que descargamos pueden tener dependencias con otros módulos, que a su vez se descargarán en una subcarpeta interna.</p>
+
+<p>Por lo tanto, lo recomendable es no compartir esta carpeta (no subirla al repositorio, o no dejarla a terceras personas), y no es ningún problema hacer eso, ya que gracias al archivo <code class="language-plaintext highlighter-rouge">package.json</code> siempre podemos (debemos) ejecutar el comando</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install 
+</code></pre></div></div>
+
+<p>y descargar todas las dependencias que en él están reflejadas. Dicho de otra forma, el archivo <code class="language-plaintext highlighter-rouge">package.json</code> contiene un resumen de todo lo externo que nuestro proyecto necesita, y que no es recomendable facilitar con el mismo.</p>
+
+<h2 id="3-instalar-módulos-globales-al-sistema">3. Instalar módulos globales al sistema</h2>
+
+<p>Para cierto tipo de módulos, en especial aquellos que se ejecutan desde terminal como Grunt (un gestor y automatizador de tareas Javascript) o JSHint (un comprobador de sintaxis Javascript), puede ser interesante instalarlos de forma global, para poderlos usar dentro de cualquier proyecto.</p>
+
+<p>La forma de hacer esto es similar a la instalación de un módulo en un proyecto concreto, añadiendo algún parámetro adicional, y con la diferencia de que, en este caso, no es necesario un archivo “package.json” para gestionar los módulos y dependencias, ya que no son módulos de un proyecto, sino del sistema. La sintaxis general del comando es:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g nombre_modulo
+</code></pre></div></div>
+
+<p>donde el flag <code class="language-plaintext highlighter-rouge">-g</code> hace referencia a que se quiere hacer una instalación global.</p>
+
+<p>Es importante, además, tener presente que cualquier módulo instalado de forma global en el sistema no podrá importarse con <code class="language-plaintext highlighter-rouge">require</code> en una aplicación concreta (para hacerlo tendríamos que instalarlo también de forma local a dicha aplicación).</p>
+
+<h3 id="31-ejemplo-nodemon">3.1. Ejemplo: nodemon</h3>
+
+<p>Veamos cómo funciona la instalación de módulos a nivel global con uno realmente útil: el módulo <code class="language-plaintext highlighter-rouge">nodemon</code>. Este módulo funciona a través del terminal, y nos sirve para monitorizar la ejecución de una aplicación Node, de forma que, ante cualquier cambio en la misma, automáticamente la reinicia y vuelve a ejecutarla por nosotros, evitándonos tener que escribir el comando <code class="language-plaintext highlighter-rouge">node</code> en el terminal de nuevo. Podéis consultar información sobre nodemon <a href="https://www.npmjs.com/package/nodemon">aquí</a>.</p>
+
+<p>Para instalar <code class="language-plaintext highlighter-rouge">nodemon</code> de forma global escribimos el siguiente comando (con permisos de administrador):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g nodemon
+</code></pre></div></div>
+
+<p>Al instalarlo de forma global, se añadirá el comando <code class="language-plaintext highlighter-rouge">nodemon</code> en la misma carpeta donde residen los comandos <code class="language-plaintext highlighter-rouge">node</code> o <code class="language-plaintext highlighter-rouge">npm</code>. Para utilizarlo, basta con colocarnos en la carpeta del proyecto que queramos probar, y emplear este comando en lugar de <code class="language-plaintext highlighter-rouge">node</code> para lanzar la aplicación:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nodemon index.js
+</code></pre></div></div>
+
+<p>Automáticamente aparecerán varios mensajes de información en pantalla y el resultado de ejecutar nuestro programa. Ante cada cambio que hagamos, se reiniciará este proceso volviendo a ejecutarse el programa.</p>
+
+<p>Para finalizar la ejecución de <code class="language-plaintext highlighter-rouge">nodemon</code> (y, por tanto, de la aplicación que estamos monitorizando), basta con pulsar Control+C en el terminal.</p>
+
+<h3 id="32-desinstalar-módulos-globales">3.2. Desinstalar módulos globales</h3>
+
+<p>Del mismo modo, para desinstalar un módulo que se ha instalado de forma global, utilizaremos el comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm uninstall -g nombre_modulo
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

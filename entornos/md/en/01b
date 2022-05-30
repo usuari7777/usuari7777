@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Programs, languages and compilers | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Programs, languages and compilers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="01b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/01b.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Programs, languages and compilers" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Programs, languages and compilers","url":"http://nachoiborraies.github.io/entornos/md/en/01b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/entornos/assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="programs-languages-and-compilers">Programs, languages and compilers</h1>
+
+<h2 id="first-steps-with-java">First steps with Java</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/entornos/md/en/slides/01b.html"><img src="https://nachoiborraies.github.io/entornos/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/entornos/md/en/01b.pdf"><img src="https://nachoiborraies.github.io/entornos/img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-java-programming-language">1. Java programming language</h3>
+
+<p>Java is an object oriented language, created at the beginning of the 90s by <em>Sun Microsystems</em>. It has its own virtual machine to run the programs, so Java applications are platform independent, and we can run them either on Linux, Windows, Mac and other systems. In fact, Java was conceived to program several types of electronic devices, including home appliances. But it got so popular that it quickly focused on computer applications.</p>
+
+<p>With Java and some other languages of those years, we started saying goodbye to this “open door” to the low level world. Memory and system access is much more restricted, and the language provides other high level features, such as the <em>garbage collector</em>, which is in charge of cleaning the memory periodically, removing every element that is no longer used. This task was completely manual in previous languages (C o C++).</p>
+
+<p>Java has a wide area of application nowadays: we can develop desktop applications with libraries like JavaFX, mobile applications (Android uses Java), web applications (with servlets and JSP pages, or even with more advanced frameworks, such as Spring), etc.</p>
+
+<h3 id="2-installing-java">2. Installing Java</h3>
+
+<p>Java implementations have changed along time. At the beginning, it was Sun Microsystems the company in charge of implementing the earliest versions of the language… until version 6, where Oracle bought Sun Microsystems. Then, there was an official Oracle implementation branch, and an open implementation branch called <em>OpenJDK</em> that is an official reference implementation of Java Standard Edition since version 7. From that point, many other additional implementation branches have arised, such as <em>AdoptOpenJDK</em>, <em>Excelsior JET</em> and so on. Some of them are free, as <em>OpenJDK</em>, and some other are commercial, or have a commercial version for some specific purposes, as Oracle has done with the latest versions.</p>
+
+<p>In order to narrow the range of available options, let’s focus just on Oracle and OpenJDK implementations. The first one has some license restrictions for some given uses, whereas the second one is absolutely free to use. However, Oracle implementations offer LTS (<em>Long Term Support</em>) versions from time to time (version 8 was LTS, and so is version 11), whereas OpenJDK versions are no longer supported as soon as a new version comes into scene.</p>
+
+<p>In this module we are going to use <strong>Java version 11</strong>, and we are going to rely on <strong>OpenJDK implementation</strong>, since its installation is cleaner, and it lets us easily deal with multiple installed versions. However, we are going to start by showing how to install official Oracle version for every platform.</p>
+
+<p><strong>Option 1: Installing Oracle JDK</strong></p>
+
+<p>If you want to use Oracle’s official JDK, then you need to follow these steps:</p>
+
+<ul>
+  <li>Go to the Oracle <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK download website</a> (you may be asked to sign up before downloading the software). Download the package according to your operating system and install it.</li>
+  <li>In case you are using <strong>Linux</strong>, you may be forced to download a <em>tar.gz</em> file from Oracle web site, and unzip it in your chosen folder.</li>
+  <li>After following these steps, JDK commands may not work yet, specially under Windows and Linux, until we configure some environment variables, as we will see later.</li>
+</ul>
+
+<p><strong>Option 2: Installing OpenJDK (<em>recommended</em>)</strong></p>
+
+<p>If we choose OpenJDK implementation (as we are going to do in this module), then we need to download the appropriate <em>zip</em> or <em>tar.gz</em> package. We can do it from <a href="https://jdk.java.net/archive/">this website</a>. Then, unzip the file in your chosen folder. For instance, it can be <code class="language-plaintext highlighter-rouge">C:\OpenJDK-11</code> for Windows, or <code class="language-plaintext highlighter-rouge">/home/username/openJDK11</code> for your Linux distribution. Anyway, there must be a <code class="language-plaintext highlighter-rouge">bin</code> subfolder (among others) into your main installation folder after unzipping (for instance, <code class="language-plaintext highlighter-rouge">C:\OpenJDK-11\bin</code> in Windows).</p>
+
+<div align="center">
+	<img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema01-03-carpeta_bin.png" alt="bin folder inside JDK installation folder" width="70%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: regarding Mac OS X, there will be a <code class="language-plaintext highlighter-rouge">Contents/Home</code> folder inside JDK main installation folder. Inside this <code class="language-plaintext highlighter-rouge">Home</code> folder you will find the <code class="language-plaintext highlighter-rouge">bin</code> subfolder where all JDK commands are placed.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>NOTE</strong>: if you want to use the latest available OpenJDK version instead of the one that we are going to use along this module, you can get it from <a href="https://jdk.java.net/">this link</a>.</p>
+</blockquote>
+
+<p><strong>Setting up the <em>path</em> environment variable</strong></p>
+
+<p>In order for JDK commands to work, we need to add to the system <em>path</em> the folder where these commands are placed (typically, a <code class="language-plaintext highlighter-rouge">bin</code> subfolder inside the main installation folder). This way, the operating system will recognize the compilation commands whenever we type them from a terminal. Let’s see how to do these steps in the most common operating systems:</p>
+
+<p>Under <strong>Windows</strong>:</p>
+
+<ol>
+  <li>We open Windows search and look for <em>Editar variables de entorno</em>. Then, we click on <em>Variables de entorno</em> button.</li>
+</ol>
+
+<div align="center">
+	<img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema01-02-variables_entorno_3.png" alt="Setting the PATH variable" width="50%" />
+</div>
+
+<div align="center">
+	<img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema01-02-variables_entorno.png" alt="Setting the PATH variable" width="70%" />
+</div>
+
+<ol>
+  <li>Then we choose <code class="language-plaintext highlighter-rouge">Path</code> variable from the lower list and click on Edit button. Next, we add the path to the Java compiler. If we unzipped OpenJDK under <code class="language-plaintext highlighter-rouge">C:\OpenJDK-11</code>, for instance, then we add <code class="language-plaintext highlighter-rouge">C:\OpenJDK-11\bin</code> path to the variable.</li>
+</ol>
+
+<div align="center">
+	<img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema01-02-variables_entorno_2.png" alt="Setting the PATH variable" width="70%" />
+</div>
+
+<p>Under <strong>Mac OSX</strong>:</p>
+
+<p>Open a terminal an type these commands. They update <code class="language-plaintext highlighter-rouge">PATH</code> environment variable by adding a new path to the JDK bin folder. We assume that you unzipped JDK under <code class="language-plaintext highlighter-rouge">/openjdk-11</code>, but if not, replace this path with the appropriate one in the first instruction:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=$PATH:/openjdk-11/Contents/Home/bin" &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre></div></div>
+
+<p>Under <strong>Linux</strong>:</p>
+
+<p>Open a terminal an type these commands. They update <code class="language-plaintext highlighter-rouge">PATH</code> environment variable by adding a new path to the JDK bin folder. We assume that you unzipped JDK under <code class="language-plaintext highlighter-rouge">/home/username/openjdk-11</code>, but if not, replace this path with the appropriate one in the first instruction:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export PATH=$PATH:/home/username/openjdk-11/bin" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre></div></div>
+
+<p><strong>Setting up the <em>JAVA_HOME</em> environment variable</strong></p>
+
+<p>Besides, we may need to add a new environment variable called <code class="language-plaintext highlighter-rouge">JAVA_HOME</code> (or edit the existing one, if any), to point to the main installation folder of JDK.</p>
+
+<ul>
+  <li>Under <strong>Windows</strong>, we just add a new environment variable from <em>Editar variables de entorno</em>, just like we did before with <em>Path</em> variable, and set its value to the JDK main installation folder (<code class="language-plaintext highlighter-rouge">C:\OpenJDK-11</code>, for instance).</li>
+</ul>
+
+<div align="center">
+	<img src="https://nachoiborraies.github.io/entornos/img/ED_b1_tema01-04-java_home.png" alt="Setting the JAVA_HOME variable" width="70%" />
+</div>
+
+<ul>
+  <li>Under <strong>Mac OSX</strong>, type these commands from a terminal (again, replace the JDK main folder with your actual folder):</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export JAVA_HOME=/openjdk-11/Contents/Home" &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre></div></div>
+
+<ul>
+  <li>Under <strong>Linux</strong>, type these commands from a terminal (again, replace the JDK main folder with your actual folder):</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "export JAVA_HOME=/home/username/openjdk-11" &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre></div></div>
+
+<p><strong>Checking JDK commands</strong></p>
+
+<p>In order to test that everything is correctly installed, open a terminal and type <code class="language-plaintext highlighter-rouge">javac -version</code>. You should see something like this in the terminal (the version may vary depending on your actual installation):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac 11.0.2
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a new text file called <code class="language-plaintext highlighter-rouge">Test.java</code> in your working folder, and write this piece of code on it:</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>It’s a program that writes “Hello” on the screen. Compile it from the terminal, by typing this instruction from the same folder in which the source file is placed:</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac Test.java
+</code></pre></div></div>
+
+<blockquote>
+  <p>Then, a new file called <code class="language-plaintext highlighter-rouge">Test.class</code> will have been created. This is the compiled file for the Java Virtual Machine. To run this program, type this command from the same folder than the <em>.class</em> file (you should see “Hello” in the screen):</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java Test
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Estructura de un documento HTML/xHTML</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Estructura de un documento HTML/xHTML
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Páginas web
+
+- Documentos de texto
+- Con elementos de marcado configuramos estructura y contenido
+- Los elementos indican al navegador cómo mostrar el contenido
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## HTML
+
+- *HyperText Markup Language*
+- Lenguaje con que se etiquetan las páginas web
+- Estándar, definido por el W3C (*World Wide Web Consortium*)
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Breve historia (1/2)
+
+- Orígenes en los años 80 (Tim Berners-Lee)
+- Primeros documentos HTML en 1991.
+- Primer intento de estándar en 1993
+- Primera versión estándar (HTML 2) en 1995
+- HTML 3.2 en 1997 supervisada por W3C
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Breve historia (2/2)
+
+- HTML 4 en 1998 (incluye CSS y scripts en HTML)
+- HTML 4.01 en 1999
+- HTML 5 a partir de 2008
+   - Sucesivos módulos van convirtiéndose en estándares
+   - Versión definitiva en 2014
+   - Estructura *semántica* de las páginas, con nuevas etiquetas (secciones, artículos...)
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Etiquetas HTML
+
+- Elementos con que marcamos los documentos HTML
+- Suelen dividirse en:
+   - **Apertura**: inicio de un elemento
+   - **Contenido**: texto que se mostrará en el navegador
+   - **Cierre**: fin de un elemento
+- Algunas etiquetas no tienen elemento de cierre (*etiquetas vacías*)
+- Se escriben siempre en minúscula
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Atributos HTML
+
+- Añaden información adicional a ciertas etiquetas
+- Algunos son opcionales, otros son obligatorios
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos
+
+```html
+<p>Esto es un párrafo con su contenido.</p>
+<img src="http://nachoiborraies.github.io/htmlcss/md/es/slides/fotos/foto1.jpg">
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura básica HTML
+
+Se almacenan en archivos *.html* o *.htm*, y se procesan por un *navegador*
+
+```html
+<!DOCTYPE ... >
+<html>
+    <head>
+        ...
+    </head>
+    <body>
+        ...
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## El DOCTYPE
+
+- Indica al navegador el tipo de documento que está mostrando
+- Varía según las distintas versiones de HTML o xHTML
+- Actualmente se suele emplear el de HTML5
+
+```html
+<!DOCTYPE html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otros ejemplos de DOCTYPE
+
+- HTML 4.01
+
+```html
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+```
+
+- xHTML 1.1
+
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La cabecera
+
+- Etiqueta *head*
+- Contiene:
+   - *title*: título de la página
+   - *metaetiquetas*: metainformación sobre la página
+   - Otros elementos (enlaces a scripts, hojas de estilos...)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## El título
+
+- Etiqueta *title*, dentro de *head*
+- La información se muestra en la pestaña del navegador
+- Para más de 60 caracteres, puede que se muestre cortado
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Las metaetiquetas
+
+- Etiquetas *meta*, dentro de *head*
+- Aportan información adicional de la página:
+    - Codificación
+    - Descripción
+    - Autor
+    - Palabras clave
+    - ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Metaetiqueta *charset*
+
+- Define el juego de caracteres de la página o codificación
+- Por defecto es UTF-8
+- Preferible ponerla de las primeras dentro de *head*
+
+```html
+<head>
+    <meta charset="iso-8859-1">
+</head>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Metaetiquetas *description*, *keywords* y *author*
+
+- *description*: breve descripción de la página, que se muestra bajo el enlace en los buscadores
+- *keywords*: palabras clave para posicionamiento en buscadores (ya en desuso)
+- *author*: autor de la página
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Metaetiqueta *viewport*
+
+- Configura el área visible de la página en los dispositivos
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de metaetiquetas
+
+```html
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Apuntes de Lenguaje de Marcas: HTML, CSS, Javascript">
+    <meta name="keywords" content="HTML, CSS, Javascript">
+    <meta name="author" content="May Calle">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo sencillo
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Mi página</title>
+        <meta charset="utf-8">
+        <meta name="author" content="May Calle">
+    </head>
+    <body>
+        <p>Una página sencilla de prueba</p>
+    </body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comentarios HTML
+
+- Permiten explica el contenido de una parte del documento
+- También pueden utilizarse para delimitar una parte de ese documento
+- Comienzan con `<!--`  y finalizan con `-->`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de comentarios
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Añadimos el juego de caracteres -->
+    <meta charset="utf-8">
+    <!-- Título de la página -->
+    <title>Bienvenido/a</title>
+  </head>
+  <body>
+    <!-- En este ejemplo, simplemente mostraremos un texto de saludo -->
+    <p>Hola, buenos días</p>.
+  </body>
+</html>
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea con un documento HTML llamado **pagina1.html**. Dentro, añade: 
+ 
+- Un comentario al principio del documento con tu nombre
+- Un título que sea “Mi primera página HTML”
+- Un juego de caracteres ISO-8859-1 o UTF-8.
+- Información sobre  el autor. 
+- Configura el área visible de la página web.
+- Un párrafo (en el *body*) con tu nombre.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Dado el siguiente documento HTML, indica qué cosas faltan o sobran para que sea correcto
+    
+```html
+<html>
+    <title>Mi página</title>
+    <head>
+        <meta name="charset" content="utf-8">
+        <meta name="author" content="May Calle">
+    </head>
+    <p>Una página sencilla de prueba</p>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructura xHTML
+
+- Documentos HTML expresados como XML válido
+- El conjunto de etiquetas permitido y su sintaxis está más restringido ([Consultar](https://www.w3.org/TR/xhtml1/dtds.html#a_dtd_XHTML-1.1-Strict))
+- Similar a HTML, con algunos cambios:
+   - El documento debe empezar con etiqueta *xml*
+   - El *DOCTYPE* es el correspondiente a xHTML
+   - La etiqueta raíz *html* debe indicar el espacio de nombres
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo xHTML
+
+```html
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+    <head>
+        ...
+    </head>
+    <body>
+        <p>Bienvenido/a</p>
+    </body>
+</html>
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

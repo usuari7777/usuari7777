@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Estructuras de control</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Estructuras de control
+#### Estructuras repetitivas: uso básico
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructuras repetitivas
+
+- Permiten repetir un conjunto de instrucciones mientras se cumpla una determinada condición, o un número determinado de veces
+- También llamadas **bucles**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La estructura *while*
+
+- Permite ejecutar un conjunto de instrucciones mientras se cumpla la condición asociada
+
+```csharp 
+while(condicion)
+{
+    instruccion1;
+    ...
+    instruccionN;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *while*
+
+- Programa que le pide números al usuario hasta que escribe un 0
+
+```csharp
+Console.WriteLine("Escribe un número:");
+int numero = Convert.ToInt32(Console.ReadLine());
+while (numero != 0)
+{
+    Console.WriteLine("Escribe un número:");
+    numero = Convert.ToInt32(Console.ReadLine());
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_01.cs** que le pida al usuario su contraseña numérica. Deberá volvérsela a pedir tantas veces sean necesarias, mientras no introduzca la correcta, que es 1111.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_02.cs** que cuente del 1 al 10 usando un bucle *while*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## La estructura *do..while*
+
+- Permite ejecutar un conjunto de instrucciones mientras se cumpla la condición asociada
+- A diferencia de *while*, la condición se evalúa DESPUÉS de ejecutar al menos una vez las instrucciones
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *do..while*
+
+- Programa que le pide números al usuario hasta que escribe un 0
+
+```csharp
+int numero;
+do 
+{
+    Console.WriteLine("Escribe un número:");
+    numero = Convert.ToInt32(Console.ReadLine());
+}
+while (numero != 0);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## *while* VS *do..while*
+
+- Utilizaremos *while* cuando no sepamos si al menos las instrucciones van a ejecutarse una vez
+- Utilizaremos *do..while* cuando sepamos que al menos las instrucciones se van a ejecutar una vez
+   - Ejemplo típico: programa que le pida al usuario algo hasta/mientras que...
+
+</script>
+</section>
+
+<section data-markdown>
+    <script type="text/template">
+    ## Ejercicio propuesto
+        
+    Haz un programa llamado **Ejercicio_02b_03.cs** que sea una versión del ejercicio *Ejercicio_02b_01.cs* pero usando *do..while*
+    
+    </script>
+    </section>
+    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_04.cs** que le pida números al usuario y vaya calculando la suma de todos ellos. El programa debe finalizar cuando el usuario escriba un número negativo o 0.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_05.cs** que cuente del 1 al 10 usando *do..while*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## La estructura *for*
+
+- Permite ejecutar un conjunto de instrucciones mientras se cumpla una determinada condición, o un número determinado de veces
+
+```csharp
+for(variable; condicion; incremento)
+{
+    instruccion1;
+    ...
+    instruccionN;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo *for*
+
+Programa que cuenta del 1 al 10
+
+```csharp
+for(int i = 1; i <= 10; i = i+1)
+{
+    Console.WriteLine(i);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Autoincremento y autodecremento
+
+- Los operadores **++** y **--** se pueden emplear para autoincrementar/autodecrementar la variable sobre la que se aplican
+- Los incrementos/decrementos son de una unidad
+
+```csharp
+int i;
+for(i = 1; i <= 10; i++)
+{
+    Console.WriteLine(i);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Declaración de contadores
+
+- En el caso de *for* podemos declarar la variable que hace de contador en el mismo bucle *for*
+
+```csharp
+for(int i = 1; i <= 10; i++)
+{
+    Console.WriteLine(i);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_06.cs** que muestre los números del 20 al 10 (en orden descendente).
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_07.cs** que muestre los múltiplos de 3 y 7 (de ambos) que se encuentren del 100 al 200.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+Haz un programa llamado **Ejercicio_02b_08.cs** que muestre la tabla de multiplicar del número que le diga el usuario (que deberá ser del 1 al 10)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo: contar letras
+
+- Podemos incrementar un contador de caracteres en un *for* para recorrer una secuencia de caracteres
+
+```csharp
+for(char letra = 'a'; letra <= 'z'; letra++)
+{
+    Console.Write("{0} ", letra);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Bucles infinitos
+    
+- Bucles con una condición que siempre se cumple
+- Utilidad: aplicaciones que necesitan de un evento externo para terminar
+   - Videojuegos, programas de monitorización...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplos bucles infinitos
+    
+```csharp
+// Bucle while infinito
+while(1 == 1)
+{
+    ...
+}
+
+// Bucle for infinito
+for(;;)
+{
+    ...
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Equivalencia *for* / *while*
+    
+- Un bucle *for* se puede transformar en un bucle *while* (y viceversa)
+   - Sacar el contador fuera
+   - Poner la condición del *for* como condición del *while*
+   - Incrementar el contador dentro del *while*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo equivalencia *for* / *while*
+   
+Ejemplo: contar de 1 a 10
+
+```csharp
+// for
+for (int n = 1; n <= 10; n++)
+{
+    Console.WriteLine(n);
+}
+
+// while
+int n = 1;
+while (n <= 10)
+{
+    Console.WriteLine(n);
+    n++;
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de comas en *for*
+    
+- Podemos emplear comas para:
+   - Declarar varias variables contadores en la primera sección
+   - Declarar varios incrementos / decrementos en la tercera sección
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de uso de comas en *for*
+    
+```csharp
+int i, j;
+for(i = 0, j = 1; i <= 5 && j <= 30; i++, j += 2)
+    Console.WriteLine("i vale {0} y j vale {1}", i, j);
+```
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

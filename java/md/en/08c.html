@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Date and time | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Date and time" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="08c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/08c.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Date and time" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Date and time","url":"http://nachoiborraies.github.io/java/md/en/08c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="date-and-time">Date and time</h1>
+
+<h2 id="operations-with-dates-and-times">Operations with dates and times</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/08c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="08c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>From the classes seen in previous document to manage dates and times (<em>LocalDate</em>, <em>LocalTime</em> and <em>LocalDateTime</em>) we can do some specific operations with them. For instance, we can work with different time zones, so we can convert the date or time of a given zone of the planet into another, different zone. Also, we can make some particular operations, such as adding, substracting or comparing dates or times.</p>
+
+<h3 id="1-working-with-time-zones">1. Working with time zones</h3>
+
+<p>In order to work with different time zones, we first need to identify the zone(s) we are interested in. <code class="language-plaintext highlighter-rouge">ZoneId</code> class provides a static method to list all the available zone identifiers. Also, it has a static <code class="language-plaintext highlighter-rouge">of</code> method to choose a specific zone:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">zones</span> <span class="o">=</span> <span class="nc">ZoneId</span><span class="o">.</span><span class="na">getAvailableZoneIds</span><span class="o">();</span>
+<span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="nl">s:</span> <span class="n">zones</span><span class="o">)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+<span class="nc">ZoneId</span> <span class="n">madrid</span> <span class="o">=</span> <span class="nc">ZoneId</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"Europe/Madrid"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Then, we can use <code class="language-plaintext highlighter-rouge">ZonedDateTime</code> class to convert a date or time given in a specific zone to another different zone. We use <code class="language-plaintext highlighter-rouge">of</code> and <code class="language-plaintext highlighter-rouge">withZoneSameInstant</code> methods from this class. For instance, this piece of code transform the current time in the zone <em>Europe/Madrid</em> into zone <em>Europe/Bucharest</em>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ZonedDateTime</span> <span class="n">dateZone</span> <span class="o">=</span> 
+    <span class="nc">ZonedDateTime</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">(),</span> <span class="nc">ZoneId</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"Europe/Madrid"</span><span class="o">));</span>
+<span class="nc">ZonedDateTime</span> <span class="n">anotherZone</span> <span class="o">=</span>
+    <span class="n">dateZone</span><span class="o">.</span><span class="na">withZoneSameInstant</span><span class="o">(</span><span class="nc">ZoneId</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"Europe/Bucharest"</span><span class="o">));</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Now in Bucharest: "</span> <span class="o">+</span> <span class="n">anotherZone</span><span class="o">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a program that asks the user to enter the zone and time where he/she was born, and transform this time into some other zone, such as Chicago (“America/Chicago”) or Tokio (“Asia/Tokyo”).</p>
+</blockquote>
+
+<h3 id="2-operations-with-dates-and-times">2. Operations with dates and times</h3>
+
+<p>Once we have our date or time objects (either <em>LocalDate</em>, <em>LocalTime</em> or <em>LocalDateTime</em>) we can make some additional operations with them, such as:</p>
+
+<ul>
+  <li>Adding/Substracting parts of the date. For instance, add N days to a given date.</li>
+  <li>Compare dates to determine which one is earlier or later</li>
+  <li>Define a period between two dates. For instance, check how many days have passed since a given date.</li>
+</ul>
+
+<h4 id="21-adding-or-substracting-parts-of-a-date">2.1. Adding or substracting parts of a date</h4>
+
+<p>We have some methods available in <em>LocalDate</em>, <em>LocalTime</em> or <em>LocalDateTime</em> objects to add or substract an amount to/from them. For instance, we can use methods such as <code class="language-plaintext highlighter-rouge">plusDays</code>, <code class="language-plaintext highlighter-rouge">minusYears</code>, <code class="language-plaintext highlighter-rouge">plusHours</code>…</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDate</span> <span class="n">today</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<span class="nc">LocalDate</span> <span class="n">future</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="na">plusDays</span><span class="o">(</span><span class="mi">15</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"In 15 days it will be "</span> <span class="o">+</span> <span class="n">future</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Also, we can use the general methods <code class="language-plaintext highlighter-rouge">plus</code> and <code class="language-plaintext highlighter-rouge">minus</code>. In this case, we need to specify the quantity to be added or substracted, along with the unit. We can make use of <code class="language-plaintext highlighter-rouge">ChronoUnit</code> class from <code class="language-plaintext highlighter-rouge">java.time.temporal</code> package to specify these units.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDateTime</span> <span class="n">now</span> <span class="o">=</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<span class="nc">LocalDateTime</span> <span class="n">past</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="na">minus</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="nc">ChronoUnit</span><span class="o">.</span><span class="na">HOURS</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"3 hours ago it was "</span> <span class="o">+</span> <span class="n">past</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Note that all these operations return an object of the same type of the original that we took to add or substract.</p>
+
+<h4 id="22-comparing-dates">2.2. Comparing dates</h4>
+
+<p>As <em>LocalDate</em>, <em>LocalTime</em> and <em>LocalDateTime</em> classes implement <em>Comparable</em> interface, we can easily compare objects of these classes by calling <code class="language-plaintext highlighter-rouge">compareTo</code> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDate</span> <span class="n">date1</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<span class="nc">LocalDate</span> <span class="n">date2</span> <span class="o">=</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">2022</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">date1</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">date2</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Today is not 2022-6-10 yet"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="23-getting-periods">2.3. Getting periods</h4>
+
+<p>We can use <code class="language-plaintext highlighter-rouge">Instant</code> and <code class="language-plaintext highlighter-rouge">Duration</code> classes to set the duration between two time instants. This can be particularly useful to measure the time it takes to complete a task.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Instant</span> <span class="n">start</span> <span class="o">=</span> <span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+
+<span class="c1">// ... Task to be executed</span>
+
+<span class="nc">Instant</span> <span class="n">end</span> <span class="o">=</span> <span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<span class="nc">Duration</span> <span class="n">duration</span> <span class="o">=</span> <span class="nc">Duration</span><span class="o">.</span><span class="na">between</span><span class="o">(</span><span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Task completed in "</span> <span class="o">+</span> <span class="n">duration</span><span class="o">.</span><span class="na">toMillis</span><span class="o">()</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>Also, we can use <code class="language-plaintext highlighter-rouge">Period</code> class to determine the period between two different dates or times, in the desired unit. For instance, this piece of code determines the number of years and days between two dates, using different versions of <code class="language-plaintext highlighter-rouge">until</code> method from <code class="language-plaintext highlighter-rouge">Period</code> object:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LocalDate</span> <span class="n">date1</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">LocalDate</span> <span class="n">date2</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nc">Period</span> <span class="n">period</span> <span class="o">=</span> <span class="n">date1</span><span class="o">.</span><span class="na">until</span><span class="o">(</span><span class="n">date2</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">period</span><span class="o">.</span><span class="na">getYears</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">date1</span><span class="o">.</span><span class="na">until</span><span class="o">(</span><span class="n">date2</span><span class="o">,</span> <span class="nc">ChronoUnit</span><span class="o">.</span><span class="na">DAYS</span><span class="o">));</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Create a program called <strong>NextBirthday</strong> that asks the user his/her birth date, and show how old he/she is, and how many days are left until his/her next birthday.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

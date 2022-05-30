@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Validación de documentos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Validación de documentos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Diferencias entre versiones
+
+- En **HTML 4** y **xHTML**, todos los elementos se tienen que cerrar para ser válidos
+   - En **HTML 5** no es necesario para elementos vacíos
+- En **HTML 4** y **xHTML**, todos los atributos tienen que tener valores
+   - En **HTML 5** no es necesario para valores *verdadero/falso*
+- En **HTML 5** podemos poner las etiquetas en minúscula, mayúscula o una combinación de ambas
+   - En **xHTML** se usan minúsculas obligatoriamente.
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pautas básicas a seguir
+
+Aunque HTML 5 es más flexible, conviene seguir unas pautas
+
+- Emplear minúsculas para elementos y atributos 
+- Cerrar todas las etiquetas no vacías
+- Colocar todos los valores de atributos entre comillas dobles
+- Omitir la barra final en etiquetas vacías
+- Evitar valores redundantes para atributos *verdadero/falso*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Herramientas de validación
+
+- Los programadores deben corregir sus errores para poder seguir probando los programas
+- Los lenguajes de marcas son más permisivos, pero si corregimos errores nos aseguramos de que las páginas se mostrarán bien en los dispositivos
+- **Validador HTML**: herramienta que revisa el código HTML y detecta errores
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Validador online W3C
+
+Enlace [aquí](https://validator.w3.org/)
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/htmlcss/img/01_html_validator.PNG" alt="Servicio de validación de lenguajes de marcado del W3C" width="40%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Usos del validador online
+
+- **Validate by URI**: indicar URI de la página que se quiere validar. 
+- **Validate by file upload**: subir archivo HTML al validador. 
+- **Validate by direct input**: escribir código HTML directamente en área de texto.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Opciones adicionales
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/htmlcss/img/01_html_validator_more_options.PNG" alt="Opciones adicionales del validador HTML del W3C para personalizar la página de resultado" width="60%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Extensión W3C para VS Code
+
+Consultar [aquí](https://marketplace.visualstudio.com/items?itemName=CelianRiboulet.webvalidator)
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/htmlcss/img/01_w3c_validation.PNG" alt="VSCode con W3C Web Validator instalado" width="80%" />
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Instala la extensión *W3C Web Validator* en VS Code y valida el siguiente documento **validacion.html**. Corrige los errores que encuentres.
+
+```html
+<!DOCTYPE >
+<html>    
+    <body>
+        <head> Ejemplo de validacion HTML </head>             
+        <h2> Mi página web </h2>
+        <ol>
+            <li> Inicio
+            <li> Sobre mí </li>
+            <li> Lenguajes de programación que domino: </li>
+                <ul>
+                    <li> Java </li>
+                    <li> Python </li>
+                    <li> C# </li>
+                </ul>                        
+        </ol>        
+    </body>
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

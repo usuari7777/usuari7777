@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Otros estilos CSS | Diseño web con HTML y CSS</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Otros estilos CSS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="03c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/htmlcss/md/es/03c.html" />
+<meta property="og:site_name" content="Diseño web con HTML y CSS" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Otros estilos CSS" />
+<script type="application/ld+json">
+{"headline":"Otros estilos CSS","description":"Curso de diseño web con HTML y CSS. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","url":"http://nachoiborraies.github.io/htmlcss/md/es/03c.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=159a75899bb45ca1653a328628ff03bbb89ee555">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/htmlcss/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Diseño web con HTML y CSS</a></h1>
+      
+
+      <h1 id="otros-estilos-css">Otros estilos CSS</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Veremos a continuación una serie de propiedades que podemos aplicar a diferentes elementos CSS que no se han recogido en los documentos anteriores. Por ejemplo, estilos específicos para enlaces o tablas, así como algunos efectos avanzados de animación que se incorporaron con CSS3 y algunos selectores más avanzados que aplicar en nuestras reglas CSS.</p>
+
+<h2 id="1-estilos-para-enlaces">1. Estilos para enlaces</h2>
+
+<p>Los enlaces son un elemento muy potente en una página web, pero su estilo es difícil de controlar. De hecho, nada más poner el enlace, se nos verá de color azul en la página, y cuando hagamos clic sobre él, el resto de veces aparecerá de color morado, indicando que es un enlace que ya hemos visitado antes.</p>
+
+<p>Imaginemos que queremos hacer una página web con el color de fondo azul. ¿Qué pasaría con los enlaces? Apenas se verían. O incluso si usamos otros colores, puede que el color de los enlaces desentone con lo que hay alrededor. Para cambiar el estilo de los enlaces mediante CSS, es algo más complicado que para un elemento normal (como un párrafo, por ejemplo), ya que los enlaces tienen diferentes estados, y debemos cambiar el estilo para cada uno de esos estados. Para hacer esto, se utilizan unos elementos de CSS llamados <strong>pseudo-clases</strong>, que complementan a un selector para indicar una característica particular del mismo.</p>
+
+<p>El estilo para el estado normal de un enlace se cambia con la pseudo-clase <em>:link</em>, formando el selector <code class="language-plaintext highlighter-rouge">a:link</code>. Por ejemplo, si queremos poner el texto del enlace de color blanco:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span><span class="nd">:link</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Pero si hacemos clic en el enlace, como ya pasará a ser un enlace visitado, la próxima vez que carguemos la página ya no aparecerá blanco, sino morado (color por defecto para enlaces visitados). Para el estilo para enlaces visitados, usamos el selector <code class="language-plaintext highlighter-rouge">a:visited</code>, que contiene la pseudo-clase <em>:visited</em>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Adicionalmente, el enlace tiene tres estados más sobre los que podemos actuar: cuando pasamos el ratón por encima del enlace, sin pincharlo (se accede con el selector <code class="language-plaintext highlighter-rouge">a:hover</code>), cuando hacemos clic en el enlace (se accede con el selector <code class="language-plaintext highlighter-rouge">a:active</code>) y cuando establecemos el foco en el enlace a través del teclado (selector <code class="language-plaintext highlighter-rouge">a:focus</code>, aunque éste apenas se utiliza).</p>
+
+<p>Por ejemplo, si queremos que, en cualquier estado, los enlaces se muestren de color blanco, tendríamos que añadir estas reglas a nuestro CSS (en realidad bastaría con las dos primeras, si no queremos hacer nada al usar el ratón en los enlaces):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span><span class="nd">:link</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:visited</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:focus</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">a</span><span class="nd">:active</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>O bien una sola regla conjunta:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span><span class="nd">:link</span><span class="o">,</span> <span class="nt">a</span><span class="nd">:visited</span><span class="o">,</span> <span class="nt">a</span><span class="nd">:focus</span><span class="o">,</span> <span class="nt">a</span><span class="nd">:hover</span><span class="o">,</span> <span class="nt">a</span><span class="nd">:active</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>La primera opción es más versátil si luego queremos añadir alguna opción extra en algún estado (por ejemplo, cambiar el tamaño de la letra al pasar el ratón por encima). Es importante mantener el <strong>orden</strong> al definir estas reglas, porque son acumulativas y se van aplicando una tras otra. Así, cuando hacemos clic en un enlace (selector <em>:active</em>), también estamos encima de él (selector <em>hover</em>).</p>
+
+<p>También podemos, entre otras cosas, actuar sobre el subrayado que hay en los enlaces, con la propiedad <code class="language-plaintext highlighter-rouge">text-decoration</code>. Si por ejemplo queremos que los subrayados se quiten al pasar el ratón por encima, haríamos:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span> <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Vamos a seguir modificando el archivo <strong>harrypotter.html</strong> que hemos venido haciendo en ejercicios anteriores. Añade estos estilos:</p>
+
+  <ul>
+    <li>Haz que todo el documento (selector body) tenga tipo de letra Arial y color de fondo azul claro (en formato hexadecimal, busca un tono que te guste).</li>
+    <li>Haz que los enlaces (para el índice inicial) tengan letra de color blanco, sin subrayado, y que al pasar el ratón por encima, o hacer clic en el enlace, la letra cambie a color naranja y subrayado.</li>
+  </ul>
+</blockquote>
+
+<h3 id="11-añadir-iconos-en-enlaces">1.1. Añadir iconos en enlaces</h3>
+
+<p>Podemos añadir un icono o imagen pequeña como parte de un enlace (junto con el texto) de varias formas. Por ejemplo, añadiendo la correspondiente etiqueta <em>img</em> dentro del enlace, y posicionándola junto con el texto. Alternativamente, podemos definir el icono del enlace a través de CSS:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span> 
+<span class="p">{</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="sx">url('imagenes/icono.png')</span> <span class="nb">no-repeat</span> <span class="m">100%</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">background-size</span><span class="p">:</span> <span class="m">2rem</span><span class="p">;</span>
+  <span class="nl">padding-right</span><span class="p">:</span> <span class="m">2.5rem</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Este estilo hará que se cargue la imagen <em>icono.png</em> pegada al borde derecho del enlace (100% del ancho), y a 0 píxeles del borde superior, con un escalado (<em>2rem</em>) y un <em>padding</em> o separación entre el texto y el icono.</p>
+
+<h3 id="12-definir-enlaces-con-apariencia-de-botones">1.2. Definir enlaces con apariencia de botones</h3>
+
+<p>Jugando con propiedades como el color de fondo o los bordes podemos definir enlaces que, en determinadas ubicaciones, tengan una apariencia de botones. Por ejemplo, en sesiones anteriores hemos definido barras de navegación utilizando listas:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">nav</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="n">darkgrey</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">ul</span><span class="nc">.navegacion</span>
+<span class="p">{</span>
+    <span class="nl">list-style-type</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">ul</span><span class="nc">.navegacion</span> <span class="nt">li</span>
+<span class="p">{</span>
+    <span class="nl">display</span><span class="p">:</span> <span class="nb">inline</span><span class="p">;</span>
+    <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Podemos definir enlaces en cada uno de los items de la lista de navegación:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"navegacion"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"..."</span><span class="nt">&gt;</span>Inicio<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"..."</span><span class="nt">&gt;</span>Preguntas frecuentes<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"..."</span><span class="nt">&gt;</span>Tienda online<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"..."</span><span class="nt">&gt;</span>Contacto<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;nav&gt;</span>
+</code></pre></div></div>
+
+<p>Y añadir estilos adicionales a los anteriores para concretar cómo se van a mostrar estos enlaces. Por ejemplo, podemos cambiar su color de fondo cuando pasemos el ratón por encima:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">nav</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span> 
+<span class="p">{</span>
+  <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">1rem</span><span class="p">;</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span><span class="nd">:hover</span> 
+<span class="p">{</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="no">lightgrey</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">nav</span> <span class="nt">ul</span> <span class="nt">li</span> <span class="nt">a</span><span class="nd">:active</span> 
+<span class="p">{</span>
+  <span class="nl">background</span><span class="p">:</span> <span class="no">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div align="center">
+    <img src="../../img/03_enlaces_listas.png" />
+</div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Descarga <a href="../../resources/UD3_Ejercicios/03c_enlaces_iconos_plantilla.zip">esta plantilla</a> de ejercicio. Verás una página <em>index.html</em> con una lista de enlaces (vacíos), y una carpeta con 3 iconos. Se pide que añadas un documento <strong>estilos.css</strong> enlazado desde la página anterior para mostrar una apariencia como esta:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_enlaces_iconos.png" />
+</div>
+
+<blockquote>
+  <p>Al pasar el ratón por encima de cada item, se cambiará el color de fondo como se muestra en el caso de Twitter en el ejemplo (puedes elegir los colores que quieras).</p>
+</blockquote>
+
+<h2 id="2-estilos-para-tablas">2. Estilos para tablas</h2>
+
+<p>En documentos anteriores, cuando hemos visto cómo definir tablas en HTML, comentamos que existen algunos atributos que nos permitían modificar algunas propiedades de las tablas, tales como su borde o su anchura. Sin embargo, la mejor forma de definir la apariencia visual de un elemento no es a través de sus atributos HTML, sino de los estilos CSS.</p>
+
+<p>Podemos utilizar la propiedad <code class="language-plaintext highlighter-rouge">border</code> de CSS para definir el borde tanto de toda la tabla (borde alrededor de los límites de la tabla) como de las casillas que la componen (elementos <em>th</em> y <em>td</em>).</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">table</span><span class="o">,</span> <span class="nt">th</span><span class="o">,</span> <span class="nt">td</span>
+<span class="p">{</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Esto dejará una apariencia como la que tendríamos poniendo <code class="language-plaintext highlighter-rouge">table border="1"</code> en la propia etiqueta <em>table</em>. Sin embargo, ya vimos al tratar estos bordes en HTML que la apariencia final deja un borde doble, debido a que todos los elementos (tanto la tabla en sí como las celdas) tienen un borde. Para evitar esto y dejar un único borde en cada elemento, podemos <strong>colapsar</strong> estos bordes, a través de la propiedad <code class="language-plaintext highlighter-rouge">border-collapse</code>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">table</span><span class="o">,</span> <span class="nt">th</span><span class="o">,</span> <span class="nt">td</span>
+<span class="p">{</span>
+    <span class="nl">border</span><span class="p">:</span> <span class="m">1px</span> <span class="nb">solid</span> <span class="no">black</span><span class="p">;</span>
+    <span class="nl">border-collapse</span><span class="p">:</span> <span class="nb">collapse</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: la propiedad <em>border-collapse</em> se puede aplicar únicamente a la tabla (etiqueta <em>table</em>), no es necesario aplicarla también a las casillas de la misma.</p>
+</blockquote>
+
+<p>En lo que respecta a la <strong>anchura</strong> (<em>width</em>), podemos especificar una anchura general para la tabla en sí:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">table</span>
+<span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">60%</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>O también para alguna de sus columnas (previamente identificada con algún tipo de clase o <em>id</em>):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">td</span><span class="nc">.primera</span>
+<span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">50%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">td</span><span class="nc">.segunda</span>
+<span class="p">{</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">30%</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="3-selectores-avanzados">3. Selectores avanzados</h2>
+
+<p>Vamos a dar una vuelta más de tuerca a lo que son los selectores CSS. En un documento anterior hemos visto que fundamentalmente se utilizan cuatro tipos: de etiqueta, descendente, de clase y de id. Pero existen algunos otros que pueden sernos útiles</p>
+
+<p>El <strong>selector de hijos</strong> es similar al descendente, pero aplica el estilo sólo a etiquetas que cuelguen directamente de la contenedora. Por ejemplo, para aplicar un estilo a negritas que están en párrafos (sin etiquetas intermedias), pondremos:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">p</span> <span class="o">&gt;</span> <span class="nt">strong</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>El <strong>selector adyacente</strong> se utiliza para aplicar un estilo a un elemento que sea hermano adyacente de otro (es decir, a continuación de otro). Por ejemplo, para cursivas que vayan detrás de negritas (no dentro de ellas) usamos:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">strong</span> <span class="o">+</span> <span class="nt">em</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Alternativamente, el <strong>selector de hermanos</strong> es menos restrictivo que el anterior: se aplica a los elementos de un tipo que vayan después de uno dado (sin que necesariamente sea inmediatamente después). Por ejemplo, este selector afecta a los párrafos que vayan después de un <em>h1</em>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span> <span class="o">~</span> <span class="nt">p</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>El <strong>selector de atributos</strong> se utiliza para aplicar el estilo a las etiquetas que tengan un atributo con un cierto valor. Ponemos la etiqueta, y luego entre corchetes el atributo y el valor que debe tener, entre comillas. Por ejemplo, si queremos aplicar un estilo a todos los enlaces que vayan a la página de la Universidad de Alicante, pondríamos algo como:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">a</span><span class="o">[</span><span class="nt">href</span><span class="o">=</span><span class="s1">"https://www.ua.es"</span><span class="o">]</span> <span class="p">{</span> <span class="err">...</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ya hemos visto anteriormente en este documento que en algunos selectores podemos emplear <strong>pseudo-clases</strong> para concretar un estado particular del elemento. Así, el selector <code class="language-plaintext highlighter-rouge">a:hover</code> se aplica a los enlaces cuando estamos pasando el ratón por encima del mismo. Existen otras pseudo-clases que podemos aplicar en diferentes elementos para referirnos a estados o subelementos concretos.</p>
+
+<ul>
+  <li>La pseudo-clase <code class="language-plaintext highlighter-rouge">first-child</code> sirve para aplicar un estilo a la primera etiqueta de la que estamos tratando. Así, el selector <code class="language-plaintext highlighter-rouge">p:first-child</code> se aplicará al primer párrafo de una secuencia de párrafos. De forma similar, podemos emplear el selector <code class="language-plaintext highlighter-rouge">first-of-type</code> para identificar el primer elemento que sea de un tipo dentro de una secuencia. Así, por ejemplo, <code class="language-plaintext highlighter-rouge">div &gt; p:first-child</code> sólo se aplicará a los párrafos que sean los primeros hijos de un <em>div</em>, mientras que <code class="language-plaintext highlighter-rouge">div &gt; p:first-of-type</code> se aplicará al primer párrafo de un <em>div</em>, aunque haya otras cosas antes.</li>
+  <li>Del mismo modo, la pseudo-clase <code class="language-plaintext highlighter-rouge">last-child</code> se aplica a la última etiqueta de una secuencia. Por ejemplo, <code class="language-plaintext highlighter-rouge">li:last-child</code> se aplicará al último item de una lista. Análogamente al caso anterior, también podemos emplear <code class="language-plaintext highlighter-rouge">last-of-type</code>.</li>
+  <li>También disponemos de la pseudo-clase <code class="language-plaintext highlighter-rouge">nth-child(x)</code> donde podemos indicar estilos concretos para elementos concretos de una secuencia. Por ejemplo, <code class="language-plaintext highlighter-rouge">li:nth-child(even)</code> aplica los estilos a los items pares de una secuencia, y <code class="language-plaintext highlighter-rouge">li:nth-child(odd)</code> aplicaría a los impares. El selector <code class="language-plaintext highlighter-rouge">li:nth-child(4)</code> aplica el estilo al cuarto item en la lista, y el selector <code class="language-plaintext highlighter-rouge">li:nth-child(4n)</code> lo aplica cada cuatro elementos.</li>
+</ul>
+
+<p>Podéis aprender más sobre pseudo-clases y sus usos en webs como <a href="https://www.w3schools.com/css/css_pseudo_classes.asp">ésta</a>.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Dado el siguiente contenido HTML:</p>
+</blockquote>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Prueba<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"inicio"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Inicio<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, aliquam!<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur, adipisicing elit.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"contenido"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Contenido<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, aliquam!<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur, adipisicing elit.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"fin"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>Fin<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, aliquam!<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur, adipisicing elit.<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet consectetur adipisicing.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+    <span class="nt">&lt;section</span> <span class="na">id=</span><span class="s">"tabla"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;table&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Lorem, ipsum dolor.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Ab, deserunt officia!<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Amet, temporibus molestiae.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Facere, corrupti praesentium?<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Lorem, ipsum dolor.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Similique, voluptates suscipit!<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Commodi, asperiores sunt?<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Veniam, voluptatibus unde.<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Lorem, ipsum dolor.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Soluta, perferendis fuga.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>At, similique sunt?<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Asperiores, unde atque?<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Lorem, ipsum dolor.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Corrupti, saepe quo.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Voluptates, tempore eius!<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Consequatur, laboriosam vero?<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+            <span class="nt">&lt;tr&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Lorem, ipsum dolor.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Officiis, illum dolorem.<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Obcaecati, alias qui!<span class="nt">&lt;/td&gt;</span>
+                <span class="nt">&lt;td&gt;</span>Necessitatibus, sunt deserunt.<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+    <span class="nt">&lt;/section&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Queremos que las filas pares de la tabla se muestren con un fondo gris, y que el primer párrafo de cada sección tenga letra cursiva. Además, queremos que la tabla ocupe el 100% del ancho disponible, con un borde negro de 1 píxel de grosor y colapsado. Indica qué reglas CSS deberíamos aplicar para conseguirlo.</p>
+</blockquote>
+
+<h2 id="4-efectos-avanzados-css">4. Efectos avanzados CSS</h2>
+
+<p>En esta sección vamos a tratar algunos usos algo más avanzados de las posibilidades que ofrece CSS3. En concreto, en cuanto al uso de transparencias y degradados en la gestión de colores, y en cuanto a la definición de animaciones y transiciones.</p>
+
+<h3 id="41-uso-avanzado-de-colores">4.1. Uso avanzado de colores</h3>
+
+<p>Como ya hemos visto anteriormente, hasta CSS2 teníamos básicamente tres formas de especificar el color de un elemento en una página: con un nombre de color simple (<em>red</em>, <em>yellow</em>…), con su código de colores en RGB decimal (tres cifras de 0 a 255 para cada componente rojo, verde y azul, por ejemplo: <em>rgb (12, 116, 52)</em>), y con su código de colores RGB en hexadecimal (siguiendo la misma filosofía del anterior, pero con formato hexadecimal, por ejemplo: <em>#FF2E34</em>).</p>
+
+<p>CSS3 incorpora novedades interesantes en este conjunto de formatos de color, como es la inclusión del nivel de transparencia u opacidad de un elemento, o el uso de degradados.</p>
+
+<h4 id="411-definir-la-transparencia">4.1.1. Definir la transparencia</h4>
+
+<p>Con CSS3 podemos definir el grado de transparencia u opacidad que va a tener el color de un elemento (tanto color de texto como color de fondo), añadiendo un cuarto elemento a los tres colores RGB, pasando a ser un formato RGBA. Este cuarto elemento es un número decimal que va desde el 0 (totalmente transparente) hasta el 1 (totalmente opaco). Si decidimos usar la transparencia, entonces deberemos especificar el color usando la función <code class="language-plaintext highlighter-rouge">rgba</code> de esta forma:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">h1</span>
+<span class="p">{</span> 
+    <span class="nl">background-color</span><span class="p">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="m">116</span><span class="p">,</span> <span class="m">52</span><span class="p">,</span> <span class="m">0.5</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>donde los tres primeros números expresan la cantidad de rojo, verde y azul, como antes, y el cuarto número es la transparencia.</p>
+
+<p>Una alternativa diferente es utilizar la propiedad <code class="language-plaintext highlighter-rouge">opacity</code> en el CSS, con valores también entre 0 y 1:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">p</span> 
+<span class="p">{</span> 
+    <span class="nl">background-color</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="m">12</span><span class="p">,</span> <span class="m">116</span><span class="p">,</span> <span class="m">52</span><span class="p">);</span> 
+    <span class="nl">opacity</span><span class="p">:</span> <span class="m">0.5</span><span class="p">;</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La diferencia con lo anterior es que, usando <em>opacity</em>, la opacidad afecta al elemento y a todos los subelementos que contenga, incluyendo el texto (que podría ser entonces parcialmente transparente sin nosotros quererlo).</p>
+
+<h4 id="412-uso-de-degradados-lineales">4.1.2. Uso de degradados lineales</h4>
+
+<p>Un degradado lineal es un efecto por el que pasamos gradualmente de un color a otro, siguiendo un eje horizontal, vertical o en cualquier otra dirección. Con CSS3, podemos conseguir este efecto con la función <code class="language-plaintext highlighter-rouge">linear-gradient</code>. Entre paréntesis (sin dejar espacio antes del paréntesis), indicaremos ciertos valores:</p>
+
+<ul>
+  <li>La <strong>dirección del degradado</strong>, que podemos indicarla de tres formas distintas:
+    <ul>
+      <li>Indicando hacia qué lado ir: <em>to top</em>, <em>to bottom</em>, <em>to left</em> o <em>to right</em></li>
+      <li>Indicando desde qué extremo partir: <em>top left</em>, <em>top right</em>, <em>bottom left</em> o <em>bottom right</em></li>
+      <li>Indicando un ángulo en grados (<em>deg</em>), donde <em>0deg</em> apunta hacia arriba y <em>90deg</em> hacia la derecha.</li>
+    </ul>
+  </li>
+  <li><strong>Dos o más colores</strong> (separados por comas), que serán los colores hacia los que se va a ir cambiando gradualmente (de uno al siguiente). Junto a cada color, se puede indicar un porcentaje, que expresa en qué punto del recorrido se tendrá ese color</li>
+</ul>
+
+<p>Por ejemplo, el siguiente degradado va hacia la derecha, parte del blanco, pasa por un rojo a mitad de camino, y termina en un negro.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">background-image</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="m">90deg</span><span class="p">,</span> <span class="m">#FFFFFF</span><span class="p">,</span> <span class="m">#FF0000</span> <span class="m">50%</span><span class="p">,</span> <span class="m">#000000</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Obtendríamos este resultado:</p>
+
+<div style="background-image: linear-gradient(90deg, #FFFFFF, #FF0000 50%, #000000);width:100%;height:50px;"></div>
+
+<p>Existen otras muchas variantes de uso de degradados lineales, y algunas incompatibilidades con algunos formatos dependiendo del navegador, pero este ejemplo nos puede servir de muestra de lo que se puede hacer.</p>
+
+<h4 id="413-uso-de-degradados-radiales">4.1.3. Uso de degradados radiales</h4>
+
+<p>Un degradado radial es otro tipo de degradado donde se pasa de un color en un punto concreto de un determinado elemento (por defecto, el centro del mismo) y se va cambiando gradualmente hacia otro color, en todas direcciones a partir de ese punto. Este degradado se obtiene con la función <code class="language-plaintext highlighter-rouge">radial-gradient</code>.</p>
+
+<p>El siguiente ejemplo crea un degradado radial de forma circular hasta el lado más cercano, y pasa del negro al blanco.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">background-image</span><span class="p">:</span> <span class="n">radial-gradient</span><span class="p">(</span><span class="nb">circle</span> <span class="n">closest-side</span><span class="p">,</span> <span class="no">black</span><span class="p">,</span> <span class="no">white</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>y obtendríamos algo como esto:</p>
+
+<div style="background-image:radial-gradient(circle closest-side, black, white);width:100%;height:100px;"></div>
+
+<p>Si lo aplicamos al lado más lejano (<em>farthest-side</em>), obtenemos esto otro:</p>
+
+<div style="background-image:radial-gradient(circle farthest-side, black, white);width:100%;height:100px;"></div>
+
+<h3 id="42-animaciones-y-transiciones">4.2. Animaciones y transiciones</h3>
+
+<p>Vamos a ver algunos de los efectos de transformación de la forma de algunos elementos, o de movimiento de elementos por la página, que incorpora CSS3.</p>
+
+<h4 id="421-transformaciones">4.2.1. Transformaciones</h4>
+
+<p>La propiedad <code class="language-plaintext highlighter-rouge">transform</code> nos permite realizar una transformación sobre un elemento. Esta transformación puede ser de varios tipos, dependiendo de la función que apliquemos. Es importante que NO debe haber separación entre el nombre de la función y los paréntesis que la acompañan. Puedes descargar <a href="../../resources/UD3_Ejercicios/03c_ejemplo_transform.zip">este ejemplo</a> para comprobar el funcionamiento de cada transformación, e incluso modificarlas para ver su comportamiento.</p>
+
+<p>Para empezar, puede ser un simple <strong>desplazamiento</strong>, con la función <code class="language-plaintext highlighter-rouge">translate</code>. Este desplazamiento sólo puede hacerse en relación a la posición actual del elemento. Podemos utilizar dos parámetros: el desplazamiento en X (desde el extremo izquierdo del elemento) y en Y (desde el extremo superior). Ambos admiten valores negativos (para moverse hacia la izquierda y hacia arriba, respectivamente). Por ejemplo, la siguiente regla desplaza una caja 100 píxeles a la derecha y 20 píxeles hacia abajo:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">100px</span><span class="p">,</span> <span class="m">20px</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si sólo queremos mover en una dirección, tenemos las funciones <code class="language-plaintext highlighter-rouge">translatex</code> y <code class="language-plaintext highlighter-rouge">translatey</code>, a las que sólo debemos indicarles el movimiento horizontal y vertical, respectivamente.</p>
+
+<p>Podemos también hacer <strong>escalados</strong> (cambio de tamaño), con la función <code class="language-plaintext highlighter-rouge">scale</code>. Le indicamos con dos parámetros el escalado en X e Y (siendo 1 el tamaño real, 0.5 la mitad del tamaño real, 2 el doble del tamaño real, etc.). Si sólo indicamos un valor, se empleará tanto para el escalado en X como para el escalado en Y. Por ejemplo, este estilo escala las imágenes a la mitad de su tamaño en pantalla:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">img</span> 
+<span class="p">{</span> 
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">scale</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span> <span class="m">0.5</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Al igual que en el caso anterior, también tenemos las funciones <code class="language-plaintext highlighter-rouge">scalex</code> y <code class="language-plaintext highlighter-rouge">scaley</code> para escalar sólo en una dimensión.</p>
+
+<p>Otra operación de transformación habitual es la <strong>rotación</strong> alrededor del punto de origen del elemento (por defecto, su centro). Indicamos el ángulo de rotación en grados (grados positivos rotan hacia la derecha, en el sentido horario).</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">rotate</span><span class="p">(</span><span class="m">45deg</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finalmente, otro tipo de transformación que podemos aplicar es la <strong>inclinación</strong> a lo largo de los ejes X e Y, con la función <code class="language-plaintext highlighter-rouge">skew</code>. La inclinación con respecto a cada eje se indica en grados. Con esto se consigue un elemento inclinado, como con perspectiva.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">skew</span><span class="p">(</span><span class="m">20deg</span><span class="p">,</span> <span class="m">5deg</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Si queremos aplicar más de una transformación, se ponen una tras otra separadas por espacios:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">div</span> 
+<span class="p">{</span> 
+    <span class="nl">transform</span><span class="p">:</span> <span class="n">translatex</span><span class="p">(</span><span class="m">50px</span><span class="p">)</span> <span class="n">scale</span><span class="p">(</span><span class="m">1.5</span><span class="p">,</span> <span class="m">0.25</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="422-transiciones">4.2.2. Transiciones</h4>
+
+<p>Una transición es un efecto por el que un elemento pasa de un estado o posición inicial a otro, pero no de forma inmediata (como sucede en las transformaciones) sino paulatinamente a lo largo de unos segundos. Por ejemplo, podemos hacer cambios graduales de color, o de posición de un elemento. Para ello, utilizaremos la propiedad <code class="language-plaintext highlighter-rouge">transition</code>, a la que le daremos los siguientes valores (separados cada uno por espacios):</p>
+
+<ul>
+  <li>La <strong>propiedad CSS</strong> del elemento sobre la que se debe actuar en la transición (por ejemplo: <em>color</em>, <em>width</em>, <em>height</em>, <em>background-color</em>…).</li>
+  <li>La <strong>duración</strong> de la transición, en segundos (<em>s</em>) o milisegundos (<em>ms</em>).</li>
+  <li>La <strong>función de transición</strong> (opcional), que puede valer <em>linear</em> (toda la transición tiene el mismo ritmo), <em>ease</em> (empieza lenta, luego va rápida y termina lenta), <em>ease-in</em> (comienzo lento), <em>ease-out</em> (final lento), etc.</li>
+  <li>Un <strong>retraso</strong> (opcional) al inicio de la transición, es decir, un tiempo de espera en segundos o milisegundos, antes de empezar.</li>
+</ul>
+
+<p>Si queremos aplicar una transición sobre más de una propiedad, se pone una coma y se repiten estos valores para la siguiente propiedad CSS. Por ejemplo, el siguiente CSS cambia la posición (X) y el color de una caja cuando pasamos el ratón por encima, en una animación de 2 segundos para la posición y 1 segundo para el color, con final lento.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">#caja1</span> 
+<span class="p">{</span>
+    <span class="nl">position</span><span class="p">:</span><span class="nb">relative</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">0px</span><span class="p">;</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="nl">transition</span><span class="p">:</span> <span class="n">background-color</span> <span class="m">1s</span> <span class="n">ease-out</span><span class="p">,</span> <span class="nb">left</span> <span class="m">2s</span> <span class="n">ease-out</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="nf">#caja1</span><span class="nd">:hover</span> 
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notar cómo necesitamos definir dos reglas: una con las condiciones iniciales del elemento, y otra con las condiciones que cambien al pasar el ratón por encima (<em>:hover</em>). En las condiciones iniciales, indicamos la(s) transición(es) que queremos, que serán las que cambien hasta las indicadas en la regla <em>:hover</em>, y también indicamos los valores iniciales que tendrán las propiedades que queremos cambiar (posiciones iniciales, colores iniciales…). En la regla <em>:hover</em> simplemente indicamos los valores finales que queramos que tengan las propiedades a cambiar (en el caso anterior, el incremento en X y el color de fondo final). En el caso de querer cambiar la posición (<em>left</em>  o <em>top</em>), es importante definir el tipo de posicionamiento del objeto (relativo, en el caso anterior).</p>
+
+<p>También podríamos hacer que las transiciones empiecen al pasar el ratón por encima de otro elemento que contenga al actual, o que esté conectado con él de alguna manera. Por ejemplo, si queremos aplicarlas al entrar con el ratón en cualquier lugar de la página, en lugar de usar el selector <code class="language-plaintext highlighter-rouge">#caja1:hover</code> anterior, usaríamos este:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">html</span><span class="nd">:hover</span> <span class="nf">#caja1</span> 
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">blue</span><span class="p">;</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="423-animaciones">4.2.3. Animaciones</h4>
+
+<p>Además de todo esto, CSS3 también permite realizar animaciones sobre los elementos. Las animaciones son más complejas que las transiciones porque en éstas sólo hay un estado inicial y uno final, mientras que en una animación hay muchos estados intermedios. Sin embargo, no trataremos animaciones en este tema debido a su dificultad y a que se alejan del propósito esencial.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 4:</strong></p>
+
+  <p>Crea una página llamada <strong>efectos.html</strong> y añádele tres cajas identificadas como <em>caja1</em>, <em>caja2</em> y <em>caja3</em>. Define para ellas estos estilos:</p>
+
+  <ul>
+    <li>La primera caja (<em>caja1</em>) debe tener una anchura y altura de 200px. Bordes redondeados de 10px de radio y degradado de blanco a naranja, de izquierda a derecha.</li>
+    <li>La segunda caja (<em>caja2</em>) debe tener una anchura de 200px y altura de 400px respectivamente. Debe tener bordes redondeados con 5px de radio, y color rojo claro de fondo.</li>
+    <li>La tercera caja (<em>caja3</em>) debe tener anchura de 300px, y altura de 100px. Debe tener un borde redondeado de color gris de 5px de grosor, y sombra de 10px por la derecha y por abajo, de color negro, sin propagación.</li>
+    <li>Todas las cajas deben tener 10px de margen a cada lado, y posicionarse unas junto a otras (con <em>float</em> o usando <em>grid</em>)</li>
+  </ul>
+
+  <p>Al final, debe quedarte algo así:</p>
+</blockquote>
+
+<div align="center">
+    <img src="../../img/03_ejercicio_css_avanzado.png" width="70%" />
+</div>
+
+<blockquote>
+  <ul>
+    <li>Añade una transición a la caja 2 para que, al pasar el ratón por encima, cambie su color del rojo claro al azul claro, en 2 segundos.</li>
+    <li>Añade otra transición a la caja 3 para que, al pasar el ratón por encima, se desplace 20 píxeles hacia abajo, en 1 segundo.</li>
+    <li>Haz que la caja 1 baje 200 píxeles en cuanto pongamos el ratón dentro de la página.</li>
+  </ul>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

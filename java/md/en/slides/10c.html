@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software testing</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software testing
+### Integration tests and continuous integration
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Continuous integration
+
+- Testing methodology that automatically launches a set of tests every time we try to integrate or join the components of an application
+- Helpful in a team environment with a shared, remote project.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## CI tools
+
+Many of them offer limited resources for free accounts
+
+- GitHub Actions (integrated in GitHub)
+- Travis CI
+- Jenkins
+- **Circle CI**
+- ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Dependency managers
+
+- Most of these CI tools rely on dependency managers to automate the compilation/running process
+- Regarding Java projects:
+   - Maven
+   - **Gradle**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Create a Java Gradle project
+
+<div align="center">
+    <img src="../../../img/10_intellij_gradle.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sample project
+
+*SampleCITest*
+
+<div align="center">
+    <img src="../../../img/10_intellij_gradle2.png">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sample project
+
+Add this class into *src/main/java/data* package
+
+```java
+package data;
+
+public class Person 
+{
+    private String name;
+
+    public Person(String name) 
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Sample project
+
+*Alt* + *Enter* on class name and create test class with *getName* method
+
+<div align="center">
+    <img src="../../../img/10_intellij_gradle_test.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Sample project
+
+Define the code for *getName* test method
+
+```java
+package data;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class PersonTest 
+{
+    @Test
+    void getName()
+    {
+        Person p = new Person("James");
+        assertEquals("James", p.getName());
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+Sign up with our GitHub account in [official web page](https://www.circleci.com/signup)
+
+<div align="center">
+    <img src="../../../img/10_circleci_signup.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+Allow Circle CI to connect to GitHub (this step needs to be done only once)
+
+<div align="center">
+    <img src="../../../img/10_circleci_signup2.png" width="40%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+Include a *.circleci* folder in your project root folder with a *config.yml* file like [this one](../../../resources/en/config_yml.zip)
+
+<div align="center">
+    <img src="../../../img/10_intellij_gradle_circleci.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+Upload your project to GitHub (*VCS* > *Share project on GitHub*)
+
+<div align="center">
+    <img src="../../../img/10_intellij_github.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+Setup project in Circle CI [projects page](https://app.circleci.com/projects/)
+
+<div align="center">
+    <img src="../../../img/10_circleci_setup_project.png" width="80%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+Choose the *Fastest* option and specify the branch to take (*master* in our case)
+
+<div align="center">
+    <img src="../../../img/10_circleci_setup_project2.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Using Circle CI
+
+- Every time we make changes to our project (add new features or tests), a new process will be launched from Circle CI to run the tests again
+- We can see the results in:
+   - Circle CI dashboard
+   - GitHub repository (choosing the appropriate branch)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Circle CI dashboard
+
+<div align="center">
+    <img src="../../../img/10_circleci_dashboard2.png" width="80%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Circle CI information on GitHub
+
+<div align="center">
+    <img src="../../../img/10_github_ci_result.png" width="80%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Unfollow projects
+
+Choose *Unfollow project* from Circle CI project page to stop CI process over a project
+
+<div align="center">
+    <img src="../../../img/10_circleci_setup_project3.png" width="80%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Do **Exercise 1** of the document associated to these slides
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

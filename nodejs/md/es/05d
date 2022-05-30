@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Estructura de una API REST en Express | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Estructura de una API REST en Express" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="05d.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/05d.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Estructura de una API REST en Express" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Estructura de una API REST en Express","url":"http://nachoiborraies.github.io/nodejs/md/es/05d.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="estructura-de-una-api-rest-en-express">Estructura de una API REST en Express</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/05d.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="05d.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Los ejemplos hechos hasta ahora de aplicaciones Express como proveedor de servicios REST son bastante monolíticos: en un solo archivo fuente hemos ubicado la aplicación Express en sí y las rutas a las que responderá.</p>
+
+<p>A pesar de que el propio framework Express se define en su <a href="http://expressjs.com/">web oficial</a> como <em>unopinionated</em>, es decir, sin opinión acerca de cómo debe ser una arquitectura de aplicación Express, sí conviene seguir ciertas normas mínimas de modularidad en nuestro código. Consultando ejemplos en Internet podemos encontrar distintas formas de estructurar aplicaciones Express, y podríamos considerar correctas muchas de ellas, desde el punto de vista de modularidad del código. Aquí vamos a proponer una estructura que seguir en nuestras aplicaciones, basándonos en otros ejemplos vistos en Internet, pero que no tiene por qué ser la mejor ni la más universal.</p>
+
+<p>Para empezar, crearemos una copia de nuestro proyecto <em>PruebaContactosExpress</em> en otro llamado <em>PruebaContactosExpress_v2</em>, donde iremos incorporando los cambios que veremos a continuación.</p>
+
+<h2 id="1-los-modelos-de-datos">1. Los modelos de datos</h2>
+
+<p>Es habitual encontrarnos con una carpeta <code class="language-plaintext highlighter-rouge">models</code> en las aplicaciones Express donde se definen los modelos de las diferentes colecciones de datos. En nuestro ejemplo de contactos, dentro de esa carpeta “models” ya hemos definido los archivos para nuestros tres modelos de datos: <code class="language-plaintext highlighter-rouge">contacto.js</code>, <code class="language-plaintext highlighter-rouge">restaurante.js</code> y <code class="language-plaintext highlighter-rouge">mascota.js</code>, y los hemos incorporado con <code class="language-plaintext highlighter-rouge">require</code> desde el programa principal:</p>
+
+<div align="center">
+    <img src="../../img/05_models.png" width="30%" />
+</div>
+
+<h2 id="2-las-rutas-y-enrutadores">2. Las rutas y enrutadores</h2>
+
+<p>Imaginemos que la gestión de contactos en sí (alta / baja / modificación / consulta de contactos) se realiza mediante servicios englobados en una URI que empieza por <code class="language-plaintext highlighter-rouge">/contactos</code>. Para el caso de restaurantes y mascotas, utilizaremos las URIs <code class="language-plaintext highlighter-rouge">/restaurantes</code> y <code class="language-plaintext highlighter-rouge">/mascotas</code>, respectivamente. Vamos a definir tres enrutadores diferentes, uno para cada cosa. Lo normal en estos casos es crear una subcarpeta <code class="language-plaintext highlighter-rouge">routes</code> en nuestro proyecto, y definir dentro un archivo fuente para cada grupo de rutas. En nuestro caso, definiríamos un archivo <code class="language-plaintext highlighter-rouge">contactos.js</code> para las rutas relativas a la gestión de contactos, otro <code class="language-plaintext highlighter-rouge">restaurantes.js</code> para los restaurantes, y otro <code class="language-plaintext highlighter-rouge">mascotas.js</code> para las mascotas.</p>
+
+<div align="center">
+    <img src="../../img/05_routes.png" width="30%" />
+</div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: es también habitual que la carpeta <code class="language-plaintext highlighter-rouge">routes</code> se llame <code class="language-plaintext highlighter-rouge">controllers</code> en algunos ejemplos que podemos encontrar por Internet, ya que lo que estamos definiendo en estos archivos son básicamente controladores, que se encargan de comunicarse con el modelo de datos y ofrecer al cliente una respuesta determinada.</p>
+</blockquote>
+
+<p>Vamos a definir el código de estos tres enrutadores que hemos creado. En cada uno de ellos, utilizaremos el modelo correspondiente de la carpeta “<em>models</em>” para poder manipular la colección asociada.</p>
+
+<p>Comencemos por la colección más sencilla de gestionar: la de <strong>mascotas</strong>. Definiremos únicamente servicios para listar (GET), insertar (POST) y borrar (DELETE). El código del enrutador <code class="language-plaintext highlighter-rouge">routes/mascotas.js</code> quedaría así (se omite el código interno de cada servicio, que sí puede consultarse en los ejemplos de código de la sesión):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">Mascota</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/../models/mascota.js</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="c1">// Servicio de listado</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio de inserción</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio de borrado</span>
+<span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Notar que utilizamos un objeto <code class="language-plaintext highlighter-rouge">Router</code> de Express para gestionar los servicios, a diferencia de lo que veníamos haciendo en sesiones anteriores, donde nos basábamos en la propia aplicación (objeto <code class="language-plaintext highlighter-rouge">app</code>) para gestionarlos. De esta forma, definimos un router para cada grupo de servicios, que se encargará de su procesamiento. Lo mismo ocurrirá para los dos enrutadores siguientes (restaurantes y contactos).</p>
+
+<p>Notar también que las rutas no hacen referencia a la URI <code class="language-plaintext highlighter-rouge">/mascotas</code>, sino que apuntan a una raíz <code class="language-plaintext highlighter-rouge">/</code>. El motivo de esto lo veremos en breve.</p>
+
+<p>De forma análoga, podríamos definir los servicios GET, POST y DELETE para los <strong>restaurantes</strong> en el enrutador <code class="language-plaintext highlighter-rouge">routes/restaurantes.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">Restaurante</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/../models/restaurante.js</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="c1">// Servicio de listado</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio de inserción</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio de borrado</span>
+<span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Quedan, finalmente, los servicios para <strong>contactos</strong>. Adaptaremos los que ya hicimos en pasos anteriores, copiándolos en el enrutador <code class="language-plaintext highlighter-rouge">routes/contactos.js</code>. El código quedaría así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/../models/contacto.js</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="c1">// Servicio de listado general</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio de listado por id</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio para insertar contactos</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio para modificar contactos</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// Servicio para borrar contactos</span>
+<span class="nx">router</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="3-la-aplicación-principal">3. La aplicación principal</h2>
+
+<p>El servidor principal ve muy aligerado su código. Básicamente se encargará de cargar las librerías y enrutadores, conectar con la base de datos y poner en marcha el servidor:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Librerías externas</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Enrutadores</span>
+<span class="kd">const</span> <span class="nx">mascotas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/routes/mascotas</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">restaurantes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/routes/restaurantes</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">contactos</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/routes/contactos</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Conexión con la BD</span>
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// Carga de middleware y enrutadores</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/mascotas</span><span class="dl">'</span><span class="p">,</span> <span class="nx">mascotas</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/restaurantes</span><span class="dl">'</span><span class="p">,</span> <span class="nx">restaurantes</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactos</span><span class="p">);</span>
+
+<span class="c1">// Puesta en marcha del servidor</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Los enrutadores se cargan como <em>middleware</em>, empleando <code class="language-plaintext highlighter-rouge">app.use</code>. En esa instrucción, se especifica la ruta con la que se mapea cada enrutador, y por este motivo, dentro de cada enrutador las rutas ya hacen referencia a esa ruta base que se les asigna desde el servidor principal; por ello todas comienzan por <code class="language-plaintext highlighter-rouge">/</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

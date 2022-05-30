@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Abstract classes and interfaces</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Object oriented programming
+### Abstract classes and interfaces
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Abstract class
+
+- Class that can't be instantiated directly
+   - We can't create objects of this class
+- It can have part of its code incomplete (*abstract methods*)
+   - Not necessarily
+- Example: *Animal* class to represent every type of animal
+   - How does an animal talk? It depends on the animal itself
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Abstract classes in Java
+
+```java
+public abstract class Animal
+{
+    protected String color;
+    protected int numberOfLegs;
+
+    public Animal(String color, int numberOfLegs)
+    {
+        this.color = color;
+        this.numberOfLegs = numberOfLegs;
+    }
+
+    public String getColor()
+    {
+        return color;
+    }
+
+    public void setColor(String color)
+    {
+        this.color = color;
+    }
+
+    ...
+
+    public abstract void talk();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Inheriting from an abstract class
+
+Option 1: we define an abstract subclass that can add more abstract behavior
+
+```java
+public abstract class Bird extends Animal
+{
+    public abstract void fly();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Inheriting from an abstract class
+
+Option 2: we define a non-abstract subclass that must override every abstract method
+
+```java
+public class Dog extends Animal
+{
+    public Dog(String color, int numberOfLegs)
+    {
+        super(color, numberOfLegs);
+    }
+
+    @Override
+    public void talk()
+    {
+        System.out.println("Woof woof!!");
+    }
+}
+
+public class Duck extends Bird
+{
+    public Duck(String color, int numberOfLegs)
+    {
+        super(color, numberOfLegs);
+    }
+
+    @Override
+    public void talk()
+    {
+        System.out.println("Quack quack!!");
+    }
+
+    @Override
+    public void fly()
+    {
+        System.out.println("I'm flying like a duck!");
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Abstract classes and polymorphism
+
+We can define polymorphic variables (or even arrays) by instantiating any subtype of the abstract, parent class
+
+```java
+Animal a1 = new Animal("red", 2);   // Error!!
+Animal a2 = new Dog ("white", 4);   // OK
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a project called **Animals**, with a main class called `AnimalsMain` within a package called `animals.main`. Then, add the classes seen before in a package called `animals.types`. Define the abstract classes `Animal` and `Bird` with their corresponding subclasses `Dog` and `Duck` and any other class that you may want to add (such as `Cat` or `Lion`, for instance). Then, define an array of 5 animals (type *Animal*) and fill it with some information (you don't need to ask it to the user if you don't want to). Then, explore the array and make each animal talk.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Go back to Exercise 5 of [this document](../05c) and make these changes to it (create a backup of the original project before making these changes):
+
+* Define `CulturalObject` class as abstract
+* In the main application, define an array of 6 `CulturalObject` objects and then add three books and three music discs to it. Then, print the whole array in the screen.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Interfaces
+
+- Special type of class with no code implemented
+- They can't be instantiated
+- We use them to define a bunch of methods that need to be implemented by any class that wants to "inherit" from that interface
+- We use *interface* word instead of *class*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Interfaces
+
+```java
+public interface Shape
+{
+    public float calculateArea();
+    public void draw();
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Implementing interfaces
+
+We use *implements* word instead of *extends* to make a class implement the methods of an interface
+
+```java
+public class Circle implements Shape
+{
+    float radius;
+
+    public Circle(float radius)
+    {
+        this.radius = radius;
+    }
+
+    @Override
+    public float calculateArea()
+    {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public void draw()
+    {
+        System.out.println("Drawing a circle!");
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## More about interfaces
+
+- We can implement some static methods and other special code, and leave unimplemented a set of methods, so that any implementing class can fill them and **act as** the interface
+- *Circle* is not considered a *Shape* (it does not inherit from it), but *Circle acts as a Shape*
+- We can create polymorphic objects from interfaces as well
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Interfaces and polymorphism
+
+```java
+Shape[] shapes = new Shape[10];
+shapes[0] = new Circle(...);
+shapes[1] = new Square(...);
+...
+shapes[0].draw();
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Extending vs implementing
+
+* Abstract classes are **inherited**. We need to be sure that:
+    * The subclasses that we will define later **are subtypes** of the abstract class
+    * We don't need to inherit from anything else (Java only lets us inherit from one class)
+* Interfaces are **implemented**, and a class can implement as many interfaces as it needs, and also inherit from any other (single) class
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Extending vs implementing
+
+```java
+public class MyShape extends AnotherClass 
+                     implements Shape, Comparable
+{
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 3
+
+Create a project called **Shapes**, with a main class called `ShapesMain` within a package called `shapes`. Then, add the `Shape` interface to that same package, and all the implementing classes (such as `Circle`, `Rectangle` or `Square`) in a subpackage called `shapes.types`. Implement both methods `calculateArea` and `draw` in all of them (just print a message in the `draw` method of each shape). Then, define an array of 5 shapes (type `Shape`) and fill it with some information (you don't need to ask it to the user if you don't want to). Finally, explore the array and calculate the area of each shape.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: sorting objects (1/6)
+
+Array of complex objects, such as `Person` objects with their names and ages
+
+```java
+class Person 
+{
+    private String name;
+    private int age;
+
+    public Person(String name, int age) 
+    {
+        this.name = name;
+        this.age = age;
+    }
+
+    ...
+}
+
+...
+
+public static void main(String[] args) 
+{
+    Person[] people = new Person[50];
+
+    people[0] = new Person("Nacho", 40);
+    people[1] = new Person("Juan", 70);
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Example: sorting objects (2/6)
+
+Sort array with a traditional algorithm by age in descending order
+
+```java
+for (int i = 0; i < people.length - 1; i++) 
+{
+    for (int j = i + 1; j < people.length; j++) 
+    {
+        if (people[i].getAge() < people[j].getAge()) 
+        {
+            People aux = people[i];
+            people[i] = people[j];
+            people[j] = aux;
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: sorting objects (3/6)
+
+Sort array making Person implement [Comparable](https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html) interface
+
+```java
+class Person implements Comparable<Person> 
+{
+    private String name;
+    private int age;
+
+    public Person(String name, int age) 
+    {
+        this.name = name;
+        this.age = age;
+    }
+
+    ... // Getters and setters
+
+    @Override
+    public int compareTo(Person p) 
+    {
+        if (this.getAge() > p.getAge())
+            return -1;
+        else if (p.getAge() > this.getAge())
+            return 1;
+        else
+            return 0;
+    }
+}
+
+// Main class
+
+import java.util.Arrays;
+...
+public static void main(String[] args) 
+{
+    Person[] people = new Person[50];
+    ... // Fill array
+    Arrays.sort(people);
+    // Here our array is already sorted by age (descending)
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: sorting objects (4/6)
+
+We can make use of [Integer API](https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html) to simplify the comparison criteria
+
+```java
+class Person implements Comparable<Person> 
+{
+    private String name;
+    private int age;
+
+    public Person(String name, int age) 
+    {
+        this.name = name;
+        this.age = age;
+    }
+
+    ... // Getters and setters
+
+    @Override
+    public int compareTo(Person p) 
+    {
+        return Integer.compare(this.getAge(), p.getAge());
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: sorting objects (5/6)
+
+If we want to sort them in descending order, we just swap the parameters
+
+```java
+@Override
+public int compareTo(Person p) 
+{
+    return Integer.compare(p.getAge(), this.getAge());
+}
+```
+
+There are similar methods in *Character*, *Float* or *Double* classes
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example: sorting objects (6/6)
+
+Sort using [Comparator](https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html) interface in an external class
+
+```java
+public class PersonComparator implements Comparator<Person> 
+{
+    @Override
+    public int compare(Person p1, Person p2) 
+    {
+        return Integer.compare(p2.getAge(), p1.getAge());
+    }
+}
+
+// Main class
+
+import java.util.Arrays;
+...
+public static void main(String[] args) 
+{
+    Person[] people = new Person[50];
+    ... // Fill array
+    Arrays.sort(people, new PersonComparator());
+    // Here our array is already sorted by age
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comparable vs Comparator
+
+- We can use *Comparable* if we can access the code of the class that we want to compare
+- We can use *Comparator* in any situation, and we avoid changing the behavior of the original class
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 4
+
+Go back to Exercise 1 of [this document](../05c), and create a copy of it called **SortedVideoGameList**. Then, use either `Comparable` or `Comparator` interfaces to sort the video game array by price (in ascending order) and print the sorted array in the screen
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Anonymous classes
+
+- Class without name that is created at the point where we need to implement a given interface, or extend from a given abstract class
+- We don't need to define an additional class for it, we just use this anonymous class at a particular point of our code 
+- Useful for single use
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Anonymous classes
+
+```java
+Animal strangeAnimal = new Animal("yellow", 2) 
+{
+    @Override
+    public void talk() 
+    {
+        System.out.println("Vote for Quimby!");
+    }
+};
+
+strangeAnimal.talk();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Anonymous classes
+
+We can also include particular attributes and methods
+
+```java
+Animal strangeAnimal = new Animal("yellow", 2) 
+{
+    String name = "Joe Quimby"
+
+    @Override
+    public void talk() 
+    {
+        anotherMethod();
+        System.out.println("Vote for Quimby!");
+    }
+
+    private void anotherMethod()
+    {
+        System.out.println ("My name is " + name);
+    }
+};
+
+strangeAnimal.talk();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Anonymous classes
+
+We can use them to instantiate interfaces as well
+
+```java
+Shape irregularShape = new Shape()
+{
+    @Override
+    public float calculateArea()
+    {
+        return 0.5f;
+    }
+
+    @Override
+    public void draw()
+    {
+        System.out.println("Drawing this particular shape!");
+    }
+};
+
+irregularShape.draw();
+System.out.println(irregularShape.calculateArea());
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Anonymous classes and comparisons
+
+We can instantiate a *Comparator* object at the point at which we want to sort a collection of objects
+
+```java
+import java.util.Arrays;
+...
+public static void main(String[] args) 
+{
+    Person[] people = new Person[50];
+    ... // Fill array
+    Arrays.sort(people, new Comparator<Person>()
+    {
+        @Override
+        public int compare(Person p1, Person p2)
+        {
+            return Integer.compare(p2.getAge(), p1.getAge());
+        }
+    });
+    // Here our array is already sorted by age
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 5
+
+Update Exercise 3 by adding a new shape through an anonymous class. This shape will act as a diamond and it will have two internal attributes: the short axis and the long axis. Calculate its area by applying the corresponding formula, and implement the `draw` method by printing in the screen the message "I'm a diamond!". Then, add an object of this type to the shapes array to use its methods.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercise 6
+
+Define a `Comparator` in previous exercise to compare shapes by their area, in descending order. You must use an anonymous class to implement the comparator. Then, sort the array with this comparator and print it in the screen.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

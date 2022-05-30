@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Tipos de datos básicos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Tipos de datos básicos
+#### Otros tipos básicos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Otros tipos básicos
+
+- Caracteres
+- Textos
+- Booleanos
+- Enumeraciones
+- Constantes
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Tipo carácter
+
+- Se representa con el tipo **char**
+- Los valores a asignar se representan entre comillas simples
+- Para leer de teclado podemos usar **Convert.ToChar**
+- Los caracteres se codifican con un número asignado
+   - Las letras tienen números correlativos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipo carácter
+
+```csharp
+char c = 'a';
+char letra;
+
+Console.WriteLine("Escribe una letra:");
+letra = Convert.ToChar(Console.ReadLine());
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa en el fichero **Ejercicio_03c_01.cs** que le pida al usuario una letra y le diga si es una minúscula de la "a" a la "z" (sin incluir acentos ni eñes) o no. Deberá sacar por pantalla también el código numérico del carácter escrito por el usuario.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Secuencias de escape
+
+- Caracteres especiales que representan ciertos símbolos:
+   - Saltos de línea
+   - Comillas dobles y simples
+   - Tabulaciones
+   - ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Secuencias de escape
+
+|Símbolo|Significado|
+|---|---|
+|`\n`|Salto de línea|
+|`\t`|Tabulación|
+|`\"`|Comilla doble|
+|`\'`|Comilla simple|
+|`\\`|Barra invertida|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Secuencias de escape
+
+```csharp
+Console.Write("Texto con\nsaltos de línea y \"comillas\"");
+```
+
+```
+Texto con
+saltos de línea y "comillas"
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Escribe un programa en el fichero **Ejercicio_03c_02.cs** que le pida al usuario cuatro letras y las muestre en orden inverso, encerradas entre comillas dobles
+- Ejemplo: si el usuario escribe a, l, o, h, se deberá mostrar *"hola"*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipo texto
+
+- Tipo **string**
+- Los valores a asignar se representan entre comillas dobles
+- Para leer de teclado podemos usar **Console.ReadLine** directamente
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipo texto
+
+```csharp
+string saludo = "Hola";
+string texto;
+
+Console.WriteLine("Escribe un texto:");
+texto = Console.ReadLine();
+```
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa en el fichero **Ejercicio_03c_03.cs** que le pida al usuario su nombre, y le conteste con "Hola" si se llama Juan, o con "No te conozco" si se llama de cualquier otra forma
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa en el fichero **Ejercicio_03c_04.cs** que le pida al usuario su *login* y su *password*. El password se le debe pedir dos veces, y si no coinciden, se le volverá a pedir dos veces más, hasta que coincidan
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipo booleano
+
+- Se representa con el tipo **bool**
+- Puede tomar los valores *true* o *false*
+
+```csharp
+bool correcto = false;
+``` 
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Utilidad del tipo booleano
+
+Hacer más comprensible la condición en estructuras selectivas o bucles
+
+```csharp
+bool terminado = false;
+
+while(!terminado)
+{
+    ...
+    if (numVidas == 0)
+    {
+        terminado = true;
+    }
+    ...
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa en el fichero **Ejercicio_03c_05.cs** que sea una adaptación del *Ejercicio_03c_01.cs* donde almacenemos en una variable booleana si la letra escrita por el usuario es una vocal o no
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa en el fichero **Ejercicio_03c_06.cs** que le pida al usuario dos números enteros y almacene en una variable booleana si ambos son pares o no. Hazlo primero empleando *if-else* para definir el valor de la variable y luego directamente (sin ese *if-else* para asignarle el valor)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Escribe un programa en el fichero **Ejercicio_03c_07.cs** que, usando una variable booleana, indique si un número que introduce el usuario es primo o no (variante del *Ejercicio_02c_10*)
+- PISTA: utiliza la variable booleana para suponer, al principio, que el número es primo, y utiliza el bucle para intentar demostrar lo contrario (si tiene algún divisor)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constantes
+
+- Datos cuyo valor no cambia durante la ejecución de un programa
+- Se definen igual que las variables, pero anteponiendo la palabra *const*
+
+```csharp
+const double PI = 3.141592654;
+double radio = ...;
+double area = PI * radio * radio;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enumeraciones
+
+- Representan un conjunto finito de valores
+   - Ejemplos: días de la semana, estaciones del año...
+   - Alternativa a definir una constante para cada valor
+- Se usa la palabra **enum** seguida del nombre de la enumeración, y los valores entre llaves
+- El primer valor toma el valor 0, el segundo el 1, y así sucesivamente
+- Se deben declarar fuera del *Main*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enumeraciones
+
+```csharp
+enum diasSemana {
+    LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO, DOMINGO
+};
+
+Console.WriteLine(diasSemana.LUNES);          // LUNES
+Console.WriteLine((int)diasSemana.MARTES);    // 1
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enumeraciones
+
+Podemos alterar la secuencia de índices en la enumeración, y emplear *typecast* para convertir un dato desde/al tipo enumerado
+
+```csharp
+enum diasSemana {
+    LUNES=1, MARTES, MIERCOLES=5, JUEVES, VIERNES, SABADO, DOMINGO
+};
+
+Console.WriteLine((int)diasSemana.MARTES);  // 2
+Console.WriteLine((int)diasSemana.JUEVES);  // 6
+Console.WriteLine((diasSemana)7);           // VIERNES
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Escribe un programa en el fichero **Ejercicio_03c_08.cs** que defina una enumeración para los meses del año. Pídele al usuario que escriba un número de mes del 1 al 12 y, usando la enumeración, dile a qué mes corresponde
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variables con tipo implícito
+
+- Usamos el tipo **var** cuando no sepamos de antemano qué tipo va a tener una variable
+- El tipo se le asigna cuando se le da valor
+- Ejemplo de uso: conexiones a bases de datos
+- PROHIBIDO usarlo salvo que se indique explícitamente en el ejercicio
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variables con tipo implícito
+
+```csharp
+var dato = Convert.ToInt32(Console.ReadLine());
+Console.Write("Has escrito {0}, de tipo {1}",
+    dato, dato.GetType());
+```
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

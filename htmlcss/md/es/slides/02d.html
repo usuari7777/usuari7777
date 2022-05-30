@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Tablas, enlaces y multimedia</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Tablas, enlaces y multimedia
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tablas
+
+- Permiten estructurar información en filas y columnas
+- Útiles en procesadores de textos (LibreOffice, Word...)
+- No tan útiles en páginas web: demasiado rígidas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tablas: etiquetas principales
+
+- **table** engloba toda la tabla
+- **tr** delimita cada fila
+- **td** delimita cada celda
+   - Usaremos **th** para las celdas que sean cabecera (normalmente primera fila y/o columna)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tablas: ejemplo
+
+```html
+<table>
+	<tr>
+		<th>Columna 1</th>
+		<th>Columna 2</th>
+	</tr>
+	<tr>
+		<td>Fila 1, Columna 1</td>
+		<td>Fila 1, Columna 2</td>
+	</tr>
+	<tr>
+		<td>Fila 2, Columna 1</td>
+		<td>Fila 2, Columna 2</td>
+	</tr>
+</table>
+```
+
+</script>
+</section>
+
+<section>
+<h2>Tablas: ejemplo</h2>
+
+<table>
+    <tr>
+        <th>Columna 1</th>
+        <th>Columna 2</th>
+    </tr>
+    <tr>
+        <td>Fila 1, Columna 1</td>
+        <td>Fila 1, Columna 2</td>
+    </tr>
+    <tr>
+        <td>Fila 2, Columna 1</td>
+        <td>Fila 2, Columna 2</td>
+    </tr>
+</table>
+
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tablas: atributos principales
+
+- *table*:
+   - **border**: borde de la tabla (0 para ninguno)
+   - **width**: anchura de la tabla (normalmente en *px* o porcentaje)
+   - **summary**: breve descripción de la tabla, para lectores de pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tablas: atributos principales
+
+- *td*:
+    - **width**: anchura de la celda (en *px* o porcentaje)
+    - **colspan**: columnas que se expande (horizontal)
+    - **rowspan**: filas que se expande (vertical)
+    - **align** / **valign**: alineación horizontal/vertical
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tablas: ejemplo
+
+```html
+<table border="1">
+	<tr>
+		<td rowspan="2" valign="middle" width="50%">Uno</td>
+		<td>Dos</td>
+		<td>Tres</td>
+		<td>Cuatro</td>
+	</tr>
+	<tr>
+		<td>Cinco</td>
+		<td colspan="2" align="right">Seis</td>
+	</tr>
+</table>
+```
+
+</script>
+</section>
+    
+<section>
+<h2>Tablas: ejemplo</h2>
+
+<table>
+	<tr>
+		<td rowspan="2" valign="middle" width="50%">Uno</td>
+		<td>Dos</td>
+		<td>Tres</td>
+		<td>Cuatro</td>
+	</tr>
+	<tr>
+		<td>Cinco</td>
+		<td colspan="2" align="right">Seis</td>
+	</tr>
+</table>
+
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Crea una página llamada **tablas.html**. En ella deberás crear dos tablas:
+
+* Una sin bordes, con un encabezado de 4 columnas (*th*): Nombre y apellidos, E-mail, Dirección, Teléfono, y después 4 filas con esos datos rellenos para 4 personas que conozcas o te inventes.
+* Otra tabla con borde de grosor 1 y anchura del 50%, donde la primera fila tenga 3 columnas combinadas y el texto en negrita "Trilogías". Después, habrá información sobre trilogías de cine. Para cada una, añadiremos una fila con las 3 columnas combinadas y el título de la trilogía (El Señor de los Anillos, El Hobbit, Matrix, etc), y después otra fila con los títulos de las 3 películas de la trilogía
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_tablas.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tablas: otras etiquetas
+
+- **caption**: descripción de la tabla, normalmente al principio
+- **thead**, **tbody**, **tfoot**: encabezado (primera(s) fila(s)), contenido y pie (última(s) fila(s)) de la tabla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tablas: ejemplo
+
+```html
+<table>
+    <caption>Lenguajes de programación más populares</caption>
+    <thead>
+        <tr>
+            <th colspan="2">
+                Lenguajes más populares
+            </th>
+        </tr>
+        <tr>
+            <th>Lenguaje</th>
+            <th>Tipo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Java</td>
+            <td>Orientado a objetos</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>Híbrido</td>
+        </tr>
+        <tr>
+            <td>JavaScript</td>
+            <td>Híbrido</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Actualizado a Agosto de 2021</td>
+        </tr>
+    </tfoot>
+</table>
+```
+
+</script>
+</section>
+
+<section>
+<h2>Tablas: ejemplo</h2>
+
+<table>
+    <caption>Lenguajes de programación más populares</caption>
+    <thead>
+        <tr>
+            <th colspan="2">
+                Lenguajes más populares
+            </th>
+        </tr>
+        <tr>
+            <th>Lenguaje</th>
+            <th>Tipo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Java</td>
+            <td>Orientado a objetos</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>Híbrido</td>
+        </tr>
+        <tr>
+            <td>JavaScript</td>
+            <td>Híbrido</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Actualizado a Agosto de 2021</td>
+        </tr>
+    </tfoot>
+</table>
+
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página llamada **horario.html** con tu horario de clases de este curso. La primera fila contendrá los encabezados (*th*) con los días de la semana de Lunes a Viernes, y la primera columna otros encabezados con las franjas horarias. Los recreos serán una sola casilla que ocupará todos los días de la semana (*colspan*) y algunos módulos o asignaturas pueden extenderse más de una franja horaria (*rowspan*).
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Enlaces
+
+- También llamados *hipervínculos*, *hiperenlaces* o *links*
+- Parte fundamental de HTML, permiten conectar documentos entre sí
+- Elementos:
+   - Texto (o imagen) del enlace
+   - URL a la que lleva (página web, documento PDF, etc.)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Enlaces
+
+- Etiqueta **a** con atributo obligatorio **href** para indicar la URL
+
+```html
+<p>Ir a la <a href="http://www.ua.es">web de la Universidad de Alicante</a>.</p>
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Enlaces: atributos
+
+- **title**: texto descriptivo que se muestra al pasar el ratón por encima del enlace
+- **target**: dónde se va a abrir el enlace. Por ejemplo, *_blank* para una ventana/pestaña nueva
+
+```html
+<p>Ir a la 
+   <a href="http://www.ua.es" title="Ir a la web de la UA" target="_blank">
+   web de la Universidad de Alicante
+   </a>.
+</p>
+```
+    
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3:
+
+Crea un documento HTML llamado **institutos.html**. Dentro, genera una lista (no ordenada) con el nombre de al menos 4 o 5 institutos de Ciclos Formativos o Secundaria que conozcas, y pon un enlace en cada uno que vaya a su correspondiente página web, haciendo que se abran en una ventana nueva (distinta a la actual con el listado).
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Rutas relativas y absolutas
+
+- La URL contiene la **ruta** hacia el recurso que estamos solicitando
+- Podemos plantear la ruta de forma relativa desde la página donde hacemos *clic*, o absoluta desde el inicio de la web
+   - Las rutas absolutas pueden plantear problemas dependiendo de la configuración del servidor web
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo rutas relativas y absolutas
+
+Supongamos esta estructura de archivos y carpetas
+
+```
+<MiWeb>
+   pagina1.html
+   pagina2.html
+   <otros>
+      pagina3.html
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo rutas relativas y absolutas
+
+Enlace en *pagina1* para ir a *pagina2*
+
+```html
+<!-- Relativa: las dos están en la misma carpeta -->
+<a href="http://nachoiborraies.github.io/htmlcss/md/es/slides/pagina2.html">Ir a página 2</a>
+
+<!-- Absoluta desde la raíz de la web -->
+<a href="http://nachoiborraies.github.io/pagina2.html">Ir a página 2</a>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo rutas relativas y absolutas
+
+Enlace en *pagina1* para ir a *pagina3*
+
+```html
+<!-- Relativa -->
+<a href="http://nachoiborraies.github.io/htmlcss/md/es/slides/otros/pagina3.html">Ir a página 3</a>
+
+<!-- Absoluta desde la raíz de la web -->
+<a href="http://nachoiborraies.github.io/otros/pagina3.html">Ir a página 3</a>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo rutas relativas y absolutas
+
+Enlace en *pagina3* para ir a *pagina1*
+
+```html
+<!-- Relativa: debemos ir una carpeta afuera -->
+<a href="http://nachoiborraies.github.io/htmlcss/md/es/pagina1.html">Ir a página 1</a>
+
+<!-- Absoluta desde la raíz de la web -->
+<a href="http://nachoiborraies.github.io/pagina1.html">Ir a página 1</a>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Descarga [esta plantilla de ejemplo](../../../resources/UD2_Ejercicios/02d_ejercicio_enlaces_plantilla.zip). Dentro verás distintos archivos distribuidos en diferentes carpetas. Se pide que completes el atributo `href` de los enlaces que encontrarás en el archivo `index.html` de la carpeta principal y del archivo `index.html` de la subcarpeta *projects*, para que enlacen con el documento correcto.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Puntos de anclaje y enlaces internos
+
+- Permiten ir a otras zonas del mismo documento
+- Definimos los puntos de anclaje asignando un *id* a las zonas a las que queremos ir
+- Definimos los enlaces poniendo en *href* el *id* al que queremos ir, precedido de almohadilla `#`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Puntos de anclaje y enlaces internos
+
+```html
+<body>
+   <a href="02d.html#introduccion">Introducción</a>
+   ...
+   <h1 id="introduccion">Introducción</h1>
+   ...
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Crea una página llamada **harrypotter.html** con la siguiente estructura:
+ 
+* *h1* que diga *Saga Harry Potter*
+* Introducción (*h2*)
+* Episodios (*h2*)
+* Harry Potter y la piedra filosofal (*h3*)
+* Harry Potter y la cámara secreta (*h3*)
+* ... etc (resto de entregas de la saga)
+* Resumen de personajes (*h2*), con lista no numerada de 5 de los actores y, entre paréntesis, a qué personaje interpretan
+* Pon anclajes en cada encabezado y al principio un índice de enlaces que permitan ir a cada apartado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_harrypotter.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Imágenes
+
+- Debemos ubicar las imágenes que necesitemos en algún lugar de nuestra web
+   - Por ejemplo, una subcarpeta *imagenes* o *img*
+- Usaremos la etiqueta **img** con su atributo obligatorio **src** para referenciar cada imagen
+   - De forma similar a los enlaces
+- Podemos utilizar imágenes dentro de enlaces para hacer clic en ellas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Imágenes: atributos
+
+Aparte de *src*, que es obligatorio:
+
+* `width`: anchura, normalmente en píxeles o en porcentaje. Conviene que el tamaño no difiera mucho del original
+* `height`: altura. Se ajusta proporcionalmente a la anchura si no la ponemos 
+* `alt`: texto alternativo si el navegador no pueda cargar la imagen, o tarda mucho
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Imágenes: ejemplo
+
+```html
+<a href="https://www.w3schools.com/html/" title="Curso de HTML">
+    <img src="http://nachoiborraies.github.io/htmlcss/md/es/slides/imagenes/logo.png" width="400" alt="Logo de HTML">
+</a>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Icono de la web
+
+- Aparece en la pestaña del navegador y en la barra de direcciones
+- Suele llamarse **favicon.png** o **favicon.ico**
+   - Algunos navegadores lo detectan automáticamente si se llama *favicon.ico* y está en la carpeta principal de la web
+- Si no, podemos especificarlo con:
+
+```html
+<link rel="shortcut icon" href="http://nachoiborraies.github.io/htmlcss/md/es/slides/favicon.ico" type="image/x-icon">
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6
+
+Modifica el ejercicio de Harry Potter de enlaces, y haz los siguientes cambios:
+ 
+* Haz que aparezca la portada de cada película justo tras su título. Busca las portadas en Internet y cópialas en una subcarpeta *imgs* dentro del ejercicio.
+* Opcionalmente, añade también una foto de cada personaje de la lista del resumen de personajes, a tamaño 100x100, junto al nombre del personaje.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pie de foto: figure y figcaption
+
+- La etiqueta **figure** permite englobar una imagen (u otra cosa) junto con su pie
+- La etiqueta **figcaption** define el pie de la imagen
+
+```html
+<figure>
+    <img src="http://nachoiborraies.github.io/htmlcss/md/es/slides/imagenes/foto.png">
+    <figcaption>Imagen reciente de la Sagrada Familia</figcaption>
+</figure>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 7
+
+Crea una página llamada **biografia.html**. Vas a crear en ella la biografía de un personaje famoso (el que quieras). Deberás crear una tabla, de borde 1, con una columna y dos filas. En la primera fila, centrada, deberá aparecer la imagen del personaje que hayas elegido, a tamaño 300 x 400. Opcionalmente, puedes añadir un pie de foto asociado a la imagen. En la segunda fila, deberán aparecer al menos un par de párrafos que cuenten algo de su vida.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 7
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_biografia.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Estructurando la web
+
+- A medida que la web crece, conviene estructurar los archivos en carpetas:
+   - Imágenes en carpeta *img* o *imagenes*, por ejemplo
+   - Hojas de estilo CSS en carpeta *css* o *estilos*, por ejemplo
+   - Diferentes páginas HTML estructuradas en carpetas por temática
+   - En la carpeta principal, dejar la página principal o punto de entrada **index.html**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 8
+
+[Aquí](../../../resources/UD2_Ejercicios/02d_web_programacion_ejemplo.zip) tienes la estructura de archivos e imágenes de una web de prueba. 
+
+1. Mueve todas las imágenes a una subcarpeta llamada **img**
+2. Mueve los archivos *java.html* y *python.html* a una subcarpeta llamada **lenguajes**
+3. Añade dos enlaces en *index.html* para ir a *java.html* y *python.html*
+4. Añade un enlace en cada una de las otras dos páginas para volver a *index.html*
+5. Corrige los atributos *src* de las imágenes que se usan en las tres páginas
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## *iframes*
+
+- Etiqueta que permite incrustar contenido externo como si fuera propio
+- Utilidad: vídeos de YouTube, mapas de Google Maps...
+- Atributos:
+   - **src**: URL del recurso solicitado
+   - **width** y **height**: anchura y altura del marco
+   - ...
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## *iframes*
+
+```html
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Vídeo
+
+- Etiqueta **video**
+- Podemos definir la URL en atributo **src**, o definir varias URLs alternativas con subetiquetas **source** para que el navegador abra la que le sea más compatible por el códec de vídeo
+- Atributo **controls** para mostrar los controles de reproducir/pausar/etc.
+- Atributos **width** y **height** para tamaño de ventana (se rellena de negro el espacio que no se ocupe)
+- Recuerda que los vídeos de YouTube deben incrustarse con *iframe* para poderlos ver
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Vídeo
+
+```html
+<video src="http://nachoiborraies.github.io/htmlcss/md/es/slides/videos/prueba.mp4" controls></video>
+
+<video width="720" controls>
+    <source src="http://nachoiborraies.github.io/htmlcss/md/es/slides/videos/prueba.mp4" type="video/mp4">
+    <source src="http://nachoiborraies.github.io/htmlcss/md/es/slides/videos/prueba.webm" type="video/webm">
+</video>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Audio
+
+- Etiqueta **audio**
+- Mismos atributos y filosofía que *video*, salvo la anchura y altura, que no existen en el audio
+
+```html
+<audio controls>
+    <source src="http://nachoiborraies.github.io/htmlcss/md/es/slides/canciones/cancion1.mp3" type="audio/mp3">
+    <source src="http://nachoiborraies.github.io/htmlcss/md/es/slides/canciones/cancion1.wav" type="audio/wav">
+</video>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Objetos
+
+- Etiqueta **object**
+- Permite añadir distintos objetos multimedia (existe desde antes de HTML 5)
+
+```html
+<object data="http://nachoiborraies.github.io/htmlcss/md/es/slides/img/logo.svg" width="100%"></object>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Marcos internos
+
+- Etiqueta **iframe**
+- Permite añadir distintos objetos (vídeos, mapas de Google, etc)
+
+```html
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.
+6024620057733!2d-0.5317505844743932!3d38.4044398796498!2m3!1f0!2f0!3f0!
+3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6233fea3991575%3A0xf28fcef8c48c1513!2s
+IES%20San%20Vicente!5e0!3m2!1ses!2ses!4v1601811180214!5m2!1ses!2ses" 
+width="600" height="450" frameborder="0" style="border:0;" 
+allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Marcos internos para Google Maps
+
+- Buscamos la ubicación en Google Maps
+- Pulsamos en Compartir
+- Elegimos la opción para *Insertar un mapa* y copiamos el HTML que se nos proporciona
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Marcos internos para Google Maps
+
+<div align="center">
+    <img src="../../../img/02_ejercicio_mapa.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 9
+
+Crea una página llamada **estreno.html**. Piensa en una película que te gustaría ver en el cine. Busca un trailer de la película, y la ubicación de un cine donde la vayan a poner, y añade en la página:
+ 
+* Una etiqueta *video* para ver el trailer de la película
+* Una etiqueta *iframe* para ver la localización del cine
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software testing</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software testing
+### Unit tests in Java using JUnit
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JUnit
+
+- Testing library for Java
+- It can be automatically added to our IntelliJ projects
+- It let's us automate the unit testing process
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Example
+
+We create an IntelliJ project called *PersonTest* with this class:
+
+```java
+package person.types;
+
+public class Person
+{
+    protected String name;
+    protected String idCard;
+
+    public Person()
+    {
+        name="";
+        idCard="";
+    }
+
+    public Person(String name,String idCard)
+    {
+        this.name=name;
+        this.idCard=idCard;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    @Override
+    public boolean equals(Object p)
+    {
+        return (this.idCard.equals(((Person)p).idCard));
+    }
+
+    @Override
+    public String toString()
+    {
+        return name + " " + idCard;
+    }
+}
+```
+
+</script>
+</section>  
+
+<section data-markdown>
+<script type="text/template">
+## Create a test folder
+
+- Create a new directory in project folder
+- Right click on it and *Mark Directory as > Test Sources Root*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Create a test folder
+
+<div align="center">
+    <img src="../../../img/10_IntelliJ_test_folder.png" alt="Create test folder in IntelliJ" width="50%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Create test classes
+
+Click on the class to be tested. *Alt* + *Enter* and choose *Create test*
+
+<div align="center">
+    <img src="../../../img/10_JUnitIntelliJNew.png" alt="New JUnit test in IntelliJ" width="40%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Create test classes
+
+Fix JUnit version if you have to (*Fix* button in previous screen)
+
+<div align="center">
+    <img src="../../../img/10_JUnit5Fix.png" alt="Fix JUnit 5 library problem in IntelliJ" width="40%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Create test classes
+
+We can change test package name and choose method(s) to be added (although it's not necessary)
+
+<div align="center">
+    <img src="../../../img/10_PersonTest.png" alt="New test class for Person" width="50%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Add methods to test class
+
+*Alt* + *Enter* over tested class and choose method(s)
+
+<div align="center">
+    <img src="../../../img/10_GenerateMissedTestMethods.png" alt="Generate missed test methods" width="50%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Add methods to test class
+
+```java
+package person.types;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class PersonTest
+{
+    @Test
+    void getName()
+    {
+        Person p = new Person("James", "11223344A");
+        assertEquals("James", p.getName());
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Important testing methods and elements
+
+* **@Test** annotation indicates that the method above is a test. 
+* **assertXXXX** methods are **assertions**, special methods that check if something is being accomplished (an object is equal to a given value, or is null, or is true...)
+   * These methods are in `org.junit.jupiter.api.Assertions` class in JUnit 5
+* We can add as many assertions as we want in a given test method   
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Run tests
+
+Right click on test class and choose *Run XXXXX*, where *XXXXX* is test class name
+
+<div align="center">
+    <img src="../../../img/10_IntelliJRunTest.png" alt="Run tests in IntelliJ" width="50%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Run tests
+
+We can see the results in the new panel that will be opened
+
+<div align="center">
+    <img src="../../../img/10_IntelliJRunTest2.png" alt="Run tests in IntelliJ" width="50%"/>
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Initializations and closings
+
+- Annotations **@BeforeEach** and **@AfterEach** let us define special methods that are run before and after each test method
+   - These methods are typically called *setUp* and *tearDown*
+- We can use these methods to initialize / free some shared variables or objects for all the test methods
+- We can include *setUp* / *tearDown* methods from test wizard, just like any other test method
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Initializations and closings
+
+```java
+class PersonTest
+{
+    Person person;
+
+    @BeforeEach
+    void setUp()
+    {
+        person = new Person("James", "11223344A");
+    }
+
+    @Test
+    void getName()
+    {
+        assertNotNull(person.getName());
+        assertEquals("James", person.getName());
+    }
+
+    @Test
+    void testEquals()
+    {
+        Person testPerson = new Person("Test2","1111112K");
+        testPerson.setIdCard(person.getIdCard());
+        assertTrue(person.equals(testPerson));
+        testPerson.setIdCard("222222");
+        assertFalse(person.equals(testPerson));
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Code coverage
+
+- We can run test classes with the *Coverage* option (by right clicking on the class)
+- Code coverage shows a report indicating which parts of the code of the tested class are being covered with current tests
+- If we edit tested class, we can see green/red vertical bars in the margin showing this coverage
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Code coverage
+
+<div align="center">
+    <img src="../../../img/10_RunWithCoverage2.png" alt="Run tests with coverage in IntelliJ" width="50%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Code coverage
+
+<div align="center">
+    <img src="../../../img/10_RunWithCoverage3.png" alt="Run tests with coverage in IntelliJ" width="50%"/>
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do **Exercises 1 to 3** of the document attached to these slides
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

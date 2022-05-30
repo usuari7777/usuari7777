@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Basic elements of a Java program | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Basic elements of a Java program" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="01a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/01a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Basic elements of a Java program" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Basic elements of a Java program","url":"http://nachoiborraies.github.io/java/md/en/01a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Java programming language</a></h1>
+      
+
+      <h1 id="basic-elements-of-a-java-program">Basic elements of a Java program</h1>
+
+<h2 id="structure-of-a-java-program">Structure of a Java program</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Java is an object-oriented programming language, and this implies that we need to work with classes and objects. We’ll see later what a class is, but, for now, we only need to know that every piece of code in Java needs to be placed inside a <code class="language-plaintext highlighter-rouge">class</code> clause.</p>
+
+<h3 id="1-our-first-java-program">1. Our first Java program</h3>
+
+<p>Let’s see how to start with Java, by creating a simple Java program that prints “Hello” in the screen.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Let’s explain this code:</p>
+
+<ul>
+  <li>First line initializes the <strong>class</strong> in which we are going to place the code. We are creating a class called <em>MyClass</em>.</li>
+  <li>Every code inside this <em>class</em> must be enclosed in <strong>curly braces</strong> <code class="language-plaintext highlighter-rouge">{</code> … <code class="language-plaintext highlighter-rouge">}</code></li>
+  <li>Next, we start another piece of code called <strong>main</strong>, which is the main piece of code that will be launched when we run the program. In Java, this <em>main</em> block must always be <em>public</em>, <em>static</em> and <em>void</em>, and it must have a <em>String[]</em> set of parameters. We’ll learn later what all this stuff means. Again, all the code belonging this <em>main</em> block must be enclosed in their corresponding curly braces.</li>
+  <li>Finally, inside the curly braces of the <em>main</em> block, we add every instruction that we want to run. In this case, we are adding a <strong>System.out.println</strong> instruction, that is in charge of printing in the screen the text that we specify (<em>Hello</em>, in this case). Also, it’s important to finish every instruction with a semicolon <code class="language-plaintext highlighter-rouge">;</code>. This tells the compiler that the instruction has finished, and we can start evaluating the next one. We could, this way, write more than one instruction per line, although this way of writing programs is not very usual.</li>
+</ul>
+
+<h3 id="2-more-about-this-example">2. More about this example</h3>
+
+<p>The structure of this program is very similar to the same program written in C#: we always need to define a class, even if we only need a <code class="language-plaintext highlighter-rouge">main</code> block. This <code class="language-plaintext highlighter-rouge">main</code> block is written in lower case in Java.</p>
+
+<p>Besides, every public class must have the same name as the source file that contains it, so we need to store the source code of the example above in a file called <code class="language-plaintext highlighter-rouge">MyClass.java</code> (Java source files have <code class="language-plaintext highlighter-rouge">.java</code> extension). If we want to compile this code, we use <code class="language-plaintext highlighter-rouge">javac</code> tool from our JDK installation. We can do it through any IDE, such as Geany, or IntelliJ, as long as we have Java JDK properly installed.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac MyClass.java
+</code></pre></div></div>
+
+<p>Then, a new file called <code class="language-plaintext highlighter-rouge">MyClass.class</code> will be generated. This is the compiled file that can be run under the <em>Java Virtual Machine</em> (JVM), using the <code class="language-plaintext highlighter-rouge">java</code> command. This last step can also be done under any IDE.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java MyClass
+</code></pre></div></div>
+
+<p>After running this program, we will see a “Hello” message in the screen.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

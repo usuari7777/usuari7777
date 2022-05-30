@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Arrays, errores y otros conceptos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Arrays, errores y otros conceptos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipos de arrays en PHP
+
+* **Numéricos**: la posición que ocupa cada elemento en el array la indica un número, comenzando en 0
+* **Asociativos**: la posición que ocupa cada elemento en la lista viene dada por un nombre o *clave*
+* **Mixtos**: arrays de varias dimensiones, donde en algunas se utilizan índices numéricos y en otras índices asociativos.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays numéricos
+
+Pueden crearse de múltiples formas
+
+```php
+// Opción 1: inicializando sus elementos con la palabra "array" y
+// separándolos por comas
+$tabla = array('Uno', 'Dos', 'Tres');
+
+// Opción 2: accediendo a cada casilla para darle el valor
+// (las casillas intermedias sin asignar quedan vacías)
+$tabla[0] = 'Uno';
+$tabla[1] = 'Dos';
+$tabla[2] = 'Tres';
+
+// Opción 3: poniendo corchetes vacíos para añadir en la 
+// siguiente posición disponible desde el final
+$tabla[] = 'Uno';
+$tabla[] = 'Dos';
+$tabla[] = 'Tres';
+
+echo $tabla[1];		// Sacaría 'Dos' en los casos anteriores
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays asociativos
+
+Indicamos cada clave con su valor, separados por `=>`
+
+```php
+// Opción 1: usando "array"
+$notas = array('Manuel García'=>8.5, 'Ana López'=>7, 'Juan Solís'=>9);
+
+// Opción 2: usando corchetes con la clave y el valor
+$notas['Manuel García'] = 8.5;
+$notas['Ana López'] = 7;
+...
+
+echo $notas['Manuel García']; // 8.5
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays multidimensionales
+
+- Cada dimensión lleva su propia pareja de corchetes
+- Puede haber dimensiones con índices numéricos y otras con índices asociativos (arrays mixtos)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays multidimensionales
+
+Ejemplo 1: array bidimensional numérico (tabla numérica de 3 filas y 2 columnas)
+
+```php
+$tabla[0][0] = 34.1;
+$tabla[0][1] = 141;
+$tabla[1][0] = 36.4;
+$tabla[1][1] = 150;
+$tabla[2][0] = 33.5;
+$tabla[2][1] = 155;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays multidimensionales
+
+Ejemplo 2: array multidimensional mixto
+
+```php
+// Opción 1: usando "array"
+$tabla2 = 
+array(
+    array('nombre' => 'Juan García',
+        'dni'=> '11111111A',
+        'idiomas' => array('inglés', 'valenciano', 'español')
+    ),
+    array('nombre' => 'Elisa Rodríguez',
+        'dni' => '22222222B',
+        'idiomas' => array('francés', 'español')
+    )
+);
+
+// Opción 2: usando corchetes para cada dimensión
+$tabla2[0]['nombre'] = 'Juan García';
+$tabla2[0]['dni'] = '11111111A';
+$tabla2[0]['idiomas'][0] = 'inglés';
+$tabla2[0]['idiomas'][1] = 'valenciano';
+...
+
+// Segundo idioma de la segunda persona de la tabla
+echo $tabla2[1]['idiomas'][1];
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays
+
+Arrays numéricos: podemos usar *foreach* o *for*
+
+```php
+// Opción 1: usando "foreach"
+foreach ($notas as $nota)
+{
+    echo $nota;
+}
+
+// Opción 2: usando "for"
+for($i = 0; $i < count($notas); $i++)
+{
+    echo $notas[$i];
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays
+
+Arrays asociativos: usamos *foreach* almacenando clave y valor por separado
+
+```php
+foreach ($notas as $alumno=>$nota)
+{
+    echo "El alumno $alumno tiene un $nota";
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays bidimensionales
+
+Usaremos un doble bucle (uno para filas y otro para columnas). Podemos ver el número de filas y columnas usando *count* en cada dimensión
+
+```php
+// Filas
+for ($i = 0; $i < count($tabla); $i++)
+{
+    // Columnas
+    for ($j = 0; $j < count($tabla[0]); $j++)
+    {
+        echo $tabla[$i][$j];
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones para arrays
+
+* **count(array)** indica cuántos elementos tiene el array
+* **sort(array)** y **rsort(array)** ordenan un array numérico ascendente/descendentemente
+* **asort(array)** y **arsort(array)** ordenan un array asociativo (ascendente/descentendemente) por valor
+* **ksort(array)** y **krsort(array)** ordenan un array asociativo (ascendente/descendentemente) por clave
+* **usort(array, funcion)** ordena un array según la función que defina el usuario como segundo parámetro.
+* **array_filter(array, funcion_filtrado)** devuelve un array con los elementos que pasan la función de filtrado indicada.
+* **print_r(array)** saca la información del array de forma legible
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (1/2)
+
+Crea una carpeta llamada **ejercicios3** donde colocar los ejercicios de esta sección. Define dentro una página llamada **tabla_multiplicar.php** en tu carpeta de ejercicios. Crea en ella un array numérico bidimensional donde en cada fila almacenes la tabla de multiplicar de un número del 0 al 9.  Después, recorre la tabla mostrando en la página la tabla de multiplicar de cada número
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (2/2)
+
+```
+Tabla del 0:
+0 x 1 = 0
+0 x 2 = 0
+...
+Tabla del 1:
+1 x 0 = 0
+...
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página llamada **coches.php**. Define dentro un array bidimensional mixto donde:
+ 
+* La primera dimensión sea asociativa. Aquí pondremos matrículas de coches
+* La segunda dimensión será numérica. En cada casilla guardaremos la marca, modelo y número de puertas del coche en cuestión
+ 
+Rellena el array con al menos 3 o 4 coches, y después muestra sus datos ordenados por matrícula
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Control de errores
+
+En ocasiones algunas acciones en PHP pueden producir un error:
+
+* Operación matemática no permitida (dividir por cero, por ejemplo)
+* Intentar leer un fichero que no existe
+* ...
+
+Si no lo controlamos, se puede mostrar información equivocada o peligrosa (ruta de un archivo en el servidor, por ejemplo)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Control de errores: alternativas
+
+* Usar `@` en la(s) instrucción(es) que puede(n) fallar
+* Configurar `php.ini` para que no muestre errores
+* Usar la instrucción `die` o `exit` para detener la carga de la página
+* Usar excepciones
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Control de errores: uso de @
+
+Se coloca en la operación que puede fallar
+
+```php
+$división = @($num1/$num2);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Control de errores: configurar *php.ini*
+
+- Se configura la propiedad **display_errors** a *false*, *off* o *0* según la versión de PHP que estemos usando
+- No recomendable (se aplica a TODAS las aplicaciones del servidor)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Control de errores: uso de *exit*/*die*
+
+Muestran un mensaje de error y detienen la carga de la página (útil cuando es una operación esencial que debe funcionar)
+
+```php
+file_exists("fichero.txt") or die ("No se encuentra el fichero");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Control de errores: uso de excepciones
+
+- Ponemos el código que puede fallar en un bloque *try*
+- Añadimos a continuación un bloque *catch* con mensaje de error que queramos mostrar
+   - Podemos usar un parámetro *Exception* y su método *getMessage()* para mostrar información concreta del error producido
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Control de errores: uso de excepciones
+
+```php
+try
+{
+    $contenido = file("fich1.txt");
+} catch (Exception $e) {
+    echo 'Se ha producido un error: ' . $e->getMessage();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Control de errores: uso de excepciones
+
+También podemos provocar excepciones con *throw*
+
+```php
+try
+{
+    if (!file_exists("fich1.txt"))
+    {
+        throw new Exception("El fichero de entrada no existe");
+    }
+    $contenido = file_get_contents("fich1.txt");
+    file_put_contents("fich2.txt", $contenido);
+} catch (Exception $e) {
+    echo 'Se ha producido un error: ' . $e->getMessage();
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Haz tres copias del *Ejercicio 9* de [este documento](01c), llamadas **copia_seguridad_arroba.php**, **copia_seguridad_die.php** y **copia_seguridad_excepciones.php**. En todas ellas, cambia el nombre del fichero *datos.txt* por uno que no exista en la carpeta (por ejemplo, *aa.txt*), y controla el error que puede producirse en cada caso usando una arroba, la instrucción `die` o las excepciones, para ver cómo se controla en cada caso el error y qué hace la página.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Variables locales y globales
+
+- Una variable definida dentro de una función es local a la función, y no puede verse desde fuera
+- Una variable definida fuera de la función sólo puede verse desde dentro de la misma etiquetándola como *global*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Variables locales y globales
+
+```php
+$numero = 10;
+...
+function incrementaNumero()
+{
+    global $numero;
+    $numero = $numero + 1;
+    echo $numero;
+}
+...
+incrementaNumero();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Closures
+
+Forma alternativa de usar una variable externa en una función, con la cláusula *use*, en funciones anónimas
+
+```php
+$numero = 10;
+$incrementaNumero = function () use ($numero)
+{
+    $numero = $numero + 1;
+    echo $numero;
+};
+$incrementaNumero();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variables variables
+
+- Variables que toman su nombre en función de otras variables
+- Útiles por ejemplo para definir contenidos multi-idioma
+- Para usarlas en un texto se deben emplear las llaves desde el segundo símbolo `$`
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variables variables
+
+Ejemplo sencillo
+
+```php
+$var1 = "uno";
+$$var1 = "otro uno";
+// $$var1 se llama $uno aquí
+
+echo "La segunda variable vale ${$var1}";
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variables variables
+
+Utilidad: multi-idioma
+
+```php
+<?php
+    $texto_es = "Bienvenido";
+    $texto_en = "Welcome";
+    $idioma = "es";
+    $texto = "texto_" . $idioma;
+    // Mostraremos $texto_es o $texto_en, según el valor final de $idioma
+    echo $$texto;
+?>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea una página en la carpeta de ejercicios llamada **curriculum.php** donde, utilizando variables variables, muestres parte de tu currículum (por ejemplo, un párrafo con tus estudios y otro con los idiomas que hablas), tanto en español como en otro idioma que elijas.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

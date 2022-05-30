@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software documentation</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software documentation
+### Documentation in Java projects
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Documentation types
+
+- **Tutorials**: learning oriented, getting started
+   - Example: teach a child to cook
+- **How-to guides**: results oriented, list of steps
+   - Example: recipe of a cooking book
+- **Explanations**: understanding oriented
+   - Example: article about culinary social history
+- **References**: information oriented
+   - Example: entry in an encyclopedia
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Documentation of software products
+
+- **User manuals**: teach final user how to use the application
+- **Software process**: diagrams and reports of every stage (analysis, design...)
+- **Reference APIs** (*Application Programming Interface*): includes every component of the application (classes and public elements)
+   - Useful for the development team
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Reference APIs in Java
+
+- We use a tool called **javadoc** (included in JDK)
+- We must add a special comment before every public element
+   - We can also include protected/private elements as well
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Documenting a class
+
+- Class comment including brief description and (optionally) authorship, version...
+- Comment before (at least) every public element (constructor, method, attribute, constant...)
+- We can include HTML tags in the comments
+    
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Class comment
+
+```java
+/**
+ * <h1>Person class<h1>
+ * <p>Class to define people and their ages</p>
+ * @author mariaconsuelorubiosanchez
+ * @version 2.1
+ * @see MyOtherClass
+ * @since 1.5
+ */
+ class Person
+ {
+     ...
+ }
+ ```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Method comments
+
+```java
+/**
+ * Constructor with parameters
+ * @param name A String with the person name
+ * @param idCard A String with the person's id card
+ * @param address A String with the person's address
+ * @param phoneNumber A String with the person's phone number
+ * @param birthDate A String with the person's birth date 
+   with format dd/mm/yyyy
+ */
+public Person(String name,String idCard,String address,
+              String phoneNumber,String birthDate)
+{
+    ...
+}
+
+/**
+ * Returns the person's name
+ * @return Person's name
+ */
+public String getName() 
+{
+    return name;
+}
+
+/**
+ * Establishes the person's name
+ * @param name Person's name
+ */
+public void setName(String name) 
+{
+    this.name = name;
+}
+
+/**
+ * Method that calculates the age of a person from his/her
+ * birth date and current date
+ * @param currentDate Current date to calculate the age
+ * @return An integer with the age in years of this person currently
+ */
+public int calculateAge(LocalDate currentDate)
+{
+    ...
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Exercises
+
+Do **Exercises 1 and 2** of the document associated to these slides
+    
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

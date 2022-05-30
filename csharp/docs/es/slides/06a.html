@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Introducción a las clases y objetos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos
+#### Introducción a las clases y objetos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Programación modular tradicional
+
+Para desarrollar un proyecto debemos:
+
+1. Identificar el problema a resolver
+2. Descomponerlo en distintos módulos simples
+3. Combinar los módulos simples para resolver el problema complejo
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Programación orientada a objetos
+
+Para desarrollar un proyecto debemos:
+
+1. Identificar los elementos que van a formar parte del sistema (clases)
+2. Definir la información que se almacena de cada elemento (atributos) y las operaciones que va a poder realizar (métodos)
+3. Establecer las conexiones o interrelaciones entre elementos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo introductorio
+
+Supongamos que queremos desarrollar una aplicación para gestionar una tienda de libros. En esa tienda tenemos varios libros, cada uno con su autor, y cierta información básica sobre el libro (título, número de páginas, precio...). La tienda tiene varios clientes registrados que quieren comprar libros.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo introductorio: enfoque tradicional
+
+- Definiríamos variables para almacenar la información: struct con los títulos de los libros, struct con la información de los clientes...
+- Definiríamos las funciones que necesitáramos para completar las distintas tareas: buscar los datos de un cliente, buscar un libro en el array...
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## Ejemplo introductorio: clases
+
+- Debemos pensar en los diferentes elementos que van a ser parte del proyecto.
+   - Libros, autores, clientes...
+- Estos elementos son las **clases** de nuestro proyecto
+- Las clases son plantillas que categorizan los diferentes elementos de la aplicación
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Clases y atributos
+
+- Para cada clase, debemos almacenar cierta información de interés 
+   - Para cada libro, su título, número de páginas y precio
+- Esta información son los **atributos** de la clase
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Objetos
+
+- Una vez sabemos los atributos de una clase, podemos crear **objetos** de la misma
+- Un objeto es una instancia concreta de una clase
+   - Ejemplo: un libro con título *El juego de Ender*, 321 páginas y precio de 7.95 euros.
+- Puede haber varios objetos de una clase cuando la aplicación se está ejecutando (por ejemplo, varios libros en nuestra tienda)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Métodos
+
+- Cada objeto de la aplicación puede necesitar hacer ciertas operaciones
+   - Por ejemplo, podemos querer mostrar la información de un libro en pantalla
+   - Por ejemplo, los clientes pueden querer buscar libros, o comprarlos
+- Estas operaciones se llaman **métodos** de esas clases
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Resumen
+
+A partir de la aproximación orientada a objetos debemos:
+
+1. Identificar los diferentes elementos que serán parte de la aplicación (*clases*)
+2. Definir la información que necesitamos almacenar de cada elemento (*atributos*)
+3. Definir las operaciones que cada elemento puede necesitar hacer (*métodos*)
+4. Crear los diferentes objetos de cada clase
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definición de clases en C#
+
+- Usamos la palabra **class** seguida del nombre de la clase (comenzando en mayúscula normalmente)
+- Dentro del código de la clase ubicamos los atributos, también llamados *variables de instancia*
+- También podemos definir los métodos como funciones internas de la clase (en este caso sin la palabra *static*, pero con la palabra *public* normalmente)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Definición de clases en C#
+
+```cs
+class Libro
+{
+    string titulo;
+    int numPaginas;
+    double precio;
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Crear objetos en C#
+
+- Necesitamos declarar una variable del tipo de la clase, y utilizar el operador **new** para crear el objeto
+- Usamos los métodos de la clase anteponiéndoles el operador punto `.`
+
+```cs
+Libro miLibro = new Libro();
+miLibro.MostrarInformacion();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplo completo
+
+```cs
+class Libro
+{
+    string titulo;
+    int numPaginas;
+    double precio;
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Libro miLibro = new Libro();
+        miLibro.MostrarInformacion();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Accediendo a los atributos
+
+- En el ejemplo anterior, los atributos tienen un valor predefinido
+- No podemos acceder a los atributos desde la clase *Principal*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Accediendo a los atributos: getters y setters
+
+Métodos especiales que permiten obtener o asignar el valor de cada atributo
+
+```cs
+class Libro
+{
+    string titulo;
+    int numPaginas;
+    double precio;
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string t)
+    {
+        titulo = t;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Libro miLibro = new Libro();
+        miLibro.SetTitulo("El juego de Ender");
+        miLibro.MostrarInformacion();
+    }
+}
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un ejercicio llamado **Ejercicio_06a_01.cs** con dos clases dentro:
+
+- Una clase **Persona** que deberá tener un atributo *nombre*, de tipo *string*. Dispondrá de un método *SetNombre* para asignar valor al atributo *nombre* y un método *Saludar* para saludar con el mensaje "Hola, soy " seguido del nombre de la persona
+- Una clase **PruebaPersona** con la función *Main* que creará dos objetos de tipo *Persona*, les asignará un nombre a cada uno y mostrará sus saludos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un ejercicio llamado **Ejercicio_06a_02.cs** con dos clases dentro:
+
+- Una clase **Libro** que contendrá los atributos *autor*, *titulo* y *ubicacion*, todos *strings*, con sus correspondientes *getters* y *setters*. 
+- Una clase **PruebaLibro** con la función *Main* que creará un libro, dará valor a sus atributos y mostrará los datos por pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un ejercicio llamado **Ejercicio_06a_03.cs** con una clase **Coche** que contendrá los atributos *marca*, *modelo*, *cilindrada* y potencia (los dos primeros *strings*, el tercero entero y el último real)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Proyectos con varios fuentes
+
+- Cuando trabajamos con clases y objetos es normal definir cada clase en su propio archivo fuente
+- Editores como Geany se quedan cortos para gestionar proyectos con varios fuentes
+- Debemos acudir a IDEs más completos como Visual Studio
+   - Descargar version Community (gratuita) desde [web oficial](https://visualstudio.microsoft.com/es/vs/community/)
+   - Versiones más antiguas [aquí](https://visualstudio.microsoft.com/es/vs/older-downloads)
+   - Recomendado tener cuenta de Microsoft (gratuita) para loguearnos tras instalar
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Instalación de Visual Studio
+
+Debemos escoger la *carga de trabajo* de *Desarrollo de escritorio de .NET*
+
+<div align="center">
+    <img src="../../../img/06_vstudio_instalacion.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Crear proyectos (1/3)
+
+<div align="center">
+    <img src="../../../img/06_vstudio_crear_proyecto1.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Crear proyectos (2/3)
+
+<div align="center">
+    <img src="../../../img/06_vstudio_crear_proyecto2.png" width="50%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Crear proyectos (3/3)
+
+<div align="center">
+    <img src="../../../img/06_vstudio_crear_proyecto3.png" width="50%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Gestión de proyectos
+
+- Desde el *Explorador de soluciones* (derecha) podemos ver las clases del proyecto
+- Podemos agregar nuevas desde el menú *Proyecto* > *Agregar clase*
+
+<div align="center">
+    <img src="../../../img/06_vstudio_gestion_proyectos.png" width="30%">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Gestión de proyectos
+
+- El archivo *Program.cs* normalmente contiene la clase principal
+   - Desde C# 10 sólo hace falta escribir el código del *Main*, aunque se puede definir la clase entera si se quiere
+- **F5** ejecuta el proyecto actual
+- **Ctrl + F5** ejecuta el proyecto sin usar el depurador 
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto (*Aplicación de consola*) llamado **Personas** a partir del ejercicio *Ejercicio_06a_01.cs*. Divide el código en dos ficheros fuente:
+
+- Fichero **Persona.cs** con el código de la clase *Persona*
+- Fichero **PruebaPersona.cs** con el código de la clase *PruebaPersona* (renombra la clase *Program* para ello)
+
+**NOTA**: puedes eliminar el *namespace* que aparece cuando creamos nuevos archivos fuente en Visual Studio, y también la palabra *internal* si etiqueta las clases como *internal class*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto (*Aplicación de consola*) llamado **Libros** a partir del ejercicio *Ejercicio_06a_02.cs*. Divide el código en dos ficheros fuente:
+
+- Fichero **Libro.cs** con el código de la clase *Libro*
+- Fichero **PruebaLibro.cs** con el código de la clase *PruebaLibro* (renombra la clase *Program*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto (*Aplicación de consola*) llamado **Coches** a partir del ejercicio *Ejercicio_06a_03.cs*
+
+- Crea el fichero **Coche.cs** con el código de la clase *Coche*
+- Añade el fichero **PruebaCoche.cs** con el código necesario para crear un objeto de tipo *Coche*, pidiendo al usuario sus datos (marca, modelo, cilindrada y potencia), mostrando finalmente los datos del objeto creado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructores
+
+- Métodos especiales que permiten crear objetos
+- Tienen el mismo nombre que la clase a la que pertenecen, pero no tienen tipo de retorno
+- En su código normalmente se asignan valores iniciales a los atributos
+- Podemos tener tantos constructores como queramos, con distintos números o tipos de parámetros
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructor por defecto
+
+- No tiene parámetros, y se usa para asignar valores por defecto a los atributos
+- Se genera automáticamente si la clase no tiene constructor definido
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructor por defecto
+
+```cs
+class Libro
+{
+    string titulo;
+    int numPaginas;
+    double precio;
+
+    // Constructor por defecto
+
+    public Libro()
+    {
+        titulo = "";
+        numPaginas = 0;
+        precio = 0;
+    }
+
+    // Otros métodos
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string t)
+    {
+        titulo = t;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Libro miLibro = new Libro();
+        miLibro.SetTitulo("El juego de Ender");
+        miLibro.MostrarInformacion();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Constructor parametrizado
+
+Recibe parámetros con valores que normalmente se asignan a algún atributo
+
+```cs
+class Libro
+{
+    string titulo;
+    int numPaginas;
+    double precio;
+
+    // Constructor por defecto
+
+    public Libro()
+    {
+        titulo = "";
+        numPaginas = 0;
+        precio = 0;
+    }
+
+    // Constructor parametrizado
+
+    public Libro(string t, int n, double p)
+    {
+        titulo = t;
+        numPaginas = n;
+        precio = p;
+    }
+
+    // Otros métodos
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string t)
+    {
+        titulo = t;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        Console.WriteLine("Título: " + titulo);
+        Console.WriteLine("Páginas: " + numPaginas);
+        Console.WriteLine("Precio: " + precio);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Libro miLibro = new Libro("El juego de Ender", 321, 7.95);
+        miLibro.MostrarInformacion();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Visibilidad
+
+- Establece qué elementos son visibles desde qué partes del código
+- Se gestiona a través de los **modificadores de acceso**:
+   - **public**: elementos accesibles desde cualquier parte del código
+   - **private**: elementos accesibles sólo desde dentro de la propia clase
+- Los atributos normalmente se etiquetan como privados, y los métodos como públicos
+   - Si no se indica nada en un elemento, se le asigna visibilidad privada
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Visibilidad
+
+```cs
+class Libro
+{
+    private string titulo;
+    private int numPaginas;
+    private double precio;
+
+    // Constructor por defecto
+
+    public Libro()
+    {
+        titulo = "";
+        numPaginas = 0;
+        precio = 0;
+    }
+
+    // Constructor parametrizado
+
+    public Libro(string t, int n, double p)
+    {
+        titulo = t;
+        numPaginas = n;
+        precio = p;
+    }
+
+    // Otros métodos
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string t)
+    {
+        titulo = t;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Más sobre *getters* y *setters*
+
+- Métodos especiales que permiten gestionar los elementos privados
+- **Encapsulación**: la información privada es preservada, y sólo es accesible a través de mecanismos públicos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de encapsulación
+
+```cs
+class Libro
+{
+    private string titulo;
+    private int numPaginas;
+    private double precio;
+
+    // Constructor por defecto
+
+    public Libro()
+    {
+        titulo = "";
+        numPaginas = 0;
+        precio = 0;
+    }
+
+    // Constructor parametrizado
+
+    public Libro(string t, int n, double p)
+    {
+        titulo = t;
+        numPaginas = n;
+        precio = p;
+    }
+
+    // Getters y setters
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string t)
+    {
+        titulo = t;
+    }
+
+    public int GetNumPaginas()
+    {
+        return numPaginas;
+    }
+
+    public void SetNumPaginas(int n)
+    {
+        if (n > 0)
+        {
+            numPaginas = n;
+        }
+    }
+
+    public double GetPrecio()
+    {
+        return precio;
+    }
+
+    public void SetPrecio(double p)
+    {
+        if (p >= 0)
+        {
+            precio = p;
+        }
+    }
+
+    // Otros métodos
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Libro miLibro = new Libro("El juego de Ender", 321, 7,95);
+        miLibro.SetNumPaginas(355);     // OK
+        miLibro.SetPrecio(-3);          // No funciona
+        Console.WriteLine("El título del libro es {0}", miLibro.GetTitulo());
+    }
+}
+```
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Amplía el proyecto *Personas* definiendo un constructor parametrizado en la clase *Persona* para asignar su nombre. Prueba a crear dos personas en el programa principal: una con este nuevo constructor y otra con un constructor vacío, y prueba a Saludar a las personas en cada caso. Observa los problemas que te puedes encontrar e intenta averiguar por qué pueden ser
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Amplía el proyecto *Libros* definiendo dos constructores para la clase *Libro*: uno parametrizado que dé valor a cada atributo, y otro vacío que dé valores por defecto. Crea un libro con cada constructor en el programa principal y muestra sus datos por pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Repite los mismos pasos del ejercicio anterior en el proyecto *Coches* con la clase *Coche*
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Clases y diagramas
+
+- Los diagramas de clases sirven para representar el conjunto de clases de un sistema
+- Cada clase se representa en una caja que contiene 3 secciones:
+   - Nombre de la clase
+   - Atributos (indicando nombre, tipo y visibilidad)
+   - Métodos (indicando parámetros, tipo de retorno y visibilidad)
+
+</script>
+</section>   
+
+<section data-markdown>
+<script type="text/template">
+## Clases y diagramas
+
+<div align="center">
+    <img src="../../../../java/img/05_book_class.png">
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Uso de *this*
+
+- Palabra especial para referirnos a cualquier elemento de la clase en la que estamos (atributo, constructor o método)
+- Útil para diferenciar los elementos de la clase de otros elementos externos que puedan llamarse igual
+   - Habitual en parámetros de constructores y *setters*, por ejemplo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de *this*
+
+```cs
+class Libro
+{
+    private string titulo;
+    private int numPaginas;
+    private double precio;
+
+    // Constructor por defecto
+
+    public Libro()
+    {
+        titulo = "";
+        numPaginas = 0;
+        precio = 0;
+    }
+
+    // Constructor parametrizado
+
+    public Libro(string titulo, int numPaginas, double precio)
+    {
+        this.titulo = titulo;
+        this.numPaginas = numPaginas;
+        this.precio = precio;
+    }
+
+    // Getters y setters
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string titulo)
+    {
+        this.titulo = titulo;
+    }
+
+    public int GetNumPaginas()
+    {
+        return numPaginas;
+    }
+
+    public void SetNumPaginas(int numPaginas)
+    {
+        if (numPaginas > 0)
+        {
+            this.numPaginas = numPaginas;
+        }
+    }
+
+    public double GetPrecio()
+    {
+        return precio;
+    }
+
+    public void SetPrecio(double precio)
+    {
+        if (precio >= 0)
+        {
+            this.precio = precio;
+        }
+    }
+
+    // Otros métodos
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine("Información del libro:");
+        System.out.println("Título: " + titulo);
+        System.out.println("Páginas: " + numPaginas);
+        System.out.println("Precio: " + precio);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays de objetos: definición
+
+Podemos definir un array de objetos de una clase de forma similar a cualquier otro array (indicando tipo de dato y nombre de variable)
+
+```cs
+Libro[] libros = new Libro[10];
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays de objetos: rellenar el array
+
+Necesitamos instanciar (*new*) cada objeto que será parte del array
+
+```cs
+libros[0] = new Libro("El juego de Ender", 321, 7.95);
+libros[1] = new Libro("La historia interminable", 525, 14.15);
+...
+
+// O con un bucle:
+for (int i = 0; i < libros.Length; i++)
+{
+    libros[i] = new Libro(...);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Amplía el proyecto *Libros* definiendo un array con distintos libros en el programa principal. Recórrelo después y muestra la información en pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Propiedades
+
+- Forma alternativa y abreviada de escribir *getters* y *setters* en C#
+   - No disponible en otros lenguajes
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## Propiedades
+
+```cs
+class Libro
+{
+    private string titulo;
+
+    ...
+
+    // Forma tradicional
+
+    public string GetTitulo()
+    {
+        return titulo;
+    }
+
+    public void SetTitulo(string titulo)
+    {
+        this.titulo = titulo;
+    }
+
+    // Alternativa con propiedades
+
+    public string Titulo
+    {
+        get
+        {
+            return titulo;
+        }
+
+        set
+        {
+            titulo = value;
+        }
+    }
+
+    ...
+}
+
+class Principal
+{
+    static void Main()
+    {
+        Libro l = new Libro(...);
+        l.Titulo = "El juego de Ender";  // set
+        Console.WriteLine(l.Titulo);     // get
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Elementos de las propiedades
+
+- El elemento *value* almacena el valor que asignamos
+- Propiedades sin *set* son de sólo lectura (no modificables desde fuera)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Adapta el proyecto *Personas* para que el nombre de la persona sea una propiedad con su *get* y su *set*, eliminando los *getters* y *setters* tradicionales previos que pudiera haber
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un proyecto llamado **Cajas** con una clase *Caja* que tenga como atributo su capacidad en litros, que no podrá exceder de 250. Crea un atributo para ello con su correspondiente propiedad *get/set*.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Notación compacta
+
+Útil cuando las propiedades sólo se usan para ocultar un campo privado, pero sin restricciones al asignar valor
+
+```cs
+class Libro
+{
+    public string Titulo{ get; set; }
+
+    ...
+}
+```
+
+</script>
+</section>
+        
+
+<section data-markdown>
+<script type="text/template">
+## Destructores
+
+- Métodos especiales que se encargan de liberar memoria que hayamos reservado (típicamente para colecciones dinámicas o ficheros)
+- No muy habituales en C#, más habituales en C++
+
+```cs
+class Libro
+{
+    ...
+    ~Libro()
+    { 
+        // Liberar memoria       
+        // Cerrar ficheros   
+    }    
+}
+```
+
+</script>
+</section>
+        
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

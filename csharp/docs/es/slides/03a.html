@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Tipos de datos básicos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Tipos de datos básicos
+#### Tipo entero
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Tipo entero
+
+- Existen diferentes tipos enteros dependiendo de la magnitud de los datos que queramos almacenar
+- ¿Cuántos valores diferentes puede tener el dato que quiero representar?
+- ¿Admite valores negativos?
+- Ejemplos: una edad, una temperatura, una distancia, el saldo de una cuenta...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Tipos enteros en C#
+
+|Tipo|Tamaño(bytes)|Rango|
+|---|---|---|
+|sbyte|1|-128 a 127|
+|byte|1|0 a 255|
+|short|2|-32768 a 32767|
+|ushort|2|0 a 65535|
+|int|4|-2147483648 a 2147483647|
+|uint|4|0 a 4294967295|
+|long|8|núms de 19 cifras|
+|ulong|8|núms de 19-20 cifras|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+¿Qué tipo de datos entero utilizarías para almacenar estos datos?
+
+- Una edad
+- Una temperatura en ºC
+- El saldo de una cuenta bancaria en euros (sin decimales)
+- El PIB de un país
+- Una distancia en Km sobre el planeta Tierra
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Conversiones de cadena a entero
+
+- **Convert.ToByte** / **Convert.ToSByte**
+- **Convert.ToUInt16** / **Convert.ToInt16**
+- **Convert.ToUInt32** / **Convert.ToInt32**
+- **Convert.ToUInt64** / **Convert.ToInt64**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa llamado **Ejercicio_03a_01.cs** que le pida al usuario dos datos de tipo *byte* y calcule su multiplicación en otra variable, mostrando el resultado por pantalla
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Incremento y decremento
+
+- El operador **++** incrementa 1 unidad el valor de la variable a la que se aplica
+- El operador **--** decrementa 1 unidad el valor de la variable a la que se aplica
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Incremento y decremento
+
+```csharp
+int m = 3, n = 10;
+
+m++;        // m = 4
+n--;        // n = 9
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pre-incremento y post-incremento
+
+- **Post-incremento**: si aplicamos el operador **++** detrás de una variable en una expresión, primero se calcula la expresión y luego se cambia el valor de la variable
+- **Pre-incremento**: si lo aplicamos delante, primero se cambia el valor de la variable y luego se evalúa la expresión
+- Ocurre lo mismo con el operador **--** (pre-decremento y post-decremento)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Pre-incremento y post-incremento
+
+```csharp
+int a = 3, b = 5, c = 10;
+
+++a;            // a = 4;
+b = a++ + c;    // b = 14, a = 5
+c = ++b;        // b = c = 15
+c--;            // c = 14
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones abreviadas
+
+|Operación|Significado|
+|---|---|
+|`+=`|Autosuma|
+|`-=`|Autoresta|
+|`*=`|Automultiplicación|
+|`/=`|Autodivisión|
+|`%=`|Autoresto|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Analiza línea a línea el siguiente código y averigua para cada línea qué valor tienen las variables implicadas. Haz luego un programa **Ejercicio_03a_02.cs** que te lo demuestre
+
+```cs
+int a,b,c;
+a=b=c=5;
+b=a+2;
+b-=3;
+c=-3;
+c*=2;
+++c;
+a*=b;
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Desbordamiento
+
+- Algunas operaciones con un tipo de datos pueden provocar que se exceda del rango permitido
+- Se produce lo que se llama **desbordamiento** (*overflow*)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa llamado **Ejercicio_03a_03.cs** que le pida al usuario dos números enteros de tipo *int* de 5 o 6 cifras, y luego los multiplique.
+
+- ¿Qué ocurre?
+- ¿Qué solución se te ocurre para este problema?
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cambios de base
+
+- Normalmente trabajamos con base decimal o base 10
+- En algunas ocasiones interesa trabajar en otras bases: base 2 o binaria, base 16 o hexadecimal...
+- La instrucción **Convert.ToString** permite convertir un número a otra base (y obtener el resultado como un texto)
+- La instrucción **Convert.ToInt32** permite el paso inverso
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Cambios de base
+
+```csharp
+int numero = 247;
+
+// Base 2
+Console.WriteLine(Convert.ToString(numero, 2));
+// Base 16
+Console.WriteLine(Convert.ToString(numero, 16));
+
+// Convertimos hexadecimal a decimal
+int valor = Convert.ToInt32("2E", 16);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Haz un programa llamado **Ejercicio_03a_04.cs** que le pida al usuario números enteros y muestre su equivalente en binario y hexadecimal hasta que el usuario escriba el 0.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+- Haz un programa llamado **Ejercicio_03a_05.cs** que le pida al usuario los componentes RGB de un color en formato decimal (valores de 0 a 255) y luego muestre ese color en formato hexadecimal.
+- Ejemplo: para los colores R = 255, G = 160 y B = 0 debe mostrar *FFA000*
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Toma de contacto con C#</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Toma de contacto con C#
+#### Primeros pasos con C#
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Características principales de C#
+
+- Lenguaje basado en C y C++, con sintaxis similar a Java
+- No tan eficiente como C, pero más productivo
+- Desarrollado por Microsoft para su plataforma .NET, tiene una versión alternativa de código abierto llamada *proyecto Mono*
+- Disponible para Windows, Mac o Linux entre otros sistemas
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pasos para escribir programas en C#
+
+1. Escribir el programa en un fichero fuente con un editor de textos
+   - Los ficheros fuente en C# tienen extensión *.cs*. Por ejemplo, `Saludo.cs`
+2. Compilar el programa para obtener el fichero ejecutable
+3. Lanzar el fichero ejecutable
+</script>
+</section>
+
+<section>
+    <h2>Ejemplo de programa</h2>
+    <p>Analicemos el siguiente código de ejemplo:</p>
+    <pre><code data-trim data-noescape data-line-numbers="|5|3|1">    
+class Saludo
+{
+    static void Main()
+    {
+        System.Console.WriteLine("Hola");
+    }
+}
+    </code></pre>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Observaciones adicionales
+
+- Cada instrucción finaliza con un punto y coma `;`
+- C# es de formato libre. Podemos colocar las instrucciones y llaves con la alineación que queramos.
+
+<pre><code data-trim data-noescape>    
+class Saludo {
+static void Main() { System.Console.WriteLine("Hola"); }
+}
+</code></pre>
+
+Sin embargo, es aconsejable usar el formato anterior por legibilidad
+    
+</script>
+</section>        
+
+<section data-markdown>
+<script type="text/template">
+## Mostrar información por pantalla
+
+- **System.Console.WriteLine** muestra la información que indiquemos entre paréntesis, y pasa a la siguiente línea
+
+<pre><code data-trim data-noescape>    
+class Saludo 
+{
+    static void Main() 
+    { 
+        System.Console.WriteLine("Hola"); 
+        System.Console.WriteLine("¿Qué tal?");
+    }
+}
+</code></pre>
+
+<p class="fragment fade-up" style="text-align:left;margin-left:20%">Hola</p>
+<p class="fragment fade-up" style="text-align:left;margin-left:20%">¿Qué tal?</p>
+
+</script>
+</section>        
+
+<section data-markdown>
+<script type="text/template">
+## Mostrar información por pantalla
+
+- **System.Console.Write** hace lo mismo, pero sin pasar a la siguiente línea
+
+<pre><code data-trim data-noescape>    
+class Saludo 
+{
+    static void Main() 
+    { 
+        System.Console.Write("Hola"); 
+        System.Console.Write("¿Qué tal?");
+    }
+}
+</code></pre>
+
+<p class="fragment fade-up" style="text-align:left;margin-left:20%">Hola¿Qué tal?</p>
+
+</script>
+</section>        
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Crea un archivo fuente llamado **Ejercicio_01c_01.cs**.
+- Escribe el código en C# de un programa que muestre por pantalla la suma de los números 118 y 56.
+- Compílalo y ejecútalo en Geany.
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones aritméticas básicas
+    
+|Operador|Operación|
+|---|---|
+|+|Suma|
+|-|Resta / Cambio de signo|
+|*|Multiplicación|
+|/|División|
+|%|Resto de división o "módulo"|
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Crea un archivo fuente llamado **Ejercicio_01c_02.cs**.
+- Escribe el código en C# de un programa que muestre por pantalla estas operaciones:
+   - La resta de 20 menos 34
+   - La división de 20 entre 3
+   - El resto de dividir 28 entre 5
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Prioridad de las operaciones
+    
+1. En primer lugar, se realizan las operaciones **entre paréntesis**
+2. Después, la negación o **cambio de signo**
+3. Después, **multiplicaciones**, **divisiones** y **restos de división** 
+4. Finalmente, **sumas** y **restas** 
+
+Las operaciones del mismo nivel se analizan de izquierda a derecha.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Intenta determinar qué resultado van a dar las siguientes operaciones, y luego escribe un programa llamado **Ejercicio_01c_03.cs** que lo confirme:
+   - `3 + 4 * 5`
+   - `(20 + 5) % 6`
+   - `15 + -5 * 6 / 10`
+   - `2 + 10 / 5 * 2 -7 % 1`
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Variables
+
+- Zonas de memoria que nos permiten almacenar información útil para los programas
+- A cada una de esas zonas de memoria se les asigna un nombre para poderlas identificar
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Declaración de variables
+- Indicar el nombre que le queremos dar, y el tipo de información que va a guardar
+- Ejemplo: declaramos una variable llamada **numero** que nos permitirá almacenar un número entero (*int*)
+
+<pre><code data-trim data-noescape>    
+int numero;
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Nombres o identificadores de variables
+- Compuestos por letras, números y el carácter de subrayado _
+- Sólo pueden empezar por letra o subrayado
+- Las letras mayúsculas y las minúsculas son diferentes (se distinguen)
+- Evitar vocales acentuadas o eñes
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos de identificadores válidos
+- numero
+- _nombre_usuario
+- nombreUsuario
+- Valor1
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos de identificadores NO válidos
+- 1numero (empieza por número)
+- Año1 (tiene una eñe)
+- otro numero (tiene un espacio en blanco)
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Asignar valores a variables
+
+- Podemos hacerlo en la misma línea en que las declaramos, o más adelante en el código
+- Empleamos el operador de asignación `=` para dar el valor a la variable
+
+<pre><code data-trim data-noescape>    
+int numero = 3;
+int otroNumero;
+
+otroNumero = 4;
+numero = 7;
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Declaración múltiple
+
+- Podemos declarar en una sola línea varias variables del mismo tipo, separadas por comas
+- Podemos dar valor o no inicialmente a cada una de esas variables
+
+<pre><code data-trim data-noescape>    
+int numero = 3, otroNumero;
+
+otroNumero = 4;
+numero = 7;
+</code></pre>
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Asignación dependiente de variables
+
+- Podemos asignar un valor a una variable que dependa de otra variable, o de un valor previo de la variable en sí
+
+<pre><code data-trim data-noescape>    
+int numero = 3, otroNumero;
+
+otroNumero = numero + 1;
+numero = numero * 3;
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa en un fichero fuente llamado **Ejercicio_01c_04.cs** que almacene en dos variables enteras los valores 23 y 42 y luego calcule su suma en otra variable diferente y muestre el resultado por pantalla
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mostrar texto y variables por pantalla
+
+- Podemos enlazar el texto y las variables usando el operador `+`
+
+<pre><code data-trim data-noescape>    
+class Ejemplo
+{
+    static void Main() 
+    { 
+        int numero = 3;
+        System.Console.WriteLine("El valor es " + numero); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mostrar texto y variables por pantalla
+
+- Podemos emplear los símbolos `{0}`, `{1}`, `{2}`, etc dentro del texto, y luego reemplazarlos por las variables correspondientes
+
+<pre><code data-trim data-noescape>    
+class Ejemplo
+{
+    static void Main() 
+    { 
+        int numero = 3;
+        System.Console.WriteLine("El valor es {0}", numero); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Mostrar texto y variables por pantalla
+
+- Un ejemplo más complejo:
+
+<pre><code data-trim data-noescape>    
+class Ejemplo
+{
+    static void Main() 
+    { 
+        int num1 = 3, num2 = 5, num3 = 8;
+        System.Console.WriteLine("Los valores son {0}, {1} y {2}", 
+            num1, num2, num3); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa en un fichero fuente llamado **Ejercicio_01c_05.cs** que almacene en dos variables enteras llamadas **num1** y **num2** los valores 23 y 42 y luego calcule su suma en otra variable diferente llamada **suma** 
+- El programa debe mostrar por pantalla el mensaje "*La suma de X e Y es Z*", siendo X el valor de *num1*, Y el valor de *num2* y Z el valor de *suma*.
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Comentarios
+    
+- Permiten añadir explicaciones e información sobre el código
+- El compilador los ignora a la hora de generar el código ejecutable
+- Son útiles para los desarrolladores
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comentarios de una línea
+
+- Comentarios breves que se inician con doble barra `//`
+
+<pre><code data-trim data-noescape>    
+class Ejemplo
+{
+    static void Main() 
+    { 
+        // Declaramos las variables
+        int num1 = 3, num2 = 5, num3 = 8;
+
+        // Mostramos la suma
+        System.Console.WriteLine(num1 + num2); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Comentarios de varias líneas
+
+- Se inician con `/*` y finalizan con `*/`
+- Pueden ocupar varias líneas
+
+<pre><code data-trim data-noescape>    
+/* Programa que calcula la 
+   suma de dos números */
+class Ejemplo
+{
+    static void Main() 
+    { 
+        // Declaramos las variables
+        int num1 = 3, num2 = 5, num3 = 8;
+
+        // Mostramos la suma
+        System.Console.WriteLine(num1 + num2); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa en un fichero fuente llamado **Ejercicio_01c_06.cs** que calcule la conversión de 3000 metros a millas. 
+- Deberás saber que 1 milla = 1609 metros 
+- Pon comentarios donde te parezca adecuado
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pedir datos al usuario
+
+- **System.Console.ReadLine** permite leer información introducida por el usuario desde el teclado
+- La información que se recoge es textual (texto), no numérica
+- Debemos usar otras instrucciones para "convertir" esa información en numérica
+   - Por ejemplo, **System.Convert.ToInt32**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pedir datos al usuario: ejemplo
+
+- Pedimos al usuario que introduzca un número entero, lo leemos y lo almacenamos en la variable *numero*
+
+<pre><code data-trim data-noescape data-line-numbers="|5|6|7">    
+class Ejemplo
+{
+    static void Main() 
+    { 
+        System.Console.WriteLine("Escribe un número entero:");
+        int numero = System.Convert.ToInt32(System.Console.ReadLine());
+        System.Console.WriteLine("Has escrito {0}", numero); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa en un fichero fuente llamado **Ejercicio_01c_07.cs** que le pida al usuario dos números, los almacene en dos variables *n1* y *n2* y luego calcule la división y el resto de *n1* entre *n2* 
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_01c_08.cs** que sea una adaptación del ejercicio anterior *Ejercicio_01c_06.cs*. 
+- En este caso, el usuario introducirá la cantidad de metros a convertir, y el programa le indicará cuántas millas son esos metros.
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## using System
+
+- Podemos añadir la cláusula **using System** al inicio del programa
+- Evita hacer referencia al elemento **System** en cada instrucción que lo requiera
+
+<pre><code data-trim data-noescape data-line-numbers="|7|8|9">    
+using System;
+
+class Ejemplo
+{
+    static void Main() 
+    { 
+        Console.WriteLine("Escribe un número entero:");
+        int numero = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Has escrito {0}", numero); 
+    }
+}
+</code></pre>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_01c_09.cs** que sea una adaptación del ejercicio anterior *Ejercicio_01c_08.cs* utilizando la cláusula *using System*. 
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_01c_10.cs** que le pida al usuario dos datos enteros, los almacene en dos variables **a** y **b** y luego muestre en una sola línea, usando la instrucción *Console.Write*, estas operaciones:
+   - (a + b) * (a - b)
+   - a<sup>2</sup> - b<sup>2</sup>
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+    
+- Haz un programa llamado **Ejercicio_01c_11.cs** que le pida al usuario un número entero y muestre su tabla de multiplicar empleando {0}, {1} y {2}. Por ejemplo:
+<p style="text-align:left;margin-left:20%">3 x 0 = 0</p>
+<p style="text-align:left;margin-left:20%">3 x 1 = 3</p>
+<p style="text-align:left;margin-left:20%">3 x 2 = 6</p>
+<p style="text-align:left;margin-left:20%">...</p>
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

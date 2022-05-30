@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Basic data types</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Basic elements of a Java program
+### Basic data types
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Numeric types
+
+- Integer: **byte**, **short**, **int** or **long**
+- Real: **float** or **double**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Integer types
+
+|Data type|Memory (bytes)|Range allowed|
+|---|---|---|
+|`byte`|1|-128 to 127|
+|`short`|2|-65536 to 65535|
+|`int`|4|-2.147.483.648 to 2.147.483.647​|
+|`long`|8|up to 18-19 digit numbers|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Real types
+
+- **float**: 4 bytes, up to 6-7 significant numbers.
+   - We must type an *f* at the end of a direct value to treat it as a *float* value
+- **double**: 8 bytes, up to 15 significant numbers
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Examples for numeric types
+
+```java
+byte age = 34;
+short price = 4200;
+int higherPrice = 2223424;
+
+float pi = 3.14159f;
+double pi = 3.14159265359;
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Text types
+
+- **char**: 2 bytes, for single characters
+   - Direct values between single quotes
+- **String**: for longer texts
+   - Direct values between double quotes
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Examples for text types
+
+```java
+char symbol = 'a';
+String text = "Hello world";
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Escape sequences
+
+They help us represent some special characters in a char or string value
+
+|Sequence|Meaning|
+|---|---|
+|`\n`|New line|
+|`\t`|Tabulation|
+|`\"`|Double quotes|
+|`\'`|Single quotes|
+|`\\`|Backslash `\`|
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Escape sequences example
+
+```java
+String message = "Hello world.\n\"Quoted text\"";
+```
+
+```
+Hello world.
+"Quoted text"
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Character operations
+
+```java
+char symbol = 'a';
+symbol += 3;                     // symbol = 'd'
+
+String text = "Hello" + 3 + 2;   // text = "Hello32"
+String text = "Hello" + (3 + 2); // text = "Hello5"
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Typecasting
+
+- Force a given variable to behave like another data type in a given instruction
+- Useful to convert bigger types into smaller ones
+
+```java
+float pi = 3.1416f;
+int piInteger = (int)pi;ç
+
+float result = (float) 3 / 2;
+
+byte a = 3, b = 2;
+byte result = (byte)(a + b);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Converting from String
+
+- **Integer.parseInt**, **Float.parseFloat**, **Double.parseDouble**... convert the specified string into the given basic numeric type
+
+```java
+int value = Integer.parseInt("23");
+float value = Float.parseFloat("3.1416");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Converting to String
+
+- Join an empty string `""` with the corresponding numeric value
+- Use **String.valueOf** instruction
+
+```java
+int number = 23;
+String text1 = "" + number;
+String text2 = String.valueOf(number);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **Ages.java** that:
+ 
+- Defines two `byte` variables to store your age and the age of a friend
+- Defines another `byte` variable to store the addition of both ages (you may need to typecast the result)
+- Defines a `float` variable to store the average of these ages, including fraction digits
+- Prints the message "The age average is " followed by the average calculated in previous step
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

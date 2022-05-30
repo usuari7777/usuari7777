@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Ejercicios propuestos - Parte 6 | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 6" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/06ejercicios.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 6" />
+<script type="application/ld+json">
+{"headline":"Ejercicios propuestos - Parte 6","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/06ejercicios.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-6">Ejercicios propuestos - Parte 6</h1>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Sobre el proyecto <strong>blog</strong> de la sesión anterior, vamos a añadir estos cambios:</p>
+
+<ul>
+  <li>Crea un controlador de tipo <em>api</em> llamado <code class="language-plaintext highlighter-rouge">PostController</code> en la carpeta <code class="language-plaintext highlighter-rouge">App\Http\Controllers\Api</code>, asociado al modelo <code class="language-plaintext highlighter-rouge">Post</code> que ya tenemos de sesiones previas. Rellena los métodos <code class="language-plaintext highlighter-rouge">index</code>, <code class="language-plaintext highlighter-rouge">show</code>, <code class="language-plaintext highlighter-rouge">store</code>, <code class="language-plaintext highlighter-rouge">update</code> y <code class="language-plaintext highlighter-rouge">destroy</code> para que, respectivamente, hagan lo siguiente:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">index</code> deberá devolver en formato JSON el listado de todos los posts, con un código 200</li>
+      <li><code class="language-plaintext highlighter-rouge">show</code> deberá devolver la información del post que recibe, con un código 200</li>
+      <li><code class="language-plaintext highlighter-rouge">store</code> deberá insertar un nuevo post con los datos recibidos, con un código 201, y utilizando el validador de posts que hiciste en la sesión 6. Para el usuario creador del post, pásale como parámetro JSON un usuario cualquiera de la base de datos.</li>
+      <li><code class="language-plaintext highlighter-rouge">put</code> deberá modificar los campos del post recibidos, con un código 200, y empleando también el validador de posts que hiciste en la sesión 6.</li>
+      <li><code class="language-plaintext highlighter-rouge">destroy</code> deberá eliminar el post recibido, devolviendo <em>null</em> con un código 204</li>
+    </ul>
+  </li>
+  <li>Crea una colección en Postman llamada <code class="language-plaintext highlighter-rouge">Blog</code> que defina una petición para cada uno de los cinco servicios implementados. Comprueba que funcionan correctamente y exporta la colección a un archivo.</li>
+</ul>
+
+<p><strong>¿Qué entregar?</strong></p>
+
+<p>Como entrega de esta sesión deberás comprimir el proyecto <strong>blog</strong> con los cambios incorporados, y eliminando las carpetas <code class="language-plaintext highlighter-rouge">vendor</code> y <code class="language-plaintext highlighter-rouge">node_modules</code> como se explicó en las sesiones anteriores. Añade dentro también la colección Postman para probar los servicios. Renombra el archivo comprimido a <code class="language-plaintext highlighter-rouge">blog_08.zip</code>.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

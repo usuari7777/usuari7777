@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Validación de formularios | Desarrollo web con JavaScript</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Validación de formularios" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="02c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/javascript/md/es/02c.html" />
+<meta property="og:site_name" content="Desarrollo web con JavaScript" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Validación de formularios" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con JavaScript. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Validación de formularios","url":"http://nachoiborraies.github.io/javascript/md/es/02c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=0024aee357bc8885005541f109a049c513d43e99">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/javascript/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con JavaScript</a></h1>
+      
+
+      <h1 id="validación-de-formularios">Validación de formularios</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/02c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="02c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>Otra de las principales funcionalidades de JavaScript es poder validar el contenido de un formulario antes de enviarlo al servidor, ahorrándole a éste una buena parte del trabajo de procesamiento de datos. De hecho, esta fue una de las razones por las que se inventó JavaScript, aunque hoy en día esta tarea también puede hacerse total o parcialmente (según el formulario) utilizando HTML5. Veremos en este documento cómo podemos combinar ambas tecnologías (JavaScript y HTML5) para la validación de formularios en el lado del cliente.</p>
+
+<h2 id="1-validación-tradicional-de-formularios">1. Validación tradicional de formularios</h2>
+
+<p>Antes de la aparición de HTML5, JavaScript era la única herramienta disponible en el lado del cliente para poder validar formularios. Veremos en este apartado algunos elementos de JavaScript que podemos tener en cuenta a la hora de realizar esta validación, y en el siguiente apartado veremos cómo podemos combinarlos con la validación nativa de HTML5.</p>
+
+<h3 id="11-acceso-a-los-datos-del-formulario">1.1. Acceso a los datos del formulario</h3>
+
+<p>Ya hemos visto que para poder acceder al contenido de un documento HTML hemos de utilizar las funciones de acceso al DOM. Podemos asignar un <em>id</em> diferente a cada elemento del formulario y acceder a él con <code class="language-plaintext highlighter-rouge">document.getElementById(...)</code>, pero también podemos emplear el atributo <code class="language-plaintext highlighter-rouge">name</code> de cada campo del formulario (y del propio formulario) para acceder a ellos más directamente. Por ejemplo, para acceder al siguiente formulario:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">"miFormulario"</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Usaríamos el código <code class="language-plaintext highlighter-rouge">document.miFormulario</code> (una vez el formulario ya esté cargado). Si dentro del formulario tenemos, por ejemplo, un campo de texto llamado email:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">"miFormulario"</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+...
+	<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"20"</span><span class="nt">&gt;</span>
+...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>accederíamos a él con el código <code class="language-plaintext highlighter-rouge">document.miFormulario.email</code>. Es decir, usamos el atributo <code class="language-plaintext highlighter-rouge">name</code> tanto del formulario al que queremos acceder como del campo concreto que queremos consultar. También podríamos utilizar el método <code class="language-plaintext highlighter-rouge">getElementById</code> visto antes para acceder a elementos del contenido, siempre que les pongamos un id. En el caso del campo email anterior, accederíamos directamente con <code class="language-plaintext highlighter-rouge">document.getElementById("email")</code>.</p>
+
+<h3 id="12-consulta-y-comprobación-de-valores">1.2. Consulta y comprobación de valores</h3>
+
+<p>Una vez hemos accedido al formulario o a alguno de sus campos (normalmente se accede a los campos), todos ellos tienen una serie de propiedades básicas cuyos valores podemos consultar o modificar (según el caso):</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">type</code>: indica el tipo de elemento que se trata. Para los elementos de tipo input, coincidirá con su atributo <em>type</em>. Para listas, será <em>select-one</em> (selección simple) o <em>select-multiple</em> (selección múltiple), y para las áreas de texto será <em>textarea</em>.</li>
+  <li><code class="language-plaintext highlighter-rouge">name</code>: indica el nombre del elemento (su atributo <em>name</em>)</li>
+  <li><code class="language-plaintext highlighter-rouge">value</code>: indica el valor que tiene actualmente el elemento. Esta propiedad puede tanto leerse como modificarse, por lo que desde JavaScript podemos dar valor a los campos de un formulario.</li>
+</ul>
+
+<p>El siguiente ejemplo comprueba si el campo email anterior está vacío, y si es así, le asigna automáticamente un e-mail por defecto <em>admin@empresa.com</em>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">mail</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">email</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">mail</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">mail</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="dl">""</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nx">mail</span><span class="p">.</span><span class="nx">value</span><span class="o">=</span><span class="dl">"</span><span class="s2">admin@empresa.com</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>El caso de los botones de radio y los <em>checkbox</em></strong></p>
+
+<p>En el caso de estos dos campos, además de las propiedades anteriores tenemos una propiedad más llamada <code class="language-plaintext highlighter-rouge">checked</code>, que indica si el botón o el cuadro está marcado o no. El siguiente ejemplo comprueba si una casilla de <em>checkbox</em> llamada <em>casado</em> está marcada, mostrando un mensaje en caso afirmativo:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">casado</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">casado</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">casado</span><span class="p">.</span><span class="nx">checked</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Has indicado que estás casado</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>El caso concreto de los botones de radio es algo más complejo, ya que todos comparten el mismo name. Veamos este formulario:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">"miFormulario"</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">value=</span><span class="s">"ESP"</span> <span class="nt">/&gt;</span>Español<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">value=</span><span class="s">"ENG"</span> <span class="nt">/&gt;</span>Inglés<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"idioma"</span> <span class="na">value=</span><span class="s">"FRA"</span> <span class="nt">/&gt;</span>Francés<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+    ...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Si quisiéramos acceder a <code class="language-plaintext highlighter-rouge">document.miFormulario.idioma</code>, accederíamos a los tres botones de radio a la vez. Tendríamos que utilizar una estructura <em>for</em> o similar para recorrer los botones y ver cuál está marcado. Aquí tenemos un ejemplo de eso:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">listaBotones</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">idioma</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">indice</span> <span class="k">in</span> <span class="nx">listaBotones</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">listaBotones</span><span class="p">[</span><span class="nx">indice</span><span class="p">].</span><span class="nx">checked</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Has seleccionado </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">listaBotones</span><span class="p">[</span><span class="nx">indice</span><span class="p">].</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La propiedad <em>value</em> de cada botón será igual al atributo <em>value</em> de dicho botón (ESP, ENG o FRA, respectivamente, para el ejemplo anterior). También podemos, de forma abreviada, acceder al <em>value</em> del control, y obtendremos el valor actualmente seleccionado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">idiomaSeleccionado</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">idioma</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><strong>El caso de las listas</strong></p>
+
+<p>En el caso de una lista (<em>select</em>), tenemos las propiedades:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">selectedIndex</code>, que nos da la posición del elemento actualmente seleccionado</li>
+  <li><code class="language-plaintext highlighter-rouge">options</code>, que es una lista con todas las opciones, que podemos recorrer con una estructura <em>for</em> o similar</li>
+</ul>
+
+<p>El siguiente ejemplo obtiene el elemento seleccionado de una lista con <em>id lista1</em>, y nos muestra con un mensaje su valor y el texto que hay visible en la lista (recordemos que cada <em>option</em> de la lista puede tener un <em>value</em>, y dentro de la etiqueta, su propio texto diferente del <em>value</em>):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">lista</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">lista1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">indiceSeleccionado</span> <span class="o">=</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">selectedIndex</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">elementoSeleccionado</span> <span class="o">=</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">indiceSeleccionado</span><span class="p">];</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Has seleccionado </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">elementoSeleccionado</span><span class="p">.</span><span class="nx">text</span><span class="p">);</span>
+<span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Su valor es </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">elementoSeleccionado</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Nuevamente, también podemos acceder al <em>value</em> de la lista y obtendremos el valor actualmente seleccionado:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">valorSeleccionado</span> <span class="o">=</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Crea un formulario en una página llamada <strong>form1_js.html</strong>. Este formulario tendrá por nombre <em>form1</em>, y dentro tendrá los siguientes campos:</p>
+
+  <ul>
+    <li>Un campo de texto llamado <em>login</em>, con una etiqueta asociada que ponga “Login”.</li>
+    <li>Un campo numérico llamado <em>nhijos</em>, con una etiqueta asociada que ponga “Número de hijos”</li>
+    <li>Una casilla checkbox llamada <em>info</em> con un texto que ponga “Deseo recibir información por e-mail”</li>
+    <li>Tres botones de radio que llamados <em>horario</em> con los textos <em>Mañana</em>, <em>Tarde</em> y <em>Noche</em> respectivamente, y encima de ellos una etiqueta asociada que ponga “Horario preferido para llamadas”</li>
+    <li>Una lista desplegable llamada <em>operador</em>, y dentro los valores <em>Movil1</em>, <em>Taronje</em>, <em>Hablafone</em> y <em>Roigo</em>. Encima debe tener una etiqueta que diga “Seleccione operador”</li>
+    <li>Un botón (tipo <em>button</em>) de <em>Enviar</em> que, al hacer clic sobre él, active una función llamada <em>mostrarInformacion</em> que saque con mensajes (<em>alert</em>) cada una de las opciones que hayamos escrito en cada campo del formulario. Por ejemplo, si hemos puesto como login “pepe”, como número de hijos 2, hemos marcado la casilla de información, elegido turno de Tarde y el operador Taronje, deberá sacar, uno a uno, los siguientes mensajes:
+      <ul>
+        <li>Tu login es pepe</li>
+        <li>Tienes 2 hijos</li>
+        <li>Deseas recibir información</li>
+        <li>Has elegido el horario de Tarde</li>
+        <li>Has elegido el operador Taronje</li>
+      </ul>
+    </li>
+    <li>En el caso de que el número de hijos esté vacío, deberá rellenarlo con el valor 0 al pulsar el botón de Enviar</li>
+  </ul>
+</blockquote>
+
+<h3 id="13-algunas-opciones-de-validación-de-campos">1.3. Algunas opciones de validación de campos</h3>
+
+<p>Vamos a ver algunas de las opciones más habituales para validar campos de formularios, aunque la mayoría de ellas ya las podemos hacer directamente utilizando HTML5.</p>
+
+<p><strong>Comprobación de campo obligatorio vacío</strong></p>
+
+<p>Para comprobar que un campo obligatorio está vacío, tenemos el atributo <em>required</em> en HTML5. Para validarlo desde JavaScript, debemos acceder a dicho campo (por su id o su nombre, como queramos), y comprobar si su valor es igual a “”:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">login</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">login</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">login</span><span class="p">.</span><span class="nx">value</span> <span class="o">==</span> <span class="dl">""</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">El campo login no puede estar vacío</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Comprobación de tipo de dato adecuado</strong></p>
+
+<p>Para comprobar que en un campo hemos introducido un tipo de dato adecuado, en muchas ocasiones podemos emplear el atributo <em>type</em> específico en la etiqueta <em>input</em>. Por ejemplo, con <code class="language-plaintext highlighter-rouge">type="number"</code> nos aseguramos de que el campo tendrá un valor numérico, y también podemos establecer el rango de valores permitido con los atributos <em>min</em> y <em>max</em>. Pero, además de lo anterior, existen algunas funciones auxiliares en JavaScript para hacer estas comprobaciones. Lo más habitual es comprobar que un campo numérico (por ejemplo, una edad, o un año), tenga realmente un número y no otra cosa. Para ello usaremos la función <code class="language-plaintext highlighter-rouge">isNaN</code> para comprobar si ese dato no es numérico. Así, por ejemplo, si tenemos un campo edad y queremos ver si el dato introducido en él es numérico, tendríamos algo como:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">edad</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">edad</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">edad</span><span class="p">.</span><span class="nx">value</span><span class="p">))</span>
+<span class="p">{</span>
+	<span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">El dato introducido en el campo edad no es un número</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span> 
+</code></pre></div></div>
+
+<p><strong>Comprobación de selección en lista</strong></p>
+
+<p>Ya hemos visto que con la propiedad <em>selectedIndex</em> obtenemos la posición del elemento seleccionado en una lista. Si el usuario no ha seleccionado ninguna opción, o tiene seleccionada la primera de todas (que normalmente es un valor por defecto que hay que cambiar), esta propiedad vale 0 o null (según el tipo de lista), así que basta comprobar estos dos valores para ver si se ha elegido algo de la lista:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">lista</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">lista</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">lista</span><span class="p">.</span><span class="nx">selectedIndex</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">lista</span><span class="p">.</span><span class="nx">selectedIndex</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">Debes seleccionar algún elemento de la lista</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Comprobación de patrón. Expresiones regulares</strong></p>
+
+<p>Para comprobar que un determinado campo cumple un determinado patrón (por ejemplo, que tenga cuatro dígitos y una letra), se utilizan expresiones regulares, similares a las que existen para HTML5 (mediante el atributo <em>pattern</em>). En la siguiente tabla tenemos un resumen de los tipos de símbolos que podemos utilizar en las expresiones regulares:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Símbolo</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>Se utiliza para indicar el comienzo de un texto o línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>Se utiliza para indicar el final de un texto o línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Indica que el carácter anterior puede aparecer 0 o más veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+</code></td>
+      <td>Indica que el carácter anterior puede aparecer 1 o más veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>Indica que el carácter anterior puede aparecer 0 o 1 vez</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>Representa a cualquier carácter, salvo el salto de línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x|y</code></td>
+      <td>Indica que puede haber un elemento x o y</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{n}</code></td>
+      <td>Indica que el carácter anterior debe aparecer n veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{m, n}</code></td>
+      <td>Indica que el carácter anterior debe aparecer entre m y n veces</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[abc]</code></td>
+      <td>Cualquiera de los caracteres entre corchetes. Podemos especificar rangos con un guión, como por ejemplo <code class="language-plaintext highlighter-rouge">[A-L]</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[^abc]</code></td>
+      <td>Cualquier carácter que no esté entre los corchetes</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\b</code></td>
+      <td>Un límite de palabra (espacio, salto de línea…)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\B</code></td>
+      <td>Cualquier cosa que no sea un límite de palabra</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\d</code></td>
+      <td>Un dígito (equivaldría al intervalo <code class="language-plaintext highlighter-rouge">[0-9]</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\D</code></td>
+      <td>Cualquier cosa que no sea un dígito (equivaldría a <code class="language-plaintext highlighter-rouge">[^0-9]</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\n</code></td>
+      <td>Salto de línea</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\s</code></td>
+      <td>Cualquier carácter separador (espacio, tabulación, salto de página o de línea)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\S</code></td>
+      <td>Cualquier carácter que no sea separador</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\t</code></td>
+      <td>Tabulación</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\w</code></td>
+      <td>Cualquier alfanumérico incluyendo subrayado (igual a <code class="language-plaintext highlighter-rouge">[A-Za-z0-9_]</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">\W</code></td>
+      <td>Cualquier no alfanumérico ni subrayado (<code class="language-plaintext highlighter-rouge">[^A-Za-z0-9_]</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Algunos símbolos especiales (como el punto, o el +), se representan literalmente anteponiéndoles la barra invertida. Por ejemplo, si queremos indicar el carácter del punto, se pondría <code class="language-plaintext highlighter-rouge">\.</code> Veamos algunos ejemplos:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ejemplo</th>
+      <th>Significado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^\d{9,11}$</code></td>
+      <td>Entre 9 y 11 dígitos</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,10})$</code></td>
+      <td>Password seguro (8-10 caracteres, con al menos un dígito y una letra)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^\d{1,2}\/\d{1,2}\/\d{2,4}$</code></td>
+      <td>Fecha (d/m/a)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^[\w-\.]{3,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}$</code></td>
+      <td>E-mail</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>El siguiente ejemplo comprueba si en un campo llamado <em>dni</em> tenemos un DNI válido, formado por 8 dígitos y una letra mayúscula:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">dni</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">dni</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="sr">/^</span><span class="se">\d{8}[</span><span class="sr">A-Z</span><span class="se">]</span><span class="sr">$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">dni</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="nx">alert</span> <span class="p">(</span><span class="dl">"</span><span class="s2">El DNI es incorrecto</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Observa que ponemos primero la expresión (entre dos barras <code class="language-plaintext highlighter-rouge">/</code>), seguida del método <code class="language-plaintext highlighter-rouge">test</code> y la variable que queremos comprobar si encaja en ese patrón.</p>
+
+<h3 id="14-cómo-validar-todo-el-formulario">1.4. Cómo validar todo el formulario</h3>
+
+<p>¿Cómo aunar todo lo que hemos visto y validar las opciones del formulario que queramos antes de enviarlo? Primero debemos tener en cuenta que el evento que se dispara cuando intentamos enviar el formulario es el evento <code class="language-plaintext highlighter-rouge">submit</code>. Por tanto, debemos añadir un <em>event handler</em> sobre el formulario, llamando a la función que queramos usar para validar. En la función podemos hacer uso del método <code class="language-plaintext highlighter-rouge">preventDefault</code>, por ejemplo, para evitar que el formulario se envíe si hay algún error.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nx">miFormulario</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span><span class="p">,</span> <span class="nx">validar</span><span class="p">);</span>
+
+<span class="p">...</span>
+<span class="kd">function</span> <span class="nx">validar</span><span class="p">(</span><span class="nx">evento</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">formularioCorrecto</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+    <span class="c1">// Código para comprobar cada campo</span>
+    <span class="c1">// Pondríamos "formularioCorrecto" a false si alguno falla</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">formularioCorrecto</span><span class="p">)</span>
+        <span class="nx">evento</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>Crea un formulario en un documento llamado <strong>form2_js.html</strong>. El formulario deberá llamarse <em>form2</em>, y deberás definir una función llamada <em>validarFormulario</em> que comentaremos a continuación. El formulario debe tener los siguientes campos:</p>
+
+  <ul>
+    <li>Un campo llamado <em>login</em>, con una etiqueta asociada “Login”</li>
+    <li>Un campo llamado <em>edad</em> (numérico), con una etiqueta asociada “Edad”</li>
+    <li>Un campo llamado <em>nacimiento</em> (numérico) con una etiqueta “Año de nacimiento”</li>
+    <li>Una lista desplegable llamada <em>provincia</em> con una etiqueta “Seleccione provincia”. La primera opción de esa lista debe decir “-Seleccionar una provincia-“, y tener <em>value=”“</em>. Las otras tres opciones deben ser Alicante, Valencia y Castellón.</li>
+    <li>Un botón de tipo submit y con valor <em>Enviar</em>.</li>
+  </ul>
+
+  <p>Al intentar enviar el formulario, se activará la función <em>validarFormulario()</em> comentada antes, que deberemos implementar para comprobar lo siguiente:</p>
+
+  <ul>
+    <li>El campo <em>login</em> no puede estar vacío</li>
+    <li>El campo <em>edad</em> puede estar vacío, pero si no lo está, debe tener un número entre 0 y 200</li>
+    <li>El campo nacimiento debe tener 4 dígitos</li>
+    <li>La lista desplegable debe tener un elemento seleccionado que no sea el primero.</li>
+    <li>Si todo lo anterior se cumple, se deberá mostrar un mensaje “Todo es correcto” y enviar el formulario (el envío fallará porque la página destino no la habremos implementado). Si algún campo no es válido, se deberá mostrar el correspondiente mensaje de error y evitar el envío.</li>
+  </ul>
+</blockquote>
+
+<h2 id="2-validación-de-formularios-combinada-con-html5">2. Validación de formularios combinada con HTML5</h2>
+
+<p>Con la aparición de HTML5, se dotó a este lenguaje de marcado de la posibilidad de validar la información introducida en los campos de los formularios, a través de atributos como:</p>
+
+<ul>
+  <li><strong>required</strong>: determina que un campo es obligatorio</li>
+  <li><strong>pattern</strong>: obliga a que los datos de un campo tengan un patrón determinado</li>
+  <li><strong>min</strong>, <strong>max</strong>: determina los límites inferior superior en campos con valores numéricos</li>
+  <li>Además, algunos tipos de campos (e-mail, URL…) tienen una auto-validación para comprobar que la información que hemos introducido se puede corresponder con lo que ese campo espera (un e-mail, una dirección web, etc, según el caso).</li>
+</ul>
+
+<p>Podéis consultar <a href="../../../htmlcss/md/es/02e#31-validaci%C3%B3n-de-formularios-en-cliente">aquí</a> más información sobre cómo aplicar estos atributos en los campos de un formulario. En cuanto al atributo <em>pattern</em>, la sintaxis que podemos seguir para definir las expresiones regulares es la misma que la que hemos explicado en este documento unos párrafos atrás.</p>
+
+<p>Sin embargo, la validación que ofrece HTML5 se queda un poco corta en dos aspectos fundamentalmente:</p>
+
+<ul>
+  <li>Tiene sus limitaciones a la hora de validar cierta información algo más específica o compleja. Por ejemplo, comprobar que dos campos tengan el mismo valor, como sería el caso de una confirmación de password en un formulario.</li>
+  <li>Ofrece unos mensajes de error predefinidos ante los errores de validación (no configurables)</li>
+</ul>
+
+<p>Afortunadamente, podemos incorporar nuestro código JavaScript en nuestras webs y combinarlo con la validación de HTML5 para suplir esas carencias, de forma que todo quede integrado en un único mecanismo de validación que aúna las ventajas de ambos (HTML5 y JavaScript).</p>
+
+<h3 id="21-validaciones-personalizadas">2.1. Validaciones personalizadas</h3>
+
+<p>Como comentábamos antes, una de las deficiencias más importantes que ofrece la validación de formularios con HTML5 es que es algo limitada. Si, por ejemplo, queremos comprobar que el usuario ha puesto el mismo password en dos campos distintos para asegurarnos de que no se ha equivocado al escribirlo, no disponemos de ningún atributo específico para esto. Sin embargo, gracias a JavaScript, y en concreto al método <code class="language-plaintext highlighter-rouge">setCustomValidity</code> podemos controlar casos como éste, e incluso personalizar el mensaje que se mostrará al usuario si se produce un error de validación.</p>
+
+<p>Este método recibe como parámetro el mensaje de error que mostraremos en el campo afectado. De este modo, cuando intentemos enviar el formulario, el envío se detendrá si alguno de los campos tiene algún mensaje de error pendiente. Para anular el mensaje y volver a decir que todo está correcto, llamaremos de nuevo al método pasándole una cadena vacía.</p>
+
+<p>El siguiente ejemplo comprueba si dos campos de password <em>pass1</em> y <em>pass2</em> son iguales. Si no lo son, establece el mensaje “Los passwords no coinciden” en el segundo campo. Si todo es correcto, vuelve a dejar el mensaje vacío.</p>
+
+<p>Así sería el formulario del ejemplo:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"pagina.php"</span> <span class="na">name=</span><span class="s">"form1"</span> <span class="na">id=</span><span class="s">"form1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;label&gt;</span>
+        Login: 
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"login"</span> <span class="na">id=</span><span class="s">"login"</span> <span class="na">required</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;label&gt;</span>
+        Password:
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"pass1"</span> <span class="na">id=</span><span class="s">"pass1"</span> <span class="na">required</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;label&gt;</span>
+        Repetir password:
+        <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"pass2"</span> <span class="na">id=</span><span class="s">"pass2"</span> <span class="na">required</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Enviar"</span> <span class="na">id=</span><span class="s">"enviar"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Y así definiríamos el código JavaScript para gestionar la validación de los passwords:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">pass1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">pass1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">pass2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">pass2</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">pass1</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">input</span><span class="dl">"</span><span class="p">,</span> <span class="nx">validarPass</span><span class="p">);</span>
+<span class="nx">pass2</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">input</span><span class="dl">"</span><span class="p">,</span> <span class="nx">validarPass</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">validarPass</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">pass1</span><span class="p">.</span><span class="nx">value</span> <span class="o">!=</span> <span class="nx">pass2</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+        <span class="nx">pass2</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">"</span><span class="s2">Los passwords no coinciden</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">pass2</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notar que, si cargamos el formulario y dejamos vacío el login o los passwords, se sigue disparando el error de que es obligatorio. Dicho de otro modo, la función de validación nos ayuda a completar las validaciones que hayamos indicado con HTML5, sin que éstas se vean anuladas.</p>
+
+<h3 id="22-personalizar-mensajes-de-error">2.2. Personalizar mensajes de error</h3>
+
+<p>A la hora de modificar el mensaje de error por defecto de un campo que se valida automáticamente, también podemos hacer uso del método <code class="language-plaintext highlighter-rouge">setCustomValidity</code>. En este caso, podemos hacer uso del evento <em>invalid</em> que se genera cuando el campo no es válido, y tendremos que asegurarnos de vaciar el mensaje de error después (por ejemplo, en cuanto se vuelva a escribir algo en el campo):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">login</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">login</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">login</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">invalid</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">"</span><span class="s2">El login es obligatorio</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">login</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">input</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En algunos casos nos puede interesar mostrar distintos mensajes de error dependiendo del tipo de fallo. Por ejemplo un campo e-mail obligatorio puede fallar porque esté vacío, o porque el valor que hayamos introducido no se corresponda con un e-mail válido. Los campos del formulario disponen, a través de la propiedad <code class="language-plaintext highlighter-rouge">validity</code>, de una serie de subpropiedades que podemos consultar para comprobar qué ha pasado exactamente. Algunas de estas subpropiedades son:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">valid</code> es <em>true</em> cuando el campo actual es válido</li>
+  <li><code class="language-plaintext highlighter-rouge">valueMissing</code> es <em>true</em> cuando es un campo obligatorio vacío</li>
+  <li><code class="language-plaintext highlighter-rouge">typeMismatch</code> es <em>true</em> cuando el tipo de información no se corresponde con lo que espera el campo (por ejemplo, e-mails no válidos)</li>
+  <li><code class="language-plaintext highlighter-rouge">patternMismatch</code> es <em>true</em> cuando la entrada no se corresponde con lo especificado en un atributo <em>pattern</em></li>
+  <li>…</li>
+</ul>
+
+<p>El siguiente ejemplo muestra un mensaje u otro en un campo e-mail con id <em>email</em>, dependiendo del error producido:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">email</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">email</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">invalid</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">email</span><span class="p">.</span><span class="nx">validity</span><span class="p">.</span><span class="nx">valueMissing</span><span class="p">)</span>
+        <span class="nx">email</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">"</span><span class="s2">El e-mail no puede estar vacío</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">email</span><span class="p">.</span><span class="nx">validity</span><span class="p">.</span><span class="nx">typeMismatch</span><span class="p">)</span>
+        <span class="nx">email</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">"</span><span class="s2">El formato de email no es correcto</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">email</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">input</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">email</span><span class="p">.</span><span class="nx">setCustomValidity</span><span class="p">(</span><span class="dl">""</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="23-css-y-validación-de-formularios">2.3. CSS y validación de formularios</h3>
+
+<p>Existen algunos selectores (más concretamente, pseudo-clases) en CSS que podemos emplear para definir ciertos estilos relacionados con la validación de formularios.</p>
+
+<ul>
+  <li>La pseudo-clase <code class="language-plaintext highlighter-rouge">:required</code> se aplicará a los campos de formularios que sean requeridos. Por ejemplo, de este modo podemos ponerlos con un fondo amarillo:</li>
+</ul>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">input</span><span class="nd">:required</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">yellow</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Las pseudo-clases <code class="language-plaintext highlighter-rouge">:valid</code> e <code class="language-plaintext highlighter-rouge">:invalid</code> se aplican sobre campos cuyo valor sea válido o inválido, respectivamente.</li>
+</ul>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">input</span><span class="nd">:valid</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">green</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">input</span><span class="nd">:invalid</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Notar que en ocasiones estas pseudo-clases pueden solaparse. Si un campo es obligatorio e inválido e intentamos cambiar la misma propiedad desde las dos reglas (por ejemplo el color de fondo, como en el caso anterior), sólo prevalecerá una de ellas (la que se aplique más tarde). En este sentido, conviene que los estilos de campo obligatorio no se solapen con los de validez, y afecten a otras propiedades (color del borde, por ejemplo).</p>
+
+<blockquote>
+  <p><strong>Ejercicio 3:</strong></p>
+
+  <p>Crea un formulario en un documento llamado <strong>form3_js.html</strong>. El formulario deberá llamarse <em>form3</em>, y contendrá estos campos con sus respectivas restricciones:</p>
+
+  <ul>
+    <li>Un campo llamado <em>login</em>, obligatorio</li>
+    <li>Dos campos de tipo <em>password</em> para introducir el password. Serán obligatorios, y además los dos passwords deben coincidir, y estar formados por al menos 8 caracteres, compuestos por letras (minúsculas o mayúsculas) y dígitos.</li>
+    <li>Un campo llamado <em>email</em>, obligatorio</li>
+    <li>Un botón de tipo submit y con valor <em>Enviar</em>.</li>
+  </ul>
+
+  <p>Se debe comprobar la validez de los campos, y mostrar mensajes de error en formato HTML5 (sin <em>alerts</em>). Deberás configurar mensajes de error personalizados en el caso del password (para mostrar si no coinciden, o para indicar el patrón que debe tener). También se deben marcar con fondo rojo los controles que hayan provocado error al intentar enviar el formulario. Dicho color de fondo rojo se restablecerá a blanco en cuanto se vuelva a escribir algo sobre el control.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

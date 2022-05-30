@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Motores de plantillas: Nunjucks | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Motores de plantillas: Nunjucks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="06c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/06c.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Motores de plantillas: Nunjucks" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Motores de plantillas: Nunjucks","url":"http://nachoiborraies.github.io/nodejs/md/es/06c.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="motores-de-plantillas-nunjucks">Motores de plantillas: Nunjucks</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/06c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/06c.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p>Una <strong>plantilla</strong> es un documento estático (típicamente HTML, si hablamos de documentos web), en el que se intercalan o embeben ciertas marcas para agregar algo de dinamismo. Por ejemplo, podemos dejar una estructura HTML hecha con un hueco para mostrar un listado de noticias, y que ese listado de noticias se extraiga de una base de datos y se añada a la plantilla dinámicamente, antes de mostrarla.</p>
+
+<h2 id="1-motores-de-plantillas">1. Motores de plantillas</h2>
+
+<p>Existen varios motores de plantillas que podemos emplear en Express, y que facilitan y automatizan el procesamiento de estos ficheros y el reemplazo de las correspondientes marcas por el contenido dinámico a mostrar. Algunos ejemplos son:</p>
+
+<ul>
+  <li><strong>Pug</strong>, un motor bastante habitual en Express, con una sintaxis específica basada en HAML, una abstracción del propio lenguaje HTML.</li>
+  <li><strong>Mustache</strong>, un motor que combina HTML con código Javascript embebido con cierta sintaxis especial. A partir de este motor, se han creado otros muy similares, como <em>HBS</em>, también conocido como Handlebars.</li>
+  <li><strong>EJS</strong>, siglas de Effective Javascript templating, un motor de plantillas bastante sencillo de utilizar e integrar con contenido HTML.</li>
+  <li><strong>Nunjucks</strong>, un motor de plantillas desarrollado por el equipo de Mozilla, que también se integra perfectamente en Express.</li>
+  <li>etc.</li>
+</ul>
+
+<h3 id="11-instalación-del-motor-de-plantillas">1.1. Instalación del motor de plantillas</h3>
+
+<p>Una vez hayamos elegido nuestro motor de plantillas, lo instalaremos en nuestra aplicación como un módulo más de NPM, y lo enlazaremos con Express a través del método <code class="language-plaintext highlighter-rouge">app.set</code>, como una propiedad de la aplicación. En estos apuntes, haremos uso del motor <strong>Nunjucks</strong>, un motor de plantillas desarrollado por Mozilla, muy similar a <em>Handlebars</em> en su sintaxis, y adaptado a su uso con Express. Podéis consultar más información en su <a href="https://mozilla.github.io/nunjucks/">web oficial</a>.</p>
+
+<p>Lo primero que haremos será descargarlo e instalarlo en nuestro proyecto con su correspondiente comando (desde la carpeta del proyecto Node):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install nunjucks
+</code></pre></div></div>
+
+<p>Lo deberemos incluir en la aplicación principal, junto con el resto de módulos necesarios…</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">nunjucks</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">nunjucks</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>Después, lo establecemos como motor de plantillas en el archivo principal de nuestra aplicación, una vez inicializada la aplicación Express:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="p">...</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">view engine</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">njk</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Finalmente, también es necesario establecer unos parámetros de configuración del motor de plantillas, empleando para ello su método <code class="language-plaintext highlighter-rouge">configure</code>. En concreto, estableceremos que auto-escape los caracteres que se muestren (para evitar ataques por código embebido, por ejemplo), y le indicaremos qué objeto contiene la aplicación Express. Además, indicaremos que las diferentes plantillas o vistas las vamos a ubicar en la subcarpeta <code class="language-plaintext highlighter-rouge">views</code> de la aplicación:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">nunjucks</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">views</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">autoescape</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">express</span><span class="p">:</span> <span class="nx">app</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="12-ubicación-de-las-plantillas">1.2. Ubicación de las plantillas</h3>
+
+<p>Por defecto, en una aplicación Express las plantillas se almacenan en una subcarpeta llamada <code class="language-plaintext highlighter-rouge">views</code> dentro del proyecto Node. Así lo hemos configurado con la instrucción anterior <code class="language-plaintext highlighter-rouge">configure</code> para Nunjucks. En nuestro caso, al haber escogido este motor de plantillas, dichas plantillas tendrán extensión <code class="language-plaintext highlighter-rouge">.njk</code>, como por ejemplo <code class="language-plaintext highlighter-rouge">index.njk</code>.</p>
+
+<h2 id="2-primeros-pasos-con-nunjucks">2. Primeros pasos con Nunjucks</h2>
+
+<p>Vamos a definir algunas plantillas con Nunjucks y comprobar cómo muestran la información dinámica, y cómo se les puede pasar dicha información desde los enrutadores.</p>
+
+<h3 id="21-preparando-el-servidor-principal">2.1. Preparando el servidor principal</h3>
+
+<p>Para ello, nos basaremos en nuestro ejemplo de contactos que hemos venido desarrollando en sesiones previas. Podemos copiar la carpeta del proyecto “<em>PruebaContactosExpress_v2</em>” de sesiones anteriores (la que hicimos con toda la estructura de carpetas para modelos y enrutadores), y renombrarla a “<em>PruebaContactosExpress_Web</em>”. Dentro, instalamos Nunjucks y lo dejamos configurado en la aplicación principal como motor de plantillas para la aplicación. También podemos instalar y configurar Bootstrap si queremos, para poder aplicar sus estilos. El archivo principal <code class="language-plaintext highlighter-rouge">index.js</code> quedará más o menos así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Librerías</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">nunjucks</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">nunjucks</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Enrutadores</span>
+<span class="kd">const</span> <span class="nx">mascotas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/routes/mascotas</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">restaurantes</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/routes/restaurantes</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">contactos</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/routes/contactos</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Conexión con la BD</span>
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongodb://localhost:27017/contactos</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Servidor Express</span>
+<span class="kd">let</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// Configuramos motor Nunjucks</span>
+<span class="nx">nunjucks</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="dl">'</span><span class="s1">views</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">autoescape</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">express</span><span class="p">:</span> <span class="nx">app</span>
+<span class="p">});</span>
+
+<span class="c1">// Asignación del motor de plantillas</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">view engine</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">njk</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Middleware para peticiones POST y PUT</span>
+<span class="c1">// Middleware para estilos Bootstrap</span>
+<span class="c1">// Enrutadores para cada grupo de rutas</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/node_modules/bootstrap/dist</span><span class="dl">'</span><span class="p">));</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/mascotas</span><span class="dl">'</span><span class="p">,</span> <span class="nx">mascotas</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/restaurantes</span><span class="dl">'</span><span class="p">,</span> <span class="nx">restaurantes</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/contactos</span><span class="dl">'</span><span class="p">,</span> <span class="nx">contactos</span><span class="p">);</span>
+
+<span class="c1">// Puesta en marcha del servidor</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8080</span><span class="p">);</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>IMPORTANTE</strong>: es importante el orden en que aplicamos el <em>middleware</em>, como hemos dicho antes. En primer lugar, cargamos <code class="language-plaintext highlighter-rouge">express.json()</code>, para que se aplique a TODAS las rutas que lo necesiten, después cargamos Bootstrap, y después los enrutadores. Si cargamos primero los enrutadores, por ejemplo, entonces no tendrán disponible ni Bootstrap ni <code class="language-plaintext highlighter-rouge">express.json()</code>.</p>
+</blockquote>
+
+<h3 id="22-vista-para-listado-general">2.2. Vista para listado general</h3>
+
+<p>Vamos ahora a crear la carpeta <code class="language-plaintext highlighter-rouge">views</code>, y dentro definimos una vista llamada <code class="language-plaintext highlighter-rouge">contactos_listado.njk</code>. Dentro de esta vista definiremos el código HTML que va a tener, dejando un hueco para mostrar el listado de contactos:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/css/bootstrap.min.css"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h1&gt;</span>Listado de contactos<span class="nt">&lt;/h1&gt;</span>
+            <span class="nt">&lt;div&gt;</span>
+                <span class="c">&lt;!-- Aquí mostraremos el listado --&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Para poder mostrar el listado de contactos, necesitamos proporcionar dicho listado a la vista. Esto lo haremos desde la ruta de consulta de contactos. En sesiones anteriores habíamos establecido esta ruta en el archivo <code class="language-plaintext highlighter-rouge">routes/contactos.js</code>, bajo la URI <code class="language-plaintext highlighter-rouge">GET /contactos</code>. En esa sesión devolvía los contactos en formato JSON, pero ahora vamos a decirle simplemente que muestre (renderice) la vista del listado de contactos. Así nos quedará ahora este enrutador:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos_listado</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Notar que, para mostrar una vista, basta con que indiquemos el nombre del archivo, sin la extensión. Nunjucks ya se encarga de localizar el archivo, procesar el contenido dinámico que tenga y enviar el resultado.</p>
+
+<p>Sin embargo, nos falta algo en el enrutador anterior. Necesitamos poder facilitarle a la vista el listado de contactos. Para ello, utilizaremos Mongoose para obtener dicho listado, y una vez obtenido, renderizaremos la vista con <code class="language-plaintext highlighter-rouge">render</code>, pasando como segundo parámetro los datos que necesita la vista para trabajar (el listado de contactos, en este caso).</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">Contacto</span><span class="p">.</span><span class="nx">find</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos_listado</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span><span class="na">contactos</span><span class="p">:</span> <span class="nx">resultado</span><span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// Aquí podríamos renderizar una página de error</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Finalmente, en la plantilla, podemos reemplazar el comentario que hemos dejado de “Aquí mostraremos el listado” con el listado efectivo, con este código:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    {% for contacto in contactos %}
+        <span class="nt">&lt;li&gt;</span>{{ contacto.nombre }}<span class="nt">&lt;/li&gt;</span>
+    {% endfor %}
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Hemos empleado la cláusula <code class="language-plaintext highlighter-rouge">for</code> de Nunjucks para iterar sobre una colección de elementos (la colección <code class="language-plaintext highlighter-rouge">contactos</code> que recibimos del enrutador). Para cada elemento, mostramos un item de lista, y el nombre de cada contacto en él. Observad la notación de la doble llave `` para mostrar información de los objetos con los que estamos trabajando (en este caso, cada contacto de la lista que recibimos del enrutador).</p>
+
+<h3 id="23-algunas-cuestiones-adicionales">2.3. Algunas cuestiones adicionales</h3>
+
+<p>La cláusula <code class="language-plaintext highlighter-rouge">for</code> que hemos empleado antes dispone de algunas utilidades más. Dentro del elemento <code class="language-plaintext highlighter-rouge">loop</code>, disponemos de algunas propiedades que podemos consultar en cada iteración, como por ejemplo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">index</code>: que obtiene la posición en la colección del elemento que se está explorando actualmente, comenzando por 1.</li>
+  <li><code class="language-plaintext highlighter-rouge">index0</code>: similar al anterior, pero comenzando a contar por 0.</li>
+  <li><code class="language-plaintext highlighter-rouge">first</code>: una propiedad booleana que es cierta cuando estamos en el primer elemento de la colección</li>
+  <li><code class="language-plaintext highlighter-rouge">last</code>: una propiedad booleana que es cierta cuando estamos en el último elemento de la colección</li>
+  <li><code class="language-plaintext highlighter-rouge">length</code>: que obtiene el número total de elementos de la colección</li>
+</ul>
+
+<p>Se tiene disponible también una cláusula <code class="language-plaintext highlighter-rouge">if</code> para comprobar condiciones, y los operadores <code class="language-plaintext highlighter-rouge">and</code> y <code class="language-plaintext highlighter-rouge">or</code> para enlazar condiciones. Además, se tiene una clásula <code class="language-plaintext highlighter-rouge">elif</code> para enlazar con <code class="language-plaintext highlighter-rouge">if</code> y comprobar otras condiciones, y también una cláusula <code class="language-plaintext highlighter-rouge">else</code> que sirve tanto para mostrar un último camino en secuencias <em>if..elif..</em>, como para mostrar qué hacer en un <code class="language-plaintext highlighter-rouge">for</code> si no hay elementos.</p>
+
+<p>Por ejemplo, así podríamos mostrar el listado de contactos con estilos distintos para los items pares e impares, y con un mensaje personalizado si no hay elementos que mostrar.</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    {% for contacto in contactos %}
+        {% if loop.index % 2 == 0 %}
+            <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"par"</span><span class="nt">&gt;</span>
+        {% else %}
+            <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"impar"</span><span class="nt">&gt;</span>
+        {% endif %}
+        {{ contacto.nombre }}<span class="nt">&lt;/li&gt;</span>
+    {% else %}
+        <span class="nt">&lt;li&gt;</span>No hay contactos que mostrar.<span class="nt">&lt;/li&gt;</span>
+    {% endfor %}
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<h2 id="3-definición-de-vistas-jerárquicas-e-inclusiones">3. Definición de vistas jerárquicas e inclusiones</h2>
+
+<p>En el ejemplo realizado antes definimos una vista <code class="language-plaintext highlighter-rouge">contactos_listado.njk</code> utilizando el motor de plantillas Nunjucks para mostrar el listado de contactos de la base de datos. A medida que la aplicación crece y necesitamos ir definiendo más y más vistas, podemos deducir que la forma en que lo hemos hecho en el ejemplo anterior tiene algunas desventajas importantes. Por ejemplo, y sobre todo, su modularidad. Si, por ejemplo, tenemos 20 vistas definidas como la del listado de contactos anterior, y decidimos cambiar el menú de enlaces, tendríamos que editarlo en las 20 vistas. Lo mismo ocurriría si queremos cambiar la información del encabezado o el pie, entre otras cosas, que suele ser común a todas las páginas.</p>
+
+<p>Para evitar este inconveniente, Nunjucks (y muchos otros motores de plantillas) permiten realizar un <strong>diseño jerárquico</strong> de las mismas. Es decir, podemos crear una o varias plantillas base con el contenido general que van a tener un conjunto de vistas, y hacer que estas vistas “hereden” de estas plantillas para definir únicamente aquel contenido que les es propio, incluyendo automáticamente el contenido heredado.</p>
+
+<h3 id="31-herencia-de-plantillas">3.1. Herencia de plantillas</h3>
+
+<p>Vamos a hacer un ejemplo con la aplicación de contactos “<em>PruebaContactosExpress_Web</em>” que venimos desarrollando en esta sesión. Creamos en la carpeta <code class="language-plaintext highlighter-rouge">views</code> una plantilla llamada <code class="language-plaintext highlighter-rouge">base.njk</code>, que va a tener el contenido general de cualquier vista de la aplicación: el encabezado (<em>head</em>) con los estilos y archivos JavaScript para la parte cliente, el menú de la aplicación, y el pie de página, si lo hay. Cada vista va a cambiar el título de página, y el contenido principal de dicha vista. Para dejar estas dos secciones abiertas y que se puedan modificar en cada vista se definen <em>bloques</em>, asociando a cada bloque un nombre. Así, nuestra plantilla <code class="language-plaintext highlighter-rouge">base.njk</code> puede quedar así:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>{% block titulo %} {% endblock %}<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"/css/bootstrap.min.css"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+            {% block contenido %}
+
+            {% endblock %}
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Como podemos ver, con la estructura <code class="language-plaintext highlighter-rouge">block</code> definimos bloques de contenidos, asociados a un nombre, de forma que todo lo que queda fuera de esos bloques es fijo para todas las vistas que hereden de la plantilla.</p>
+
+<p>Ahora, nuestra página de <code class="language-plaintext highlighter-rouge">contactos_listado.njk</code> sólo debe limitarse a heredar de esta plantilla, y definir el contenido de los dos bloques. Puede quedar así:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends "base.njk" %}
+
+{% block titulo %}Contactos | Listado{% endblock %}
+
+{% block contenido %}
+
+    <span class="nt">&lt;h1&gt;</span>Listado de contactos<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;ul&gt;</span>
+        {% for contacto in contactos %}
+            <span class="nt">&lt;li&gt;</span>{{ contacto.nombre }}<span class="nt">&lt;/li&gt;</span>
+        {% endfor %}
+    <span class="nt">&lt;/ul&gt;</span>
+
+{% endblock %}
+</code></pre></div></div>
+<!---->
+
+<p>Del mismo modo, podríamos definir otras vistas, como por ejemplo la ficha de un contacto (<code class="language-plaintext highlighter-rouge">contacto_ficha.njk</code>):</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% extends "base.njk" %}
+
+{% block titulo %}Contactos | Ficha{% endblock %}
+
+{% block contenido %}
+
+    <span class="nt">&lt;h1&gt;</span>Ficha de un contacto<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;p&gt;&lt;strong&gt;</span>Nombre:<span class="nt">&lt;/strong&gt;</span> {{ contacto.nombre }}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;&lt;strong&gt;</span>Edad:<span class="nt">&lt;/strong&gt;</span> {{ contacto.edad }}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;&lt;strong&gt;</span>Teléfono:<span class="nt">&lt;/strong&gt;</span> {{ contacto.telefono }}<span class="nt">&lt;/p&gt;</span>
+
+{% endblock %}
+</code></pre></div></div>
+<!---->
+
+<blockquote>
+  <p><strong>NOTA</strong>: en el caso de la ficha del contacto, habría que modificar el contenido del enrutador (método <em>GET /contactos/:id</em>) para que renderice la vista y le pase el objeto <code class="language-plaintext highlighter-rouge">contacto</code> encontrado.</p>
+</blockquote>
+
+<h3 id="32-inclusión-de-plantillas">3.2. Inclusión de plantillas</h3>
+
+<p>Otra funcionalidad realmente útil que proporcionan muchos motores de plantillas es la posibilidad de incluir el contenido de una plantilla directamente en otra, como si pudiéramos hacer un “copia-pega” directamente de una en otra. Esto evita tener que duplicar el código HTML en las plantillas y, nuevamente, facilitar la posibilidad de posteriores cambios.</p>
+
+<p>Para incluir una vista o plantilla dentro de otra, emplearemos la instrucción <code class="language-plaintext highlighter-rouge">include</code>. Por ejemplo, si queremos incluir una vista con el menú de navegación de la web, podemos hacer esto, justo en el lugar donde queremos ubicar el menú:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% include "menu.njk" %}
+</code></pre></div></div>
+<!---->
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

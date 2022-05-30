@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Ejercicios propuestos - Parte 3 | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Ejercicios propuestos - Parte 3" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03ejercicios.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/03ejercicios.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Ejercicios propuestos - Parte 3" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Ejercicios propuestos - Parte 3","url":"http://nachoiborraies.github.io/nodejs/md/es/03ejercicios.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="ejercicios-propuestos---parte-3">Ejercicios propuestos - Parte 3</h1>
+
+<p>Para los ejercicios de esta sesión, crea una subcarpeta llamada “<strong>Sesion3</strong>” en tu carpeta “<strong>ProyectosNode/Ejercicios</strong>”, para dentro ir creando un proyecto para cada ejercicio.</p>
+
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_3_1</strong>” dentro de la carpeta anterior “<em>ProyectosNode/Ejercicios/Sesion3</em>”. Importa el <em>backup</em> de la base de datos “libros” que tienes disponible comprimido <a href="http://nachoiborraies.github.io/nodejs/recursos/03/libros.zip">aquí</a>.</p>
+
+<p>En el proyecto, inicializa el archivo <code class="language-plaintext highlighter-rouge">package.json</code> con <code class="language-plaintext highlighter-rouge">npm init</code>, e instala el módulo <em>mysql</em>. Crea un archivo <code class="language-plaintext highlighter-rouge">index.js</code> que cargue este módulo (con <code class="language-plaintext highlighter-rouge">require</code>), y realice estas operaciones sobre la base de datos de libros:</p>
+
+<ul>
+  <li>Insertar 3 libros cualesquiera, con los datos que se te ocurran (observa qué campos tiene la tabla).</li>
+  <li>Listar los libros de más de 10 euros.</li>
+  <li>Modificar el precio del libro 1 a 35 euros.</li>
+  <li>Borrar el libro 3.</li>
+</ul>
+
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+
+<p>Crea una carpeta llamada “<strong>Ejercicio_3_2</strong>” dentro de la carpeta anterior “<em>ProyectosNode/Ejercicios/Sesion3</em>”. Crea también una base de datos llamada “canciones” en MySQL.</p>
+
+<p>En el proyecto, inicializa el archivo <code class="language-plaintext highlighter-rouge">package.json</code> con <code class="language-plaintext highlighter-rouge">npm init</code>, e instala los módulos <em>sequelize</em> y <em>mysql2</em>.</p>
+
+<p>Ahora, vamos a definir una carpeta <code class="language-plaintext highlighter-rouge">models</code> en el proyecto, con un archivo llamado <code class="language-plaintext highlighter-rouge">cancion.js</code>. De cada canción vamos a almacenar su título (texto sin nulos), su duración en segundos (sin nulos) y el nombre del artista que la interpreta (texto sin nulos).</p>
+
+<p>En el programa principal <code class="language-plaintext highlighter-rouge">index.js</code>, conecta con la base de datos, carga el modelo, sincroniza los datos y realiza las siguientes operaciones:</p>
+
+<ul>
+  <li>Crea 2 nuevas canciones con los datos que quieras</li>
+  <li>Muestra los datos de la primera canción</li>
+  <li>Modifica la duración de alguna de las canciones</li>
+  <li>Borra alguna de las dos canciones</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Opciones avanzadas</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Opciones avanzadas
+#### Comunicación asíncrona con AJAX
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## AJAX
+
+- *Asynchronous JavaScript And XML*
+- Tecnología que permite enviar peticiones a un servidor y recoger la respuesta de forma asíncrona
+- Permitirá recargar zonas de la página sin necesidad de recargar la página en su totalidad
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Envío de la petición
+
+- Usamos un objeto **XMLHttpRequest** desde JavaScript
+- Definimos un evento **onreadystatechange** con una función que se ejecutará cuando se reciba la respuesta
+- Definimos el recurso solicitado con el método **open**
+- Enviamos la petición con **send**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Envío de la petición
+
+Llamamos a *prueba.php* y volcamos la respuesta en el elemento con *id="contenido"*
+
+```js
+const xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {                
+        let elemento = document.getElementById("contenido");
+        elemento.innerHTML = this.responseText;
+    }
+}
+xhttp.open("GET", "prueba.php", true);
+xhttp.send();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Define una carpeta llamada **listacompra** con una página llamada **lista_compra.html** que tenga algún encabezado *h1* que diga "Lista de la compra", y un espacio para cargar una lista no ordenada de elementos. Cuando pulsemos un botón "Cargar lista" llamaremos por AJAX a una página **listado.php**, de la misma carpeta, que devolverá una lista de la compra leída de un fichero de texto, y transformada a lista no ordenada en HTML. Al recibirla, se mostrará la lista en el lugar habilitado de la página HTML.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## JSON
+
+- **JavaScript Object Notation**
+- Sintaxis de JavaScript para representar objetos como cadenas de texto
+- Permite traducir datos a texto para enviarlos por un canal, y luego recuperarlos y volverlos a convertir en datos
+   - Métodos **JSON.stringify** y **JSON.parse**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JSON
+
+Ejemplo: objeto JavaScript
+
+```js
+let persona = {
+    nombre: "Nacho",
+    edad: 39
+};
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JSON
+
+Ejemplo: objeto convertido a JSON
+
+```json
+{"nombre":"Nacho","edad":39}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JSON
+
+Otro ejemplo con arrays
+
+```js
+// JavaScript
+let personas = [
+    { nombre: "Nacho", edad: 39},
+    { nombre: "Mario", edad: 4},
+    { nombre: "Laura", edad: 2},
+    { nombre: "Nora", edad: 10}
+];
+
+// JSON
+[{"nombre":"Nacho","edad":39}, {"nombre":"Mario","edad":4},  
+ {"nombre":"Laura","edad":2}, {"nombre":"Nora","edad":10}]
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JSON
+
+Uso de **JSON.stringify** y **JSON.parse**
+
+```js
+let personas = [
+    { nombre: "Nacho", edad: 39},
+    { nombre: "Mario", edad: 4},
+    { nombre: "Laura", edad: 2},
+    { nombre: "Nora", edad: 10}
+];
+
+// Convertir array a JSON
+let personasJSON = JSON.stringify(personas);
+console.log(personasJSON);
+
+// Convertir JSON a array
+let personas2 = JSON.parse(personasJSON);
+console.log(personas2);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## JSON
+
+Convertir array PHP a JSON
+
+```php
+$datos = array(
+    "nombre" => "Nacho",
+    "telefono" => "611223344",
+    "edad" => 43
+);
+echo json_encode($datos);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## AJAX y JSON
+
+Llamada a PHP que devuelve JSON y procesamiento desde AJAX
+
+```js
+const xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {                
+        let elemento = document.getElementById("contenido");
+        let datos = JSON.parse(this.responseText);
+        elemento.innerHTML = "<ul>";
+        elemento.innerHTML += "<li>Nombre: " + datos.nombre + "</li>";
+        elemento.innerHTML += "<li>Teléfono: " + datos.telefono + "</li>";
+        elemento.innerHTML += "<li>Edad: " + datos.edad + "</li>";
+        elemento.innerHTML += "</ul>";
+    }
+}
+xhttp.open("GET", "datos.php", true);
+xhttp.send();
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Haz una copia del ejercicio anterior en otra carpeta llamada **listacompraJSON** y añade estos cambios:
+ 
+* El fichero **listado.php** leerá los datos de la compra de un fichero y los enviará al cliente en formato JSON. En este caso enviaremos un array de objetos JavaScript, donde cada uno tendrá un único campo con el título del artículo
+* El fichero **lista_compra.html** pedirá el listado por AJAX, como antes, pero ahora lo que recibirá será un array de datos en formato texto, que deberá convertir a JSON y mostrar en el lugar correspondiente de la página.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Envío de formularios con AJAX
+
+- Incluimos los datos del formulario en un elemento **FormData** en JavaScript
+   - Podemos hacerlo en el evento *submit* del formulario, para asegurarnos de que ya se han validado los datos
+- Adjuntamos dicho elemento al enviar (*send*) la petición
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Envío de formularios con AJAX
+
+Ejemplo: enviamos formulario llamado *form1*
+
+```js
+let formulario = document.form1;
+formulario.addEventListener("submit", function(evento)
+{
+    evento.preventDefault();
+    let datos = new FormData(formulario);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {                
+            // Recoger respuesta del servidor y procesarla
+            let datosRecibidos = JSON.parse(this.responseText);
+            // Mostrar los datos en algún componente
+            ...
+        }
+    }
+    xhttp.open("POST", "procesar_formulario.php", true);
+    xhttp.send(datos);
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Haz una copia del ejercicio anterior en otra carpeta llamada **listacompraJSONForm** y haz que el fichero **lista_compra.html** tenga ahora, además de lo anterior, un formulario para poder dar de alta nuevos títulos de artículos en la lista de la compra. Cuando enviemos el formulario, desde AJAX crearemos un `FormData` con sus datos y lo enviaremos a otra página **nuevo.php**, que lo añadirá al fichero con la lista de la compra, y redirigirá a **listado.php** para que devuelva la lista actualizada en formato JSON. Al recibir la lista JSON (tras enviar el formulario) se actualizará en *lista_compra.html*. De este modo, la lista se actualizará tanto al pulsar el botón de "Cargar lista" como al enviar el formulario.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

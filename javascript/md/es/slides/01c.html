@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Gestión de arrays y datos complejos</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Gestión de arrays y datos complejos
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays
+
+- Variable que sirve para almacenar varios datos dentro
+- En JavaScript tienen tamaño variable y permiten almacenar datos de distintos tipos
+   - Son vectores o listas, de hecho
+
+</script>
+</section>
+   
+<section data-markdown>
+<script type="text/template">
+## Definición de arrays
+
+```js
+// Definir arrays vacíos
+let conjunto = [];
+let conjunto2 = new Array();
+let conjunto3 = new Array(10);  // 10 posiciones iniciales
+
+// Definir arrays con datos de inicio
+let conjunto = [10, "Hola", 3.5];
+let conjunto2 = new Array(10, "Hola", 3.5);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Acceso a los elementos del array
+
+Usando los corchetes, empezando en la posición 0
+
+```js
+conjunto[0] = 10;
+conjunto[1] = "Hola";
+conjunto[2] = 3.5;
+conjunto[1] = "Adiós";  // Ahora este elemento ya no vale "Hola"
+conjunto[4] = 10;       // conjunto[3] queda "undefined"
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Arrays y referencias
+
+Si asignamos a una variable simple el valor de otra, estamos creando una copia de la variable original
+
+```js
+let a = 3;
+let b = a;
+b = 4;
+alert(a);       // 3
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Arrays y referencias
+
+Si asignamos a un array el valor de otro, estamos apuntando una referencia a la ubicación en memoria original
+
+```js
+let datos = [1, 2, 3, 4];
+let datos2 = datos;
+datos2[0] = 10;
+console.log(datos);         // [10, 2, 3, 4]
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays (1/3)
+
+Opción 1: bucle hasta el tamaño del array (*length*)
+
+```js
+for (let i = 0; i < lista.length; i++)
+{
+    alert (lista[i]);   // Muestra el valor de cada elemento
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays (2/3)
+
+Opción 2: *for* alternativo que recorre los índices del array
+
+```js
+for (let indice in lista)
+{
+    alert (lista[indice]);  // Muestra el valor de cada elemento
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Recorrido de arrays (2/3)
+
+Opción 3: *for* alternativo que recorre los valores almacenados
+
+```js
+for (let valor of lista)
+{
+    alert(valor);
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Longitud del array
+
+La propiedad *length* tiene en cuenta hasta la última posición con un valor definido (aunque en medio haya posiciones *undefined*)
+
+```js
+let a = [];
+a[4] = 3;
+console.log(a.length);  // 5
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones con arrays (1/2)
+
+* **push** añade elementos al final de los disponibles (tantos como se pasen)
+   * **unshift** hace lo mismo al inicio del array
+* **pop** devuelve y elimina el último elemento del array
+   * **shift** devuelve y elimina la primera posición.
+* **join** recibe como parámetro un delimitador (texto) y obtiene un texto separando todos los elementos del array con el delimitador.
+* **concat** enlaza dos arrays
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Operaciones con arrays (2/2)
+
+* **slice** obtiene un subarray desde una posición inicial (incluida) hasta una final (no incluida)
+* **splice** quita elementos de un array, indicando desde qué posición eliminar y cuántos elementos quitar desde ahí. 
+   * Admite más parámetros: los datos a añadir en la posición donde nos hemos quedado.
+* **reverse** invierte el orden de los elementos de un array
+* **indexOf** indica en qué posición del array se encuentra el dato que le pasamos, o -1 si no se encuentra.
+* **includes** indica si el array contiene un elemento o no (similar a cadenas de texto)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejemplos de operaciones con arrays
+
+```js
+let datos = [1, 2, 3, 4];
+datos.unshift(5, 6);                // [5, 6, 1, 2, 3, 4]
+let variable = datos.pop();         // variable = 4, datos = [5, 6, 1, 2, 3]
+let texto = datos.join(":");        // "5:6:1:2:3"
+let datos2 = datos.concat([10, 9]); // [5, 6, 1, 2, 3, 10, 9]
+let datos3 = datos.slice(1, 3);     // [6, 1]
+datos2.splice(1, 3, 20, 30);        // [5, 20, 30, 3, 10, 9]
+datos2.reverse();                   // [9, 10, 3, 30, 20, 5]
+let posicion = datos2.indexOf(3);   // 2
+let existe = datos2.includes(10);   // true
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+Realiza los siguientes pasos en un fichero llamado **arrays_js.html**. Muestra por consola el resultado después de aplicar cada uno, pero con los elementos separados por "=>" usando *join*:
+
+* Crea un array con 4 elementos numéricos
+* Concatena 2 elementos más al final y 2 al principio (*unshift* y *push*)
+* Elimina las posiciones de la 3 a la 5 (incluida) (*splice*)
+* Inserta 2 elementos más entre el penúltimo y el último (*splice*)
+* Invierte el array (*reverse*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ordenación de arrays
+
+- Función **sort**
+- Si no se indica nada, aplica un orden básico (alfabético)
+
+```js
+let nombres = ["Juan", "Ana", "Laura", "Blas"];
+nombres.sort();     // ["Ana", "Blas", "Juan", "Laura"]
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ordenación de arrays
+
+- Podemos pasarle una función como parámetro (normalmente anónima) con el criterio de comparación
+- Recibe dos datos del array como parámetro y devuelve un número:
+   - Negativo si el primer dato debe ir antes
+   - Positivo si el segundo dato debe ir antes
+   - Cero si ambos datos son iguales
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ordenación de arrays
+
+```js
+let datos = [20, 4, 6, 2, 10];
+datos.sort(function(n1, n2) {
+    if (n1 < n2)
+        return -1;
+    else if (n1 > n2)
+        return 1;
+    else
+        return 0;
+});
+
+// Versión resumida
+let datos = [20, 4, 6, 2, 10];
+datos.sort(function(n1, n2) {
+    return n1 - n2;
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea un fichero llamado **arrays_ordenacion_js.html**. Crea dentro un array de números y muéstralo ordenado de mayor a menor.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Función *every*
+
+Devuelve cierto si todos los elementos del array cumplen la función que recibe como parámetro
+
+```js
+// Comprueba si todos los elementos del array son pares
+let resultado = datos.every(function(n) {
+    return n % 2 == 0;
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Función *some*
+
+Devuelve cierto si algún elemento del array cumple la función que recibe como parámetro
+
+```js
+// Comprueba si hay algún número mayor que 10
+let resultado = datos.some(function(n) {
+    return n > 10;
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Función *forEach*
+
+Recorre cada elemento del array aplicándole alguna operación
+
+```js
+// Muestra por consola los datos del array
+datos.forEach(function(n) {
+    console.log(n);
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Función *filter*
+
+Obtiene un array con los datos de otro que cumplan una determinada condición
+
+```js
+// Números mayores de 10 de un array
+let datosMayores10 = datos.filter(function(n){
+    return n > 10;
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Función *map*
+
+Aplica una transformación a cada elemento del array
+
+```js
+// Array con los cuadrados de los valores originales
+let dobles = datos.map(function(n) {
+    return n * 2;
+});
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Funciones de arrays y *arrow functions*
+
+Las funciones anteriores admiten una función lambda como parámetro:
+
+```js
+let resultado = datos.every(n => n % 2 == 0);
+let datosMayores10 = datos.filter(n => n > 10);
+let dobles = datos.map(n => n * 2);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea un fichero llamado **funciones_arrays_js.html**. Define una función que reciba un array y un número como parámetros y devuelva si todos los números del array son múltiplos del número recibido como parámetro. Haz que el número tome por defecto el valor de 2, y prueba la función con distintas llamadas.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea un fichero llamado **funciones_arrays2_js.html**. Define un array de datos numéricos, quédate sólo con los números que sean positivos y transforma el array para que almacene los cuadrados de esos números. Usa funciones lambda para resolver este ejercicio.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Objetos JavaScript
+
+- Entre llaves definimos sus propiedades o campos, dando a cada uno un valor
+- Podemos añadir más tarde cualquier campo adicional en un objeto
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Objetos JavaScript
+
+```js
+let persona = {
+    nombre: "Nacho",
+    edad: 43,
+    telefono: "611223344"
+};
+persona.direccion = "C/Mayor 13";
+
+console.log(persona.nombre);
+console.log(persona.direccion);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Crea una página llamada **objetos_js.html**. Define un array con datos de personas como los del ejemplo anterior. Ordena después el array ascendentemente por el nombre de las personas (alfabético), recórrelo y muéstralo por pantalla. Puede serte de utilidad la función *localeCompare* que permite comparar alfabéticamente dos textos y obtener un entero indicando cuál es mayor o menor.
+
+</script>
+</section>
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Software methodologies</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Software methodologies
+### Agile methodologies
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Software methodologies
+
+A **methodology** is a set of techniques and methods that help us face each stage of a lifecycle. This way, we can: 
+
+* Optimize the process and the final product
+* Use guided protocols for the planning and the development
+* Set what to do, how to do it and when, along all the project
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Agile methodologies
+
+* Focus on people and final product
+* Communication with customer is essential
+* Short iterations
+* Useful for projects with uncertain requirements or critical development time
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Agile methodologies
+
+* Suitable for small projects
+* Suitable for projects with close deadline
+* Suitable for projects with less than 10 people
+* Small project increments in short periods (1-4 weeks - *timebox*)
+* Documentation only generated when needed
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Agile manifesto
+
+Principles for agile methodologies
+
+* People are the main success factor of a project
+* Constant interaction between customer and work team
+* Ability to face changes is better than following a rigid plan
+* Satisfy the customer with continuous deliveries
+* ...
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Pair programming
+
+* Agile practice
+* Two programmers in the same computer: *driver* and *observer*
+* Both swap their roles frequently (every 30 minutes)
+* The *observer* guides the *driver* and provides ideas
+
+</script>
+</section>
+    
+<section>
+    <h2>Pair programming</h2>
+
+    <div class="fragment fade-up" style="width:45%;float:left;background-color:#C2DCA3;border-radius:10px">
+        <h3 style="text-align:center">PROS</h3>
+        <ul>
+            <li>It produces shorter programs with less errors</li>
+            <li>Useful for learning from experienced colleagues</li>
+            <li>If one member leaves the team, the deadline is not affected</li>
+            <li>Less interruptions along the process</li>
+        </ul>
+    </div>
+
+    <div class="fragment fade-up" style="width:45%;float:right;background-color:#E5977C;border-radius:10px">
+        <h3 style="text-align:center">CONS</h3>
+        <ul>
+            <li>Some engineers prefer to work on their own</li>
+            <li>Intimidation/Boredom if level is too different</li>
+            <li>More costly</li>
+        </ul>
+    </div>
+
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Test Driven Development (TDD)
+
+* Agile practice
+* First, produce the code to pass a set of tests 
+* Then, integrate this code in the application
+* Repeat last two steps until application is finished
+* We make sure every piece of code is useful
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Scrum methodology
+
+* Agile methodology
+* Useful for simple and complex projects
+* Name comes from the *melée* of rugby players
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Scrum roles
+
+* **ScrumMaster**: make sure that the Scrum method is used properly
+* **ProductOwner**: represents the customer (can be someone from the dev team)
+* **Team** of developers (self-managed, no project manager)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Scrum process
+
+* Team gathers requirements in **user stories**
+* User stories are packed in a **backlog** 
+* Iterations of 2-4 weeks called **sprints**:
+   * ProductOwner extracts some user stories from the backlog
+   * Team decides which stories are going to be included in sprint
+   * Backlog *freezes* until sprint is done
+* Daily meetings to discuss about the project
+
+</script>
+</section>
+
+<section>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/entornos/img/ED_b1_tema03-06-scrum_sprint.png" width="70%" />
+</div>
+
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Scrum time estimation
+
+* Each user story has a time assigned (in hours, days...)
+* The total time of a sprint is the sum of the times of the user stories chosen
+* Using **burndown charts** we can check if estimated and real time differ too much
+
+</script>
+</section>
+
+<section>
+
+<div align="center">
+    <img src="http://nachoiborraies.github.io/entornos/img/ED_b1_tema03-07-burndown_charts.png" width="70%" />
+</div>
+
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Watch [this video](https://www.youtube.com/watch?v=XU0llRltyFM) about Scrum methodology and answer these questions
+
+1. What is a *sprint* in Scrum?
+2. Who is in charge of prioritizing the tasks to do in every *sprint*?
+3. How can the final delivery date of a *sprint* be calculated?
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Kanban methodology
+
+* Agile methodology
+* *Kan* (visual) + *ban* (card)
+* Origins in 1940s (Toyota) to optimize stock
+* Important to control the WIP (*Work In Progress*)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Kanban process
+
+* **Kanban cards** reflect critical information about a particular work item
+   * Different colors for different card types (requirement, test...)
+* Cards are placed in a **Kanban board** 
+* Kanban board is divided in (at least) 3 sections: **To do**, **In progress** and **Done** 
+* Cards flow through the board from left to right
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Kanban boards
+
+<div align="center">
+    <img src="../../../img/ED_b1_tema03-05-kanban_board.png" alt="Kanban board" width="90%" />
+</div>
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Kanban principles
+
+* **Limited WIP**: *stop starting* and *start finishing*
+* **Guaranteed quality**: everything needs to go well at the first opportunity, speed is not as important as quality
+* **Flexibility**: next step is decided from the *backlog*, by choosing the next task to be completed
+
+</script>
+</section>
+
+<section>
+    <h2>Kanban vs Scrum</h2>
+
+    <div class="fragment fade-up" style="width:45%;float:left;background-color:#C2DCA3;border-radius:10px">
+        <h3 style="text-align:center">SIMILARITIES</h3>
+        <ul>
+            <li>Both agile</li>
+            <li>Collaborative and self-managed teams</li>
+            <li>Release software very often</li>
+        </ul>
+    </div>
+
+    <div class="fragment fade-up" style="width:45%;float:right;background-color:#E5977C;border-radius:10px">
+        <h3 style="text-align:center">DIFFERENCES</h3>
+        <ul>
+            <li>No roles in Kanban</li>
+            <li>Continuous deliveries in Kanban (no timeboxed sprints)</li>
+            <li>Changes can be made at any time in Kanban</li>
+        </ul>
+    </div>
+
+    <p class="fragment fade-up" style="width:100%;float:left;margin-top:10px;">Scrum can be used for short-term planning and feedback, and Kanban for daily work</p>
+    
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise
+
+Watch [this video](https://www.youtube.com/watch?v=R8dYLbJiTUE) about Kanban methodology and answer these questions:
+
+1. What is the main function of WIP limits? 
+2. What happens when we try to move a task to a column that exceeds this limit?
+3. How can Kanban and Scrum be combined? Which is the main purpose of adding Scrum to Kanban?
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

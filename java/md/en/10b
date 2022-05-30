@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software testing | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software testing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/10b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/10b.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software testing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Software testing","url":"http://nachoiborraies.github.io/java/md/en/10b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="software-testing">Software testing</h1>
+
+<h2 id="introduction-to-test-driven-development">Introduction to Test Driven Development</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/10b.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/10b.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>TDD (<em>Test Driven Development</em>) is an agile technique (this is, a technique applied in agile software methodologies) to improve code creation in certain cases. It relies on the principle of first defining the test cases, then implement the test methods, and from these test methods, implement the original class to be tested.</p>
+
+<p>In this document we are going to learn some of the basics of this technique, so we can see when it’s worth using or not.</p>
+
+<h3 id="1-first-example-person-class">1. First example: Person class</h3>
+
+<p>Let’s suppose that we want to create a class called <em>Person</em> like the one that we have used in previous example, and we want to test it. According to TDD approach, we should first define the test cases for every possible method of <code class="language-plaintext highlighter-rouge">Person</code> class, and then implement the code of these methods according to these test cases.</p>
+
+<p>So let’s start by creating our project (for instance, <em>PersonTestTDD</em>) with our test folder.</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/10_tdd_example1.png" />
+</div>
+
+<p>Now, let’s suppose that we want to start by checking the <code class="language-plaintext highlighter-rouge">getName()</code> method of <code class="language-plaintext highlighter-rouge">Person</code> class. So we add a new test class inside our <em>tests</em> folder, including package name.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">person.types</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">PersonTest</span>
+<span class="o">{</span>
+    <span class="nd">@BeforeEach</span>
+    <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="s">"11223344A"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="n">assertNotNull</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">assertEquals</span><span class="o">(</span><span class="s">"James"</span><span class="o">,</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We should see some compilation errors now, regarding JUnit library. We can fix them by typing <em>Alt</em> + <em>Enter</em> over one of the imports and choosing the library to be added:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/10_tdd_example2.png" />
+</div>
+
+<p>Now, there’s one more compilation error pending, regarding <code class="language-plaintext highlighter-rouge">Person</code> class, since this class does not exist yet. If we type <em>Alt</em> + <em>Enter</em> over this class name, we can choose to create this class:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/10_tdd_example3.png" />
+</div>
+
+<p>In this case, we need to make sure that this new class will be placed in <em>src</em> folder (in the same package name than its test class):</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/10_tdd_example4.png" />
+</div>
+
+<p>Now, we need to complete the code of this class to, at least, include one parameterized constructor and a <code class="language-plaintext highlighter-rouge">getName</code> method, so that test class will compile.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">person.types</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Person</span> <span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">phone</span><span class="o">)</span>
+    <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="s">""</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now we can run the test, but it will fail:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/10_tdd_example5.png" />
+</div>
+
+<p>Next step is to fill the code of both constructor and <code class="language-plaintext highlighter-rouge">getName</code> method to pass this test:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">person.types</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">phone</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span> <span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">phone</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">phone</span> <span class="o">=</span> <span class="n">phone</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, we would go on with next methods of <code class="language-plaintext highlighter-rouge">Person</code> class: we first implement the test method(s) and then we include the original methods in the tested class to pass the tests.</p>
+
+<p>As you can figure out, this technique can be quite costly if we just want to implement a typical class with their typical attributes, constructors, getters, setters and so on.</p>
+
+<h3 id="2-second-example-leap-years">2. Second example: leap years</h3>
+
+<p>So which is the real strength of TDD in agile methodologies? If we use it to implement every class of our project, we may be wasting some time in the process. We can just use this technique in order to face methods whose code is not clear at the beginning. For instance, let’s implement a method that checks if a year number corresponds to a leap year or not (this is, a year with 366 days instead of 365).</p>
+
+<p>The conditions for a year to be leap are:</p>
+
+<ul>
+  <li>It must be divisible by 4</li>
+  <li>If it’s divisible by 100, it must also be divisible by 400</li>
+</ul>
+
+<p>So we could define these test cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Test case</th>
+      <th>Name</th>
+      <th>Input</th>
+      <th>Expected result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TC1</td>
+      <td>NonDivisible4</td>
+      <td>2001</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>TC2</td>
+      <td>Divisible4</td>
+      <td>2012</td>
+      <td>true</td>
+    </tr>
+    <tr>
+      <td>TC3</td>
+      <td>Divisible100Not400</td>
+      <td>1700</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>TC4</td>
+      <td>Divisible100And400</td>
+      <td>2000</td>
+      <td>true</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Let’s create a project called <em>LeapYearTDD</em>, with a single class called <code class="language-plaintext highlighter-rouge">LeapYear</code> and an empty method called <code class="language-plaintext highlighter-rouge">isLeap</code> that receives an integer as parameter and returns a boolean. By default, this method will return <code class="language-plaintext highlighter-rouge">false</code> for now.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">leapyear</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeapYear</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isLeap</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, let’s create the test folder and test class associated to this class:</p>
+
+<div align="center">
+    <img src="https://nachoiborraies.github.io/java/img/10_tdd_example6.png" />
+</div>
+
+<p>We define the test method for <code class="language-plaintext highlighter-rouge">isLeap</code> method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">leapyear</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">org</span><span class="o">.</span><span class="na">junit</span><span class="o">.</span><span class="na">jupiter</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">Assertions</span><span class="o">.*;</span>
+
+<span class="kd">class</span> <span class="nc">LeapYearTest</span>
+<span class="o">{</span>
+    <span class="nd">@Test</span>
+    <span class="kt">void</span> <span class="nf">isLeap</span><span class="o">()</span> 
+    <span class="o">{</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now, we are going to include the test cases designed for this method, one by one:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">isLeap</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2001</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This first test is going to run, since our method returns <em>false</em> by default, so let’s go on with next test case:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">isLeap</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2001</span><span class="o">));</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2012</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This second test fails, because our method is not ready to check if a year number is divisible by 4, so we add this piece of code in the tested class:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">leapyear</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeapYear</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isLeap</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now our test succeeds. Let’s go on with next test case:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">isLeap</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2001</span><span class="o">));</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2012</span><span class="o">));</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">1700</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Again, our test fails because 1700 is divisible by 4. We need to change the original method to discard years that are divisible by 100:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">leapyear</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeapYear</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isLeap</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We add now our last test case:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="kt">void</span> <span class="nf">isLeap</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2001</span><span class="o">));</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2012</span><span class="o">));</span>
+    <span class="n">assertFalse</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">1700</span><span class="o">));</span>
+    <span class="n">assertTrue</span><span class="o">(</span><span class="nc">LeapYear</span><span class="o">.</span><span class="na">isLeap</span><span class="o">(</span><span class="mi">2000</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Our test fails, because 2000 is divisible by 100, but it is a leap year because it’s divisible by 400 as well. So we need to include this last condition in our tested method:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">leapyear</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeapYear</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isLeap</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Now our tests are successful. We can finally refactor the code of our tested method to improve it (and pass the tests again to check that everything is OK):</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">leapyear</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeapYear</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isLeap</span><span class="o">(</span><span class="kt">int</span> <span class="n">year</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-conclusions">3. Conclusions</h3>
+
+<p>Test Driven Development can be a helpful technique in order to face some algorithms or methods whose code is not clear at the beginning. In this case, the process to be followed is:</p>
+
+<ol>
+  <li>Design the test cases for the method to be tested</li>
+  <li>Include one test case in our test method</li>
+  <li>Check if method passes the test</li>
+  <li>If not, change the original method to pass the test</li>
+  <li>Go back to step 2 until there are no more test cases left</li>
+  <li>Refactor the code of the final method (we can do this step also in the middle of the process, whenever we feel we can refactor)</li>
+</ol>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a project called <strong>PasswordTDD</strong> with a class called <code class="language-plaintext highlighter-rouge">PasswordCheck</code> and a static method called <code class="language-plaintext highlighter-rouge">check</code> that receives a password (string) as a parameter and checks if this password is valid or not. A password will be valid if:</p>
+
+  <ul>
+    <li>It’s between 5 and 10 characters</li>
+    <li>It contains at least one digit</li>
+    <li>It contains at least one lower case letter from a to z</li>
+    <li>It contains at least one upper case letter from A to Z</li>
+  </ul>
+
+  <p>Design the test cases for this method and implement its code applying the TDD aproach.</p>
+</blockquote>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

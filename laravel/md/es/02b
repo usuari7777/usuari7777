@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Vistas con Blade | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Vistas con Blade" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/02b.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Vistas con Blade" />
+<script type="application/ld+json">
+{"headline":"Vistas con Blade","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/02b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="vistas-con-blade">Vistas con Blade</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/02b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="02b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Hasta ahora las rutas que hemos definido devuelven un texto simple, salvo la que ya estaba creada por defecto en el proyecto, que apuntaba a la página de inicio. Si quisiéramos devolver contenido HTML, una opción (costosa) sería devolver dicho contenido generado desde el propio método de la ruta, a través de la instrucción <code class="language-plaintext highlighter-rouge">return</code>, pero en lugar de hacer esto desde dentro de la propia función de respuesta, lo más habitual (y recomendable) es generar una <strong>vista</strong> con el contenido HTML que se quiere enviar al cliente.</p>
+
+<p>La forma general de mostrar vistas en Laravel es hacer que las rutas devuelvan (<code class="language-plaintext highlighter-rouge">return</code>) una determinada vista. Para ello, se puede emplear la función <code class="language-plaintext highlighter-rouge">view</code> de Laravel, indicando el nombre de la vista a generar o mostrar.</p>
+
+<p>Por defecto, en la carpeta <code class="language-plaintext highlighter-rouge">resources/views</code> tenemos disponible una vista de ejemplo llamada <code class="language-plaintext highlighter-rouge">welcome.blade.php</code>. Es la que se utiliza como página de inicio en la ruta raíz en <code class="language-plaintext highlighter-rouge">routes/web.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Notar que no es necesario indicar el <em>path</em> o ruta hacia el archivo de la vista, ni tampoco la extensión, puesto que Laravel asume que por defecto las vistas se encuentran en la carpeta <code class="language-plaintext highlighter-rouge">resources/views</code>, con la extensión <code class="language-plaintext highlighter-rouge">.blade.php</code> (que hace referencia al motor de plantillas Blade que veremos a continuación), o simplemente con extensión <code class="language-plaintext highlighter-rouge">.php</code> (en el caso de vistas simples que no utilicen Blade).</p>
+
+<p>Podemos, por ejemplo, crear una vista sencilla dentro de esta carpeta de vistas (llamémosla <code class="language-plaintext highlighter-rouge">inicio.blade.php</code>), con un contenido HTML básico:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Inicio<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Página de inicio<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Y podemos utilizar esta vista como página de inicio:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="1-pasar-valores-a-las-vistas">1. Pasar valores a las vistas</h2>
+
+<p>Es muy habitual pasar cierta información a ciertas vistas, como por ejemplo, listados de datos a mostrar, o datos de un elemento en concreto. Por ejemplo, si queremos dar un mensaje de bienvenida a un nombre (supuestamente variable), debemos almacenar el nombre en una variable en la ruta, y pasárselo a la vista al cargarla. Esto puede hacerse, por ejemplo, con el método <code class="language-plaintext highlighter-rouge">with</code> tras generar la vista, indicando el nombre con que lo vamos a asociar a la vista, y el valor (variable) asociado a dicho nombre. En nuestro caso quedaría así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Nacho"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">with</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">,</span> <span class="nv">$nombre</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Posteriormente, en la vista, deberemos mostrar el valor de esta variable en algún lugar del código HTML. Podemos emplear PHP tradicional para recoger esta variable:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Inicio<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Página de inicio<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Bienvenido/a <span class="cp">&lt;?php echo $nombre; ?&gt;</span><span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Pero es más habitual y limpio emplear una sintaxis específica de Blade, como veremos a continuación.</p>
+
+<p>Como alternativas al uso de <code class="language-plaintext highlighter-rouge">with</code> comentado antes, también podemos utilizar un array asociativo (asignando así varios nombres a varios valores):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">with</span><span class="p">([</span><span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="nv">$nombre</span><span class="p">,</span> <span class="mf">...</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Asimismo, podemos utilizar este mismo array como segundo parámetro de la función <code class="language-plaintext highlighter-rouge">view</code>, y prescindir así de <code class="language-plaintext highlighter-rouge">with</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="nv">$nombre</span><span class="p">,</span> <span class="mf">...</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Y también podemos utilizar una función llamada <code class="language-plaintext highlighter-rouge">compact</code> como segundo parámetro de <code class="language-plaintext highlighter-rouge">view</code>. A esta función le pasamos únicamente el nombre de la variable que usaremos en la vista y, siempre que la variable asociada se llame igual, establece la asociación por nosotros:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'inicio'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>La función <code class="language-plaintext highlighter-rouge">compact</code> admite tantos parámetros como datos queramos enviar a la vista por separado, cada uno con su nombre asociado.</p>
+
+<p>Si simplemente vamos a devolver una vista con poca información asociada, o poca lógica interna, también podemos abreviar el código anterior llamando directamente a <code class="language-plaintext highlighter-rouge">view</code>, en lugar de a <code class="language-plaintext highlighter-rouge">get</code> primero, en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code>, y le pasamos así la información asociada a la vista:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">view</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="s1">'inicio'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'nombre'</span> <span class="o">=&gt;</span> <span class="s1">'Nacho'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h2 id="2-primeros-pasos-con-el-motor-de-plantillas-blade">2. Primeros pasos con el motor de plantillas Blade</h2>
+
+<p>Hemos comentado en el apartado anterior que el uso de Blade permite simplificar la sintaxis y la forma de procesar algunas cosas en nuestras vistas. Siempre que creemos el archivo de la vista con la extensión <code class="language-plaintext highlighter-rouge">.blade.php</code>, nos permitirá automáticamente aprovechar la sintaxis y funcionalidades de Blade en nuestras vistas.</p>
+
+<p>Por ejemplo, si queremos mostrar el contenido de la variable <code class="language-plaintext highlighter-rouge">nombre</code> que hemos pasado antes a la página de inicio, en lugar de hacer un rudimentario <code class="language-plaintext highlighter-rouge">echo</code> en PHP, podemos emplear una sintaxis de dobles llaves, facilitada por Blade, para mostrar el contenido de esa variable. Con esto la línea que mostraba el nombre pasa de ser así…</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Bienvenido/a <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$nombre</span> <span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>… a ser así:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Bienvenido</span><span class="o">/</span><span class="n">a</span> <span class="p">{{</span> <span class="nv">$nombre</span> <span class="p">}}</span>
+</code></pre></div></div>
+<!---->
+
+<blockquote>
+  <p><strong>NOTA</strong> Cada vez que se renderiza una vista en Laravel, se almacena el contenido PHP generado en <code class="language-plaintext highlighter-rouge">storage/framework/views</code>, y sólo se vuelve a re-generar ante un cambio en la vista, con lo que volver a llamar a una vista ya renderizada no afecta al rendimiento de la aplicación. Si echamos un vistazo a la vista generada con PHP plano y con Blade, veremos que hay una sutil diferencia entre ambas, y es que con Blade, en lugar de hacer un simple <code class="language-plaintext highlighter-rouge">echo</code> para mostrar el valor de la variable, se utiliza una función intermedia llamada <code class="language-plaintext highlighter-rouge">e</code>, que evita ataques XSS (<em>Cross Site Scripting</em>), es decir, que se inyecten <em>scripts</em> de JavaScript con la variable a mostrar. En otras palabras, el código no se interpreta, y se muestra tal cual. En algunos casos (especialmente cuando generamos contenido HTML desde dentro de la expresión Blade) nos puede interesar que no proteja contra estas inyecciones de código. En ese caso, se sustituye la segunda llave por una doble exclamación:</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Bienvenido</span><span class="o">/</span><span class="n">a</span> <span class="p">{</span><span class="o">!!</span> <span class="nv">$nombre</span> <span class="o">!!</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Además de esta sintaxis básica para mostrar datos de variables en un lugar determinado de la vista, existen ciertas directivas en Blade que nos permiten realizar comprobaciones o repeticiones.</p>
+
+<h3 id="21-estructuras-de-control-de-flujo-en-blade">2.1. Estructuras de control de flujo en Blade</h3>
+
+<p>Para iterar sobre un conjunto de datos (array), podemos emplear la directiva <code class="language-plaintext highlighter-rouge">@foreach</code>, con una sintaxis similar al <em>foreach</em> de PHP, pero sin necesidad de llaves. Basta con finalizar el bucle con la directiva <code class="language-plaintext highlighter-rouge">@endforeach</code>, de este modo:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    @foreach($elementos as $elemento)
+        <span class="nt">&lt;li&gt;</span>{{ $elemento }}<span class="nt">&lt;/li&gt;</span>
+    @endforeach
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>En el caso de querer realizar alguna comprobación (por ejemplo, si el array anterior está vacío, para mostrar un mensaje pertinente), usamos la directiva <code class="language-plaintext highlighter-rouge">@if</code>, cerrada por su correspondiente pareja <code class="language-plaintext highlighter-rouge">@endif</code>. Opcionalmente, se puede intercalar una directiva <code class="language-plaintext highlighter-rouge">@else</code> para el camino alternativo, o también <code class="language-plaintext highlighter-rouge">@elseif</code> para indicar otra condición. El ejemplo anterior podría quedar así:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    @if($elementos)
+        @foreach($elementos as $elemento)
+            <span class="nt">&lt;li&gt;</span>{{ $elemento }}<span class="nt">&lt;/li&gt;</span>
+        @endforeach
+    @else
+        <span class="nt">&lt;li&gt;</span>No hay elementos que mostrar<span class="nt">&lt;/li&gt;</span>
+    @endif
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>También podemos comprobar si una variable está definida. En este caso, reemplazamos la directiva <code class="language-plaintext highlighter-rouge">@if</code> por <code class="language-plaintext highlighter-rouge">@isset</code>, con su correspondiente cierre <code class="language-plaintext highlighter-rouge">@endisset</code>.</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    @isset($elementos)
+        @foreach($elementos as $elemento)
+            <span class="nt">&lt;li&gt;</span>{{ $elemento }}<span class="nt">&lt;/li&gt;</span>
+        @endforeach
+    @else
+        <span class="nt">&lt;li&gt;</span>No hay elementos que mostrar<span class="nt">&lt;/li&gt;</span>
+    @endisset
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Sin embargo, con cualquiera de estas opciones tenemos un problema: en el primer caso, si la variable <code class="language-plaintext highlighter-rouge">$elementos</code> no está definida, mostrará un error de PHP. En el segundo caso, si la variable sí está definida pero no contiene elementos, no se mostrará nada por pantalla. Una tercera estructura alternativa que agrupa estos dos casos (controlar a la vez que la variable esté definida y tenga elementos) es emplear la directiva <code class="language-plaintext highlighter-rouge">@forelse</code> en lugar de <code class="language-plaintext highlighter-rouge">@foreach</code>. Esta directiva permite una cláusula adicional <code class="language-plaintext highlighter-rouge">@empty</code> para indicar qué hacer si la colección no tiene elementos o está sin definir. El ejemplo anterior quedaría ahora así de abreviado:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    @forelse($elementos as $elemento)
+        <span class="nt">&lt;li&gt;</span>{{ $elemento }}<span class="nt">&lt;/li&gt;</span>
+    @empty
+        <span class="nt">&lt;li&gt;</span>No hay elementos que mostrar<span class="nt">&lt;/li&gt;</span>
+    @endforelse
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>En este tipo de iteradores (<code class="language-plaintext highlighter-rouge">@foreach</code> o <code class="language-plaintext highlighter-rouge">@forelse</code>), tenemos disponible un objeto llamado <code class="language-plaintext highlighter-rouge">$loop</code>, con una serie de propiedades sobre el bucle que estamos iterando, como por ejemplo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">index</code>: posición dentro del array por la que vamos</li>
+  <li><code class="language-plaintext highlighter-rouge">count</code>: total de elementos</li>
+  <li><code class="language-plaintext highlighter-rouge">first</code> y <code class="language-plaintext highlighter-rouge">last</code>: booleanos que determinan si es el primer o último elemento, respectivamente</li>
+  <li>…</li>
+</ul>
+
+<p>Podemos ver todas las propiedades disponibles en este objeto llamando a <code class="language-plaintext highlighter-rouge">var_dump</code>:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    @forelse($elementos as $elemento)
+        <span class="nt">&lt;li&gt;</span>{{ $elemento }} {{ var_dump($loop) }} <span class="nt">&lt;/li&gt;</span>
+    @empty
+        <span class="nt">&lt;li&gt;</span>No hay elementos que mostrar<span class="nt">&lt;/li&gt;</span>
+    @endforelse
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Si, por ejemplo, queremos determinar si es el último elemento de la lista, y mostrar un mensaje o estilo especial, podemos hacer algo como esto:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    @forelse($elementos as $elemento)
+        <span class="nt">&lt;li&gt;</span>{{ $elemento }} 
+            {{ $loop-&gt;last ? "Ultimo elemento" : "" }} 
+        <span class="nt">&lt;/li&gt;</span>
+    @empty
+        <span class="nt">&lt;li&gt;</span>No hay elementos que mostrar<span class="nt">&lt;/li&gt;</span>
+    @endforelse
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Existen otros tipos de estructuras iterativas y selectivas en Blade, como <code class="language-plaintext highlighter-rouge">@while</code>, <code class="language-plaintext highlighter-rouge">@for</code> o <code class="language-plaintext highlighter-rouge">@switch</code>, entre otras. Podéis consultar sobre su uso en la <a href="https://laravel.com/docs/blade#control-structures">documentación oficial de Blade</a>.</p>
+
+<p>Vamos a aplicar esto en nuestro ejemplo del proyecto <em>biblioteca</em>. Definiremos una ruta para sacar un listado de libros y, de momento, vamos a crear a mano dicho listado en el propio método de enrutamiento, y se lo pasaremos a una vista llamada <code class="language-plaintext highlighter-rouge">listado.blade.php</code>. Por un lado, la nueva ruta para el listado puede quedar así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'listado'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nv">$libros</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"El juego de Ender"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"Orson Scott Card"</span><span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"La tabla de Flandes"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"Arturo Pérez Reverte"</span><span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"La historia interminable"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"Michael Ende"</span><span class="p">),</span>
+        <span class="k">array</span><span class="p">(</span><span class="s2">"titulo"</span> <span class="o">=&gt;</span> <span class="s2">"El Señor de los Anillos"</span><span class="p">,</span> 
+              <span class="s2">"autor"</span> <span class="o">=&gt;</span> <span class="s2">"J.R.R. Tolkien"</span><span class="p">)</span>
+    <span class="p">);</span>
+
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'listado'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'listado_libros'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Por su parte, la vista <code class="language-plaintext highlighter-rouge">listado.blade.php</code> puede quedar así:</p>
+
+<!---->
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Listado de libros<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Listado de libros<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+        @forelse ($libros as $libro)
+            <span class="nt">&lt;li&gt;</span>{{ $libro["titulo"] }} ({{ $libro["autor"] }})<span class="nt">&lt;/li&gt;</span>
+        @empty
+            <span class="nt">&lt;li&gt;</span>No se encontraron libros<span class="nt">&lt;/li&gt;</span>
+        @endforelse
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<h3 id="22-sobre-los-enlaces-a-otras-rutas">2.2. Sobre los enlaces a otras rutas</h3>
+
+<p>Hemos comentado brevemente en puntos anteriores que, gracias a Blade y a los nombres en las rutas, podemos enlazar una vista con otra de dos formas: de forma tradicional…</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="s1">'&lt;a href="/contacto"&gt;Contacto&lt;/a&gt;'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>… o bien empleando la función <code class="language-plaintext highlighter-rouge">route</code> seguida del nombre que le hemos dado a la ruta:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('ruta_contacto') }}"</span><span class="nt">&gt;</span>Contacto<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Por ejemplo, podemos poner un enlace a la vista del listado de libros que hemos creado antes (y que hemos nombrado como <code class="language-plaintext highlighter-rouge">listado_libros</code> de este modo en nuestra vista de <code class="language-plaintext highlighter-rouge">inicio.blade.php</code>:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;p&gt;</span>Bienvenido/a {{ $nombre }}<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('listado_libros') }}"</span><span class="nt">&gt;</span>Listado de libros<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<h3 id="23-definir-plantillas-comunes">2.3. Definir plantillas comunes</h3>
+
+<p>A la hora de dar homogeneidad a una web, es habitual que la cabecera, el menú de navegación o el pie de página formen parte de una plantilla que se repite en todas las páginas del sitio, de modo que evitamos tener que actualizar todas las páginas ante cualquier posible cambio en estos elementos.</p>
+
+<p>Para crear una plantilla en Blade, creamos un archivo normal y corriente (por ejemplo, <code class="language-plaintext highlighter-rouge">plantilla.blade.php</code>), en la carpeta de vistas, con el contenido general de la plantilla. En aquellas zonas del documento donde vamos a permitir contenido variable dependiendo de la vista en sí, añadimos una sección llamada <code class="language-plaintext highlighter-rouge">@yield</code>, con un nombre asociado. Nuestra plantilla podría ser esta (notar que se permiten varios <code class="language-plaintext highlighter-rouge">@yield</code> con diferentes nombres):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>
+        @yield('titulo')
+        <span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;nav&gt;</span>
+            <span class="c">&lt;!-- ... Menú de navegación --&gt;</span>
+        <span class="nt">&lt;/nav&gt;</span>
+        @yield('contenido')
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Después, en cada vista en que queramos utilizar esta plantilla, añadimos la directiva <code class="language-plaintext highlighter-rouge">@extends</code> de Blade, indicando el nombre de plantilla que vamos a utilizar. Con la directiva <code class="language-plaintext highlighter-rouge">@section</code>, seguida del nombre de la sección, definimos el contenido para cada uno de los <code class="language-plaintext highlighter-rouge">@yield</code> que se hayan indicado en la plantilla. Finalizaremos cada sección con la directiva <code class="language-plaintext highlighter-rouge">@endsection</code>. Así, para nuestra página inicial (<code class="language-plaintext highlighter-rouge">inicio.blade.php</code>), el contenido puede ser ahora éste:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">extends</span><span class="p">(</span><span class="s1">'plantilla'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'Inicio'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'contenido'</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Página</span> <span class="n">de</span> <span class="n">inicio</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">Bienvenido</span><span class="o">/</span><span class="n">a</span> <span class="p">{{</span> <span class="nv">$nombre</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="n">endsection</span>
+</code></pre></div></div>
+<!---->
+
+<p>Notar, además, que a la directiva <code class="language-plaintext highlighter-rouge">@section</code> se le puede pasar un segundo parámetro con el contenido de esa sección, y en este caso no es necesario cerrarla con <code class="language-plaintext highlighter-rouge">@endsection</code>. Esta opción es útil para contenidos donde no interesen caracteres en blanco o saltos de línea innecesarios al principio o al final, como ocurre en el ejemplo anterior con el título (<em>title</em>) de la página.</p>
+
+<p>Del mismo modo, nuestra vista para el listado de libros quedaría de esta forma:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">extends</span><span class="p">(</span><span class="s1">'plantilla'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'Listado de libros'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'contenido'</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Listado</span> <span class="n">de</span> <span class="n">libros</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="nf">forelse</span> <span class="p">(</span><span class="nv">$libros</span> <span class="k">as</span> <span class="nv">$libro</span><span class="p">)</span>
+        <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="p">{{</span> <span class="nv">$libro</span><span class="p">[</span><span class="s2">"titulo"</span><span class="p">]</span> <span class="p">}}</span> <span class="p">({{</span> <span class="nv">$libro</span><span class="p">[</span><span class="s2">"autor"</span><span class="p">]</span> <span class="p">}})</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="n">empty</span>
+        <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="nc">No</span> <span class="n">se</span> <span class="n">encontraron</span> <span class="n">libros</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="o">@</span><span class="n">endforelse</span>
+    <span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="n">endsection</span>
+</code></pre></div></div>
+<!---->
+
+<h3 id="24-incluir-vistas-dentro-de-otras">2.4. Incluir vistas dentro de otras</h3>
+
+<p>También suele ser habitual definir contenidos parciales (se suelen definir en una subcarpeta <code class="language-plaintext highlighter-rouge">partials</code> dentro de <code class="language-plaintext highlighter-rouge">resources/views</code>), e incluirlos en las vistas. Para esto, utilizaremos la directiva <code class="language-plaintext highlighter-rouge">@include</code> de Blade.</p>
+
+<p>Por ejemplo, vamos a definir un menú de navegación. Supongamos que dicho menú está en el archivo <code class="language-plaintext highlighter-rouge">resources/views/partials/nav.blade.php</code>.</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;nav&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('inicio') }}"</span><span class="nt">&gt;</span>Inicio<span class="nt">&lt;/a&gt;</span>
+    <span class="ni">&amp;nbsp;&amp;nbsp;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('listado_libros') }}"</span><span class="nt">&gt;</span>Listado de libros<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/nav&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>Notar que, en este ejemplo, se supone que a cada una de las dos rutas implicadas les hemos asignado los nombres “inicio” y “libros_listado”, respectivamente, empleando el método <code class="language-plaintext highlighter-rouge">name</code> al definir la ruta. De lo contrario, las propiedades <code class="language-plaintext highlighter-rouge">href</code> de los dos enlaces deberían apuntar a <code class="language-plaintext highlighter-rouge">/</code> y <code class="language-plaintext highlighter-rouge">/listado</code>, respectivamente.</p>
+
+<p>Para incluir el menú en la plantilla anterior, podemos hacer esto (y eliminaríamos el elemento <code class="language-plaintext highlighter-rouge">&lt;nav&gt;</code> de la plantilla):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>
+        @yield('titulo')
+        <span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        @include('partials.nav')
+        @yield('contenido')
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Como puede verse, podemos utilizar tanto el punto como la barra para indicar el separador de carpeta en la vista.</p>
+
+<h3 id="25-estructurar-vistas-en-carpetas">2.5. Estructurar vistas en carpetas</h3>
+
+<p>Cuando la aplicación es algo compleja, pueden ser necesarias varias vistas, y tenerlas todas en una misma carpeta puede ser algo difícil de gestionar. Es habitual, como iremos viendo en sesiones posteriores, estructurar las vistas de la carpeta <code class="language-plaintext highlighter-rouge">resources/views</code> en subcarpetas, de modo que, por ejemplo, cada carpeta se refiera a las vistas de una entidad o modelo de la aplicación, o a un controlador específico. De momento, en nuestro ejemplo de la biblioteca, vamos a ubicar la vista <code class="language-plaintext highlighter-rouge">listado.blade.php</code> en una subcarpeta <code class="language-plaintext highlighter-rouge">libros</code>, de modo que en la ruta que renderiza esta vista, ahora deberemos indicar también el nombre de la subcarpeta:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'listado'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'libros.listado'</span><span class="p">,</span> <span class="nb">compact</span><span class="p">(</span><span class="s1">'libros'</span><span class="p">));</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'listado_libros'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ahora mismo, en nuestra carpeta <code class="language-plaintext highlighter-rouge">resources/views</code> del proyecto de la biblioteca tendremos únicamente la plantilla base y la página de inicio (y la vista <code class="language-plaintext highlighter-rouge">welcome.blade.php</code>, que de hecho ya podemos borrar si queremos). El resto de vistas las iremos estructurando en subcarpetas.</p>
+
+<h3 id="26-vistas-para-páginas-de-error">2.6. Vistas para páginas de error</h3>
+
+<p>A lo largo de estas sesiones, algunas acciones que hagamos provocarán páginas de error con determinados códigos, como por ejemplo 404 para páginas no encontradas. Si queremos definir el aspecto y estructura de estas páginas, basta con crear la vista correspondiente en la carpeta <code class="language-plaintext highlighter-rouge">resources/views/errors</code>, por ejemplo, <code class="language-plaintext highlighter-rouge">resources/views/errors/404.blade.php</code> para el error 404 (anteponemos el código de error al sufijo de la vista).</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="k">extends</span><span class="p">(</span><span class="s1">'plantilla'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'titulo'</span><span class="p">,</span> <span class="s1">'Error 404'</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nf">section</span><span class="p">(</span><span class="s1">'contenido'</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Error</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">Documento</span> <span class="n">no</span> <span class="n">encontrado</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="o">@</span><span class="n">endsection</span>
+</code></pre></div></div>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

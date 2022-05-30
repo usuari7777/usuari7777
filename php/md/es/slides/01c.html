@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Uso de funciones</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Uso de funciones
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Definición de funciones
+
+Palabra *function* seguida del nombre de la función y paréntesis (como JavaScript)
+
+```php
+function saluda()
+{
+    echo "Hola, buenas";
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ubicación de funciones
+
+Podemos definir un bloque PHP para ellas independiente al resto
+
+```php
+<?php
+function saluda()
+{
+    echo "Hola, buenas";
+}
+... // Resto de funciones necesarias
+?>
+<!DOCTYPE html>
+...
+<?php
+saluda();
+?>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Uso de parámetros
+
+Se pasan entre paréntesis, separados por comas
+
+```php
+function suma($a, $b)
+{
+    echo $a + $b;
+}
+
+...
+suma(3, 2.5);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1
+
+- Crea una carpeta llamada **ejercicios2** en tu carpeta de documentos de Apache
+- Crea una página llamada **saludo_funciones.php** con una función llamada `saludo($n)` que saque un saludo con el nombre que se le pase como parámetro. Por ejemplo, "Hola, Nacho". 
+- Llama a esta función desde el código PHP para que muestre un saludo en la página con el nombre que quieras.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea una página llamada **contador_funciones.php** con una función llamada `cuenta($a, $b)` que reciba dos parámetros y vaya contando de un número al otro, separando los números por comas. Después, pruébala en el código PHP haciendo que cuente del 10 al 20.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros por referencia
+
+Para poder modificar el valor de un parámetro, lo definimos con un `&` delante
+
+```php
+function sumaNumeros($n1, $n2, &$resultado)
+{
+    $resultado = $n1 + $n2;
+}
+
+...
+$result = 0;
+sumaNumeros(3, 30, $result);
+// En este punto, la variable $result vale 33
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Crea una página llamada **intercambia.php** en la carpeta de ejercicios. Añade dentro una función llamada `intercambia` que reciba 2 parámetros numéricos por referencia, y lo que haga sea intercambiar sus valores. Es decir, si recibe el parámetro `$a` y el `$b`, debe hacer que `$a` tome el valor de `$b`, y `$b` tome el valor de `$a`.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Parámetros por defecto
+
+- Podemos asignar un valor a cada parámetro para que lo tome si no especificamos ninguno
+- Es importante seguir el orden de uso de los parámetros al llamar a la función
+- Si dejamos uno sin poner, se deben dejar también los siguientes sin poner
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Parámetros por defecto
+
+```php
+function datosAlumno($nombre, $telefono, $nota = 0, $aNacimiento = 1995)
+{
+    ...
+}
+...
+// nota = 8, aNacimiento = 1978
+datosAlumno("Nacho Iborra", "611223344", 8, 1978);
+// nota = 1978, aNacimiento = 1995
+datosAlumno("Nacho Iborra", "611223344", 1978);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Retorno de valores
+
+Con la instrucción **return** cuando sea necesario
+
+```php
+function sumaNumeros($a, $b)
+{
+    return ($a+$b);
+}
+...
+$resultado = sumaNumeros(3, 10);
+// Aquí, la variable $resultado valdría 13
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+- Crea una página llamada **descuento.php** con una función llamada `calculaDescuento` que reciba un parámetro `$precio` con el precio de una compra, y un parámetro opcional llamado `$descuento` con el porcentaje de descuento a aplicar, y con valor por defecto de 0. La función devolverá con un *return* el precio con el descuento aplicado. 
+- Utiliza la función para calcular el descuento de un precio de 250 euros con un 10% de descuento, y el de 85 euros sin indicar descuento.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## *Type hinting*
+
+Permite especificar el tipo de dato de los parámetros y tipo de retorno en las funciones
+
+```php
+// Comprueba si dos números son iguales
+function iguales(int $param1, int $param2): boolean
+{
+    return $param1 === $param2;
+}
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Funciones anónimas
+
+Como en JavaScript, podemos definir funciones en puntos concretos del programa para invocarlas directamente
+
+```php
+$numeros = [12, 18, 5, 11, 10, 95, 3];
+ 
+$multiplos5 = array_filter($numeros, function($n) {
+    return $n % 5 == 0;
+});
+
+// $multiplos5 = [5, 10, 95]
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Modularizar el código
+
+- ¿Qué ocurre si queremos usar una misma función en varias páginas? ¿Toca volverla a definir en cada página?
+- PHP ofrece unas directivas para incluir el contenido de unas páginas en otras:
+- Esto permite:
+   - Incluir en varias páginas un contenido común (encabezado y pie, por ejemplo)
+   - Utilizar en varias páginas una misma funcionalidad común (funciones definidas)
+- Los ficheros con código a incluir suelen tener extensión *.inc* o *.inc.php*
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Directivas de inclusión
+
+* **include fichero**: incluye el contenido del fichero indicado en el actual, en el punto donde se invoca
+* **include_once fichero**: similar al anterior, pero sólo lo incluye si no ha sido incluido ya 
+* **require fichero**: similar a *include*, pero emite un error fatal si no se encuentra el fichero
+* **require_once fichero**: similar al anterior, pero sólo carga el fichero si no ha sido incluido anteriormente.
+    
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de inclusión (1/2)
+
+Fichero *funciones.inc*
+
+```php
+<?php
+
+function saluda()
+{
+    echo "Hola, buenas";
+}
+
+function suma($a, $b)
+{
+    echo a+b;
+}
+?>
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejemplo de inclusión (2/2)
+
+Fichero *pagina.php*
+
+```php
+<?php 
+include "funciones.inc";
+?>
+<!DOCTYPE html>
+...
+<?php
+suma(3, 5);
+?>
+...
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 5
+
+Crea un archivo llamado **funciones.inc** en la carpeta de ejercicios de la sesión y añade dentro las funciones que hemos definido en los ejercicios anteriores. Incluye el fichero en cada uno de los ejercicios para que pueda hacer uso de las funciones que necesite.
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones de manejo de textos (1/3)
+
+* **trim(cadena)** elimina espacios del principio y del final de la cadena, incluyendo tabulaciones o saltos de línea
+   * Útil para limpiar información enviada desde formularios
+* **number_format(numero, decimales)** crea un texto mostrando el número indicado, con los decimales que se digan.
+* **htmlspecialchars(cadena)** formatea la cadena sustituyendo algunos símbolos especiales (como por ejemplo `&`, `"`, `<`...) por sus correspondientes códigos HTML (`&amp;`, `&quot;`, `&lt;`...)
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones de manejo de textos (2/3)
+
+* **strtoupper(cadena)** y **strtolower(cadena)** convierten toda la cadena a mayúsculas y minúsculas, respectivamente.
+* **explode(separador, cadena)** devuelve una lista (array) con todas las partes de la cadena en que se puede dividir cortando por el separador indicado
+* **implode(separador, array)** combina todos los elementos de la lista (array), uniéndolos con el separador indicado
+* **substr(cadena, comienzo, fin)** obtiene una subcadena de la cadena, a partir de la posición de comienzo indicada hasta la de fin (o el final de la cadena si no se indica)
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones de manejo de textos (3/3)
+
+* **strcmp(cadena1, cadena2)** compara las dos cadenas viendo cuál es mayor alfabéticamente
+* **strlen(cadena)** indica cuántos caracteres tiene la cadena
+* **strpos(cadena, parte)** indica en qué posición está la primera ocurrencia de la cadena *parte*, o negativo si no se encuentra
+* **str_replace(viejacadena, nuevacadena , cadena)** reemplaza todas las ocurrencias de la cadena *viejacadena* por la cadena *nuevacadena* en la cadena global *cadena*.
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones de manejo de textos
+
+Ejemplos
+
+```php
+$numero = 3.14159;
+$texto = number_format($numero, 2);
+// En este punto, $texto vale 3.14
+
+$texto = "Hola, buenas tardes";
+$texto2 = substr($texto, 6, 11);
+// Aquí $texto2 vale 'buenas'
+
+$texto = "Hola, buenas tardes";
+$posicion = strpos($texto, "buenas");
+// Aquí $posicion valdrá 6
+
+$errores = "Un téxto de prueba con acento en la palabra téxto";
+$corregido = str_replace("téxto", "texto", $errores);
+// Aquí corregido vale "Un texto de prueba con acento en la palabra texto"
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6 (1/3)
+
+Crea una página llamada **manejo_textos.php**. Realiza en ella las siguientes operaciones:
+ 
+* Crea una variable `$radio` con un radio de circunferencia (el que quieras). 
+* Crea una variable `$area` y calcula en ella el área del círculo
+* Crea una variable `$textoResultado` que diga "El área calculada del círculo es" y luego ponga la variable `$area` con 2 decimales
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6 (2/3)
+
+Crea una página llamada **manejo_textos.php**. Realiza en ella las siguientes operaciones:
+    
+* Crea una variable `$textoResultadoMayus` que convierta el texto anterior a mayúsculas
+* Crea una variable llamada `$textoResultadoModificado` que reemplace la palabra "calculada" por la palabra "obtenida" en la variable `$textoResultado`.
+* Averigua la longitud del texto de la variable anterior
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 6 (3/3)
+
+Crea una página llamada **manejo_textos.php**. Realiza en ella las siguientes operaciones:
+    
+* Averigua en qué posición del texto de la variable anterior se encuentra la palabra "círculo"
+* Crea una variable `$numeros` que tenga el valor "1,2,3,4,5", y utiliza la función `explode` para quedarte con los números por separado. Sácalos por pantalla, separados por el signo "+" ("1+2+3+4+5"), y después, intenta sumarlos entre sí y mostrar el resultado de la suma a continuación (al final, te quedará algo como "1+2+3+4+5=15").
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones para manejo de fechas y horas
+
+* **time()**: segundos que han transcurrido desde el 1/1/1970 (*timestamp*)
+* **checkdate(mes, dia, año)** comprueba si la fecha formada por el mes, día y año que recibe es correcta
+* **date(formato, fecha)** obtiene una cadena de texto formateando la fecha con el formato indicado. [Aquí](https://www.php.net/manual/es/function.date.php) podéis consultar información sobre patrones de fechas 
+* **strtotime(texto)** convierte un texto a una fecha determinada. La fecha se debe expresar en formato inglés (*mes/día/año*)
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones para manejo de fechas y horas
+
+Ejemplos
+
+```php
+$fechaActual = time();
+$textoFecha = date("d/m/Y H:i:s");
+// Suponiendo que $fechaActual sea, por ejemplo, el 3 de noviembre de 2014
+// a las 18:23:55, entonces $textoFecha sería '03/11/2014 18:23:55'
+$esCorrecta = checkdate(15, 11, 2014);
+// La variable $esCorrecta sería FALSE, porque 15 no es un mes válido
+$fecha = strtotime("21/12/2013"); 
+// Error, no existe el mes 21
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 7
+
+Crea una página llamada **ahora.php** en tu carpeta de ejercicios. Saca en la página la fecha y hora actuales en un formato como este: *07 Mar 2022 - 21:55:12*
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Gestión de expresiones regulares (1/3)
+
+|Símbolo|Significado|
+|----|----|
+|`^`|Comienzo de un texto o línea|
+|`$`|Final de un texto o línea|
+|`*`|0 o más veces|
+|`+`|1 o más veces|
+|`?`|0 o 1 vez|
+|`.`|Cualquier carácter, salvo el salto de línea|
+|`x|y`|Elemento x o y|
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Gestión de expresiones regulares (2/3)
+
+|Símbolo|Significado|
+|----|----|
+|`{n}`|n veces|
+|`{m, n}`|Entre m y n veces|
+|`[abc]`|Cualquiera de los caracteres entre corchetes. También rangos `[A-L]`|
+|`[^abc]`|Cualquier carácter que no esté entre los corchetes|
+|`\d`|Un dígito (equivaldría al intervalo `[0-9]`)|
+|`\w`|Cualquier alfanumérico incluyendo subrayado (igual a `[A-Za-z0-9_]`)|
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Gestión de expresiones regulares (3/3)
+
+* **preg_match(patron, texto)**: devuelve 1 si el texto encaja en el patrón
+* **preg_replace(patron, reemplazo, cadena)**: examina la cadena buscando coincidencias del patrón, y reemplaza el texto encontrado por el texto de reemplazo.
+* **preg_split(patron, cadena, limite)** devuelve un array o lista de cadenas, resultado de todas las ocurrencias del patrón en la cadena. Podemos especificar opcionalmente un límite de cadenas devueltas.
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Gestión de expresiones regulares
+
+Ejemplos
+
+```php
+$dni = "11223344A";
+if (preg_match("/^\d{9}[A-Z]$/", $dni) == 1)
+{
+    echo "DNI válido";
+}
+
+$fecha = "03-11-2014";
+if (preg_match("/^([0-9]{2})-([0-9]{2})-([0-9]{4})$/", $fecha, $partes) == 1)
+{
+	echo "La fecha completa es " . $partes[0];
+	echo "El día es " . $partes[1];
+	echo "El mes es " . $partes[2];
+	echo "El año es " . $partes[3];	
+} else {
+	echo "Formato de fecha no válido";
+}
+```
+
+</script>
+</section>    
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 8
+
+Crea una página llamada **comprueba_hora.php** en tu carpeta de ejercicios. Crea una variable de texto con una hora en ella (por ejemplo, "21:30:12"), y luego procésala para extraer por separado la hora, el minuto y el segundo, y comprobar si es una hora válida. Por ejemplo, la hora anterior sí debería ser válida, pero si ponemos “12:63:11” no debería serlo, porque 63 no es un minuto válido.
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones de acceso a ficheros
+
+* **readfile(fichero)**: lee un fichero entero y lo vuelca al buffer de salida 
+* **file(fichero)** lee un fichero entero y devuelve un array o lista con sus líneas
+* **file_get_contents(fichero)** lee un fichero entero y lo devuelve en una cadena
+* **file_put_contents(fichero, texto)** escribe la cadena de texto en el fichero indicado
+   * Tercer parámetro FILE_APPEND para añadir contenido sin borrar el actual
+* **file_exists(fichero)** devuelve TRUE o FALSE dependiendo de si el fichero indicado existe o no
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Funciones de acceso a ficheros
+
+Ejemplo: añadir "Fin" al final del fichero
+
+```php
+// Opción 1
+
+$fichero = "libro.txt";
+if (file_exists($fichero))
+{
+	$contenido = file_get_contents($fichero);
+	$contenido .= "Fin";
+	file_put_contents($fichero, $contenido);
+}
+
+// Opción 2
+
+$fichero = "libro.txt";
+if (file_exists($fichero))
+{
+      file_put_contents($fichero, "Fin", FILE_APPEND);
+}
+```
+
+</script>
+</section>    
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 9
+
+Crea una página llamada **copia_seguridad.php**. En la misma carpeta, crea un archivo llamado *datos.txt* con tus datos personales en varias líneas (Nombre, Dirección, Teléfono y E-mail, tuyos o inventados). Haz que la página php lea el archivo y lo guarde en otro llamado *copia_datos.txt*, en la misma carpeta.
+
+</script>
+</section>    
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

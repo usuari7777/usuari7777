@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software analysis and design | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software analysis and design" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="04b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/04b.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software analysis and design" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software analysis and design","url":"http://nachoiborraies.github.io/entornos/md/en/04b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-analysis-and-design">Software analysis and design</h1>
+
+<h2 id="introduction-to-uml-tools">Introduction to UML. Tools</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/04b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="04b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>In the analysis stage of software development, we must finish with a clear idea of what the application must do. In order to help us get to this point, we can use many graphical representations or diagrams. In this section, we are going to rely on <strong>UML</strong>, which is part of a traditional methodology called RUP, but can be used in many other methodologies as well. There are many diagram types that are part of UML, so we are going to focus on some of them to have an overview as complete as possible of our application.</p>
+
+<h3 id="1-introduction-to-uml">1. Introduction to UML</h3>
+
+<p>UML (<em>Unified Modeling Language</em>) is a standard modeling language that helps developers specify, visualize, build and document software applications. Besides, UML lets us scale these applications, and make them more secure and robust. It was originally conceived to apply the object oriented paradigm to the software analysis and design, grouping some other existing modeling languages. This way, UML 1.1 was firstly published in 1997. Its current version from 2015 is UML 2.5.</p>
+
+<p>This modeling language has two main types of diagrams: <strong>structural</strong> diagrams and <strong>behavioral</strong> diagrams. Each one contains its own subset of diagrams.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-uml_diagrams_en.png" alt="UML diagrams" />
+</div>
+
+<p>Next, we are going to see an overview of all these diagrams. The images have been extracted from <a href="https://creately.com/blog/diagrams/uml-diagram-types-examples">this website</a>.</p>
+
+<h4 id="11-structural-diagrams">1.1. Structural diagrams</h4>
+
+<p>They show the static structure of the system.</p>
+
+<ul>
+  <li><strong>Class diagram</strong>: it is the main diagram in terms of application building, for every object oriented application. It shows every class of the application with its attributes, methods and relationships.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-02-classDiagram.jpg" alt="Example of a class diagram" />
+</div>
+
+<ul>
+  <li><strong>Composite structure diagram</strong>: it shows the internal structure of a class.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-03-compositeDiagram.jpg" alt="Example of a composite structure diagram" width="90%" />
+</div>
+
+<ul>
+  <li><strong>Component diagram</strong>: it shows the structural relationship among the system components. It is used in complex systems with many components.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-04-componentDiagram.jpg" alt="Example of a component diagram" />
+</div>
+
+<ul>
+  <li><strong>Deployment diagram</strong>: it shows the hardware and software of the system, and how the software is distributed in the hardware. It can be employed in systems where the software is distributed in many different hardware components.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-05-deployDiagram.jpg" alt="Example of a deployment diagram" width="90%" />
+</div>
+
+<ul>
+  <li><strong>Object diagram</strong>: it is similar to the class diagram, but it represent objects with example data on them.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-06-objectDiagram.jpg" alt="Example of an object diagram" />
+</div>
+
+<ul>
+  <li><strong>Package diagram</strong>: it shows the dependencies among the different packages of the system.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-07-packageDiagram.jpg" alt="Example of a package diagram" width="70%" />
+</div>
+
+<ul>
+  <li><strong>Profile diagram</strong>: it lets us specify different stereotypes and tagged values to adapt the general system to specific platforms (for instance, how it should be in Java, or in .NET framework), or domains (for instance, a medical application).</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-08-profileDiagram.gif" alt="Example of a profile diagram" />
+</div>
+
+<h4 id="12-behavioral-diagrams">1.2. Behavioral diagrams</h4>
+
+<p>They show the dynamic behavior of the system objects.</p>
+
+<ul>
+  <li><strong>Activity diagram</strong>: it shows the control flow of a given method or component.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-09-activityDiagram.jpg" alt="Example of an activity diagram" />
+</div>
+
+<ul>
+  <li>
+    <p><strong>Interaction diagrams</strong>: some diagrams are included here:</p>
+
+    <p><strong>Sequence diagram</strong>: it shows the interaction among the objects of the system, and the order of these interactions.</p>
+
+    <div align="center">
+      <img src="../../img/ED_b1_tema04-10-sequenceDiagram.jpg" alt="Example of a sequence diagram" width="90%" />
+  </div>
+
+    <p><strong>Communication diagram</strong>: in UML 1 these diagrams were called <em>collaboration diagrams</em>. It is similar to the sequence diagram, but it is focused on the messages that are passed between objects.</p>
+
+    <div align="center">
+      <img src="../../img/ED_b1_tema04-11-comunicationDiagram.jpg" alt="Example of communication diagram" width="90%" />
+  </div>
+
+    <p><strong>Interaction overview diagram</strong>: it is similar to the activity diagram, but it shows the sequence of the interactions.</p>
+
+    <div align="center">
+      <img src="../../img/ED_b1_tema04-12-overviewDiagram.jpg" alt="Example of an interaction diagram" />
+  </div>
+
+    <p><strong>Timing diagram</strong>: it is similar to the sequence diagram, but it shows the behavior of the components in a given moment.</p>
+
+    <div align="center">
+      <img src="../../img/ED_b1_tema04-13-timingDiagram.jpg" alt="Example of a package diagram" width="90%" />
+  </div>
+  </li>
+  <li>
+    <p><strong>State machine diagram</strong>: it is similar to the activity diagram, with a different notation and usage (it is often used to describe the behavior of objects which act in a different way depending on their own current state).</p>
+  </li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-15-stateMachineDiagram.jpg" alt="Example of a state machine diagram" width="40%" />
+</div>
+
+<ul>
+  <li><strong>Use case diagram</strong>: it is the most popular behavioral diagram. It provides a general overview of the actors involved in the system, and the tasks that each one can do on it.</li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-14-useCaseDiagram.jpg" alt="Example of a use case diagram" />
+</div>
+
+<h3 id="2-uml-tools">2. UML tools</h3>
+
+<p>There are many different tools that we can use to create UML diagrams. In this chapter we are going to focus on a couple of them. We will explain the first basic steps with these tools, and see how to create a simple diagram, such as a use case diagram.</p>
+
+<h4 id="21-modelio">2.1. Modelio</h4>
+
+<p>Modelio is an open source tool to create a wide variety of diagrams, including UML diagrams. We can get it from its <a href="https://www.modelio.org/">official web site</a> for the three main platforms (Windows, Linux and Mac OS X), although there are some problems regarding Mac OS X, as we will see right now.</p>
+
+<p>If we install it under <strong>Windows</strong>, we just need to run the <em>.exe</em> file, which is a step-by-step wizard that guides us through the installation process.</p>
+
+<p>Regarding <strong>Linux</strong> (Ubuntu, for instance), we first need to install some dependencies from <em>Synaptic</em> package manager (you can find Synaptic in the <em>System tools</em> section). You must check if these packages (and all their dependencies) are installed:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">libwebkitgtk-1.0.0</code></li>
+  <li><code class="language-plaintext highlighter-rouge">libwebkitgtk-3.0.0</code></li>
+</ul>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-45_modelio_linux.png" alt="Installing Modelio on Linux" width="80%" />
+</div>
+
+<p>Then, we download the <em>.deb</em> file from the official web site, and type this command from the terminal (from the folder where the file has been downloaded):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dpkg -i &lt;deb_file_name&gt;
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">&lt;deb_file_name&gt;</code> is the full file name that you have downloaded (for instance, <code class="language-plaintext highlighter-rouge">modelio-open-source_4.1.0_ubuntu_amd64.deb</code>).</p>
+
+<p>Finally, regarding <strong>Mac OS X</strong> it requires Java JDK 8 to run. Since Java 8 is becoming quite obsolete, we are not going to explain how to fix this bug, since it is a little bit tricky. We will use a different tool for Mac OS X instead.</p>
+
+<p>Once the installation is done, we can start Modelio. This is the welcome screen:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-37_modelio01.png" alt="Modelio welcome screen" width="90%" />
+</div>
+
+<p>We need to create a new project (from <em>File &gt; Create a project</em> menu) if we want to start using Modelio. Then, we choose a name for the project</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-38_modelio02.png" alt="Modelio project name" width="50%" />
+</div>
+
+<p>After creating the project, we can see it open at the left panel. Now, we need to unfold it and right click on its inner package to choose <em>Create diagram</em>.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-39_modelio03.png" alt="Modelio create new diagram" width="60%" />
+</div>
+
+<p>Then, a new dialog with a list of diagrams will appear:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-40_modelio04.png" alt="Modelio UML diagrams" width="80%" />
+</div>
+
+<p>We can choose <em>Use case diagram</em> (you should also give it a name in this dialog) and a new, blank diagram will be created. We can select (left click) the elements from the left section (actors, use cases, connections) and place them (left click) in the main drawing area. If we right click on any element, we can change some attributes, such as its name with the <em>Rename</em> option.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-40_modelio05.png" alt="Modelio use case diagrams" width="80%" />
+</div>
+
+<p>Once the diagram is created, we can just save it, or export it to an image file. To do this, we need to click on the <em>Save diagram in a file</em> button, in the toolbar above the drawing area:</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-41_modelio06.png" alt="Modelio export diagram to image" width="60%" />
+</div>
+
+<h4 id="22-visual-paradigm-online">2.2. Visual Paradigm (online)</h4>
+
+<p>Visual Paradigm is a commercial tool with a free community version, and also an online version that can be used with no installation required. We can either download the <a href="https://www.visual-paradigm.com/download/community.jsp">free community edition</a> from the download page, or try the <a href="https://online.visual-paradigm.com/">online version</a>. We are going to focus on this last option, for which we need to sign up before using the tool.</p>
+
+<p>Once we sign up and log in, we can choose between creating a diagram or a form (we choose a diagram, of course):</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-42_vparadigm01.png" alt="Visual Paradigm online welcome screen" width="60%" />
+</div>
+
+<p>Then, we must select which type of diagram are we going to create. In this case, we are going to choose a <em>Use case diagram</em>. We can do this either from the left list of diagrams, or from the large icons in the middle of the page.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-43_vparadigm02.png" alt="Visual Paradigm diagram types" width="90%" />
+</div>
+
+<p>Next, we can start drawing the diagram, by clicking on the desired component on the left panel and dragging it on the main area. If we click on any element, we can rename it by just typing the new name.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-43_vparadigm03.png" alt="Visual Paradigm use case diagram" width="90%" />
+</div>
+
+<p>Finally, we can either export the diagram as an image file from <em>File &gt; Export</em> menu, or we can save the diagram for later modifications, from the <em>File &gt; Save</em> menu. In this case, we can save it on many targets, such as a Google Drive account, or a physical device (such as the hard drive).</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema04-44_vparadigm04.png" alt="Visual Paradigm destination types" width="60%" />
+</div>
+
+<h4 id="23-other-tools">2.3. Other tools</h4>
+
+<p>There are some other tools that we can use to create UML diagrams, such as:</p>
+
+<ul>
+  <li><strong>StarUML</strong> a commercial software with a free evaluation version with no time limit. You can get it <a href="http://staruml.io/">here</a>.</li>
+  <li><strong>Dia</strong> another tool for general purpose diagrams, including UML. You can get it <a href="http://dia-installer.de/">here</a>.</li>
+  <li><strong>Draw io</strong> another online editor for many types of diagrams. You can try it <a href="https://www.draw.io/">here</a>.</li>
+</ul>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

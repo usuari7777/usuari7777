@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Autenticación basada en tokens | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Autenticación basada en tokens" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="07b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/07b.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Autenticación basada en tokens" />
+<script type="application/ld+json">
+{"headline":"Autenticación basada en tokens","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/07b.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="autenticación-basada-en-tokens">Autenticación basada en tokens</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/07b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="07b.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>En una API REST también puede ser necesario proteger ciertos servicios, de forma que sólo puedan acceder a ellos los usuarios autenticados. Sin embargo, en este caso no tenemos disponible el mecanismo de autenticación basado en sesiones que vimos antes, ya que la parte cliente que consulta la API REST no tiene por qué estar basada en un navegador. Podríamos acceder desde una aplicación de escritorio hecha en Java, por ejemplo, o desde una aplicación móvil, y en estos casos no podríamos disponer de las sesiones, propias de clientes web o navegadores. En su lugar, emplearemos un mecanismo de autenticación basado en <strong>tokens</strong>.</p>
+
+<h2 id="1-fundamentos-de-la-autenticación-basada-en-tokens">1. Fundamentos de la autenticación basada en tokens</h2>
+
+<p>La autenticación basada en tokens es un mecanismo de validación de usuarios en aplicaciones cliente-servidor que podríamos decir que es más universal que la autenticación basada en sesiones, ya que permite autenticar usuarios provenientes de distintos tipos de clientes. Lo que se hace es lo siguiente:</p>
+
+<ul>
+  <li>El usuario necesita enviar sus credenciales (<em>login</em> y <em>password</em>), de forma similar a como se hace en una aplicación web normal, aunque esta vez los datos se envían normalmente en formato JSON.</li>
+  <li>El servidor valida esas credenciales y, si son correctas, genera una cadena de texto llamada <em>token</em>, de una cierta longitud, y que servirá para identificar unívocamente al usuario a partir de ese momento. Dicho <em>token</em> debe ser enviado de vuelta (también en formato JSON) al cliente que se validó</li>
+  <li>A partir de este punto, el cliente debe adjuntar el <em>token</em> como parte de la información en cada petición que realiza a una zona de acceso restringido, de forma que el servidor pueda consultar el token y comprobar si corresponde con el de algún usuario autorizado. Este token normalmente se envía en una cabecera de la petición llamada <em>Authorization</em>, como veremos después, y el servidor puede consultar el valor de dicha cabecera para verificar el acceso del cliente.</li>
+</ul>
+
+<h2 id="2-alternativas-para-la-implementación-de-la-autenticación-basada-en-tokens">2. Alternativas para la implementación de la autenticación basada en tokens</h2>
+
+<p>Podemos emplear distintas alternativas para la autenticación basada en tokens bajo Laravel. Comentaremos en esta sesión dos de ellas.</p>
+
+<ul>
+  <li>
+    <p>Por un lado, podemos emplear el mecanismo nativo de Laravel para autenticación basada en tokens. Como ventajas principales, no se necesita instalar ninguna dependencia adicional, y es relativamente sencillo de utilizar. Como inconvenientes, requiere añadir un campo más a la tabla de usuarios, para almacenar el token generado para cada usuario, y requiere también de una gestión manual del token, aunque es sencilla.</p>
+  </li>
+  <li>
+    <p>Por otro lado podemos valernos de la librería <a href="https://laravel.com/docs/8.x/sanctum">Laravel Sanctum</a>, que proporciona mecanismos de autenticación para APIs y para SPAs (<em>Single Page Applications</em>, aplicaciones de página única). Entre sus ventajas podemos destacar que es sencilla de integrar en la aplicación y automatiza algunos aspectos de la gestión de tokens, además de contar con el soporte oficial de Laravel. Como inconvenientes, es una librería más intrusiva que la anterior, ya que requiere crear una tabla adicional donde almacenar los tokens.</p>
+  </li>
+</ul>
+
+<p>En los siguientes apartados veremos cómo proteger mediante tokens un proyecto sencillo en Laravel empleando cada uno de estos mecanismos. Como ejercicio de este apartado se pide que elijáis cualquiera de ellos y sigáis paso a paso el ejemplo para configurar la protección mediante tokens en él.</p>
+
+<h3 id="21-preparando-el-ejemplo-base">2.1. Preparando el ejemplo base</h3>
+
+<p>Partiremos de un mismo proyecto base, que luego adaptaremos en función del mecanismo de autenticación elegido. Comenzaremos creando un proyecto llamado <code class="language-plaintext highlighter-rouge">pruebaToken</code>, en nuestra carpeta de proyectos:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>laravel new pruebaToken
+</code></pre></div></div>
+
+<p>Después, eliminaremos las migraciones que no vamos a utilizar de la carpeta <code class="language-plaintext highlighter-rouge">database/migrations</code>: en concreto, eliminaremos los archivos sobre <em>create_password_resets_table</em> y <em>create_failed_jobs_table</em>, y dejaremos sólo la migración de la tabla de usuarios. Sobre ella, editaremos los métodos <code class="language-plaintext highlighter-rouge">up</code> y <code class="language-plaintext highlighter-rouge">down</code> para dejar sólo los campos que nos interesen, y renombrar la tabla a <em>usuarios</em>, de este modo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'usuarios'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'login'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">unique</span><span class="p">;</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'password'</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+<span class="mf">...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">down</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">dropIfExists</span><span class="p">(</span><span class="s1">'usuarios'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>A continuación, renombramos el modelo <code class="language-plaintext highlighter-rouge">App\Models\User.php</code> a <code class="language-plaintext highlighter-rouge">App\Models\Usuario.php</code>, cambiando también el nombre de la clase interior:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Usuario</span> <span class="kd">extends</span> <span class="nc">Authenticatable</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nc">HasFactory</span><span class="p">,</span> <span class="nc">Notifiable</span><span class="p">;</span>
+
+    <span class="cd">/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'name'</span><span class="p">,</span>
+        <span class="s1">'password'</span><span class="p">,</span>
+    <span class="p">];</span>
+
+    <span class="cd">/**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */</span>
+    <span class="k">protected</span> <span class="nv">$hidden</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'password'</span><span class="p">,</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y hacemos lo mismo con el <em>factory</em> y el <em>seeder</em> correspondiente:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">namespace</span> <span class="nn">Database\Factories</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">App\Models\Usuario</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\Factories\Factory</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">UsuarioFactory</span> <span class="kd">extends</span> <span class="nc">Factory</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */</span>
+    <span class="k">protected</span> <span class="nv">$model</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">;</span>
+
+    <span class="cd">/**
+     * Define the model's default state.
+     *
+     * @return array
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">definition</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">'login'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">faker</span><span class="o">-&gt;</span><span class="n">word</span><span class="p">,</span>
+            <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="nf">bcrypt</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">)</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">DatabaseSeeder</span> <span class="kd">extends</span> <span class="nc">Seeder</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * Seed the application's database.
+     *
+     * @return void
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span>
+    <span class="p">{</span>
+         <span class="err">\</span><span class="nc">App\Models\Usuario</span><span class="o">::</span><span class="nf">factory</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">create</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Vamos a modificar también el archivo <code class="language-plaintext highlighter-rouge">.env</code> del proyecto para acceder a una base de datos llamada <code class="language-plaintext highlighter-rouge">pruebaToken</code>, que deberemos crear a través de <em>phpMyAdmin</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pruebaToken
+DB_USERNAME=root
+DB_PASSWORD=
+</code></pre></div></div>
+
+<p>Necesitamos también editar el archivo <code class="language-plaintext highlighter-rouge">App\Http\Middleware\Authenticate.php</code> para indicar en el método <code class="language-plaintext highlighter-rouge">redirectTo</code> que sólo queremos redirigir al formulario de login cuando la petición no espere una respuesta en formato JSON. En caso contrario, no hay que mostrar dicho formulario, sino enviar una respuesta JSON adecuada. De hecho, si la aplicación sólo va a tener servicios REST podríamos eliminar o dejar comentado el código de este método para que no trate de redirigir a ningún formulario.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Authenticate</span> <span class="kd">extends</span> <span class="nc">Middleware</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="n">redirectTo</span><span class="p">(</span><span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="cm">/*
+        if (! $request-&gt;expectsJson()) {
+            return route('login');
+        }
+        */</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Por otra parte, debemos editar el archivo <code class="language-plaintext highlighter-rouge">App\Exceptions\Handler.php</code>, en concreto su método <code class="language-plaintext highlighter-rouge">register</code> para definir los diferentes errores que pueden producirse y los mensajes que hay que devolver en cada caso:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">Illuminate\Auth\AuthenticationException</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Foundation\Exceptions\Handler</span> <span class="k">as</span> <span class="nc">ExceptionHandler</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Database\Eloquent\ModelNotFoundException</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Validation\ValidationException</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Throwable</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Handler</span> <span class="kd">extends</span> <span class="nc">ExceptionHandler</span>
+<span class="p">{</span>
+    <span class="mf">...</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">register</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">renderable</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="kt">Throwable</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nf">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">is</span><span class="p">(</span><span class="s1">'api*'</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">ModelNotFoundException</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span>
+                        <span class="p">[</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Elemento no encontrado'</span><span class="p">],</span> <span class="mi">404</span><span class="p">);</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">AuthenticationException</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span>
+                        <span class="p">[</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Usuario no autenticado'</span><span class="p">],</span> <span class="mi">401</span><span class="p">);</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$exception</span> <span class="k">instanceof</span> <span class="nc">ValidationException</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span>
+                        <span class="p">[</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Datos no válidos'</span><span class="p">],</span> <span class="mi">400</span><span class="p">);</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">isset</span><span class="p">(</span><span class="nv">$exception</span><span class="p">))</span>
+                    <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span>
+                        <span class="p">[</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Error en la aplicación ('</span> <span class="mf">.</span>
+                        <span class="nb">get_class</span><span class="p">(</span><span class="nv">$exception</span><span class="p">)</span> <span class="mf">.</span> <span class="s1">'):'</span> <span class="mf">.</span> 
+                        <span class="nv">$exception</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">()],</span> <span class="mi">500</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finalmente, vamos a definir un controlador de API con una serie de métodos de prueba. No lo vamos a vincular a ningún modelo, porque generaremos unos datos a mano en cada método para simplificar el código. Escribimos este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller Api/PruebaController --api
+</code></pre></div></div>
+
+<p>Rellenamos el código de los métodos del controlador con alguna respuesta sencilla para cada caso:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PruebaController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'mensaje'</span> <span class="o">=&gt;</span> <span class="s1">'Accediendo a index'</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">store</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'mensaje'</span> <span class="o">=&gt;</span> <span class="s1">'Insertando'</span><span class="p">],</span> <span class="mi">201</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">show</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'mensaje'</span> <span class="o">=&gt;</span> <span class="s1">'Ficha de '</span> <span class="mf">.</span> <span class="nv">$id</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">update</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'mensaje'</span> <span class="o">=&gt;</span> <span class="s1">'Actualizando elemento'</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="n">destroy</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'mensaje'</span> <span class="o">=&gt;</span> <span class="s1">'Borrando elemento'</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Y añadimos las rutas correspondientes en el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">apiResource</span><span class="p">(</span><span class="s1">'prueba'</span><span class="p">,</span> <span class="nc">PruebaController</span><span class="o">::</span><span class="n">class</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A partir de este punto, vamos a proteger el acceso a alguno de estos métodos. Escoge uno de los siguientes apartados (3 o 4) para definir el mecanismo de autenticación basado en tokens correspondiente. También puedes intentar hacerlos todos; en este caso, copia y pega otra vez el proyecto Laravel, para trabajar por separado en cada carpeta con un mecanismo diferente.</p>
+
+<h2 id="3-autenticación-basada-en-tokens-nativa">3. Autenticación basada en tokens nativa</h2>
+
+<p>Vamos a emplear en esta sección la autenticación nativa por tokens que ofrece Laravel. Los pasos a seguir los indicamos a continuación.</p>
+
+<h3 id="31-configuración-básica">3.1. Configuración básica</h3>
+
+<p>En primer lugar, modificamos la migración de la tabla de usuarios para añadir un nuevo campo donde almacenar el token. Dicho campo basta con que tenga 60 caracteres de longitud, y será necesario también que sea único para cada usuario:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="n">up</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nc">Schema</span><span class="o">::</span><span class="nf">create</span><span class="p">(</span><span class="s1">'usuarios'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Blueprint</span> <span class="nv">$table</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">id</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'login'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">unique</span><span class="p">;</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'password'</span><span class="p">);</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">string</span><span class="p">(</span><span class="s1">'api_token'</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">unique</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">nullable</span><span class="p">();</span>
+        <span class="nv">$table</span><span class="o">-&gt;</span><span class="nf">timestamps</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Podemos lanzar ya la migración para que se cree la tabla y se rellene con los usuarios que hayamos indicado en el <em>seeder</em>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate:fresh --seed
+</code></pre></div></div>
+
+<p>También debemos modificar el archivo <code class="language-plaintext highlighter-rouge">config/auth.php</code> para indicar cuál es el modelo de usuarios que vamos a utilizar:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'providers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'users'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="s1">'eloquent'</span><span class="p">,</span>
+        <span class="s1">'model'</span> <span class="o">=&gt;</span> <span class="nc">App\Models\Usuario</span><span class="o">::</span><span class="n">class</span><span class="p">,</span>
+    <span class="p">],</span>
+</code></pre></div></div>
+
+<p>En este mismo fichero, también podemos modificar el <em>guard</em> por defecto, que es <em>web</em>, para que sea <em>api</em>, si nuestra aplicación no va a tener autenticación web:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'defaults'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'guard'</span> <span class="o">=&gt;</span> <span class="s1">'api'</span><span class="p">,</span>
+    <span class="mf">...</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<h3 id="32-protección-de-rutas">3.2. Protección de rutas</h3>
+
+<p>Para proteger las rutas de acceso restringido, primero crearemos un controlador que se encargue de validar las credenciales del usuario:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller Api/LoginController
+</code></pre></div></div>
+
+<p>Definimos un método <code class="language-plaintext highlighter-rouge">login</code>, por ejemplo, que validará las credenciales que le lleguen (login y password). Si son correctas, generará una cadena de texto aleatoria de 60 caracteres y la almacenará en el campo <code class="language-plaintext highlighter-rouge">api_token</code> del usuario validado. También devolverá dicho token como respuesta en formato JSON. En caso de que haya un error en la autenticación, enviará de vuelta un mensaje de error, con el código 401 de acceso no autorizado.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\Controller</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Support\Str</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Hash</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">App\Models\Usuario</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">LoginController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">login</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$usuario</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">login</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$usuario</span> <span class="o">||</span> 
+            <span class="o">!</span><span class="nc">Hash</span><span class="o">::</span><span class="nf">check</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">,</span> <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span>
+                <span class="p">[</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Credenciales no válidas'</span><span class="p">],</span> <span class="mi">401</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">api_token</span> <span class="o">=</span> <span class="nc">Str</span><span class="o">::</span><span class="nf">random</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+            <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="nf">save</span><span class="p">();</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'token'</span> <span class="o">=&gt;</span> <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">api_token</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Definimos en el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code> una ruta que redirija a este método, para cuando el usuario quiera autenticarse (recuerda añadir con <code class="language-plaintext highlighter-rouge">use</code> la correspondiente clase):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LoginController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'login'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>También podemos eliminar en este caso la ruta predefinida de este archivo, que emplea la autenticación nativa de Laravel:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Eliminar esta ruta:</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth:api'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/user'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">user</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Para proteger las rutas que necesitemos en los controladores API, las especificamos en el constructor del controlador. Por ejemplo, así protegeríamos todas las rutas de nuestro controlador <code class="language-plaintext highlighter-rouge">PruebaController</code>, salvo <code class="language-plaintext highlighter-rouge">index</code> y <code class="language-plaintext highlighter-rouge">show</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PruebaController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth:api'</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">'except'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]]);</span>
+    <span class="p">}</span>
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también podemos emplear el modificador <code class="language-plaintext highlighter-rouge">only</code> en lugar de <code class="language-plaintext highlighter-rouge">except</code> para indicar las rutas concretas que queremos proteger.</p>
+
+<p>Con esto ya tenemos el mecanismo de autenticación por token establecido, y las rutas protegidas. Echa un vistazo al apartado 4.5 para ver cómo probarlo todo desde Postman.</p>
+
+<h2 id="4-autenticación-basada-en-tokens-usando-laravel-sanctum">4. Autenticación basada en tokens usando Laravel Sanctum</h2>
+
+<p>Como hemos comentado anteriormente, Laravel Sanctum es una librería que proporciona mecanismos de autenticación para SPAs (<em>Single Page Applications</em>, aplicaciones de página única), y APIs. En nuestro caso, la emplearemos para autenticarnos mediante tokens en nuestras APIs. Los pasos a seguir para la configuración son los siguientes…</p>
+
+<h3 id="441-configuración-de-sanctum">4.4.1. Configuración de Sanctum</h3>
+
+<p>En primer lugar, debemos incorporar Laravel Sanctum a nuestro proyecto, escribiendo este comando desde la raíz del mismo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require laravel/sanctum
+</code></pre></div></div>
+
+<p>Después, debemos publicar la configuración de Sanctum y su fichero de migración, que generará una tabla adicional donde almacenar los tokens. Escribimos el siguiente comando (todo en una línea, aunque aquí se divide en dos para poderlo ver completo):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan vendor:publish 
+--provider="Laravel\Sanctum\SanctumServiceProvider"
+</code></pre></div></div>
+
+<p>Al finalizar este paso, tendremos la migración creada y un archivo de configuración <code class="language-plaintext highlighter-rouge">config/sanctum.php</code> disponible, para editar la configuración por defecto de la librería. Por ejemplo, podemos editarlo para especificar el tiempo de vida (TTL) de los tokens. El siguiente ejemplo establece un tiempo de vida de 5 minutos, por ejemplo, aunque en el caso de aplicaciones basadas en tokens es habitual dejar tiempos mucho mayores (o indefinidos, según el caso, dejando esta propiedad a <code class="language-plaintext highlighter-rouge">null</code>):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'expiration'</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p>Después, debemos lanzar la migración que se ha creado, junto con las que tengamos pendientes (la de la tabla de usuarios, por ejemplo). Se añadirá una tabla llamada <em>personal_access_tokens</em> a nuestra base de datos.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan migrate:fresh --seed
+</code></pre></div></div>
+
+<p>Finalmente, debemos modificar el modelo de usuarios (<code class="language-plaintext highlighter-rouge">App\Models\Usuario</code>) para añadir el <em>trait</em> <code class="language-plaintext highlighter-rouge">HasApiTokens</code>. De este modo se vincula el modelo de usuario con los tokens que se vayan a generar para los mismos.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mf">...</span>
+<span class="kn">use</span> <span class="nc">Laravel\Sanctum\HasApiTokens</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Usuario</span> <span class="kd">extends</span> <span class="nc">Authenticatable</span>
+<span class="p">{</span>
+    <span class="kn">use</span> <span class="nc">HasApiTokens</span><span class="p">,</span> <span class="nc">HasFactory</span><span class="p">,</span> <span class="nc">Notifiable</span><span class="p">;</span>
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<h3 id="42-protección-de-rutas">4.2. Protección de rutas</h3>
+
+<p>Para proteger las rutas de acceso restringido, primero crearemos un controlador que se encargue de validar las credenciales del usuario:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan make:controller Api/LoginController
+</code></pre></div></div>
+
+<p>Definimos un método <code class="language-plaintext highlighter-rouge">login</code>, por ejemplo, que validará las credenciales que le lleguen (login y password). Si son correctas, llamará al método <code class="language-plaintext highlighter-rouge">createToken</code> de Sanctum (incorporado al usuario a través del <em>trait</em> <code class="language-plaintext highlighter-rouge">HasApiTokens</code>), asociándolo al login del usuario entrante, y le devolverá el token en formato texto plano, como un objeto JSON. En caso de que haya un error en la autenticación, enviará de vuelta un mensaje de error, con el código 401 de acceso no autorizado.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nc">App\Http\Controllers\Controller</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Hash</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">App\Models\Usuario</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">LoginController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">login</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$usuario</span> <span class="o">=</span> <span class="nc">Usuario</span><span class="o">::</span><span class="nf">where</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="n">login</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">first</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$usuario</span> <span class="o">||</span> 
+            <span class="o">!</span><span class="nc">Hash</span><span class="o">::</span><span class="nf">check</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">,</span> <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">(</span>
+                <span class="p">[</span><span class="s1">'error'</span> <span class="o">=&gt;</span> <span class="s1">'Credenciales no válidas'</span><span class="p">],</span> <span class="mi">401</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nf">response</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">json</span><span class="p">([</span><span class="s1">'token'</span> <span class="o">=&gt;</span>
+                <span class="nv">$usuario</span><span class="o">-&gt;</span><span class="nf">createToken</span><span class="p">(</span><span class="nv">$usuario</span><span class="o">-&gt;</span><span class="n">login</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">plainTextToken</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Definimos en el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code> una ruta que redirija a este método, para cuando el usuario quiera autenticarse (recuerda añadir con <code class="language-plaintext highlighter-rouge">use</code> la correspondiente clase):</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">post</span><span class="p">(</span><span class="s1">'login'</span><span class="p">,</span> <span class="p">[</span><span class="nc">LoginController</span><span class="o">::</span><span class="n">class</span><span class="p">,</span> <span class="s1">'login'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>También podemos eliminar en este caso la ruta predefinida de este archivo, que emplea la autenticación nativa de Laravel:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Eliminar esta ruta:</span>
+<span class="nc">Route</span><span class="o">::</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth:api'</span><span class="p">)</span><span class="o">-&gt;</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/user'</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="nf">user</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Para proteger las rutas que necesitemos en los controladores API, las especificamos en el constructor del controlador. Por ejemplo, así protegeríamos todas las rutas de nuestro controlador <code class="language-plaintext highlighter-rouge">PruebaController</code>, salvo <code class="language-plaintext highlighter-rouge">index</code> y <code class="language-plaintext highlighter-rouge">show</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">PruebaController</span> <span class="kd">extends</span> <span class="nc">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">middleware</span><span class="p">(</span><span class="s1">'auth:sanctum'</span><span class="p">,</span>
+            <span class="p">[</span><span class="s1">'except'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'index'</span><span class="p">,</span> <span class="s1">'show'</span><span class="p">]]);</span>
+    <span class="p">}</span>
+    <span class="mf">...</span>
+</code></pre></div></div>
+
+<p>Alternativamente, también podemos emplear el modificador <code class="language-plaintext highlighter-rouge">only</code> en lugar de <code class="language-plaintext highlighter-rouge">except</code> para indicar las rutas concretas que queremos proteger.</p>
+
+<p>Con esto ya tenemos el mecanismo de autenticación por token establecido, y las rutas protegidas. Echa un vistazo al apartado de <a href="06c">Prueba de servicios REST</a> para ver cómo probarlo todo desde Postman.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

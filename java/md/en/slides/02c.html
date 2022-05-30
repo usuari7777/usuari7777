@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Iterative structures</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Control structures
+### Iterative structures
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Iterative structures
+
+Also known as **loops**, they can repeat a set of instructions a given number of times, or as long as a condition is true
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## *while* clause
+
+Runs a piece of code as long as a given condition is true:
+
+```Java
+int n = 1;
+while (n <= 10)
+{
+    System.out.println(n);
+    n++;
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *do..while* clause
+
+Similar to *while*, the condition is checked at the end of the loop
+
+```Java
+int n = 1;
+do
+{
+    System.out.println(n);
+    n++;
+} while (n <= 10);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *for* clause
+
+It has 3 parts on it:
+
+* The declaration of a counter
+* The condition to repeat the bucle (similar to *while* or *do..while* condition)
+* The increment or decrement for the counter
+
+</script>
+</section>
+    
+
+<section data-markdown>
+<script type="text/template">
+## *for* clause
+
+```Java
+for (int n = 1; n <= 10; n++)
+{
+    System.out.println(n);
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## *while* vs *do..while* vs *for*
+
+- We use *for* when we know the exact number of iterations
+- We use *while* / *do..while* when we don't know how many iterations will be necessary
+   - *while* is better if we don't even know if there will be one iteration
+   - *do..while* is better when we know that, at least, there will be one iteration
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Another *for*
+
+Structure to explore the elements of a collection. Called *foreach* in other languages
+
+```Java
+for (int number: numbers)
+    System.out.println("" + number);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 1
+
+Create a program called **GroupPeople** that asks the user to enter how many people is going to attend to a conference. The program must create groups of (preferably) 50 people. Whenever this is not possible, then it will attempt to create groups of 10 people, and finally it will create groups of 1 person. The program must output how many groups of each category are necessary. For instance, if 78 people are going to attend to the conference, then we need 1 group of 50 people, 2 groups of 10 people and 8 groups of 1 people.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Exercise 2
+
+Create a program called **SumDigits** that asks the user to enter numbers (integer values) until he enters 0. The program must sum up all the numbers entered by the user and then show the final result, and how many digits it has. For instance, if the user types 12, 20, 60, 33, 99 and 0, then the program must output: "*The result is 224, and it has 3 digits*".
+
+</script>
+</section>
+
+
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

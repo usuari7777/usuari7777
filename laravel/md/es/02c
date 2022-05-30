@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Estilos y JavaScript | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Estilos y JavaScript" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02c.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/02c.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Estilos y JavaScript" />
+<script type="application/ld+json">
+{"headline":"Estilos y JavaScript","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/02c.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="estilos-y-javascript">Estilos y JavaScript</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/02c.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="02c.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Ahora que ya tenemos una visión bastante completa de lo que el motor de plantillas Blade puede ofrecernos, llega el momento de terminar de perfilar nuestras vistas. Hasta ahora no hemos hablado nada de estilos CSS, y eso es algo que toda vista que se precie debe incluir. Además, también puede ser necesario en algunos casos incluir alguna librería JavaScript en el lado del cliente para ciertos procesamientos. Veremos cómo gestiona Laravel estos recursos.</p>
+
+<h2 id="1-infraestructura-para-archivos-css-y-javascript">1. Infraestructura para archivos CSS y JavaScript</h2>
+
+<p>Para poder añadir estilos CSS o archivos JavaScript a nuestro proyecto Laravel, el framework proporciona ya unos archivos donde centralizar estas opciones.</p>
+
+<p>En primer lugar, debemos tener en cuenta que todas las dependencias de librerías en la parte del cliente (JavaScript) se centralizan en el archivo <code class="language-plaintext highlighter-rouge">package.json</code>, disponible en la raíz del proyecto. Inicialmente cuenta ya con una serie de dependencias pre-añadidas. Algunas de ellas son importantes, como <code class="language-plaintext highlighter-rouge">laravel-mix</code>, y otras puede que no las necesitemos y las podamos borrar. Es recomendable instalar las dependencias cuando creamos el proyecto, para tenerlas disponibles, con este comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install
+</code></pre></div></div>
+
+<p>Se creará una carpeta <code class="language-plaintext highlighter-rouge">node_modules</code> en la raíz del proyecto con las dependencias instaladas. Esta carpeta es similar a la carpeta <code class="language-plaintext highlighter-rouge">vendor</code>, también en la raíz del proyecto, pero esta última contiene dependencias PHP (no JavaScript). Ninguna de estas carpetas debe subirse a un repositorio <em>git</em>, ya que ambas pueden reconstruirse con el correspondiente comando de instalación de <em>npm</em> o de <em>composer</em>, según el caso y, además, pueden ocupar mucho espacio.</p>
+
+<p>Para centralizar los estilos CSS, tenemos el archivo <code class="language-plaintext highlighter-rouge">resources/css/app.css</code>, o bien <code class="language-plaintext highlighter-rouge">resources/sass/app.scss</code> (dependiendo de la versión de Laravel que usemos), donde podemos definir estilos CSS propios, o incorporar librerías externas como veremos después, utilizando o bien CSS plano o bien Sass. Por ejemplo, podemos editar este archivo para añadir algún estilo propio para el cuerpo del documento:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">body</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#CCC</span><span class="p">;</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">justify</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Por otro lado, tenemos el archivo <code class="language-plaintext highlighter-rouge">resources/js/app.js</code> para incluir nuestras propias funciones en JavaScript, o incluso funcionalidades externas (a través de jQuery, por ejemplo).</p>
+
+<h2 id="2-generación-automática-de-css-y-javascript">2. Generación automática de CSS y JavaScript</h2>
+
+<p>Estos dos archivos necesitan ser procesados para generar el código resultante (CSS y JavaScript) que formará parte de la aplicación, aunando todas las librerías y funciones que hayamos especificado. Para esto, se tiene el archivo <code class="language-plaintext highlighter-rouge">webpack.mix.js</code> en la raíz del proyecto, que emplea la herramienta <em>WebPack</em> para compilar, empaquetar y minificar estos archivos resultado CSS y JavaScript.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mix</span><span class="p">.</span><span class="nx">js</span><span class="p">(</span><span class="dl">'</span><span class="s1">resources/js/app.js</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">public/js</span><span class="dl">'</span><span class="p">)</span>
+   <span class="p">.</span><span class="nx">postCss</span><span class="p">(</span><span class="dl">'</span><span class="s1">resources/css/app.css</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">public/css</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Como podemos intuir, desde este archivo <code class="language-plaintext highlighter-rouge">webpack.mix.js</code> se tomará todo lo que hay en el archivo <code class="language-plaintext highlighter-rouge">resources/js/app.js</code> y se generará un archivo optimizado ubicado en <code class="language-plaintext highlighter-rouge">public/js/app.js</code>. De forma similar, se tomarán los estilos definidos en <code class="language-plaintext highlighter-rouge">resources/sass/app.scss</code> o en <code class="language-plaintext highlighter-rouge">resources/css/app.css</code> (dependiendo de la versión de Laravel) y se generará un archivo CSS optimizado en <code class="language-plaintext highlighter-rouge">public/css/app.css</code>. Para desencadenar este proceso, Laravel y WebPack se valen de la librería <code class="language-plaintext highlighter-rouge">laravel-mix</code>, incluida en el archivo <code class="language-plaintext highlighter-rouge">package.json</code>. Por eso es importante esta librería, y por eso debemos dejarla instalada previamente con el comando <code class="language-plaintext highlighter-rouge">npm install</code> que hemos explicado antes. Una vez instalada, para generar los CSS y JavaScript debemos ejecutar este comando desde la raíz del proyecto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run dev
+</code></pre></div></div>
+
+<p>Esto generará los archivos <code class="language-plaintext highlighter-rouge">public/css/app.css</code> y <code class="language-plaintext highlighter-rouge">public/js/app.js</code>, y después ya podremos añadir estos archivos en nuestras vistas, con algo como esto, respectivamente:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"/css/app.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"/js/app.js"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/script&gt;</span>
+...
+</code></pre></div></div>
+
+<h2 id="3-incluir-estilos-bootstrap">3. Incluir estilos Bootstrap</h2>
+
+<p>Uno de los frameworks de diseño web más utilizados a la hora de elaborar una web es <a href="https://getbootstrap.com/">Bootstrap</a>. En este curso no vamos a dar demasiadas nociones sobre él, pero sí utilizaremos algunas pinceladas para que nuestras vistas tengan un aspecto más profesional.</p>
+
+<p>Para incluir este framework en Laravel, debemos incluir una librería en el servidor llamada <em>ui</em>, que se encarga de incorporar distintas herramientas para diseño de interfaces de usuario (<em>UI</em>, <em>User Interface</em>).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require laravel/ui
+</code></pre></div></div>
+
+<p>Una vez añadida la herramienta, la podemos emplear a través del comando <code class="language-plaintext highlighter-rouge">artisan</code> para incorporar Bootstrap al proyecto:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan ui bootstrap
+</code></pre></div></div>
+
+<p>Esto incorporará Bootstrap al archivo <code class="language-plaintext highlighter-rouge">package.json</code>, en la sección de dependencias…</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+    </span><span class="nl">"bootstrap"</span><span class="p">:</span><span class="w"> </span><span class="s2">"^4.6.0"</span><span class="p">,</span><span class="w">
+    </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>… y también añadirá un enlace a dicha librería en el archivo <code class="language-plaintext highlighter-rouge">resources/sass/app.scss</code>, para que podamos generar un archivo CSS optimizado con Bootstrap incluido:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">...</span>
+ <span class="k">@import</span> <span class="s2">'~bootstrap/scss/bootstrap'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Si utilizamos Bootstrap, entonces el archivo <code class="language-plaintext highlighter-rouge">resources/css/app.css</code> dejará de tener efecto, ya que para poder incorporar los estilos de Bootstrap a nuestro proyecto, se trabaja con Sass a través de <code class="language-plaintext highlighter-rouge">resources/sass/app.scss</code>. Nuestro archivo <code class="language-plaintext highlighter-rouge">webpack.mix.js</code> también se habrá actualizado en este sentido, y deberemos colocar todos nuestros estilos CSS propios en el archivo <code class="language-plaintext highlighter-rouge">app.scss</code>:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">...</span>
+ <span class="k">@import</span> <span class="s2">'~bootstrap/scss/bootstrap'</span><span class="p">;</span>
+
+<span class="nt">body</span>
+<span class="p">{</span>
+    <span class="nl">background-color</span><span class="p">:</span> <span class="m">#CCC</span><span class="p">;</span>
+    <span class="nl">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+    <span class="nl">text-align</span><span class="p">:</span> <span class="nb">justify</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Para finalizar, debemos ejecutar nuevamente las instrucciones:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install
+npm run dev
+</code></pre></div></div>
+
+<p>La primera instrucción debe ejecutarse sólo una vez, y descargará e instalará Bootstrap en el proyecto (en la subcarpeta <em>node_modules</em>), y la segunda generará de nuevo los archivos CSS y JavaScript optimizados, incluyendo en ellos la librería Bootstrap. Con esto ya tendremos disponibles las clases y estilos de Bootstrap para nuestras vistas.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

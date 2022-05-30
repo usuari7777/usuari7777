@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Primeros pasos con PHP | Desarrollo web con PHP</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Primeros pasos con PHP" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<meta property="og:description" content="Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)" />
+<link rel="canonical" href="01a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/php/md/es/01a.html" />
+<meta property="og:site_name" content="Desarrollo web con PHP" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Primeros pasos con PHP" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de desarrollo web con PHP. Escrito por May Calle y Nacho Iborra profesores de ciclos formativos de Formación Profesional en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante, España)","headline":"Primeros pasos con PHP","url":"http://nachoiborraies.github.io/php/md/es/01a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=98f4f1082e5eaea8e878a65085422401949e3a04">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/php/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Desarrollo web con PHP</a></h1>
+      
+
+      <h1 id="primeros-pasos-con-php">Primeros pasos con PHP</h1>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/01a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="01a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<p>PHP es un lenguaje de desarrollo web en el lado del servidor. De hecho, es el lenguaje de desarrollo web en el lado del servidor más ampliamente utilizado a día de hoy, y aproximadamente el 80% de las páginas que podamos encontrar en Internet lo utilizan. De ahí la importancia de conocerlo y saberlo utilizar.</p>
+
+<h2 id="1-características-principales-de-php">1. Características principales de PHP</h2>
+
+<p>PHP es un lenguaje de <em>script</em> del lado del servidor. Un lenguaje de <em>script</em> es básicamente un lenguaje de programación interpretado o ejecutado “al vuelo”. Es similar a otros lenguajes de <em>script</em> en el lado del servidor, como JSP o ASP.NET.</p>
+
+<p>Además, PHP es un lenguaje multiparadigma. Podemos desarrollar aplicaciones siguiendo el paradigma estructurado (bucles y condiciones), modular (funciones) y orientado a objetos. Tiene una sintaxis bastante particular, y diferente a muchos otros lenguajes. Como lenguaje de servidor, a menudo lo utilizaremos intercalado dentro del contenido de una página HTML.</p>
+
+<p>Podemos encontrar gran variedad de sitios web realizados con PHP: tiendas virtuales en las que poder crearnos un carro de la compra y pagar sobre una plataforma de pago de una entidad bancaria, cursos virtuales en plataformas Moodle (CMS hecho en PHP), o páginas web más o menos complejas realizadas directamente en PHP, o con algún gestor de contenidos en PHP como Wordpress o Joomla.</p>
+
+<p>Entre sus principales características, aparte de su popularidad, podemos citar las siguientes:</p>
+
+<ul>
+  <li>Es open source, por lo que podemos acceder a su código y usarlo, modificarlo o distribuirlo.</li>
+  <li>Fácil de aprender, si se compara con otros lenguajes de programación como C o Perl.</li>
+  <li>Multiplataforma, se puede ejecutar en diversos sistemas operativos. Esta es una diferencia importante con otras tecnologías como .NET (exclusiva de Windows), aunque hay otros lenguajes de servidor que también son multiplataforma, como Java/JSP.</li>
+  <li>Permite acceder a diversos sistemas de bases de datos (MySQL, Oracle, PostgreSQL…)</li>
+  <li>Admite diversas librerías y entornos para implementar sistemas de comercio electrónico, envío de e-mails, frameworks de desarrollo, etc.</li>
+</ul>
+
+<h2 id="2-recursos-necesarios-para-trabajar-con-php">2. Recursos necesarios para trabajar con PHP</h2>
+
+<p>Para poder trabajar con PHP necesitamos un <strong>servidor web</strong> que dé soporte a este lenguaje. Un <em>servidor web</em> es una herramienta que permite escuchar peticiones (locales o remotas) que llegan a un puerto del ordenador (normalmente el puerto 80, que es el puerto por defecto), y las procesa mediante algún recurso interno (en nuestro caso, las páginas PHP que alojaremos en dicho servidor), para ofrecer una respuesta a dicha petición. Por ejemplo, podemos solicitar un listado de libros de una base de datos, y en este caso la página PHP que reciba la petición deberá encargarse de conectar a la base de datos, obtener el listado y enviarlo a quien realizó la petición (cliente) en el formato esperado.</p>
+
+<p>Existen varios servidores web que podemos utilizar para trabajar con PHP, siendo los más populares <strong>Apache</strong> y <strong>Nginx</strong>. Además, necesitaremos instalar el propio lenguaje <strong>PHP</strong>, y normalmente será necesario acceder a algún tipo de base de datos.</p>
+
+<h3 id="21-utilizando-xampp">2.1 Utilizando XAMPP</h3>
+
+<p>Para aunar estos tres problemas (servidor web, PHP y base de datos) en una única solución, una alternativa bastante habitual consiste en instalar una herramienta llamada <strong>XAMPP</strong>. Este software incorpora:</p>
+
+<ul>
+  <li>Servidor web Apache</li>
+  <li>Servidor de base de datos MySQL</li>
+  <li>Lenguaje PHP</li>
+</ul>
+
+<p>Una de las ventajas que ofrecen es que, además de instalar Apache, PHP y MySQL y dejarlo todo integrado, nos proporciona un cliente web llamado <strong>phpMyAdmin</strong> para poder administrar las bases de datos desde Apache. Esto nos vendrá bien para crear o importar las bases desde una interfaz gráfica.</p>
+
+<p>En cuanto a la <strong>versión requerida</strong>, depende un poco del tipo de aplicaciones que queramos desarrollar. Podemos descargar la última versión disponible desde la <a href="https://www.apachefriends.org/es/index.html">web oficial</a> e instalarla dependiendo de nuestro sistema operativo.</p>
+
+<p><strong>Linux</strong></p>
+
+<p>En el caso de Linux, debemos dar permisos de ejecución y ejecutar el archivo <em>.run</em> que descarguemos desde algún terminal, con permisos de administrador (<em>sudo</em>). Suponiendo que el archivo se llame <em>xampp-linux-x64-8.1.2-installer.run</em>, por ejemplo, los pasos son los siguientes (desde la carpeta donde lo hemos descargado):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod +x xampp-linux-x64-8.1.2-installer.run
+sudo ./xampp-linux-x64-8.1.2-installer.run
+</code></pre></div></div>
+
+<p><strong>Windows y MacOSX</strong></p>
+
+<p>En el caso de <strong>Windows</strong> o <strong>Mac OSX</strong> simplemente hay que lanzar el instalador y seguir los pasos, eligiendo las opciones que nos interese instalar (al menos, Apache, MySQL y PHP), si nos dan a elegir. Así es como podemos dejarlo en el caso de Windows, por ejemplo:</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_windows.png" />
+</div>
+
+<h4 id="el-manager-de-xampp">El manager de XAMPP</h4>
+
+<p>XAMPP proporciona una herramienta <em>manager</em> o <em>panel de control</em> que nos permite gestionar en todo momento los servicios activos.</p>
+
+<p>En el caso de <strong>Linux</strong> se encuentra en <strong>/opt/lampp/manager-linux-x64.run</strong>. Podemos acceder a la carpeta desde el terminal para ejecutarlo (con permisos de superusuario), o bien crear algún acceso directo en otra ubicación que nos resulte más cómoda.</p>
+
+<p>En el caso de <strong>Windows</strong>, dicho manager está en la carpeta de instalación (típicamente <em>C:\xampp</em>), en un archivo llamado <em>xampp-control.exe</em>, que podemos ejecutar. En el caso de <strong>Mac OSX</strong>, se habrá creado un acceso en la sección de <em>Aplicaciones</em> para poder poner en marcha este manager.</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_mac1.png" />
+</div>
+
+<p>El manager nos permitirá lanzar o detener cada servidor. Para las pruebas que haremos deberemos tener iniciados tanto Apache como MySQL. En Linux y Mac OS X tendrá una apariencia como ésta aproximadamente:</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_manager.png" width="70%" />
+</div>
+
+<p>En el caso de Windows la apariencia es algo diferente, aunque igualmente funcional:</p>
+
+<div align="center">
+    <img src="../../img/01_xampp_manager_windows.jpg" width="70%" />
+</div>
+
+<p>Por defecto, Apache estará escuchando en el puerto 80 (o 443 para conexiones SSL), y MySQL en el 3306. Podemos modificar estos puertos en los respectivos archivos de configuración (“<em>httpd.conf</em>” y “<em>my.cnf</em>”), dentro de las carpetas de la instalación de XAMPP (la ubicación concreta de estos archivos varía entre versiones y entre sistemas operativos).</p>
+
+<blockquote>
+  <p><strong>IMPORTANTE</strong>: en el caso de Windows, es posible que tengamos que dar permisos de <em>Control total</em> al archivo <em>xampp-control.ini</em>, que se creará en la carpeta de instalación de XAMPP la primera vez que ejecutemos el <em>manager</em>. Esto deberá hacerse para evitar el mensaje de error que puede aparecer al intentar acceder a ese archivo sin permisos por parte de la aplicación.</p>
+</blockquote>
+
+<h4 id="ubicación-de-las-webs">Ubicación de las webs</h4>
+
+<p>La carpeta por defecto donde debemos ubicar nuestras webs es la subcarpeta <strong>htdocs</strong> dentro de la carpeta de instalación de XAMPP (típicamente <em>C:\xampp</em> en Windows, u <em>/opt/lampp</em> en Linux). Ahí deberemos colocar las páginas y carpetas que necesitemos, incluso podemos crear una carpeta para cada aplicación.</p>
+
+<p>En realidad, podemos configurar Apache para admitir otras rutas distintas, y alojar así nuestros distintos proyectos en diversas carpetas a nuestra elección. Pero esto queda fuera del alcance de este curso, así que los ejemplos y ejercicios que probaremos los crearemos en carpetas independientes dentro de la carpeta por defecto.</p>
+
+<blockquote>
+  <p><strong>Ejercicio 1:</strong></p>
+
+  <p>Descarga e instala XAMPP en tu ordenador. Abre el <em>manager</em> y pon en marcha Apache y MySQL para comprobar que arrancan satisfactoriamente. Intenta acceder a la página de inicio (típicamente <em>http://localhost</em>, si no has tenido que cambiar el puerto por defecto).</p>
+
+  <p>Después, crea la carpeta <em>prueba</em> dentro de la carpeta <em>htdocs</em> y añade dentro un archivo <em>index.html</em> con un mensaje de bienvenida. Prueba a acceder a dicha página (con Apache en marcha) accediendo a <em>http://localhost/prueba/index.html</em>.</p>
+</blockquote>
+
+<h2 id="3-mi-primer-programa-php">3. Mi primer programa PHP</h2>
+
+<p>Como comentábamos antes, PHP es un lenguaje con una sintaxis bastante particular. Normalmente los archivos tienen extensión <em>.php</em> (aunque más adelante veremos que hay otras alternativas), y dentro de ellos, el código comienza con la expresión <code class="language-plaintext highlighter-rouge">&lt;?php</code>. Todo lo que esté englobado entre esta expresión y la de cierre <code class="language-plaintext highlighter-rouge">?&gt;</code> es código PHP, y podemos intercalar tantos bloques de este tipo como queramos en nuestras páginas.</p>
+
+<p>Por ejemplo, esta página <code class="language-plaintext highlighter-rouge">bienvenida.php</code> carga un contenido HTML y, en medio, define un fragmento de código con un texto de bienvenida que muestra por pantalla:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Página de bienvenida<span class="nt">&lt;/h1&gt;</span>
+    <span class="cp">&lt;?php</span>
+        <span class="k">echo</span> <span class="s2">"&lt;p&gt;Bienvenido a esta página&lt;/p&gt;"</span><span class="p">;</span>
+    <span class="cp">?&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Ejercicio 2:</strong></p>
+
+  <p>En la misma carpeta <em>htdocs/prueba</em> del ejercicio anterior, crea una página llamada <code class="language-plaintext highlighter-rouge">informacion.php</code> y, utilizando la instrucción <code class="language-plaintext highlighter-rouge">echo</code> de PHP que hemos visto en el ejemplo anterior, muestra algo de información sobre tí, generando algunos párrafos con formato HTML: nombre, aficiones, estudios, etc. Prueba a cargar la página (con el servidor Apache en marcha) y comprueba que el contenido se genera con el formato esperado.</p>
+</blockquote>
+
+<h3 id="31-esquema-de-funcionamiento-general">3.1. Esquema de funcionamiento general</h3>
+
+<p>¿Cómo hace un servidor web como Apache para, a través de PHP, procesar una petición y generar un contenido para el cliente? Los pasos que se siguen son:</p>
+
+<ol>
+  <li>El cliente realiza una petición de un recurso PHP. Típicamente consiste en solicitar una página PHP desde el navegador, a través de un enlace o formulario. Por ejemplo, un formulario que envía sus datos a <em>pagina.php</em></li>
+  <li>El servidor recibe la petición, toma el archivo <em>pagina.php</em> y lo interpreta, es decir, lanza el intérprete PHP para ejecutar el código PHP de la página</li>
+  <li>Se sustituye el código PHP ejecutado por el código HTML que se ha generado en su lugar</li>
+  <li>Se envía el código HTML generado como respuesta al cliente.</li>
+</ol>
+
+<p>Por ejemplo, al recibir una petición a la página <em>bienvenida.php</em> del ejemplo anterior, se lanza el intérprete PHP y se genera el siguiente contenido HTML como resultado, que es lo que se devuelve al navegador:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"es"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Página de bienvenida<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Bienvenido a esta página<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>Como podemos ver e imaginar, en el navegador NO se puede ver el código PHP del servidor, ya que éste ha sido procesado, interpretado y sustituido por el HTML correspondiente en el servidor.</p>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

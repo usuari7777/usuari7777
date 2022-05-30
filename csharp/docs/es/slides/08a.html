@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Manejo de ficheros</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Manejo de ficheros
+#### Ficheros de texto
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Manejo de ficheros
+
+Pasos generales para gestionar ficheros:
+
+1. Abrir el fichero
+2. Leer/Guardar datos de/en él
+3. Cerrar el fichero al finalizar
+
+La mayoría de clases necesarias están en **System.IO**
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Escritura en ficheros de texto
+
+- Usamos objeto **StreamWriter**
+   - Se puede crear de varias formas
+- Método **Write** o **WriteLine** para escribir contenido en el fichero
+- Método **Close** para cerrar fichero al finalizar
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Escritura en ficheros de texto
+
+Ejemplo 1 (*File.CreateText*)
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        StreamWriter fichero = File.CreateText("prueba.txt");
+        fichero.WriteLine("Primera línea");
+        fichero.Write("Otra ");
+        fichero.WriteLine("línea más");
+        fichero.Close();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Escritura en ficheros de texto
+
+Ejemplo 2 (Constructor de *StreamWriter*)
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        StreamWriter fichero = new StreamWriter("prueba.txt");
+        fichero.WriteLine("Primera línea");
+        fichero.Write("Otra ");
+        fichero.WriteLine("línea más");
+        fichero.Close();
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Escritura en ficheros de texto
+
+Ejemplo 3 (con *using* evitamos tener que cerrar a mano)
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(StreamWriter fichero = new StreamWriter("prueba.txt"))
+        {
+            fichero.WriteLine("Primera línea");
+            fichero.Write("Otra ");
+            fichero.WriteLine("línea más");
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_01** que le pida al usuario frases y las vaya guardando en un fichero llamado "registroDeUsuario.txt", hasta que escriba una cadena vacía (que no se guardará)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ubicación de los archivos de escritura
+
+- Los archivos generados se crean en la carpeta donde está el ejecutable
+- Normalmente dentro de la subcarpeta *bin/Debug* del proyecto en Visual Studio
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lectura de ficheros de texto
+
+- Usamos objeto **StreamReader**
+- Método **ReadLine** para leer cada línea del fichero
+   - Al leer se pasa automáticamente a la siguiente
+   - Cuando devuelva *null* hemos llegado al final
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lectura de ficheros de texto
+
+Ejemplo 1: lectura de una línea (*File.OpenText*)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        StreamReader fichero = File.OpenText("prueba.txt");
+        linea = fichero.ReadLine();
+        Console.WriteLine("Leído: {0}", linea);
+        fichero.Close();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lectura de ficheros de texto
+
+Ejemplo 2: lectura de una línea (constructor de *StreamReader*)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        StreamReader fichero = new StreamReader("prueba.txt");
+        linea = fichero.ReadLine();
+        Console.WriteLine("Leído: {0}", linea);
+        fichero.Close();
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lectura de ficheros de texto
+
+Ejemplo 3: lectura de una línea (con *using*)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        using(StreamReader fichero = new StreamReader("prueba.txt"))
+        {
+            linea = fichero.ReadLine();
+            Console.WriteLine("Leído: {0}", linea);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura de ficheros de texto
+
+Ejemplo 4: lectura completa
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        using(StreamReader fichero = new StreamReader("prueba.txt"))
+        {
+            do
+            {
+                linea = fichero.ReadLine();
+                if (linea != null)
+                {
+                    Console.WriteLine("Leído: {0}", linea);
+                }
+            }
+            while(linea != null);
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura de ficheros de texto
+
+Ejemplo 5: lectura completa (más compacta)
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        using(StreamReader fichero = new StreamReader("prueba.txt"))
+        {
+            while((linea = fichero.ReadLine()) != null)
+            {
+                Console.WriteLine("Leído: {0}", linea);
+            }
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ubicación de los archivos de lectura (1/2)
+
+Podemos crearlos en la carpeta de código fuente con *Proyecto* > *Agregar nuevo elemento*
+
+<div align="center">
+    <img src="../../../img/08_agregar_fichero_texto.png" width="40%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ubicación de los archivos de lectura (2/2)
+
+Después, debemos decirles que se copien también a la carpeta de salida
+
+<div align="center">
+    <img src="../../../img/08_agregar_fichero_texto2.png" width="30%">
+</div>
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_02** que lea las tres primeras líneas del fichero creado en el ejercicio anterior
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_03** que lea un fichero "datos.txt" (que deberás rellenar previamente), sacando por pantalla las líneas que contengan el texto "programa", junto con el número de línea en cuestión
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_04** que pregunte un nombre de fichero y muestre en pantalla el contenido de ese fichero, haciendo una pausa después de cada 24 líneas, para que dé tiempo a leerlo. Cuando el usuario pulse la tecla *Intro*, se mostrarán las siguientes 24 líneas, y así sucesivamente hasta que termine el fichero.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_05** que almacene el contenido de un fichero de texto en una lista, línea por línea, y luego pregunte al usuario que busque un texto en la lista, mostrando las líneas que contienen dicho texto, hasta que el usuario busque una cadena vacía
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_06** que almacene el contenido de un fichero de texto en una lista, la ordene alfabéticamente y vuelque a un fichero de salida las líneas ordenadas sin repetir (eliminando líneas duplicadas)
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_07** que defina una clase *Persona* con un nombre y una edad. Define en un fichero de texto datos de personas, una por línea, separando nombre y edad por punto y coma. Haz que el programa lea el fichero de texto y lo almacene en una lista genérica de objetos *Persona*. Aquí tienes un ejemplo de fichero:
+
+```
+Nacho;43
+Ana;39
+Juan;70
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Añadir a un fichero existente
+
+- En lugar de usar *File.CreateText* usaremos *File.AppendText* para crear el archivo
+- Si usamos el constructor de *StreamWriter*, le pasaremos un segundo parámetro *true* para indicar que queremos añadir
+- Si el fichero no existía antes, se crea igualmente
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Añadir a un fichero existente
+
+Ejemplo
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        using(StreamWriter fichero = new StreamWriter("prueba.txt", true))
+        {
+            fichero.WriteLine("Primera línea");
+            fichero.Write("Otra ");
+            fichero.WriteLine("línea más");
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_08** que almacene las frases que diga el usuario en un fichero llamado *log.txt*, sin borrar su contenido previo. El programa acabará cuando el usuario escriba una cadena vacía (que no se guardará), y se reanudará la próxima vez conservando el contenido anterior del fichero (añadiendo al final)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Lectura de varios ficheros
+
+Podemos declararlos todos en el *using*
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        using(StreamReader fichero1 = new StreamReader("prueba1.txt"),
+                fichero2 = new StreamReader("prueba2.txt"))
+        {
+            while((linea = fichero.ReadLine()) != null)
+            {
+                Console.WriteLine("Leído: {0}", linea);
+            }
+            while((linea = fichero2.ReadLine()) != null)
+            {
+                ...
+            }
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Lectura y escritura combinadas
+
+Utilizamos una cláusula *using* para cada tipo, y las unimos
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        using(StreamReader fichero1 = new StreamReader("prueba1.txt"))
+        using(StreamWriter fichero2 = new StreamWriter("prueba2.txt"))
+        {
+            while((linea = fichero.ReadLine()) != null)
+            {
+                Console.WriteLine("Leído: {0}", linea);
+                fichero2.WriteLine(linea);
+            }
+        }
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Leer y guardar en/desde arrays y textos
+
+- La instrucción **File.ReadAllLines(fichero)** lee de golpe todas las líneas de un fichero y las guarda en un array de *strings*
+- La instrucción **File.WriteAllLines(fichero, array)** guarda todas las líneas del array en el fichero indicado
+- La instrucción **File.ReadAllText(fichero)** devuelve un *string* con TODO el contenido del fichero.
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Leer y guardar en/desde arrays
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string[] textos = {"Uno", "Otro más", "Y otro"};
+        File.WriteAllLines("fichero.txt", textos);
+        string[] resultado = File.ReadAllLines("fichero.txt");
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_09** que sea una nueva versión del *Ejercicio_08a_06* usando un array para almacenar las líneas (en lugar de una lista)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ficheros en otras carpetas
+
+- Si el fichero no se encuentra en la misma carpeta que el ejecutable, deberemos indicar la ruta hacia dicho fichero
+- Recuerda que la barra invertida `\` debe escaparse `\\` al escribirla en la ruta
+- Alternativamente, podemos iniciar la cadena con una `@` y evitar escapar las barras
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ficheros en otras carpetas
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string ruta1 = "C:\\ficheros\\pruebas\\fichero.txt";
+        StreamReader fichero1 = new StreamReader(ruta1);
+        ...
+        string ruta2 = @"C:\ficheros\pruebas\fichero2.txt";
+        StreamReader fichero2 = new StreamReader(ruta2);
+    }
+}
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Saber si un fichero existe
+
+- La instrucción **File.Exists(fichero)** comprueba si un fichero existe
+- Puede resultar útil antes de intentar abrirlo para leerlo
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Saber si un fichero existe
+
+```cs
+using System;
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        string linea;
+
+        if (File.Exists("prueba.txt"))
+        {
+            using(StreamReader fichero = new StreamReader("prueba.txt"))
+            {
+                while((linea = fichero.ReadLine()) != null)
+                {
+                    Console.WriteLine("Leído: {0}", linea);
+                }
+            }
+        }
+    }
+}
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_10** que sea una nueva versión del *Ejercicio_08a_04* donde se compruebe primero si el fichero existe, y si no es así se informe al usuario
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ficheros y excepciones
+
+- Algunas operaciones sobre ficheros pueden provocar excepciones:
+   - Leer un fichero que no existe
+   - Intentar escribir en un fichero en el que no tenemos permisos
+   - Fichero corrupto
+- Podemos capturar estas excepciones (*IOException*, o incluso *Exception*) y mostrar un mensaje de error controlado
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ficheros y excepciones
+
+```cs
+using System.IO;
+
+class Ejemplo
+{
+    static void Main()
+    {
+        try
+        {
+            using(StreamWriter fichero = new StreamWriter("prueba.txt", true))
+            {
+                fichero.WriteLine("Primera línea");
+                fichero.Write("Otra ");
+                fichero.WriteLine("línea más");
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("Error escribiendo datos: {0}", e.Message);
+        }
+    }
+}
+```
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_11** que copie el contenido de un fichero origen indicado por el usuario en un fichero destino, que se llamará igual que el de origen, pero con el prefijo "copia_de". Se deben capturar las posibles excepciones que se puedan producir y mostrar un mensaje de error (por ejemplo, si el fichero indicado por el usuario no existe)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ficheros físicos y lógicos
+
+- **Fichero físico**: fichero que existe en el disco. Por ejemplo, "prueba.txt"
+- **Fichero lógico**: variable que usamos para apuntar a un fichero físico (para leer o escribir en él)
+- Podemos usar varios ficheros lógicos (variables) para acceder a un mismo fichero físico
+- Podemos usar un mismo fichero lógico (variable) para acceder secuencialmente a varios ficheros físicos
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio propuesto
+
+Crea un programa llamado **Ejercicio_08a_12** que gestione una lista de videojuegos almacenada en un fichero de texto. De cada videojuego almacenaremos su título y su género, y además, para los videojuegos de PC (subtipo) almacenaremos la RAM y el espacio en disco requeridos, en GB. El programa cargará los videojuegos en una lista al iniciar, y le dejará al usuario añadir/quitar/listar videojuegos de la colección. Al salir del programa se guardará la lista actualizada.
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

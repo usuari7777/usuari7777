@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Uso del ORM Sequelize | Node.js</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="Uso del ORM Sequelize" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03b.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/nodejs/md/es/03b.html" />
+<meta property="og:site_name" content="Node.js" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Uso del ORM Sequelize" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Curso de Node.js elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Uso del ORM Sequelize","url":"http://nachoiborraies.github.io/nodejs/md/es/03b.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="http://nachoiborraies.github.io/nodejs/assets/css/style.css?v=6f3486a3f1037cd61ca1f16e7f6e1d3a46da2aad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/nodejs/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Node.js</a></h1>
+      
+
+      <h1 id="uso-del-orm-sequelize">Uso del ORM Sequelize</h1>
+
+<div style="text-align: right">
+<!--<a target="_blank" href="slides/03b.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;-->
+<a target="_blank" href="http://nachoiborraies.github.io/nodejs/md/es/03b.pdf"><img src="http://nachoiborraies.github.io/nodejs/img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="http://nachoiborraies.github.io/nodejs/img/membrete.png" width="100%" /></div>
+
+<p><a href="https://sequelize.org/">Sequelize</a> es un popular ORM (<em>Object Relational Mapping</em>) que permite trabajar con bases de datos relacionales definiendo por encima nuestros propios modelos de objetos, de forma que, en nuestro código, trabajamos con los datos como si fueran objetos, pero internamente se almacenan y extraen de tablas relacionales. Actualmente, Sequelize soporta distintos SGBD relacionales, como MySQL/MariaDB, PostgreSQL o SQLite, entre otros.</p>
+
+<p>Para el ejemplo que vamos a seguir en los siguientes apartados, vamos a crear un proyecto llamado “<em>PruebaContactosSequelize</em>” en nuestra carpeta de pruebas, y también debemos crear una base de datos vacía llamada “contactos_sequelize”. Ejecuta también el comando <code class="language-plaintext highlighter-rouge">npm init</code> en el proyecto <em>PruebaContactosSequelize</em> para dejar el archivo <code class="language-plaintext highlighter-rouge">package.json</code> preparado.</p>
+
+<h2 id="1-instalación-y-primeros-pasos">1. Instalación y primeros pasos</h2>
+
+<p>La instalación de Sequelize es igual de sencilla que la de cualquier otro módulo de Node, a través del comando <code class="language-plaintext highlighter-rouge">npm</code>. Además, Sequelize se apoya en otras librerías para poder comunicarse con la base de datos correspondiente, y convertir así los registros en objetos y viceversa. Es lo que la propia librería denomina “dialectos” (<em>dialects</em>), y debemos incluir la(s) librería(s) del dialecto o SGBD que hayamos seleccionado.</p>
+
+<p>En nuestro caso, vamos a trabajar con bases de datos MySQL, por lo que necesitaremos incluir la librería con el <em>driver</em> correspondiente para conectar: <code class="language-plaintext highlighter-rouge">mysql2</code>, además de la propia <code class="language-plaintext highlighter-rouge">sequelize</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install sequelize mysql2
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTA</strong>: en el caso de usar bases de datos MariaDB, por ejemplo, el <em>driver</em> que tendríamos que instalar sería <code class="language-plaintext highlighter-rouge">mariadb</code>.</p>
+</blockquote>
+
+<p>Después, debemos incorporar Sequelize a los archivos fuente que lo necesiten en nuestro proyecto, con la correspondiente instrucción <code class="language-plaintext highlighter-rouge">require</code>. Creamos un archivo <code class="language-plaintext highlighter-rouge">index.js</code> en nuestro proyecto de pruebas creado anteriormente, y añadimos este código:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Sequelize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">sequelize</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>A continuación, debemos establecer los parámetros de conexión a la base de datos en cuestión:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">sequelize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sequelize</span><span class="p">(</span><span class="dl">'</span><span class="s1">nombreBD</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">usuario</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">password</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">nombre_host</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">dialect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">mysql</span><span class="dl">'</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En el último parámetro se admiten otros campos de configuración. Podemos, por ejemplo, configurar un <em>pool</em> de conexiones a la base de datos, de forma que se auto-gestionen las conexiones que quedan libres y se reasignen a nuevas peticiones entrantes.</p>
+
+<p>En nuestro caso, si conectamos con una base de datos MySQL llamada “contactos_sequelize” usando el usuario y contraseña de nuestra máquina virtual, en el servidor local, nos quedaría una instrucción así (configurando un <em>pool</em> de 10 conexiones):</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">sequelize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sequelize</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos_sequelize</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">alumno</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">alumno1234</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">host</span><span class="p">:</span> <span class="dl">'</span><span class="s1">localhost</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">dialect</span><span class="p">:</span> <span class="dl">'</span><span class="s1">mysql</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">pool</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">max</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="na">min</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="na">acquire</span><span class="p">:</span> <span class="mi">30000</span><span class="p">,</span>
+        <span class="na">idle</span><span class="p">:</span> <span class="mi">10000</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="2-definiendo-los-modelos">2. Definiendo los modelos</h2>
+
+<p>El modelo o modelos de nuestra aplicación definen las distintas clases o estructuras de datos que vamos a necesitar para gestionar la información de dicha aplicación. Para definir el modelo de nuestro ejemplo, vamos a crear una subcarpeta <code class="language-plaintext highlighter-rouge">models</code> en nuestro proyecto. Dentro, vamos a crear un archivo <code class="language-plaintext highlighter-rouge">contacto.js</code>, con la estructura que va a tener la tabla de contactos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">(</span><span class="nx">sequelize</span><span class="p">,</span> <span class="nx">Sequelize</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+    <span class="kd">let</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">sequelize</span><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">nombre</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">Sequelize</span><span class="p">.</span><span class="nx">STRING</span><span class="p">,</span>
+            <span class="na">allowNull</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="na">telefono</span><span class="p">:</span> <span class="p">{</span>
+            <span class="na">type</span><span class="p">:</span> <span class="nx">Sequelize</span><span class="p">.</span><span class="nx">STRING</span><span class="p">,</span>
+            <span class="na">allowNull</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="k">return</span> <span class="nx">Contacto</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Observa que a la propiedad <code class="language-plaintext highlighter-rouge">module.exports</code> le asociamos una función que recibe dos parámetros, que hemos llamado <code class="language-plaintext highlighter-rouge">sequelize</code> y <code class="language-plaintext highlighter-rouge">Sequelize</code>. Serán dos datos que llegarán de fuera cuando carguemos estos archivos, y proporcionarán la conexión a la base de datos y el acceso a la API de Sequelize, respectivamente.</p>
+
+<p>Como puedes ver, hemos exportado cada modelo para poder ser utilizado desde otros archivos de nuestra aplicación. En <a href="https://sequelize.org/v6/manual/model-basics.html#data-types">esta página</a> puedes consultar los tipos de datos disponibles para definir los modelos en Sequelize. También puedes ver <a href="https://sequelize.org/v6/manual/validations-and-constraints.html#validators">aquí</a> algunos validadores que podemos aplicar a cada campo, como por ejemplo comprobar si es un e-mail, si tiene un valor mínimo y/o máximo, etc.</p>
+
+<p>Una vez definido el modelo (o los modelos), podemos importarlo(s) al archivo principal <code class="language-plaintext highlighter-rouge">index.js</code> con el correspondiente <code class="language-plaintext highlighter-rouge">require</code>, aunque en este caso deberemos pasarle como parámetros los objetos <code class="language-plaintext highlighter-rouge">sequelize</code> y <code class="language-plaintext highlighter-rouge">Sequelize</code> creados previamente:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">Sequelize</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">sequelize</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">sequelize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sequelize</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos_sequelize</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">alumno</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">alumno1234</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">ModeloContacto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/models/contacto</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">ModeloContacto</span><span class="p">(</span><span class="nx">sequelize</span><span class="p">,</span> <span class="nx">Sequelize</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>El objeto <code class="language-plaintext highlighter-rouge">Contacto</code> que obtendremos al final nos permitirá hacer operaciones sobre la tabla “contactos” utilizando objetos en lugar de registros, como veremos a continuación.</p>
+
+<p>También es posible definir relaciones entre modelos, en el caso de tener varios, para así establecer conexiones <em>uno a uno</em>, <em>uno a muchos</em> o <em>muchos a muchos</em>. Es algo que no veremos en esta sesión por requerir más tiempo del que disponemos, pero se puede consultar información al respecto <a href="https://sequelize.org/master/manual/assocs.html">aquí</a>.</p>
+
+<h3 id="21-aplicando-los-cambios">2.1. Aplicando los cambios</h3>
+
+<p>Todos los pasos que hemos definido antes no se han materializado aún en la base de datos. Para ello, es necesario sincronizar el modelo de datos con la base de datos en sí, utilizando el método <code class="language-plaintext highlighter-rouge">sync</code> del objeto <code class="language-plaintext highlighter-rouge">sequelize</code>, una vez establecida la conexión y el modelo. Esto lo haremos desde el archivo principal <code class="language-plaintext highlighter-rouge">index.js</code>.</p>
+
+<p>Podemos pasarle como parámetro un objeto <code class="language-plaintext highlighter-rouge">{force: true}</code> para forzar a que se creen de cero todas las tablas y relaciones, borrando lo que haya previamente. Si no se pone dicho parámetro, no se eliminarán los datos existentes, simplemente se añadirán o modificarán las estructuras nuevas que se hayan añadido al modelo.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">sequelize</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Sequelize</span><span class="p">(</span><span class="dl">'</span><span class="s1">contactos_sequelize</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">alumno</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">alumno1234</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">});</span>
+<span class="kd">const</span> <span class="nx">ModeloContacto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">/models/contacto</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Contacto</span> <span class="o">=</span> <span class="nx">ModeloContacto</span><span class="p">(</span><span class="nx">sequelize</span><span class="p">,</span> <span class="nx">Sequelize</span><span class="p">);</span>
+
+<span class="nx">sequelize</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="cm">/*{force: true}*/</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Aquí ya está todo sincronizado</span>
+    <span class="c1">// Nuestro código a continuación iría aquí</span>
+<span class="p">}).</span><span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Tras sincronizar, observa que en cada tabla que hayamos definido (en nuestro caso, sólo la tabla de “contactos”) se han creado automáticamente:</p>
+
+<ul>
+  <li>Un <em>id</em> autonumérico como clave primaria (no lo habíamos especificado en el esquema)</li>
+  <li>Un par de campos adicionales de tipo fecha, que nos permiten almacenar la fecha de creación y de última modificación de cada registro. Estos datos se auto-actualizan cuando insertemos o modifiquemos registros utilizando los métodos proporcionados por Sequelize, que veremos más tarde.</li>
+</ul>
+
+<h2 id="3-operaciones-sobre-los-modelos">3. Operaciones sobre los modelos</h2>
+
+<p>Para terminar nuestro ejemplo, veamos cómo realizar distintas operaciones sobre la base de datos con Sequelize: listados, inserciones, borrados y modificaciones.</p>
+
+<h3 id="31-inserciones">3.1. Inserciones</h3>
+
+<p>Para hacer una inserción de un objeto Sequelize, podemos emplear el método estático <code class="language-plaintext highlighter-rouge">create</code>, asociado a cada modelo. Recibe como parámetro un objeto JavaScript con los campos del objeto a insertar. Después, el método <code class="language-plaintext highlighter-rouge">create</code> se comporta como una promesa, por lo que podemos añadir las correspondientes cláusulas <code class="language-plaintext highlighter-rouge">then</code> y <code class="language-plaintext highlighter-rouge">catch</code>, o bien emplear la especificación <em>async/await</em>.</p>
+
+<p>Por ejemplo, así realizaríamos la inserción de un contacto en la tabla de contactos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+    <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">966112233</span><span class="dl">"</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto creado con estos datos:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error insertando contacto</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error insertando contacto:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="32-búsquedas">3.2. Búsquedas</h3>
+
+<p>Para realizar búsquedas, Sequelize proporciona una serie de métodos estáticos de utilidad. Por ejemplo, el método <code class="language-plaintext highlighter-rouge">findAll</code> se puede emplear para obtener todos los elementos de una tabla, o bien indicar algún parámetro que permita filtrar algunos de ellos.</p>
+
+<p>De esta forma implementaríamos el listado general de contactos:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findAll</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Listado de contactos: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error listando contactos: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si quisiéramos, por ejemplo, quedarnos con el contacto “Nacho”, podríamos hacer algo así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findAll</span><span class="p">({</span>
+    <span class="na">where</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">...</span>
+</code></pre></div></div>
+
+<p>Otra búsqueda que podemos hacer de forma habitual es la búsqueda por clave, a través del método <code class="language-plaintext highlighter-rouge">findByPk</code> (<em>buscar por clave primaria</em>). Le pasaremos como parámetro en este caso el <em>id</em> del objeto a buscar. Para obtener los datos de un contacto a partir de su <em>id</em>, puede quedar así:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">findByPk</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">resultado</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto encontrado: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">No se ha encontrado contacto</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error buscando contacto: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p><a href="https://sequelize.org/master/manual/model-querying-basics.html">Aquí</a> podéis consultar otros tipos de operadores y alternativas para hacer búsquedas filtradas.</p>
+
+<h3 id="33-modificaciones-y-borrados">3.3. Modificaciones y borrados</h3>
+
+<p>Para realizar modificaciones y borrados, primero debemos obtener los objetos a modificar o borrar. Podemos emplear los métodos estáticos <code class="language-plaintext highlighter-rouge">update</code> y <code class="language-plaintext highlighter-rouge">destroy</code>.</p>
+
+<ul>
+  <li>En <code class="language-plaintext highlighter-rouge">update</code>, pasamos como primer parámetro el objeto con los datos a actualizar, y como segundo parámetro (opcional, pero habitual) la condición que deben cumplir los objetos a actualizar (la típica cláusula <em>where</em>)</li>
+  <li>En <code class="language-plaintext highlighter-rouge">delete</code> pasamos como primer parámetro la condición <em>where</em> que deben cumplir los objetos a eliminar.</li>
+</ul>
+
+<p>De este modo actualizamos el teléfono del contacto con id = 1:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="na">telefono</span><span class="p">:</span> <span class="dl">"</span><span class="s2">611223344</span><span class="dl">"</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">where</span><span class="p">:</span> <span class="p">{</span> <span class="na">id</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contacto actualizado: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error actualizando contacto: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Y así borraríamos el contacto (o contactos) con nombre “Nacho”</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Contacto</span><span class="p">.</span><span class="nx">destroy</span><span class="p">({</span> <span class="na">where</span><span class="p">:</span> <span class="p">{</span> <span class="na">nombre</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Nacho</span><span class="dl">"</span> <span class="p">}</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resultado</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Contactos borrados: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">resultado</span><span class="p">);</span>
+<span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Error borrando contactos: </span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Tenéis más opciones disponibles de cómo realizar estas consultas <a href="https://sequelize.org/master/manual/model-querying-basics.html">aquí</a></p>
+
+<blockquote>
+  <p><strong>NOTA</strong>: si añades estas operaciones una tras otra en el archivo <code class="language-plaintext highlighter-rouge">index.js</code> de nuestro proyecto de pruebas <em>PruebaContactosSequelize</em>, debes tener en cuenta que son asíncronas (trabajan con promesas), y por tanto, no se van a ejecutar secuencialmente. Dicho de otro modo, si hacemos una inserción y a continuación un listado, es posible que dicha inserción no salga en el listado porque aún no se ha ejecutado del todo. Es preferible que ejecutes las instrucciones una a una, dejando comentadas el resto de pruebas, para verificar su funcionamiento.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

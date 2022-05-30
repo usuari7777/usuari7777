@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title>Acceso a los elementos de un documento</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="../../../reveal/dist/reveal.css">
+		<link rel="stylesheet" href="../../../reveal/dist/theme/white.css" id="theme">
+		<link rel="stylesheet" href="../../../reveal/plugin/highlight/custom.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <section data-markdown>
+<script type="text/template">
+## Acceso a los elementos de un documento
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## BOM y DOM
+
+- JavaScript se ejecuta en un navegador, lo que le permite acceder a dos componentes
+- **BOM** (*Browser Object Model*): propiedades del navegador (ventana, resolución, tipo de navegador...)
+- **DOM** (*Document Object Model*): propiedades del documento (estructura de etiquetas, atributos, etc.)
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## BOM: el elemento *window*
+
+- El elemento **window** es el principal, y engloba todas las propiedades:
+   - Dimensiones de la pantalla
+   - Mensajes (*alert*, *prompt*...)
+   - Cambiar URL actual
+   - ...
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## BOM: elementos en *window*
+
+* Pantalla (elemento `screen`): almacena anchura, altura, profundidad de color, etc.
+* Navegador (elemento `navigator`): nombre del navegador, plugins instalados...
+* Documento abierto (elemento `document`): título, enlaces, contenido...
+* Ubicación del documento actual (elemento `location`): URL del documento actual
+* Historial de navegación (elemento `history`): ir hacia adelante o atrás
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## BOM: ejemplo
+
+```js
+// Sacamos por consola el ancho y alto de la pantalla:
+console.log(window.screen.width + " x " + window.screen.height);
+
+// Cargamos otra página
+window.location.href = "https://iessanvicente.com";
+// También sirve
+location.href = "https://iessanvicente.com";
+
+// Vamos a la página anterior del historial de navegación
+window.history.back();
+// También sirve
+history.back();
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## BOM: timeouts
+
+*setTimeout* permite ejecutar una función transcurridos unos milisegundos
+
+```js
+setTimeout(() => console.log(new Date()), 3000);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## BOM: intervalos
+
+*setInterval* permite ejecutar una función cada X milisegundos. *clearInterval* permite cancelar el proceso
+
+```js
+let idIntervalo = setInterval(() => console.log(new Date()), 5000);
+setTimeout(() => clearInterval(idIntervalo), 20000);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Paso de parámetros a *timeouts* e intervalos
+
+Se pasan tras el número de milisegundos
+
+```js
+function saludar(nombre)
+{
+    console.log("Hola, " + nombre);
+}
+
+setTimeout(saludar, 5000, "Nacho");
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM
+
+- Podemos acceder a la estructura de información contenida en dicho documento: etiquetas, subetiquetas, atributos, etc
+   - Consultar información de ciertos elementos de la página (validar datos de un formulario, por ejemplo)
+   - Modificar información de ciertos elementos (cambiar propiedades CSS, ocultarlos, etc)
+- A través del elemento **document**
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: principales instrucciones (1/2)
+
+* `document.documentElement` obtiene el elemento raíz (*html*)
+* `document.head` obtiene la cabecera (elemento *head*)
+* `document.body` obtiene el cuerpo (elemento *body*)
+* `document.getElementById("id")` obtiene el elemento cuyo *id* hemos indicado como parámetro
+* `document.getElementsByClassName("clase")` obtiene el conjunto de elementos de la clase indicada.
+* `document.getElementsByTagName("etiqueta")` obtiene el conjunto de etiquetas del tipo indicado.
+
+Podemos usar algunas de estas instrucciones desde el nodo raíz (*document*) o desde un elemento en concreto, buscando sólo dentro de ese elemento
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: principales instrucciones (2/2)
+
+* `element.children` obtiene todas las etiquetas que cuelgan del elemento actual
+* `element.parentNode` obtiene la etiqueta padre de la actual
+* `element.nextSibling` obtiene el siguiente hermano del elemento actual. También tenemos disponible `element.previousSibling`. 
+   * `nextElementSibling` o `previousElementSibling` si sólo queremos recorrer etiquetas, y no nodos de texto.
+* `element.innerHTML` obtiene el contenido HTML del elemento actual. 
+   * Alternativamente, `innerText` o `textContent` para mostrar sin subetiquetas
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: ejemplo (1/2)
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba DOM</title>
+</head>
+<body>
+    <h1>Ejemplo de prueba del DOM</h1>
+    <p>Párrafo de prueba</p>
+    <ul id="lista">
+        <li>Uno</li>
+        <li>Dos</li>
+        <li>Tres</li>
+    </ul>
+    <img id="imagen1"
+     src="http://nachoiborraies.github.io/javascript/md/es/slides/imagen.png" title="Imagen de prueba">
+</body>
+</html>
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: ejemplo (2/2)
+
+```js
+let lista = document.getElementById("lista");
+let items = lista.getElementsByTagName("li");
+alert(items.length);    // 3
+for(let i = 0; i < items.length; i++)
+{
+    // Uno, Dos, Tres, respectivamente    
+    alert(items[i].textContent); 
+}
+let imagen = document.getElementById("imagen1");
+// Ruta hasta imagen "imagen.png"
+alert(imagen.src);  
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (1/2)
+
+Copia el siguiente contenido en un archivo **pruebaDOM.html**
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+	<title>Prueba con el DOM</title>
+</head>
+<body>
+<p>Lorem ipsum dolor sit amet, <a href="http://prueba">consectetuer 
+adipiscing elit</a>. Sed mattis enim vitae orci. Phasellus libero. 
+Maecenas nisl arcu, consequat congue, commodo nec, commodo ultricies, 
+turpis. Quisque sapien nunc, posuere vitae, rutrum et, luctus at, 
+pede. Pellentesque massa ante, ornare id, aliquam vitae, ultrices 
+porttitor, pede. Nullam sit amet nisl elementum elit convallis 
+malesuada. Phasellus magna sem, semper quis, faucibus ut, rhoncus non, 
+mi. <a href="http://prueba2">Fusce porta</a>.</p>
+
+<p>Aenean at nisl. Maecenas egestas dapibus odio. Vestibulum ante ipsum 
+primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin 
+consequat auctor diam. <a href="http://prueba">Ut bibendum blandit est</a>. 
+Curabitur vestibulum. Nunc malesuada porttitor sapien. Aenean a lacus et 
+metus venenatis porta. Suspendisse cursus, sem non dapibus tincidunt, 
+lorem magna porttitor felis, id sodales dolor dolor sed urna. Sed rutrum 
+nulla vitae tellus. Sed quis eros nec lectus tempor lacinia. Aliquam nec 
+lectus nec neque aliquet dictum. Etiam <a href="http://prueba3">consequat 
+sem quis massa</a>.</p>
+
+<p id="p3">Vestibulum aliquet, nulla sit amet imperdiet suscipit, nunc 
+erat laoreet est, a <a href="http://prueba">aliquam leo odio sed sem</a>. 
+Quisque eget eros vehicula diam euismod tristique. Proin 
+<a href="http://prueba4">egestas</a> adipiscing ligula. Duis iaculis 
+laoreet turpis. Mauris mollis est sit amet diam. Curabitur hendrerit, 
+eros quis malesuada tristique, ipsum odio euismod tortor, a vestibulum 
+nisl mi at odio. <a href="http://prueba5">Sed non lectus non est 
+pellentesque</a> auctor.</p>
+
+</body>
+</html>
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 1 (2/2)
+
+Añade código JavaScript al final del documento para mostrar con mensajes *alert*:
+
+* Cuántos enlaces tiene la página en total
+* A qué dirección enlaza el primer enlace (deberás acceder a su propiedad *href*)
+* Cuántos enlaces hay en el tercer párrafo en total
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DOM: query selector
+
+* Permite acceder a los elementos del documento con una sintaxis similar a jQuery
+* `document.querySelector("a")` primer enlace de la página
+* `document.querySelector(".miClase")` primer elemento de clase *miClase*
+* `document.querySelector("#miID")` elemento con el id *miID*
+* `document.querySelector("h1, h2")` primer encabezado *h1* o *h2*
+* `document.querySelector("div > p")` primer párrafo que fuera hijo inmediato de un *div*
+* `document.querySelectorAll` obtiene el conjunto de elementos coincidentes en cada caso
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: query selector
+
+```js
+let enlaces = document.querySelectorAll("a");
+enlaces.forEach(elem => console.log(elem.title));
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## Búsquedas y recorridos
+
+- Con *query selector* podemos recorrer el resultado con *for* tradicional o con *forEach*
+- Si empleamos instrucciones *getElementXXXX* sólo podemos emplear *for* tradicional
+   - El tipo de colección que devuelve no es compatible con *forEach*
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 2
+
+Crea un documento HTML llamado **pruebaDOM2.html**, con el mismo contenido que el anterior, y trata de resolverlo usando el *query selector* esta vez.
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DOM: Crear contenidos
+
+1. Crearemos un objeto del tipo que queramos añadir (párrafo, *h1*, *div*, etc.)
+2. Crearemos el contenido de dicho objeto
+3. Añadiremos el contenido al objeto
+4. Añadiremos el objeto al documento, en la posición que queramos
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DOM: Crear contenidos
+
+Ejemplo: añadir párrafo con texto "Hola" al final del documento
+
+```js
+// 1. Creamos el párrafo
+let parrafo = document.createElement("p");  
+// 2. Creamos su contenido
+let contenido = document.createTextNode("Hola");    
+// 3. Añadimos el contenido
+parrafo.appendChild(contenido);
+// 4. Añadimos el párrafo
+document.body.appendChild(parrafo);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DOM: Crear contenidos
+
+Ejemplo: añadir párrafo con texto "Hola" al final del div *div1*
+
+```js
+// 0. Buscamos el lugar
+let div = document.getElementById("div1");
+// 1. Creamos el párrafo
+let parrafo = document.createElement("p");
+// 2. Creamos su contenido
+let contenido = document.createTextNode("Hola");
+// 3. Añadimos el contenido
+parrafo.appendChild(contenido);
+// 4. Añadimos el párrafo
+div.appendChild(parrafo);
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DOM: Crear contenidos
+
+Ejemplo: añadir item de una lista delante del tercer elemento
+
+```html
+<ul id="lista">
+    <li>Primero</li>
+    <li>Segundo</li>
+    <li>Tercero</li>
+</ul>
+
+...
+let lista = document.getElementById("lista");
+let item3 = lista.children[2];
+let nuevoItem = document.createElement("li");
+nuevoItem.innerText = "Nuevo tercero";
+lista.insertBefore(nuevoItem, item3);
+item3.innerText = "Nuevo cuarto";
+```
+
+</script>
+</section>
+
+<section data-markdown>
+<script type="text/template">
+## DOM: Modificar contenidos
+
+Accedemos al elemento y modificamos su *innerHTML* o *innerText*
+
+```js
+let parrafo = document.getElementById("miParrafo");	
+parrafo.innerHTML = "Nuevo <strong>contenido</strong> del párrafo";	
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: Borrar contenidos
+
+Accedemos al elemento, saltamos al elemento padre y borramos el elemento en cuestión
+
+```js
+let div = document.getElementById("div1");
+div.parentNode.removeChild(div);
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 3
+
+Modifica el ejercicio *pruebaDOM.html* en un archivo llamado **pruebaDOM3.html**, añadiendo las siguientes funcionalidades:
+ 
+* Añadir un nuevo párrafo al final del documento que diga "Nuevo párrafo".
+* Borrar el segundo párrafo del documento
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## DOM: Acceso a atributos
+
+- Podemos acceder a cualquier atributo de un elemento poniendo su nombre (salvo para el atributo *class*, que se usa *className*)
+- Esto va a permitir:
+   - Consultar si un elemento tiene un atributo con un valor determinado
+   - Modificar los atributos de los elementos del documento. Por ejemplo, los estilos CSS (atributo *style*)
+
+</script>
+</section>
+        
+<section data-markdown>
+<script type="text/template">
+## DOM: Acceso a atributos
+
+```js
+let parrafo = document.getElementById("p1");
+let claseParrafo = parrafo.className;
+parrafo.style.width="50%";
+parrafo.style.display="none";
+// Las propiedades compuestas se ponen en formato "camel case"
+// (primera letra de cada palabra en mayúscula)
+parrafo.style.backgroundColor="red";
+```
+
+</script>
+</section>
+    
+<section data-markdown>
+<script type="text/template">
+## Ejercicio 4
+
+Crea otra versión del ejercicio *pruebaDOM.html* anterior en un archivo **pruebaDOM4.html**. Añade estos cambios sobre la versión inicial:
+ 
+* Pon el color de fondo del primer párrafo en amarillo.
+* Oculta el segundo párrafo
+
+</script>
+</section>
+    
+            </div>
+		</div>
+
+		<script src="../../../reveal/dist/reveal.js"></script>
+		<script src="../../../reveal/plugin/zoom/zoom.js"></script>
+		<script src="../../../reveal/plugin/markdown/markdown.js"></script>
+		<script src="../../../reveal/plugin/highlight/highlight.js"></script>
+		<script>
+
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				center: true,
+                hash: true,
+                width: "80%",
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealMarkdown, RevealHighlight ]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Rutas en Laravel | Curso de Laravel</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Rutas en Laravel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="02a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/laravel/md/es/02a.html" />
+<meta property="og:site_name" content="Curso de Laravel" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Rutas en Laravel" />
+<script type="application/ld+json">
+{"headline":"Rutas en Laravel","description":"Curso de Laravel elaborado por Nacho Iborra, profesor de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","url":"http://nachoiborraies.github.io/laravel/md/es/02a.html","@type":"WebPage","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=17e878151bc3bc6643eddb566eb4f6e34d083bbe">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/laravel/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Curso de Laravel</a></h1>
+      
+
+      <h1 id="rutas-en-laravel">Rutas en Laravel</h1>
+
+<div style="text-align: right">
+<!--
+<a target="_blank" href="slides/02a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+-->
+<a target="_blank" href="02a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<div><img src="../../img/membrete.png" width="100%" /></div>
+
+<p>Las rutas (<em>routes</em>) son un mecanismo que permite a Laravel establecer qué respuesta enviar a una petición que intenta acceder a una determinada URL. Estas rutas se especifican en diferentes archivos dentro de la carpeta <code class="language-plaintext highlighter-rouge">routes</code> de nuestro proyecto Laravel.</p>
+
+<p>Podríamos decir que existen dos tipos principales de rutas:</p>
+
+<ul>
+  <li>Las rutas <strong>web</strong> (almacenadas en el archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code> de la aplicación), que nos permitirán cargar distintas vistas en función de la URL que indique el cliente.</li>
+  <li>Las rutas <strong>API</strong> (almacenadas en el archivo <code class="language-plaintext highlighter-rouge">routes/api.php</code>), a través de las cuales definiremos distintos servicios REST, como veremos también más adelante.</li>
+</ul>
+
+<p>Nos vamos a centrar durante esta sesión en el primer grupo, por lo que editaremos el contenido del archivo <code class="language-plaintext highlighter-rouge">routes/web.php</code>.  Estas rutas son las más habituales, y se utilizan para recuperar contenidos típicamente en formato HTML. Inicialmente ya existe una ruta predefinida hacia la raíz del proyecto, que carga la página de bienvenida al mismo</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="kn">use</span> <span class="nc">Illuminate\Support\Facades\Route</span><span class="p">;</span>
+
+<span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">view</span><span class="p">(</span><span class="s1">'welcome'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Para definir una ruta en Laravel, se hace una llamada a un método estático de la clase <code class="language-plaintext highlighter-rouge">Route</code> (en el ejemplo anterior, al método <code class="language-plaintext highlighter-rouge">Route::get</code>). Como primer parámetro, especificaremos la URL de la ruta (la ruta raíz, en el ejemplo anterior), y como segundo parámetro, la función que se va a ejecutar cuando algún cliente haga una petición a esa ruta.</p>
+
+<h2 id="1-rutas-simples">1. Rutas simples</h2>
+
+<p>Las rutas simples tienen un nombre de ruta fijo, y una función que responde a dicho nombre emitiendo una respuesta. Un ejemplo es la ruta raíz que viene por defecto en nuestro proyecto. Podríamos definir otra ruta a continuación de esa, mediante la cual, si accedemos a la URL <em>http://biblioteca/fecha</em> nos muestre la fecha y hora actuales</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'fecha'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">date</span><span class="p">(</span><span class="s2">"d/m/y h:i:s"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Si ponemos en marcha el servidor y accedemos a esa URL (o a <em>127.0.0.1:8000/fecha</em> si hemos lanzado la aplicación con <code class="language-plaintext highlighter-rouge">php artisan serve</code>), podremos ver esa fecha y hora actual.</p>
+
+<h2 id="2-rutas-con-parámetros">2. Rutas con parámetros</h2>
+
+<p>Es también posible pasar <strong>parámetros en la URL</strong> de la ruta. Para ello, incluimos el nombre del parámetro entre llaves, y lo pasamos también a la función del segundo parámetro. Por ejemplo, si definimos una ruta para saludar al nombre que nos llega como parámetro, el código quedaría así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'saludo/{nombre}'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$nombre</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Hola, "</span> <span class="mf">.</span> <span class="nv">$nombre</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>En este caso, si el parámetro es obligatorio y no lo indicamos en la URL, nos redirigirá a una página de error 404. Para indicar que un parámetro no es obligatorio, se termina su nombre con un interrogante, y también conviene darle un valor por defecto en la función PHP de respuesta. Así modificaríamos la ruta anterior para que el nombre del usuario sea opcional y, en caso de no ponerlo, se le asigne el nombre “Invitado”.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'saludo/{nombre?}'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Invitado"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Hola, "</span> <span class="mf">.</span> <span class="nv">$nombre</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="21-validación-de-parámetros">2.1. Validación de parámetros</h3>
+
+<p>Algunos parámetros será preciso que sigan un determinado patrón. Por ejemplo, un identificador numérico sólo contendrá dígitos. Para asegurarnos de eso, podemos emplear el método <code class="language-plaintext highlighter-rouge">where</code> al definir la ruta. A este método le pasamos dos parámetros: el nombre del parámetro a validar, y la expresión regular que tiene que cumplir. En el caso del nombre anterior, si queremos que sólo contenga letras (mayúsculas o minúsculas), podemos hacer algo así:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'saludo/{nombre?}'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$nombre</span> <span class="o">=</span> <span class="s2">"Invitado"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Hola, "</span> <span class="mf">.</span> <span class="nv">$nombre</span><span class="p">;</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">,</span> <span class="s2">"[A-Za-z]+"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>En caso de que la ruta no cumpla el patrón, se obtendrá una página de error. Más adelante se explicará cómo podemos personalizar estas páginas de error.</p>
+
+<h2 id="3-rutas-con-nombre-o-named-routes">3. Rutas con nombre o <em>named routes</em></h2>
+
+<p>En ocasiones puede ser conveniente asociar un nombre a una ruta. Especialmente, cuando esa ruta va a formar parte de un enlace en alguna página de nuestro sitio, ya que en un futuro la ruta podría cambiar, y de este modo evitamos tener que actualizar los enlaces con el nuevo nombre.</p>
+
+<p>Para ello, al definir la ruta, le asociamos con la función <code class="language-plaintext highlighter-rouge">name</code> el nombre que queramos. Por ejemplo:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'contacto'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Página de contacto"</span><span class="p">;</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'ruta_contacto'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Ahora, si queremos definir un enlace a esta ruta en cualquier parte, basta con emplear la función <code class="language-plaintext highlighter-rouge">route</code> de Laravel, indicando el nombre que le hemos asignado a esta ruta. Por lo tanto, en lugar de poner esto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">echo</span> <span class="s1">'&lt;a href="/contacto"&gt;Contacto&lt;/a&gt;'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Podemos hacer algo como esto otro, tal y como veremos más adelante cuando definamos nuestras vistas:</p>
+
+<!---->
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ route('ruta_contacto') }}"</span><span class="nt">&gt;</span>Contacto<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<!---->
+
+<p>De este modo, ante futuros cambios en las rutas, sólo deberemos cambiar la URL en el correspondiente <code class="language-plaintext highlighter-rouge">Route::get</code> de <code class="language-plaintext highlighter-rouge">routes/web.php</code>.</p>
+
+<h2 id="4-combinación-de-elementos-en-rutas">4. Combinación de elementos en rutas</h2>
+
+<p>Podemos combinar varias cláusulas <code class="language-plaintext highlighter-rouge">where</code> en una ruta para validar distintos parámetros que pueda tener, y también enlazar estas llamadas con una a la función <code class="language-plaintext highlighter-rouge">name</code> para nombrar la ruta. Por ejemplo, la siguiente ruta espera recibir un nombre con caracteres, y un <em>id</em> numérico, ambos con valores por defecto:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Route</span><span class="o">::</span><span class="nf">get</span><span class="p">(</span><span class="s1">'saludo/{nombre?}/{id?}'</span><span class="p">,</span>
+<span class="k">function</span><span class="p">(</span><span class="nv">$nombre</span><span class="o">=</span><span class="s2">"Invitado"</span><span class="p">,</span> <span class="nv">$id</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"Hola </span><span class="nv">$nombre</span><span class="s2">, tu código es el </span><span class="nv">$id</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">})</span><span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'nombre'</span><span class="p">,</span> <span class="s2">"[A-Za-z]+"</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="nf">where</span><span class="p">(</span><span class="s1">'id'</span><span class="p">,</span> <span class="s2">"[0-9]+"</span><span class="p">)</span>
+  <span class="o">-&gt;</span><span class="nf">name</span><span class="p">(</span><span class="s1">'saludo'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Si accedemos a cada una de las siguientes URLs, obtendremos cada una de las respuestas indicadas:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Respuesta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>/saludo</td>
+      <td><em>Hola Invitado, tu código es el 0</em></td>
+    </tr>
+    <tr>
+      <td>/saludo/Nacho</td>
+      <td><em>Hola Nacho, tu código es el 0</em></td>
+    </tr>
+    <tr>
+      <td>/saludo/Nacho/3</td>
+      <td><em>Hola Nacho, tu código es el 3</em></td>
+    </tr>
+    <tr>
+      <td>/saludo/3</td>
+      <td>Error 404 (URL incorrecta)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notar que el último caso es incorrecto. No podemos especificar un <em>id</em> sin haber especificado un nombre delante, porque incumple el patrón de la URL. Se puede dejar un parámetro omitido, siempre y cuando los posteriores también lo estén.</p>
+
+<h2 id="5-otros-métodos-de-route">5. Otros métodos de <em>Route</em></h2>
+
+<p>Además de utilizar el método <code class="language-plaintext highlighter-rouge">get</code>, desde la clase <code class="language-plaintext highlighter-rouge">Route</code> también podemos acceder a otros métodos estáticos útiles, como <code class="language-plaintext highlighter-rouge">Route::post</code> (útil para recoger datos de formularios, por ejemplo), o también <code class="language-plaintext highlighter-rouge">Route::put</code>, <code class="language-plaintext highlighter-rouge">Route::delete</code>… Los veremos con más detalle en secciones posteriores.</p>
+
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

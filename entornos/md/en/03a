@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Software methodologies | Development Environments</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Software methodologies" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<meta property="og:description" content="Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)" />
+<link rel="canonical" href="03a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/entornos/md/en/03a.html" />
+<meta property="og:site_name" content="Development Environments" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Software methodologies" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Apuntes del módulo de Entornos de Desarrollo de los ciclos formativos de grado superior de Desarrollo de Aplicaciones Multiplataforma y Desarrollo de Aplicaciones Web. Elaborados por Nacho Iborra, Mari Chelo Rubio y Javier Carrasco, profesores de ciclos formativos en el I.E.S. San Vicente (San Vicente del Raspeig, Alicante)","headline":"Software methodologies","url":"http://nachoiborraies.github.io/entornos/md/en/03a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../../assets/css/style.css?v=1e78f06ca71e1c3931925f3da26877766eb8ecad">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/entornos/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="../../index.html">Development Environments</a></h1>
+      
+
+      <h1 id="software-methodologies">Software methodologies</h1>
+
+<h2 id="software-lifecycles">Software lifecycles</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="slides/03a.html"><img src="../../img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="03a.pdf"><img src="../../img/pdf.png" width="32" /></a>
+</div>
+
+<h3 id="1-software-engineering">1. Software engineering</h3>
+
+<p>In order to develop software properly, we must follow some steps, or a given approach for this development. <strong>Software engineering</strong> is the branch of computer science that helps us follow these approaches and steps correctly.</p>
+
+<h4 id="11-stages-in-software-development">1.1. Stages in software development</h4>
+
+<p>In (almost) every software engineering process, we can follow these steps:</p>
+
+<ol>
+  <li><strong>Requirements analysis</strong>: this stage includes the communication with the customer to clarify his needs, and an analysis stage to sketch out the main behaviour of the application. It can be divided into two stages:
+    <ul>
+      <li><strong>Requirements specification</strong>: the communication with the customer, in which we will arrange some interviews or other ways of getting information. We must clarify the needs to be fulfilled, and once the requirements have been gathered, we write a document called <em>requirements specification</em>, that must be as complete as possible.</li>
+      <li><strong>Analysis</strong>: from the requirements specification created in previous stage, we must now create a new document where we will use some helpful diagrams to represent the main functionalities of the application and their connections or dependencies.</li>
+    </ul>
+  </li>
+  <li><strong>Design</strong>: from the analysis documents set before, we can now determine how the software will work. Here we will use other diagrams that will help us implement the software.</li>
+  <li><strong>Implementation</strong>: this stage should be started from previous design stage, using a specific programming language (or more than one).</li>
+  <li><strong>Testing</strong>: once the product has been implemented, we must test it to check if it fulfills all the requirements and there is no bug. These tests should be checked by someone not involved in the implementation process.</li>
+  <li><strong>Maintenance</strong>: this last stage consists in improving the performance of the software product, by adding new extensions, or fixing some bugs</li>
+</ol>
+
+<p>To sum up these stages, we could say that software engineering provides an approach that helps us understand the problem to be solved (requirement analysis), design a possible solution, implement it, test it and then get a better quality or performance (maintenance).</p>
+
+<p>However, all these steps may sometimes be an obstacle, since many developers think that software engineering is something too structured, that do not let them develop software quickly. But we must see sofware engineering as something adaptive, that provides different models and methodologies to be adapted to our development process, as we will see later.</p>
+
+<h3 id="2-software-lifecycles">2. Software lifecycles</h3>
+
+<p>A lifecycle is a list of stages through which a system (in this case, a software project) must go, from its birth until it is no longer used. In each lifecycle we set both the stages and the requirements to go from one stage to the next, including the inputs and outputs expected for every stage.</p>
+
+<p>The products generated after each stage are called <em>deliverables</em> and they are either part of the input of the next stage or an evaluation of the project at a given point.</p>
+
+<p>Some lifecycles are repetitive, this is, we can go through the same stage more than once, depending on the state of the product. This process is also known as <em>feedback</em>.</p>
+
+<p>We are going to see some of the most typical lifecycles in software development, and their pros and cons. In all of them we will find the stages seen before (requirements analysis, design, implementation…), or any variation of them.</p>
+
+<h4 id="21-cascade-or-waterfall-model">2.1. Cascade or waterfall model</h4>
+
+<p>This is the oldest model, and the most widespread. It was created by W. Royce in the 70s, and it sorts the stages of software development rigurously, so that the beginning of a stage must wait for the end of the previous one.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-01-modelo_cascada_en.png" alt="Cascade model" width="80%" />
+</div>
+
+<p>It is called <em>cascade</em> model because the stages are placed one below the other, and the process flows from the upper stages to the lower ones, as if they were a cascade.</p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+  <li>Suitable for small and well known projects, where all the requirements are perfectly set at the beginning</li>
+  <li>Well structured, stages do not mix up</li>
+  <li>Easy to use, because of its rigidity</li>
+</ul>
+
+<p><strong>Cons</strong>:</p>
+
+<ul>
+  <li>We can’t apply it to most of real life projects, since requirements are barely known at the beginning.</li>
+  <li>We can’t see any result until the end of the process, so customers must feel worried about that final result.</li>
+  <li>It is not usual to have a stage perfectly finished before starting the next one.</li>
+  <li>Failures are not detected until the test stage, at the end of the process.</li>
+</ul>
+
+<p><strong>Variations</strong>:</p>
+
+<p>There are some variations of this model, like the <strong>Sashimi model</strong>, in which stages are overlapped, like Japanese fish does. In this model, there is some time overlap between two sequential stages; this way, we start the <em>design</em> stage while we finish setting the requirements (and we can change them as we go forward with the design), and we start implementing the system while we finish with the design (so that we can improve the design because of some issues detected during the implementation).</p>
+
+<h4 id="22-v-model">2.2. V model</h4>
+
+<p>One of the main problems of the traditional cascade model is that failures are not detected until we reach the final stages of the process. With the V model, tests start as soon as possible, and they are performed in parallel by another work team. This way, tests are integrated in each stage of the lifecycle.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-02-modelo_v_en.png" alt="V model" width="70%" />
+</div>
+
+<p>Left branch of the V represents the requirement analysis, design and implementation, and the right branch integrates the tests of each stage. We move along the left branch until we reach the bottom, and then we validate the tests of the right branch, from the most specific ones (unit tests to check some concrete modules of the product) to the most generic ones (integration and system tests). Every time we detect a problem, we go back to the associated stage of the left branch.</p>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+  <li>Easy to use</li>
+  <li>There are some deliverables for each stage</li>
+  <li>Higher probability of success, due to the tests plans associated to each stage of the process</li>
+  <li>Useful for small projects with requirements that are easy to understand</li>
+</ul>
+
+<p><strong>Cons</strong>:</p>
+
+<ul>
+  <li>It is also rigid</li>
+  <li>User does not see any result until later stages, because we don’t develop any intermediate prototype</li>
+  <li>Sometimes it is hard to go from the right branch to the left branch to fix the problems</li>
+</ul>
+
+<h4 id="23-iterative-model">2.3. Iterative model</h4>
+
+<p>The models seen so far are only suitable for projects with easy, well specified requirements, but this is not very usual in real software projects. In order to try to improve this, the iterative model repeats the cascade model, and generates an intermediate version or prototype after each iteration. This prototype can be then checked by the customer, problems can be detected earlier and then we can improve the system.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-03-modelo_iterativo_en.png" alt="Iterative model" />
+</div>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+  <li>We don’t need to specify all the requirements at the beginning</li>
+  <li>Risks are better managed, because we deliver intermediate prototypes after each iteration</li>
+</ul>
+
+<p><strong>Cons</strong>:</p>
+
+<ul>
+  <li>If we don’t need to have all the requirements at the beginning, they may appear later unexpectedly, and they may affect the design or system architecture significantly.</li>
+</ul>
+
+<p><strong>Variations</strong>:</p>
+
+<p>There are some interesting variations of this model, with other names and some particular features:</p>
+
+<ul>
+  <li><strong>Incremental model</strong>: each prototype only has some few improvements from previous one. This make the prototypes easier to test (we only have to test these small changes). However, we must have a lot of experience in order build these prototypes proportionally.</li>
+  <li><strong>Prototype-based model</strong>: it is based on developing prototypes of the application. At the beginning, we just gather some requirements quickly, make a simple design and have a basic prototype, so that customer can quickly check the application and give us his feedback. The main advantage of this model is that customer is involved in the process from the very beginning. But it may be very costly, since we may develop many useless prototypes. Besides, customer must feel disappointed if he checks some versions of the product that do not work as he expected, and the developer may be tempted to speed up the process to include everything the customer wants, eluding all the quality and maintenance patterns.</li>
+</ul>
+
+<h4 id="24-spiral-model">2.4. Spiral model</h4>
+
+<p>This model was created by Boehm in 1988, and it tries to combine the cascade and iterative models. Stages are arranged in a spiral divided into four sections, so that each section does one task, and each spiral turn goes through all sections and tasks, generating one prototype after each complete turn.</p>
+
+<p>This model manages the risks of software development. We start from the middle of the spiral, and in every loop we analyze all the development alternatives, we identify the most assumable risks and then perform a spiral cycle. If the customer brings new requirements or improvements, we then evaluate the risks again and perform another cycle, until the product is finally accepted.</p>
+
+<div align="center">
+    <img src="../../img/ED_b1_tema03-04-modelo_espiral_en.png" alt="Spiral model" />
+</div>
+
+<ul>
+  <li>In the <strong>targets</strong> stage we set the final product to reach (requirements, analysis, etc.)</li>
+  <li>In the <strong>risk evaluation</strong> stage we identify the possible risks of the project, and choose the options to reduce them as much as possible.</li>
+  <li>In the <strong>implement and test</strong> stage we design, implement and test the product, according to the options chosen in previous stage.</li>
+  <li>In the <strong>planning</strong> stage we check the product with the customer, and then we decide if we need one more spiral cycle to fix some problems or add some improvements.</li>
+</ul>
+
+<p><strong>Pros</strong>:</p>
+
+<ul>
+  <li>Suitable for large and difficult projects</li>
+  <li>Risks are minimized</li>
+  <li>Implementation and maintenance are both integrated</li>
+  <li>We develop prototypes from early stages, so that customer can provide his feedback along the process</li>
+</ul>
+
+<p><strong>Cons</strong>:</p>
+
+<ul>
+  <li>We must have a lot of experience to evaluate the risks properly</li>
+  <li>This model produces a lot of additional products (reports, prototypes…)</li>
+  <li>It can be very costly</li>
+  <li>It is not appropriate for small projects</li>
+</ul>
+
+<blockquote>
+  <p><strong>Exercise 1:</strong></p>
+
+  <p>Create a table like the one below (in a piece of paper, or in a text editor), and fill each cell with a YES or NO, depending on whether the specified feature is part of the corresponding lifecycle.</p>
+</blockquote>
+<table>
+<tr>
+    <th></th>
+    <th>Cascade</th>
+    <th>V</th>
+    <th>Iterative</th>
+    <th>Spiral</th>
+</tr>
+<tr>
+    <td>It is simple and easy</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>It generates intermediate versions of the product</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>Suitable for projects with uncertain requirements</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>It lets us evaluate the risks of the chosen solution</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+</table>
+
+<blockquote>
+  <p><strong>Exercise 2:</strong></p>
+
+  <p>Our team is going to develop an application to manage the accounting of a cinema company. The customer still doesn’t know what he expects from the application, and we want to use a really new technology we don’t control yet. According to this information, argue which lifecycle model(s) are the most suitable for our purpose, and which one(s) are NOT recommended.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 3:</strong></p>
+
+  <p>A teacher from the Higher Polytechnic School of the University of Alicante wants to develop a program to help him correct his students’ exercises. As he is very busy, he has asked a group of old students to do it for him. We assume that, as he is a computer scientist, he knows perfectly what he wants from the very beginning. It is a small project that should not take a lot of time. According to this information, argue which lifecycle model(s) are the most suitable.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

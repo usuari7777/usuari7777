@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Functions and error handling | Java programming language</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Functions and error handling" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<meta property="og:description" content="Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)" />
+<link rel="canonical" href="http://nachoiborraies.github.io/java/md/en/04a.html" />
+<meta property="og:url" content="http://nachoiborraies.github.io/java/md/en/04a.html" />
+<meta property="og:site_name" content="Java programming language" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Functions and error handling" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Course of Java programming language, useful for Professional Training Modules such as Multi Platform Application Development or Web Application Development. Written by Nacho Iborra, Mari Chelo Rubio and Javier Carrasco, professional training teachers at I.E.S. San Vicente (San Vicente del Raspeig, Alicante, Spain)","headline":"Functions and error handling","url":"http://nachoiborraies.github.io/java/md/en/04a.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="https://nachoiborraies.github.io/java/assets/css/style.css?v=b97498d877d27f9c14e83edf3052019f2c929d47">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/java/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://nachoiborraies.github.io/java/">Java programming language</a></h1>
+      
+
+      <h1 id="functions-and-error-handling">Functions and error handling</h1>
+
+<h2 id="function-definition">Function definition</h2>
+
+<div style="text-align: right">
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/slides/04a.html"><img src="https://nachoiborraies.github.io/java/img/diapositivas.png" width="32" /></a>&nbsp;&nbsp;
+<a target="_blank" href="https://nachoiborraies.github.io/java/md/en/04a.pdf"><img src="https://nachoiborraies.github.io/java/img/pdf.png" width="32" /></a>
+</div>
+
+<p>The programs that we have been typing so far are becoming more and more complex. It may be hard to maintain or keep clean a piece of code of some hundred lines and, besides, we may need to repeat the same piece of code in many parts of our program. In order to keep our code clean an reusable, we need to divide it into functions or modules. In this section we’ll learn what a function is, how to define functions in Java and how to use them.</p>
+
+<h3 id="1-basic-function-management">1. Basic function management</h3>
+
+<p>Functions let us arrange our code so that we can re-use a piece of code many times without having to duplicate the code. We just assign this piece of code a name (<em>function name</em>) and then we can <em>call</em> this code from other parts of our program. This paradigm is also called <strong>modular programming</strong>, since we define <em>modules</em> or functions to group our code in small subtasks, and call each subtask whenever we need it.</p>
+
+<p>If we want to use functions within a class, we can declare them as <code class="language-plaintext highlighter-rouge">public static</code> if we want to call them from anywhere. We will learn in next units how to declare other types of functions and how to set their visibility, but for now we are going to deal with public, static functions.</p>
+
+<p>When defining a function, we need to specify the return type (or <code class="language-plaintext highlighter-rouge">void</code> if the function does not return anything), the function name and a pair of parentheses. This function prints a welcome message in the screen:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">welcome</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello, welcome to this program!"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We can call this function from any other function of the same class (including <code class="language-plaintext highlighter-rouge">main</code> function) by using the function name and the parentheses:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">welcome</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Note that function names always start in lower case in Java (in C#, they start in uppercase if they are public).</p>
+
+<h4 id="11-returning-values">1.1. Returning values</h4>
+
+<p>Functions can return values. This values can be assigned to variables, or used in other expressions. In order to return a value from a function, its return type must be other than <em>void</em>, and we must use a <code class="language-plaintext highlighter-rouge">return</code> clause to specify the value returned. For instance, this function returns a welcome message:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">string</span> <span class="nf">welcome</span><span class="o">()</span>
+<span class="o">{</span>
+    <span class="k">return</span> <span class="s">"Hello, welcome to this program!"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, if we call this function from the <em>main</em> program, we will not see anything in the screen:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">welcome</span><span class="o">();</span>  <span class="c1">// Nothing happens</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We need to assign the return value to a variable, or use it in another expression:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="c1">// Option 1</span>
+    <span class="n">string</span> <span class="n">result</span> <span class="o">=</span> <span class="n">welcome</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+
+    <span class="c1">// Option 2</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">welcome</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-using-parameters">2. Using parameters</h3>
+
+<p>Some functions need some additional data to do their job. These data can be passed to the function as <strong>parameters</strong>, some kind of variables that are specified within the parentheses, including the type of each parameter and its name. For instance:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">myOtherFunction</span> <span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="nc">String</span> <span class="n">b</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Then, whenever we need to call this function, we need to specify the values of these parameters, in the same order:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+    <span class="n">myOtherFunction</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">"Hello"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="21-parameters-by-value-or-by-reference">2.1. Parameters by value or by reference</h4>
+
+<p>Passing a parameter <strong>by value</strong> means that we are passing a <em>copy</em> of the original value, so this original value can never be changed from within the function. This is the default situation for simple values, such as integers or floating point numbers:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">myFunction</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="c1">// This increment will have no effect after exiting the function</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside function: "</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+    <span class="n">myFunction</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>         <span class="c1">// Inside function: 4</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span> <span class="c1">// 3</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, complex data such as arrays are always passed <strong>by reference</strong>. This means that we are passing a reference or pointer to the original values, and we can change these values from within the function <em>as long as</em> we don’t change the whole reference, this is, as long as we don’t reassign the whole variable. Let’s have a look at this example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">myFunctionWithArray</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">data</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>           <span class="c1">// OK</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">myFunctionWithArray2</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">};</span>    <span class="c1">// No effect outside the function</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">};</span>
+    <span class="n">myFunctionWithArray</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span>
+    <span class="c1">// Here numbers = {10, 1, 1, 1}</span>
+    <span class="n">myFunctionsWithArray2</span><span class="o">(</span><span class="n">numbers</span><span class="o">);</span>
+    <span class="c1">// Here numbers = {10, 1, 1, 1}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>The same happens with some other complex data, such as objects, as we will see in later units.</p>
+
+<h4 id="22-more-on-return-types">2.2. More on return types</h4>
+
+<p>Let’s have a look at this function. It returns the maximum value of its two input parameters:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maximum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n2</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n1</span> <span class="o">&gt;</span> <span class="n">n2</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n2</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>From the point of view of <em>clean code</em>, a function should only have ONE return point, so that it’s easy for us to find out where this function ends. In order to meet this requirement, we can rewrite the function this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maximum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n2</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">n1</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n2</span> <span class="o">&gt;</span> <span class="n">n1</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">n2</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="23-global-and-local-variables">2.3. Global and local variables</h4>
+
+<p>A <strong>global variable</strong> is a variable that has been defined outside of any function (and inside a class), so that it can be shared among all the functions of this class (and possibly other classes). In order for a variable to be global, we should declare it as <em>public</em> and <em>static</em> for now:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">myGlobalVariable</span><span class="o">;</span>
+
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>A <strong>local variable</strong> is a variable that has been defined inside a function, and it does not exist outside this function:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">aFunction</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="n">anotherFunction</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">anotherFunction</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">number</span><span class="o">);</span> <span class="c1">// Error: number does not exist here</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Global variables are not a good choice, generally, since they can produce side effects. This is, we can accidentally change their values from any function of our program. The most recommended way of dealing with variables is to declare them as local, and pass them to other functions as parameters:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyClass</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">aFunction</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="n">anotherFunction</span><span class="o">(</span><span class="n">number</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">anotherFunction</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span> <span class="c1">// OK</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>Exercise 1</strong>:</p>
+
+  <p>Create a program called <strong>Palindrome</strong> with a function called <code class="language-plaintext highlighter-rouge">isPalindrome</code>. This function will take a string as a parameter and return a boolean indicating if this string is a palindrome (this is, a string that can be read the same backward as forward, ignoring upper or lower case, and whitespaces). Test this function from the <em>main</em> function with the texts <em>Hannah</em>, <em>Too hot to hoot</em> and <em>Java is the best language</em> (this last text is NOT a palindrome).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 2</strong>:</p>
+
+  <p>Create a program called <strong>CountOcurrences</strong> with a function called <code class="language-plaintext highlighter-rouge">countString</code>. This function will take two strings <em>a</em> and <em>b</em>, and an integer <em>n</em> as parameters, and it will return a boolean indicating if the string <em>b</em> is contained at least <em>n</em> times in the main string <em>a</em>. Try it from the main function with the main string a = <code class="language-plaintext highlighter-rouge">This string is just a sample string</code>, the substring b = <code class="language-plaintext highlighter-rouge">string</code> and the number n = 2 (it should return <code class="language-plaintext highlighter-rouge">true</code>).</p>
+</blockquote>
+
+<h3 id="3-recursion">3. Recursion</h3>
+
+<p>Recursion is the ability of a function to solve a task by calling itself multiple times with simpler versions of the problem to be solved.</p>
+
+<h4 id="31-main-components-of-a-recursive-function">3.1. Main components of a recursive function</h4>
+
+<p>In every recursive function we can find two components:</p>
+
+<ul>
+  <li><strong>Base case</strong>: the simplest problem that we can find, in which recursive calls finish. There can be more than one base case in a recursive function, but there must be at least one of them.</li>
+  <li><strong>Recursive case</strong>: every internal call to the same function with a simpler version of the problem.</li>
+</ul>
+
+<p>So, whenever we try to solve a problem recursively, we need to think about the simplest value of this problem, and make the function tend to this simplest value through consecutive calls.</p>
+
+<h4 id="32-some-introductory-examples">3.2. Some introductory examples</h4>
+
+<p>Let’s get started with recursion by analyzing some simple examples…</p>
+
+<h5 id="321-the-factorial">3.2.1. The factorial</h5>
+
+<p><em>Factorial</em> is a mathematical operation that consists in multiplying a number by all its descending sequence up to 1. For instance factorial of number 5 can be calculated as 5 * 4 * 3 * 2 * 1, and it’s represented as <em>5!</em>.</p>
+
+<p>We can see the factorial as a simple multiplication sequence, or as a recursive expression: the factorial of a given number can be decomposed in two parts: the number itself and the factorial of the previous number. So, factorial of number 5 can be seen as 5 multiplied by the factorial of number 4:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 * 4 * 3 * 2 * 1 = 5 * 4!
+</code></pre></div></div>
+
+<p>Recursively, we can also calculate the factorials of all the subsequent numbers:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4! = 4 * 3!
+3! = 3 * 2!
+2! = 2 * 1!
+1! = 1
+</code></pre></div></div>
+
+<p>As soon as we get to number 1, we’ve found our base case, the simplest number to calculate the factorial. After this point is reached, we can go back and calculate the rest of pending operations:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1! = 1
+2! = 2 * 1 = 2
+3! = 3 * 2 = 6
+4! = 4 * 6 = 24
+5! = 5 * 24 = 120
+</code></pre></div></div>
+
+<p>We can represent this as a recursive function in Java, this way:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">factorial</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="c1">// Base case</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">number</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">// Recursive case</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">number</span> <span class="o">*</span> <span class="n">factorial</span><span class="o">(</span><span class="n">number</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Alternatively, we can also express this operation as an iterative algorithm as well:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">inf</span> <span class="nf">factorialIterative</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">number</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span>
+    <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">i</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE</strong>: recursive functions are an exception to the rule of a single <em>return</em> point. In recursive functions, we usually find a <em>return</em> point for the base case and another <em>return</em> point for the recursive case.</p>
+</blockquote>
+
+<h5 id="322-fibonacci-series">3.2.2. Fibonacci series</h5>
+
+<p>Let’s see another example. Fibonacci series starts with numbers 0 and 1, and then next number is always generated as the sum of two previous numbers. So, we have this sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21…</p>
+
+<p>How could we calculate the <em>nth</em> number of the Fibonacci series? We could define a function like this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fibonacci</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="kt">int</span> <span class="n">previous</span><span class="o">,</span> <span class="n">previous2</span><span class="o">,</span> <span class="n">result</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="n">previous2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+        <span class="o">{</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">previous</span> <span class="o">+</span> <span class="n">previous2</span><span class="o">;</span>
+            <span class="n">previous2</span> <span class="o">=</span> <span class="n">previous</span><span class="o">;</span>
+            <span class="n">previous</span> <span class="o">=</span> <span class="n">result</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>However, if we represent this function recursively, we can get this:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fibonacci</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">else</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">fibonacci</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fibonacci</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>So, in some situations, recursion helps us write a shorter code to solve a problem.</p>
+
+<blockquote>
+  <p><strong>Exercise 3</strong></p>
+
+  <p>Create a program called <strong>CountDigits</strong> with a function called <code class="language-plaintext highlighter-rouge">countDigits</code> that receives a number and, recursively, counts the number of digit that this number has. Try it with number 1252 (4 digits), from the <em>main</em> function.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Exercise 4</strong></p>
+
+  <p>Create a program called <strong>PalindromeRecursive</strong> with a function called <code class="language-plaintext highlighter-rouge">isPalindrome</code> that receives a string (with only alphabetical letters from a to z in lower case) and recursively determines if this string is palindrome or not, returning a boolean with the result. Try it with the same input values suggested for Exercise 1.</p>
+</blockquote>
+
+<h3 id="4-using-main-arguments">4. Using <em>main</em> arguments</h3>
+
+<p>As you may have noticed, <em>main</em> function has a String array as parameter:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This means that we can pass as many arguments as we need to this <em>main</em> function from the command line. The first argument will be placed at index 0, the second argument at index 1 and so on.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+<span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received "</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="s">" args."</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>For instance, if we try to run a program called <em>Main</em> with this command line:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java Main Nacho 20
+</code></pre></div></div>
+
+<p>Then <code class="language-plaintext highlighter-rouge">args[0]</code> will be <em>Nacho</em> and <code class="language-plaintext highlighter-rouge">args[1]</code> will be 20.</p>
+
+<blockquote>
+  <p><strong>Exercise 5</strong></p>
+
+  <p>Repeat exercise 3 in another program called <strong>CountDigitsMain</strong> in which the number to be checked will be passed from the command line.</p>
+</blockquote>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
